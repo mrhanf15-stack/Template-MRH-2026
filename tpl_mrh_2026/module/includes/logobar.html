@@ -1,0 +1,66 @@
+{* MRH 2026 – Logobar (Header: Logo, Suche, Icons) *}
+<div class="row align-items-center py-2">
+
+  {* Hamburger (nur Mobile) *}
+  <div class="col-auto d-lg-none">
+    <button class="btn btn-link text-dark p-0" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#mrh-offcanvas"
+            aria-controls="mrh-offcanvas" aria-label="{#MRH_menu#}">
+      <span class="fa fa-bars fa-lg"></span>
+    </button>
+  </div>
+
+  {* Logo *}
+  <div class="col-auto">
+    <a href="{$smarty.const.DIR_WS_BASE}" title="{$smarty.const.STORE_NAME}" class="mrh-logo">
+      <img src="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO}"
+           alt="{$smarty.const.STORE_NAME}" class="mrh-logo-img" width="200" height="60" loading="eager" fetchpriority="high">
+    </a>
+  </div>
+
+  {* Suchfeld (Desktop) *}
+  <div class="col d-none d-lg-block">
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/searchbar.html"}
+  </div>
+
+  {* Icon-Leiste *}
+  <div class="col-auto">
+    <div class="d-flex align-items-center gap-3">
+      {* Suche (Mobile) *}
+      <button class="btn btn-link text-dark p-0 d-lg-none" type="button"
+              id="mrh-search-toggle" aria-label="{#MRH_search#}">
+        <span class="fa fa-search fa-lg"></span>
+      </button>
+
+      {* Konto *}
+      <a href="{xtc_href_link('account.php')}" class="mrh-icon-link d-none d-md-inline-flex"
+         title="{#MRH_my_account#}">
+        <span class="fa fa-user fa-lg"></span>
+        {if $smarty.const.MRH_SHOW_ICON_WITH_NAMES == 'true'}
+          <span class="small d-none d-xl-inline ms-1">{#MRH_my_account#}</span>
+        {/if}
+      </a>
+
+      {* Merkzettel *}
+      <a href="{xtc_href_link('wishlist.php')}" class="mrh-icon-link d-none d-md-inline-flex"
+         title="{#MRH_wishlist#}" id="mrh-wishlist-icon">
+        <span class="fa fa-heart fa-lg"></span>
+        <span class="mrh-badge" id="mrh-wishlist-count" style="display:none">0</span>
+      </a>
+
+      {* Warenkorb *}
+      <a href="{xtc_href_link('shopping_cart.php')}" class="mrh-icon-link position-relative"
+         title="{#MRH_cart#}" id="mrh-cart-icon">
+        <span class="fa fa-shopping-cart fa-lg"></span>
+        <span class="mrh-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+              id="mrh-cart-count">{$cart_count|default:'0'}</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{* Mobile Suchfeld (ausklappbar) *}
+<div id="mrh-mobile-search" class="d-lg-none collapse">
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/searchbar.html"}
+</div>

@@ -1,0 +1,14 @@
+{if isset($FORM_ACTION)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{* MRH 2026: Gutschein-Eingabe im Warenkorb/Checkout *}
+<div class="mrh-box-giftcode p-3 bg-light rounded mb-3">
+  <h3 class="h6 fw-bold mb-2"><span class="fa fa-gift"></span> {#heading_giftcode#}</h3>
+  <form action="{$FORM_ACTION}" method="post">
+    <div class="input-group input-group-sm">
+      <input type="text" name="gv_redeem_code" class="form-control" placeholder="{#text_giftcode_placeholder#}" aria-label="{#heading_giftcode#}">
+      <button type="submit" class="btn btn-success btn-sm">{#MRH_redeem#}</button>
+    </div>
+  </form>
+</div>
+{/if}

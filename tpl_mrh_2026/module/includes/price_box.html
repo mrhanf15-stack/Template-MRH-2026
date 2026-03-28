@@ -1,0 +1,19 @@
+{* MRH 2026: Zentrale Preisdarstellung – wird in allen Boxen und Listings verwendet *}
+{if $price_data.PRODUCTS_PRICE_FLAG == 'NotAllowed'}
+  <span class="mrh-price-na text-muted small">{$price_data.PRODUCTS_PRICE}</span>
+{else}
+  <div class="mrh-price-box">
+    {if $price_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
+      {* Sonderpreis *}
+      <span class="mrh-price-old text-decoration-line-through text-muted small">{$price_data.PRODUCTS_PRICE_ORIGINAL}</span>
+      <span class="mrh-price-new fw-bold text-danger">{$price_data.PRODUCTS_PRICE}</span>
+      <span class="mrh-price-save badge bg-danger small">-{$price_data.PRODUCTS_PRICE_SAVE_PERCENT}%</span>
+    {else}
+      {* Normalpreis *}
+      {if $price_data.PRODUCTS_PRICE_PRICE_LABEL != ''}
+        <span class="mrh-price-label small text-muted">{$price_data.PRODUCTS_PRICE_PRICE_LABEL}</span>
+      {/if}
+      <span class="mrh-price fw-bold" itemprop="price" content="{$price_data.PRODUCTS_PRICE_PLAIN|default:''}">{$price_data.PRODUCTS_PRICE}</span>
+    {/if}
+  </div>
+{/if}

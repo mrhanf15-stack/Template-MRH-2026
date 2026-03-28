@@ -1,0 +1,18 @@
+{if isset($LOGIN_LINK)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{* MRH 2026: Login wird im Header-Icon und Offcanvas-Menu angezeigt *}
+<div class="mrh-box-login">
+  {if $LOGGED_IN}
+    <a href="{$ACCOUNT_LINK}" class="d-flex align-items-center gap-2 text-decoration-none" title="{#heading_my_account#}">
+      <span class="fa fa-user-circle"></span>
+      <span class="d-none d-lg-inline small">{#heading_my_account#}</span>
+    </a>
+  {else}
+    <a href="{$LOGIN_LINK}" class="d-flex align-items-center gap-2 text-decoration-none" title="{#heading_login#}">
+      <span class="fa fa-user-o"></span>
+      <span class="d-none d-lg-inline small">{#heading_login#}</span>
+    </a>
+  {/if}
+</div>
+{/if}

@@ -1,0 +1,6 @@
+{* MRH 2026 – Slider (Banner-Manager Carousel) *}
+{if isset($SLIDER) && $SLIDER != ''}
+<section id="mrh-slider" class="{if $smarty.const.MRH_CAROUSEL_SHOW == 'screen'}container-fluid px-0{else}mb-4{/if}" aria-label="{#MRH_slider#}">
+  {$SLIDER}
+</section>
+{/if}

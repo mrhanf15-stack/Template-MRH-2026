@@ -1,0 +1,219 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{assign "dummy" ""}
+{if isset($box_ADMIN)}<div class="mrh-adminspacer"></div>{$box_ADMIN}{/if}
+{* =====================================================================
+   MRH 2026 Template – index.html
+   Bootstrap 5.3 | Vanilla JS | Mobile First | SEO 2026
+   Kompatibel mit modified eCommerce v2.0.7.2+ und v3.0+
+   ===================================================================== *}
+<div id="container">
+{* === 1. TOPLEISTE (Trust-Elemente) === *}
+{if $smarty.const.MRH_SHOW_TOP1 == 'true' || $smarty.const.MRH_SHOW_TOP2 == 'true' || $smarty.const.MRH_SHOW_TOP3 == 'true' || $smarty.const.MRH_SHOW_TOP4 == 'true'}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/topbar.html"}
+{/if}
+
+{* === 2. FREE SHIPPING BAR === *}
+{if $smarty.const.MRH_FREE_SHIPPING_BAR == 'true'}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/free_shipping_bar.html"}
+{/if}
+
+{* === 3. HEADER (Logo, Suche, Icons) === *}
+<header id="mrh-header">
+  <div class="container">
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/logobar.html"}
+  </div>
+</header>
+
+{* === 4. HAUPTNAVIGATION (KK-Mega-Menu) === *}
+{if $smarty.const.MRH_MAINMENU_SHOW == 'true'}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/mainmenu.html"}
+{/if}
+
+{* === 5. STICKY HEADER (wird via JS eingeblendet) === *}
+{if $smarty.const.MRH_STICKY_HEADER == 'true'}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/sticky_header.html"}
+{/if}
+
+{* === 6. NOSCRIPT-HINWEIS === *}
+{if $smarty.const.MRH_SHOW_JS_DISABLED == 'true'}
+  <noscript><div class="alert alert-warning text-center m-2">{#MRH_noscript#}</div></noscript>
+{/if}
+
+{* === 7. SLIDER / BANNER-MANAGER (nur Startseite) === *}
+{if isset($home) && $home == true}
+  {if ($smarty.const.MRH_CAROUSEL_SHOW == 'screen' || $smarty.const.MRH_CAROUSEL_SHOW == 'shop') && isset($SLIDER)}
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/slider.html"}
+  {/if}
+{/if}
+
+{* === 8. HAUPTINHALT === *}
+<main id="mrh-main">
+  <div class="container">
+
+{* --- STARTSEITE --- *}
+{if isset($home) && $home == true}
+
+    {* Slider im Column-Modus *}
+    {if $smarty.const.MRH_CAROUSEL_SHOW == 'column' && isset($SLIDER)}
+      {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/slider.html"}
+    {/if}
+
+    {* Standard-Banner *}
+    {if isset($BANNER) && $BANNER != ''}
+      <div class="mrh-banner mb-4">{$BANNER}</div>
+    {/if}
+
+    {* Kundenhinweis *}
+    {if !empty($CUSTOMERS_NOTICE)}{$CUSTOMERS_NOTICE|inserttags}{/if}
+
+    {* Hauptinhalt (Content Manager) *}
+    {if isset($main_content)}{$main_content|inserttags}{/if}
+
+    {* Neue Artikel *}
+    {if $smarty.const.MRH_STARTPAGE_BOX_WHATSNEW != 'false' && isset($box_WHATSNEW)}
+      {$box_WHATSNEW}
+    {/if}
+
+    {* Sonderangebote *}
+    {if $smarty.const.MRH_STARTPAGE_BOX_SPECIALS != 'false' && isset($box_SPECIALS)}
+      {$box_SPECIALS}
+    {/if}
+
+    {* Zuletzt angesehen *}
+    {if $smarty.const.MRH_STARTPAGE_BOX_LAST_VIEWED != 'false' && isset($box_LAST_VIEWED)}
+      {$box_LAST_VIEWED}
+    {/if}
+
+    {* Marketing-Banner Reihe 1 *}
+    {if (isset($MAREKTINGQ) && $MAREKTINGQ != '') || (isset($MAREKTINGQA) && $MAREKTINGQA != '')}
+      <div class="row mrh-marketing-row mb-4">
+        {if isset($MAREKTINGQ) && $MAREKTINGQ != ''}
+          <div class="col-md-3"><div class="mrh-banner">{$MAREKTINGQ}</div></div>
+        {/if}
+        {if isset($MAREKTINGQA) && $MAREKTINGQA != ''}
+          <div class="col-md-9"><div class="mrh-banner">{$MAREKTINGQA}</div></div>
+        {/if}
+      </div>
+    {/if}
+
+    {* Bestseller *}
+    {if $smarty.const.MRH_BSCAROUSEL_SHOW == 'true' && isset($box_BESTSELLERS)}
+      {$box_BESTSELLERS}
+    {/if}
+
+    {* Marketing-Banner Reihe 2 *}
+    {if (isset($MAREKTINGQB) && $MAREKTINGQB != '') || (isset($MAREKTINGQC) && $MAREKTINGQC != '')}
+      <div class="row mrh-marketing-row mb-4">
+        {if isset($MAREKTINGQB) && $MAREKTINGQB != ''}
+          <div class="col-md-9"><div class="mrh-banner">{$MAREKTINGQB}</div></div>
+        {/if}
+        {if isset($MAREKTINGQC) && $MAREKTINGQC != ''}
+          <div class="col-md-3"><div class="mrh-banner">{$MAREKTINGQC}</div></div>
+        {/if}
+      </div>
+    {/if}
+
+{* --- FULLCONTENT-SEITEN (Produktdetail etc.) --- *}
+{elseif (isset($fullcontent) && $fullcontent == true) || $smarty.const.MRH_HIDE_ALL_BOXES == 'true'}
+
+    {* Breadcrumb *}
+    {if isset($navtrail)}
+      <nav id="breadcrumb" class="mrh-breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+          {$navtrail}
+        </ol>
+      </nav>
+    {/if}
+
+    {* Kundenhinweis *}
+    {if !empty($CUSTOMERS_NOTICE)}{$CUSTOMERS_NOTICE|inserttags}{/if}
+
+    {* Hauptinhalt *}
+    {if isset($main_content)}{$main_content|inserttags}{/if}
+
+    {* Bestseller *}
+    {if $smarty.const.MRH_BSCAROUSEL_SHOW == 'true' && $bestseller && isset($box_BESTSELLERS)}
+      {$box_BESTSELLERS}
+    {/if}
+
+{* --- STANDARD-SEITEN (Kategorie-Listing etc.) --- *}
+{else}
+
+    {* Breadcrumb *}
+    {if isset($navtrail)}
+      <nav id="breadcrumb" class="mrh-breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+          {$navtrail}
+        </ol>
+      </nav>
+    {/if}
+
+    {* Kategorie-/Seiten-Banner *}
+    {if (isset($CATEGO) && $CATEGO != '') || (isset($ANGEBOT) && $ANGEBOT != '') || (isset($NEW) && $NEW != '')}
+      {if !isset($home) || $home == false}
+        <div class="mrh-banner mb-4">{$CATEGO} {$ANGEBOT} {$NEW}</div>
+      {/if}
+    {/if}
+    {if isset($BANNER) && $BANNER != ''}
+      <div class="mrh-banner mb-4">{$BANNER}</div>
+    {/if}
+
+    {* Kundenhinweis *}
+    {if !empty($CUSTOMERS_NOTICE)}{$CUSTOMERS_NOTICE|inserttags}{/if}
+
+    {* Hauptinhalt *}
+    {if isset($main_content)}{$main_content|inserttags}{/if}
+
+    {* Bestseller *}
+    {if $smarty.const.MRH_BSCAROUSEL_SHOW == 'true' && $bestseller && isset($box_BESTSELLERS)}
+      {$box_BESTSELLERS}
+    {/if}
+
+{/if}
+
+  </div>
+</main>
+
+{* === 9. FOOTER === *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/footer.html"}
+
+{* === 10. MOBILE BOTTOM NAV === *}
+{if $smarty.const.MRH_BOTTOM_NAV == 'true'}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/bottom_nav.html"}
+{/if}
+
+{* === 11. OFFCANVAS MOBILE MENU === *}
+{if $smarty.const.MRH_OFFCANVAS_MENU == 'true'}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/offcanvas_menu.html"}
+{/if}
+
+{* === SCROLL TO TOP === *}
+<a href="#" class="mrh-go2top" aria-label="{#MRH_go_to_top#}" id="mrh-go2top">
+  <span class="fa fa-chevron-up"></span>
+</a>
+
+{* === MODAL (Bildergalerie etc.) === *}
+<div id="mrh-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{#MRH_close#}"></button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer border-0">
+        <button id="mrh-modal-prev" class="btn btn-outline-secondary" type="button">
+          <span class="fa fa-chevron-left"></span>
+        </button>
+        <span class="mrh-modal-counter small text-muted"></span>
+        <button id="mrh-modal-next" class="btn btn-outline-secondary" type="button">
+          <span class="fa fa-chevron-right"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{* === ENDE HAUPTCONTAINER === *}

@@ -1,0 +1,12 @@
+{* MRH 2026 – Free Shipping Progress Bar *}
+<div id="mrh-free-shipping-bar" class="bg-success-subtle text-center py-1 small" data-threshold="{$smarty.const.MRH_FREE_SHIPPING_THRESHOLD}">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-center gap-2">
+      <span class="fa fa-shipping-fast"></span>
+      <span class="mrh-fs-text">{#MRH_free_shipping_text#}</span>
+      <div class="mrh-fs-progress" style="width:120px;height:6px;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="mrh-fs-progress-fill bg-success rounded-pill" style="height:100%;width:0%;transition:width .4s ease"></div>
+      </div>
+    </div>
+  </div>
+</div>

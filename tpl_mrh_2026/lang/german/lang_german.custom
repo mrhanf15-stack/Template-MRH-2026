@@ -1,0 +1,7 @@
+# MRH 2026 Template - Custom Sprachdatei (Deutsch)
+# Hier koennen Shop-spezifische Texte ueberschrieben werden
+# Diese Datei wird NACH der Haupt-Sprachdatei geladen
+# und ueberschreibt vorhandene Werte.
+#
+# Beispiel:
+# MRH_top1 = "+43 660 999 8888"

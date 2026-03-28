@@ -1,0 +1,5 @@
+{* MRH 2026: Trusted Shops wird dynamisch extern ueber JS geladen *}
+{* Widget wird async im index.html eingebunden *}
+{if isset($TRUSTEDSHOPS_ID) && $TRUSTEDSHOPS_ID != ''}
+<div id="mrh-trustedshops-widget" data-tsid="{$TRUSTEDSHOPS_ID}"></div>
+{/if}

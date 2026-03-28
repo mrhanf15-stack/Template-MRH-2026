@@ -1,0 +1,17 @@
+{if isset($SEARCH_VALUE)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{* MRH 2026: Suche ist im Header und Mobile-Offcanvas integriert *}
+<form action="{$SEARCH_ACTION}" method="get" class="mrh-search-form" role="search" aria-label="{#heading_search#}">
+  <div class="input-group">
+    <input type="text" name="keywords" value="{$SEARCH_VALUE}" class="form-control"
+           placeholder="{#text_search_placeholder#}" aria-label="{#heading_search#}" autocomplete="off">
+    <button type="submit" class="btn btn-success" aria-label="{#heading_search#}">
+      <span class="fa fa-search"></span>
+    </button>
+  </div>
+  {if isset($SEARCH_CATEGORIES)}
+    <input type="hidden" name="categories_id" value="{$SEARCH_CATEGORIES}">
+  {/if}
+</form>
+{/if}

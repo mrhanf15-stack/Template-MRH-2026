@@ -1,0 +1,36 @@
+{* MRH 2026 – Sticky Header (erscheint beim Scrollen) *}
+<div id="mrh-sticky-header" class="{$smarty.const.MRH_STICKY_HEADER_CLASSES} d-none" aria-hidden="true">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between py-2">
+      {* Logo (klein) *}
+      <a href="{$smarty.const.DIR_WS_BASE}" class="mrh-sticky-logo">
+        <img src="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO}"
+             alt="{$smarty.const.STORE_NAME}" height="36" width="120" loading="lazy">
+      </a>
+
+      {* Kompakte Navigation *}
+      <ul class="navbar-nav d-none d-lg-flex flex-row gap-2" id="mrh-sticky-nav">
+        {if isset($box_CATEGORIES_NAV_STICKY)}
+          {$box_CATEGORIES_NAV_STICKY}
+        {/if}
+      </ul>
+
+      {* Suchfeld + Icons *}
+      <div class="d-flex align-items-center gap-3">
+        <form name="sticky_find" action="{xtc_href_link('advanced_search_result.php', '', 'NONSSL', false)}"
+              method="get" class="d-none d-md-block">
+          <div class="input-group input-group-sm" style="width:220px">
+            <input type="text" name="keywords" class="form-control" placeholder="{#MRH_search#}" autocomplete="off">
+            <button class="btn btn-success btn-sm" type="submit"><span class="fa fa-search"></span></button>
+          </div>
+        </form>
+        <a href="{xtc_href_link('wishlist.php')}" class="text-dark d-none d-md-inline"><span class="fa fa-heart"></span></a>
+        <a href="{xtc_href_link('shopping_cart.php')}" class="text-dark position-relative">
+          <span class="fa fa-shopping-cart"></span>
+          <span class="mrh-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+                id="mrh-sticky-cart-count">{$cart_count|default:'0'}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

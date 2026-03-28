@@ -1,0 +1,26 @@
+{* MRH 2026 – Mobile Bottom Navigation Bar *}
+<nav id="mrh-bottom-nav" class="d-lg-none" aria-label="{#MRH_mobile_nav#}">
+  <div class="d-flex justify-content-around align-items-center">
+    <a href="{$smarty.const.DIR_WS_BASE}" class="mrh-bnav-item{if isset($home) && $home == true} active{/if}">
+      <span class="fa fa-home"></span>
+      <span>{#MRH_home#}</span>
+    </a>
+    <button type="button" class="mrh-bnav-item" id="mrh-bnav-search">
+      <span class="fa fa-search"></span>
+      <span>{#MRH_search#}</span>
+    </button>
+    <a href="{xtc_href_link('seedfinder.php')}" class="mrh-bnav-item">
+      <span class="fa fa-leaf"></span>
+      <span>Seedfinder</span>
+    </a>
+    <a href="{xtc_href_link('wishlist.php')}" class="mrh-bnav-item">
+      <span class="fa fa-heart"></span>
+      <span>{#MRH_wishlist#}</span>
+    </a>
+    <a href="{xtc_href_link('shopping_cart.php')}" class="mrh-bnav-item position-relative">
+      <span class="fa fa-shopping-cart"></span>
+      <span>{#MRH_cart#}</span>
+      <span class="mrh-bnav-badge" id="mrh-bnav-cart-count">{$cart_count|default:'0'}</span>
+    </a>
+  </div>
+</nav>

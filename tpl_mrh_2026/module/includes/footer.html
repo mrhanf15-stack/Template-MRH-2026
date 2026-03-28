@@ -1,0 +1,57 @@
+{* MRH 2026 – Footer *}
+<footer id="mrh-footer" class="bg-{$smarty.const.MRH_FOOTER_BG} text-light pt-5 pb-3">
+  <div class="container">
+    <div class="row g-4">
+
+      {* Spalte 1: Content-Seiten *}
+      {if isset($box_CONTENT)}
+        <div class="col-lg-3 col-md-6">
+          {$box_CONTENT}
+        </div>
+      {/if}
+
+      {* Spalte 2: Informationen *}
+      {if isset($box_INFORMATION)}
+        <div class="col-lg-3 col-md-6">
+          {$box_INFORMATION}
+        </div>
+      {/if}
+
+      {* Spalte 3: Sonstiges *}
+      {if isset($box_MISCELLANEOUS)}
+        <div class="col-lg-3 col-md-6">
+          {$box_MISCELLANEOUS}
+        </div>
+      {/if}
+
+      {* Spalte 4: Kontakt / Social *}
+      <div class="col-lg-3 col-md-6">
+        <h5 class="text-uppercase mb-3">{#MRH_contact#}</h5>
+        <address class="small">
+          <p><span class="fa fa-map-marker-alt me-2"></span> {$smarty.const.STORE_NAME_ADDRESS}</p>
+          <p><span class="fa fa-phone me-2"></span> {#MRH_phone_number#}</p>
+          <p><span class="fa fa-envelope me-2"></span> {$smarty.const.STORE_OWNER_EMAIL_ADDRESS}</p>
+        </address>
+        {* Social Media *}
+        <div class="mrh-social d-flex gap-3 mt-3">
+          <a href="#" class="text-light" aria-label="Facebook"><span class="fa fa-facebook fa-lg"></span></a>
+          <a href="#" class="text-light" aria-label="Instagram"><span class="fa fa-instagram fa-lg"></span></a>
+          <a href="#" class="text-light" aria-label="YouTube"><span class="fa fa-youtube fa-lg"></span></a>
+        </div>
+      </div>
+
+    </div>
+
+    {* Zahlungsarten / Trust *}
+    <div class="mrh-footer-trust border-top border-secondary mt-4 pt-3">
+      <div class="d-flex flex-wrap justify-content-center gap-3 align-items-center">
+        {* Zahlungsarten werden hier per contentAnywhere oder statisch eingebunden *}
+      </div>
+    </div>
+
+    {* Copyright *}
+    <div class="text-center text-secondary small mt-3">
+      &copy; 2016 - {$smarty.now|date_format:"%Y"} All rights reserved by MRH N-Trade GmbH &ldquo;Mr. Hanf&rdquo;
+    </div>
+  </div>
+</footer>

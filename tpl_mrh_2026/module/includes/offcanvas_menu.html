@@ -1,0 +1,46 @@
+{* MRH 2026 – Offcanvas Mobile Menu (Bootstrap 5.3 native) *}
+<div class="offcanvas offcanvas-{$smarty.const.MRH_OFFCANVAS_POSITION}" tabindex="-1"
+     id="mrh-offcanvas" aria-labelledby="mrh-offcanvas-label">
+
+  {* Header *}
+  <div class="offcanvas-header bg-success text-white">
+    <a href="{$smarty.const.DIR_WS_BASE}" class="text-white text-decoration-none">
+      <img src="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO}"
+           alt="{$smarty.const.STORE_NAME}" height="36" loading="lazy" class="mrh-offcanvas-logo">
+    </a>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="{#MRH_close#}"></button>
+  </div>
+
+  {* Suchfeld *}
+  <div class="p-3 border-bottom">
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/searchbar.html"}
+  </div>
+
+  {* Navigation *}
+  <div class="offcanvas-body p-0">
+    <nav class="mrh-offcanvas-nav">
+      {if isset($box_CATEGORIES)}
+        {$box_CATEGORIES}
+      {/if}
+    </nav>
+
+    {* Konto-Links *}
+    <div class="border-top p-3">
+      <a href="{xtc_href_link('account.php')}" class="d-flex align-items-center text-dark text-decoration-none mb-2">
+        <span class="fa fa-user me-2"></span> {#MRH_my_account#}
+      </a>
+      <a href="{xtc_href_link('wishlist.php')}" class="d-flex align-items-center text-dark text-decoration-none mb-2">
+        <span class="fa fa-heart me-2"></span> {#MRH_wishlist#}
+      </a>
+      <a href="{xtc_href_link('account_history.php')}" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fa fa-box me-2"></span> {#MRH_orders#}
+      </a>
+    </div>
+
+    {* Kontaktinfo *}
+    <div class="border-top p-3 small text-muted">
+      <p class="mb-1"><span class="fa fa-phone me-1"></span> {#MRH_phone_number#}</p>
+      <p class="mb-0"><span class="fa fa-envelope me-1"></span> {$smarty.const.STORE_OWNER_EMAIL_ADDRESS}</p>
+    </div>
+  </div>
+</div>

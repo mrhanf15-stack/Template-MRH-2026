@@ -1,0 +1,12 @@
+{if isset($box_content)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{* MRH 2026: Wunschzettel wird im Header-Icon angezeigt *}
+<a href="{$WISHLIST_LINK}" class="mrh-box-wishlist d-flex align-items-center gap-2 text-decoration-none position-relative" title="{#heading_wishlist#}">
+  <span class="fa fa-heart-o"></span>
+  <span class="d-none d-lg-inline small">{#heading_wishlist#}</span>
+  {if $WISHLIST_COUNT > 0}
+    <span class="mrh-badge-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{$WISHLIST_COUNT}</span>
+  {/if}
+</a>
+{/if}

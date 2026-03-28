@@ -1,0 +1,20 @@
+{* MRH 2026 – Hauptnavigation (KK-Mega-Menu) *}
+<nav id="mrh-mainmenu" class="navbar navbar-expand-lg bg-success d-none d-lg-block" aria-label="{#MRH_main_navigation#}">
+  <div class="container">
+    <ul class="navbar-nav w-100 justify-content-start" id="mrh-nav-list">
+      {if $smarty.const.MRH_SHOW_HOMEBUTTON_IN_TOPCATMENU == 'true'}
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{$smarty.const.DIR_WS_BASE}">
+            <span class="fa fa-home me-1"></span> {#MRH_home#}
+          </a>
+        </li>
+      {/if}
+      {if isset($box_CATEGORIES_NAV)}
+        {$box_CATEGORIES_NAV}
+      {/if}
+      {if $smarty.const.MRH_ADD_LINK_IN_TOPCATMENU_LAST != ''}
+        {$smarty.const.MRH_ADD_LINK_IN_TOPCATMENU_LAST}
+      {/if}
+    </ul>
+  </div>
+</nav>

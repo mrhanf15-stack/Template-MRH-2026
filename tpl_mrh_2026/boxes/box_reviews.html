@@ -1,0 +1,25 @@
+{if isset($box_content)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+<section class="mrh-box-reviews mb-4" aria-label="{#heading_reviews#}">
+  <h2 class="h5 mb-3">{#heading_reviews#}</h2>
+  <div class="mrh-review-card p-3 bg-light rounded">
+    <div class="mrh-rating mb-2">
+      {section name=star loop=5}
+        {if $smarty.section.star.index < $box_content.RATING}
+          <span class="fa fa-star text-warning"></span>
+        {else}
+          <span class="fa fa-star-o text-muted"></span>
+        {/if}
+      {/section}
+    </div>
+    <p class="small mb-2">{$box_content.TEXT|truncate:150:"..."}</p>
+    <footer class="small text-muted">
+      &mdash; {$box_content.AUTHOR}, {$box_content.DATE}
+    </footer>
+    <a href="{$box_content.LINK}" class="small text-decoration-none mt-2 d-inline-block">
+      {#text_all_reviews#} <span class="fa fa-chevron-right"></span>
+    </a>
+  </div>
+</section>
+{/if}

@@ -1,0 +1,14 @@
+{if isset($BOX_CONTENT)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+<div class="mrh-box-manufacturers-info mb-3">
+  {if $BOX_CONTENT.IMAGE != ''}
+    <img src="{$BOX_CONTENT.IMAGE}" alt="{$BOX_CONTENT.NAME|onlytext}" class="img-fluid mb-2" loading="lazy">
+  {/if}
+  {if $BOX_CONTENT.URL != ''}
+    <a href="{$BOX_CONTENT.URL}" class="small text-decoration-none" target="_blank" rel="noopener">
+      <span class="fa fa-external-link"></span> {$BOX_CONTENT.NAME}
+    </a>
+  {/if}
+</div>
+{/if}

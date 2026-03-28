@@ -1,0 +1,246 @@
+{config_load file="$language/lang_$language.conf" section="product_info"}
+{config_load file="lang_`$language`.custom"}
+
+{* MRH 2026: Produktdetailseite – Volle Breite, Schema.org Product *}
+<article class="mrh-product-info mrh-cv-auto" itemscope itemtype="https://schema.org/Product">
+
+  {* Breadcrumb *}
+  {if isset($BREADCRUMB)}
+    <nav aria-label="Breadcrumb" class="mb-3">
+      <ol class="breadcrumb small" itemscope itemtype="https://schema.org/BreadcrumbList">
+        {foreach name=bc item=bc_item from=$BREADCRUMB}
+          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            {if !$smarty.foreach.bc.last}
+              <a href="{$bc_item.HREF}" itemprop="item"><span itemprop="name">{$bc_item.NAME}</span></a>
+            {else}
+              <span itemprop="name">{$bc_item.NAME}</span>
+            {/if}
+            <meta itemprop="position" content="{$smarty.foreach.bc.iteration}">
+          </li>
+        {/foreach}
+      </ol>
+    </nav>
+  {/if}
+
+  <div class="row g-4">
+    {* Linke Spalte: Bildergalerie *}
+    <div class="col-12 col-lg-6">
+      <div class="mrh-gallery">
+        {* Hauptbild *}
+        <div class="mrh-gallery-main mb-3">
+          {if $PRODUCTS_IMAGE != ''}
+            <a href="{$PRODUCTS_IMAGE_POPUP}" data-mrh-gallery="product" data-mrh-full="{$PRODUCTS_IMAGE_POPUP}" class="d-block">
+              <img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME|onlytext}" itemprop="image"
+                   class="img-fluid rounded" width="600" height="600" id="mrh-main-image">
+            </a>
+          {/if}
+        </div>
+        {* Thumbnails *}
+        {if isset($PRODUCTS_IMAGES) && count($PRODUCTS_IMAGES) > 0}
+          <div class="mrh-gallery-thumbs d-flex gap-2 flex-wrap">
+            {foreach name=imgs item=img_data from=$PRODUCTS_IMAGES}
+              <a href="{$img_data.IMAGE_POPUP}" data-mrh-gallery="product" data-mrh-full="{$img_data.IMAGE_POPUP}"
+                 class="mrh-gallery-thumb rounded overflow-hidden" style="width:80px;height:80px">
+                <img src="{$img_data.IMAGE_THUMB}" alt="{$PRODUCTS_NAME|onlytext} - {$smarty.foreach.imgs.iteration}"
+                     loading="lazy" width="80" height="80" class="img-fluid">
+              </a>
+            {/foreach}
+          </div>
+        {/if}
+      </div>
+    </div>
+
+    {* Rechte Spalte: Produktinfos *}
+    <div class="col-12 col-lg-6">
+      {* Hersteller *}
+      {if isset($MANUFACTURER) && $MANUFACTURER != ''}
+        <div class="mrh-pi-manufacturer mb-2" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+          <a href="{$MANUFACTURER_LINK}" class="small text-muted text-decoration-none" itemprop="url">
+            <span itemprop="name">{$MANUFACTURER}</span>
+          </a>
+        </div>
+      {/if}
+
+      {* Produktname *}
+      <h1 class="h3 mb-3" itemprop="name">{$PRODUCTS_NAME}</h1>
+
+      {* Bewertung *}
+      {if isset($MRH_RATING_PERCENT) && $MRH_RATING_PERCENT > 0}
+        <div class="mrh-rating mb-3" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+          <meta itemprop="ratingValue" content="{$MRH_RATING_VALUE}">
+          <meta itemprop="bestRating" content="5">
+          <meta itemprop="reviewCount" content="{$MRH_RATING_COUNT}">
+          {section name=star loop=5}
+            {if $smarty.section.star.index < $MRH_RATING_FULL}
+              <span class="fa fa-star text-warning"></span>
+            {elseif $smarty.section.star.index < $MRH_RATING_FULL + $MRH_RATING_HALF}
+              <span class="fa fa-star-half-o text-warning"></span>
+            {else}
+              <span class="fa fa-star-o text-muted"></span>
+            {/if}
+          {/section}
+          <a href="#mrh-reviews" class="small text-muted ms-1">({$MRH_RATING_COUNT} {#text_reviews#})</a>
+        </div>
+      {/if}
+
+      {* Short Description (HTML-Tabelle aus DB) *}
+      {if isset($PRODUCTS_SHORT_DESCRIPTION) && $PRODUCTS_SHORT_DESCRIPTION != ''}
+        <div class="mrh-short-desc mb-3" itemprop="description">
+          {$PRODUCTS_SHORT_DESCRIPTION}
+        </div>
+      {/if}
+
+      {* Preis *}
+      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+        <meta itemprop="priceCurrency" content="{$CURRENCY_CODE|default:'EUR'}">
+        <meta itemprop="url" content="{$PRODUCTS_LINK}">
+        {foreach name=inner item=price_data from=$PRODUCTS_PRICE_ARRAY}
+          {include file="module/includes/price_box.html"}
+        {/foreach}
+        {if $PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+          <link itemprop="availability" href="https://schema.org/{if $PRODUCTS_QUANTITY > 0}InStock{else}OutOfStock{/if}">
+          {if $PRODUCTS_VPE}<div class="small text-muted">{$PRODUCTS_VPE}</div>{/if}
+          <div class="small text-muted">{$PRODUCTS_TAX_INFO}{$PRODUCTS_SHIPPING_LINK}</div>
+        {/if}
+      </div>
+
+      {* Lagerampel *}
+      {if isset($PRODUCTS_STOCK_STATUS)}
+        <div class="mrh-stock-status mb-3">
+          <span class="mrh-stock-indicator mrh-stock-{$PRODUCTS_STOCK_CLASS}"></span>
+          <span class="small">{$PRODUCTS_STOCK_STATUS}</span>
+        </div>
+      {/if}
+
+      {* Varianten / Optionen *}
+      {if isset($PRODUCTS_OPTIONS) && $PRODUCTS_OPTIONS != ''}
+        <div class="mrh-pi-options mb-3">
+          {$PRODUCTS_OPTIONS}
+        </div>
+      {/if}
+
+      {* Menge + In den Warenkorb *}
+      {if $PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+        <form action="{$BUY_ACTION}" method="post" class="mrh-pi-buy mb-4">
+          <div class="d-flex gap-2 align-items-end">
+            <div class="mrh-qty-wrapper" style="width:80px">
+              <label for="mrh-qty" class="visually-hidden">{#text_quantity#}</label>
+              <input type="number" name="products_qty" id="mrh-qty" value="1" min="1" class="form-control text-center">
+            </div>
+            <button type="submit" class="btn btn-success btn-lg flex-grow-1">
+              <span class="fa fa-cart-plus"></span> {#MRH_add_to_cart#}
+            </button>
+          </div>
+          <input type="hidden" name="products_id" value="{$PRODUCTS_ID}">
+          <input type="hidden" name="action" value="buy_now">
+        </form>
+      {/if}
+
+      {* Wunschzettel + Vergleich *}
+      <div class="mrh-pi-actions d-flex gap-3 mb-4">
+        {if isset($WISHLIST_LINK)}
+          <a href="{$WISHLIST_LINK}" class="small text-decoration-none"><span class="fa fa-heart-o"></span> {#MRH_add_wishlist#}</a>
+        {/if}
+        {if isset($COMPARE_LINK)}
+          <a href="{$COMPARE_LINK}" class="small text-decoration-none"><span class="fa fa-exchange"></span> {#MRH_compare#}</a>
+        {/if}
+      </div>
+
+      {* Artikelnummer / EAN *}
+      <div class="mrh-pi-meta small text-muted mb-3">
+        {if $PRODUCTS_MODEL != ''}
+          <div><strong>{#text_model#}:</strong> <span itemprop="sku">{$PRODUCTS_MODEL}</span></div>
+        {/if}
+        {if isset($PRODUCTS_EAN) && $PRODUCTS_EAN != ''}
+          <div><strong>EAN:</strong> <span itemprop="gtin13">{$PRODUCTS_EAN}</span></div>
+        {/if}
+      </div>
+
+      {* Social Share (Shariff) *}
+      {if $smarty.const.MRH_SHARIFF_SHOW == 'true'}
+        <div class="mrh-shariff mb-3" data-shariff data-lang="{$language}" data-services="[&quot;facebook&quot;,&quot;twitter&quot;,&quot;whatsapp&quot;,&quot;telegram&quot;,&quot;mail&quot;]"></div>
+      {/if}
+    </div>
+  </div>
+
+  {* Tabs: Beschreibung, Bewertungen, etc. *}
+  <div class="mrh-pi-tabs mt-5">
+    <ul class="nav nav-tabs" id="mrh-product-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="mrh-tab-desc" data-bs-toggle="tab" data-bs-target="#mrh-pane-desc"
+                type="button" role="tab" aria-controls="mrh-pane-desc" aria-selected="true">
+          {#text_tab_description#}
+        </button>
+      </li>
+      {if isset($PRODUCTS_REVIEWS) && count($PRODUCTS_REVIEWS) > 0}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="mrh-tab-reviews" data-bs-toggle="tab" data-bs-target="#mrh-pane-reviews"
+                  type="button" role="tab" aria-controls="mrh-pane-reviews" aria-selected="false">
+            {#text_tab_reviews#} ({$MRH_RATING_COUNT})
+          </button>
+        </li>
+      {/if}
+    </ul>
+    <div class="tab-content pt-4" id="mrh-product-tabs-content">
+      {* Beschreibung *}
+      <div class="tab-pane fade show active" id="mrh-pane-desc" role="tabpanel" aria-labelledby="mrh-tab-desc">
+        <div class="mrh-product-description" itemprop="description">
+          {$PRODUCTS_DESCRIPTION}
+        </div>
+      </div>
+      {* Bewertungen *}
+      {if isset($PRODUCTS_REVIEWS) && count($PRODUCTS_REVIEWS) > 0}
+        <div class="tab-pane fade" id="mrh-pane-reviews" role="tabpanel" aria-labelledby="mrh-tab-reviews">
+          <div id="mrh-reviews">
+            {foreach name=reviews item=review from=$PRODUCTS_REVIEWS}
+              <div class="mrh-review border-bottom py-3" itemprop="review" itemscope itemtype="https://schema.org/Review">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <strong itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">{$review.AUTHOR}</span>
+                  </strong>
+                  <span class="small text-muted" itemprop="datePublished">{$review.DATE}</span>
+                </div>
+                <div class="mrh-rating mb-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+                  <meta itemprop="ratingValue" content="{$review.RATING}">
+                  {section name=star loop=5}
+                    {if $smarty.section.star.index < $review.RATING}
+                      <span class="fa fa-star text-warning"></span>
+                    {else}
+                      <span class="fa fa-star-o text-muted"></span>
+                    {/if}
+                  {/section}
+                </div>
+                <div itemprop="reviewBody">{$review.TEXT}</div>
+              </div>
+            {/foreach}
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
+
+  {* Zuletzt angesehen – Horizontal Carousel *}
+  {if isset($box_LAST_VIEWED)}
+    <div class="mrh-recently-viewed mt-5">
+      {$box_LAST_VIEWED}
+    </div>
+  {/if}
+
+</article>
+
+{* Image Modal fuer Galerie *}
+<div class="modal fade" id="mrh-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-header border-0 p-2">
+        <span class="mrh-modal-counter text-white small"></span>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{#MRH_close#}"></button>
+      </div>
+      <div class="modal-body text-center p-0"></div>
+      <div class="modal-footer border-0 justify-content-between p-2">
+        <button type="button" class="btn btn-sm btn-outline-light" id="mrh-modal-prev"><span class="fa fa-chevron-left"></span></button>
+        <button type="button" class="btn btn-sm btn-outline-light" id="mrh-modal-next"><span class="fa fa-chevron-right"></span></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+{if isset($BOX_CONTENT)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{* MRH 2026: Content-Links werden im Footer angezeigt *}
+<div class="mrh-box-content">
+  <h3 class="h6 fw-bold text-uppercase mb-3">{#heading_content#}</h3>
+  <ul class="list-unstyled mb-0">
+    {foreach name=aussen item=box_data from=$BOX_CONTENT}
+      <li class="mb-1">
+        <a href="{$box_data.HREF}" class="small text-decoration-none">{$box_data.NAME}</a>
+      </li>
+    {/foreach}
+  </ul>
+</div>
+{/if}

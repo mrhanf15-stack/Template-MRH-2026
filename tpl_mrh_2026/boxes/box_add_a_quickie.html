@@ -1,0 +1,14 @@
+{if isset($FORM_ACTION)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{* MRH 2026: Schnellbestellung im Warenkorb/Checkout verfuegbar *}
+<div class="mrh-box-quickie p-3 bg-light rounded mb-3">
+  <h3 class="h6 fw-bold mb-2"><span class="fa fa-bolt"></span> {#heading_add_quickie#}</h3>
+  <form action="{$FORM_ACTION}" method="post">
+    <div class="input-group input-group-sm">
+      <input type="text" name="quickie_model" class="form-control" placeholder="{#text_quickie_placeholder#}" aria-label="{#heading_add_quickie#}">
+      <button type="submit" class="btn btn-success btn-sm">{#MRH_add#}</button>
+    </div>
+  </form>
+</div>
+{/if}

@@ -1,0 +1,35 @@
+{* MRH 2026 – Topbar (Trust-Elemente) *}
+<div id="mrh-topbar" class="bg-{$smarty.const.MRH_TOP1_BG} {$smarty.const.MRH_TOP1_NAVBAR}">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center py-1">
+      <ul class="mrh-topbar-list list-unstyled d-flex mb-0 gap-3 small">
+        {if $smarty.const.MRH_SHOW_TOP1 == 'true'}
+          <li class="d-none d-md-inline-flex align-items-center">
+            <span class="fa fa-phone me-1"></span> {#MRH_top1#}
+          </li>
+        {/if}
+        {if $smarty.const.MRH_SHOW_TOP2 == 'true'}
+          <li class="d-none d-lg-inline-flex align-items-center">
+            <span class="fa fa-truck me-1"></span> {#MRH_top2#}
+          </li>
+        {/if}
+        {if $smarty.const.MRH_SHOW_TOP3 == 'true'}
+          <li class="d-none d-lg-inline-flex align-items-center">
+            <span class="fa fa-credit-card me-1"></span> {#MRH_top3#}
+          </li>
+        {/if}
+        {if $smarty.const.MRH_SHOW_TOP4 == 'true'}
+          <li class="d-inline-flex align-items-center">
+            <span class="fa fa-envelope me-1"></span> {#MRH_top4#}
+          </li>
+        {/if}
+      </ul>
+      {* Versandland-Auswahl (rechts) *}
+      {if isset($box_SHIPPING_COUNTRY)}
+        <div class="mrh-topbar-shipping d-none d-md-block">
+          {$box_SHIPPING_COUNTRY}
+        </div>
+      {/if}
+    </div>
+  </div>
+</div>

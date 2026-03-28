@@ -1,0 +1,4 @@
+# MRH 2026 Template - Custom Language File (English)
+# Shop-specific text overrides go here.
+# This file is loaded AFTER the main language file
+# and overrides existing values.

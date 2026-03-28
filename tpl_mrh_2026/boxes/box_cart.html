@@ -1,0 +1,45 @@
+{if isset($box_content)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+<div class="mrh-box-cart offcanvas offcanvas-end" tabindex="-1" id="mrh-cart-offcanvas" aria-labelledby="mrh-cart-offcanvas-label">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="mrh-cart-offcanvas-label">
+      <span class="fa fa-shopping-cart"></span> {#heading_cart#}
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{#MRH_close#}"></button>
+  </div>
+  <div class="offcanvas-body">
+    {if $CART_ITEMS > 0}
+      {foreach name=cart item=cart_item from=$box_content}
+        <div class="mrh-cart-item d-flex gap-2 py-2 border-bottom">
+          {if $cart_item.IMAGE != ''}
+            <img src="{$cart_item.IMAGE}" alt="{$cart_item.NAME|onlytext}" width="60" height="60" loading="lazy" class="rounded">
+          {/if}
+          <div class="flex-grow-1">
+            <div class="small fw-medium">{$cart_item.NAME}</div>
+            <div class="small text-muted">{$cart_item.QUANTITY} x {$cart_item.PRICE}</div>
+          </div>
+          <a href="{$cart_item.DELETE_LINK}" class="text-danger small" title="{#MRH_remove#}">
+            <span class="fa fa-trash-o"></span>
+          </a>
+        </div>
+      {/foreach}
+      <div class="mrh-cart-total py-3 border-top">
+        <div class="d-flex justify-content-between fw-bold">
+          <span>{#heading_cart_total#}</span>
+          <span>{$CART_TOTAL}</span>
+        </div>
+      </div>
+      <div class="d-grid gap-2">
+        <a href="{$LINK_CART}" class="btn btn-outline-dark">{#MRH_view_cart#}</a>
+        <a href="{$LINK_CHECKOUT}" class="btn btn-success">{#MRH_checkout#}</a>
+      </div>
+    {else}
+      <div class="text-center py-5 text-muted">
+        <span class="fa fa-shopping-cart fa-3x mb-3 d-block"></span>
+        <p>{#text_cart_empty#}</p>
+      </div>
+    {/if}
+  </div>
+</div>
+{/if}
