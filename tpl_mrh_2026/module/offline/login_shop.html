@@ -1,0 +1,52 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+<!DOCTYPE html>
+<html lang="{$language}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {ldelim} background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 100vh; {rdelim}
+    .login-card {ldelim} max-width: 420px; width: 100%; {rdelim}
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <h1 class="h4 text-center mb-4">Shop Login</h1>
+
+        {if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+        {if $success_message}<div class="alert alert-success">{$success_message}</div>{/if}
+
+        {$FORM_ACTION}
+          <div class="mb-3">
+            <label class="form-label fw-semibold">{#text_email#}</label>
+            {$INPUT_MAIL}
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">{#text_password#}</label>
+            {$INPUT_PASSWORD}
+          </div>
+          {if $VVIMG}
+            <div class="mb-3">
+              <label class="form-label fw-semibold">{#text_sec_code#}</label>
+              <div>{$VVIMG}</div>
+            </div>
+          {/if}
+          {if $INPUT_CODE}
+            <div class="mb-3">
+              <label class="form-label fw-semibold">{#text_sec_code#}</label>
+              {$INPUT_CODE}
+            </div>
+          {/if}
+          <div class="d-grid">
+            <input type="submit" class="btn btn-dark" name="Submit" value="{$smarty.const.IMAGE_BUTTON_LOGIN}" />
+          </div>
+        {$FORM_END}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

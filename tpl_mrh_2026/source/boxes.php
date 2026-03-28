@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------
    MRH 2026 Template – boxes.php
    
-   Box-Lade-Logik basierend auf dem BS4-Original.
+   Box-Lade-Logik basierend auf xtc5-Original + BS4-Erweiterungen.
    Kompatibel mit modified eCommerce v2.0.7.2+ und v3.0+
    -----------------------------------------------------------------------------------------
    Copyright (c) 2026 MRH N-Trade GmbH
@@ -54,73 +54,77 @@ if (defined('FILENAME_CHEAPLY_SEE')) {
 $is_fullcontent = in_array(basename($PHP_SELF), $fullcontent);
 
 // -----------------------------------------------------------------------------------------
-// Boxen laden (nur wenn NICHT fullcontent)
+// BOC require boxes – IMMER geladen (wie xtc5-Original)
 // -----------------------------------------------------------------------------------------
-if (!$is_fullcontent) {
+require_once(DIR_FS_BOXES . 'categories.php');
+require_once(DIR_FS_BOXES . 'manufacturers.php');
+require_once(DIR_FS_BOXES . 'search.php');
+require_once(DIR_FS_BOXES . 'content.php');
+require_once(DIR_FS_BOXES . 'information.php');
+require_once(DIR_FS_BOXES . 'languages.php');
+require_once(DIR_FS_BOXES . 'infobox.php');
 
-    // Bestseller
-    if (defined('MRH_STARTPAGE_BESTSELLERS') && MRH_STARTPAGE_BESTSELLERS == 'true') {
-        if (basename($PHP_SELF) == FILENAME_DEFAULT && !isset($_GET['cPath']) && !isset($_GET['manufacturers_id'])) {
-            require_once(DIR_FS_BOXES . 'best_sellers.php');
+// Miscellaneous (MRH-Erweiterung)
+if (is_file(DIR_FS_BOXES . 'miscellaneous.php')) {
+    require_once(DIR_FS_BOXES . 'miscellaneous.php');
+}
+
+// Last Viewed
+if (is_file(DIR_FS_BOXES . 'last_viewed.php')) {
+    require_once(DIR_FS_BOXES . 'last_viewed.php');
+}
+
+// -----------------------------------------------------------------------------------------
+// Nur für eingeloggte Besucher
+// -----------------------------------------------------------------------------------------
+if (isset($_SESSION['customer_id'])) {
+    // Newsletter
+    if (!defined('MODULE_NEWSLETTER_STATUS') || MODULE_NEWSLETTER_STATUS == 'true') {
+        if (is_file(DIR_FS_BOXES . 'newsletter.php')) {
+            require_once(DIR_FS_BOXES . 'newsletter.php');
         }
     }
-
-    // Specials
-    if (defined('MRH_STARTPAGE_SPECIALS') && MRH_STARTPAGE_SPECIALS == 'true') {
-        if (basename($PHP_SELF) == FILENAME_DEFAULT && !isset($_GET['cPath']) && !isset($_GET['manufacturers_id'])) {
-            require_once(DIR_FS_BOXES . 'specials.php');
-        }
+    // TrustedShops
+    if (is_file(DIR_FS_BOXES . 'trustedshops.php')) {
+        require_once(DIR_FS_BOXES . 'trustedshops.php');
     }
-
-    // What's New
-    if (defined('MRH_STARTPAGE_WHATSNEW') && MRH_STARTPAGE_WHATSNEW == 'true') {
-        if (substr(basename($PHP_SELF), 0, 8) != 'advanced') {
-            require_once(DIR_FS_BOXES . 'whats_new.php');
-        }
-    }
-
-    // Last Viewed
-    if (defined('MRH_STARTPAGE_LAST_VIEWED') && MRH_STARTPAGE_LAST_VIEWED == 'true') {
-        if (is_file(DIR_FS_BOXES . 'last_viewed.php')) {
-            require_once(DIR_FS_BOXES . 'last_viewed.php');
-        }
-    }
-
-    // Manufacturers
-    require_once(DIR_FS_BOXES . 'manufacturers.php');
-
+    // Login Box
+    require_once(DIR_FS_BOXES . 'loginbox.php');
     // Add a Quickie (Schnellbestellung)
     if (is_file(DIR_FS_BOXES . 'add_a_quickie.php')) {
         require_once(DIR_FS_BOXES . 'add_a_quickie.php');
     }
-}
-
-// -----------------------------------------------------------------------------------------
-// always visible (werden IMMER geladen)
-// -----------------------------------------------------------------------------------------
-require_once(DIR_FS_BOXES . 'categories.php');
-require_once(DIR_FS_BOXES . 'search.php');
-require_once(DIR_FS_BOXES . 'content.php');
-require_once(DIR_FS_BOXES . 'information.php');
-require_once(DIR_FS_BOXES . 'miscellaneous.php');
-require_once(DIR_FS_BOXES . 'languages.php');
-
-// Newsletter Box
-if (!defined('MODULE_NEWSLETTER_STATUS') || MODULE_NEWSLETTER_STATUS == 'true') {
-    if (is_file(DIR_FS_BOXES . 'newsletter.php')) {
-        require_once(DIR_FS_BOXES . 'newsletter.php');
+    // Wishlist
+    if (is_file(DIR_FS_BOXES . 'wishlist.php')) {
+        require_once(DIR_FS_BOXES . 'wishlist.php');
     }
+    // Order History
+    if ($_SESSION['customers_status']['customers_status_read_reviews'] == '1') {
+        require_once(DIR_FS_BOXES . 'reviews.php');
+    }
+    require_once(DIR_FS_BOXES . 'order_history.php');
+} else {
+    // Nicht eingeloggt: Newsletter + Login Box
+    if (!defined('MODULE_NEWSLETTER_STATUS') || MODULE_NEWSLETTER_STATUS == 'true') {
+        if (is_file(DIR_FS_BOXES . 'newsletter.php')) {
+            require_once(DIR_FS_BOXES . 'newsletter.php');
+        }
+    }
+    if (is_file(DIR_FS_BOXES . 'trustedshops.php')) {
+        require_once(DIR_FS_BOXES . 'trustedshops.php');
+    }
+    require_once(DIR_FS_BOXES . 'loginbox.php');
 }
 
 // -----------------------------------------------------------------------------------------
-// only if show price
+// Nur wenn Preise angezeigt werden
 // -----------------------------------------------------------------------------------------
 if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
     require_once(DIR_FS_BOXES . 'shopping_cart.php');
 }
 
 // -----------------------------------------------------------------------------------------
-// admins only
+// Admins only
 // -----------------------------------------------------------------------------------------
 if ($_SESSION['customers_status']['customers_status'] == '0') {
     require_once(DIR_FS_BOXES . 'admin.php');
@@ -128,7 +132,44 @@ if ($_SESSION['customers_status']['customers_status'] == '0') {
 }
 
 // -----------------------------------------------------------------------------------------
-// Blog
+// Manufacturer Info
+// -----------------------------------------------------------------------------------------
+require_once(DIR_FS_BOXES . 'manufacturer_info.php');
+
+// -----------------------------------------------------------------------------------------
+// Während des Kauf-Abschlusses verborgen
+// -----------------------------------------------------------------------------------------
+if (substr(basename($PHP_SELF), 0, 8) != 'checkout') {
+    require_once(DIR_FS_BOXES . 'currencies.php');
+    require_once(DIR_FS_BOXES . 'shipping_country.php');
+}
+
+// -----------------------------------------------------------------------------------------
+// Startseiten-Boxen (nur Startseite, nicht fullcontent)
+// -----------------------------------------------------------------------------------------
+if (!$is_fullcontent) {
+    // Bestseller
+    if (defined('MRH_STARTPAGE_BESTSELLERS') && MRH_STARTPAGE_BESTSELLERS == 'true') {
+        if (basename($PHP_SELF) == FILENAME_DEFAULT && !isset($_GET['cPath']) && !isset($_GET['manufacturers_id'])) {
+            require_once(DIR_FS_BOXES . 'best_sellers.php');
+        }
+    }
+    // Specials
+    if (defined('MRH_STARTPAGE_SPECIALS') && MRH_STARTPAGE_SPECIALS == 'true') {
+        if (basename($PHP_SELF) == FILENAME_DEFAULT && !isset($_GET['cPath']) && !isset($_GET['manufacturers_id'])) {
+            require_once(DIR_FS_BOXES . 'specials.php');
+        }
+    }
+    // What's New
+    if (defined('MRH_STARTPAGE_WHATSNEW') && MRH_STARTPAGE_WHATSNEW == 'true') {
+        if (substr(basename($PHP_SELF), 0, 8) != 'advanced') {
+            require_once(DIR_FS_BOXES . 'whats_new.php');
+        }
+    }
+}
+
+// -----------------------------------------------------------------------------------------
+// Blog (MRH-Erweiterung)
 // -----------------------------------------------------------------------------------------
 if (defined('MODULE_BLOG_STATUS') && MODULE_BLOG_STATUS == 'true') {
     $smarty->assign('link_blog', xtc_href_link(FILENAME_BLOG, ''));
@@ -144,7 +185,7 @@ if (defined('MODULE_BLOG_STATUS') && MODULE_BLOG_STATUS == 'true') {
 }
 
 // -----------------------------------------------------------------------------------------
-// ShopVote / Shop Reviews (MailHive)
+// ShopVote / Shop Reviews (MailHive) – MRH-Erweiterung
 // -----------------------------------------------------------------------------------------
 if (defined('MH_ROOT_PATH')) {
     if (is_file(DIR_FS_CATALOG . 'includes/external/mailhive/configbeez/config_shopvoting/classes/Shopvoting_widget.php')) {
@@ -165,7 +206,7 @@ if (defined('MH_ROOT_PATH')) {
 }
 
 // -----------------------------------------------------------------------------------------
-// Affiliate
+// Affiliate (MRH-Erweiterung)
 // -----------------------------------------------------------------------------------------
 if (defined('MODULE_AFFILIATE_STATUS') && MODULE_AFFILIATE_STATUS == 'true') {
     if (is_file(DIR_FS_BOXES . 'affiliate.php')) {
@@ -174,13 +215,16 @@ if (defined('MODULE_AFFILIATE_STATUS') && MODULE_AFFILIATE_STATUS == 'true') {
 }
 
 // -----------------------------------------------------------------------------------------
-// Smarty home
+// Smarty Zuweisungen
 // -----------------------------------------------------------------------------------------
+
+// Startseite
 $smarty->assign('home', ((basename($PHP_SELF) == FILENAME_DEFAULT && !isset($_GET['cPath']) && !isset($_GET['manufacturers_id'])) ? 1 : 0));
 
-// -----------------------------------------------------------------------------------------
-// Smarty bestseller
-// -----------------------------------------------------------------------------------------
+// Fullcontent
+$smarty->assign('fullcontent', $is_fullcontent);
+
+// Bestseller-Seiten
 $smarty->assign('bestseller', false);
 $bestsellers = array(
     FILENAME_DEFAULT,
@@ -196,9 +240,7 @@ if (in_array(basename($PHP_SELF), $bestsellers) && !isset($_GET['cPath']) && !is
     $smarty->assign('bestseller', true);
 }
 
-// -----------------------------------------------------------------------------------------
-// Smarty tpl_path
-// -----------------------------------------------------------------------------------------
+// Template-Pfad
 $smarty->assign('tpl_path', DIR_WS_BASE . 'templates/' . CURRENT_TEMPLATE . '/');
 
 // -----------------------------------------------------------------------------------------
@@ -206,3 +248,7 @@ $smarty->assign('tpl_path', DIR_WS_BASE . 'templates/' . CURRENT_TEMPLATE . '/')
 // -----------------------------------------------------------------------------------------
 defined('MODULE_SYSTEM_FIVEBYTES_CATEGORIES_ADDS_STARTPAGE_SPECIALS') or define('MODULE_SYSTEM_FIVEBYTES_CATEGORIES_ADDS_STARTPAGE_SPECIALS', 'true');
 defined('MODULE_SYSTEM_FIVEBYTES_CATEGORIES_ADDS_STARTPAGE_WHATSNEW') or define('MODULE_SYSTEM_FIVEBYTES_CATEGORIES_ADDS_STARTPAGE_WHATSNEW', 'true');
+
+// -----------------------------------------------------------------------------------------
+// EOC require boxes
+// -----------------------------------------------------------------------------------------

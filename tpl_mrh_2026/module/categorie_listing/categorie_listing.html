@@ -1,0 +1,36 @@
+{config_load file="$language/lang_$language.conf" section="categorie_listing"}
+
+{* === Kategorie-Überschrift === *}
+{if $CATEGORIES_HEADING_TITLE}
+  <h1 class="mb-3">{$CATEGORIES_HEADING_TITLE}</h1>
+{else}
+  <h1 class="mb-3">{$CATEGORIES_NAME}</h1>
+{/if}
+
+{* === Fehlermeldung === *}
+{if $error_message}
+  <div class="alert alert-danger">{$error_message}</div>
+{/if}
+
+{* === Kategorie-Bild + Kurzbeschreibung === *}
+<div class="clearfix mb-3">
+  {if $CATEGORIES_IMAGE}
+    <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" class="float-start me-3 mb-2 img-fluid rounded" style="max-width:280px;" />
+  {/if}
+  {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
+    <div>{$CATEGORIES_SHORT_DESCRIPTION}</div>
+  {elseif isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
+    <div>{$CATEGORIES_DESCRIPTION}</div>
+  {/if}
+</div>
+
+{* === Unterkategorien-Listing === *}
+{if isset($CATEGORIES_LISTING)}{$CATEGORIES_LISTING}{/if}
+
+{* === Neue Produkte === *}
+{if isset($MODULE_new_products)}{$MODULE_new_products}{/if}
+
+{* === Langbeschreibung (wenn Kurzbeschreibung vorhanden) === *}
+{if $CATEGORIES_SHORT_DESCRIPTION && $CATEGORIES_DESCRIPTION}
+  <div class="mt-4">{$CATEGORIES_DESCRIPTION}</div>
+{/if}
