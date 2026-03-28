@@ -41,6 +41,13 @@
   </div>
   {$FORM_END}
 {/if}
+{* ShopVote Trust Badge im Warenkorb *}
+{if $smarty.const.MRH_SHOPVOTE_BADGE_FOOTER == 'true' && $cart_empty != true}
+  <div class="text-center my-3">
+    {assign var="shopvote_type" value="badge"}
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+  </div>
+{/if}
 {* Gutschein-Modul *}
 {if isset($MODULE_gift_cart)}{$MODULE_gift_cart}{/if}
 {* Wunschliste *}

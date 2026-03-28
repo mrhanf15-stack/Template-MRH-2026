@@ -8,6 +8,9 @@
    Bootstrap 5.3 | Vanilla JS | Mobile First | SEO 2026
    Kompatibel mit modified eCommerce v2.0.7.2+ und v3.0+
    ===================================================================== *}
+{* === Schema.org JSON-LD (Global: Organization, WebSite, SearchAction) === *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_global.html"}
+
 <div id="container">
 {* === 1. TOPLEISTE (Trust-Elemente) === *}
 {if $smarty.const.MRH_SHOW_TOP1 == 'true' || $smarty.const.MRH_SHOW_TOP2 == 'true' || $smarty.const.MRH_SHOW_TOP3 == 'true' || $smarty.const.MRH_SHOW_TOP4 == 'true'}
@@ -84,6 +87,12 @@
     {* Zuletzt angesehen *}
     {if $smarty.const.MRH_STARTPAGE_BOX_LAST_VIEWED != 'false' && isset($box_LAST_VIEWED)}
       {$box_LAST_VIEWED}
+    {/if}
+
+    {* ShopVote Bewertungswidget (Startseite) *}
+    {if $smarty.const.MRH_SHOPVOTE_REVIEWS_HOME == 'true'}
+      {assign var="shopvote_type" value="reviews"}
+      {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
     {/if}
 
     {* Marketing-Banner Reihe 1 *}

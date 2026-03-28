@@ -52,6 +52,12 @@
   {/if}
   {$downloads_content}
 {/if}
+{* ShopVote Bewertungsaufforderung nach Bestellung *}
+{if $smarty.const.MRH_SHOPVOTE_CHECKOUT_SUCCESS == 'true'}
+  {assign var="shopvote_type" value="checkout"}
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+{/if}
+
 <div class="d-flex justify-content-between mb-4">
   <div>
     {if isset($BUTTON_PRINT_LAYER)}

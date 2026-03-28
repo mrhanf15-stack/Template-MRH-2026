@@ -1,0 +1,23 @@
+{* =====================================================================
+   MRH 2026 – Schema.org JSON-LD (Brand)
+   Wird auf Hersteller/Markenseiten eingebunden
+   Stand: 2026 – Google Brand konform
+   ===================================================================== *}
+{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($MANUFACTURER_NAME) && $MANUFACTURER_NAME != ''}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "Brand",
+  "name": "{$MANUFACTURER_NAME|onlytext|escape:'javascript'}"
+  {if isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''}
+  ,"logo": "{$MANUFACTURER_IMAGE}"
+  {/if}
+  {if isset($MANUFACTURER_URL) && $MANUFACTURER_URL != ''}
+  ,"url": "{$MANUFACTURER_URL}"
+  {/if}
+  {if isset($MANUFACTURER_DESCRIPTION) && $MANUFACTURER_DESCRIPTION != ''}
+  ,"description": "{$MANUFACTURER_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}"
+  {/if}
+{rdelim}
+</script>
+{/if}

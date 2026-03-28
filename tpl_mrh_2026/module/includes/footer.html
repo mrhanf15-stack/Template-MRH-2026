@@ -46,8 +46,20 @@
     <div class="mrh-footer-trust border-top border-secondary mt-4 pt-3">
       <div class="d-flex flex-wrap justify-content-center gap-3 align-items-center">
         {* Zahlungsarten werden hier per contentAnywhere oder statisch eingebunden *}
+
+        {* ShopVote Badge im Footer *}
+        {if $smarty.const.MRH_SHOPVOTE_BADGE_FOOTER == 'true'}
+          {assign var="shopvote_type" value="badge"}
+          {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+        {/if}
       </div>
     </div>
+
+    {* ShopVote Rich Snippet (unsichtbar, SEO) *}
+    {if $smarty.const.MRH_SHOPVOTE_RICH_SNIPPET == 'true'}
+      {assign var="shopvote_type" value="rich"}
+      {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+    {/if}
 
     {* Copyright *}
     <div class="text-center text-secondary small mt-3">

@@ -160,6 +160,12 @@
       {if $smarty.const.MRH_SHARIFF_SHOW == 'true'}
         <div class="mrh-shariff mb-3" data-shariff data-lang="{$language}" data-services="[&quot;facebook&quot;,&quot;twitter&quot;,&quot;whatsapp&quot;,&quot;telegram&quot;,&quot;mail&quot;]"></div>
       {/if}
+
+      {* ShopVote Produkt-Bewertung *}
+      {if $smarty.const.MRH_SHOPVOTE_PRODUCT_PAGE == 'true'}
+        {assign var="shopvote_type" value="product"}
+        {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+      {/if}
     </div>
   </div>
 
@@ -227,6 +233,9 @@
   {/if}
 
 </article>
+
+{* === Schema.org JSON-LD (zusaetzlich zum Microdata) === *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_product.html"}
 
 {* Image Modal fuer Galerie *}
 <div class="modal fade" id="mrh-modal" tabindex="-1" aria-hidden="true">

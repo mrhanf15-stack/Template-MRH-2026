@@ -1,0 +1,130 @@
+{* =====================================================================
+   MRH 2026 – ShopVote Widget Include
+   Strategisch auf verschiedenen Seiten eingebunden
+   
+   Konfiguration ueber config.php:
+   - MRH_SHOPVOTE_ENABLED  = 'true'/'false'
+   - MRH_SHOPVOTE_SHOP_ID  = 'DEINE_SHOP_ID'
+   
+   Varianten (ueber $shopvote_type Smarty-Variable):
+   - 'badge'      = Kompaktes Trust-Badge (Footer, Sidebar)
+   - 'reviews'    = Bewertungswidget (Startseite, Produktseite)
+   - 'product'    = Produktbewertungs-Widget (Produktseite)
+   - 'checkout'   = Bewertungsaufforderung (Checkout Success)
+   - 'rich'       = Rich Snippet Widget (unsichtbar, SEO)
+   ===================================================================== *}
+{if $smarty.const.MRH_SHOPVOTE_ENABLED == 'true' && $smarty.const.MRH_SHOPVOTE_SHOP_ID != ''}
+
+  {* === BADGE (Footer, Sidebar, Warenkorb) === *}
+  {if $shopvote_type == 'badge'}
+    <div class="mrh-shopvote mrh-shopvote-badge" id="mrh-shopvote-badge">
+      <div id="shopvote-badge-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}"></div>
+      <script>
+        (function() {ldelim}
+          if (document.getElementById('shopvote-loader')) return;
+          var s = document.createElement('script');
+          s.id = 'shopvote-loader';
+          s.src = 'https://widgets.shopvote.de/js/shopvote.js';
+          s.async = true;
+          s.onload = function() {ldelim}
+            if (typeof ShopVote !== 'undefined') {ldelim}
+              new ShopVote.Badge({ldelim}
+                shopId: '{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+                targetElement: 'shopvote-badge-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+                type: 'small'
+              {rdelim});
+            {rdelim}
+          {rdelim};
+          document.head.appendChild(s);
+        {rdelim})();
+      </script>
+    </div>
+
+  {* === REVIEWS WIDGET (Startseite, Markenseite) === *}
+  {elseif $shopvote_type == 'reviews'}
+    <div class="mrh-shopvote mrh-shopvote-reviews my-4" id="mrh-shopvote-reviews">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 mb-3">
+            <span class="fa fa-star text-warning me-1" aria-hidden="true"></span>
+            {#shopvote_customer_reviews#|default:'Kundenbewertungen'}
+          </h3>
+          <div id="shopvote-reviews-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}"></div>
+          <script>
+            (function() {ldelim}
+              if (typeof ShopVote !== 'undefined') {ldelim}
+                new ShopVote.ReviewWidget({ldelim}
+                  shopId: '{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+                  targetElement: 'shopvote-reviews-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+                  maxReviews: 5,
+                  showHeader: true
+                {rdelim});
+              {rdelim}
+            {rdelim})();
+          </script>
+        </div>
+      </div>
+    </div>
+
+  {* === PRODUKT-BEWERTUNG (Produktseite) === *}
+  {elseif $shopvote_type == 'product'}
+    <div class="mrh-shopvote mrh-shopvote-product my-3" id="mrh-shopvote-product">
+      <div id="shopvote-product-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}-{$PRODUCTS_ID|default:'0'}"></div>
+      <script>
+        (function() {ldelim}
+          if (typeof ShopVote !== 'undefined') {ldelim}
+            new ShopVote.ProductWidget({ldelim}
+              shopId: '{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+              targetElement: 'shopvote-product-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}-{$PRODUCTS_ID|default:"0"}',
+              productId: '{$PRODUCTS_ID|default:"0"}',
+              productName: '{$PRODUCTS_NAME|onlytext|escape:"javascript"}',
+              showWriteReview: true
+            {rdelim});
+          {rdelim}
+        {rdelim})();
+      </script>
+    </div>
+
+  {* === CHECKOUT SUCCESS (Bewertungsaufforderung) === *}
+  {elseif $shopvote_type == 'checkout'}
+    <div class="mrh-shopvote mrh-shopvote-checkout my-4" id="mrh-shopvote-checkout">
+      <div class="card border-success border-opacity-25 shadow-sm">
+        <div class="card-body text-center py-4">
+          <span class="fa fa-heart text-danger fa-2x mb-3 d-block" aria-hidden="true"></span>
+          <h3 class="h5 mb-2">{#shopvote_rate_us#|default:'Wie war Ihr Einkaufserlebnis?'}</h3>
+          <p class="text-body-secondary small mb-3">{#shopvote_rate_us_text#|default:'Ihre Bewertung hilft anderen Kunden bei der Entscheidung.'}</p>
+          <div id="shopvote-checkout-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}"></div>
+          <script>
+            (function() {ldelim}
+              if (typeof ShopVote !== 'undefined') {ldelim}
+                new ShopVote.VoteWidget({ldelim}
+                  shopId: '{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+                  targetElement: 'shopvote-checkout-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+                  orderId: '{$ORDER_ID|default:""}',
+                  email: '{$CUSTOMER_EMAIL|default:""}'
+                {rdelim});
+              {rdelim}
+            {rdelim})();
+          </script>
+        </div>
+      </div>
+    </div>
+
+  {* === RICH SNIPPET (unsichtbar, SEO) === *}
+  {elseif $shopvote_type == 'rich'}
+    <div class="mrh-shopvote mrh-shopvote-rich d-none" id="mrh-shopvote-rich" aria-hidden="true">
+      <div id="shopvote-rich-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}"></div>
+      <script>
+        (function() {ldelim}
+          if (typeof ShopVote !== 'undefined') {ldelim}
+            new ShopVote.RichSnippet({ldelim}
+              shopId: '{$smarty.const.MRH_SHOPVOTE_SHOP_ID}',
+              targetElement: 'shopvote-rich-{$smarty.const.MRH_SHOPVOTE_SHOP_ID}'
+            {rdelim});
+          {rdelim}
+        {rdelim})();
+      </script>
+    </div>
+  {/if}
+
+{/if}

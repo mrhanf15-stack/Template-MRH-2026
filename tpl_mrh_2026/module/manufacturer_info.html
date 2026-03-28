@@ -1,0 +1,117 @@
+{config_load file="$language/lang_$language.conf" section="manufacturer_info"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="manufacturer_info"}
+{* =====================================================================
+   MRH 2026: Hersteller/Markenseite (Einzelansicht) – BS5.3
+   Zeigt Hersteller-Info, Logo, Beschreibung und Produkte
+   Schema.org Brand + ItemList
+   ===================================================================== *}
+
+{* === Schema.org JSON-LD (Brand) === *}
+{if $smarty.const.MRH_SCHEMA_ORG == 'true'}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "Brand",
+  "name": "{$MANUFACTURER_NAME|onlytext|escape:'javascript'}"
+  {if isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''}
+  ,"logo": "{$MANUFACTURER_IMAGE}"
+  {/if}
+  {if isset($MANUFACTURER_URL) && $MANUFACTURER_URL != ''}
+  ,"url": "{$MANUFACTURER_URL}"
+  {/if}
+  {if isset($MANUFACTURER_DESCRIPTION) && $MANUFACTURER_DESCRIPTION != ''}
+  ,"description": "{$MANUFACTURER_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}"
+  {/if}
+{rdelim}
+</script>
+{/if}
+
+<section class="mrh-manufacturer-info mrh-cv-auto">
+
+  {* Header: Logo + Name + Beschreibung *}
+  <div class="mrh-manufacturer-header mb-4">
+    <div class="row g-4 align-items-center">
+      {* Logo *}
+      {if isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''}
+        <div class="col-auto">
+          <div class="mrh-manufacturer-logo p-3 bg-white rounded shadow-sm" style="max-width:200px">
+            <img src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER_NAME|onlytext}"
+                 class="img-fluid" loading="lazy" style="max-height:120px;object-fit:contain">
+          </div>
+        </div>
+      {/if}
+      <div class="col">
+        <h1 class="h3 mb-2">{$MANUFACTURER_NAME}</h1>
+        {if isset($MANUFACTURER_URL) && $MANUFACTURER_URL != ''}
+          <a href="{$MANUFACTURER_URL}" target="_blank" rel="noopener noreferrer" class="small text-body-secondary text-decoration-none">
+            <span class="fa fa-external-link me-1" aria-hidden="true"></span>{$MANUFACTURER_URL}
+          </a>
+        {/if}
+      </div>
+    </div>
+
+    {* Beschreibung *}
+    {if isset($MANUFACTURER_DESCRIPTION) && $MANUFACTURER_DESCRIPTION != ''}
+      <div class="mrh-manufacturer-desc mt-3">
+        {$MANUFACTURER_DESCRIPTION}
+      </div>
+    {/if}
+  </div>
+
+  {* ShopVote Bewertungswidget auf Markenseite *}
+  {if $smarty.const.MRH_SHOPVOTE_REVIEWS_HOME == 'true'}
+    {assign var="shopvote_type" value="reviews"}
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+  {/if}
+
+  {* Filter + Sortierung *}
+  {if isset($SORT_SELECT) || isset($PER_PAGE_SELECT)}
+    <div class="mrh-filter-bar d-flex flex-wrap align-items-center gap-2 mb-4 py-2 border-bottom">
+      {if isset($SORT_SELECT)}
+        <div class="mrh-filter-sort">
+          <label for="mrh-manu-sort" class="visually-hidden">{#text_sort_by#}</label>
+          {$SORT_SELECT|replace:'<select':'<select id="mrh-manu-sort" class="form-select form-select-sm"'}
+        </div>
+      {/if}
+      <div class="mrh-filter-view ms-auto d-flex gap-1">
+        <a href="?view=grid" class="btn btn-sm btn-outline-secondary{if $VIEW_MODE == 'grid'} active{/if}" title="{#text_view_grid#}" aria-label="{#text_view_grid#}">
+          <span class="fa fa-th"></span>
+        </a>
+        <a href="?view=list" class="btn btn-sm btn-outline-secondary{if $VIEW_MODE == 'list'} active{/if}" title="{#text_view_list#}" aria-label="{#text_view_list#}">
+          <span class="fa fa-list"></span>
+        </a>
+      </div>
+      {if isset($PER_PAGE_SELECT)}
+        <div class="mrh-filter-perpage">
+          <label for="mrh-manu-perpage" class="visually-hidden">{#text_per_page#}</label>
+          {$PER_PAGE_SELECT|replace:'<select':'<select id="mrh-manu-perpage" class="form-select form-select-sm"'}
+        </div>
+      {/if}
+    </div>
+  {/if}
+
+  {* Produkt-Grid *}
+  {if isset($module_content) && count($module_content) > 0}
+    <div class="row g-3">
+      {foreach name=products item=product_data from=$module_content}
+        <div class="{if $VIEW_MODE == 'list'}col-12{else}col-6 col-md-4 col-lg-3{/if}">
+          {include file="module/includes/product_listing_include.html"}
+        </div>
+      {/foreach}
+    </div>
+
+    {* Pagination *}
+    {if isset($PAGINATION) && $PAGINATION != ''}
+      <nav class="mrh-pagination mt-4" aria-label="{#text_pagination#}">
+        {$PAGINATION}
+      </nav>
+    {/if}
+  {else}
+    <div class="text-center py-5 text-body-secondary">
+      <span class="fa fa-search fa-3x mb-3 d-block" aria-hidden="true"></span>
+      <p>{#text_no_products#}</p>
+    </div>
+  {/if}
+
+</section>

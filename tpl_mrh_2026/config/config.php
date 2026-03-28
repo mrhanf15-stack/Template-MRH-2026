@@ -193,6 +193,18 @@ defined('MRH_SPEAKABLE') or define('MRH_SPEAKABLE', 'true');
 defined('MRH_TRUSTED_SHOPS_WIDGET') or define('MRH_TRUSTED_SHOPS_WIDGET', 'true');
 defined('MRH_UPTAIN_ENABLED') or define('MRH_UPTAIN_ENABLED', 'true');
 
+// === 27. SHARIFF (Social Share) ===
+defined('MRH_SHARIFF_SHOW') or define('MRH_SHARIFF_SHOW', 'true');
+
+// === 28. SHOPVOTE ===
+defined('MRH_SHOPVOTE_ENABLED') or define('MRH_SHOPVOTE_ENABLED', 'true');
+defined('MRH_SHOPVOTE_SHOP_ID') or define('MRH_SHOPVOTE_SHOP_ID', '');  // ShopVote Shop-ID hier eintragen
+defined('MRH_SHOPVOTE_BADGE_FOOTER') or define('MRH_SHOPVOTE_BADGE_FOOTER', 'true');
+defined('MRH_SHOPVOTE_REVIEWS_HOME') or define('MRH_SHOPVOTE_REVIEWS_HOME', 'true');
+defined('MRH_SHOPVOTE_PRODUCT_PAGE') or define('MRH_SHOPVOTE_PRODUCT_PAGE', 'true');
+defined('MRH_SHOPVOTE_CHECKOUT_SUCCESS') or define('MRH_SHOPVOTE_CHECKOUT_SUCCESS', 'true');
+defined('MRH_SHOPVOTE_RICH_SNIPPET') or define('MRH_SHOPVOTE_RICH_SNIPPET', 'true');
+
 // =========================================================================
 //  AB HIER NICHTS AENDERN
 // =========================================================================

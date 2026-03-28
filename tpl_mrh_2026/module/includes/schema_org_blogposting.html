@@ -1,0 +1,41 @@
+{* =====================================================================
+   MRH 2026 – Schema.org JSON-LD (BlogPosting)
+   Wird in blog_post.html eingebunden
+   Stand: 2026 – Google Article/BlogPosting konform
+   ===================================================================== *}
+{if $smarty.const.MRH_SCHEMA_ORG == 'true'}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{$BLOG_TITLE|onlytext|escape:'javascript'}",
+  {if isset($BLOG_DESCRIPTION) && $BLOG_DESCRIPTION != ''}
+  "description": "{$BLOG_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
+  {/if}
+  {if isset($BLOG_IMAGE) && $BLOG_IMAGE != ''}
+  "image": "{$BLOG_IMAGE}",
+  {/if}
+  "datePublished": "{$BLOG_DATE_RAW|default:$BLOG_DATE}",
+  {if isset($BLOG_DATE_MODIFIED)}
+  "dateModified": "{$BLOG_DATE_MODIFIED}",
+  {/if}
+  "author": {ldelim}
+    "@type": "Organization",
+    "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}"
+  {rdelim},
+  "publisher": {ldelim}
+    "@type": "Organization",
+    "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+    "logo": {ldelim}
+      "@type": "ImageObject",
+      "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO|default:'img/logo_head.png'}"
+    {rdelim}
+  {rdelim},
+  "mainEntityOfPage": {ldelim}
+    "@type": "WebPage",
+    "@id": "{$BLOG_LINK|default:''}"
+  {rdelim}
+{rdelim}
+</script>
+{/if}

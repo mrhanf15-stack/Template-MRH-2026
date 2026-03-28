@@ -1,4 +1,6 @@
 {* MRH 2026: FAQ Manager – BS5.3, Schema.org FAQPage *}
+{* === Schema.org JSON-LD (FAQPage) === *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_faq.html"}
 <div class="mrh-faq-list" itemscope itemtype="https://schema.org/FAQPage">
   {foreach name=aussen item=FAQS_CID from=$FAQ_TREE.0}
     <h2 class="h5 mt-4 mb-3">

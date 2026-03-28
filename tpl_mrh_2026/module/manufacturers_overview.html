@@ -2,6 +2,33 @@
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="manufacturers_overview"}
 {* MRH 2026: Hersteller-Übersicht – BS5.3 *}
+{* === Schema.org JSON-LD (Brand-Liste) === *}
+{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($MANUFACTURERS) && count($MANUFACTURERS) > 0}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{$TITLE|onlytext|escape:'javascript'}",
+  "mainEntity": {ldelim}
+    "@type": "ItemList",
+    "itemListElement": [
+      {foreach name=schbrand item=bd from=$MANUFACTURERS}
+        {ldelim}
+          "@type": "ListItem",
+          "position": {$smarty.foreach.schbrand.iteration},
+          "item": {ldelim}
+            "@type": "Brand",
+            "name": "{$bd.NAME|onlytext|escape:'javascript'}"
+            {if !empty($bd.IMAGE)},"logo": "{$bd.IMAGE}"{/if}
+            {if !empty($bd.LINK)},"url": "{$bd.LINK}"{/if}
+          {rdelim}
+        {rdelim}{if !$smarty.foreach.schbrand.last},{/if}
+      {/foreach}
+    ]
+  {rdelim}
+{rdelim}
+</script>
+{/if}
 <div class="mrh-manufacturers-overview">
   {* Top-Hersteller *}
   {if isset($TOP_MANUFACTURERS) && count($TOP_MANUFACTURERS) > 0}

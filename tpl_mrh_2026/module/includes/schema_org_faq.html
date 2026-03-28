@@ -1,0 +1,25 @@
+{* =====================================================================
+   MRH 2026 – Schema.org JSON-LD (FAQPage)
+   Wird in faq_manager.html eingebunden
+   Stand: 2026 – Google FAQPage konform
+   ===================================================================== *}
+{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($FAQ_ITEMS) && count($FAQ_ITEMS) > 0}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {foreach name=schfaq item=fq from=$FAQ_ITEMS}
+      {ldelim}
+        "@type": "Question",
+        "name": "{$fq.QUESTION|onlytext|escape:'javascript'}",
+        "acceptedAnswer": {ldelim}
+          "@type": "Answer",
+          "text": "{$fq.ANSWER|strip_tags|escape:'javascript'}"
+        {rdelim}
+      {rdelim}{if !$smarty.foreach.schfaq.last},{/if}
+    {/foreach}
+  ]
+{rdelim}
+</script>
+{/if}

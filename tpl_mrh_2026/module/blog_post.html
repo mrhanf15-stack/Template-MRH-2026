@@ -2,6 +2,8 @@
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="blog"}
 {* MRH 2026: Blog Post (Einzelansicht) – BS5.3, Schema.org *}
+{* === Schema.org JSON-LD (BlogPosting) === *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_blogposting.html"}
 <article id="blog-post" class="mrh-blog" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
   {* Microdata *}
   <meta itemprop="url" content="{$LINK}">

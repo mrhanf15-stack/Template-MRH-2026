@@ -1,0 +1,120 @@
+{* =====================================================================
+   MRH 2026 – Schema.org JSON-LD (Produkt)
+   Wird in product_info.html eingebunden – generiert Product mit
+   Offer, AggregateRating, Review, Brand, ShippingDetails
+   Stand: 2026 – Google Merchant Listing konform
+   ===================================================================== *}
+{if $smarty.const.MRH_SCHEMA_PRODUCT == 'true'}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{$PRODUCTS_NAME|onlytext|escape:'javascript'}",
+  "description": "{$PRODUCTS_SHORT_DESCRIPTION|onlytext|strip_tags|truncate:500|escape:'javascript'}",
+  {if $PRODUCTS_IMAGE != ''}
+  "image": [
+    "{$PRODUCTS_IMAGE_POPUP|default:$PRODUCTS_IMAGE}"
+    {if isset($PRODUCTS_IMAGES) && count($PRODUCTS_IMAGES) > 0}
+      {foreach name=schimg item=si from=$PRODUCTS_IMAGES}
+        ,"{$si.IMAGE_POPUP|default:$si.IMAGE}"
+      {/foreach}
+    {/if}
+  ],
+  {/if}
+  {if $PRODUCTS_MODEL != ''}
+  "sku": "{$PRODUCTS_MODEL|escape:'javascript'}",
+  {/if}
+  {if isset($PRODUCTS_EAN) && $PRODUCTS_EAN != ''}
+  "gtin13": "{$PRODUCTS_EAN|escape:'javascript'}",
+  {/if}
+  {if isset($MANUFACTURER) && $MANUFACTURER != ''}
+  "brand": {ldelim}
+    "@type": "Brand",
+    "name": "{$MANUFACTURER|escape:'javascript'}"
+    {if isset($MANUFACTURER_LINK)}
+    ,"url": "{$MANUFACTURER_LINK}"
+    {/if}
+  {rdelim},
+  {/if}
+  {* === Bewertungen === *}
+  {if isset($MRH_RATING_COUNT) && $MRH_RATING_COUNT > 0}
+  "aggregateRating": {ldelim}
+    "@type": "AggregateRating",
+    "ratingValue": "{$MRH_RATING_VALUE|default:'0'}",
+    "bestRating": "5",
+    "worstRating": "1",
+    "reviewCount": "{$MRH_RATING_COUNT}"
+  {rdelim},
+  {/if}
+  {if isset($PRODUCTS_REVIEWS) && count($PRODUCTS_REVIEWS) > 0}
+  "review": [
+    {foreach name=schrev item=sr from=$PRODUCTS_REVIEWS}
+      {ldelim}
+        "@type": "Review",
+        "author": {ldelim}
+          "@type": "Person",
+          "name": "{$sr.AUTHOR|escape:'javascript'}"
+        {rdelim},
+        "datePublished": "{$sr.DATE_RAW|default:$sr.DATE}",
+        "reviewRating": {ldelim}
+          "@type": "Rating",
+          "ratingValue": "{$sr.RATING}",
+          "bestRating": "5",
+          "worstRating": "1"
+        {rdelim}
+        {if isset($sr.TEXT) && $sr.TEXT != ''}
+        ,"reviewBody": "{$sr.TEXT|strip_tags|truncate:500|escape:'javascript'}"
+        {/if}
+      {rdelim}{if !$smarty.foreach.schrev.last},{/if}
+    {/foreach}
+  ],
+  {/if}
+  {* === Angebot (Offer) === *}
+  "offers": {ldelim}
+    "@type": "Offer",
+    "url": "{$PRODUCTS_LINK}",
+    "priceCurrency": "{$CURRENCY_CODE|default:'EUR'}",
+    "price": "{$PRODUCTS_PRICE_PLAIN|default:'0.00'}",
+    "priceValidUntil": "{$smarty.now|date_format:'%Y-12-31'}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/{if isset($PRODUCTS_QUANTITY) && $PRODUCTS_QUANTITY > 0}InStock{else}OutOfStock{/if}",
+    "seller": {ldelim}
+      "@type": "Organization",
+      "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}"
+    {rdelim},
+    {* === Versanddetails === *}
+    "shippingDetails": {ldelim}
+      "@type": "OfferShippingDetails",
+      "shippingRate": {ldelim}
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "EUR"
+      {rdelim},
+      "shippingDestination": {ldelim}
+        "@type": "DefinedRegion",
+        "addressCountry": "AT"
+      {rdelim},
+      "deliveryTime": {ldelim}
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {ldelim}
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 1,
+          "unitCode": "DAY"
+        {rdelim},
+        "transitTime": {ldelim}
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 5,
+          "unitCode": "DAY"
+        {rdelim}
+      {rdelim}
+    {rdelim},
+    {* === Rueckgaberichtlinie === *}
+    "hasMerchantReturnPolicy": {ldelim}
+      "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#returnpolicy"
+    {rdelim}
+  {rdelim}
+{rdelim}
+</script>
+{/if}

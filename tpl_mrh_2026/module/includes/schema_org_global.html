@@ -1,0 +1,68 @@
+{* =====================================================================
+   MRH 2026 – Schema.org JSON-LD (Global)
+   Wird in index.html eingebunden – generiert Organization, WebSite,
+   SearchAction und MerchantReturnPolicy
+   Stand: 2026 – Google Merchant Listing konform
+   ===================================================================== *}
+{if $smarty.const.MRH_SCHEMA_ORG == 'true'}
+
+{* === Organization === *}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
+  "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
+  "logo": {ldelim}
+    "@type": "ImageObject",
+    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO|default:'img/logo_head.png'}"
+  {rdelim},
+  "contactPoint": [
+    {ldelim}
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "availableLanguage": ["German", "English", "French"],
+      "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}contact_us.php"
+    {rdelim}
+  ],
+  "sameAs": [
+    "https://www.facebook.com/mrhanf",
+    "https://www.instagram.com/mr.hanf.official",
+    "https://twitter.com/mrhanf"
+  ],
+  "hasMerchantReturnPolicy": {ldelim}
+    "@type": "MerchantReturnPolicy",
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#returnpolicy",
+    "applicableCountry": ["AT", "DE", "CH"],
+    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+    "merchantReturnDays": 14,
+    "returnMethod": "https://schema.org/ReturnByMail",
+    "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+  {rdelim}
+{rdelim}
+</script>
+
+{* === WebSite + SearchAction (Sitelinks Search Box) === *}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#website",
+  "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
+  "publisher": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization"
+  {rdelim},
+  "potentialAction": {ldelim}
+    "@type": "SearchAction",
+    "target": {ldelim}
+      "@type": "EntryPoint",
+      "urlTemplate": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}advanced_search_result.php?keywords={ldelim}search_term_string{rdelim}"
+    {rdelim},
+    "query-input": "required name=search_term_string"
+  {rdelim}
+{rdelim}
+</script>
+
+{/if}
