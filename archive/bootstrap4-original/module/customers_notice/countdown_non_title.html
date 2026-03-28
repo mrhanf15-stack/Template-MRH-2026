@@ -1,0 +1,40 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="lang_`$language`.custom"}
+
+<div class="k-hinweis">
+  <div class="boxcartbody">{$description}</div>
+  <h2 class="p-3 mb-2 bg-warning text-white flicker-1 rounded" style="border-radius: 10px;">
+    &#128347; {#index_end_date_label#} <span id="countdown"></span>
+  </h2>
+
+  <script type="text/javascript">
+    var daysLabelText = '{#index_days_label#}';
+    var hoursLabelText = '{#index_hours_label#}';
+    var minutesLabelText = '{#index_minutes_label#}';
+    var secondsLabelText = '{#index_seconds_label#}';
+    var timeoutLabelText = '{#index_timeout_label#}';
+
+    {literal}
+    var customersNoticeCountdown = setInterval(function() {
+
+      var countDownDate = new Date('{/literal}{$enddate}{literal}').getTime();
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+          
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      var daysLabel = (days > 0) ? days + ' ' + daysLabelText + ' ' : '';
+
+      var str = daysLabel + hours + ' ' + hoursLabelText + ' ' + minutes + ' ' + minutesLabelText + ' ' + seconds + ' ' + secondsLabelText;
+
+      if (distance < 0) {
+        clearInterval(customersNoticeCountdown);
+        str = timeoutLabelText;
+      }
+      document.getElementById('countdown').innerHTML = str;
+    }, 1000);
+    {/literal}
+  </script>
+</div>

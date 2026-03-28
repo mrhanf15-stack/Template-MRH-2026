@@ -1,0 +1,26 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+
+<div id="customers-notice-overlay" style="display: none;"></div>
+<div id="customers-notice-modal" style="display: none;">
+  <div id="customers-notice-content">
+    <h1>{$title}</h1>
+    <div>
+      
+      {$description}
+      
+      <form action="{$smarty.const.FILENAME_NEWSLETTER|xtc_href_link}" method="post" class="newsletter">
+        <label for="email">{#text_email#}:</label>
+        <div class="inputWrapper">
+          <input name="email" maxlength="50" type="email">
+          <input src="/templates/{$smarty.const.CURRENT_TEMPLATE}/buttons/{$smarty.session.language}/button_login_newsletter.png" alt="{#link_login#}" title="{#link_login#}" type="image">
+        </div>
+      </form>
+        
+      <p>{#text_newsletter#}</p>
+      
+    </div>
+  </div>
+  <a href="#" id="customers-notice-close">X</a>
+</div>

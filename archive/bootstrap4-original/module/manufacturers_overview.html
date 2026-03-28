@@ -1,0 +1,125 @@
+{config_load file="$language/lang_$language.conf" section="manufacturers"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="manufacturers"}
+
+{* Load custom CSS *}
+<link rel="stylesheet" href="{$tpl_path}css/manufacturers_overview.css">
+
+<div id="manufacturers_overview">
+
+    {* Top Manufacturers Section with Top 3 Products *}
+    {if !empty($TOP_MANUFACTURERS)}
+    <div class="top_list mb-3">
+    
+        <h2 class="mb-4">{#title_top_brands#}</h2>
+        
+        <div class="row">    
+          {foreach name=aussen item=module_data from=$TOP_MANUFACTURERS}
+            
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-3 position-relative">
+                  
+                  {* Badges for Top 4 Manufacturers *}
+                  {if $smarty.foreach.aussen.iteration == 1}
+                    <span class="manufacturer-badge diamond badge" title="Platz 1">
+                      <span class="fa-solid fa-gem"></span>
+                    </span>
+                  {elseif $smarty.foreach.aussen.iteration == 2}
+                    <span class="manufacturer-badge gold badge" title="Platz 2">
+                      <span class="fa-solid fa-medal"></span>
+                    </span>
+                  {elseif $smarty.foreach.aussen.iteration == 3}
+                    <span class="manufacturer-badge silver badge" title="Platz 3">
+                      <span class="fa-solid fa-medal"></span>
+                    </span>
+                  {elseif $smarty.foreach.aussen.iteration == 4}
+                    <span class="manufacturer-badge bronze badge" title="Platz 4">
+                      <span class="fa-solid fa-medal"></span>
+                    </span>
+                  {/if}
+                  
+                  {* Manufacturer Logo with fixed height *}
+                  {if !empty($module_data.IMAGE)}
+                  <div class="d-flex align-items-center justify-content-center mb-3" style="height: 100px;">
+                      <a href="{$module_data.LINK}" title="{$module_data.NAME}">
+                          <img src="{$module_data.IMAGE}" 
+                               alt="{$module_data.NAME}" 
+                               title="{$module_data.NAME}" 
+                               class="img-fluid lazyloaded" 
+                               style="max-height: 100px; max-width: 100%; object-fit: contain;" />
+                      </a>
+                  </div>
+                  {else}
+                  <div class="d-flex align-items-center justify-content-center mb-3" style="height: 100px;">
+                      <a href="{$module_data.LINK}" title="{$module_data.NAME}" class="h6 text-dark mb-0">{$module_data.NAME}</a>
+                  </div>
+                  {/if}
+                  
+                  {* Top Products for this Manufacturer - Only for first 4 *}
+                  {if !empty($module_data.TOP_PRODUCTS) && $smarty.foreach.aussen.iteration <= 4}
+                  <div class="mt-3 pt-3 border-top text-left">
+                      <p class="text-muted mb-2 small font-weight-bold">{#top#}</p>
+                      <ol class="pl-3 mb-0 small">
+                      {foreach name=products item=product from=$module_data.TOP_PRODUCTS}
+                          <li class="mb-1">
+                              <a href="{$product.LINK}" 
+                                 title="{$product.NAME}" 
+                                 class="text-decoration-none">
+                                  {$product.NAME|truncate:30:"..."}
+                              </a>
+                          </li>
+                      {/foreach}
+                      </ol>
+                  </div>
+                  {/if}
+                  
+                </div>
+              </div>
+            </div>
+          {/foreach} 
+    	</div>
+    </div>
+    {/if}
+    
+    {* Page Title *}
+	<h2 class="h1">{$TITLE}</h2>
+    
+    {* Info Text *}
+    {if !empty($TEXT)}<div class="info mb-3">{$TEXT}</div>{/if}
+    
+    {* Alphabet Navigation *}
+    <div class="pagination_list clearfix mb-3">
+      <ul class="p-0">
+		{foreach name=aussen item=data from=$ALPHABET}
+    	<li><a href="{$MANUFACTURERS_LINK}#letter_{$data}" title="{#scroll_to#} {$data}">{$data}</a></li>
+        {/foreach} 
+	  </ul>
+    </div>
+    
+    {* Manufacturers List A-Z *}
+    {assign var="letter" value=""}
+	{foreach name=aussen item=data from=$MANUFACTURERS}
+	  
+      {if $letter != $data.LETTER}
+        {if $letter != ''}</ul></div>{/if}        
+        <div class="clearfix my-4 pt-4 border-top">
+			<div class="h2" id="letter_{$data.LETTER}">{$data.LETTER}</div>
+            <ul class="list-unstyled row w-100 mb-0">
+	  {assign var="letter" value=$data.LETTER}	
+      {/if}
+	  <li class="col-sm-6 col-md-4 col-lg-3 py-2"><a href="{$data.LINK}" title="{$data.NAME}">{$data.NAME}</a></li>
+	{/foreach} 
+    	</ul>
+    </div>
+    
+    {* Footer Info *}
+    <div class="info mb-3">{1003278|contentAnywhere|inserttags}</div>
+    
+    {* Back to Top Button *}
+    <div class="clearfix float-right mb-3">
+        <a href="{$MANUFACTURERS_LINK}#" title="{#back_to_top#}">
+            <span class="btn btn-info btn-sm">{#back_to_top#}&nbsp;<span class="fa fa-arrow-up"></span></span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+{config_load file="$language/lang_$language.conf" section="blog"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+
+<div id="blog-category">
+
+    {if !empty($CATEGORIES_IMAGE)}
+    <div class="blog-category-image">
+        <img class="rounded" src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" title="{$CATEGORIES_NAME|onlytext}" />
+    </div>
+    {/if}
+
+    <h1>{if !empty($CATEGORIES_TITLE)}{$CATEGORIES_TITLE}{else}{$CATEGORIES_NAME}{/if}</h1>
+    {if ($smarty.get.page >= 2)}<button class="btn btn-light mt-2" type="button" data-toggle="collapse" data-target="#content1" aria-expanded="{if ($smarty.get.page < 2) || ($smarty.get.page == '')}true{else}false{/if}" aria-controls="content1">
+    {#klickk#}
+  </button>
+ {/if} <div class="collapse {if ($smarty.get.page < 2) || ($smarty.get.page == '')}show{/if}" id="content1">
+   {if ($smarty.get.page == 1) || ($smarty.get.page == '')}
+    {if !empty($CATEGORIES_DESCRIPTION)}
+    <div class="blog-category-desc">
+        {$CATEGORIES_DESCRIPTION}
+    </div>
+    {/if} {/if}
+    </div>
+
+    {*<!-- post listing -->*}
+    {if !empty($POSTS)}
+    <div class="blog-section-listing">
+        {include file='module/includes/blog_post_listing.html' listing_items=$POSTS listing_htag='h2'}
+        {if !empty($NAVIGATION)}{$NAVIGATION}{/if}
+	</div>
+    {/if}
+
+    {*<div class="blog-buttons">
+		<div>{$BUTTON_BACK}</div>
+	</div>*}
+</div>

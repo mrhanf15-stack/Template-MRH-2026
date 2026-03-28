@@ -1,0 +1,494 @@
+{config_load file="$language/lang_$language.conf" section="seedfinder"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="seedfinder"}
+{* Seedfinder Filters Modal Template v6.8 - Kategorie-Dropdown sortiert + Ausgrauen *}
+{* NEU v6.8: Kategorie-Dropdown: Samen Shop oben, dann alphabetisch, disabled bei count=0 *}
+{* NEU v6.7: Mobile Accordion fuer Filter-Kategorien mit Badges *}
+{* Dynamische Haupt-Filter mit Prioritaets-Sortierung *}
+{* NEU v6.3.4: Hidden Translations fuer JavaScript *}
+<div id="seedfinder-translations" style="display: none;">
+    <span id="trans-loading-category-filters">{#loading_category_filters#}</span>
+</div>
+
+{* Definiere Haupt-Filter IDs mit Prioritaet (niedrigere Zahl = hoehere Prioritaet) *}
+{assign var="main_filter_priority" value=[
+    '11' => 1,
+    '12' => 2,
+    '55' => 3,
+    '7' => 3,
+    '15' => 4,
+    '8' => 5,
+    '64' => 7,
+    '65' => 8
+]}
+
+{* Sammle Haupt-Filter aus $FILTERS *}
+{assign var="main_filters" value=[]}
+{foreach from=$FILTERS item=filter}
+    {if isset($main_filter_priority[$filter.options_id])}
+        {assign var="filter_with_priority" value=[
+            'filter' => $filter,
+            'priority' => $main_filter_priority[$filter.options_id]
+        ]}
+        {append var="main_filters" value=$filter_with_priority}
+    {/if}
+{/foreach}
+
+{* Haupt-Filter Section - nur auf Desktop sichtbar *}
+{if $main_filters && count($main_filters) > 0}
+<div class="row mb-4 d-none d-md-flex">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+              <!---<a href="seedfinder.php?stage=1" class="btn btn-sm btn-outline-secondary">
+                <i class="fa fa-arrow-left mr-1"></i>
+                {#back_to_categories#}
+            </a> -->   <h3 class="h4 mb-0">
+                <i class="fa fa-filter text-primary mr-2"></i>
+                {#main_filters_title#}
+            </h3>
+            <p class="text-muted mb-0" id="total-products-count-desktop">{$TOTAL_PRODUCTS} {#total_products_found#}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4 d-none d-md-flex" id="main-filters-container">
+    
+    {* ========================================
+     * HERSTELLER-BOX als ERSTE Box (v18.8)
+     * ======================================== *}
+    {if isset($MANUFACTURERS) && count($MANUFACTURERS) > 0}
+    <div class="col-12 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 shadow-sm main-filter-card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-dark">{#hersteller#}</h5>
+            </div>
+            <div class="card-body filter-options-main manufacturer-filter-options" style="max-height: 400px; overflow-y: auto;">
+                {foreach from=$MANUFACTURERS item=manufacturer}
+                    <div class="custom-control custom-checkbox mb-2">
+                        <input 
+                            type="checkbox" 
+                            class="custom-control-input filter-checkbox main-filter-checkbox manufacturer-checkbox" 
+                            id="main-filter-73-{$manufacturer.values_id}"
+                            name="filter[73][]" 
+                            value="{$manufacturer.values_id}"
+                            data-filter-id="73"
+                            data-value-id="{$manufacturer.values_id}"
+                            data-filter-name=" {#hersteller#}"
+                            data-value-name="{$manufacturer.manufacturer_name}"
+                            data-sort-order="0"
+                            {if $manufacturer.selected}checked{/if}
+                        >
+                        <label class="custom-control-label" for="main-filter-73-{$manufacturer.values_id}">
+                            {$manufacturer.manufacturer_name}
+                            <span class="filter-count text-muted ml-2">({$manufacturer.product_count})</span>
+                        </label>
+                    </div>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    {/if}
+    {* Ende Hersteller-Box *}
+    
+    {* Durchlaufe Filter in Prioritaets-Reihenfolge *}
+    {foreach from=$main_filter_priority key=filter_id item=priority}
+        {foreach from=$main_filters item=mf}
+            {if $mf.filter.options_id == $filter_id}
+                {assign var="filter" value=$mf.filter}
+                
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 shadow-sm main-filter-card">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0 text-dark">{$filter.options_name}</h5>
+                        </div>
+                        <div class="card-body filter-options-main">
+                            {foreach from=$filter.values item=value}
+                                <div class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
+                                    <input 
+                                        type="checkbox" 
+                                        class="custom-control-input filter-checkbox main-filter-checkbox" 
+                                        id="main-filter-{$filter.options_id}-{$value.values_id}"
+                                        name="filter[{$filter.options_id}][]" 
+                                        value="{$value.values_id}"
+                                        data-filter-id="{$filter.options_id}"
+                                        data-value-id="{$value.values_id}"
+                                        data-filter-name="{$filter.options_name}"
+                                        data-value-name="{$value.values_name}"
+                                        data-sort-order="{$value.sort_order}"
+                                        {if $value.selected}checked{/if}
+                                        {if !$value.enabled && !$value.selected}disabled{/if}
+                                    >
+                                    <label class="custom-control-label" for="main-filter-{$filter.options_id}-{$value.values_id}">
+                                        {$value.values_name}
+                                        <span class="filter-count text-muted ml-2">({$value.count})</span>
+                                    </label>
+                                </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        {/foreach}
+    {/foreach}
+</div>
+
+<div class="row mb-4 d-none d-md-flex">
+    <div class="col-12">
+        <button type="button" class="btn btn-outline-secondary mr-2" id="reset-main-filters">
+            <i class="fa fa-undo mr-1"></i>
+            {#reset_main_filters#}
+        </button>
+        <button type="button" class="btn btn-info float-right" id="apply-main-filters">
+            <i class="fa fa-check mr-1"></i>
+            {#apply_main_filters#}
+        </button>
+    </div>
+</div>
+
+<hr class="my-4 d-none d-md-block">
+{/if}
+
+<div class="row mb-2">
+    <div class="col-12 text-center">
+        {* Desktop: Erweiterte Optionen Button *}
+        <button type="button" class="btn btn-lg btn-outline-primary d-none d-md-inline-block open-filters-btn" id="open-filter-modal">
+            <i class="fa fa-sliders mr-2"></i>
+            {#show_all_filters#}
+        </button>
+    </div>
+</div>
+
+{* Modal fuer alle Filter *}
+<div class="modal fade" id="seedfinder-filter-modal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h4 class="modal-title weiss" id="filterModalLabel">
+                    <i class="fa fa-sliders mr-2"></i>
+                    {#modal_title_all_filters#}
+                </h4>
+                
+                {* v6.8: Kategorie-Dropdown sortiert: Samen Shop oben, dann alphabetisch *}
+                {* Mit Produkt-Counts und Ausgrauen bei count=0 *}
+                <div class="mx-auto" style="max-width: 300px;">
+                    <select class="form-control form-control-sm bg-white text-dark" id="modal-category-selector">
+                        {* Samen Shop immer ganz oben *}
+                        <option value="581210" data-cat-id="581210" {if $smarty.get.category == 581210}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.581210) && $CATEGORY_COUNTS.581210.count == 0 && $smarty.get.category != 581210}disabled style="color:#999"{/if}>Samen Shop{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.581210)} ({$CATEGORY_COUNTS.581210.count}){/if}</option>
+                        {* Dann alphabetisch *}
+                        <option value="58000" data-cat-id="58000" {if $smarty.get.category == 58000}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58000) && $CATEGORY_COUNTS.58000.count == 0 && $smarty.get.category != 58000}disabled style="color:#999"{/if}>Autoflowering Seeds{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58000)} ({$CATEGORY_COUNTS.58000.count}){/if}</option>
+                        <option value="581346" data-cat-id="581346" {if $smarty.get.category == 581346}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.581346) && $CATEGORY_COUNTS.581346.count == 0 && $smarty.get.category != 581346}disabled style="color:#999"{/if}>Feminized Seeds{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.581346)} ({$CATEGORY_COUNTS.581346.count}){/if}</option>
+                        <option value="58100" data-cat-id="58100" {if $smarty.get.category == 58100}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58100) && $CATEGORY_COUNTS.58100.count == 0 && $smarty.get.category != 58100}disabled style="color:#999"{/if}>Indica Seeds{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58100)} ({$CATEGORY_COUNTS.58100.count}){/if}</option>
+                        <option value="58002" data-cat-id="58002" {if $smarty.get.category == 58002}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58002) && $CATEGORY_COUNTS.58002.count == 0 && $smarty.get.category != 58002}disabled style="color:#999"{/if}>Medical Seeds{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58002)} ({$CATEGORY_COUNTS.58002.count}){/if}</option>
+                        <option value="581002" data-cat-id="581002" {if $smarty.get.category == 581002}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.581002) && $CATEGORY_COUNTS.581002.count == 0 && $smarty.get.category != 581002}disabled style="color:#999"{/if}>Regular Seeds{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.581002)} ({$CATEGORY_COUNTS.581002.count}){/if}</option>
+                        <option value="58101" data-cat-id="58101" {if $smarty.get.category == 58101}selected{/if} {if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58101) && $CATEGORY_COUNTS.58101.count == 0 && $smarty.get.category != 58101}disabled style="color:#999"{/if}>Sativa Seeds{if isset($CATEGORY_COUNTS) && isset($CATEGORY_COUNTS.58101)} ({$CATEGORY_COUNTS.58101.count}){/if}</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Schliessen">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                {* ============================================
+                 * DESKTOP: Tab-Navigation
+                 * ============================================ *}
+                <div class="row mb-3 d-none d-md-flex" id="filter-category-nav-desktop">
+                    <div class="col-12">
+                        <div class="btn-group btn-group-toggle w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary filter-category-btn active" data-category="main">
+                                <i class="fa fa-star mr-1"></i> {#filter_category_main#}
+                                <span class="category-filter-badge" data-category-badge="main" style="display: none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="genetics">
+                                <i class="fa fa-dna mr-1"></i> {#filter_category_genetics#}
+                                <span class="category-filter-badge" data-category-badge="genetics" style="display: none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="cultivation">
+                                <i class="fa fa-seedling mr-1"></i> {#filter_category_cultivation#}
+                                <span class="category-filter-badge" data-category-badge="cultivation" style="display: none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="taste">
+                                <i class="fa fa-leaf mr-1"></i> {#filter_category_taste#}
+                                <span class="category-filter-badge" data-category-badge="taste" style="display: none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="advanced">
+                                <i class="fa fa-cog mr-1"></i> {#filter_category_advanced#}
+                                <span class="category-filter-badge" data-category-badge="advanced" style="display: none;"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                {* ============================================
+                 * MOBILE: Accordion-Navigation (v6.7)
+                 * ============================================ *}
+                <div class="d-md-none" id="filter-accordion-mobile">
+                    
+                    <div class="sf-accordion-item" data-accordion-category="main">
+                        <div class="sf-accordion-header" data-toggle-accordion="main">
+                            <span class="sf-accordion-icon"><i class="fa fa-star"></i></span>
+                            <span class="sf-accordion-title">{#filter_category_main#}</span>
+                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="main-mobile" style="display: none;"></span>
+                            <span class="sf-accordion-chevron"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <div class="sf-accordion-body" id="accordion-body-main"></div>
+                    </div>
+                    
+                    <div class="sf-accordion-item" data-accordion-category="genetics">
+                        <div class="sf-accordion-header" data-toggle-accordion="genetics">
+                            <span class="sf-accordion-icon"><i class="fa fa-dna"></i></span>
+                            <span class="sf-accordion-title">{#filter_category_genetics#}</span>
+                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="genetics-mobile" style="display: none;"></span>
+                            <span class="sf-accordion-chevron"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <div class="sf-accordion-body" id="accordion-body-genetics"></div>
+                    </div>
+                    
+                    <div class="sf-accordion-item" data-accordion-category="cultivation">
+                        <div class="sf-accordion-header" data-toggle-accordion="cultivation">
+                            <span class="sf-accordion-icon"><i class="fa fa-seedling"></i></span>
+                            <span class="sf-accordion-title">{#filter_category_cultivation#}</span>
+                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="cultivation-mobile" style="display: none;"></span>
+                            <span class="sf-accordion-chevron"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <div class="sf-accordion-body" id="accordion-body-cultivation"></div>
+                    </div>
+                    
+                    <div class="sf-accordion-item" data-accordion-category="taste">
+                        <div class="sf-accordion-header" data-toggle-accordion="taste">
+                            <span class="sf-accordion-icon"><i class="fa fa-leaf"></i></span>
+                            <span class="sf-accordion-title">{#filter_category_taste#}</span>
+                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="taste-mobile" style="display: none;"></span>
+                            <span class="sf-accordion-chevron"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <div class="sf-accordion-body" id="accordion-body-taste"></div>
+                    </div>
+                    
+                    <div class="sf-accordion-item" data-accordion-category="advanced">
+                        <div class="sf-accordion-header" data-toggle-accordion="advanced">
+                            <span class="sf-accordion-icon"><i class="fa fa-cog"></i></span>
+                            <span class="sf-accordion-title">{#filter_category_advanced#}</span>
+                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="advanced-mobile" style="display: none;"></span>
+                            <span class="sf-accordion-chevron"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <div class="sf-accordion-body" id="accordion-body-advanced"></div>
+                    </div>
+                    
+                </div>
+                
+                {* ============================================
+                 * DESKTOP: Filter-Kategorie-Inhalte
+                 * ============================================ *}
+                <div id="filter-categories-desktop">
+                    <div id="category-main" class="filter-category-content">
+                        <div class="row">
+                            {* Hersteller-Box als ERSTE Box *}
+                            {if isset($MANUFACTURERS) && count($MANUFACTURERS) > 0}
+                            <div class="col-12 col-md-4 mb-3">
+                                <h5 class="border-bottom pb-2">{#hersteller#}</h5>
+                                <div class="filter-options manufacturer-filter-options">
+                                    {foreach from=$MANUFACTURERS item=manufacturer}
+                                        <div class="custom-control custom-checkbox mb-2">
+                                            <input 
+                                                type="checkbox" 
+                                                class="custom-control-input filter-checkbox modal-filter-checkbox manufacturer-checkbox" 
+                                                id="modal-filter-73-{$manufacturer.values_id}"
+                                                name="filter[73][]" 
+                                                value="{$manufacturer.values_id}"
+                                                data-filter-id="73"
+                                                data-value-id="{$manufacturer.values_id}"
+                                                data-filter-name="Hersteller"
+                                                data-value-name="{$manufacturer.manufacturer_name}"
+                                                data-sort-order="0"
+                                                {if $manufacturer.selected}checked{/if}
+                                            >
+                                            <label class="custom-control-label" for="modal-filter-73-{$manufacturer.values_id}">
+                                                {$manufacturer.manufacturer_name}
+                                                <span class="filter-count text-muted ml-2">({$manufacturer.product_count})</span>
+                                            </label>
+                                        </div>
+                                    {/foreach}
+                                </div>
+                            </div>
+                            {/if}
+                            {foreach from=$FILTERS item=filter}
+                                {if isset($main_filter_priority[$filter.options_id])}
+                                    <div class="col-12 col-md-4 mb-3">
+                                        <h5 class="border-bottom pb-2">{$filter.options_name}</h5>
+                                        <div class="filter-options">
+                                            {foreach from=$filter.values item=value}
+                                                <div class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
+                                                    <input 
+                                                        type="checkbox" 
+                                                        class="custom-control-input filter-checkbox modal-filter-checkbox" 
+                                                        id="modal-filter-{$filter.options_id}-{$value.values_id}"
+                                                        name="filter[{$filter.options_id}][]" 
+                                                        value="{$value.values_id}"
+                                                        data-filter-id="{$filter.options_id}"
+                                                        data-value-id="{$value.values_id}"
+                                                        data-filter-name="{$filter.options_name}"
+                                                        data-value-name="{$value.values_name}"
+                                                        data-sort-order="{$value.sort_order}"
+                                                        {if $value.selected}checked{/if}
+                                                        {if !$value.enabled && !$value.selected}disabled{/if}
+                                                    >
+                                                    <label class="custom-control-label" for="modal-filter-{$filter.options_id}-{$value.values_id}">
+                                                        {$value.values_name}
+                                                        <span class="filter-count text-muted ml-2">({$value.count})</span>
+                                                    </label>
+                                                </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                    
+                    <div id="category-genetics" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {assign var="genetics_filters" value=[12, 59, 71, 72, 31, 9]}
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.options_id, $genetics_filters)}
+                                    <div class="col-12 col-md-4 mb-3">
+                                        <h5 class="border-bottom pb-2">{$filter.options_name}</h5>
+                                        <div class="filter-options">
+                                            {foreach from=$filter.values item=value}
+                                                <div class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
+                                                    <input type="checkbox" class="custom-control-input filter-checkbox modal-filter-checkbox" 
+                                                        id="modal-filter-{$filter.options_id}-{$value.values_id}"
+                                                        name="filter[{$filter.options_id}][]" value="{$value.values_id}"
+                                                        data-filter-id="{$filter.options_id}" data-value-id="{$value.values_id}"
+                                                        data-filter-name="{$filter.options_name}" data-value-name="{$value.values_name}"
+                                                        data-sort-order="{$value.sort_order}"
+                                                        {if $value.selected}checked{/if}
+                                                        {if !$value.enabled && !$value.selected}disabled{/if}
+                                                    >
+                                                    <label class="custom-control-label" for="modal-filter-{$filter.options_id}-{$value.values_id}">
+                                                        {$value.values_name}
+                                                        <span class="filter-count text-muted ml-2">({$value.count})</span>
+                                                    </label>
+                                                </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                    
+                    <div id="category-cultivation" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {assign var="cultivation_filters" value=[15, 60, 34, 27]}
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.options_id, $cultivation_filters)}
+                                    <div class="col-12 col-md-4 mb-3">
+                                        <h5 class="border-bottom pb-2">{$filter.options_name}</h5>
+                                        <div class="filter-options">
+                                            {foreach from=$filter.values item=value}
+                                                <div class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
+                                                    <input type="checkbox" class="custom-control-input filter-checkbox modal-filter-checkbox" 
+                                                        id="modal-filter-{$filter.options_id}-{$value.values_id}"
+                                                        name="filter[{$filter.options_id}][]" value="{$value.values_id}"
+                                                        data-filter-id="{$filter.options_id}" data-value-id="{$value.values_id}"
+                                                        data-filter-name="{$filter.options_name}" data-value-name="{$value.values_name}"
+                                                        data-sort-order="{$value.sort_order}"
+                                                        {if $value.selected}checked{/if}
+                                                        {if !$value.enabled && !$value.selected}disabled{/if}
+                                                    >
+                                                    <label class="custom-control-label" for="modal-filter-{$filter.options_id}-{$value.values_id}">
+                                                        {$value.values_name}
+                                                        <span class="filter-count text-muted ml-2">({$value.count})</span>
+                                                    </label>
+                                                </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                    
+                    <div id="category-taste" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {assign var="taste_filters" value=[64, 65]}
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.options_id, $taste_filters)}
+                                    <div class="col-12 col-md-4 mb-3">
+                                        <h5 class="border-bottom pb-2">{$filter.options_name}</h5>
+                                        <div class="filter-options">
+                                            {foreach from=$filter.values item=value}
+                                                <div class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
+                                                    <input type="checkbox" class="custom-control-input filter-checkbox modal-filter-checkbox" 
+                                                        id="modal-filter-{$filter.options_id}-{$value.values_id}"
+                                                        name="filter[{$filter.options_id}][]" value="{$value.values_id}"
+                                                        data-filter-id="{$filter.options_id}" data-value-id="{$value.values_id}"
+                                                        data-filter-name="{$filter.options_name}" data-value-name="{$value.values_name}"
+                                                        data-sort-order="{$value.sort_order}"
+                                                        {if $value.selected}checked{/if}
+                                                        {if !$value.enabled && !$value.selected}disabled{/if}
+                                                    >
+                                                    <label class="custom-control-label" for="modal-filter-{$filter.options_id}-{$value.values_id}">
+                                                        {$value.values_name}
+                                                        <span class="filter-count text-muted ml-2">({$value.count})</span>
+                                                    </label>
+                                                </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                    
+                    <div id="category-advanced" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {assign var="known_filters" value=[11, 15, 12, 8, 10, 64, 7, 55, 65, 59, 60, 34, 71, 72, 27, 31, 9]}
+                            {foreach from=$FILTERS item=filter}
+                                {if !in_array($filter.options_id, $known_filters)}
+                                    <div class="col-12 col-md-4 mb-3">
+                                        <h5 class="border-bottom pb-2">{$filter.options_name}</h5>
+                                        <div class="filter-options">
+                                            {foreach from=$filter.values item=value}
+                                                <div class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
+                                                    <input type="checkbox" class="custom-control-input filter-checkbox modal-filter-checkbox" 
+                                                        id="modal-filter-{$filter.options_id}-{$value.values_id}"
+                                                        name="filter[{$filter.options_id}][]" value="{$value.values_id}"
+                                                        data-filter-id="{$filter.options_id}" data-value-id="{$value.values_id}"
+                                                        data-filter-name="{$filter.options_name}" data-value-name="{$value.values_name}"
+                                                        data-sort-order="{$value.sort_order}"
+                                                        {if $value.selected}checked{/if}
+                                                        {if !$value.enabled && !$value.selected}disabled{/if}
+                                                    >
+                                                    <label class="custom-control-label" for="modal-filter-{$filter.options_id}-{$value.values_id}">
+                                                        {$value.values_name}
+                                                        <span class="filter-count text-muted ml-2">({$value.count})</span>
+                                                    </label>
+                                                </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" id="reset-modal-filters">
+                    <i class="fa fa-undo mr-1"></i>
+                    {#reset_all_filters#}
+                </button>
+                <button type="button" class="btn btn-success" id="apply-modal-filters">
+                    <i class="fa fa-check mr-1"></i>
+                    {#apply_filters#}
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    {#close_modal#}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

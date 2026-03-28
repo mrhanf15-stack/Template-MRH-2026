@@ -1,0 +1,50 @@
+{config_load file="$language/lang_$language.conf" section="sitemap"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="sitemap"}
+{if isset($herror)}<div class="alert alert-danger">{$herror}</div>{/if}
+{if isset($module_content)}
+<div class="sitemap row clearfix mb-4">
+  <div class="float-left p-2 link">
+  {#cont_site#}
+  </div>
+  {foreach name=aussen item=module_data from=$module_content}
+  <div class="col-sm-6 col-md-4 mb-2">
+    <div class="list-group">
+    <a class="list-group-item list-group-item-info py-2" href="{$module_data.CAT_LINK}" title="{$module_data.CAT_NAME|onlytext}">{$module_data.CAT_NAME}</a>
+    {if $module_data.SCATS|@sizeof != 0}
+      <div class="overflow-auto" style="max-height: 300px;">
+      {foreach key=key_data item=item_data from=$module_data.SCATS}
+      	<a class="list-group-item py-1" href="{$item_data.link}" title="{$item_data.text|onlytext}">{$item_data.text}</a>
+      {/foreach}
+      </div>
+    {/if}
+    </div>
+  </div>
+  {/foreach}
+ 
+
+  {*<!-- BLOG - WEB-LOOKS -->*}
+  {if !empty($BLOG_POSTS_GROUPS)}
+  {foreach name=aussen item=POSTS from=$BLOG_POSTS_GROUPS}
+  <div class="col-sm-6 col-md-4 mb-2">
+    <div class="list-group">
+      <div class="list-group-item list-group-item-info py-2">
+      	{if !empty($POSTS.0.CATEGORIES_NAME)}
+        <a href="{$POSTS.0.CATEGORIES_LINK}" title="{$POSTS.0.CATEGORIES_NAME|onlytext}">{$POSTS.0.CATEGORIES_NAME}</a>
+        {else}
+        <a href="{$BLOG_LINK}" title="{$smarty.const.NAVBAR_TITLE_BLOG|onlytext}">{$smarty.const.NAVBAR_TITLE_BLOG}</a>
+        {/if}
+      </div>
+      <div class="overflow-auto" style="max-height: 300px;">
+      {foreach key=key_data item=item_data from=$POSTS}
+      	<a class="list-group-item py-1" href="{$item_data.LINK}" title="{$item_data.NAME|onlytext}">{$item_data.NAME}</a>
+      {/foreach}
+      </div>
+    </div>
+  </div>
+  {/foreach}
+  {/if}
+  {*<!-- BLOG - WEB-LOOKS -->*}
+ 
+</div>
+{/if}

@@ -1,0 +1,32 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+    	<td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+	</tr>
+	<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+      <font face="Tahoma, Verdana, sans-serif">Lütfen e-posta adresinizi onaylayın</font>
+    </td>
+	</tr>
+	<tr> 
+		<td>
+      <br />
+      <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}Sayın Bay{$NAME},{elseif $GENDER == 'f'}Sayın Bayan{$NAME},{else}Merhaba{/if}</b><br />
+      <br />
+      Mağazamızda sipariş verebilmeniz için önce e-posta adresinizi onaylamanız gerekmektedir. Bu onay, sağlanan e-posta adresinin sahibi olduğunuzu doğrular.<br />
+      <br />
+      Lütfen sipariş verebilmeniz için e-posta adresinizi etkinleştirecek aşağıdaki aktivasyon bağlantısına tıklayın.<br />
+      <br />
+      <b>Aktivasyon bağlantınız:</b><br />
+      <a href="{$LINK}">{$LINK}</a><br />
+      <br />
+      Eğer mağazamıza kaydolmadıysanız, lütfen aktivasyon bağlantısını görmezden gelin.<br />
+      <br />
+      Herhangi bir sorunuz varsa, lütfen bize şu adresten ulaşın: <a href="mailto:{$MAIL_REPLY_ADDRESS}">{$MAIL_REPLY_ADDRESS}</a>
+      </font>
+		</td>
+	</tr>
+</table>
+
+[SIGNATUR]
+</div>

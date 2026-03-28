@@ -1,0 +1,20 @@
+<div style="width:700px; margin: 0 auto;">
+  <table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+    <tr>
+      <td align="center" style="padding: 10px 0;">
+        <img src="{$logo_path}logo.gif" alt="Firmenlogo" />
+      </td>
+    </tr>
+    <tr>
+      <td style="font-size: 14px; text-transform: uppercase; padding: 10px 5px; border-top: 1px dotted #999; border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Su cuenta de cliente se ha creado correctamente</font>     </td>
+    </tr>
+    <tr>
+      <td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif">
+         <b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if}&nbsp;{$NAME}</b> <br /><br />E <b>stimado Sr. Estimada Sra. Hola ,</b>&iexcl;Enhorabuena! <br /><br /> <br /><br /> <br /><br />Su cuenta de cliente ha sido creada con &eacute;xito. Como cliente registrado disfrutar&aacute; de las siguientes ventajas en nuestra tienda:<b>Cesta de la compra del</b><b>cliente</b> - Sus art&iacute;culos se guardar&aacute;n hasta que pase por caja o los elimine de la cesta de la compra. <b>Agenda de</b><b>direcciones</b> - Podemos enviarle sus pedidos a la direcci&oacute;n que usted elija. <br /><br /> <br /><br /> <br /><br />Ideal para regalos de cumplea&ntilde;os. <b>Pedidos</b><b>anteriores</b> - Puede consultar sus pedidos anteriores en cualquier momento. <b>Opiniones sobre</b><b>productos</b> - Comparta su opini&oacute;n sobre nuestros productos con otros clientes.<u>Importante:</u> Esta direcci&oacute;n de correo electr&oacute;nico ha sido facilitada por un cliente. <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a> <br /> {if $SEND_GIFT == true} <br /> <b>{$GIFT_AMMOUNT}</b> <br /><br /> <b>{$GIFT_CODE}</b> Si no se ha registrado, env&iacute;e un correo electr&oacute;nico a: Como regalo de bienvenida le enviaremos un vale por: Su c&oacute;digo de vale personal es . Puede canjear el vale en la caja durante el proceso de pedido. <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a> <br /> {/if}&nbsp;{if $SEND_COUPON == true} <br /> <br /> <b>{$COUPON_DESC}</b> <br /> {$COUPON_CODE} <br /> {/if} <br /> <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a>Para canjear el vale, haga clic en . Tambi&eacute;n recibir&aacute; un vale de bienvenida. Descripci&oacute;n del vale: S&oacute;lo tiene que introducir su c&oacute;digo personal durante el proceso de compra. Si tiene alguna pregunta sobre nuestro servicio de atenci&oacute;n al cliente, p&oacute;ngase en contacto con:</font>   </td>
+    </tr>
+  </table>
+  [SIGNATUR]
+</div>

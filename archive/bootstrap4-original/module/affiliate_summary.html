@@ -1,0 +1,192 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_summary"}
+<h1 class="card p-2 bg-h">{#heading_title#}</h1>
+
+{* ================================================================ *}
+{* WILLKOMMEN & AFFILIATE-ID                                        *}
+{* ================================================================ *}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3><span class="fas fa-tachometer-alt"></span> {#text_greeting#}<strong>{$affiliate.affiliate_firstname}&nbsp;{$affiliate.affiliate_lastname}</strong></h3>
+                <p>{#text_dashboard_welcome#}</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <p class="small mb-0">{#text_dashboard_partner_id#}</p>
+                        <h2 class="font-weight-bold text-primary mb-0">{$affiliate.affiliate_id}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* STATISTIK-ÜBERSICHT                                              *}
+{* ================================================================ *}
+<div class="card mb-4">
+    <div class="card-header bg-h">
+        <h4 class="mb-0"><span class="fas fa-chart-bar"></span> {#text_summary_title#}</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-eye fa-2x text-info mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_impressions#}{$LINK_IMPRESSION}{#text_summary_help#}</a></p>
+                        <h4 class="font-weight-bold">{$affiliate_impressions}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-mouse-pointer fa-2x text-primary mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_visits#}{$LINK_VISIT}{#text_summary_help#}</a></p>
+                        <h4 class="font-weight-bold">{$affiliate_clickthroughs}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-shopping-cart fa-2x text-success mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_transactions#}{$LINK_TRANSACTIONS}{#text_summary_help#}</a></p>
+                        <h4 class="font-weight-bold">{$affiliate_transactions}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-percent fa-2x text-warning mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_conversions#}{$LINK_CONVERSION}{#text_summary_help#}</a></p>
+                        <h4 class="font-weight-bold">{$affiliate_conversions}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-money-bill-wave fa-2x text-success mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_amount#}{$LINK_AMOUNT}{#text_summary_help#}</a></p>
+                        <h4 class="font-weight-bold">{$affiliate_amount}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-calculator fa-2x text-secondary mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_average#}{$LINK_AVERAGE}{#text_summary_help#}</a></p>
+                        <h4 class="font-weight-bold">{$affiliate_average}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {* PROVISION *}
+        <div class="row mt-2">
+            <div class="col-md-6 mb-3">
+                <div class="card bg-light text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-percent fa-2x text-primary mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_comission_rate#}{$LINK_COMISSION_RATE}{#text_summary_help#}</a></p>
+                        <h3 class="font-weight-bold text-primary">{$affiliate_percent}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card bg-success text-white text-center h-100">
+                    <div class="card-body">
+                        <span class="fas fa-money-bill-wave fa-2x mb-2 affiliate-icon-block"></span>
+                        <p class="small mb-1">{#text_comission#}{$LINK_COMISSION}{#text_summary_help#}</a></p>
+                        <h3 class="font-weight-bold">{$affiliate_commission}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* TIER-SYSTEM (falls aktiviert)                                    *}
+{* ================================================================ *}
+{if AFFILIATE_USE_TIER == 'true'}
+<div class="card mb-4">
+    <div class="card-header bg-h">
+        <h4 class="mb-0"><span class="fas fa-sitemap"></span> {#text_summary_title_tier#}</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                {foreach item=tl from=$tiers_array}
+                <tr>
+                    <td>{#text_commission_rate_tier#}{$tl.level_percent}</td>
+                    <td>{#text_commission_tier_count#}{$tl.level_count}</td>
+                    <td>{#text_commission_tier_total#}{$tl.level_total}</td>
+                    <td>{#text_commission_tier#}{$tl.level_payment}</td>
+                </tr>
+                {/foreach}
+            </table>
+        </div>
+    </div>
+</div>
+{/if}
+
+{* ================================================================ *}
+{* SCHNELLZUGRIFF                                                   *}
+{* ================================================================ *}
+<div class="card mb-4">
+    <div class="card-header bg-h">
+        <h4 class="mb-0"><span class="fas fa-th-large"></span> {#text_summary#}</h4>
+    </div>
+    <div class="card-body">
+        <div class="row text-center">
+            <div class="col-md-4 mb-2">
+                {$LINK_BANNER}
+            </div>
+            <div class="col-md-4 mb-2">
+                {$LINK_CLICKS}
+            </div>
+            <div class="col-md-4 mb-2">
+                {$LINK_SALES}
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* PRODUKT-FEED SCHNELLZUGRIFF                                      *}
+{* ================================================================ *}
+{if isset($AFFILIATE_API_KEY) && $AFFILIATE_API_KEY neq ''}
+<div class="card mb-4 border-warning">
+    <div class="card-header bg-warning text-dark">
+        <h4 class="mb-0"><span class="fas fa-rss"></span> {#text_feed_quick_access#}</h4>
+    </div>
+    <div class="card-body">
+        <p>{#text_feed_quick_desc#}</p>
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <a href="{$FEED_CSV_URL}" class="btn btn-success btn-block" target="_blank">
+                    <span class="far fa-file-alt"></span> {#text_feed_csv_download#}
+                </a>
+            </div>
+            <div class="col-md-4 mb-2">
+                <a href="{$FEED_XML_URL}" class="btn btn-primary btn-block" target="_blank">
+                    <span class="fas fa-code"></span> {#text_feed_xml_download#}
+                </a>
+            </div>
+            <div class="col-md-4 mb-2">
+                <a href="{$LINK_BANNER_RAW}" class="btn btn-secondary btn-block">
+                    <span class="fas fa-key"></span> {#text_feed_all_feeds#}
+                </a>
+            </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0"><span class="fas fa-info-circle"></span> {#text_feed_api_key#}: <code>{$AFFILIATE_API_KEY}</code></p>
+    </div>
+</div>
+{/if}

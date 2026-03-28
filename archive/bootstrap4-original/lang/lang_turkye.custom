@@ -1,0 +1,162 @@
+BS4_catlist_title = 'Tedarik Listemiz'
+
+BS4_heading_custombox = 'Ek Kutu'
+BS4_text_custombox = 'Kutu, bootstrap4/boxes/box_custom.html altında değiştirilebilir. Dil değişkenleri templates/bootstrap4/lang/lang_german.custom dosyasında bulunur!'
+
+BS4_alert_qty_wanted = 'istenen'
+BS4_alert_qty_available = 'mevcut'
+
+BS4_heading_text_top = 'En Popüler Ürünler'
+
+BS4_top1 = '<span class="fa fa-truck fa-lg" aria-hidden="true"></span>  AT ve DE için ÜCRETSİZ Teslimat - 75€ üzeri'
+BS4_top2 = '<span class="fa fa-shipping-fast fa-lg" aria-hidden="true"></span>  Hızlı Teslimat'
+BS4_top3 = '<span class="fa fa-user-friends fa-lg" aria-hidden="true"></span>  Destek +43 (0) 512 312 411'
+BS4_top4 = '<span class="fa fa-envelope  fa-lg" aria-hidden="true"></span>  <a class="iframe" href="/popup_content.php?coID=46" rel="nofollow" target="_blank" title="Mektup Siparişi" data-src="/popup_content.php?coID=46" data-toggle="modal" data-target="#modal">Mektup Siparişi</a>'
+
+BS4_special = 'Teklif'
+BS4_top = 'Popüler'
+BS4_new = 'Yeni'
+
+BS4_agb = 'Koşullarımız'
+
+BS4_closex = 'X'
+BS4_close = 'Kapat'
+
+BS4_noscript = '<span class="font-weight-bold">JavaScript devre dışı!</span> Tüm mağaza fonksiyonlarına erişiminiz yoktur. Lütfen tarayıcı ayarlarınızı kontrol edin.'
+BS4_heading_responsivemenu = 'Menü'
+BS4_heading_sidebar = 'Kenar Çubuğu'
+BS4_checkout_express_infolinktext = 'Hızlı Satın Al'
+
+BS4_zoomtext = 'Daha büyük bir görüntü için önizleme resmine tıklayın'
+
+BS4_customers_remind_leider_vergriffen = 'Maalesef tükendi!<br/>Yeni teslimat tarihi hakkında buradan bilgi alın.<br/>'
+BS4_customers_remind_daten_eingetragen = 'Teşekkürler, bilgileriniz kaydedildi!'
+BS4_customers_remind_box_heading = 'Ürün şu anda stokta değil. Yeniden tedarik edildiğinde bilgilendirilmek isterseniz buraya kaydolun.<br /><br />'
+BS4_customers_remind_box_heading2 = 'Ürün tekrar stokta olduğunda sizi bilgilendirmekten memnuniyet duyarız!<br />'
+BS4_customers_remind_box_firstname = 'Ad:'
+BS4_customers_remind_box_lastname = 'Soyad:'
+BS4_customers_remind_box_mail = 'E-posta adresi:'
+BS4_customers_remind_box_email_head1 = 'Ürün hatırlatması: '
+BS4_customers_remind_box_email_head2 = ' yeniden stokta'
+BS4_customers_remind_box_st = 'Adet:'
+BS4_customers_remind_box_stk = 'Adet'
+BS4_customers_remind_box_art = 'Ürün:'
+BS4_customers_remind_box_info = 'Lütfen istediğiniz adedi girin:'
+BS4_customers_remind_box_guest = 'Gizlilik nedeniyle, sadece kayıtlı kullanıcılar bu hizmete kayıt olabilirler.'
+BS4_customers_remind_box_success = 'Zaten kayıtlısınız!'
+BS4_customers_remind_added = '<h1>Teşekkürler!</h1><p>E-posta adresiniz başarıyla kaydedildi!</p>'BS4_text_firstname = 'Ad:'
+
+BS4_text_firstname = 'Adı:'
+BS4_text_lastname = 'Soyad:'
+BS4_text_subject = 'Konu:'
+BS4_text_salutation = 'Hitap:'
+BS4_text_competitor_url = 'Rakip URL:'
+BS4_text_competitor_price = 'Rakip Fiyatı (Euro cinsinden):'
+BS4_text_sec_code = 'Güvenlik kodu'
+BS4_text_inp_code = 'Lütfen güvenlik kodunu buraya girin:'
+bs4_text_privacy_accept = 'Gizlilik politikasını kabul ediyorum.'
+BS4_text_pflicht = '* Zorunlu alanlar!'
+		   
+
+text_shippingtime_box = 'Teslim süresi:'
+
+products_desc = 'Ürün Açıklaması'
+products_fsk18_check = 'Bu madde sadece yaş doğrulamasının yapıldığından sonra satın alınabilir.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Özellikler'
+heading_products_tags = 'Ürün Özellikleri'
+
+first = '« İlk'
+back = '« önceki'
+overview = 'Genel Bakış'
+next = 'sonraki »'
+last = 'Son »'
+
+heading_miscellaneous = 'Ödeme yöntemleri'
+text_miscellaneous = 'Kutu, bootstrap4/boxes/box_miscellaneous.html altında değiştirilebilir. Dil değişkenleri bootstrap4/lang/german/lang_german.custom dosyasında bulunur.'
+
+ab_admin = 'Yönetici Alanı'
+ab_orders = 'Siparişler'
+ab_contentmanager = 'İçerik Yöneticisi'
+ab_customers = 'Müşteriler'
+ab_category = 'Kategoriler/Ürünler'
+ab_logoff = 'Çıkış Yap'
+ab_news = 'Haberler'
+ab_offline = 'Mağaza Kapalı'
+ab_update = 'Güncelleme'
+ab_support = 'Destek'
+ab_shop = 'Mağaza'
+ab_caching = 'Önbellekleme'
+
+ab_edit_content = 'İçerik Düzenle'
+ab_edit_product = 'Ürün Düzenle'
+ab_edit_attributes = 'Özellikleri Düzenle'
+ab_edit_category = 'Kategori Düzenle'
+ab_edit_xsell = 'Çapraz Satış Düzenle'
+ab_edit_tags = 'Ürün Özellikleri Düzenle'
+
+info_reviews = 'Değerlendirmeler:'
+info_review = 'Değerlendirme:'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = 'Arama kriterlerine uygun sonuç bulunamadı'
+
+listing_listview = 'Liste Görünümü'
+listing_boxview = 'Kutu Görünümü'
+
+# blog
+ab_blog = 'Blog'
+ab_edit_blog_post = 'Beitrag bearbeiten'
+ab_edit_blog_category = 'Kategorie bearbeiten'
+
+# custom
+none_customer ='&nbsp;&nbsp;Misafir olarak sipariş vermek'
+
+zahlungsweisen = 'Ödeme Yöntemleri'
+liefernmit = 'Kargo Şirketi'
+ausblenden = 'Gizle'
+weiterlesen = 'Devamını Oku'
+text_filter = 'Filtre'
+shipping_lager = 'Stokta Var'
+shipping_vergriffen = 'Stokta Yok'
+
+fast_shipp = 'Hızlı<br />Teslimat'
+secuer_shipp = 'Gizli<br />Kargo'
+tracking = 'Gönderi<br />Takibi'
+saye_pay = 'Güvenli<br />Ödeme'
+shipping_1_3werktage = 'yaklaşık 2-4 gün'
+item_Lagernd = 'Sadece'
+item_stuek = 'adet stokta'
+morethen = '<span class="ml-2" style="color: #277602">Yaklaşık 1-3 iş gününde gönderilir</span>'
+link_shipping_info = 'burada'
+text_shipping_info = 'Avusturya (Tehlikeli / kısıtlı ürünler hariç) teslimatları için geçerlidir.'
+kostenlos = '75€ üzeri ÜCRETSİZ teslimat'
+
+# box_add_a_quickie
+anfaenger = 'Başlangıç için En İyi 10 Tohum'
+top_cannabissamen = 'En İyi 10 Kenevir Tohumu'
+top_haze = 'En İyi 10 Haze Çeşidi'
+top_indica = 'En İyi 10 Indica Çeşidi'
+top_samenbanken = 'En İyi 10 Tohum Bankası'
+top_reg = 'En İyi 10 Normal Tohum'
+top_auto = 'En İyi 5 Otomatik Çiçeklenme'
+cannabis_cup_sieger = 'Cannabis Kupası Kazananları'
+samen_unter = '1% THC&apos;nin Altındaki En İyi Tohumlar'
+hall_of_fame = 'Hall of Fame En İyi 20'
+top_empfehlung = 'Tavsiyelerimiz'
+
+# Newsletter
+new_anmelden = '<p class="mb-2 mt-2" style="color:white"><strong style="color:white">Güncel kalmak istiyor musunuz?</strong> O zaman buradan bültenimize kaydolun</p>'
+new_reg = 'Kaydınızı onaylayın - size bir e-posta gönderdik'
+err_ung = 'Geçersiz e-posta'
+err_vorhanden = 'E-posta zaten mevcut'
+butt_send = 'Gönder'
+new_support = 'Destek'
+new_soz = 'Sosyal Medya'
+BS4_marken = 'Markalar'
+BS4_blog = 'Blog'
+
+# EMAIL CONFIRMATION
+email_confirmation_info = 'Kayıttan sonra e-posta adresinizi onaylamanız gerekmektedir. Bunun için size bir onay linki içeren bir e-posta göndereceğiz. E-posta adresinin sahibi olduğunuzu doğrulamak için linke tıklayın. Onay işlemi tamamlandıktan sonra sipariş verebilirsiniz.'
+

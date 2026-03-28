@@ -1,0 +1,247 @@
+<script type="application/ld+json">
+{literal}
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "{/literal}{$index}{literal}",
+  "logo": "{/literal}{$tpl_path}{$smarty.const.BS4_SHOP_LOGO}{literal}"
+}
+{/literal}
+</script>
+
+
+{if $smarty.const.BS4_SEARCHFIELD_PERMANENT != 'true'}
+<div id="logobar" class="row text-center text-md-left mb-3">
+	<a class="nav-logo col-12 col-md-4" {if !isset($home) || $home == false}href="{$index}"{/if} title="{#link_index#} &bull; {$store_name}">
+    <!-- Halloween Logo Container -->
+    <div class="halloween-logo-container">
+        <img src="{$tpl_path}img/logo_head_-Halloween.png" class="img-fluid logo-halloween flicker" alt="{$store_name} Halloween" title="{$store_name}" width="300" height="171" id="logoHalloween" />
+        <img src="{$tpl_path}{$smarty.const.BS4_SHOP_LOGO}" class="img-fluid logo-original" alt="{$store_name}" title="{$store_name}" id="logoOriginal" width="300" height="171"  />
+    </div>
+    </a>
+	<ul class="nav col-12 col-md-8 mt-3 justify-content-end">
+		<li class="nav-item home">
+			<a class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_index#}" {if !isset($home) || $home == false}href="{$index}"{/if}>
+				<span class="fa fa-home fa-lg"></span>
+				{if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_index#}</span>{/if}
+			</a>
+		</li>
+		{if isset($box_LANGUAGES) && $box_LANGUAGES != ''}{$box_LANGUAGES}{/if}
+<!-- Account Dropdown mit optimierter Bootstrap 4 Struktur und FontAwesome 4 Icons -->
+<li class="nav-item dropdown mx-1 d-flex align-items-center">
+    <a id="account-dd" href="#" class="nav-link text-center {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_account#}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+        {if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_account#}</span>{/if}
+    </a>
+    <div class="dropdown-menu dropdown-menu-right shadow-sm border-0 toggle_account" aria-labelledby="account-dd">
+        {if isset($account)}
+        <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'account') !== false && strpos($smarty.server.PHP_SELF, 'create_account') === false} active{/if}" href="{$account}">
+            <i class="fa fa-user-circle fa-fw mr-2" aria-hidden="true"></i>{#link_account#}
+        </a>
+        {/if}
+        {if isset($smarty.session.customer_id)}
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'logoff') !== false} active{/if}" href="{$logoff}">
+                <i class="fa fa-power-off fa-fw mr-2" aria-hidden="true"></i>{#link_logoff#}
+            </a>
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'checkout') !== false} active{/if}" href="{$checkout}">
+                <i class="fa fa-shopping-cart fa-fw mr-2" aria-hidden="true"></i>{#link_checkout#}
+            </a>
+        {else}
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'create_account') !== false} active{/if}" href="{$create_account}">
+                <i class="fa fa-user-plus fa-fw mr-2" aria-hidden="true"></i>{#new_customer#}
+            </a>
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'login') !== false} active{/if}" href="{$login}">
+                <i class="fa fa-sign-in fa-fw mr-2" aria-hidden="true"></i>{#link_login#}
+            </a>
+        {/if}
+    </div>
+</li>
+
+{if isset($smarty.session.customer_id)}
+<li class="nav-item mx-1 d-flex align-items-center">
+    <a class="nav-link text-center {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_logoff#}" href="{$logoff}">
+        <i class="fa fa-power-off fa-lg" aria-hidden="true"></i>
+        {if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_logoff#}</span>{/if}
+    </a>
+</li>
+{/if}
+
+		{if isset($box_WISHLIST)}{$box_WISHLIST}{/if}
+		{if isset($box_CART)}{$box_CART}{/if}
+		{if isset($box_SEARCH)}{$box_SEARCH}{/if}
+	</ul>
+</div>
+{else}
+<div id="logobar" class="row text-center text-md-left mb-3">
+	<a class="nav-logo col-12 col-md-4" {if !isset($home) || $home == false}href="{$index}"{/if} title="{#link_index#} &bull; {$store_name}">
+    <!-- Halloween Logo Container -->
+    <div class="halloween-logo-container">
+        <img src="{$tpl_path}img/logo_head_-Halloween.png" class="img-fluid logo-halloween" alt="{$store_name} Halloween" title="{$store_name}" id="logoHalloween2" />
+        <img src="{$tpl_path}{$smarty.const.BS4_SHOP_LOGO}" class="img-fluid logo-original" alt="{$store_name}" title="{$store_name}" id="logoOriginal2" />
+    </div>
+    </a>
+	<div class="col-12 col-md-8">
+		<div class="row justify-content-end w-100">
+			{if !empty($box_SHIPPING_COUNTRY_2)}<div class="nav-item w-25 mt-2">{$box_SHIPPING_COUNTRY_2}</div>{/if}
+			{if isset($box_SEARCH)}{$box_SEARCH}{/if}
+			<ul class="nav col-12 justify-content-end mt-2">
+				<li class="nav-item home">
+					<a class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_index#}" {if !isset($home) || $home == false}href="{$index}"{/if}>
+						<span class="fa fa-home fa-lg"></span>
+						{if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_index#}</span>{/if}
+					</a>
+				</li>
+				{if isset($box_LANGUAGES) && $box_LANGUAGES != ''}{$box_LANGUAGES}{/if}
+		<!-- Account Dropdown mit optimierter Bootstrap 4 Struktur und FontAwesome 4 Icons -->
+<li class="nav-item account dropdown d-flex align-items-center">
+    <a id="account-dd" href="#" class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_account#}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+        {if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_account#}</span>{/if}
+    </a>
+    <div class="dropdown-menu dropdown-menu-right shadow-sm toggle_account" aria-labelledby="account-dd">
+        {if isset($account)}<a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'account') !== false && strpos($smarty.server.PHP_SELF, 'create_account') !== false} active{/if}" href="{$account}"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_account#}</a>{/if}
+        {if isset($smarty.session.customer_id)}
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'logoff') !== false} active{/if}" href="{$logoff}"><i class="fa fa-power-off fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_logoff#}</a>
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'checkout') !== false} active{/if}" href="{$checkout}"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_checkout#}</a>
+        {else}
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'login') !== false} active{/if}" href="{$login}"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_login#}</a>
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'create_account') !== false} active{/if}" href="{$create_account}"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#new_customer#}</a>
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'create_guest_account') !== false} active{/if}" href="{$smarty.const.FILENAME_CREATE_GUEST_ACCOUNT|xtc_href_link}"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>{#none_customer#}</a>
+            
+        {/if}
+    </div>
+</li>
+
+				{if isset($smarty.session.customer_id)}
+					<li class="nav-item">
+						<a class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_logoff#}" href="{$logoff}">
+							<span class="fa fa-sign-out-alt fa-lg"></span>
+							{if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_logoff#}</span>{/if}
+						</a>
+					</li>
+				{/if}
+				{if isset($box_WISHLIST)}{$box_WISHLIST}{/if}
+				{if isset($box_CART)}{$box_CART}{/if}
+			</ul>
+		</div>
+	</div>
+</div>
+{/if}
+
+<!-- Halloween Logo Animation Script -->
+<script>
+(function() {
+    let flickerInterval = null;
+    
+    // Funktion zur Überprüfung, ob wir in der Halloween-Periode sind
+    function isHalloweenPeriod() {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        
+        // Startdatum: 1. Oktober des aktuellen Jahres
+        const startDate = new Date(currentYear, 9, 1, 0, 0, 0);
+        
+        // Halloween Ende: 31. Oktober 23:59:59
+        const halloween = new Date(currentYear, 9, 31, 23, 59, 59);
+        
+        return now >= startDate && now <= halloween;
+    }
+    
+    // Funktion zur Überprüfung, ob Halloween vorbei ist (ab 1. November)
+    function isAfterHalloween() {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const afterHalloween = new Date(currentYear, 10, 1, 0, 0, 0);
+        
+        return now >= afterHalloween;
+    }
+    
+    // Funktion für den Flicker-Effekt (blendet Halloween-Logo ein)
+    function flickerToHalloween() {
+        const logoHalloween1 = document.getElementById('logoHalloween');
+        const logoHalloween2 = document.getElementById('logoHalloween2');
+        
+        // Blende Halloween-Logo ein (600ms Einblendung)
+        if (logoHalloween1) {
+            logoHalloween1.style.opacity = 1;
+            // Nach 600ms wieder ausblenden
+            setTimeout(() => {
+                logoHalloween1.style.opacity = 0;
+            }, 4800);
+        }
+        
+        if (logoHalloween2) {
+            logoHalloween2.style.opacity = 1;
+            setTimeout(() => {
+                logoHalloween2.style.opacity = 0;
+            }, 4800);
+        }
+    }
+    
+    // Funktion zum Setzen des finalen Zustands
+    function setFinalState() {
+        const logoHalloween1 = document.getElementById('logoHalloween');
+        const logoHalloween2 = document.getElementById('logoHalloween2');
+        
+        if (isAfterHalloween()) {
+            // Nach Halloween: Nur Standard-Logo (Halloween-Logo unsichtbar)
+            if (logoHalloween1) logoHalloween1.style.opacity = 0;
+            if (logoHalloween2) logoHalloween2.style.opacity = 0;
+            
+            // Stoppe Flicker-Interval
+            if (flickerInterval) {
+                clearInterval(flickerInterval);
+                flickerInterval = null;
+            }
+        } else if (isHalloweenPeriod()) {
+            const now = new Date();
+            
+            // Wenn wir am 31. Oktober sind
+            if (now.getDate() === 31 && now.getMonth() === 9) {
+                // Zeige Halloween-Logo permanent
+                if (logoHalloween1) logoHalloween1.style.opacity = 1;
+                if (logoHalloween2) logoHalloween2.style.opacity = 1;
+                
+                // Stoppe Flicker-Interval
+                if (flickerInterval) {
+                    clearInterval(flickerInterval);
+                    flickerInterval = null;
+                }
+            } else {
+                // Vor dem 31. Oktober: Standard-Logo mit Flicker-Effekt
+                if (logoHalloween1) logoHalloween1.style.opacity = 0;
+                if (logoHalloween2) logoHalloween2.style.opacity = 0;
+                
+                // Starte Flicker-Interval, falls noch nicht gestartet
+                if (!flickerInterval) {
+                    flickerInterval = setInterval(flickerToHalloween, 20000); // Alle 20 Sekunden
+                }
+            }
+        } else {
+            // Außerhalb der Halloween-Periode: Nur Standard-Logo
+            if (logoHalloween1) logoHalloween1.style.opacity = 0;
+            if (logoHalloween2) logoHalloween2.style.opacity = 0;
+            
+            // Stoppe Flicker-Interval
+            if (flickerInterval) {
+                clearInterval(flickerInterval);
+                flickerInterval = null;
+            }
+        }
+    }
+    
+    // Initiale Einstellung
+    setFinalState();
+    
+    // Überprüfe den Status alle 30 Sekunden
+    setInterval(setFinalState, 30000);
+    
+    // Überprüfe auch bei Sichtbarkeitswechsel (z.B. Tab-Wechsel)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            setFinalState();
+        }
+    });
+})();
+</script>
+

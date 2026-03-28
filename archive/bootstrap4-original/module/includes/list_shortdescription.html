@@ -1,0 +1,98 @@
+<div class="pd_summarybox" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <div class="card bg-custom text-right p-2 mb-2">
+      <meta itemprop="url" content="{$PRODUCTS_LINK}"/>
+      <meta itemprop="priceCurrency" content="{$smarty.session.currency}"/>
+     {if isset($PRODUCTS_EXPIRES_C) && $PRODUCTS_EXPIRES_C}
+    <meta itemprop="priceValidUntil" content="{$PRODUCTS_EXPIRES_C|escape:'htmlall':'UTF-8'}"/>
+{/if}{if !$availabilitySet}
+    {if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}
+        <meta itemprop="availability" content="http://schema.org/OutOfStock"/>
+    {elseif $PRODUCTS_QUANTITY > 0 && $smarty.const.STOCK_CHECK == 'true'}
+        <meta itemprop="availability" content="http://schema.org/InStock"/>
+    {else}
+        <meta itemprop="availability" content="http://schema.org/BackOrder"/>
+    {/if}
+    {assign var="availabilitySet" value=true}
+{/if}
+{if $PRODUCTS_MANUFACTURERS_MODEL !=''}
+      <meta itemprop="mpn" content="{$PRODUCTS_MANUFACTURERS_MODEL}"/>
+      {/if}
+      <meta itemprop="itemCondition" content="http://schema.org/NewCondition"/>
+      <div class="pd_price">{if $PRODUCTS_FSK18=='true'}
+        <div class="pd_fsk18"></div>
+        {/if}{foreach name=inner item=price_data from=$PRODUCTS_PRICE_ARRAY}{include file="module/includes/price_info.html"}{/foreach}</div>
+      {if $PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG !='NotAllowed'}{if $PRODUCTS_VPE}
+      <div class="pd_vpe text-secondary">{$PRODUCTS_VPE}</div>
+      {/if}
+      <div class="pd_tax text-secondary small">{$PRODUCTS_TAX_INFO}{if $PRODUCTS_SHIPPING_LINK}{$PRODUCTS_SHIPPING_LINK}{/if}</div>
+      {/if}{if $ADD_CART_BUTTON=='' && $PRODUCTS_FSK18=='true'}
+      <div class="pd_inforow_message text-danger small">{#products_fsk18_check#}</div>
+      {/if}</div>
+    {if isset($MODULE_graduated_price) && $MODULE_graduated_price !=''}{$MODULE_graduated_price}{/if}</div>
+  <div class="pd_infobox">
+    <div class="bg-custom teabls table-striped">
+ 
+		
+    <table class="tebals wite">
+      <tbody>
+     {if isset($MANUFACTURER) && $MANUFACTURER !=''}
+      <div class="small" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+             <meta itemprop="name" content="{$MANUFACTURER}" />
+        <tr>
+          <td><span class="font-weight-bold">{#manufacturer#}</span></td>
+          <td class="zentriert"><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a></td>
+        </tr>
+      </div>
+      {/if}{if $PRODUCTS_MODEL !=''}
+      <tr>
+        <td><meta itemprop="sku" content="{$PRODUCTS_MODEL}"/><span class="font-weight-bold">{#model#}</span></td>
+        <td>{$PRODUCTS_MODEL}</td>
+      </tr>
+      {/if}{if $PRODUCTS_EAN !=''}
+      <tr>
+          <td  class="small"><span class="font-weight-bold">{#ean#}</span></td>
+          <td  class="small"><span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></td>
+      </tr>
+      {/if}
+      {if $SHIPPING_NAME}<tr>
+        <td><span class="font-weight-bold">{#text_shippingtime#}</span></td>
+        <td>{$SHIPPING_NAME_LINK}{/if}{if isset($PRODUCTS_DISCOUNT) && $PRODUCTS_DISCOUNT !=''}
+          <div class="small"><span class="font-weight-bold">{#text_discount#}</span>{$PRODUCTS_DISCOUNT}</div>
+          </td></tr> {/if}{if $PRODUCTS_EXPIRES} 
+      <tr>
+        <td><div class="text-danger"><span class="font-weight-bold">{#text_expires_date#}</span> </div></td>
+        <td><div class="text-danger"><span class="font-weight-bold">{$PRODUCTS_EXPIRES}</span> </div></td>
+        {/if}{if $PRODUCTS_MANUFACTURERS_MODEL !=''}
+      
+          <td  class="small"><span class="font-weight-bold">{#products_manufacturer_model#}</span></td>
+          <td  class="small">{$PRODUCTS_MANUFACTURERS_MODEL}</td>
+      </tr>
+       {/if} 
+      </tbody>
+    </table> 	{if $PRODUCTS_URL !=''} 
+        <div class="pd_infobox"><div class="card bg-custom p-2 mb-2 table-striped tebals">
+      <div class="small">{$PRODUCTS_URL}</div></div></div>
+		 
+      {/if}{if $PRODUCTS_RATING_COUNT > 0 || $BS4_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
+<div class="card p-2 mt-2">
+    {if $PRODUCTS_RATING_COUNT > 1 || $BS4_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
+    <div class="pd_inforow" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">{if $BS4_AWIDS_PRODUCTS_AVERAGE_PERCENT}
+      <div class="d-inline"><a class="bs4_avg_container" href="#" data-pid="{$PRODUCTS_ID}" data-class="prod" title="{$smarty.const.BS4_AWIDSRATINGBREAKDOWN_ARROW_TITLE}"><span class="ratings"><span class="fas empty-stars"></span><span class="fas full-stars" style="width:{$BS4_AWIDS_PRODUCTS_AVERAGE_PERCENT}%"></span></span>&nbsp;({$BS4_AWIDS_PRODUCTS_SUM_REVIEWS})<i class="fas fa-chevron-down"></i></a></div>
+      {else}<span class="rating_stars"><img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png" alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}"/></span>&nbsp;({$PRODUCTS_RATING_COUNT}){/if}
+      <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}"/>
+      <meta itemprop="bestRating" content="5"/>
+      <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}"/>
+    </div>
+    {elseif $PRODUCTS_RATING_COUNT > 0}
+    {if $BS4_AWIDS_PRODUCTS_AVERAGE_PERCENT}<div class="pd_inforow small" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+      <div class="d-inline"><a class="bs4_avg_container" href="#" data-pid="{$PRODUCTS_ID}" data-class="prod" title="{$smarty.const.BS4_AWIDSRATINGBREAKDOWN_ARROW_TITLE}"><span class="ratings"><span class="fas empty-stars"></span><span class="fas full-stars" style="width:{$BS4_AWIDS_PRODUCTS_AVERAGE_PERCENT}%"></span></span>&nbsp;({$BS4_AWIDS_PRODUCTS_SUM_REVIEWS})<i class="fas fa-chevron-down"></i></a></div>
+      {else}<span class="rating_stars"><img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png" alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}"/></span>&nbsp;({$PRODUCTS_RATING_COUNT}){/if}
+      <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}"/>
+      <meta itemprop="bestRating" content="5"/>
+      <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}"/>
+    </div> 
+    {/if}
+</div>
+{/if} </div>
+  {if !empty($PRODUCTS_SHORT_DESCRIPTION)}<div class="bg-custom teabls mb-2 mt-2 table-striped">{$PRODUCTS_SHORT_DESCRIPTION}</div>{/if}
+ 

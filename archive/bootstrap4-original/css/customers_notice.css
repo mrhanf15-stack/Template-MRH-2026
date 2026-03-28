@@ -1,0 +1,65 @@
+/**
+ * Customers notice
+ * 
+ * @author    Timo Paul <mail@timopaul.biz>
+ * @copyright (c) 2014, Timo Paul Dienstleistungen
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html
+ *            GNU General Public License (GPL), Version 2.0
+ */
+ 
+#customers-notice-overlay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  z-index: 561;
+}
+
+#customers-notice-modal {
+  position: absolute;
+  background: rgba(0,0,0,0.2);
+  border-radius: 14px;
+  padding: 8px;
+  z-index: 562;
+}
+
+#customers-notice-content {
+  border-radius: 8px;
+  background: #fff;
+  padding: 20px;
+  max-width: 100%;
+}
+
+#customers-notice-close {
+  position: absolute;
+  display: block;
+  top: -10px;
+  right: -10px;
+  color: #222;
+  background-color: #ddd;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+#customers-notice-content form.newsletter {
+  margin: 20px 0;
+}
+
+#customers-notice-content form.newsletter .inputWrapper {
+  width: 250px;
+  max-width: 100%;
+  min-width: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+#customers-notice-content form.newsletter input[type="image"] {
+  position: absolute;
+  right: 0px;
+  top: 0px;  
+}

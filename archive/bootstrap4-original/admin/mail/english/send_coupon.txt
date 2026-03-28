@@ -1,0 +1,10 @@
+{$MESSAGE}
+
+You can redeem the coupon with your order. To do this, enter your coupon code in the field for voucher/coupon codes.
+
+Your coupon code is: {$COUPON_ID}
+
+Keep your coupon code safe so that you can benefit from this offer
+the next time you visit us at {$WEBSITE}.
+
+[SIGNATURE]

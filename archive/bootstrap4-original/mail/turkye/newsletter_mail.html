@@ -1,0 +1,74 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+
+	<tr> 
+
+    	<td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+
+	</tr>
+
+	<tr> 
+
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+
+      <font face="Tahoma, Verdana, sans-serif">Bülten Aboneliği</font>
+
+    </td>
+
+	</tr>
+
+	<tr> 
+
+		<td>
+
+      <br />
+
+      <font size="2" face="Tahoma, Verdana, sans-serif"><b>Bültenimize abone olduğunuz için teşekkür ederiz.</b><br />
+
+			<br />
+
+			{if isset($LINK)}
+
+      Bültenimizi almak istediğiniz için bu e-postayı alıyorsunuz.<br />
+
+      <br />
+
+      E-posta adresinizin bülten alımı için etkinleştirilmesi için lütfen etkinleştirme bağlantısına tıklayın.<br />
+
+      <br />
+
+      <b>Aktivasyon bağlantınız:</b><br />
+
+      <a href="{$LINK}">{$LINK}</a><br />
+
+      <br />
+
+      Bültenimize kaydolmamışsanız veya bülten almayı istemiyorsanız, lütfen aktivasyon bağlantısını görmezden gelin.<br />
+
+      <br />
+
+      Bülten gönderimine ilişkin rızanız her zaman geri alınabilir. Bülten gönderimi, gizlilik politikamıza göre gerçekleştirilir.<br />
+
+      {/if}
+  {if $SEND_GIFT == true}
+  <br />
+  Küçük bir hediye olarak size şu değerde bir kupon gönderiyoruz: <b>{$GIFT_AMMOUNT}</b><br />
+  <br />
+  Kişisel kupon kodunuz <b>{$GIFT_CODE}</b>. Bu krediyi, sipariş işlemi sırasında kasada kullanabilirsiniz.
+  Kuponu kullanmak için lütfen <a href="{$GIFT_LINK}">[Kuponu Kullan]</a> bağlantısına tıklayın.<br />
+  {/if}
+
+  {if $SEND_COUPON == true}
+  <br />
+  Küçük bir hediye olarak size bir kupon gönderiyoruz.<br />
+  Kupon açıklaması: <b>{$COUPON_DESC}</b><br />
+  Ödeme işlemi sırasında sadece kişisel kodunuzu {$COUPON_CODE} girin.<br />
+  {/if}
+  <br />
+  Çevrimiçi teklifimizle iyi eğlenceler dileriz!
+  </font>
+	</td>
+</tr>
+</table>
+[SIGNATUR]
+</div>

@@ -1,0 +1,14 @@
+Hello {$content.PARTNER_NAME}
+
+Thank you for signing up to our affiliate program.
+
+Your login information:
+**************************
+
+Your affiliate ID is: {$content.PARTNER_ID}
+Your username is: {$content.PARTNER_LOGIN}
+Your password is: {$content.PARTNER_PW}
+Sign up here: {$content.LINK}
+We are looking forward to a good cooperation with you! 
+
+Your Partner Program Team

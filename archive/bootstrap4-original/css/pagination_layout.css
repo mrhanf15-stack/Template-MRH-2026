@@ -1,0 +1,44 @@
+/**
+ * Pagination Layout CSS
+ * Version: v6.6.2
+ * Datum: 09. Februar 2026
+ * 
+ * Layout: Seitenzahlen links, Anzahl-Anzeige rechts
+ */
+
+/* Pagination Wrapper */
+.pagination-wrapper {
+    margin: 1rem 0;
+}
+
+/* Flex Container für Pagination */
+.pagination-wrapper .d-flex {
+    gap: 1rem;
+}
+
+/* Pagination Links (LINKS) */
+.pagination-links {
+    flex: 0 0 auto;
+}
+
+/* Pagination Count (RECHTS) */
+.pagination-count {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    line-height: 2.5rem; /* Vertikale Zentrierung mit Pagination-Buttons */
+}
+
+/* Responsive: Auf kleinen Bildschirmen untereinander */
+@media (max-width: 576px) {
+    .pagination-wrapper .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.5rem;
+    }
+    
+    .pagination-count {
+        order: -1; /* Count oben auf Mobile */
+        line-height: normal;
+        margin-bottom: 0.5rem;
+    }
+}

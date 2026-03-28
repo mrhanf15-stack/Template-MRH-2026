@@ -1,0 +1,183 @@
+# Die lang_german.section wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" oder "smarty_4" gesetzt ist!
+
+[account_checkout_express]
+
+[account_delete]
+
+[account_edit]
+
+[account_history_info]
+
+[account_history]
+
+[account_password]
+
+[account]
+
+[address_book_process]
+
+[address_book]
+
+[advanced_search]
+
+[also_purchased]
+
+[error_handler]
+
+[checkout_confirmation]
+
+[checkout_payment]
+
+[checkout_new_address]
+
+[checkout_payment_address]
+
+[checkout_shipping_address]
+
+[checkout_shipping]
+
+[checkout_success]
+
+[contact_us]
+
+[cookie_usage]
+
+[create_account]
+
+[create_account_guest]
+
+[cross_selling]
+
+[downloads_module]
+
+[main]
+
+[gift_cart]
+
+[graduated_price]
+
+[gv_redeem]
+
+[gv_send]
+
+[filter]
+
+[login]
+
+[logoff]
+
+[index]
+
+[new_products]
+
+[newsletter]
+
+[shopping_cart]
+
+[new_password]
+
+[password_forgotten]
+
+[popup_coupon_help]
+
+[popup_search_help]
+
+[print_order]
+
+[print_product_info]
+
+[product_info]
+
+[product_navigator]
+
+[reviews]
+
+[product_tags]
+
+[products_category]
+
+[products_media]
+
+[reverse_cross_selling]
+
+[sitemap]
+cont_site = '<p>The sitemap page provides an overview of all available links on the website. These include the Seed Shop, the CBD &amp; Terpene Shop, the Growshop, the Headshop and various blog posts on different topics relating to cannabis cultivation. In our seed store you will find a large selection of Cannabis seeds, divided into CBD-rich varieties, feminized seeds, THC-rich varieties, autoflowering seeds and medicinal seeds.</p>
+<p>In the CBD &amp; Terpenes Shop we offer you a variety of CBD products such as flowers, oil, drops and more, as well as terpenes and other products made from Cannabis. The Growshop has everything you need for growing cannabis, from lighting technology, fertilizers and substrates to ventilation and climate control. In the Headshop you will find bongs, grinders and other smoking accessories. Our blog posts provide you with interesting information and tips on cannabis cultivation.</p>'
+heading_tag_content = 'Popular search queries'
+
+[specials]
+
+[ssl_check]
+
+[categorie_listing]
+
+[upcoming_products]
+
+[wishlist]
+
+[manufacturers]
+title_top_brands = 'Top brands at Mr. Hanf'
+scroll_to = 'Jump to '
+back_to_top = 'To the top'
+
+[print_fax_order]
+heading_checkout = 'Letter order form'
+text_checkout = 'Below you will find the order form for manually ordering your products. Please tick the desired payment method and shipping option and complete the missing details. Print out the order and send it to us. We recommend that you do not enclose any small change, hide the cash in an extra envelope, folded paper, postcard or between two cardboard boxes and send the letter sealed with extra adhesive tape by registered mail! <br>  <br> Bank details and DHL Packstation... <br> '
+bank_daten = '<strong>Bank details</strong><p>Name of the bank: Raiffeisen Regionalbank Hall in Tirol<br>Recipient: MRH N-Trade GmbH<br>Bank code: 36362<br>Account number: 00000217968<br>IBAN: AT753636200000217968<br>BIC/SWIFT: RZTIAT22362<br>Intended use: DEIN-STRASSENNAME<br><br></p>'
+
+text_checkout2 = '<strong>Shipping to packing stations, please fill in as follows.</strong><br /> <img  width="350px" src="/images/icons/FAQ-%20Frage%20und%20Antwort.gif" alt="Packstation"> <br /><br /> If you have any questions, please contact our support team on 0043 (0) 676 5124971!<br><br>'
+text_select_payment = 'Please check the desired payment method and shipping method and complete the missing information.  '
+text_signature = 'Date, place, signature'
+text_payment_address = 'Billing address'
+title_shipping_to = '<strong>Order Send to</strong>'
+shipping_to = '<p><span style="color: #508B01">RECOMMENDED</span><br /><b>German address:<br /></b> D-A-Packs 3326655<br />
+Natural products MR. H.<br />
+Am Rain 53<br />
+83088 Kiefersfelden<br /><br />
+<hr /><br /><span style="color: #A00002">*</span><br />
+<b>Austria - Company headquarters:</b><br />
+MRH N-Trade GmbH <br />
+Schulstrasse 7<br />
+A-6161 Natters<br />
+Austria <br /><br /><br />  <br /><br />
+</p>'
+text_shipping_address = 'Delivery address'
+text_sameasbill = 'Delivery address corresponds to invoice address' 
+text_info_box_heder =  'You are looking for Cannabis seeds! But you don\'t want to leave any personal data, then you can easily order Cannabis seeds without data storage using this form.<br /> <br /> <span style="color: #A00002">*Austrian Post is not recommended, please only send to the DE address! <br />*Please do not send letters or parcels to the Austrian address.</span>'
+title_ahlungsart='Payment method:'
+info_red = '<b class="b"> *Please note shipping costs, see below! </b>'
+info_red2 = '<b class="b"> *Please hide the cash between a folded piece of paper!</b>'
+info_red3 = ' '
+versand_opt = 'Select shipping method:'
+ahlungsart1  = 'Cash in envelope:'
+ahlungsart2 = 'EU-Standard Bank Transfer <br /> <b class="screen b">*You can find our bank details in the Legal Notice!</b>'
+versand_opt01 = 'Insured shipping - Post (letter) AT: 6,-- EUR'
+versand_opt06 = 'Insured shipping - Post (letter) EU: 12,-- EUR'
+versand_opt1 = 'Uninsured shipping - Post (letter) AT: 4,-- EUR'
+versand_opt07 = 'Uninsured shipping - Post (letter) EU: 8,-- EUR'
+versand_opt2 = 'Parcel service AT: 7,-- EUR'
+versand_opt7 = 'Parcel service EU: 9,-- EUR'
+versand_opt4 = 'Free shipping within EU from &euro; 75,--: 0,00 EUR'
+versand_opt5 = 'Shipping non EU countries (abroad): 16,-- EUR'
+versand_opt6 = 'DHL + Packstation DE: 18,-- EUR'
+info_exklsv = 'plus shipping costs '
+method= '<b class="c"> *Please choose a shipping method!</b>'
+artikelnummer= 'Item no:'
+shipping_adress = 'Your shipping address'
+versand_textarea = 'Please enter additional information here! 
+*If the desired items are not in stock and you have not left us an e-mail or phone number, we will automatically send alternative products after 7 days! '
+versandart = 'Select shipping method '
+versand_alter = ' I hereby confirm that I am over 18 years of age and that I have read and accept the general terms and conditions.'
+MORE = 'MORE'
+LESS = 'LESS'
+printorder = 'Print order'
+versandwal = 'Please choose a shipping method'
+benach = 'Contact us:'
+benach_yes = 'Yes'
+benach_no = 'No'
+
+[blog]
+new_blog_posts = 'New articles'
+date_modified = 'Changed on'
+box_blog_categories = 'Blog Categories'
+box_blog_posts = 'New blog articles'

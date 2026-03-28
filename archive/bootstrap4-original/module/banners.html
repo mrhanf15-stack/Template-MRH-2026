@@ -1,0 +1,21 @@
+{if !empty($banner_data.TEXT)}
+{$banner_data.TEXT}
+
+{elseif !empty($banner_data.IMAGE_IMG)}
+
+{if !empty($banner_data.LINK)}<a title="{$banner_data.TITLE|onlytext}" href="{$banner_data.LINK}" {$banner_data.TARGET}>{/if}
+
+{if !empty($banner_data.IMAGE_SRC_MOBILE)}
+<picture>
+    <source media="(max-width:600px)" srcset="data:,1w" data-srcset="{$banner_data.IMAGE_SRC_MOBILE}" width="{$smarty.const.BANNERS_IMAGE_MOBILE_WIDTH}" height="{$smarty.const.BANNERS_IMAGE_MOBILE_HEIGHT}">
+    <source srcset="data:,1w" data-srcset="{$banner_data.IMAGE_SRC}" width="{$smarty.const.BANNERS_IMAGE_WIDTH}" height="{$smarty.const.BANNERS_IMAGE_HEIGHT}">
+    <img class="lazyload rounded img-fluid" src="data:," data-src="{$banner_data.IMAGE_SRC}" alt="{$banner_data.TITLE|onlytext}" title="{$banner_data.TITLE|onlytext}" width="{$smarty.const.BANNERS_IMAGE_WIDTH}" height="{$smarty.const.BANNERS_IMAGE_HEIGHT}">
+</picture>
+
+{else}
+<img class="lazyload rounded img-fluid" src="data:," data-src="{$banner_data.IMAGE_SRC}" alt="{$banner_data.TITLE|onlytext}" title="{$banner_data.TITLE|onlytext}" width="{$smarty.const.BANNERS_IMAGE_WIDTH}" height="{$smarty.const.BANNERS_IMAGE_HEIGHT}">
+{/if}
+
+{if !empty($banner_data.LINK)}</a>{/if}
+
+{/if}

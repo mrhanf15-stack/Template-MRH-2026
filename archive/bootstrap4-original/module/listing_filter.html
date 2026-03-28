@@ -1,0 +1,73 @@
+{config_load file="$language/lang_$language.conf" section="filter"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="filter"}
+
+<!-- Neuer strukturierter Filter mit Bootstrap 4 -->
+<div id="filterBar" class="filter-container card bg-light mb-3">
+   
+<!-- Neuer strukturierter Filter mit Bootstrap 4 - Angepasstes Layout -->
+<div id="filterBar" class="filter-container card bg-light mb-3">
+    <!-- Erste Zeile mit Filter-Button links und Ansichtsbuttons rechts -->
+    <div class="filter-row p-2">
+        <!-- Filter Button (links) -->
+        {if count($FILTER_TAG) > 0}
+        <div class=" filter-button-item">
+            <button type="button" class="btn btn-filter" data-toggle="collapse" href="#filterBar-collapse" role="button" aria-expanded="false" aria-controls="filterBar-collapse" title="{#text_filter#}">
+                <i class="fas fa-filter mr-2"></i>{#text_filter#}
+            </button>
+        </div>
+        {/if}
+        
+        <!-- View Buttons (rechts) -->
+        <div class="  view-item ml-auto">
+            <div class="view-buttons">
+                <a rel="nofollow" class="rounded view-btn{if $smarty.const.BS4_PRODUCT_LIST_BOX == 'true'} active{/if}" href="{$LINK_DISPLAY_BOX}#filterBar" title="{#listing_boxview#}">
+                    <i class="fas fa-th"></i>
+                </a>
+                <a rel="nofollow" class="rounded view-btn{if $smarty.const.BS4_PRODUCT_LIST_BOX != 'true'} active{/if}" href="{$LINK_DISPLAY_LIST}#filterBar" title="{#listing_listview#}">
+                    <i class="fas fa-list"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Zweite Zeile mit allen Filter-Dropdowns -->
+    <div class="filter-row p-2 pt-0">
+        <!-- Hersteller Filter -->
+        {if $FILTER_MANUFACTURER != ''}
+        <div class="filter-item">
+            {$FILTER_MANUFACTURER|replace:'<select':'<select class="custom-select" aria-label="filter manufacturer" '|replace:'onchange="this':'onchange="$(this.form).attr(\'action\', function (_, oldAction) {return oldAction + \'#filterBar\';});this'}
+        </div>
+        {/if}
+        
+        <!-- Sortieren Nach Filter -->
+        <div class="filter-item">
+            {$FILTER_SORT|replace:'<select':'<select class="custom-select" aria-label="filter sort" '|replace:'onchange="this':'onchange="$(this.form).attr(\'action\', function (_, oldAction) {return oldAction + \'#filterBar\';});this'}
+        </div>
+        
+        <!-- Artikel pro Seite Filter -->
+        <div class="filter-item">
+            {$FILTER_SET|replace:'<select':'<select class="custom-select" aria-label="filter attribute" '|replace:'onchange="this':'onchange="$(this.form).attr(\'action\', function (_, oldAction) {return oldAction + \'#filterBar\';});this'}
+        </div>
+    </div>
+
+
+    <!-- Erweiterte Filter-Optionen (Collapse) -->
+    {if count($FILTER_TAG) > 0}
+    <div class="collapse" id="filterBar-collapse">
+        <div class="tags-container border-top pt-2 px-2">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <strong class="small">{#text_filter_options#}</strong>
+                <a rel="nofollow" class="small text-danger" href="{$LINK_FILTER_RESET}#filterBar" title="Reset">{#text_filter_reset#}</a>
+            </div>
+            <div class="filter-row mb-2">
+                {foreach name=aussen item=filter from=$FILTER_TAG}
+                <div class="filter-item">
+                    {$filter|replace:'<select':'<select class="custom-select" aria-label="filter" '|replace:'onchange="this':'onchange="$(this.form).attr(\'action\', function (_, oldAction) {return oldAction + \'#filterBar\';});this'}
+                </div>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    {/if}
+</div></div>

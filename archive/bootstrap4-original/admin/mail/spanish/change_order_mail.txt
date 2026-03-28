@@ -1,0 +1,189 @@
+{if $ORDER_STATUS_ID ==  "8"} {$ORDER_STATUS}
+    
+             {if $GENDER=='Herr'}{/if} {$GENDER} {$NAME} 
+ 
+ 
+ {if $ORDER_DATE} {$ORDER_DATE}{/if} {if $ORDER_NR}{$ORDER_NR}{/if} &iexcl;Estimado r , Dank Ihnen f&uuml;r Ihre Kompra auf dem Angebot mit dem Angebotnummer !     
+Ha elegido el m&eacute;todo de pago transferencia bancaria est&aacute;ndar de la UE, pero lamentablemente no hemos podido detectar ning&uacute;n pago por su parte en nuestra cuenta hasta la fecha.   
+        
+        Por lo tanto, le rogamos que transfiera el importe pendiente a nuestra cuenta indicada a continuaci&oacute;n. 
+
+      
+
+
+
+ Nombre del banco: Raiffeisen Regionalbank Hall in Tirol Destinatario: MRH N-Trade GmbH C&oacute;digo bancario: 36362 N&uacute;mero de cuenta: 00000217968 IBAN:
+
+
+
+
+
+
+
+
+ 
+ {$ORDER_NR} AT753636200000217968 BIC/SWIFT: RZTIAT22362 Nombre del banco: N26 Destinatario: Hansjoerg Scherzer C&oacute;digo bancario: 10011001 N&uacute;mero de cuenta: 2625932471 IBAN: DE34100110012625932471 BIC/SWIFT: NTSBDEB1XXX Indique siempre su n&uacute;mero de pedido como referencia de pago al realizar una transferencia bancaria. La correcta especificaci&oacute;n de la referencia de pago permite una asignaci&oacute;n r&aacute;pida y clara de su pago. Esto evitar&aacute; posibles retrasos y garantizar&aacute; que su pedido sea liberado r&aacute;pidamente por nuestro departamento de contabilidad.
+       
+           {if $ORDER_LINK}
+{/if}
+ 
+ 
+
+
+ 
+ {else}{if $GENDER=='Herr'}{/if} {$GENDER} {$NAME} 
+ 
+ {if $ORDER_NR} {$ORDER_NR}{/if} {if $ORDER_DATE}
+ {$ORDER_DATE}{/if} Enlace al pedido: haga clic aqu&iacute; Saludos verdes Su equipo de Mr. Hanf Estimado r , El estado de su pedido con el n&uacute;mero de acaba de cambiar.
+       
+       {$ORDER_STATUS}
+ 
+ {if $ORDER_STATUS_ID == "30"}
+ Nuevo estado: Confirmamos la cancelaci&oacute;n de su pedido <strong>{$ORDER_NR}</strong>{$ORDER_DATE} de .
+
+   El importe ser&aacute; reembolsado a su cuenta original en los pr&oacute;ximos d&iacute;as. Tenga en cuenta que el reembolso puede tardar unos d&iacute;as dependiendo del banco. 
+
+    Si tiene alguna pregunta, nuestro equipo de atenci&oacute;n al cliente estar&aacute; encantado de ayudarle.
+{/if}
+                 Dank f&uuml;r Ihre Abwicklung No. Por la presente le confirmamos la recepci&oacute;n de su pago y le agradecemos la rapidez de su transferencia. Si tiene m&aacute;s preguntas o inquietudes, no dude en ponerse en contacto con nosotros. Estamos a su disposici&oacute;n.                     Confirmamos con este correo electr&oacute;nico que hemos recibido el pedido arriba indicado. Por favor, transfiera el importe total a la siguiente cuenta:                Nombre del banco: Raiffeisen Regionalbank Hall in Tirol Destinatario: MRH N-Trade GmbH C&oacute;digo bancario: 36362 N&uacute;mero de cuenta: 00000217968 IBAN: AT753636200000217968 BIC/SWIFT: RZTIAT22362 Nombre del banco: N26 Destinatario: Hansjoerg Scherzer C&oacute;digo bancario: 10011001 N&uacute;mero de cuenta: 2625932471 IBAN: DE34100110012625932471 BIC/SWIFT: NTSBDEB1XXX Indique siempre su n&uacute;mero de pedido como referencia de pago al realizar una transferencia bancaria. La correcta especificaci&oacute;n de la referencia de pago permite una asignaci&oacute;n r&aacute;pida y clara de su pago. De este modo se evitan posibles retrasos y se garantiza que nuestro departamento de contabilidad despache r&aacute;pidamente su pedido.                Las mercanc&iacute;as se enviar&aacute;n tras la recepci&oacute;n del pago, salvo que se indique lo contrario.          Lamentamos informarle de que su env&iacute;o ha sido declarado siniestro total por el proveedor de servicios de env&iacute;o, por lo que dispone de las siguientes opciones: - Anulaci&oacute;n del pedido: Le transferiremos el importe &iacute;ntegro a su cuenta. - Nota de abono: Si ya tiene una cuenta de cliente, podemos abonarle el importe en ella o, alternativamente, podemos enviarle un vale. - Reenv&iacute;o: Si lo desea, podemos enviarle de nuevo el pedido. Por favor, h&aacute;ganos saber qu&eacute; opci&oacute;n prefiere. Intentaremos resolver su solicitud lo antes posible.                      &iexcl;Dank Ihr Encargo!  Tenga en cuenta que el pedido con el n&uacute;mero de pedido de &iexcl;todav&iacute;a est&aacute; pendiente de pago! Debe pagarse despu&eacute;s de recibir el paquete, pero en un plazo de 7 d&iacute;as laborables.   El importe total se puede transferir a la siguiente cuenta:                Nombre del banco: Raiffeisen Regionalbank Hall in Tirol Destinatario: MRH N-Trade GmbH C&oacute;digo bancario: 36362 N&uacute;mero de cuenta: 00000217968 IBAN: AT753636200000217968 BIC/SWIFT: RZTIAT22362 Nombre del banco: N26 Destinatario: Hansjoerg Scherzer C&oacute;digo bancario: 10011001 N&uacute;mero de cuenta: 2625932471 IBAN: DE34100110012625932471 BIC/SWIFT: NTSBDEB1XXX Indique siempre su n&uacute;mero de pedido como referencia de pago al realizar una transferencia bancaria. Indicar la referencia de pago correcta permite asignar su pago de forma r&aacute;pida y clara. Esto evitar&aacute; posibles retrasos y garantizar&aacute; que su pedido sea liberado r&aacute;pidamente por nuestro departamento de contabilidad.                &iexcl;&Uacute;ltimas noticias!          Acaba de recibir su paquete contra reembolso. Dado que los proveedores de servicios de paqueter&iacute;a suelen tener problemas para cambiar el dinero cuando entregan contra reembolso, le rogamos que tenga preparado el importe a pagar con la mayor exactitud posible.               El env&iacute;o consta de paquete(s).          Puede comprobar el estado de la entrega haciendo clic en el/los n&uacute;mero(s) de paquete(s) que aparece(n) a continuaci&oacute;n:                                          Tenga en cuenta que el seguimiento puede tardar unas 24 horas en actualizarse.                            Dank Ihnen f&uuml;r Ihre Vertrauen und Ihre Angebote mit der Angebote von . Su pedido est&aacute; siendo procesado y el siguiente paso es comprobar la disponibilidad de los productos en nuestro almac&eacute;n. Si todos los productos est&aacute;n en stock, se preparar&aacute;n para su env&iacute;o inmediato. En cuanto se env&iacute;e su pedido, recibir&aacute; un correo electr&oacute;nico por separado con la confirmaci&oacute;n del env&iacute;o y el n&uacute;mero de seguimiento.              Las facturas son como los paraguas, &iexcl;se olvidan f&aacute;cilmente! Lamentablemente, a pesar de haberlo solicitado en varias ocasiones, no hemos recibido ning&uacute;n pago por su pedido. Por este motivo, el estado del n&uacute;mero de pedido ha cambiado a reclamaci&oacute;n. Para evitar costes adicionales, le concedemos un &uacute;ltimo plazo de pago de 7 d&iacute;as laborables. En caso de que venza este plazo y no atienda a esta solicitud de pago, lamentablemente nos veremos obligados a emprender acciones legales. Si ya ha realizado la transferencia del importe pendiente, le rogamos que nos env&iacute;e una copia del recibo de la reserva en formato digital. Si tiene m&aacute;s preguntas, no dude en ponerse en contacto con nosotros en info@mr-hanf.de.                             &iexcl;&iexcl;&iexcl;Buenas noticias!!!                Puede estar contento, hoy hemos entregado su pedido a nuestro socio log&iacute;stico y su entrega llegar&aacute; en los pr&oacute;ximos d&iacute;as.                                  El env&iacute;o consta de paquete(s).          Puede comprobar el estado de la entrega haciendo clic en el n&uacute;mero de paquete(s) m&aacute;s abajo:                                          Tenga en cuenta que el seguimiento puede tardar unas 24 horas en actualizarse.                                Hoy hemos entregado parte de su pedido a nuestro socio log&iacute;stico para su env&iacute;o.        Los art&iacute;culos que falten se enviar&aacute;n gratuitamente en cuanto est&eacute;n disponibles.                        Acabamos de cancelar su pedido de . Vuelva a comprobarlo m&aacute;s tarde.                        Acabamos de reembolsar el importe de su pedido de a su cuenta bancaria conocida.                   Hemos iniciado una investigaci&oacute;n con nuestro proveedor de servicios para aclarar el estado de su env&iacute;o. Le pedimos disculpas por las molestias ocasionadas. A veces, circunstancias imprevistas pueden provocar retrasos. Ya estamos trabajando duro para encontrar una soluci&oacute;n y le informaremos tan pronto como tengamos noticias sobre el paradero de su env&iacute;o. Su satisfacci&oacute;n es importante para nosotros y estamos haciendo todo lo posible para resolver el problema r&aacute;pidamente. Dank por su comprensi&oacute;n y paciencia.                 Enlace al pedido: haga clic aqu&iacute; Notas y comentarios sobre su pedido: Si tiene alguna pregunta sobre su pedido, responda a este correo electr&oacute;nico.                 Saludos Su equipo de Mr. Hanf Cannabis 
+ {if $ORDER_STATUS_ID ==  "27"}
+ {if $ORDER_NR} {$ORDER_NR}{/if}
+
+ 
+ {/if}
+ {if $ORDER_STATUS ==  "Offen"}
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ {$ORDER_NR}
+ 
+ 
+ {/if}
+ {if $ORDER_STATUS_ID == "32"}
+
+
+
+
+
+
+
+
+
+{/if} 
+ 
+ {if $ORDER_STATUS_ID ==  "18"}
+ 
+ 
+ {$ORDER_NR} {$ORDER_DATE} 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ {$ORDER_NR}
+ {/if} 
+ {if $ORDER_STATUS_ID ==  "20"}
+ 
+
+ {if $PARCEL_COUNT > 0}
+ {$PARCEL_COUNT}
+ 
+ {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+ {$tracking_data.parcel_id}
+ 
+ {/foreach}
+ {/if}
+ 
+ {/if} 
+ {if $ORDER_STATUS_ID ==  "2"}
+ {$ORDER_NR} {$ORDER_DATE}
+ {/if} 
+ 
+ {if $ORDER_STATUS_ID ==  "9"}
+ 
+
+ {if $ORDER_DATE} {$ORDER_DATE}{/if} {if $ORDER_NR}{$ORDER_NR}{/if}
+
+ {if $ORDER_NR}{$ORDER_NR}{/if} 
+
+
+
+
+
+
+ {/if} 
+ 
+ 
+ {if $ORDER_STATUS_ID ==  "3"}
+
+ 
+ {$ORDER_DATE}
+ 
+ {if $PARCEL_COUNT > 0}
+ 
+ {$PARCEL_COUNT}
+ 
+ {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+ {$tracking_data.parcel_id}
+ 
+ {/foreach}
+ {/if}
+ {/if}
+ {if $ORDER_STATUS_ID ==  "11"}
+ {$ORDER_DATE}
+
+ {/if}
+ {if $ORDER_STATUS_ID ==  "6"}
+ {$ORDER_DATE}
+ {/if}
+ {if $ORDER_STATUS_ID ==  "10"}
+ {$ORDER_DATE} 
+ 
+ {/if}
+ {if $ORDER_STATUS_ID == "12"}
+
+
+
+
+
+
+
+
+{/if}
+ 
+ {if $ORDER_LINK}{/if}
+ 
+ {if $NOTIFY_COMMENTS}
+ 
+ {$NOTIFY_COMMENTS} 
+ {/if} 
+ 
+ 
+
+ {/if} 
+[SIGNATUR]

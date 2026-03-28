@@ -1,0 +1,418 @@
+{*
+ * Seedfinder Product Cards Template - Vergleichsseiten-Design mit echten Shop-Optionen
+ * Version: 32.5.4
+ * Datum: 2026-03-15
+ *
+ * DESIGN: 1:1 wie product_compare.html
+ * v32.5.4: Live-Update Header: Seite im Hintergrund laden, Dropdown-Inhalt + Badge
+ *          extrahieren, Dropdown automatisch oeffnen, nach 5s schliessen
+ * v32.5.3: Live-Update Header Warenkorb + Merkzettel nach AJAX add_to_cart/wishlist
+ * v32.5.2: FIX Tabellen starten auf gleicher Hoehe (Bild immer 220px, Titel immer 85px,
+ *          Beschreibung immer 550px - auch wenn leer)
+ * v32.5.1: FIX Radio-Buttons pro Produkt isoliert via eigenes <form> Tag
+ * v32.5.0: AJAX-basierte Warenkorb/Merkzettel-Buttons (kein Seitenreload)
+ * v32.4.1: Shop-eigene FORM_ACTION verwenden
+ * v32.4.0: FORM_ACTION Fix, Qty manuell, Merkzettel manuell
+ * v32.3.2: mt-3 am Titel, fixe Hoehe Titel-Bereich fuer gleiche Tabellen-Ausrichtung
+ * v32.3.1: Warenkorb-Icon Fallback, CSS inline fuer Bilder/Tabelle als Absicherung
+ * v32.3.0: Echte Shop-Optionen (PRODUCT_ATTRIBUTES, PRODUCTS_PRICE_ARRAY)
+ *}
+    {foreach from=$PRODUCTS item=product}
+                <div class="col-md-6 mb-4 listingbox" itemscope itemtype="https://schema.org/Product">
+                    <div class="card h-100 d-flex flex-column">
+
+                        {* Hidden Schema.org Properties *}
+                        {if $product.PRODUCTS_MODEL}
+                        <meta itemprop="sku" content="{$product.PRODUCTS_MODEL|escape:'html'}">
+                        {/if}
+                        <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
+
+                        {* Spezialpreis-Badge *}
+                        {if $product.PRODUCTS_SPECIAL_PRICE && $product.PRODUCTS_SPECIAL_PRICE > 0}
+                        <div class="ribbon bg-danger text-white shadow-sm sf-special-badge">
+                            {#special_badge#}
+                            <div class="sf-special-badge-triangle"></div>
+                        </div>
+                        {/if}
+
+                        {* Rabatt-Prozent Badge *}
+                        {if $product.PRODUCTS_PRICE_SAVE_PERCENT && $product.PRODUCTS_PRICE_SAVE_PERCENT > 0}
+                        <span class="special_percent bg-danger shadow text-white">
+                            {$product.PRODUCTS_PRICE_SAVE_PERCENT}%
+                        </span>
+                        {/if}
+
+                        {* Produktbild - Fixed Height 220px (immer gleich, auch ohne Bild) *}
+                        <a href="{$product.PRODUCTS_LINK}" class="card-body text-center lb_image compare-img-box" style="position:relative;height:220px;min-height:220px;max-height:220px;overflow:hidden;display:block;flex:0 0 220px;padding:0;">
+                            {if $product.PRODUCTS_IMAGE}
+                            <img class="compare-product-img img-fluid lazyloaded" itemprop="image" src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+                            {/if}
+                        </a>
+
+                        {* Produktname und Hersteller (wie Vergleichsseite) *}
+                        <div class="card-body pt-0 pb-1" style="height:85px;min-height:85px;max-height:85px;flex-shrink:0;overflow:hidden;">
+                            <h2 class="lb_title lead text-secondary mb-1 mt-3">
+                                <a href="{$product.PRODUCTS_LINK}" class="text-decoration-none">
+                                    <span itemprop="name">{$product.PRODUCTS_NAME}</span>
+                                </a>
+                            </h2>
+                            {if $product.MANUFACTURERS_NAME}
+                                <footer class="blockquote-footer mb-1" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+                                    <cite title="{$product.PRODUCTS_NAME} - {$product.MANUFACTURERS_NAME}"><span itemprop="name">{$product.MANUFACTURERS_NAME}</span></cite>
+                                </footer>
+                            {/if}
+                        </div>
+
+                        {* Short Description als Tabelle - IMMER 550px (gleiche Hoehe fuer alle Karten) *}
+                        <div class="card-body pt-0 pb-1 compare-desc-box" style="height:550px;min-height:550px;max-height:550px;overflow-y:auto;flex:0 0 550px;">
+                            {if $product.PRODUCTS_SHORT_DESCRIPTION}
+                            <div class="lr_desc teabls table-striped" itemprop="description">{$product.PRODUCTS_SHORT_DESCRIPTION}</div>
+                            {elseif $product.PRODUCTS_DESCRIPTION}
+                            <div class="lr_desc teabls table-striped" itemprop="description">{$product.PRODUCTS_DESCRIPTION}</div>
+                            {/if}
+                        </div>
+
+                        {* ============================================================ *}
+                        {* Options, Preis, Buttons - Card-Footer (wie Vergleichsseite)  *}
+                        {* ============================================================ *}
+                        <div class="card-footer bg-white mt-auto compare-footer" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <meta itemprop="priceCurrency" content="EUR">
+                            <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
+                            <link itemprop="availability" href="{if $product.TOTAL_STOCK_AVAILABLE}https://schema.org/InStock{else}https://schema.org/OutOfStock{/if}">
+
+                            {* v32.5.1: Eigenes Form pro Produkt - isoliert Radio-Buttons! *}
+                            <form id="sf-form-{$product.PRODUCTS_ID}" class="sf-product-form" data-product-id="{$product.PRODUCTS_ID}" onsubmit="return false;">
+                                <input type="hidden" name="products_id" value="{$product.PRODUCTS_ID}">
+
+                                {* Echte Shop-Optionen / Dropdowns (1 Samen, 3 Samen etc.) *}
+                                {if $product.PRODUCT_ATTRIBUTES}
+                                  <div id="sf-options-{$product.PRODUCTS_ID}" class="cf sf-options-box">{$product.PRODUCT_ATTRIBUTES|replace:' p-2':''}</div>
+                                {/if}
+
+                                {* Shipping, Preis, Tax (wie Vergleichsseite - aus PRODUCTS_PRICE_ARRAY) *}
+                                <div class="text-right mt-2">
+                                  <div class="lb_shipping small">{if $product.PRODUCTS_SHIPPING_NAME}{#text_shippingtime#} {$product.PRODUCTS_SHIPPING_NAME_LINK}{else}&nbsp;{/if}</div>
+                                  <div>
+                                    {foreach name=inner item=price_data from=$product.PRODUCTS_PRICE_ARRAY}
+                                      {include file="module/includes/price_box.html"}
+                                    {/foreach}
+                                    {if $product.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+                                      {if $product.PRODUCTS_VPE}
+                                        <div class="lb_vpe text-secondary small">{$product.PRODUCTS_VPE}</div>
+                                      {/if}
+                                    {/if}
+                                  </div>
+                                  {if $product.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+                                    <div class="lb_tax text-secondary small mb-1">{if isset($product.PRODUCTS_LINK_REQUESTLIST_NOW)}{#rq_text_rental#}{else}{$product.PRODUCTS_TAX_INFO}{$product.PRODUCTS_SHIPPING_LINK}{/if}</div>
+                                  {/if}
+                                </div>
+
+                                {* Buttons: Qty + Warenkorb + Merkzettel + Vergleichen + Details *}
+                                <div class="d-flex justify-content-between align-items-center flex-wrap mt-2">
+                                  <div class="d-flex align-items-center">
+                                    {* Qty-Dropdown *}
+                                    <select name="products_qty" class="form-control form-control-sm listingDropDown mr-1 sf-qty-select" style="width:60px;">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    {* Warenkorb-Button *}
+                                    <button type="button" class="btn btn-sm btn-dark ml-1 sf-add-cart-btn" data-product-id="{$product.PRODUCTS_ID}" title="In den Warenkorb">
+                                        <span class="fa fa-shopping-cart"></span>
+                                    </button>
+                                    {* Merkzettel-Button *}
+                                    <button type="button" class="btn btn-sm btn-info ml-1 sf-add-wishlist-btn" data-product-id="{$product.PRODUCTS_ID}" title="Auf den Merkzettel">
+                                        <span class="fa fa-heart"></span>
+                                    </button>
+                                  </div>
+                                  <div class="d-flex align-items-center">
+                                    {* Vergleichen-Button *}
+                                    <button type="button" class="btn-compare btn btn-sm ml-1" data-product-id="{$product.PRODUCTS_ID}" title="{#compare_button_title#}">
+                                        <span class="fa fa-balance-scale mr-1"></span>{#compare_button#}
+                                    </button>
+                                    {* Details-Button *}
+                                    <a href="{$product.PRODUCTS_LINK}" class="btn btn-info btn-sm ml-1">
+                                        <span class="fa fa-eye"></span><span>&nbsp;&nbsp; Details</span>
+                                    </a>
+                                  </div>
+                                </div>
+
+                            </form>
+
+                            {* v32.5.0: Feedback-Bereich fuer AJAX-Antworten *}
+                            <div class="sf-cart-feedback mt-1" id="sf-feedback-{$product.PRODUCTS_ID}" style="display:none;"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+    {/foreach}
+
+{* ============================================================ *}
+{* v32.5.4: AJAX Cart/Wishlist JavaScript mit Live Header Update *}
+{* Seite im Hintergrund laden -> Badge + Dropdown extrahieren   *}
+{* Dropdown automatisch oeffnen + nach 5s schliessen            *}
+{* ============================================================ *}
+<script type="text/javascript">
+(function() {
+    'use strict';
+
+    // Verhindere doppelte Initialisierung (bei AJAX-Reload der Karten)
+    if (window._sfCartInitialized) return;
+    window._sfCartInitialized = true;
+
+    var AJAX_URL = 'ajax.php';
+
+    /**
+     * Sammelt die ausgewaehlten Attribute aus dem Form eines Produkts
+     */
+    function getSelectedAttributes(productId) {
+        var attributes = {};
+        var form = document.getElementById('sf-form-' + productId);
+        if (!form) return attributes;
+
+        // Select-Dropdowns (Standard modified-Shop Attribute)
+        var selects = form.querySelectorAll('select[name^="id["]');
+        selects.forEach(function(sel) {
+            var match = sel.name.match(/id\[(\d+)\]/);
+            if (match) {
+                attributes[match[1]] = sel.value;
+            }
+        });
+
+        // Radio-Buttons - nur die im eigenen Form (jetzt isoliert!)
+        var radios = form.querySelectorAll('input[type="radio"][name^="id["]:checked');
+        radios.forEach(function(radio) {
+            var match = radio.name.match(/id\[(\d+)\]/);
+            if (match) {
+                attributes[match[1]] = radio.value;
+            }
+        });
+
+        return attributes;
+    }
+
+    /**
+     * Holt die gewaehlte Menge aus dem Form
+     */
+    function getQuantity(productId) {
+        var form = document.getElementById('sf-form-' + productId);
+        if (form) {
+            var qtySelect = form.querySelector('select[name="products_qty"]');
+            if (qtySelect) return parseInt(qtySelect.value, 10) || 1;
+        }
+        return 1;
+    }
+
+    /**
+     * Zeigt Feedback-Nachricht an
+     */
+    function showFeedback(productId, message, isSuccess) {
+        var feedbackEl = document.getElementById('sf-feedback-' + productId);
+        if (!feedbackEl) return;
+
+        feedbackEl.className = 'sf-cart-feedback mt-1 small text-center py-1 rounded ' +
+            (isSuccess ? 'alert-success text-success' : 'alert-danger text-danger');
+        feedbackEl.textContent = message;
+        feedbackEl.style.display = 'block';
+
+        setTimeout(function() {
+            feedbackEl.style.display = 'none';
+        }, 3000);
+    }
+
+    /**
+     * v32.5.4: Laedt die Startseite im Hintergrund und extrahiert
+     * den aktuellen Header-Inhalt (Badge + Dropdown) fuer Cart/Wishlist
+     */
+    function refreshHeaderFromPage(targetType) {
+        var xhr = new XMLHttpRequest();
+        // Lade die Startseite (leichtgewichtig, hat den Header mit aktuellen Daten)
+        xhr.open('GET', window.location.origin + '/?_sfcache=' + Date.now(), true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                try {
+                    // Parse die geladene Seite
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(xhr.responseText, 'text/html');
+
+                    // === WARENKORB aktualisieren ===
+                    var remoteCartLi = doc.querySelector('li.nav-item.cart');
+                    var localCartLi = document.querySelector('li.nav-item.cart');
+                    if (remoteCartLi && localCartLi) {
+                        localCartLi.innerHTML = remoteCartLi.innerHTML;
+                    }
+
+                    // === MERKZETTEL aktualisieren ===
+                    var remoteWishLi = doc.querySelector('li.nav-item.wishlist');
+                    var localWishLi = document.querySelector('li.nav-item.wishlist');
+                    if (remoteWishLi && localWishLi) {
+                        localWishLi.innerHTML = remoteWishLi.innerHTML;
+                    }
+
+                    // Dropdown automatisch oeffnen
+                    openHeaderDropdown(targetType);
+
+                } catch(e) {
+                    // Fallback: Dropdown trotzdem oeffnen
+                    openHeaderDropdown(targetType);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    /**
+     * v32.5.4: Oeffnet den Header-Dropdown (Cart oder Wishlist)
+     * Scrollt nach oben, oeffnet den Dropdown, schliesst nach 5 Sekunden
+     */
+    function openHeaderDropdown(type) {
+        // Nach oben scrollen (smooth)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Warte bis Scroll fertig ist, dann Dropdown oeffnen
+        setTimeout(function() {
+            var selector = (type === 'cart') ? 'li.nav-item.cart' : 'li.nav-item.wishlist';
+            var dropdownParent = document.querySelector(selector);
+            if (!dropdownParent) return;
+
+            var dropdownMenu = dropdownParent.querySelector('.dropdown-menu');
+            if (!dropdownMenu) return;
+
+            // Bootstrap 4 Dropdown oeffnen
+            dropdownParent.classList.add('show');
+            dropdownMenu.classList.add('show');
+
+            // Auch den Link als aria-expanded markieren
+            var toggleLink = dropdownParent.querySelector('.nav-link');
+            if (toggleLink) {
+                toggleLink.setAttribute('aria-expanded', 'true');
+            }
+
+            // Nach 5 Sekunden automatisch schliessen
+            setTimeout(function() {
+                dropdownParent.classList.remove('show');
+                dropdownMenu.classList.remove('show');
+                if (toggleLink) {
+                    toggleLink.setAttribute('aria-expanded', 'false');
+                }
+            }, 5000);
+
+        }, 600); // 600ms warten bis Scroll abgeschlossen
+    }
+
+    /**
+     * AJAX-Request an seedfinder_cart Handler senden
+     */
+    function sendCartAjax(subAction, productId, qty, attributes, callback) {
+        var formData = new FormData();
+        formData.append('sub_action', subAction);
+        formData.append('products_id', productId);
+        formData.append('products_qty', qty);
+
+        for (var optionId in attributes) {
+            if (attributes.hasOwnProperty(optionId)) {
+                formData.append('id[' + optionId + ']', attributes[optionId]);
+            }
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', AJAX_URL + '?ext=seedfinder_cart', true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        callback(response);
+                    } catch(e) {
+                        callback({ success: false, message: 'parse_error' });
+                    }
+                } else {
+                    callback({ success: false, message: 'request_failed' });
+                }
+            }
+        };
+
+        xhr.send(formData);
+    }
+
+    /**
+     * Event-Delegation fuer Warenkorb- und Merkzettel-Buttons
+     */
+    document.addEventListener('click', function(e) {
+        var btn;
+
+        // === WARENKORB-BUTTON ===
+        btn = e.target.closest('.sf-add-cart-btn');
+        if (btn) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var productId = btn.getAttribute('data-product-id');
+            var qty = getQuantity(productId);
+            var attributes = getSelectedAttributes(productId);
+
+            btn.disabled = true;
+            var originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="fa fa-spinner fa-spin"></span>';
+
+            sendCartAjax('add_to_cart', productId, qty, attributes, function(response) {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+
+                if (response.success) {
+                    showFeedback(productId, '\u2713 In den Warenkorb gelegt!', true);
+                    // v32.5.4: Header live aktualisieren + Dropdown oeffnen
+                    refreshHeaderFromPage('cart');
+                } else if (response.message === 'attributes_required') {
+                    showFeedback(productId, 'Bitte Variante w\u00e4hlen!', false);
+                } else if (response.message === 'max_qty_reached') {
+                    showFeedback(productId, '\u2713 Warenkorb aktualisiert (max. Menge)', true);
+                    refreshHeaderFromPage('cart');
+                } else {
+                    showFeedback(productId, 'Fehler: ' + (response.message || 'Unbekannt'), false);
+                }
+            });
+
+            return;
+        }
+
+        // === MERKZETTEL-BUTTON ===
+        btn = e.target.closest('.sf-add-wishlist-btn');
+        if (btn) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var productId = btn.getAttribute('data-product-id');
+            var qty = getQuantity(productId);
+            var attributes = getSelectedAttributes(productId);
+
+            btn.disabled = true;
+            var originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="fa fa-spinner fa-spin"></span>';
+
+            sendCartAjax('add_to_wishlist', productId, qty, attributes, function(response) {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+
+                if (response.success) {
+                    showFeedback(productId, '\u2665 Auf den Merkzettel gesetzt!', true);
+                    // v32.5.4: Header live aktualisieren + Dropdown oeffnen
+                    refreshHeaderFromPage('wishlist');
+                } else if (response.message === 'attributes_required') {
+                    showFeedback(productId, 'Bitte Variante w\u00e4hlen!', false);
+                } else {
+                    showFeedback(productId, 'Fehler: ' + (response.message || 'Unbekannt'), false);
+                }
+            });
+
+            return;
+        }
+    });
+
+})();
+</script>

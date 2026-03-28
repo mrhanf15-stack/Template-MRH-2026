@@ -1,0 +1,14 @@
+
+{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if} {$NAME} ,
+
+un compte a &eacute;t&eacute; cr&eacute;&eacute; pour vous, vous pouvez vous connecter &agrave; notre boutique avec les donn&eacute;es suivantes.
+
+{if $COMMENTS} Remarques : {$COMMENTS}{/if}
+
+Vos informations de connexion pour notre boutique :
+
+E-mail : {$EMAIL}
+
+Votre mot de passe : {$PASSWORD}
+
+[SIGNATUR]

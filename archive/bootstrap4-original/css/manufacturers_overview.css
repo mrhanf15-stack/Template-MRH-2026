@@ -1,0 +1,114 @@
+/* top brands */
+#manufacturers_overview .top_list .manufacturer {
+  height: 11rem;
+  line-height: 9rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+#manufacturers_overview .top_list .manufacturer img {
+  max-height: 100%;
+  transition: opacity ease 0.5s 0s;
+}
+#manufacturers_overview .top_list .manufacturer:hover img {
+  opacity: 1;
+}
+
+/* navigation */
+#manufacturers_overview .pagination_list {
+  float: none;
+  display: block;
+}
+#manufacturers_overview .pagination_list li {
+  margin: 0 0 0.3rem 0.3rem;
+}
+#manufacturers_overview .pagination_list li:first-child {
+  margin-left: 0;
+}
+#manufacturers_overview .pagination_list li a {
+  margin: 0;
+}
+#manufacturers_overview .pagination_list ul {
+  list-style-type: none;
+  margin: 0;
+}
+#manufacturers_overview .pagination_list ul li {
+  float: left;
+  line-height: 21px;
+  text-align: center;
+  padding: 0;
+}
+#manufacturers_overview .pagination_list ul li a {
+  display: inline-block;
+  min-width: 13px;
+  padding: 0 4px;
+  margin: 0 0 0 3px;
+  color: #2E2A2A;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+#manufacturers_overview .pagination_list ul li a, 
+#manufacturers_overview .pagination_list ul li.current {
+  padding: 0 .5rem;
+  height: 2rem;
+  width: auto;
+  line-height: 2rem;
+  font-size: 1rem;
+}
+.manufacturer-badge {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 10;
+    background: transparent;
+    padding: 0;
+    font-size: 1.5rem;
+}
+
+/* Diamond Badge - Position 1 (fa-gem) */
+.manufacturer-badge.diamond .fa-gem {
+    color: #00CED1; /* Cyan/Turquoise */
+}
+
+/* Gold Badge - Position 2 (fa-medal) */
+.manufacturer-badge.gold .fa-medal {
+    color: #FFD700;
+}
+
+/* Silver Badge - Position 3 (fa-medal) */
+.manufacturer-badge.silver .fa-medal {
+    color: #C0C0C0;
+}
+
+/* Bronze Badge - Position 4 (fa-medal) */
+.manufacturer-badge.bronze .fa-medal {
+    color: #CD7F32;
+}
+
+/* ========================================
+   Link Colors
+   ======================================== */
+
+/* Top Products Links (1, 2, 3) */
+.top_list .card ol a {
+    color: #839A4F !important;
+}
+
+/* Manufacturer Links in A-Z List */
+#manufacturers_overview ul.row li a {
+    color: #839A4F !important;
+}
+
+/* Alphabet Navigation - Keep Default Color */
+.pagination_list a {
+    color: inherit !important;
+}
+
+/* ========================================
+   Responsive Adjustments
+   ======================================== */
+
+@media (max-width: 576px) {
+    .manufacturer-badge {
+        font-size: 1.2rem;
+    }
+}

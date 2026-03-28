@@ -1,0 +1,290 @@
+{if $options != ''}
+{config_load file="$language/lang_$language.conf" section="product_info"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="product_info"} 
+
+{* Hauptcontainer für Produktoptionen *}
+<div id="optionen{$smarty.get.products_id|intval}" class="product-options-container mb-3" role="group" aria-label="Produktoptionen"> 
+ 
+  
+  {* Optionen-Container *}
+  <div class="product-options-wrapper">
+    {foreach name=outer item=options_data from=$options}
+      <div class="option-group card mb-2 border" role="radiogroup" aria-labelledby="option-group-heading-{$options_data.ID}">
+        {* Optionsgruppen-Header (wenn mehrere Optionsgruppen vorhanden) *}
+        {if $options|count > 1}
+          <div class="card-header py-2 px-3 bg-light border-bottom">
+            <h6 id="option-group-heading-{$options_data.ID}" class="mb-0 font-weight-bold text-dark">{$options_data.NAME}</h6>
+          </div>
+        {/if}
+         
+        {* Optionsgruppen-Body *}
+        <div class="card-body p-0">
+          <div class="list-group list-group-flush">
+            {* Initialisiere Variablen für die Auswahlpriorität *}
+            {assign var="first_available_found" value=false}
+            {assign var="lagernd_option_found" value=false}
+            {assign var="lagernd_option_id" value=0}
+            {assign var="first_available_option_id" value=0}
+            
+            {* Erster Durchlauf: Finde die bevorzugte Option (STOCK < 99 mit "Lagernd") *}
+            {foreach key=key_data name=key_data item=item_data from=$options_data.DATA}
+              {if $item_data.ID != '0' && $item_data.STOCK > 0}
+                {if !$first_available_found}
+                  {assign var="first_available_option_id" value=$item_data.ID}
+                  {assign var="first_available_found" value=true}
+                {/if}
+                
+                {* Prüfe auf STOCK < 99 (Lagernd) *}
+                {if $item_data.STOCK < 99 && !$lagernd_option_found}
+                  {assign var="lagernd_option_id" value=$item_data.ID}
+                  {assign var="lagernd_option_found" value=true}
+                {/if}
+              {/if}
+            {/foreach}
+            
+            {* Zweiter Durchlauf: Zeige alle Optionen an und wähle die bevorzugte aus *}
+            {foreach key=key_data name=key_data item=item_data from=$options_data.DATA}
+              {if $item_data.ID != '0'} {* Überspringe alle Optionen mit ID 0 (typischerweise "Bitte wählen") *}
+                
+                {* Einzelne Option *}
+                <div class="option-item px-3 py-2 border-left-0 border-right-0 {if !$smarty.foreach.key_data.last}border-bottom{else}border-bottom-0{/if} {if $item_data.STOCK > 0 || $item_data.ID == '0'}option-available{else}option-unavailable{/if}" 
+                     {if $item_data.STOCK > 0 || $item_data.ID == '0'}
+                     tabindex="0" 
+                     role="radio" 
+                     aria-checked="{if ($lagernd_option_found && $item_data.ID == $lagernd_option_id) || (!$lagernd_option_found && $first_available_found && $item_data.ID == $first_available_option_id)}true{else}false{/if}"
+                     onkeydown="if(event.key === ' ' || event.key === 'Enter') { event.preventDefault(); this.click(); }"
+                     {else}
+                     tabindex="-1"
+                     role="presentation"
+                     aria-disabled="true"
+                     {/if}
+                     aria-label="{$item_data.TEXT} {if $item_data.PRICE && $options|count == 1}{$item_data.PRICE}{elseif $item_data.FULL_PRICE}{$item_data.PREFIX} {$item_data.FULL_PRICE}{/if} {if $item_data.STOCK <= 0 && $item_data.ID != '0'} - nicht verfügbar{/if}">
+                  <div class="form-check mb-0">
+                    {* Verfügbare Option *} 
+                    {if $item_data.STOCK > 0 || $item_data.ID == '0'}
+                      <div class="option-control d-flex align-items-center w-100">
+                        <input 
+                          type="radio" 
+                          class="option-radio-input mr-2"
+                          id="rdb_{$item_data.ID}" 
+                          name="id[{$options_data.ID}]" 
+                          value="{$item_data.ID}" 
+                          data-attrdata="{$item_data.JSON_ATTRDATA}"
+                          {if ($lagernd_option_found && $item_data.ID == $lagernd_option_id) || (!$lagernd_option_found && $first_available_found && $item_data.ID == $first_available_option_id)} 
+                            checked="checked"
+                          {/if}
+                          aria-hidden="true"
+                        >
+                        <div class="option-content d-flex justify-content-between align-items-center w-100">
+                          <div class="option-info">
+                            <span class="option-text font-weight-normal">{$item_data.TEXT}</span>
+                            {* Lagerbestand-Anzeige *}
+                            {if $item_data.STOCK}
+                              <div class="stock-status mt-1">
+                                {if $item_data.STOCK<99}
+                                  <div class="d-flex align-items-center">
+                                    <div class="stock-indicator bg-success rounded-circle mr-1" style="width:10px;height:10px;" aria-hidden="true"></div>
+                                    <small class="text-success">{#shipping_lager#}</small>
+                                  </div>
+                                {else}
+                                  <div class="d-flex align-items-center">
+                                    <div class="stock-indicator bg-warnings rounded-circle mr-1" style="width:10px;height:10px;color: #A61826" aria-hidden="true"></div>
+                                    <small class="ship_text_warning">{#shipping_lagerson#}</small>
+                                  </div>
+                                {/if}
+                              </div>
+                            {/if}
+                          </div>
+                          
+                          {* Preisanzeige *}
+                          <div class="option-price text-right ml-auto">
+                            {if $item_data.PRICE && $options|count == 1}
+                              {if $item_data.OLD_PRICE}
+                                <div class="old-price">
+                                  <small class="text-danger"><del>{$item_data.OLD_PRICE}</del></small>
+                                </div>
+                              {/if}
+                              <div class="current-price font-weight-bold">{$item_data.PRICE}</div>
+                            {elseif $item_data.FULL_PRICE}
+                              <div class="current-price font-weight-bold">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</div>
+                            {/if}
+                          </div>
+                        </div>
+                      </div>
+                    {* Nicht verfügbare Option - nur Text anzeigen, kein Radio-Button *}
+                    {else}
+                      <div class="option-control d-flex align-items-center w-100">
+                        {* Platzhalter anstelle des Radio-Buttons mit gleicher Breite *}
+                        <div class="radio-placeholder mr-2" style="width: 16px; height: 16px;"></div>
+                        <div class="option-content d-flex justify-content-between align-items-center w-100">
+                          <div class="option-info">
+                            <span class="option-text text-muted">{$item_data.TEXT}</span>
+                            <div class="stock-status mt-1">
+                              <div class="d-flex align-items-center">
+                                <div class="stock-indicator bg-danger rounded-circle mr-1" style="width:10px;height:10px;" aria-hidden="true"></div>
+                                <small class="text-danger">{#shipping_lagers#}</small>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {* Preisanzeige (ausgegraut) *}
+                          <div class="option-price text-right ml-auto">
+                            {if $item_data.PRICE && $options|count == 1}
+                              {if $item_data.OLD_PRICE}
+                                <div class="old-price">
+                                  <small class="text-muted"><del>{$item_data.OLD_PRICE}</del></small>
+                                </div>
+                              {/if}
+                              <div class="current-price text-muted">{$item_data.PRICE}</div>
+                            {elseif $item_data.FULL_PRICE}
+                              <div class="current-price text-muted">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</div>
+                            {/if}
+                          </div>
+                        </div>
+                      </div>
+                    {/if}
+                  </div>
+                </div>
+              {/if}
+            {/foreach}
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  </div>
+  
+  {* Preisberechnung *}
+  {if $smarty.const.BS4_ATTR_PRICE_UPDATER == 'true' && isset($smarty.get.products_id)}
+    {if $smarty.session.customers_status.customers_status_show_price != 0}
+      <div class="price-summary card mt-3 border-primary">
+        <div class="card-body py-2 px-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="price-summary-info">
+              <span class="font-weight-bold">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_A}</span>
+              <div class="small text-muted">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_B}</div>
+            </div>
+            <div class="price-summary-value">
+              <span class="cuPrice font-weight-bold text-dark h5 mb-0" aria-live="polite"></span>
+              <div class="cuVpePrice small text-muted" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
+ 
+    
+    <script type="text/javascript">
+    var attributePriceUpdater;
+    function PriceUpdaterReady() {
+      attributePriceUpdater = {
+        calculate: function (This) {
+          var summe = 0,
+              attrvpevalue = 0,
+              symbolLeft = '',
+              symbolRight = '',
+              data = This.data('attrdata'),
+              el = $('div[id^="optionen' + data.pid + '"] select').length ? ' option:selected' : ' input:checked';
+          $.each($('div[id^="optionen' + data.pid + '"]' + el), function () {
+            if (!$(this).parents('div[id^="optionen' + data.pid + '"] [id^="pmatrix_v"]').attr('style')) {
+              data = $(this).data('attrdata');
+              if (data.aprice != 0) {
+                if (data.prefix == '-') {
+                  summe -= data.aprice;
+                } else if (data.prefix == '+') {
+                  summe += data.aprice;
+                } else if (data.prefix == '=') {
+                  summe += data.aprice - data.gprice;
+                }
+                attrvpevalue += data.attrvpevalue;
+              }
+            }
+          });
+          var newPrice = (Math.round((summe + data.gprice) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
+          var oldPrice = (Math.round((summe + data.oprice) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
+          if (data.vpevalue !== false) {
+            var newVpePrice = (Math.round((summe + data.gprice) / (data.vpevalue + attrvpevalue) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
+          }
+          if (data.cleft) {
+            symbolLeft = data.cleft + '&nbsp;';
+          }
+          if (data.cright) {
+            symbolRight = '&nbsp;' + data.cright;
+          }
+          $('div[id^="optionen' + data.pid + '"] .cuPrice').html(symbolLeft + newPrice + symbolRight);
+          if (data.vpevalue !== false) {
+            $('div[id^="optionen' + data.pid + '"] .cuVpePrice').html(symbolLeft + newVpePrice + symbolRight + data.protext + data.vpetext);
+          }
+        },
+        calculateAll: function () {
+          $.each($('div[id^="optionen"] input[type=radio]:checked, div[id^="optionen"] input[type=checkbox], div[id^="optionen"] option'), function () {
+            attributePriceUpdater.calculate($(this));
+          });
+        }
+      };
+      
+      $(document).ready(function () {
+        // Preisberechnung und Zusammenfassung anzeigen
+        attributePriceUpdater.calculateAll();
+        $(".price-summary").show();
+        
+        // Event-Handler für Änderungen
+        $('div[id^="optionen"] select').on('change', function () {
+          attributePriceUpdater.calculate($('option:selected', this));
+        });
+        
+        $('div[id^="optionen"] input').on('change', function () {
+          attributePriceUpdater.calculate($(this));
+          
+          // Visuelles Feedback bei Auswahl, ohne den Attributnamen zu verstecken
+          $(this).closest('.option-group').find('.option-item').removeClass('active');
+          $(this).closest('.option-item').addClass('active');
+          
+          // Aktualisiere ARIA-Attribute für Barrierefreiheit
+          $(this).closest('.option-group').find('.option-item').attr('aria-checked', 'false');
+          $(this).closest('.option-item').attr('aria-checked', 'true');
+        });
+        
+        // Klick-Handler für das gesamte option-item div
+        $('.option-item.option-available').on('click', function(e) {
+          // Finde das Radio-Input innerhalb dieses option-item
+          var radioInput = $(this).find('input[type=radio]');
+          
+          // Setze checked auf true
+          radioInput.prop('checked', true);
+          
+          // Löse das change-Event aus, um die Preisberechnung zu aktualisieren
+          radioInput.trigger('change');
+          
+          // Verhindere Bubbling, wenn direkt auf das Radio-Input geklickt wurde
+          // Dies verhindert doppelte Auslösung des Events
+          if ($(e.target).is('input[type=radio]')) {
+            return;
+          }
+        });
+        
+        // Verbesserte Touch-Unterstützung für mobile Geräte
+        $('.option-item.option-available').css('cursor', 'pointer');
+        $('.option-item.option-unavailable').css('cursor', 'default');
+        
+        // Initial aktive Elemente markieren
+        $('.option-radio-input:checked').closest('.option-item').addClass('active');
+        
+        // Fokus-Handling für Tastaturnavigation
+        $('.option-item').on('focus', function() {
+          $(this).addClass('focus-visible');
+        }).on('blur', function() {
+          $(this).removeClass('focus-visible');
+        });
+        
+        // Füge CSS für Fokus-Stil hinzu
+        $('<style>\
+          .option-item.focus-visible { outline: 2px solid #007bff; outline-offset: -2px; }\
+          .option-item.option-unavailable { pointer-events: none; }\
+        </style>').appendTo('head');
+      });
+    }
+    </script>
+  {/if}
+</div>
+{/if}

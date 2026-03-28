@@ -1,0 +1,11 @@
+
+{if $CUSTOMERS_GENDER == 'f'}Sayın Bayan{elseif $CUSTOMERS_GENDER == 'm'}Sayın Bay{else}Merhaba Bayan/Bey{/if} {$CUSTOMERS_LASTNAME},
+
+Size yeni bir sevkiyat aldığımızı ve ilginizi çekebilecek ürünlerin de bulunduğunu bildirmek istedik.
+
+Aşağıdaki ürünün yeniden stokta olduğunda size bir ürün hatırlatması göndermemizi istemiştiniz:
+
+{$LINK}
+
+Saygılarımla,
+Mr. Hanf Ekibi

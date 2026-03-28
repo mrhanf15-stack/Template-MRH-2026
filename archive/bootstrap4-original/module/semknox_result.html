@@ -1,0 +1,58 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="index"}
+
+<div class="card listingbox shadow-sm">
+  
+  <div class="lb_image card-img-top text-center p-2">
+    {$TAG_TEXT|sprintf:"# image"}
+    <a href="{$TAG_TEXT|sprintf:'link'}">
+      <img class="img-fluid lazyload rounded" 
+      src="{$TAG_TEXT|sprintf:'image'}" 
+      alt="{$TAG_TEXT|sprintf:'name'}" 
+      title="{$TAG_TEXT|sprintf:'name'}" />
+    </a>
+    {$TAG_TEXT|sprintf:"/ image"}
+  </div>
+  
+  <div class="card-body">
+    
+    <h5 class="lb_title">
+      <a href="{$TAG_TEXT|sprintf:'link'}" class="text-dark">{$TAG_TEXT|sprintf:"name"}</a>
+    </h5>
+    
+    {$TAG_TEXT|sprintf:"# dataPointHash.shipping_name[0]"}
+    <p class="lb_shipping text-muted">
+      {#text_shippingtime#} {$TAG_HTML|sprintf:"dataPointHash.shipping_name[0]"}
+    </p>
+    {$TAG_TEXT|sprintf:"/ dataPointHash.shipping_name[0]"}
+    
+    <div class="lb_price">
+      <span class="standard_price font-weight-bold">
+        <span class="value_price text-primary">{$TAG_TEXT|sprintf:"dataPointHash.price_formatted[0]"}</span>
+      </span>
+      {$TAG_TEXT|sprintf:"# dataPointHash.vpe_price[0]"}
+      <div class="lb_vpe text-muted">
+        {$TAG_TEXT|sprintf:"dataPointHash.vpe_price[0]"}{$smarty.const.TXT_PER}{$TAG_TEXT|sprintf:"dataPointHash.vpe_name[0]"}
+      </div>
+      {$TAG_TEXT|sprintf:"/ dataPointHash.vpe_price[0]"}
+    </div>
+    
+    <div class="lb_tax text-muted small">
+      {foreach item=data from=$TAX_DATA}
+      {$TAG_TEXT|sprintf:"# dataPointHash.tax_rate_`$data.tax_rate`[0]"}
+      {$data.tax_info}
+      {$TAG_TEXT|sprintf:"/ dataPointHash.tax_rate_`$data.tax_rate`[0]"}
+      {/foreach}
+      {$SHIPPING_INFO}
+    </div>
+    
+    <div class="lb_buttons mt-3">
+      <a href="{$TAG_TEXT|sprintf:'link'}" class="btn btn-primary btn-sm">
+        <i class="fas fa-chevron-circle-right"></i> Details
+      </a>
+    </div>
+    
+  </div>
+  
+</div>

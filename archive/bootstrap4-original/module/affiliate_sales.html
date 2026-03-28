@@ -1,0 +1,86 @@
+
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_sales"}
+<link rel="stylesheet" href="/templates/bootstrap4/css/affiliate.css?v=20260318b">
+
+<div class="card mb-3">
+    <div class="card-header bg-h-main">
+        <h1 class="h3 mb-0 text-white"><span class="fas fa-money-bill-wave"></span> {#heading_title#}</h1>
+    </div>
+    <div class="card-body">
+        <p>Hier siehst du eine detaillierte Übersicht deiner vermittelten Verkäufe. Du kannst die Ansicht nach Zeitraum und Status filtern, um die gewünschten Daten zu analysieren.</p>
+
+        {$FORM_ACTION}
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="period_selector"><strong>{#text_affiliate_period#}</strong></label>
+                    {$period_selector}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="status_selector"><strong>{#text_affiliate_status#}</strong></label>
+                    {$status_selector}
+                </div>
+            </div>
+            {if $AFFILIATE_USE_TIER == 'true'}
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="level_selector"><strong>{#text_affiliate_level#}</strong></label>
+                    {$level_selector}
+                </div>
+            </div>
+            {/if}
+        </div>
+        </form>
+
+        <p class="small">{$affiliate_sales_split_numbers}</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th><span class="fas fa-calendar"></span> {#table_heading_date#}</th>
+                        <th><span class="fas fa-euro-sign"></span> {#table_heading_value#}</th>
+                        <th><span class="fas fa-percent"></span> {#table_heading_percentage#}</th>
+                        <th><span class="fas fa-sitemap"></span> {#table_heading_level#}</th>
+                        <th><span class="fas fa-shopping-cart"></span> {#table_heading_sales#}</th>
+                        <th><span class="fas fa-info-circle"></span> {#table_heading_status#}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {if $as_array != ''}
+                        {foreach item=as from=$as_array}
+                        <tr>
+                            <td>{$as.affiliate_date}</td>
+                            <td>{$as.affiliate_value}</td>
+                            <td>{$as.affiliate_percent}</td>
+                            <td>{$as.affiliate_level}</td>
+                            <td>{$as.affiliate_value}</td>
+                            <td>{$as.affiliate_orders_status}</td>
+                        </tr>
+                        {/foreach}
+                    {else}
+                        <tr>
+                            <td colspan="6" class="text-center">{#text_no_sales#}</td>
+                        </tr>
+                    {/if}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <p class="small">{$affiliate_sales_count}</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <p class="small">{$affiliate_sales_links}</p>
+            </div>
+        </div>
+
+        <div class="alert alert-success mt-3" role="alert">
+            <h4 class="alert-heading"><span class="fas fa-check-circle"></span> {#text_information_sales_total#}</h4>
+            <p class="mb-0"><strong>{$affiliate_sales_total}</strong> {#text_information_sales_total2#}</p>
+        </div>
+    </div>
+</div>

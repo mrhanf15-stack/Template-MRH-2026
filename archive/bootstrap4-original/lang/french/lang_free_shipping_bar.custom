@@ -1,0 +1,8 @@
+# ========================================
+# FreeShippingBar v1.3.0
+# ========================================
+
+FSB_TEXT_REMAINING = 'Plus que {#FSB_AMOUNT#} pour la livraison gratuite !'
+FSB_TEXT_REACHED = 'Félicitations ! Livraison gratuite !'
+FSB_TEXT_FREE_SHIPPING = 'Livraison gratuite'
+FSB_TEXT_CLOSE = 'Fermer'

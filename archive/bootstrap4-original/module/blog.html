@@ -1,0 +1,40 @@
+{config_load file="$language/lang_$language.conf" section="blog"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+
+<div id="blog-startpage">
+
+    {if !empty($TITLE)}<h1>{$TITLE}</h1>{/if}
+<div class="container">
+  {if ($smarty.get.page >= 2)}<button class="btn btn-light mt-2" type="button" data-toggle="collapse" data-target="#content1" aria-expanded="{if ($smarty.get.page < 2) || ($smarty.get.page == '')}true{else}false{/if}" aria-controls="content1">
+   {#klickk#}
+  </button>
+ {/if}
+  <div class="collapse {if ($smarty.get.page < 2) || ($smarty.get.page == '')}show{/if}" id="content1">
+   {if ($smarty.get.page == 1) || ($smarty.get.page == '')}
+    {if !empty($TEXT)}
+    <div class="blog-startpage-text">
+        {$TEXT}
+    </div>
+    {/if}{/if}
+    {*<!-- category listing -->*}
+    {if !empty($CATEGORIES)}
+    <div class="blog-section-listing">
+      {include file='module/includes/blog_category_listing.html' listing_items=$CATEGORIES listing_htag='h3'}
+    </div>
+    {/if}
+  </div>
+</div>
+
+
+    {*<!-- post listing -->*}
+    {if !empty($POSTS)}
+    <div class="blog-section-listing">
+        <h2>{#new_blog_posts#}</h2>
+            
+        {include file='module/includes/blog_post_listing.html' listing_items=$POSTS listing_htag='h3'}
+        {if !empty($NAVIGATION) && $POSTS_COUNT > $smarty.const.MODULE_BLOG_STARTPAGE_POSTS_MAX}{$NAVIGATION}{/if}
+	</div>
+    {/if}
+
+</div>

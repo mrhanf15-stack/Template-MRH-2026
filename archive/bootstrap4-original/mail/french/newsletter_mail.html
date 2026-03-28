@@ -1,0 +1,26 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Inscription &agrave; la newsletter</font>   </td>
+</tr>
+<tr> 
+<td>
+      <br />
+     <font size="2" face="Tahoma, Verdana, sans-serif"><b>Merci de vous &ecirc;tre inscrit &agrave; notre newsletter.</b><br />
+<br />{if isset($LINK)} Vous recevez cet e-mail car vous souhaitez recevoir notre newsletter.<br />
+      <br />Veuillez cliquer sur le lien d&#039;activation afin que votre adresse e-mail soit activ&eacute;e pour la r&eacute;ception de la newsletter.<br />
+      <br />
+     <b>Votre lien d&#039;activation :</b><br /> <a href="{$LINK}">{$LINK}</a> <br />
+      <br /> Si vous ne vous &ecirc;tes pas inscrit &agrave; notre newsletter ou si vous ne souhaitez pas la recevoir, nous vous prions simplement d&#039;ignorer le lien d&#039;activation.<br />
+      <br />Votre consentement &agrave; l&#039;envoi de notre newsletter est r&eacute;vocable &agrave; tout moment. L&#039;envoi de la newsletter s&#039;effectue conform&eacute;ment &agrave; notre d&eacute;claration de protection des donn&eacute;es.<br /> {/if}&nbsp;{if $SEND_GIFT == true} <br /> Comme petit cadeau, nous vous envoyons un bon d&#039;achat de : <b>{$GIFT_AMMOUNT}</b><br />
+      <br /> Votre code de bon d&#039;achat personnel est <b>{$GIFT_CODE}</b>. Vous pouvez comptabiliser ce cr&eacute;dit &agrave; la caisse pendant le processus de commande. Pour utiliser le bon, veuillez cliquer sur <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a>.<br /> {/if}&nbsp;{if $SEND_COUPON == true} <br /> Comme petit cadeau, nous vous envoyons un coupon.<br />
+      Description du coupon : <b>{$COUPON_DESC}</b><br /> Saisissez simplement votre code personnel {$COUPON_CODE} pendant le processus de paiement.<br /> {/if} <br /> Nous vous souhaitons beaucoup de plaisir avec notre offre ONLINE ! </font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

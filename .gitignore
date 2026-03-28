@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node
+node_modules/
+package-lock.json
+
+# Compiled
+*.min.css.map
+*.min.js.map
+
+# Temp
+*.tmp
+*.bak

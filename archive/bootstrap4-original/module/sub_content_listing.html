@@ -1,0 +1,10 @@
+{if isset($parent_content)}
+<div class="card card-form">
+	<div class="card-header h4"><a href="{$parent_content.CONTENT_LINK}" title="{$parent_content.CONTENT_TITLE|onlytext}">{$parent_content.CONTENT_TITLE}</a></div>
+	<div class="list-group">
+		{foreach name=aussen item=content_data from=$sub_content}
+		<a class="list-group-item" href="{$content_data.CONTENT_LINK}" title="{$content_data.CONTENT_TITLE|onlytext}"><span class="fbicon fbicon-caret-right fbicon-sm mr-1"></span>{$content_data.CONTENT_TITLE}</a>
+		{/foreach}
+	</div>
+</div>
+{/if}

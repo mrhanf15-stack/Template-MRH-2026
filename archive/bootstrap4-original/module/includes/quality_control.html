@@ -1,0 +1,51 @@
+{if !empty($PRODUCTS_ATTRIBUTES_QUANTITY)}
+    {if !empty($QC_DATE)}
+        {* Konvertiere QC_DATE zu Timestamp und vergleiche mit aktuellem Datum minus 1,5 Jahre *}
+        {assign var="qc_timestamp" value=$QC_DATE|strtotime}
+        {assign var="limit_timestamp" value=$smarty.now-47336400}
+        
+        {if $qc_timestamp > $limit_timestamp}
+            <div class="card bg-light border-success mb-3">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-2 text-center">
+                            <span class="fa fa-check-circle text-success" style="font-size: 1.5rem;"></span>
+                        </div>
+                        <div class="col-10">
+                            <h6 class="card-title mb-1 text-success"><span class="fa fa-flask"></span>{#BS4_qualtext#}</h6>
+                            <p class="card-text mb-0 small">
+                                {#BS4_qc_1#}&nbsp;<strong>{$QC_DATE}&nbsp;</strong>
+                                {if !empty($QC_RATE)}  
+                                    {#BS4_qc_2#}&nbsp;<strong>{$QC_RATE}</strong>
+                                {/if}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/if}
+    {else}
+        {if !empty($PRODUCTS_LAST_MODIFIED_DATE)}
+            {* Konvertiere PRODUCTS_LAST_MODIFIED_DATE zu Timestamp und vergleiche *}
+            {assign var="modified_timestamp" value=$PRODUCTS_LAST_MODIFIED_DATE|strtotime}
+            {assign var="limit_timestamp" value=$smarty.now-47336400}
+            
+            {if $modified_timestamp > $limit_timestamp}
+                <div class="card bg-light border-success mb-3">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col-2 text-center">
+                                <span class="fa fa-check-circle text-success" style="font-size: 1.5rem;"></span>
+                            </div>
+                            <div class="col-10">
+                                <h6 class="card-title mb-1 text-success"><span class="fa fa-flask"></span>{#BS4_qualtext#}</h6>
+                                <p class="card-text mb-0 small">{#BS4_qc_1#}&nbsp;<strong>{$PRODUCTS_LAST_MODIFIED_DATE}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        {/if}
+    {/if}
+{/if}
+

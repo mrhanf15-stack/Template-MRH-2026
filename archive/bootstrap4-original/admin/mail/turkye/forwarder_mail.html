@@ -1,0 +1,60 @@
+<style>
+.button{
+color: #FFF;
+font-weight: bolder;
+line-height: 24px;
+margin:20px 0;
+padding: 12px 15px;
+text-align: center;
+text-decoration: none;
+background-color: #424242;
+border-radius: 0;
+display: inline-block;
+font-size: 16px;
+min-width: 248px;
+}
+</style>
+<div style="width: 100%;max-width:700px;margin: 0px auto;">
+<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+    	<td align="center" style="padding:10px 0px;"><img src="{$logo_path}logo.gif" style="width: auto;max-width:100%;" /></td>
+	</tr>
+	<tr> 
+    	<td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+		<font face="Tahoma, Verdana, sans-serif">
+		{$PDF_TYPE} for the order{if $ORDER_NR} No. {$ORDER_NR}{/if}{if $ORDER_DATE} from {$ORDER_DATE}{/if}
+		</font>
+      </td>
+	</tr>
+  <tr> 
+    <td>
+      <br />
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top">
+            <p><font size="2" face="Tahoma, Verdana, sans-serif">
+			{if $GENDER == MALE}Dear Mr.{elseif $GENDER == FEMALE}Dear Ms./Mrs.{else}Hallo{/if} {$LASTNAME},<br />
+              <br />
+              thank you for your order{if $ORDER_NR} No. {$ORDER_NR}{/if}{if $ORDER_DATE} from {$ORDER_DATE}{/if}.<br/>
+              We attached you a {$PDF_TYPE} for your articles.<br /> 
+             </font></p>
+			{if $ORDER_LINK}<div align="center"><a href="{$ORDER_LINK}" class="button">Link to order</a></div>{/if}
+			</td>
+        </tr>
+      </table>
+      <br />
+      <br />
+    </td>
+  </tr>
+</table>
+
+
+{$SIGNATURE_HTML}
+{*$REVOCATION_HTML*}
+<br />
+{*$AGB_TITLE_HTML*}
+{*$AGB_HTML*}
+
+{*$PRIVACY_POLICY_HTML*}
+[NOSIGNATUR]
+</div>

@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+{$LINK}
+
+
+D{if isset($LINK)}
+ank Ihnen, dass Sie unsere Newsletter abgelehnt haben. Dank Ihnen, dass Sie unsere Newsletter abgelehnt haben wollen. Ihre Activierungsv&iacute;nculo: Wenn Sie unsere Newsletter nicht abgelehnt haben oder nicht wollen, dann k&ouml;nnen Sie das Activierungsv&iacute;nculo abgelehnen. 
+     
+Puede revocar su consentimiento para recibir nuestro bolet&iacute;n en cualquier momento.
+{/if}
+
+{if $SEND_GIFT == true}
+ {$GIFT_AMMOUNT}
+
+ {$GIFT_CODE} El bolet&iacute;n se env&iacute;a de acuerdo con nuestra pol&iacute;tica de privacidad. Como peque&ntilde;o regalo, le enviaremos un vale a trav&eacute;s de: Su c&oacute;digo de vale personal es .
+
+ {$GIFT_LINK}
+{/if}
+
+{if $SEND_COUPON == true}
+
+
+ {$COUPON_DESC}
+
+ {$COUPON_CODE} Puede canjear este vale en la caja durante el proceso de pedido. Para canjear el vale, utilice el siguiente enlace Le enviaremos un cup&oacute;n como peque&ntilde;o regalo. Descripci&oacute;n del cup&oacute;n: Simplemente introduzca su c&oacute;digo personal durante el proceso de compra.
+{/if}
+
+[SIGNATUR]

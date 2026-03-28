@@ -1,0 +1,218 @@
+{* -----------------------------------------------------------------------------------------
+   Modified Shop 2.0.7 - Reklamationsformular Template
+   Datei: templates/[TEMPLATE]/module/reklamation_form.html
+   
+   Smarty-Template für das Reklamationsformular
+   ----------------------------------------------------------------------------------------- *}
+
+{config_load file="$language/lang_$language.conf" section="reklamation"}
+
+<div class="page">
+    <div class="pageHeading">
+        <h1>{#heading_title_reklamation#}</h1>
+        <p class="pageDescription">{#text_reklamation_intro#}</p>
+    </div>
+
+    <div class="contentContainer">
+        <form name="reklamation_form" id="reklamation_form" method="post" action="reklamation_process.php" enctype="multipart/form-data" onsubmit="return validateForm()">
+            
+            {* Kundendaten Sektion *}
+            <div class="formSection">
+                <h2 class="sectionTitle">{#heading_kundendaten#}</h2>
+                
+                <div class="formRow">
+                    <label for="kunde_name" class="required">{#text_kunde_name#}</label>
+                    <input type="text" name="kunde_name" id="kunde_name" 
+                           value="{if !$is_guest}{$customer_data.customers_firstname} {$customer_data.customers_lastname}{/if}" 
+                           required maxlength="255" class="form-control">
+                </div>
+
+                <div class="formRow">
+                    <label for="kunde_email" class="required">{#text_kunde_email#}</label>
+                    <input type="email" name="kunde_email" id="kunde_email" 
+                           value="{if !$is_guest}{$customer_data.customers_email_address}{/if}" 
+                           required maxlength="255" class="form-control">
+                </div>
+
+                <div class="formRow">
+                    <label for="kunde_telefon">{#text_kunde_telefon#}</label>
+                    <input type="tel" name="kunde_telefon" id="kunde_telefon" 
+                           value="{if !$is_guest}{$customer_data.customers_telephone}{/if}" 
+                           maxlength="50" class="form-control">
+                </div>
+            </div>
+
+            {* Bestelldaten Sektion *}
+            <div class="formSection">
+                <h2 class="sectionTitle">{#heading_bestelldaten#}</h2>
+                
+                {if !$is_guest && $orders_array}
+                    <div class="formRow">
+                        <label for="bestellnummer_select">{#text_bestellung_auswählen#}</label>
+                        <select name="bestellnummer_select" id="bestellnummer_select" class="form-control" onchange="loadOrderProducts(this.value)">
+                            <option value="">{#text_bitte_wählen#}</option>
+                            {foreach from=$orders_array item=order}
+                                <option value="{$order.orders_id}">
+                                    {#text_bestellung#} #{$order.orders_id} - {$order.date_purchased|date_format:"%d.%m.%Y"}
+                                </option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    
+                    <div class="formRow">
+                        <label>{#text_oder_manuell#}</label>
+                    </div>
+                {/if}
+
+                <div class="formRow">
+                    <label for="bestellnummer" class="required">{#text_bestellnummer#}</label>
+                    <input type="text" name="bestellnummer" id="bestellnummer" required maxlength="50" class="form-control">
+                    <small class="help-text">{#text_bestellnummer_hilfe#}</small>
+                </div>
+
+                <div class="formRow" id="produkt_selection">
+                    <label for="produkt_name">{#text_betroffenes_produkt#}</label>
+                    <div id="produkt_liste">
+                        <input type="text" name="produkt_name" id="produkt_name" maxlength="255" class="form-control" placeholder="{#text_produkt_manuell#}">
+                        <input type="hidden" name="produkt_id" id="produkt_id">
+                    </div>
+                </div>
+            </div>
+
+            {* Keimungsdaten Sektion *}
+            <div class="formSection">
+                <h2 class="sectionTitle">{#heading_keimungsdaten#}</h2>
+                
+                <div class="formRow">
+                    <label for="keimung_methode">{#text_keimung_methode#}</label>
+                    <select name="keimung_methode" id="keimung_methode" class="form-control">
+                        <option value="">{#text_bitte_wählen#}</option>
+                        <option value="papiertuch">{#text_methode_papiertuch#}</option>
+                        <option value="erde">{#text_methode_erde#}</option>
+                        <option value="wasser">{#text_methode_wasser#}</option>
+                        <option value="steinwolle">{#text_methode_steinwolle#}</option>
+                        <option value="kokos">{#text_methode_kokos#}</option>
+                        <option value="andere">{#text_methode_andere#}</option>
+                    </select>
+                </div>
+
+                <div class="formRow">
+                    <label for="keimung_medium">{#text_keimung_medium#}</label>
+                    <input type="text" name="keimung_medium" id="keimung_medium" maxlength="100" class="form-control" 
+                           placeholder="{#text_medium_beispiel#}">
+                </div>
+
+                <div class="formRowGroup">
+                    <div class="formRowHalf">
+                        <label for="keimung_temperatur">{#text_keimung_temperatur#}</label>
+                        <input type="text" name="keimung_temperatur" id="keimung_temperatur" maxlength="50" class="form-control" 
+                               placeholder="{#text_temperatur_beispiel#}">
+                    </div>
+                    <div class="formRowHalf">
+                        <label for="keimung_luftfeuchtigkeit">{#text_keimung_luftfeuchtigkeit#}</label>
+                        <input type="text" name="keimung_luftfeuchtigkeit" id="keimung_luftfeuchtigkeit" maxlength="50" class="form-control" 
+                               placeholder="{#text_luftfeuchtigkeit_beispiel#}">
+                    </div>
+                </div>
+
+                <div class="formRowGroup">
+                    <div class="formRowHalf">
+                        <label for="keimung_dauer">{#text_keimung_dauer#}</label>
+                        <input type="text" name="keimung_dauer" id="keimung_dauer" maxlength="50" class="form-control" 
+                               placeholder="{#text_dauer_beispiel#}">
+                    </div>
+                    <div class="formRowHalf">
+                        <label for="keimung_rate">{#text_keimung_rate#}</label>
+                        <input type="text" name="keimung_rate" id="keimung_rate" maxlength="50" class="form-control" 
+                               placeholder="{#text_rate_beispiel#}">
+                    </div>
+                </div>
+
+                <div class="formRow">
+                    <label for="lichtbedingungen">{#text_lichtbedingungen#}</label>
+                    <select name="lichtbedingungen" id="lichtbedingungen" class="form-control">
+                        <option value="">{#text_bitte_wählen#}</option>
+                        <option value="dunkel">{#text_licht_dunkel#}</option>
+                        <option value="indirektes_licht">{#text_licht_indirekt#}</option>
+                        <option value="direktes_licht">{#text_licht_direkt#}</option>
+                        <option value="kunstlicht">{#text_licht_kunst#}</option>
+                        <option value="led_grow">{#text_licht_led#}</option>
+                    </select>
+                </div>
+
+                <div class="formRow">
+                    <label for="wassergabe">{#text_wassergabe#}</label>
+                    <input type="text" name="wassergabe" id="wassergabe" maxlength="100" class="form-control" 
+                           placeholder="{#text_wassergabe_beispiel#}">
+                </div>
+            </div>
+
+            {* Problembeschreibung *}
+            <div class="formSection">
+                <h2 class="sectionTitle">{#heading_problembeschreibung#}</h2>
+                
+                <div class="formRow">
+                    <label for="problem_beschreibung" class="required">{#text_problem_beschreibung#}</label>
+                    <textarea name="problem_beschreibung" id="problem_beschreibung" required maxlength="2000" 
+                              rows="8" class="form-control" placeholder="{#text_beschreibung_platzhalter#}"></textarea>
+                    <div class="char-counter">
+                        <span id="char_count">0</span> / 2000 {#text_zeichen#}
+                    </div>
+                </div>
+            </div>
+
+            {* Bildupload *}
+            <div class="formSection">
+                <h2 class="sectionTitle">{#heading_bilder#}</h2>
+                
+                <div class="formRow">
+                    <label for="bilder">{#text_bilder_upload#}</label>
+                    <div class="upload-area" id="upload_area">
+                        <div class="upload-text">
+                            <i class="icon-upload"></i>
+                            <p>{#text_bilder_drag_drop#}</p>
+                            <p class="upload-info">{#text_bilder_info#}</p>
+                        </div>
+                        <input type="file" name="bilder[]" id="bilder" multiple accept="image/jpeg,image/jpg,image/png" class="file-input">
+                    </div>
+                    <div id="preview_container" class="preview-container"></div>
+                </div>
+            </div>
+
+            {* Datenschutz und Absenden *}
+            <div class="formSection">
+                <div class="formRow">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="datenschutz" id="datenschutz" required>
+                        <span class="checkmark"></span>
+                        {#text_datenschutz_zustimmung#}
+                    </label>
+                </div>
+
+                <div class="formRow submit-row">
+                    <button type="submit" class="btn btn-primary btn-large" id="submit_btn">
+                        <i class="icon-send"></i>
+                        {#button_reklamation_senden#}
+                    </button>
+                    <div class="loading-spinner" id="loading_spinner" style="display: none;">
+                        <i class="icon-spinner"></i>
+                        {#text_wird_verarbeitet#}
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="action" value="submit_reklamation">
+            <input type="hidden" name="is_guest" value="{if $is_guest}1{else}0{/if}">
+            {if !$is_guest}
+                <input type="hidden" name="customers_id" value="{$smarty.session.customer_id}">
+            {/if}
+        </form>
+    </div>
+</div>
+
+{* JavaScript für Formular-Funktionalität *}
+<script type="text/javascript" src="includes/javascript/reklamation.js"></script>
+
+{* CSS für Formular-Styling *}
+<link rel="stylesheet" type="text/css" href="templates/{$current_template}/css/reklamation.css">
+

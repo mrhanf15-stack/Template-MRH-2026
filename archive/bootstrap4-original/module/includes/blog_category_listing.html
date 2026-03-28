@@ -1,0 +1,24 @@
+{*<!-- set htag -->*}
+{if empty($listing_htag)}
+  {assign var='listing_htag' value='h2'}
+{/if}
+
+<div class="blog-category-listing blog-row">
+
+    {foreach name=aussen item=data from=$listing_items}
+    <div class="blog-col">
+      <div class="blog-category">
+
+        {if !empty($data.IMAGE_LIST) || !empty($data.IMAGE)}
+        <div class="blog-category-image">
+            <a href="{$data.LINK}" title="{$data.NAME|onlytext}"><img class="lazyload" src="data:," data-src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" title="{$post.NAME|onlytext}" width="{$smarty.const.MODULE_BLOG_THUMBNAIL_IMAGE_WIDTH}" height="{$smarty.const.MODULE_BLOG_THUMBNAIL_IMAGE_HEIGHT}" /></a>
+        </div>
+        {/if}
+
+        <{$listing_htag} class="blog-category-name"><a href="{$data.LINK}" title="{$data.NAME|onlytext}">{$data.NAME}</a></{$listing_htag}>
+    
+      </div>
+    </div>
+    {/foreach}
+
+</div>

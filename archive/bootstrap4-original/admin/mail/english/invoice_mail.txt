@@ -1,0 +1,19 @@
+{if $GENDER == MALE}Dear Mr.{elseif $GENDER == FEMALE}Dear Mrs.{else}Good day{/if} {$LASTNAME} ,
+
+thank you for your order{if $ORDER_NR} No. {$ORDER_NR}{/if} {if $ORDER_DATE} from {$ORDER_DATE}{/if} .
+
+Attached to this e-mail you will find your {$PDF_TYPE} for your order.
+
+
+{if $ORDER_LINK}To order:{$ORDER_LINK} 
+{/if}
+
+{$SIGNATURE_TXT}
+
+{*$REVOCATION_TXT*}
+
+{*$AGB_TITLE_TXT*}
+{*$AGB_TXT*}
+
+{*$PRIVACY_POLICY_TXT*}
+[NOSIGNATURE]

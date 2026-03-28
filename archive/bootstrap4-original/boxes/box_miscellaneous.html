@@ -1,0 +1,54 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+
+<div class="box {$smarty.const.BS4_FOOTER_NAVBAR}">
+	{*
+    <div class="box-heading w-100 navbar-brand border-bottom mb-2">{#heading_miscellaneous#}</div>
+	<p><img class="img-fluid mt-2" src="{$tpl_path}img/img_footer_payment.jpg" alt="" /></p>
+	<p class="box_sub text-secondary small">{#text_miscellaneous#}</p>
+    *}
+
+	<div class="box navbar-dark">
+  		<div class="box-heading w-100 navbar-brand border-bottom mb-2">{#zahlungsweisen#}</div>
+  		<div class="box3_line"></div>
+  	    <div class="box-payment-icons">
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/vorkasse.png" alt="{#vorkasse_alt#}" title="{#vorkasse_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/nachnahme.png" alt="{#nachnahme_alt#}" title="{#nachnahme_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/rechnung.png" alt="{#rechnung_alt#}" title="{#rechnung_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/barzahlung.png" alt="{#brief_alt#}" title="{#brief_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/bitcoin.png" alt="{#bitcoin_alt#}" title="{#bitcoin_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/post-brief.png" alt="{#post_brief_alt#}" title="{#post_brief_title#}" />
+			<img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/visa.png" alt="Visa" title="Visa" />
+			 <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/mastercard.png" alt="Mastercard" title="Masterkard" />
+			<!-- <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/paysend.png" alt="paysend" title="paysend" />
+			 <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/payment/55px/wise.png" alt="wise" title="wise" />
+       --> </div>
+	</div>
+
+	<div class="box navbar-dark" >
+  		<div class="box-heading w-100 navbar-brand border-bottom mb-2">{#liefernmit#}</div>
+  		<div class="box3_line"></div>
+  	    <div class="box-payment-icons">
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/dhl-express.png" alt="{#dhl_express_alt#}" title="{#dhl_express_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/dhl.png" alt="{#dhl_alt#}" title="{#dhl_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/GLS.png" alt="{#gls_alt#}" title="{#gls_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/post.png" alt="{#post_alt#}" title="{#post_title#}" />
+            <img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/dhl-packstation.png" alt="{#dhl_packstation_alt#}" title="{#dhl_packstation_title#}" />
+			<img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/ups.png" alt="wise" title="UPS" />
+			<img class="lazyload rounded" width="55" height="32" src="data:," data-src="{$tpl_path}img/shipping/55px/ups-express.png" alt="wise" title="UPS Express" />
+        </div>    
+	</div>    
+
+</div>
+ 
+<div class="box navbar-dark"> 
+  <div class="box-heading w-100 navbar-brand border-bottom mb-2">{#new_soz#}</div>
+  <ul class="list-unstyled">
+ 
+    <li class="d-inline-block"><a class="d-block iframe" href="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003012'}" rel="nofollow" target="_blank"  title="Facebook" data-src="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003012'}" data-toggle="modal" data-target="#modal"> <i class="fab fa-facebook-f fa-2x m-2" style="color: #3b5998;"></i></a></li>
+    {*<!--<li class="d-inline-block"><a class="d-block iframe" href="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003013'}" rel="nofollow" target="_blank"  title="Twitter" data-src="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003013'}" data-toggle="modal" data-target="#modal"> <i class="fab fa-twitter fa-2x m-2" style="color: #55acee;"></i></a></li>-->*}
+    <li class="d-inline-block"><a class="d-block iframe" href="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003014'}" rel="nofollow" target="_blank"  title="Instagram" data-src="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003014'}" data-toggle="modal" data-target="#modal"> <i class="fab fa-instagram fa-2x m-2" style="color: #ac2bac;"></i></a></li> <li class="d-inline-block"><a class="d-block iframe" href="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003016'}" rel="nofollow" target="_blank"  title="Youtube" data-src="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003016'}" data-toggle="modal" data-target="#modal"> <i class="fab fa-youtube fa-2x m-2" style="color: #ed302f;"></i></a></li>
+   {*<!-- <li class="d-inline-block"><a class="d-block iframe" href="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003015'}" rel="nofollow" target="_blank"  title="Pinterest" data-src="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003015'}" data-toggle="modal" data-target="#modal"> <i class="fab fa-pinterest fa-2x m-2" style="color: #c61118;"></i></a> </li>*}
+    {*<li class="d-inline-block"><a class="d-block iframe" href="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003016'}" rel="nofollow" target="_blank"  title="Youtube" data-src="{$smarty.const.FILENAME_POPUP_CONTENT|xtc_href_link:'coID=1003016'}" data-toggle="modal" data-target="#modal"> <i class="fab fa-youtube fa-2x m-2" style="color: #ed302f;"></i></a></li>-->*}
+  </ul>
+</div>

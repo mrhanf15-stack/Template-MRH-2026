@@ -1,0 +1,11 @@
+{$content.PARTNER_NAME} {$content.PAYMENT_ID} {$content.INVOICE_URL} {$content.PAYMENT_DATE}Hola ,
+
+Se ha creado un nuevo extracto para sus comisiones.
+
+Extracto de comisi&oacute;n n&ordm;: 
+Extracto de comisi&oacute;n detallado: 
+Fecha de liquidaci&oacute;n: 
+
+Esperamos continuar con nuestra buena cooperaci&oacute;n.
+
+Su equipo del programa de socios.

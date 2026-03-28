@@ -1,0 +1,35 @@
+<style>
+.button{ color: #FFF; font-weight: bolder; line-height: 24px; margin:20px 0; padding: 12px 15px; text-align: center; text-decoration: none; background-color: #424242; border-radius: 0; display: inline-block; font-size: 16px; min-width: 248px; }</style>
+<div style="width: 100%;max-width:700px;margin: 0px auto;">
+<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding:10px 0px;"><img src="{$logo_path}logo.gif" style="width: auto;max-width:100%;" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+
+<font face="Tahoma, Verdana, sans-serif">{$PDF_TYPE}{if $ORDER_NR} {$ORDER_NR}&nbsp;{/if}&nbsp;{if $ORDER_DATE} {$ORDER_DATE}&nbsp;{/if}al n&uacute;mero de pedido de</font></td>
+</tr>
+  <tr> 
+    <td>
+      <br />
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top">
+            <p><font size="2" face="Tahoma, Verdana, sans-serif">
+{if $GENDER == MALE}{elseif $GENDER == FEMALE}{else}{/if}&nbsp;{$LASTNAME}<br />
+              <br />{if $ORDER_NR} {$ORDER_NR}&nbsp;{/if}&nbsp;{if $ORDER_DATE} {$ORDER_DATE}&nbsp;{/if} <br/> {$PDF_TYPE}<br /> Estimado Sr. Estimada Sra. Hola, Dank f&uuml;r Ihre Ordnung nr. de . Adjunto a este correo electr&oacute;nico encontrar&aacute; su para su pedido.      </font></p>
+{if $ORDER_LINK}<div align="center"><a href="{$ORDER_LINK}" class="button">Zur Bestellungbersicht</a></div>{/if}
+</td>
+        </tr>
+      </table>
+      <br />
+      <br />
+    </td>
+  </tr>
+</table>
+
+{$SIGNATURE_HTML}&nbsp;{*$REVOCATION_HTML*}
+<br />
+{*$AGB_TITLE_HTML*}&nbsp;{*$AGB_HTML*}&nbsp;{*$PRIVACY_POLICY_HTML*}&nbsp;[NOSIGNATUR]
+</div>

@@ -1,0 +1,209 @@
+# Die lang_german.section wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" oder "smarty_4" gesetzt ist!
+
+[account_checkout_express]
+
+[account_delete]
+
+[account_edit]
+
+[account_history_info]
+
+[account_history]
+
+[account_password]
+
+[account]
+
+[address_book_process]
+
+[address_book]
+
+[advanced_search]
+
+[also_purchased]
+
+[error_handler]
+
+[checkout_confirmation]
+
+[checkout_payment]
+
+[checkout_new_address]
+
+[checkout_payment_address]
+
+[checkout_shipping_address]
+
+[checkout_shipping]
+
+[checkout_success]
+
+[contact_us]
+
+[cookie_usage]
+
+[create_account]
+
+[create_account_guest]
+
+[cross_selling]
+
+[downloads_module]
+
+[main]
+
+[gift_cart]
+
+[graduated_price]
+
+[gv_redeem]
+
+[gv_send]
+
+[filter]
+
+[login]
+
+[logoff]
+
+[index]
+
+[new_products]
+
+[newsletter]
+
+[shopping_cart]
+
+[new_password]
+
+[password_forgotten]
+
+[popup_coupon_help]
+
+[popup_search_help]
+
+[print_order]
+
+[print_product_info]
+
+[product_info]
+
+[product_navigator]
+
+[reviews]
+
+[product_tags]
+
+[products_category]
+
+[products_media]
+
+[reverse_cross_selling]
+
+[sitemap]
+cont_site = '<p>Die Sitemap Seite bietet eine Übersicht über alle verfügbaren Links auf der Webseite. Dazu gehören der Samen Shop, der CBD & Terpene Shop, der Growshop, der Headshop sowie diverse Blog Beiträge zu verschiedenen Themen rund um den Cannabisanbau. In unserem Samen Shop finden Sie eine große Auswahl an Hanfsamen, unterteilt in CBD-reiche Sorten, feminisierte Samen, THC-reiche Sorten, Autoflowering Samen und medizinische Samen.</p>
+<p>Im CBD & Terpene Shop bieten wir Ihnen eine Vielzahl an CBD-Produkten wie Blüten, Öl, Tropfen und mehr, sowie Terpene und andere Produkte aus Hanf. Im Growshop gibt es alles, was Sie für den Anbau von Cannabis benötigen, von Beleuchtungstechnik über Dünger und Substrate bis hin zu Lüftung und Klima. Im Headshop finden Sie Bongs, Grinder und anderes Rauchzubehör. Unsere Blog Beiträge bieten Ihnen interessante Informationen und Tipps rund um den Cannabisanbau.</p>'
+heading_tag_content = 'Beliebte Suchanfragen'
+
+[specials]
+
+[ssl_check]
+
+[categorie_listing]
+
+[upcoming_products]
+
+[wishlist]
+
+
+benefit1_title = "Schneller Versand"
+benefit1_text = "Diskrete Lieferung innerhalb von 1-3 Werktagen"
+benefit2_title = "Premium-Qualität"
+benefit2_text = "Nur Samen von renommierten Züchtern"
+benefit3_title = "Experten-Support"
+benefit3_text = "Persönliche Beratung bei Fragen"
+
+back_to_categories = "Zurück zur Kategorieauswahl"
+back_to_top = "Nach oben"
+filter_title = "Verfeinere deine Suche"
+
+manufacturer_label = "Hersteller"
+manufacturer_all = "Alle Hersteller"
+thc_label = "THC-Gehalt"
+cbd_label = "CBD-Gehalt"
+yield_label = "Ertrag"
+flowering_time_label = "Blütezeit"
+growing_area_label = "Anbaugebiet"
+
+search_btn = "Suchen"
+reset_btn = "Zurücksetzen"
+
+
+[manufacturers]
+title_top_brands = 'Top Marken bei Mr. Hanf'
+scroll_to = 'Springe zu '
+back_to_top = 'Nach oben'
+top = 'Bestseller:'
+
+[print_fax_order]
+heading_checkout = 'Brief- Bestellformular'
+text_checkout = 'Nachfolgend findest Du das Bestellformular f&uuml;r die manuelle Bestellung Deiner Produkte. Bitte kreuze  die gew&uuml;nschte Zahlungsart und Versandoption an und erg&auml;nze die noch fehlenden Angaben. Drucke die Bestellung aus und sende diese uns. Wir empfehlen, kein Kleingeld bei zu legen, das Bargeld in einem extra Kuvert, gefaltetem Papier, Postkarte oder zwischen zwei Kartone zu verstecken und den Brief mit extra Klebeband versiegelt per Einschreiben zu Senden! <br>  <br> Bankdaten und DHL Packstation... <br> '
+bank_daten = '<strong>Bankverbindung</strong><p>Name der Bank: Raiffeisen Regionalbank Hall in Tirol<br>Empfa&uml;nger: MRH N-Trade GmbH<br>Bankleitzahl: 36362<br>Kontonummer: 00000217968<br>IBAN: AT753636200000217968<br>BIC/SWIFT: RZTIAT22362<br>Verwendungszweck: DEIN-STRASSENNAME<br><br></p>'
+
+text_checkout2 = '<strong>Versand an Packstationen, bitte wie folgt ausf&uuml;llen.</strong><br /> <img  width="350px" src="/images/icons/FAQ-%20Frage%20und%20Antwort.gif" alt="Packstation"> <br /><br /> Bei Fragen steht Ihnen unseren Support unter der Rufnummer 0043 (0) 676 5124971 gerne zur Verf&uuml;gung!<br><br>'
+text_select_payment = 'Bitte kreuze die gew&uuml;nschte Zahlungsart sowie Versandmethode an und erg&auml;nze die fehlenden Informationen.  '
+text_signature = 'Datum, Ort, Unterschrift'
+text_payment_address = 'Rechnungsadresse'
+title_shipping_to = '<strong>Bestellung Senden  an</strong>'
+shipping_to = '<p><span style="color: #508B01">EMPFOHLEN</span><br /><b>Deutsche Adresse:<br /></b>
+D-A-Packs 3326655<br />
+Naturprodukte MR. H.<br />
+Am Rain 53<br />
+83088 Kiefersfelden<br /><br />
+<hr /><br /><span style="color: #A00002">*</span><br />
+<b>Österreich - Firmensitz:</b><br />
+MRH N-Trade GmbH <br />
+Schulstrasse 7<br />
+A-6161 Natters<br />
+Austria <br /><br /><br />  <br /><br />
+</p>'
+text_shipping_address = 'Lieferadresse'
+text_sameasbill = 'Lieferanschrift entspricht Rechnungsanschrift' 
+text_info_box_heder =  'Du bist auf der Suche nach Hanfsamen! Du m&ouml;chtest aber keine Pers&ouml;nlichen Daten hinterlassen, dann kannst Du ganz bequem mit diesem Formular Hanfsamen ohne Datenspeicherung bestellen.<br /> <br /> <span style="color: #A00002">*Österreichischen Post  nicht empfohlen, bitte nur an die DE Adresse senden! <br />*Bitte sende keine Briefe oder Pakete an die Österreichische Adresse.</span>'
+title_ahlungsart='Zahlungsart:'
+info_red = '<b class="b"> *Bitte Versandkosten beachten, siehe unten! </b>'
+info_red2 = '<b class="b"> *Verberge bitte das Bargeld zwischen einem gefalteten Zettel!</b>'
+info_red3 = ' '
+versand_opt = 'Versandart w&auml;hlen:'
+ahlungsart1  = 'Bar im Umschlag:'
+ahlungsart2 = 'EU-Standard Bank Transfer <br /> <b class="screen b">*Unser Bankverbindung kannst Du aus dem Impressum entnehmen!</b>'
+versand_opt01 = 'Versicherter Versand - Post (Brief) AT:  6,--  EUR'
+versand_opt06 = 'Versicherter Versand - Post (Brief) EU:  12,--  EUR'
+versand_opt1 = 'Unversicherter Versand - Post (Brief) AT:  4,--  EUR'
+versand_opt07 = 'Unversicherter Versand - Post (Brief) EU:  8,--  EUR'
+versand_opt2 = 'Paketdienst AT:  7,--  EUR'
+versand_opt7 = 'Paketdienst EU:  9,--  EUR'
+versand_opt4 = 'Innerhalb EU ab € 75,-- Versand kostenlos: 0,00  EUR'
+versand_opt5 = 'Versand nicht EU-L&auml;nder (Ausland): 16,--  EUR'
+versand_opt6 = 'DHL + Packstation DE:  18,--  EUR'
+info_exklsv = 'zzgl. Versandkosten '
+method= '<b class="c"> *Bitte w&auml;hle eine Versandmethode!</b>'
+artikelnummer= 'Art.Nr.:'
+shipping_adress = 'Deine Versandadresse'
+versand_textarea = 'Geben Sie zus&auml;tzliche Informationen bitte Hier an! 
+*Falls die gew&uuml;nschten Artikel nicht Lagernd sind und Du uns keine E-mail oder Telefonummer hinterlassen hast, versenden wir nach 7 Tagen automatisch Alternativ Produkte! '
+versandart = 'Versantmethode ausw&auml;hlen '
+versand_alter = ' Ich bestätige hiermit, dass ich über 18 Jahre alt bin und die allgemeinen Geschäftsbedingungen gelesen habe und akzeptiere.'
+MORE = 'MEHR'
+LESS = 'WENIGER'
+printorder = 'Bestellung drucken'
+versandwal = 'Bitte wähle eine Versandart'
+benach = 'Kontaktaufnahme:'
+benach_yes = 'Ja'
+benach_no = 'Nein'
+
+[blog]
+new_blog_posts = 'Neue Artikel'
+date_modified = 'ge&auml;ndert am'
+box_blog_categories = 'Blog Kategorien'
+box_blog_posts = 'Neue Blog Artikel'

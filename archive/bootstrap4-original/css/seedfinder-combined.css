@@ -1,0 +1,3362 @@
+/**
+ * Seedfinder Custom Styles
+ * Nach manufacturers_overview.css Muster
+ */
+/* Kategorie-Kacheln Hover-Effekt */
+#seedfinder_module .seedfinder-card .card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+#seedfinder_module .seedfinder-card .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
+#seedfinder_module .seedfinder-card .card:hover .seedfinder-btn {
+    transform: scale(1.05);
+}
+/* Card Styling */
+#seedfinder_module .card {
+    border-radius: 8px;
+    overflow: hidden;
+}
+/* Button Styling */
+#seedfinder_module .seedfinder-btn {
+    transition: all 0.3s ease;
+}
+/* Form Styling */
+#seedfinder_module .form-check-input:checked {
+    background-color: #839A4F;
+    border-color: #839A4F;
+}
+#seedfinder_module .form-control:focus {
+    border-color: #839A4F;
+    box-shadow: 0 0 0 0.2rem rgba(131, 154, 79, 0.25);
+}
+/* Badge Styling */
+#seedfinder_module .badge {
+    font-weight: 800;
+}
+/* Back to Top Button */
+#seedfinder_module .clearfix .btn {
+    transition: all 0.3s ease;
+}
+#seedfinder_module .clearfix .btn:hover {
+    transform: translateY(-2px);
+}
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    #seedfinder_module h2.h1 {
+        font-size: 1.75rem;
+    }
+    
+    #seedfinder_module .card-body .d-flex {
+        height: 80px !important;
+    }
+    
+    #seedfinder_module .card-body .fa-solid {
+        font-size: 3rem !important;
+    }
+}
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================================================
+   PAGINATION STYLES - v6.7.4
+   Zweck: Anzahl links, Seitenzahlen rechts (Shop-Standard Layout)
+   ======================================================================== */
+
+/* Seedfinder Pagination Container */
+#seedfinder_module .seedfinder-pagination-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem 0 !important;
+    overflow: hidden !important;
+}
+
+/* Anzahl-Anzeige (links) */
+#seedfinder_module .seedfinder-pagination-count {
+    margin: 0 !important;
+    padding: 0.5rem 0 !important;
+    order: 1 !important;
+}
+
+/* Seitenzahlen (rechts) */
+#seedfinder_module .seedfinder-pagination-links {
+    margin: 0 !important;
+    order: 2 !important;
+}
+
+#seedfinder_module .seedfinder-pagination-links .pagination {
+    margin-bottom: 0 !important;
+}
+
+/* Responsive: Mobile */
+@media (max-width: 575px) {
+    #seedfinder_module .seedfinder-pagination-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    
+    #seedfinder_module .seedfinder-pagination-count {
+        margin-bottom: 0.5rem !important;
+        order: 1 !important;
+    }
+    
+    #seedfinder_module .seedfinder-pagination-links {
+        order: 2 !important;
+    }
+}
+.sf-special-badge {
+    position: absolute;
+    top: 10px;
+    left: -5px;
+    z-index: 10;
+    padding: 5px 15px 5px 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/**
+ * Kleines Dreieck unter dem Badge (3D-Effekt)
+ * Verwendung: <div class="sf-special-badge-triangle"></div>
+ */
+.sf-special-badge-triangle {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid #a71d2a;
+    border-bottom: 5px solid transparent;
+}
+
+/* ========================================
+   PRODUCT CARD - IMAGE
+   ======================================== */
+
+/**
+ * Container für Produktbild (feste Höhe, overflow hidden)
+ * Verwendung: <a class="d-block sf-product-image-link">
+ */
+.sf-product-image-link {
+    height: 250px;
+    overflow: hidden;
+}
+
+/**
+ * Produktbild (object-fit cover, zentriert oben)
+ * Verwendung: <img class="img-fluid lazyloaded w-100 sf-product-image">
+ */
+.sf-product-image {
+    object-fit: cover;
+    object-position: top center;
+    height: 100%;
+}
+
+
+/* ========================================
+   PRODUCT CARD - BODY
+   ======================================== */
+
+/**
+ * Card Body mit Flexbox (wächst um verfügbaren Platz zu füllen)
+ * Verwendung: <div class="card-body d-flex flex-column sf-card-body">
+ */
+.sf-card-body {
+    flex: 1;
+}
+
+/* ========================================
+   PRODUCT CARD - TITLE
+   ======================================== */
+
+/**
+ * Produkttitel (max 2 Zeilen, Ellipsis bei Overflow)
+ * Verwendung: <h5 class="card-title mb-2 sf-product-title">
+ */
+.sf-product-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 4.3rem;
+}
+
+/* ========================================
+   PRODUCT CARD - MANUFACTURER
+   ======================================== */
+
+/**
+ * Hersteller-Element (H4 Card mit bg-h)
+ * Verwendung: <h4 class="p-2 bg-h mb-3 sf-manufacturer">
+ * 
+ * HINWEIS: Keine zusätzlichen Styles nötig - verwendet Bootstrap Klassen
+ */
+.sf-manufacturer {
+    /* Platzhalter für zukünftige Styles */
+}
+
+/* ========================================
+   PRODUCT CARD - FILTER TAGS
+   ======================================== */
+
+/**
+ * Filter-Tag Element (kleine Icons mit Text)
+ * Verwendung: <div class="small text-muted mb-1 sf-filter-tag">
+ * 
+ * HINWEIS: Keine zusätzlichen Styles nötig - verwendet Bootstrap Klassen
+ */
+.sf-filter-tag {
+    /* Platzhalter für zukünftige Styles */
+}
+
+/* ========================================
+   PRODUCT CARD - FLEX GROW SPACER
+   ======================================== */
+
+/**
+ * Leerer Flex-Grow Bereich (füllt verfügbaren Platz)
+ * Verwendung: <div class="sf-flex-spacer"></div>
+ * 
+ * WICHTIG: Sorgt dafür, dass Preis und Button immer unten sind!
+ */
+.sf-flex-spacer {
+    flex-grow: 1;
+}
+
+/* ========================================
+   PRODUCT CARD - PRICE
+   ======================================== */
+
+/**
+ * Hauptpreis (große Schrift, grün)
+ * Verwendung: <strong class="text-success sf-price-main">
+ */
+.sf-price-main {
+    font-size: 1.25rem;
+}
+
+/**
+ * Preis-Prefix "ab" (kleinere Schrift)
+ * Verwendung: <span class="text-success sf-price-prefix">
+ */
+.sf-price-prefix {
+    font-size: 0.9rem;
+}
+
+/**
+ * Ausverkauft-Badge (größere Schrift, mehr Padding)
+ * Verwendung: <span class="badge badge-danger sf-price-badge">
+ */
+.sf-price-badge {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+/* ========================================
+   PRODUCT CARD - DETAILS BUTTON
+   ======================================== */
+
+/**
+ * Details-Button (unten in der Card)
+ * Verwendung: <a class="btn btn-info btn-sm btn-block sf-details-btn">
+ * 
+ * HINWEIS: Keine zusätzlichen Styles nötig - verwendet Bootstrap Klassen
+ */
+.sf-details-btn {
+    /* Platzhalter für zukünftige Styles */
+}
+
+/* ========================================
+   RESPONSIVE ANPASSUNGEN
+   ======================================== */
+
+/**
+ * Mobile Optimierungen (unter 768px)
+ */
+@media (max-width: 767.98px) {
+    .sf-product-image-link {
+        height: 200px; /* Kleinere Bilder auf Mobile */
+    }
+    
+    .sf-product-title {
+        min-height: 3.5rem; /* Weniger Höhe auf Mobile */
+        font-size: 1rem; /* Kleinere Schrift */
+    }
+    
+    .sf-price-main {
+        font-size: 1.1rem; /* Kleinerer Preis auf Mobile */
+    }
+}
+
+/**
+ * Tablet Optimierungen (768px - 991px)
+ */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .sf-product-image-link {
+        height: 220px;
+    }
+}
+
+/**
+ * Desktop Optimierungen (ab 992px)
+ */
+@media (min-width: 992px) {
+    .sf-product-image-link {
+        height: 250px;
+    }
+}
+.sf-filter-category-hidden {
+    display: none;
+}
+
+/**
+ * Filter-Kategorie Content Container (sichtbar)
+ * Verwendung: <div id="category-main" class="filter-category-content sf-filter-category-visible">
+ */
+.sf-filter-category-visible {
+    display: block;
+}
+
+/* ========================================
+   RESPONSIVE ANPASSUNGEN
+   ======================================== */
+
+/**
+ * Mobile Optimierungen (unter 768px)
+ */
+@media (max-width: 767.98px) {
+    /* Platzhalter für zukünftige Mobile-Styles */
+}
+
+/**
+ * Tablet Optimierungen (768px - 991px)
+ */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Platzhalter für zukünftige Tablet-Styles */
+}
+
+/**
+ * Desktop Optimierungen (ab 992px)
+ */
+@media (min-width: 992px) {
+    /* Platzhalter für zukünftige Desktop-Styles */
+}
+
+/**
+ * Seedfinder Product Card Container
+ * Verwendung: <div class="product-card seedfinder-product">
+ */
+.seedfinder-product {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+/**
+ * Hover-Effekt für Product Card
+ */
+.seedfinder-product:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ========================================
+   PRODUCT CARD - IMAGE
+   ======================================== */
+
+/**
+ * Produkt-Bild Container
+ * Verwendung: <div class="product-image">
+ */
+.seedfinder-product .product-image {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/**
+ * Produkt-Bild
+ * Verwendung: <img class="img-fluid">
+ */
+.seedfinder-product .product-image img {
+    max-height: 200px;
+    object-fit: contain;
+}
+
+/* ========================================
+   PRODUCT CARD - NAME
+   ======================================== */
+
+/**
+ * Produktname
+ * Verwendung: <h3 class="product-name">
+ */
+.seedfinder-product .product-name {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/**
+ * Produktname Link
+ */
+.seedfinder-product .product-name a {
+    color: #333;
+    text-decoration: none;
+}
+
+/**
+ * Produktname Link Hover
+ */
+.seedfinder-product .product-name a:hover {
+    color: #007bff;
+}
+
+/* ========================================
+   PRODUCT CARD - PRICE
+   ======================================== */
+
+/**
+ * Preis-Container
+ * Verwendung: <div class="product-price">
+ */
+.seedfinder-product .product-price {
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+/**
+ * Alter Preis (durchgestrichen)
+ * Verwendung: <span class="old-price text-muted">
+ */
+.seedfinder-product .old-price {
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+/**
+ * Special Price (Angebotspreis)
+ * Verwendung: <span class="special-price text-danger">
+ */
+.seedfinder-product .special-price {
+    font-size: 1.3rem;
+}
+
+/* ========================================
+   PRODUCT CARD - ATTRIBUTES
+   ======================================== */
+
+/**
+ * Attribut-Auswahl Dropdown
+ * Verwendung: <select class="form-select attribute-select">
+ */
+.seedfinder-product .attribute-select {
+    width: 100%;
+}
+
+/* ========================================
+   RESPONSIVE ANPASSUNGEN
+   ======================================== */
+
+/**
+ * Mobile Optimierungen (unter 768px)
+ */
+@media (max-width: 767.98px) {
+    .seedfinder-product {
+        padding: 10px;
+    }
+    
+    .seedfinder-product .product-image img {
+        max-height: 150px;
+    }
+    
+    .seedfinder-product .product-name {
+        font-size: 1rem;
+    }
+    
+    .seedfinder-product .product-price {
+        font-size: 1.1rem;
+    }
+}
+
+/**
+ * Tablet Optimierungen (768px - 991px)
+ */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .seedfinder-product .product-image img {
+        max-height: 180px;
+    }
+}
+
+/**
+ * Desktop Optimierungen (ab 992px)
+ */
+@media (min-width: 992px) {
+    .seedfinder-product .product-image img {
+        max-height: 200px;
+    }
+}
+/* ============================================================
+   SEEDFINDER CONTENT FIX - Nur Text-Farbe, keine Bootstrap-Klassen
+   Version: v18.2 - 12.02.2026
+   ============================================================ */
+
+/* Nur die text-light Klasse im Content-Bereich überschreiben */
+.content1003280 .text-light {
+    color: #495057 !important;
+}
+
+/* Überschriften */
+.content1003280 h1,
+.content1003280 h2,
+.content1003280 h3,
+.content1003280 h4,
+.content1003280 h5,
+.content1003280 h6 {
+    color: #212529 !important;
+}
+
+/* Paragraphen und Text-Elemente */
+.content1003280 p,
+.content1003280 li,
+.content1003280 span:not([class*="fa"]),
+.content1003280 div:not([class*="col"]):not([class*="row"]):not([class*="container"]) {
+    color: #495057 !important;
+}
+
+
+
+.content1003280 a:hover {
+    color: #45a049 !important;
+}
+
+/* Icons behalten ihre Farbe */
+.content1003280 .fa,
+.content1003280 [class*="fa-"] {
+    color: inherit;
+}
+/* ============================================================
+   SEEDFINDER ALIGNMENT FIX - Titel Mitte, Pagination rechts
+   Version: v18.6 - 12.02.2026
+   HÖHERE SPEZIFITÄT für .text-center Override
+   ============================================================ */
+
+/* STAGE 2: Titel Container - MUSS text-center BEHALTEN */
+#seedfinder_module .row .col-14 .text-center {
+    text-align: center !important;
+}
+
+/* Titel selbst - zentriert mit Abständen */
+#seedfinder_module .row .col-14 .text-center h2.h1 {
+    text-align: center !important;
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Row Container - Abstand nach oben */
+#seedfinder_module > .row.mb-4:first-of-type {
+    margin-top: 2rem !important;
+}
+
+/* Pagination rechts ausgerichtet - HÖHERE SPEZIFITÄT */
+#seedfinder_module .pagination,
+#seedfinder_module #products-container .pagination,
+#products-container .pagination {
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+
+/* Pagination UL Element */
+#seedfinder_module .pagination ul,
+#products-container .pagination ul {
+    margin-left: auto !important;
+}
+
+/* Falls Pagination in einem Wrapper ist */
+#seedfinder_module .pagination-wrapper,
+#seedfinder_module .pagination-container {
+    text-align: right !important;
+}
+
+/* ============================================================
+   MOBILE OPTIMIERUNG
+   ============================================================ */
+
+@media (max-width: 767px) {
+    /* Titel bleibt zentriert */
+    #seedfinder_module .row .col-14 .text-center h2.h1 {
+        text-align: center !important;
+        font-size: 1.75rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Row Container - kleinerer Abstand auf Mobil */
+    #seedfinder_module > .row.mb-4:first-of-type {
+        margin-top: 1rem !important;
+    }
+    
+    /* Pagination auf Mobil zentriert für bessere Bedienbarkeit */
+    #seedfinder_module .pagination,
+    #seedfinder_module #products-container .pagination,
+    #products-container .pagination {
+        justify-content: center !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+}
+/* Falls Pagination in einem Wrapper ist */
+.pagination-wrapper,
+.pagination-container {
+    text-align: right !important;
+}
+
+/* ============================================================
+   MOBILE OPTIMIERUNG
+   ============================================================ */
+
+@media (max-width: 767px) {
+    /* Titel bleibt zentriert */
+    #seedfinder_module h2.h1 {
+        text-align: center !important;
+        font-size: 1.75rem !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Pagination auf Mobil zentriert für bessere Bedienbarkeit */
+    #seedfinder_module .pagination,
+    #products-container .pagination {
+        justify-content: center !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+}
+/**
+ * Seedfinder Kategorie-Boxen - Mr. Hanf Design (Balanced Version)
+ * Version: 2.2 - Ausgewogene Farbintensität (Mittelweg)
+ * Datum: 12.02.2026
+ */
+
+/* ==========================================================================
+   KATEGORIE-BOXEN (Stage 1) - AUSGEWOGENE FARBEN
+   ========================================================================== */
+
+/**
+ * Basis-Styling für Kategorie-Cards
+ */
+.seedfinder-card {
+    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none !important;
+}
+
+.seedfinder-card .card {
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
+    overflow: hidden;
+}
+
+/**
+ * Hover-Effekt: Anheben + Schatten + Border
+ */
+.seedfinder-card:hover .card {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+    border-color: rgba(102, 187, 106, 0.35);
+}
+
+/**
+ * Icon-Container
+ */
+.seedfinder-icon-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+ 
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.seedfinder-card:hover .seedfinder-icon-container {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+/**
+ * Icons - Ausgewogene Farben
+ */
+.seedfinder-category-icon {
+    font-size: 2.5rem;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.seedfinder-card:hover .seedfinder-category-icon {
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+/**
+ * Badge (Produktanzahl)
+ */
+.seedfinder-badge {
+    top: 12px;
+    right: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    background-color: #495057 !important;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.seedfinder-card:hover .seedfinder-badge {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #343a40 !important;
+}
+
+/**
+ * Titel
+ */
+.seedfinder-card .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #343a40;
+    transition: color 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.seedfinder-card:hover .card-title {
+    color: #66bb6a;
+}
+
+/**
+ * Beschreibungstext (falls vorhanden)
+ */
+.seedfinder-card .card-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    line-height: 1.5;
+}
+
+/**
+ * Button "Kategorie wählen" - Ausgewogenes Grün
+ */
+.seedfinder-category-btn {
+    background-color: #66bb6a !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(102, 187, 106, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/**
+ * Button Hover-Effekt
+ */
+.seedfinder-card:hover .seedfinder-category-btn {
+    background-color: #4caf50 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+/**
+ * Button Active-Effekt
+ */
+.seedfinder-category-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(102, 187, 106, 0.3);
+}
+
+/**
+ * Pfeil-Icon im Button
+ */
+.seedfinder-category-btn .fa-arrow-right {
+    transition: transform 0.3s ease;
+}
+
+.seedfinder-card:hover .seedfinder-category-btn .fa-arrow-right {
+    transform: translateX(4px);
+}
+
+/**
+ * Card Body Padding
+ */
+.seedfinder-card .card-body {
+    padding: 1.5rem !important;
+}
+
+/* ==========================================================================
+   AUSGEWOGENE FARBEN FÜR ICONS
+   ========================================================================== */
+
+/**
+ * Autoflowering - Mittelgrün
+ */
+.seedfinder-category-icon[data-color="#32CD32"] {
+    color: #66bb6a !important; /* Medium Green */
+}
+
+/**
+ * Indica - Mittleres Braun
+ */
+.seedfinder-category-icon[data-color="#8B4513"] {
+    color: #a0826d !important; /* Medium Brown */
+}
+
+/**
+ * Sativa - Mittleres Gold
+ */
+.seedfinder-category-icon[data-color="#FFD700"] {
+    color: #ffd54f !important; /* Medium Gold */
+}
+
+/**
+ * Feminisiert - Mittleres Pink
+ */
+.seedfinder-category-icon[data-color="#FF69B4"] {
+    color: #f06292 !important; /* Medium Pink */
+}
+
+/**
+ * Regular - Mittleres Blau
+ */
+.seedfinder-category-icon[data-color="#4169E1"] {
+    color: #64b5f6 !important; /* Medium Blue */
+}
+
+/**
+ * Medical - Mittleres Türkis
+ */
+.seedfinder-category-icon[data-color="#00CED1"] {
+    color: #4dd0e1 !important; /* Medium Cyan */
+}
+
+/* ==========================================================================
+   RESPONSIVE OPTIMIERUNGEN
+   ========================================================================== */
+
+/**
+ * Mobile (unter 576px)
+ */
+@media (max-width: 575.98px) {
+    .seedfinder-icon-container {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .seedfinder-category-icon {
+        font-size: 2rem;
+    }
+    
+    .seedfinder-card .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .seedfinder-category-btn {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+    }
+    
+    .seedfinder-badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+    
+    /* Hover-Effekte auf Mobil reduzieren */
+    .seedfinder-card:hover .card {
+        transform: translateY(-4px);
+    }
+}
+
+/**
+ * Tablet (576px - 767px)
+ */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .seedfinder-icon-container {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .seedfinder-category-icon {
+        font-size: 2.25rem;
+    }
+}
+
+/**
+ * Desktop (ab 768px)
+ */
+@media (min-width: 768px) {
+    .seedfinder-card .card-body {
+        padding: 2rem !important;
+    }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+
+/**
+ * Focus-State für Tastatur-Navigation
+ */
+.seedfinder-card:focus {
+    outline: 3px solid #66bb6a;
+    outline-offset: 2px;
+}
+
+.seedfinder-card:focus .card {
+    border-color: #66bb6a;
+}
+
+/**
+ * Reduzierte Animationen für Nutzer mit Motion-Sensitivität
+ */
+@media (prefers-reduced-motion: reduce) {
+    .seedfinder-card,
+    .seedfinder-card .card,
+    .seedfinder-icon-container,
+    .seedfinder-category-icon,
+    .seedfinder-badge,
+    .seedfinder-category-btn,
+    .seedfinder-category-btn .fa-arrow-right {
+        transition: none;
+    }
+    
+    .seedfinder-card:hover .card {
+        transform: none;
+    }
+    
+    .seedfinder-card:hover .seedfinder-icon-container {
+        transform: none;
+    }
+    
+    .seedfinder-card:hover .seedfinder-category-icon {
+        transform: none;
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+    .seedfinder-card .card {
+        box-shadow: none !important;
+        border: 1px solid #dee2e6 !important;
+    }
+    
+    .seedfinder-category-btn {
+        display: none;
+    }
+}
+/**
+ * Seedfinder - Attribute Text List Styling
+ * Version: 1.0 - 13. Feb 2026
+ * 
+ * CSS für die Darstellung der Attribute als Textliste statt Dropdown
+ */
+
+/* ==========================================================================
+   ATTRIBUTE TEXT LIST
+   ========================================================================== */
+
+/**
+ * Container für die Textliste
+ */
+.attribute-text-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/**
+ * Einzelnes Attribut (eine Zeile)
+ */
+.attribute-text-item {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #495057;
+    padding: 0.25rem 0;
+}
+
+/**
+ * Attribut-Wert (z.B. "1 Samen")
+ */
+.attribute-text-item .attribute-value {
+    font-weight: 600;
+    color: #212529;
+}
+
+/**
+ * Separator (" - ")
+ */
+.attribute-text-item .attribute-separator {
+    color: #6c757d;
+}
+
+/**
+ * Preis
+ */
+.attribute-text-item .attribute-price {
+    font-weight: 600;
+    color: #87a516;
+}
+
+/**
+ * Lagerbestand (z.B. "nur noch 3 verfügbar")
+ */
+.attribute-text-item .attribute-stock {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   RESPONSIVE ANPASSUNGEN
+   ========================================================================== */
+
+/**
+ * Mobile (unter 576px)
+ */
+@media (max-width: 575.98px) {
+    .attribute-text-item {
+        font-size: 0.8rem;
+    }
+}
+
+/* ==========================================================================
+   LAGERNDE PRODUKTE - TEXTLISTE
+   ========================================================================== */
+
+/**
+ * Container für die Attribut-Liste
+ */
+.product-attributes {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+/**
+ * Label "Lagernde Produkte:"
+ */
+.attribute-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+/**
+ * Liste der Attribute
+ */
+.attribute-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/**
+ * Einzelnes Attribut (eine Zeile)
+ */
+.attribute-item {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #495057;
+}
+
+/**
+ * Attribut-Wert (z.B. "1 Samen")
+ */
+.attribute-value {
+    font-weight: 600;
+    color: #212529;
+}
+
+/**
+ * Separator (" - ")
+ */
+.attribute-separator {
+    color: #6c757d;
+}
+
+/**
+ * Preis
+ */
+.attribute-price {
+    font-weight: 600;
+    color: #87a516;
+	margin-right: 2px;
+}
+
+/**
+ * Lagerbestand (z.B. "nur noch 3 verfügbar")
+ */
+.attribute-stock {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   RESPONSIVE ANPASSUNGEN
+   ========================================================================== */
+
+/**
+ * Mobile (unter 576px)
+ */
+@media (max-width: 575.98px) {
+    .product-attributes {
+        padding: 0.75rem;
+    }
+    
+    .attribute-item {
+        font-size: 0.8rem;
+    }
+    
+    .attribute-label {
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================================================ */
+/* SEEDFINDER STYLES - Bootstrap-kompatibel                                    */
+/* ============================================================================ */
+
+/* Cards Section */
+.seedfinder-cards-section {
+  background: #f8f9fa;
+}
+
+.seedfinder-card {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border: none;
+}
+
+.seedfinder-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.seedfinder-card.beginner-card {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.seedfinder-card.pro-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.seedfinder-card-icon {
+  font-size: 4rem;
+  opacity: 0.9;
+}
+
+.seedfinder-card-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.seedfinder-card-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.seedfinder-card-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.seedfinder-features {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.seedfinder-features li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.seedfinder-features li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.seedfinder-card-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.seedfinder-card-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: white;
+  text-decoration: none;
+}
+
+/* ============================================================================ */
+/* BEGINNER WIZARD STYLES                                                      */
+/* ============================================================================ */
+
+.wizard-container {
+  background: white;
+  min-height: 600px;
+  padding: 3rem 0;
+}
+
+.wizard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.wizard-progress {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.wizard-progress .progress {
+  height: 8px;
+  background: #e9ecef;
+}
+
+.wizard-progress .progress-bar {
+  background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+  transition: width 0.3s ease;
+}
+
+.wizard-step {
+  display: none;
+}
+
+.wizard-step.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wizard-question {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.wizard-question h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2d3748;
+}
+
+.wizard-question p {
+  font-size: 1.2rem;
+  color: #718096;
+}
+
+.wizard-options {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wizard-option-card {
+  background: white;
+  border: 3px solid #e2e8f0;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.wizard-option-card:hover {
+  border-color: #38ef7d;
+  box-shadow: 0 8px 24px rgba(56, 239, 125, 0.15);
+  transform: translateY(-4px);
+}
+
+.wizard-option-card.selected {
+  border-color: #11998e;
+  background: linear-gradient(135deg, rgba(17, 153, 142, 0.05) 0%, rgba(56, 239, 125, 0.05) 100%);
+}
+
+.wizard-option-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #11998e;
+}
+
+.wizard-option-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+}
+
+.wizard-option-badge {
+  display: inline-block;
+  background: #38ef7d;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+}
+
+.wizard-option-description {
+  font-size: 0.95rem;
+  color: #718096;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.wizard-option-features {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.wizard-option-features li {
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.wizard-option-features li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #11998e;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.wizard-info-box {
+  background: #edf2f7;
+  border-left: 4px solid #4299e1;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.wizard-info-box h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.wizard-info-box p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.wizard-navigation {
+  max-width: 600px;
+  margin: 3rem auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wizard-btn {
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.wizard-btn-primary {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+  color: white;
+}
+
+.wizard-btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(56, 239, 125, 0.3);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.wizard-btn-secondary {
+  background: white;
+  border: 2px solid #e2e8f0;
+  color: #4a5568;
+}
+
+.wizard-btn-secondary:hover {
+  border-color: #cbd5e0;
+  background: #f7fafc;
+}
+
+/* Results Section */
+.wizard-results {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wizard-results-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border-radius: 8px;
+}
+
+.wizard-results-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.wizard-criteria-tag {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.wizard-criteria-tag i {
+  margin-right: 0.5rem;
+}
+
+.wizard-product-card {
+  background: white;
+  border: 2px solid #e2e8f0;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.wizard-product-card:hover {
+  border-color: #38ef7d;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.wizard-product-card.top-match {
+  border-color: #11998e;
+  border-width: 3px;
+  background: linear-gradient(135deg, rgba(17, 153, 142, 0.03) 0%, rgba(56, 239, 125, 0.03) 100%);
+}
+
+.wizard-product-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.wizard-product-image {
+  width: 80px;
+  height: 80px;
+  background: #f7fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+  font-size: 2rem;
+  color: #cbd5e0;
+}
+
+.wizard-product-info {
+  flex-grow: 1;
+}
+
+.wizard-product-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.25rem;
+}
+
+.wizard-match-badge {
+  background: #38ef7d;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.wizard-product-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.wizard-product-meta i {
+  color: #11998e;
+  margin-right: 0.25rem;
+}
+
+.wizard-product-cta {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.wizard-product-cta:hover {
+  box-shadow: 0 4px 12px rgba(56, 239, 125, 0.3);
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wizard-option-card {
+    margin-bottom: 1rem;
+  }
+  
+  .wizard-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .wizard-btn {
+    width: 100%;
+  }
+  
+  .wizard-product-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .wizard-product-image {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+/**
+ * Seedfinder Tiles CSS
+ * Styling für Anfänger/Profi Finder Kacheln
+ * Version: 1.0
+ */
+
+/* ============================================================ */
+/* TILE CARDS */
+/* ============================================================ */
+
+.seedfinder-tile-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 0;
+}
+
+.seedfinder-tile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ============================================================ */
+/* TILE ICONS */
+/* ============================================================ */
+
+.seedfinder-tile-icon-circle {
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.seedfinder-tile-icon-circle.beginner {
+    background: linear-gradient(135deg, #839A4F 0%, #6b8040 100%);
+}
+
+.seedfinder-tile-icon-circle.profi {
+    background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+}
+
+.seedfinder-tile-icon {
+    font-size: 3rem;
+    color: #fff;
+}
+
+/* ============================================================ */
+/* TILE TITLES */
+/* ============================================================ */
+
+.seedfinder-tile-title.beginner {
+    color: #839A4F;
+}
+
+.seedfinder-tile-title.profi {
+    color: #6c757d;
+}
+
+/* ============================================================ */
+/* RESPONSIVE */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+    .seedfinder-tile-icon {
+        font-size: 2.5rem;
+    }
+    
+    .seedfinder-tile-icon-circle {
+        padding: 0.75rem;
+    }
+}
+/**
+ * Seedfinder Loading Overlay v6.3.4
+ * Zeigt Loading-Spinner beim Kategorie-Wechsel
+ * Modal bleibt visuell offen während Seite neu lädt
+ */
+
+.seedfinder-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.seedfinder-loading-overlay.active {
+    opacity: 1;
+}
+
+.seedfinder-loading-content {
+    text-align: center;
+    padding: 40px;
+}
+
+.seedfinder-loading-content i {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.seedfinder-loading-content h4 {
+    font-weight: 500;
+    margin: 0;
+    color: #333;
+}
+
+/* Sicherstellen dass Modal-Content relative Position hat */
+#seedfinder-filter-modal .modal-content {
+    position: relative;
+}
+
+/**
+ * ⭐ NEU v6.3.5: Category Filter Badges
+ * Kleiner runder Badge-Indikator für aktive Filter in Kategorie-Tabs
+ */
+.category-filter-badge {
+    display: inline-block;
+    min-width: 18px;
+    height: 18px;
+    padding: 2px 5px;
+    margin-left: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #dc3545; /* Bootstrap danger red */
+    border-radius: 50%; /* Perfekt rund */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Badge in aktivem Tab */
+.filter-category-btn.active .category-filter-badge {
+    background-color: #28a745; /* Bootstrap success green */
+}
+
+/* Badge Animation beim Erscheinen */
+.category-filter-badge {
+    animation: badgeFadeIn 0.3s ease-in-out;
+}
+
+@keyframes badgeFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}/**
+ * Seedfinder v6.7.0 - Disabled Accordion Headers CSS
+ * Graue Accordion-Header aus wenn keine Filter verfügbar sind
+ * Datum: 09. Februar 2026
+ * Autor: Mr. Hanf / Manus AI
+ */
+
+/* Ausgegrauter Accordion-Header */
+.accordion-filter-header.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+}
+
+/* Hover-Effekt deaktivieren */
+.accordion-filter-header.disabled:hover {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+}
+
+/* Icon ausgrauen */
+.accordion-filter-header.disabled i,
+.accordion-filter-header.disabled .fa,
+.accordion-filter-header.disabled .fas,
+.accordion-filter-header.disabled .far {
+    color: #6c757d !important;
+}
+
+/* Badge ausgrauen */
+.accordion-filter-header.disabled .badge {
+    background-color: #dee2e6 !important;
+    color: #6c757d !important;
+}
+/**
+ * Seedfinder Modal CSS v9.4.0 - SCROLLABLE FIX
+ * Version: 9.4.0 - Fixed scrollable filter tags in modal
+ * 
+ * Styling für:
+ * - Schwebender Filter-Button (Mobil)
+ * - Scrollable Filter Tags (FIXED)
+ * - Minimal CSS - Bootstrap-Klassen werden bevorzugt
+ * 
+ * CHANGELOG v9.3 → v9.4:
+ * - Zeile 98-112: Filter-Options scrollbar gemacht
+ * - Zeile 115-125: Modal-Body scrollbar gemacht
+ * - Zeile 128-145: Verbesserte Scrollbar-Styles
+ */
+
+/* ========================================
+   Schwebender Filter-Button (Mobil)
+   ======================================== */
+
+.floating-filter-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.floating-filter-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    background: linear-gradient(135deg, #138496 0%, #117a8b 100%);
+}
+
+.floating-filter-btn:active {
+    transform: scale(0.95);
+}
+
+.floating-filter-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
+}
+
+/* Nur auf Mobil anzeigen */
+@media (min-width: 768px) {
+    .floating-filter-btn {
+        display: none !important;
+    }
+}
+
+/* Animation beim Erscheinen */
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.floating-filter-btn {
+    animation: floatIn 0.5s ease-out;
+}
+
+/* ========================================
+   Filter-Disabled Styling (nicht in Bootstrap)
+   ======================================== */
+
+.filter-disabled {
+    opacity: 0.5;
+}
+
+.filter-disabled .custom-control-label {
+    color: #999 !important;
+    cursor: not-allowed !important;
+    text-decoration: line-through;
+}
+
+.filter-disabled .custom-control-input:disabled ~ .custom-control-label::before {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   Filter Options Scrollable (FIXED v9.4)
+   ======================================== */
+
+/* Haupt-Container für Filter-Optionen */
+.filter-options,
+.filter-options-main {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+    /* Smooth Scrolling */
+    scroll-behavior: smooth;
+    /* Webkit Momentum Scrolling (iOS) */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ========================================
+   Modal Body Scrollable (FIXED v9.4)
+   ======================================== */
+
+/* Modal Body muss auch scrollbar sein */
+.modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Smooth Scrolling */
+    scroll-behavior: smooth;
+    /* Webkit Momentum Scrolling (iOS) */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ========================================
+   Scrollbar Styling (verbessert v9.4)
+   ======================================== */
+
+/* Webkit Scrollbar (Chrome, Safari, Edge) */
+.filter-options::-webkit-scrollbar,
+.filter-options-main::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.filter-options::-webkit-scrollbar-track,
+.filter-options-main::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.filter-options::-webkit-scrollbar-thumb,
+.filter-options-main::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb {
+    background: #17a2b8;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.filter-options::-webkit-scrollbar-thumb:hover,
+.filter-options-main::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #138496;
+}
+
+/* Firefox Scrollbar */
+.filter-options,
+.filter-options-main,
+.modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: #17a2b8 #f1f1f1;
+}
+
+/* ========================================
+   Seedfinder Stage 1 - Kategorie-Karten
+   ======================================== */
+
+.seedfinder-icon-container {
+    height: 100px;
+}
+
+.seedfinder-category-icon {
+    font-size: 4rem;
+    opacity: 0.8;
+}
+
+.seedfinder-badge {
+    top: 10px;
+    right: 10px;
+    font-size: 0.85rem;
+}
+
+.seedfinder-category-btn {
+    color: white;
+    border: none;
+    border-radius: 20px;
+}
+
+.seedfinder-info-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.seedfinder-benefit-icon {
+    font-size: 3rem;
+    color: #17a2b8;
+}
+
+.seedfinder-manufacturer-logo {
+    max-height: 60px;
+    object-fit: contain;
+}
+
+.seedfinder-product-name {
+    font-size: 0.75rem;
+}
+
+/* Dynamische Farben via data-color Attribut */
+.seedfinder-category-icon[data-color] {
+    color: var(--category-color);
+}
+
+.seedfinder-category-btn[data-color] {
+    background-color: var(--category-color);
+}
+/* ========================================
+   Modernisiertes Kategorie-Dropdown
+   Version: 1.0
+   ======================================== */
+
+/* Container für Dropdown (falls vorhanden) */
+#modal-category-selector-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 15px 0 !important;
+}
+
+/* Dropdown selbst */
+#modal-category-selector {
+    /* Zentrierung */
+    margin: 0 auto !important;
+    display: block !important;
+    
+    /* Breite */
+    max-width: 400px !important;
+    width: 100% !important;
+    
+    /* Modernes Design */
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+    border: 2px solid #17a2b8 !important;
+    border-radius: 25px !important;
+   
+    
+    /* Text */
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #2c3e50 !important;
+    text-align: center !important;
+    
+    /* Shadow */
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15) !important;
+    
+    /* Transition */
+    transition: all 0.3s ease !important;
+    
+    /* Cursor */
+    cursor: pointer !important;
+    
+    /* Appearance */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    
+    /* Custom Arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2317a2b8' d='M6 9L1 4h10z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 15px center !important;
+    background-size: 12px !important;
+}
+
+/* Hover State */
+#modal-category-selector:hover {
+    border-color: #138496 !important;
+    box-shadow: 0 6px 16px rgba(23, 162, 184, 0.25) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Focus State */
+#modal-category-selector:focus {
+    outline: none !important;
+    border-color: #6d902c !important;
+    box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25), 0 6px 16px rgba(23, 162, 184, 0.25) !important;
+}
+
+/* Active State */
+#modal-category-selector:active {
+    transform: translateY(0) !important;
+}
+
+/* Dropdown Options */
+#modal-category-selector option {
+    padding: 10px !important;
+    font-size: 15px !important;
+    color: #2c3e50 !important;
+    background-color: #ffffff !important;
+}
+
+/* Selected Option */
+#modal-category-selector option:checked {
+    background-color: #17a2b8 !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+/* Disabled State (falls benötigt) */
+#modal-category-selector:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    background: #e9ecef !important;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+    #modal-category-selector {
+        max-width: 350px !important;
+        font-size: 15px !important;
+         
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    #modal-category-selector {
+        max-width: 100% !important;
+        font-size: 14px !important;
+         
+        border-radius: 20px !important;
+    }
+}
+
+/* ========================================
+   Alternative Design-Varianten
+   ======================================== */
+
+/* Variante 2: Flaches Design (auskommentiert) */
+#modal-category-selector {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+#modal-category-selector:hover {
+    border-color: #6d902c  !important;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.15) !important;
+}
+button[class*="line-b"],
+.btn[class*="line-b"] {
+    padding-bottom: 0.5rem !important; /* Bootstrap Standard */
+}
+
+.btn-lg[class*="line-b"] {
+    padding-bottom: 0.75rem !important; /* Für große Buttons */
+}
+/**
+ * Seedfinder Beginner Results CSS v1.0.0
+ * Matching Card Design System
+ * 
+ * Shop-Farben:
+ * - Primary Green: #6d902c
+ * - Light Green: #9eb86f
+ * - Accent Gold: #d4af37
+ * - Success Green: #87a516
+ */
+
+:root {
+    --primary-green: #6d902c;
+    --light-green: #9eb86f;
+    --accent-gold: #d4af37;
+    --success-green: #87a516;
+    --bg-light: #f8f9fa;
+    --text-dark: #333;
+}
+
+/* ========================================
+   HEADER SEKTION
+   ======================================== */
+
+.beginner-results-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.beginner-badge {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Problem-Lösung Box (wie Cards!) */
+.problem-solution-box {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid var(--primary-green);
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.problem-section,
+.solution-section {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.problem-section {
+    background: rgba(220, 53, 69, 0.1);
+    border-left: 4px solid #dc3545;
+}
+
+.solution-section {
+    background: rgba(109, 144, 44, 0.1);
+    border-left: 4px solid var(--primary-green);
+}
+
+.problem-section h5,
+.solution-section h5 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.problem-section i {
+    color: #dc3545;
+}
+
+.solution-section i {
+    color: var(--primary-green);
+}
+
+/* ========================================
+   FILTER SEKTION
+   ======================================== */
+
+.beginner-filters h3 {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.filter-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.filter-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.filter-card-header {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    padding: 15px 20px;
+}
+
+.filter-card-header h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.filter-card-body {
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Scrollbar Styling */
+.filter-card-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.filter-card-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.filter-card-body::-webkit-scrollbar-thumb {
+    background: var(--primary-green);
+    border-radius: 4px;
+}
+
+.filter-card-body::-webkit-scrollbar-thumb:hover {
+    background: var(--success-green);
+}
+
+/* Filter Disabled */
+.filter-disabled {
+    opacity: 0.5;
+}
+
+.filter-disabled .custom-control-label {
+    color: #999 !important;
+    cursor: not-allowed !important;
+    text-decoration: line-through;
+}
+
+/* ========================================
+   PRODUKTE SEKTION
+   ======================================== */
+
+.beginner-products h3 {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.badge-lg {
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+/* Produkt Card */
+.beginner-product-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.beginner-product-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transform: translateY(-4px);
+}
+
+.beginner-product-card .product-image {
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.beginner-product-card .product-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.beginner-product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+/* Anfänger Badge */
+.badge-beginner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+/* Produkt Info */
+.beginner-product-card .product-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.beginner-product-card .manufacturer {
+    margin-bottom: 8px;
+}
+
+.beginner-product-card .product-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.beginner-product-card .product-name a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.beginner-product-card .product-name a:hover {
+    color: var(--primary-green);
+}
+
+.beginner-product-card .product-price {
+    font-size: 1.2rem;
+    color: var(--primary-green);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Anfänger Button */
+.btn-beginner {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-beginner:hover {
+    background: linear-gradient(135deg, var(--success-green) 0%, var(--primary-green) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(109, 144, 44, 0.3);
+    color: white;
+}
+
+/* ========================================
+   CALL-TO-ACTION SEKTION
+   ======================================== */
+
+.cta-box {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid var(--primary-green);
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.cta-box h4 {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.cta-box i {
+    color: var(--primary-green);
+}
+
+/* ========================================
+   TRUST SEKTION
+   ======================================== */
+
+.trust-box {
+    background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+    border: 2px solid var(--accent-gold);
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.trust-box .stars i {
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+    margin: 0 2px;
+}
+
+.trust-box h5 {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .beginner-results-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .problem-solution-box {
+        padding: 20px;
+    }
+    
+    .problem-section,
+    .solution-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .beginner-product-card .product-image img {
+        height: 180px;
+    }
+}
+/* SEEDFINDER CARDS - DESIGN 3 MIT SHOP-FARBEN - SYNCHRONIZED */
+
+:root {
+    --primary-green: #6d902c;
+    --light-green: #9eb86f;
+    --accent-gold: #d4af37;
+    --bg-light: #f8f9fa;
+    --text-dark: #333;
+    --success-green: #87a516;
+    --info-blue: #17a2b8;
+    --info-blue-dark: #138496;
+}
+
+/* Section */
+.seedfinder-finder-cards-section {
+    padding: 60px 0;
+    background: var(--bg-light);
+}
+
+/* Finder Card */
+.finder-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.finder-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* Card Header */
+.card-header-custom {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    padding: 40px 0px;
+    text-align: center;
+}
+
+.profi-header {
+    background: linear-gradient(135deg, var(--info-blue) 0%, var(--info-blue-dark) 100%);
+}
+
+.card-header-custom .badge-top {
+    background: rgba(255,255,255,0.25);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.card-header-custom h2 {
+    margin: 0 0 12px 0;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.card-header-custom .subtitle {
+    font-size: 16px;
+    opacity: 0.95;
+    line-height: 1.5;
+}
+
+/* Card Body */
+.card-body-custom {
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Problem & Solution Section */
+.problem-solution {
+    background: #f0f8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.profi-problem-solution {
+    background: #e8f4f8;
+}
+
+.problem-section {
+    margin-bottom: 16px;
+}
+
+.problem-section h5 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #c62828;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.profi-problem h5 {
+    color: var(--info-blue-dark);
+}
+
+.problem-section h5 i {
+    margin-right: 8px;
+}
+
+.problem-section p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.solution-section {
+    border-top: 2px solid #e8f5e9;
+    padding-top: 16px;
+}
+
+.profi-solution {
+    border-top: 2px solid #d1ecf1;
+}
+
+.solution-section h5 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-green);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.profi-solution h5 {
+    color: var(--info-blue);
+}
+
+.solution-section h5 i {
+    margin-right: 8px;
+}
+
+.solution-section p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.benefit-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(109, 144, 44, 0.2);
+    border-color: var(--light-green);
+}
+
+.profi-benefit:hover {
+    box-shadow: 0 6px 16px rgba(23, 162, 184, 0.2);
+    border-color: var(--info-blue);
+}
+
+.benefit-card .icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 22px;
+}
+
+.profi-icon {
+    background: linear-gradient(135deg, var(--info-blue) 0%, var(--info-blue-dark) 100%);
+}
+
+.benefit-card h6 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.benefit-card p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Trust Section */
+.trust-section {
+    background: linear-gradient(135deg, #f0f8f0 0%, #ffffff 100%);
+    border: 2px solid var(--light-green);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+    text-align: center;
+}
+
+.profi-trust {
+    background: linear-gradient(135deg, #e8f4f8 0%, #ffffff 100%);
+    border: 2px solid var(--info-blue);
+}
+
+.trust-section .stars {
+    color: var(--accent-gold);
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.trust-section h5 {
+    margin: 0 0 8px 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.trust-section p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+}
+
+/* CTA Button */
+.cta-button {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 32px;
+    font-size: 17px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(109, 144, 44, 0.3);
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(109, 144, 44, 0.4);
+    background: linear-gradient(135deg, var(--success-green) 0%, var(--primary-green) 100%);
+    color: white;
+}
+
+.cta-button i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover i {
+    transform: translateX(4px);
+}
+
+.profi-cta {
+    background: linear-gradient(135deg, var(--info-blue) 0%, var(--info-blue-dark) 100%);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.profi-cta:hover {
+    background: linear-gradient(135deg, var(--info-blue-dark) 0%, var(--info-blue) 100%);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+}
+
+/* Guarantee & Info Text */
+.guarantee-text,
+.info-text {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #888;
+}
+
+.guarantee-text i,
+.info-text i {
+    color: var(--success-green);
+    margin-right: 6px;
+}
+
+.profi-card .guarantee-text i {
+    color: var(--info-blue);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .card-header-custom h2 {
+        font-size: 24px;
+    }
+    
+    .card-header-custom .subtitle {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header-custom {
+        padding: 30px 20px;
+    }
+    
+    .card-body-custom {
+        padding: 20px;
+    }
+    
+    .card-header-custom h2 {
+        font-size: 22px;
+    }
+    
+    .card-header-custom .subtitle {
+        font-size: 14px;
+    }
+    
+    .benefit-card {
+        min-height: auto;
+    }
+}
+
+/* Das eigentliche Modal-Fenster */
+/* Passe die Klasse an, falls sie nicht .modal ist */
+.indexz {
+    z-index: 800 !important;
+}/* SEEDFINDER WIZARD - CARD STYLE (MATCHING FINDER CARDS) */
+
+:root {
+    --primary-green: #6d902c;
+    --light-green: #9eb86f;
+    --success-green: #87a516;
+    --accent-gold: #d4af37;
+    --bg-light: #f8f9fa;
+    --text-dark: #333;
+    --text-muted: #666;
+    --border-light: #e9ecef;
+}
+
+/* ========== MODAL CONTAINER ========== */
+
+.wizard-modal-card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+/* ========== MODAL HEADER (MATCHING CARD HEADER) ========== */
+
+.wizard-header-gradient {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    border: none;
+    position: relative;
+}
+
+.wizard-header-gradient .header-content {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.wizard-header-gradient .badge-top {
+    background: rgba(255,255,255,0.25);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.wizard-main-title {
+    margin: 0 0 12px 0;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.3;
+    color: white;
+}
+
+.wizard-subtitle {
+    font-size: 16px;
+    opacity: 0.95;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.wizard-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    opacity: 0.8;
+    font-size: 32px;
+    font-weight: 300;
+    text-shadow: none;
+    transition: opacity 0.3s ease;
+}
+
+.wizard-close-btn:hover {
+    opacity: 1;
+    color: white;
+}
+
+/* ========== MODAL BODY ========== */
+
+.wizard-body {
+    padding: 30px;
+    background: white;
+}
+
+/* ========== PROGRESS BAR ========== */
+
+.wizard-progress-wrapper {
+    margin-bottom: 30px;
+}
+
+.wizard-progress-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.wizard-progress-label i {
+    color: var(--success-green);
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.wizard-progress-track {
+    background: #e9ecef;
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.wizard-progress-fill {
+    background: linear-gradient(90deg, var(--primary-green) 0%, var(--success-green) 100%);
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+/* ========== WIZARD STEPS ========== */
+
+.wizard-step {
+    display: none;
+}
+
+.wizard-step.active {
+    display: block;
+    animation: fadeInStep 0.3s ease;
+}
+
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== STEP HEADER ========== */
+
+.step-header-section {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.step-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin: 0 0 8px 0;
+}
+
+.step-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ========== PROBLEM-SOLUTION BOX (MATCHING CARDS) ========== */
+
+.problem-solution-box {
+    background: linear-gradient(135deg, #f0f8f0 0%, #ffffff 100%);
+    border: 2px solid var(--light-green);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.problem-part h5 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-green);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.problem-part h5 i {
+    margin-right: 8px;
+}
+
+.problem-part p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ========== OPTIONS GRID ========== */
+
+.wizard-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.wizard-options-three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ========== OPTION CARDS (MATCHING BENEFIT CARDS) ========== */
+
+.wizard-option-card-style {
+    background: white;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.wizard-option-card-style:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(109, 144, 44, 0.2);
+    border-color: var(--light-green);
+}
+
+.wizard-option-card-style.selected {
+    border-color: var(--success-green);
+    background: linear-gradient(135deg, #f0f8f0 0%, #ffffff 100%);
+    box-shadow: 0 6px 16px rgba(109, 144, 44, 0.3);
+}
+
+/* ========== OPTION BADGE ========== */
+
+.option-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========== OPTION ICON (MATCHING BENEFIT ICON) ========== */
+
+.option-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--success-green) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 36px;
+    transition: transform 0.3s ease;
+}
+
+.wizard-option-card-style:hover .option-icon-wrapper {
+    transform: scale(1.1);
+}
+
+.wizard-option-card-style.selected .option-icon-wrapper {
+    background: linear-gradient(135deg, var(--success-green) 0%, var(--primary-green) 100%);
+    box-shadow: 0 4px 12px rgba(109, 144, 44, 0.4);
+}
+
+/* ========== OPTION TITLE ========== */
+
+.option-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0 0 16px 0;
+}
+
+/* ========== BENEFITS LIST (MATCHING CARD STYLE) ========== */
+
+.option-benefits {
+    width: 100%;
+    text-align: left;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.benefit-item:last-child {
+    margin-bottom: 0;
+}
+
+.benefit-item i {
+    color: var(--success-green);
+    margin-right: 10px;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.benefit-item i.fa-info-circle {
+    color: #17a2b8;
+}
+
+.benefit-item span {
+    line-height: 1.5;
+}
+
+/* ========== MODAL FOOTER ========== */
+
+.wizard-footer-section {
+    background: var(--bg-light);
+    border-top: 1px solid var(--border-light);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wizard-nav-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-wizard-nav {
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-wizard-nav i {
+    font-size: 14px;
+}
+
+.btn-outline-secondary.btn-wizard-nav {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary.btn-wizard-nav:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary.btn-wizard-nav {
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+}
+
+.btn-outline-primary.btn-wizard-nav:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.wizard-footer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.wizard-footer-info i {
+    color: var(--success-green);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 991px) {
+    .wizard-main-title {
+        font-size: 24px;
+    }
+    
+    .wizard-subtitle {
+        font-size: 15px;
+    }
+    
+    .step-title {
+        font-size: 22px;
+    }
+    
+    .wizard-options-three {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .wizard-header-gradient {
+        padding: 30px 20px;
+    }
+    
+    .wizard-body {
+        padding: 20px;
+    }
+    
+    .wizard-footer-section {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .wizard-nav-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .wizard-options-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .wizard-option-card-style {
+        min-height: auto;
+    }
+    
+    .option-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+    
+    .wizard-main-title {
+        font-size: 22px;
+    }
+    
+    .wizard-subtitle {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .wizard-close-btn {
+        top: 15px;
+        right: 15px;
+        font-size: 28px;
+    }
+}
+
+/* =========================================================================
+
+/* =========================================================================
+
+/* =========================================================================
+   v33.2: Seedfinder Options - Horizontal Layout Fix
+   Root Cause: Bootstrap .card-body setzt flex-direction:column,
+   das vererbt sich auf .option-control und .option-content.
+   Fix: card-body p-0 im Options-Kontext auf column belassen,
+   aber option-control und option-content explizit auf row setzen.
+   ========================================================================= */
+
+/* card-body im Options-Kontext: column ist OK für die Liste */
+#seedfinder_module .sf-options-box .card-body {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Aber option-control MUSS row sein */
+#seedfinder_module .sf-options-box .card-body .option-control {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+/* option-content MUSS row sein */
+#seedfinder_module .sf-options-box .card-body .option-content {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+/* Option-Info: flexibel */
+#seedfinder_module .sf-options-box .option-info {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+}
+
+/* Option-Price: rechts fixiert */
+#seedfinder_module .sf-options-box .option-price {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    text-align: right !important;
+    margin-left: auto !important;
+}
+
+/* Radio-Input: nicht schrumpfen */
+#seedfinder_module .sf-options-box .option-radio-input {
+    flex: 0 0 auto !important;
+    margin-right: 0.5rem !important;
+}
+
+/* form-check: kein eigenes flex-column */
+#seedfinder_module .sf-options-box .form-check {
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Stock-Status: horizontal */
+#seedfinder_module .sf-options-box .stock-status .d-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+/* Falls alte stock-ampel Klassen vorhanden */
+#seedfinder_module .stock-ampel-container {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    display: inline-flex !important;
+}
+
+#seedfinder_module .fixhigh {
+    margin-top: 0 !important;
+}

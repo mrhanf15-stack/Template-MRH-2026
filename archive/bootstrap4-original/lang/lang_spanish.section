@@ -1,0 +1,183 @@
+# Die lang_german.section wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" oder "smarty_4" gesetzt ist!
+
+[account_checkout_express]
+
+[account_delete]
+
+[account_edit]
+
+[account_history_info]
+
+[account_history]
+
+[account_password]
+
+[account]
+
+[address_book_process]
+
+[address_book]
+
+[advanced_search]
+
+[also_purchased]
+
+[error_handler]
+
+[checkout_confirmation]
+
+[checkout_payment]
+
+[checkout_new_address]
+
+[checkout_payment_address]
+
+[checkout_shipping_address]
+
+[checkout_shipping]
+
+[checkout_success]
+
+[contact_us]
+
+[cookie_usage]
+
+[create_account]
+
+[create_account_guest]
+
+[cross_selling]
+
+[downloads_module]
+
+[main]
+
+[gift_cart]
+
+[graduated_price]
+
+[gv_redeem]
+
+[gv_send]
+
+[filter]
+
+[login]
+
+[logoff]
+
+[index]
+
+[new_products]
+
+[newsletter]
+
+[shopping_cart]
+
+[new_password]
+
+[password_forgotten]
+
+[popup_coupon_help]
+
+[popup_search_help]
+
+[print_order]
+
+[print_product_info]
+
+[product_info]
+
+[product_navigator]
+
+[reviews]
+
+[product_tags]
+
+[products_category]
+
+[products_media]
+
+[reverse_cross_selling]
+
+[sitemap]
+cont_site = '<p>La p&aacute;gina del mapa del sitio ofrece una visi&oacute;n general de todos los enlaces disponibles en el sitio web. Entre ellos se encuentran la tienda de semillas, la tienda de CBD y terpenos, el Growshop, el Headshop y varias entradas de blog sobre diferentes temas relacionados con el cultivo de cannabis. En nuestra tienda de semillas encontrar&aacute;s una gran selecci&oacute;n de semillas de cannabis, divididas en variedades ricas en CBD, semillas feminizadas, variedades ricas en THC, semillas autoflorecientes y semillas medicinales.</p>
+<p>En la tienda de CBD y terpenos te ofrecemos una gran variedad de productos de CBD como flores, aceite, gotas y mucho m&aacute;s, as&iacute; como terpenos y otros productos elaborados con c&aacute;&ntilde;amo. El Growshop tiene todo lo que necesitas para cultivar cannabis, desde tecnolog&iacute;a de iluminaci&oacute;n, fertilizantes y sustratos hasta ventilaci&oacute;n y control clim&aacute;tico. En el Headshop encontrar&aacute;s bongs, grinders y otros accesorios para fumar. Nuestras entradas de blog le ofrecen informaci&oacute;n interesante y consejos sobre todos los aspectos del cultivo de cannabis.</p>'
+heading_tag_content = 'Consultas populares'
+
+[specials]
+
+[ssl_check]
+
+[categorie_listing]
+
+[upcoming_products]
+
+[wishlist]
+
+[manufacturers]
+title_top_brands = 'Marcas m&aacute;s importantes en Mr. Hanf'
+scroll_to = 'Ir a '
+back_to_top = 'Hasta arriba'
+
+[print_fax_order]
+heading_checkout = 'Formulario de pedido de cartas'
+text_checkout = 'A continuaci&oacute;n encontrar&aacute; el formulario de pedido para encargar manualmente sus productos. Marque la forma de pago y la opci&oacute;n de env&iacute;o que desee y rellene los datos que faltan. Imprima el pedido y env&iacute;enoslo. Le recomendamos que no adjunte calderilla, que esconda el dinero en un sobre adicional, en papel doblado, en una postal o entre dos cajas de cart&oacute;n y que env&iacute;e la carta sellada con cinta adhesiva adicional por correo certificado. <br>  <br> Datos bancarios y DHL Packstation... <br> '
+bank_daten = '<strong>Datos bancarios</strong><p>Nombre del banco: Raiffeisen Regionalbank Hall in Tirol<br>Destinatario: MRH N-Trade GmbH<br>C&oacute;digo bancario: 36362<br>N&uacute;mero de cuenta: 00000217968<br>IBAN AT753636200000217968<br>BIC/SWIFT: RZTIAT22362<br>Uso previsto: DEIN-STRASSENNAME<br><br></p>'
+
+text_checkout2 = '<strong>Para env&iacute;os a centros de embalaje, rellene el siguiente formulario.</strong><br /> <img  width="350px" src="/images/icons/FAQ-%20Frage%20und%20Antwort.gif" alt="Packstation"> <br /><br /> Si tiene alguna pregunta, p&oacute;ngase en contacto con nuestro equipo de asistencia en el 0043 (0) 676 5124971!<br><br>'
+text_select_payment = 'Por favor, marque la forma de pago y la forma de env&iacute;o deseadas y complete la informaci&oacute;n que falta.  '
+text_signature = 'Fecha, lugar, firma'
+text_payment_address = 'Direcci&oacute;n de facturaci&oacute;n'
+title_shipping_to = '<strong>Pedido Enviar a</strong>'
+shipping_to = '<p><span style="color: #508B01">RECOMMENDED</span><br /><b>Direcci&oacute;n en alem&aacute;n:<br /></b> D-A-Packs 3326655<br />
+Productos naturales MR. H.<br />
+Am Rain 53<br />
+83088 Kiefersfelden<br /><br />
+<hr /><br /><span style="color: #A00002">*</span><br />
+<b>Austria - Sede de la empresa:</b><br />
+MRH N-Trade GmbH <br />
+Schulstrasse 7<br />
+A-6161 Natters<br />
+Austria <br /><br /><br />  <br /><br />
+</p>'
+text_shipping_address = 'Direcci&oacute;n de entrega'
+text_sameasbill = 'La direcci&oacute;n de entrega corresponde a la direcci&oacute;n de facturaci&oacute;n' 
+text_info_box_heder =  '&iexcl;Est&aacute; buscando semillas de c&aacute;&ntilde;amo! Pero no quiere dejar ning&uacute;n dato personal, entonces puede pedir c&oacute;modamente semillas de cannabis sin almacenamiento de datos utilizando este formulario.<br /> <br /> <span style="color: #A00002">*No se recomienda el correo austriaco, &iexcl;por favor env&iacute;e s&oacute;lo a la direcci&oacute;n DE! <br />*Por favor, no env&iacute;e cartas o paquetes a la direcci&oacute;n de Austria.</span>'
+title_ahlungsart='Forma de pago:'
+info_red = '<b class="b"> &iexcl;*Por favor, tenga en cuenta los gastos de env&iacute;o, ver m&aacute;s abajo! </b>'
+info_red2 = '<b class="b"> *&iexcl;Por favor, esconde el dinero entre un papel doblado!</b>'
+info_red3 = ' '
+versand_opt = 'Seleccione el m&eacute;todo de env&iacute;o:'
+ahlungsart1  = 'Dinero en efectivo en el sobre:'
+ahlungsart2 = 'Transferencia bancaria est&aacute;ndar de la UE <br /> <b class="screen b">*En el pie de imprenta encontrar&aacute; nuestros datos bancarios.</b>'
+versand_opt01 = 'Env&iacute;o asegurado - Correo (carta) AT: 6,-- EUR'
+versand_opt06 = 'Env&iacute;o asegurado - Correos (carta) UE: 12,-- EUR'
+versand_opt1 = 'Env&iacute;o no asegurado - Correo (carta) AT: 4,-- EUR'
+versand_opt07 = 'Env&iacute;o no asegurado - Correos (carta) UE: 8,-- EUR'
+versand_opt2 = 'Servicio de paqueter&iacute;a AT: 7,-- EUR'
+versand_opt7 = 'Servicio de paqueter&iacute;a UE: 9,-- EUR'
+versand_opt4 = 'Dentro de la UE a partir de 75,-- EUR env&iacute;o gratuito: 0,00 EUR'
+versand_opt5 = 'Env&iacute;o fuera de la UE (al extranjero): 16,-- EUR'
+versand_opt6 = 'DHL + Packstation DE: 18,-- EUR'
+info_exklsv = 'm&aacute;s gastos de env&iacute;o '
+method= '<b class="c"> *&iexcl;Por favor, elija un m&eacute;todo de env&iacute;o!</b>'
+artikelnummer= 'N&ordm; de art&iacute;culo'
+shipping_adress = 'Su direcci&oacute;n de env&iacute;o'
+versand_textarea = 'Por favor, introduzca aqu&iacute; informaci&oacute;n adicional 
+*Si los art&iacute;culos deseados no est&aacute;n en stock y no nos ha dejado un correo electr&oacute;nico o un n&uacute;mero de tel&eacute;fono, le enviaremos autom&aacute;ticamente productos alternativos al cabo de 7 d&iacute;as. '
+versandart = 'Seleccione el m&eacute;todo de env&iacute;o '
+versand_alter = ' Por la presente confirmo que soy mayor de 18 a&ntilde;os y que he le&iacute;do y acepto las condiciones generales.'
+MORE = 'M&Aacute;S'
+LESS = 'MENOS'
+printorder = 'Imprimir pedido'
+versandwal = 'Elija un m&eacute;todo de env&iacute;o'
+benach = 'P&oacute;ngase en contacto con nosotros:'
+benach_yes = 'S&iacute;'
+benach_no = 'No'
+
+[blog]
+new_blog_posts = 'Nuevos art&iacute;culos'
+date_modified = 'Modificado el'
+box_blog_categories = 'Categor&iacute;as de blogs'
+box_blog_posts = 'Nuevos art&iacute;culos del blog'

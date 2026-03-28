@@ -1,0 +1,14 @@
+Le stock d&#039;un article dans la boutique {if $PRODUCTS_QUANTITY < $STOCK_AMOUNT}sous{else}&agrave;{/if} la quantit&eacute; minimale de {$STOCK_AMOUNT} pi&egrave;ces est tomb&eacute;e.
+
+
+article : {$PRODUCTS_NAME}{if !empty($PRODUCTS_MODEL)} ({$PRODUCTS_MODEL}){/if}
+ Stock : {$PRODUCTS_QUANTITY} 
+ Lien : {$PRODUCTS_LINK}
+
+{if !empty($PRODUCTS_ATTRIBUTES)}
+{foreach name=aussen item=attr from=$PRODUCTS_ATTRIBUTES}
+{$attr.OPTIONS_NAME}: {$attr.VALUES_NAME}
+ Stock : {$attr.STOCK} 
+
+{/foreach}
+{/if}

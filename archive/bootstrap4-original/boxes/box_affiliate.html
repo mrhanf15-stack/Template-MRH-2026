@@ -1,0 +1,8 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_box"}
+{if isset($BOX_CONTENT) && $BOX_CONTENT != ''}
+<div class="box_login card mb-4">
+	<div class="box_header card-header">{#heading_affiliate#}</div>
+    <div class="box_category_line"></div>
+    {$BOX_CONTENT|replace:"<li>":"<li class=\"level1 list-group-item\">"}
+  </div>
+{/if}

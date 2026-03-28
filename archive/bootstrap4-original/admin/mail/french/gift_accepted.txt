@@ -1,0 +1,9 @@
+
+{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if} {$NAME} ,
+
+Vous avez r&eacute;cemment command&eacute; dans notre boutique en ligne un bon d&#039;achat,
+qui n&#039;a pas &eacute;t&eacute; activ&eacute; imm&eacute;diatement pour des raisons de s&eacute;curit&eacute;.
+Ce cr&eacute;dit est maintenant &agrave; votre disposition.
+Vous pouvez comptabiliser votre bon d&#039;achat et l&#039;envoyer par e-mail. Le bon que vous avez command&eacute; a une valeur de {$AMMOUNT}.
+
+[SIGNATUR]

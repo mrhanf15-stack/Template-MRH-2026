@@ -1,0 +1,19 @@
+{if $GENDER == MALE}Sehr geehrter Herr{elseif $GENDER == FEMALE}Sehr geehrte Frau{else}Guten Tag{/if} {$LASTNAME},
+
+vielen Dank für Ihre Bestellung{if $ORDER_NR} Nr. {$ORDER_NR}{/if}{if $ORDER_DATE} vom {$ORDER_DATE}{/if}.
+
+Im Anhang dieser E-Mail finden Sie Ihre {$PDF_TYPE} zur Bestellung.
+
+
+{if $ORDER_LINK}Zur Bestellung:{$ORDER_LINK} 
+{/if}
+
+{$SIGNATURE_TXT}
+
+{*$REVOCATION_TXT*}
+
+{*$AGB_TITLE_TXT*}
+{*$AGB_TXT*}
+
+{*$PRIVACY_POLICY_TXT*}
+[NOSIGNATUR]

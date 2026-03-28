@@ -1,0 +1,45 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_clicks"}
+
+<div class="card mb-3">
+    <div class="card-header bg-h-main text-white">
+        <h1 class="h3 mb-0"><span class="fas fa-mouse-pointer"></span> {#heading_title#}</h1>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Hier siehst du eine detaillierte Übersicht aller Klicks auf deine Affiliate-Links. Jeder Klick auf ein Produkt, der über deine Webseite generiert wurde, wird hier mit Datum, dem geklickten Produkt und der Herkunftsseite (Referrer) aufgelistet. Diese Daten helfen dir zu verstehen, welche Produkte für dein Publikum am interessantesten sind.</p>
+        <p><strong>{#text_affiliate_header#}</strong> {$affiliate_clickthroughs_split_number}</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">{#table_heading_date#}</th>
+                        <th scope="col">{#table_heading_clicked_product#}</th>
+                        <th scope="col">{#table_heading_referred#}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {if $ct_array != ''}
+                        {foreach item=ct from=$ct_array}
+                            <tr>
+                                <td>{$ct.date}</td>
+                                <td>{$ct.products_id} - {$ct.products_name}</td>
+                                <td>{$ct.client_referer}</td>
+                            </tr>
+                        {/foreach}
+                    {else}
+                        <tr>
+                            <td colspan="3" class="text-center">{#text_no_clicks#}</td>
+                        </tr>
+                    {/if}
+                </tbody>
+            </table>
+        </div>
+
+        {if $PAGINATION}
+            <div class="d-flex justify-content-center mt-3">
+                {$PAGINATION}
+            </div>
+        {/if}
+
+    </div>
+</div>

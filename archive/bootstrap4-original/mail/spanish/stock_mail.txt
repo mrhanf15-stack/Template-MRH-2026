@@ -1,0 +1,14 @@
+{if $PRODUCTS_QUANTITY < $STOCK_AMOUNT}{else}{/if} {$STOCK_AMOUNT} El nivel de existencias de un art&iacute;culo en la tienda ha ca&iacute;do por debajo de la cantidad m&iacute;nima de 
+
+
+Art&iacute;culo: en en : {$PRODUCTS_NAME}{if !empty($PRODUCTS_MODEL)} {$PRODUCTS_MODEL}{/if} {$PRODUCTS_QUANTITY} ( ) 
+Stock: 
+Enlace: {$PRODUCTS_LINK}{if !empty($PRODUCTS_ATTRIBUTES)}{foreach name=aussen item=attr from=$PRODUCTS_ATTRIBUTES}{$attr.OPTIONS_NAME}
+
+ 
+ 
+ : {$attr.VALUES_NAME} {$attr.STOCK}{/foreach}
+Stock: 
+
+ 
+{/if}

@@ -1,0 +1,97 @@
+<div class="faq_list" itemscope itemtype="https://schema.org/FAQPage">
+  {foreach name=aussen item=FAQS_CID from=$FAQ_TREE.0}
+
+    {* ── Kategorie-Header (volle Breite über beide Spalten) ── *}
+    <h2 class="faq-category-header">
+      <span class="fa fa-folder-open"></span>
+      <span>{$FAQ_CATEGORIES.$FAQS_CID.title}</span>
+    </h2>
+
+    {if $FAQ_CATEGORIES.$FAQS_CID.items|count > 0}
+      <div class="faq-grid" id="faqAccordion_{$FAQS_CID}">
+        {foreach name=inneritems item=FAQS_ITEM from=$FAQ_CATEGORIES.$FAQS_CID.items}
+          <div class="faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+
+            {* ── Frage (Header) ── *}
+            <div class="faq-header" id="faqHeading_{$FAQS_ITEM.id}">
+              <button class="faq-button collapsed"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#faqCollapse_{$FAQS_ITEM.id}"
+                      aria-expanded="false"
+                      aria-controls="faqCollapse_{$FAQS_ITEM.id}">
+                <span class="faq-question" itemprop="name">
+                  <span class="fa fa-question-circle faq-icon"></span>
+                  {$FAQS_ITEM.question}
+                </span>
+                <span class="faq-chevron">
+                  <span class="fa fa-chevron-down"></span>
+                </span>
+              </button>
+            </div>
+
+            {* ── Antwort (Body) ── *}
+            <div id="faqCollapse_{$FAQS_ITEM.id}"
+                 class="collapse"
+                 aria-labelledby="faqHeading_{$FAQS_ITEM.id}">
+              <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <span itemprop="text">{$FAQS_ITEM.answer}</span>
+              </div>
+            </div>
+
+          </div>
+        {/foreach}
+      </div>
+    {/if}
+
+    {* ── Unter-Kategorien (Child) ── *}
+    {if $FAQ_TREE.$FAQS_CID}
+      <div class="faq-subcategories">
+        {foreach name=aussenchild item=FAQS_CHILD from=$FAQ_TREE.$FAQS_CID}
+          {if $FAQ_CATEGORIES.$FAQS_CHILD.items|count > 0}
+
+            <h3 class="faq-subcategory-header">
+              <span class="fa fa-tag"></span>
+              <span>{$FAQ_CATEGORIES.$FAQS_CHILD.title}</span>
+            </h3>
+
+            <div class="faq-grid" id="faqAccordion_{$FAQS_CHILD}">
+              {foreach name=inneritems item=FAQS_ITEM from=$FAQ_CATEGORIES.$FAQS_CHILD.items}
+                <div class="faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+
+                  <div class="faq-header" id="faqHeading_{$FAQS_ITEM.id}">
+                    <button class="faq-button collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#faqCollapse_{$FAQS_ITEM.id}"
+                            aria-expanded="false"
+                            aria-controls="faqCollapse_{$FAQS_ITEM.id}">
+                      <span class="faq-question" itemprop="name">
+                        <span class="fa fa-question-circle faq-icon"></span>
+                        {$FAQS_ITEM.question}
+                      </span>
+                      <span class="faq-chevron">
+                        <span class="fa fa-chevron-down"></span>
+                      </span>
+                    </button>
+                  </div>
+
+                  <div id="faqCollapse_{$FAQS_ITEM.id}"
+                       class="collapse"
+                       aria-labelledby="faqHeading_{$FAQS_ITEM.id}">
+                    <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                      <span itemprop="text">{$FAQS_ITEM.answer}</span>
+                    </div>
+                  </div>
+
+                </div>
+              {/foreach}
+            </div>
+
+          {/if}
+        {/foreach}
+      </div>
+    {/if}
+
+  {/foreach}
+</div>

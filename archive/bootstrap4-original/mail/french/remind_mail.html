@@ -1,0 +1,32 @@
+<table border="0" cellpadding="0" cellspacing="0" align="center" width="600" style="border-collapse:collapse;border-spacing:0;padding:0;max-width:600px;" class="wrapper">
+<tr>
+<td align="center" style="padding-bottom:30px;padding-top:20px;">
+<img src="{$logo_path}logo.gif">
+</td>
+</tr>
+<tr>
+<td align="left" style="padding-top:20px;">
+{if $CUSTOMERS_GENDER == 'f'}Ch&egrave;re Madame{elseif $CUSTOMERS_GENDER == 'm'}Cher Monsieur{else}Bonjour Madame/Monsieur{/if}&nbsp;{$CUSTOMERS_LASTNAME},<br /><br />
+
+Nous tenions &agrave; vous informer que nous venons de recevoir une nouvelle livraison qui pourrait vous int&eacute;resser.<br /><br />
+
+Vous avez souhait&eacute; recevoir un rappel de produit en cas de nouvelle arriv&eacute;e de l&#039;article suivant :<br /><br />
+
+</td>
+</tr>
+<tr>
+<td align="left">
+<a href="{$LINK}"><img src="{$img_path}" style="padding-bottom:20px;"/></a>
+</td>
+</tr>
+<tr>
+<td align="left" style="padding-top:20px;padding-bottom:30px;">
+<a href="{$LINK}" style="color:#565656;">{$PRODUCTS_NAME}&nbsp;{if $PRODUCTS_MODEL}&nbsp;&nbsp;({$PRODUCTS_MODEL}){/if}</a>
+</td>
+</tr>
+<tr>
+<td align="left" style="padding-bottom:30px;">
+Avec nos meilleures salutations<br />
+Votre &eacute;quipe de la boutique</td>
+</tr>
+</table>

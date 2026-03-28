@@ -1,0 +1,183 @@
+# Die lang_german.section wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" oder "smarty_4" gesetzt ist!
+
+[account_checkout_express]
+
+[account_delete]
+
+[account_edit]
+
+[account_history_info]
+
+[account_history]
+
+[account_password]
+
+[account]
+
+[address_book_process]
+
+[address_book]
+
+[advanced_search]
+
+[also_purchased]
+
+[error_handler]
+
+[checkout_confirmation]
+
+[checkout_payment]
+
+[checkout_new_address]
+
+[checkout_payment_address]
+
+[checkout_shipping_address]
+
+[checkout_shipping]
+
+[checkout_success]
+
+[contact_us]
+
+[cookie_usage]
+
+[create_account]
+
+[create_account_guest]
+
+[cross_selling]
+
+[downloads_module]
+
+[main]
+
+[gift_cart]
+
+[graduated_price]
+
+[gv_redeem]
+
+[gv_send]
+
+[filter]
+
+[login]
+
+[logoff]
+
+[index]
+
+[new_products]
+
+[newsletter]
+
+[shopping_cart]
+
+[new_password]
+
+[password_forgotten]
+
+[popup_coupon_help]
+
+[popup_search_help]
+
+[print_order]
+
+[print_product_info]
+
+[product_info]
+
+[product_navigator]
+
+[reviews]
+
+[product_tags]
+
+[products_category]
+
+[products_media]
+
+[reverse_cross_selling]
+
+[sitemap]
+cont_site = '<p>Sitemap sayfası, web sitesindeki tüm mevcut bağlantıların bir genel bakışını sunar. Bunlar, tohum mağazası, CBD ve Terpen mağazası, yetiştirme malzemeleri mağazası, başlık mağazası ve kenevir yetiştirimiyle ilgili çeşitli konuları içeren blog yazıları da dahildir. Tohum mağazamızda, CBD içerikli çeşitler, feminize tohumlar, THC içerikli çeşitler, otomatik çiçeklenme tohumları ve tıbbi tohumlar olmak üzere geniş bir kenevir tohumu seçeneği bulunmaktadır.</p>
+<p>CBD ve Terpen Mağazamızda, çiçekler, yağ, damlalar ve daha fazlası gibi çeşitli CBD ürünleri ile terpen ve diğer kenevir ürünleri sunmaktayız. Yetiştirme malzemeleri mağazamızda, aydınlatma teknolojisinden gübre ve substratlara, havalandırma ve iklimlendirme ürünlerine kadar kenevir yetiştirimi için ihtiyaç duyduğunuz her şeyi bulabilirsiniz. Başlık mağazamızda bonglar, öğütücüler ve diğer duman ekipmanları mevcuttur. Blog yazılarımız, kenevir yetiştirimiyle ilgili ilginç bilgiler ve ipuçları sunmaktadır.</p>'
+heading_tag_content = 'Popüler aramalar'
+
+[specials]
+
+[ssl_check]
+
+[categorie_listing]
+
+[upcoming_products]
+
+[wishlist]
+
+[manufacturers]
+title_top_brands = 'En İyi Markalar Mr. Hanf`da'
+scroll_to = 'Git '
+back_to_top = 'Yukarı'
+
+[print_fax_order]
+heading_checkout = 'Sipariş Formu'
+text_checkout = 'Aşağıda, ürünlerinizi manuel olarak sipariş etmek için sipariş formunu bulabilirsiniz. Lütfen istenen ödeme ve nakliye seçeneklerini işaretleyin ve eksik bilgileri tamamlayın. Siparişi yazdırın ve bize gönderin. Küçük paralar koymamanızı, parayı ayrı bir zarfın içine, katlanmış kağıt, posta kartı veya iki karton arasına saklamanızı ve mektubu ekstra yapışkan bantla kaplayarak iadeli taahhütlü olarak göndermenizi öneririz! <br> <br> Banka hesap bilgileri ve DHL paket istasyonu... <br> '
+bank_daten ='<strong>Banka Hesap Bilgileri</strong><p>Banka Adı: BAWAG<br>Alıcı: Naturprodukte<br>Banka kodu: 14000<br>Hesap numarası: 68710530096<br>IBAN: AT611400068710530096<br>BIC/SWIFT: BAWAATWWXXX<br>Kullanım amacı: SOKAK ADI<br><br></p>'
+text_checkout2 = '<strong>Paket istasyonlarına gönderim, lütfen aşağıdaki gibi doldurunuz.</strong><br /> <img  width="350px" src="/images/icons/FAQ-%20Frage%20und%20Antwort.gif" alt="paketleme istasyonu"> <br /><br /> Sorularınız için destek ekibimiz 0043 (0) 676 5124971 numaralı telefondan size yardımcı olacaktır!<br><br>'
+text_select_payment = 'Lütfen istenen ödeme ve nakliye yöntemini işaretleyin ve eksik bilgileri tamamlayın.'
+text_signature = 'Tarih, Yer, İmza'
+text_payment_address = 'Fatura Adresi'
+title_shipping_to = '<strong>Gönderim Adresi</strong>'
+shipping_to = '<p><span style="color: #508B01">TAVSİYE EDİLİR</span><br /><b>Alman Adresi:<br /></b>
+D-A-Packs 3326655<br />
+Naturprodukte MR. H.<br />
+Am Rain 53<br />
+83088 Kiefersfelden<br /><br />
+<hr /><br /><span style="color: #A00002">*</span><br />
+<b>Avusturya - Şirket Adresi:</b><br />
+Naturprodukte Onlineshop <br />
+Versuchsfeld 1<br />
+A-6074 Rinn<br />
+Avusturya <br /><br /><br /> <br /><br />
+</p>'
+text_shipping_address = 'Teslimat Adresi'
+text_sameasbill = 'Teslimat adresi fatura adresiyle aynı'
+text_info_box_heder = 'Cannabis Seeds arıyorsunuz! Ancak kişisel bilgi bırakmak istemiyorsanız, bu formu kullanarak veri depolama olmadan konforlu bir şekilde hanf tohumu siparişi verebilirsiniz.<br /> <br /> <span style="color: #A00002">*Avusturya Postası önerilmez, lütfen yalnızca DE adresine gönderin! Lütfen sadece paketleri Avusturya adresine gönderin. </span>'
+title_ahlungsart='Ödeme yöntemi:'
+info_red = '<b class="b"> *Lütfen nakliye ücretlerine dikkat edin, aşağıya bakınız!</b>'
+info_red2 = '<b class="b"> *Lütfen nakit parayı katlamış bir kağıt arasına gizleyin!</b>'
+info_red3 = ' '
+versand_opt = 'Nakliye yöntemi seçin:'
+ahlungsart1 = 'Zarf içinde nakit ödeme:'
+ahlungsart2 = 'EU Standart banka transferi <br /> <b class="screen b">*Banka hesap bilgilerimiz için İletişim sayfamızı ziyaret edebilirsiniz!</b>'
+versand_opt01 = 'Sigortalı nakliye - Posta (Mektup) AT: 6,-- EUR'
+versand_opt06 = 'Sigortalı nakliye - Posta (Mektup) EU: 12,-- EUR'
+versand_opt1 = 'Sigortasız nakliye - Posta (Mektup) AT: 4,-- EUR'
+versand_opt07 = 'Sigortasız nakliye - Posta (Mektup) EU: 8,-- EUR'
+versand_opt2 = 'Paket servisi AT: 7,-- EUR'
+versand_opt7 = 'Paket servisi EU: 9,-- EUR'
+versand_opt4 = 'Avrupa Birliği içinde 75 € üzeri siparişlerde ücretsiz kargo: 0,00 EUR'
+versand_opt5 = 'Avrupa Birliği dışına nakliye: 16,-- EUR'
+versand_opt6 = 'DHL + Packstation DE: 18,-- EUR'
+info_exklsv = 'Nakliye ücreti dahil değildir. '
+method= '<b class="c"> *Lütfen bir nakliye yöntemi seçin!</b>'
+artikelnummer= 'Ürün kodu:'
+shipping_adress = 'Teslimat Adresiniz'
+versand_textarea = 'Ek bilgilerinizi buraya yazabilirsiniz!
+*Ürünler stoğumuzda yoksa ve bize e-posta veya telefon numarası bırakmadıysanız, 7 gün sonra alternatif ürünler gönderiyoruz!'
+versandart = 'Lütfen bir nakliye yöntemi seçin '
+versand_alter = '18 yaşından büyük olduğumu onaylıyorum ve genel iş şartlarını okudum ve kabul ediyorum.'
+MORE = 'DAHA FAZLA'
+LESS = 'DAHA AZ'
+printorder = 'Siparişi yazdır'
+versandwal = 'Lütfen bir nakliye yöntemi seçin'
+benach = 'Iletişim kurma:'
+benach_yes = 'Evet'
+benach_no = 'Hayır'
+
+[blog]
+new_blog_posts = 'Yeni Makaleler'
+date_modified = 'değiştirme tarihi'
+box_blog_categories = 'Blog Kategorileri'
+box_blog_posts = 'Yeni Blog Makaleleri'

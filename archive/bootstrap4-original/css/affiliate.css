@@ -1,0 +1,359 @@
+/* ================================================================
+   MR. Hanf Affiliate Module - Styles (Mobile First)
+   Wird per <link> in affiliate_account_details.html geladen
+   Farben: #839A4F (primary), #6b7e3f (hover), #2c5f2d (dark)
+   Regel 6: Mobile First - Basis = Mobile, Desktop via min-width
+   v9 - 2026-03-18: Häkchen NUR bei Pflichtfeldern. Optionale Felder nur Text.
+   ================================================================ */
+
+/* --- Allgemeine Affiliate-Farben --- */
+.affiliate-page a,
+.affiliate-account a { color: #839A4F; }
+.affiliate-page a:hover,
+.affiliate-account a:hover { color: #6b7e3f; }
+
+/* ================================================================
+   FORM-GROUP: Strukturierung der Eingabefelder
+   PHP gibt aus: <div class="form-group">
+                    <label>Text <span>*</span></label>
+                    <input type="text" ...>&nbsp;*
+                  </div>
+   Problem: Label und Input stehen inline nebeneinander,
+            nach dem Input kommt nackter "&nbsp;*" Text.
+   Lösung: form-group als Flexbox-Column, Label über Input.
+           Doppelte Sternchen werden NICHT mehr per font-size:0
+           versteckt (das blendet auch Inputs aus!).
+   ================================================================ */
+
+/* --- Form-Group: Flexbox-Column erzwingt Label ÜBER Input --- */
+form#affiliate_signup .affiliate-account .form-group,
+form#affiliate_details .affiliate-account .form-group,
+form#affiliate_edit .affiliate-account .form-group,
+div.affiliate-account div.form-group,
+div.affiliate-page div.form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    margin-bottom: 1rem;
+}
+
+/* --- Labels: Block über dem Input --- */
+form#affiliate_signup .affiliate-account .form-group > label,
+form#affiliate_details .affiliate-account .form-group > label,
+form#affiliate_edit .affiliate-account .form-group > label,
+div.affiliate-account div.form-group > label,
+div.affiliate-page div.form-group > label {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: .3rem;
+    font-weight: 600;
+    color: #212529 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    order: 1;
+}
+
+/* --- Pflichtfeld-Sternchen im Label rot --- */
+form#affiliate_signup .affiliate-account .form-group > label > span.text-danger,
+form#affiliate_details .affiliate-account .form-group > label > span.text-danger,
+form#affiliate_edit .affiliate-account .form-group > label > span.text-danger,
+div.affiliate-account div.form-group > label > span.text-danger,
+div.affiliate-page div.form-group > label > span.text-danger {
+    color: #dc3545 !important;
+}
+
+/* --- Input-Felder: Volle Breite, Bootstrap-Look --- */
+form#affiliate_signup .affiliate-account .form-group input[type="text"],
+form#affiliate_signup .affiliate-account .form-group input[type="email"],
+form#affiliate_signup .affiliate-account .form-group input[type="password"],
+form#affiliate_signup .affiliate-account .form-group input[type="tel"],
+form#affiliate_signup .affiliate-account .form-group input[type="url"],
+form#affiliate_signup .affiliate-account .form-group select,
+form#affiliate_signup .affiliate-account .form-group textarea,
+form#affiliate_details .affiliate-account .form-group input[type="text"],
+form#affiliate_details .affiliate-account .form-group input[type="email"],
+form#affiliate_details .affiliate-account .form-group input[type="password"],
+form#affiliate_details .affiliate-account .form-group input[type="tel"],
+form#affiliate_details .affiliate-account .form-group input[type="url"],
+form#affiliate_details .affiliate-account .form-group select,
+form#affiliate_details .affiliate-account .form-group textarea,
+form#affiliate_edit .affiliate-account .form-group input[type="text"],
+form#affiliate_edit .affiliate-account .form-group input[type="email"],
+form#affiliate_edit .affiliate-account .form-group input[type="password"],
+form#affiliate_edit .affiliate-account .form-group input[type="tel"],
+form#affiliate_edit .affiliate-account .form-group input[type="url"],
+form#affiliate_edit .affiliate-account .form-group select,
+form#affiliate_edit .affiliate-account .form-group textarea {
+    display: block !important;
+    width: 100% !important;
+    padding: .375rem .75rem;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    box-sizing: border-box;
+    order: 2;
+}
+
+/* --- Focus-State: Grüner Rahmen --- */
+form#affiliate_signup .affiliate-account .form-group input:focus,
+form#affiliate_signup .affiliate-account .form-group select:focus,
+form#affiliate_signup .affiliate-account .form-group textarea:focus,
+form#affiliate_details .affiliate-account .form-group input:focus,
+form#affiliate_details .affiliate-account .form-group select:focus,
+form#affiliate_details .affiliate-account .form-group textarea:focus,
+form#affiliate_edit .affiliate-account .form-group input:focus,
+form#affiliate_edit .affiliate-account .form-group select:focus,
+form#affiliate_edit .affiliate-account .form-group textarea:focus {
+    border-color: #839A4F;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(131,154,79,.25);
+}
+
+/* --- Placeholder Styling --- */
+.affiliate-account input::placeholder,
+.affiliate-account textarea::placeholder {
+    color: #adb5bd !important;
+    opacity: 1;
+}
+
+/* --- Passwort-Wrapper (div.pssw-wrap) --- */
+form#affiliate_signup .affiliate-account .form-group .pssw-wrap,
+form#affiliate_details .affiliate-account .form-group .pssw-wrap,
+form#affiliate_edit .affiliate-account .form-group .pssw-wrap {
+    display: block !important;
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    order: 2;
+}
+form#affiliate_signup .affiliate-account .form-group .pssw-wrap input,
+form#affiliate_details .affiliate-account .form-group .pssw-wrap input,
+form#affiliate_edit .affiliate-account .form-group .pssw-wrap input {
+    display: block !important;
+    width: 100% !important;
+    padding: .375rem .75rem;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-sizing: border-box;
+}
+
+/* --- Div-Kinder in form-group (z.B. Gender Radio-Buttons) --- */
+form#affiliate_signup .affiliate-account .form-group > div,
+form#affiliate_details .affiliate-account .form-group > div,
+form#affiliate_edit .affiliate-account .form-group > div {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    order: 2;
+}
+
+/* --- Geburtsdatum: Hinweistext (z.B. 21.05.1970) --- */
+form#affiliate_signup .affiliate-account .form-group > small,
+form#affiliate_signup .affiliate-account .form-group > font,
+form#affiliate_details .affiliate-account .form-group > small,
+form#affiliate_details .affiliate-account .form-group > font,
+form#affiliate_edit .affiliate-account .form-group > small,
+form#affiliate_edit .affiliate-account .form-group > font {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    color: #6c757d !important;
+    display: block;
+    margin-top: .25rem;
+    order: 3;
+}
+
+/* --- Input-Group (Legacy Passwort-Toggle) --- */
+.affiliate-account .form-group > .input-group {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    display: flex !important;
+    width: 100% !important;
+    order: 2;
+}
+.affiliate-account .form-group > .input-group input {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+}
+.affiliate-account .form-group > .input-group .input-group-append .btn {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+}
+
+/* ================================================================
+   CHECKBOX: Korrekte Ausrichtung (Checkbox neben Label-Text)
+   ================================================================ */
+form#affiliate_signup .affiliate-account .form-check,
+form#affiliate_details .affiliate-account .form-check,
+form#affiliate_edit .affiliate-account .form-check {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #212529 !important;
+    position: relative;
+    display: block;
+    padding-left: 1.75rem;
+    min-height: 1.5rem;
+}
+form#affiliate_signup .affiliate-account .form-check input[type="checkbox"],
+form#affiliate_details .affiliate-account .form-check input[type="checkbox"],
+form#affiliate_edit .affiliate-account .form-check input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    margin: 0;
+    width: auto !important;
+    display: inline-block !important;
+}
+form#affiliate_signup .affiliate-account .form-check .form-check-label,
+form#affiliate_details .affiliate-account .form-check .form-check-label,
+form#affiliate_edit .affiliate-account .form-check .form-check-label {
+    display: inline !important;
+    font-weight: normal;
+    margin-bottom: 0;
+    cursor: pointer;
+    color: #212529 !important;
+}
+
+/* ================================================================
+   CARD-HEADER: Styling für die Formular-Sektionen
+   ================================================================ */
+.affiliate-account .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #839A4F;
+}
+.affiliate-account .card-header .card-title {
+    margin-bottom: 0;
+    color: #474747;
+    font-size: 1rem;
+}
+.affiliate-account .card-header .card-title .fas,
+.affiliate-account .card-header .card-title .far,
+.affiliate-account .card-header .card-title .fa-solid,
+.affiliate-account .card-header .card-title .fa-regular {
+    color: #839A4F;
+    margin-right: 0.5rem;
+}
+
+/* --- Intro-Card: Grüner Header --- */
+.affiliate-account > .row:first-child .card-header {
+    background-color: #839A4F;
+    border-bottom: none;
+}
+.affiliate-account > .row:first-child .card-header .card-title {
+    color: #fff;
+}
+.affiliate-account > .row:first-child .card-header .card-title .fas,
+.affiliate-account > .row:first-child .card-header .card-title .far {
+    color: #fff;
+}
+
+/* ================================================================
+   ICON-BLOCK & STEP-CIRCLE (ersetzt Inline-Styles)
+   ================================================================ */
+.affiliate-icon-block {
+    display: block;
+}
+.step-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* ================================================================
+   BUTTONS: Affiliate-Grün
+   ================================================================ */
+.affiliate-account .btn-primary,
+.affiliate-page .btn-primary {
+    background-color: #839A4F;
+    border-color: #839A4F;
+}
+.affiliate-account .btn-primary:hover,
+.affiliate-page .btn-primary:hover {
+    background-color: #6b7e3f;
+    border-color: #6b7e3f;
+}
+
+/* ================================================================
+   RESPONSIVE: Desktop-Anpassungen (Mobile First)
+   ================================================================ */
+@media (min-width: 768px) {
+    .affiliate-account .card-header .card-title {
+        font-size: 1.15rem;
+    }
+}
+
+/* ================================================================
+   VALIDIERUNG: Grünes Häkchen bei korrekten Feldern,
+   Rote Markierung bei fehlerhaften Feldern
+   v8 - 2026-03-18
+   ================================================================ */
+
+/* --- PFLICHTFELDER korrekt: Grünes Häkchen + Wert --- */
+.field-valid {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.4rem;
+    padding: .375rem .75rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #2c5f2d !important;
+    background-color: #f0f8e8;
+    border: 1px solid #839A4F;
+    border-radius: .25rem;
+    min-height: 2.375rem;
+    width: 100%;
+    box-sizing: border-box;
+    order: 2;
+}
+.field-valid .fa-circle-check {
+    color: #839A4F !important;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* --- OPTIONALE Felder korrekt: Nur Wert als Text, KEIN Häkchen --- */
+.field-optional-valid {
+    display: block !important;
+    padding: .375rem .75rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #495057 !important;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    min-height: 2.375rem;
+    width: 100%;
+    box-sizing: border-box;
+    order: 2;
+}
+
+/* --- Fehlerhafte Felder: Rote Umrandung --- */
+.form-group .midi {
+    font-size: 0.85rem !important;
+    margin-top: .25rem;
+    order: 3;
+}
+.form-group input.has-error,
+.form-group select.has-error,
+.form-group textarea.has-error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 .2rem rgba(220,53,69,.15);
+}
+
+/* --- Fehlermeldung unter dem Input --- */
+.form-group .midi[style*="color:#FF0000"],
+.form-group .midi[style*="color: #FF0000"] {
+    color: #dc3545 !important;
+    font-weight: 500;
+}

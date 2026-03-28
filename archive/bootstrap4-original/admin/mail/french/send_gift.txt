@@ -1,0 +1,12 @@
+
+{$MESSAGE}
+ Valeur du bon  Le code de votre bon est le suivant :  Pour comptabiliser votre bon, cliquez sur le lien suivant - . Si, contre toute attente, vous rencontrez des probl&egrave;mes pour comptabiliser votre bon, rendez-vous sur notre site et saisissez manuellement le code de votre bon. 
+ {$AMMOUNT}
+
+ {$GIFT_ID}
+
+ {$GIFT_LINK}
+
+ {$WEBSITE}
+
+[SIGNATUR]

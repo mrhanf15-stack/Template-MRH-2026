@@ -1,0 +1,38 @@
+{*
+  AdvancedSearch Blog Extension
+  Template: Blog-Ergebnisse in der Autocomplete/Live-Suche (Bootstrap4)
+  
+  Variablen:
+  - $blog_ac_results    : Array mit Blog-Ergebnissen
+  - $blog_ac_count      : Anzahl Ergebnisse
+  - $blog_show_image    : Bilder anzeigen
+  - $TEXT_BLOG_SEARCH_HEADING : Ueberschrift
+  
+  Jedes Element in $blog_ac_results:
+  - POST_ID, POST_NAME, POST_LINK, POST_IMAGE, CATEGORIES_NAME
+*}
+
+{if $blog_ac_count > 0}
+<div class="autocomplete-blog-divider mt-2 mb-1 pt-2" style="border-top: 2px solid #dee2e6;">
+  <small class="text-muted font-weight-bold px-2">
+    <span class="fa fa-newspaper-o mr-1" aria-hidden="true"></span>{$TEXT_BLOG_SEARCH_HEADING}
+  </small>
+</div>
+{foreach item=blog_data from=$blog_ac_results}
+<div class="autocomplete_blog_item my-1 w-100">
+  <a class="list-group-item list-group-item-action py-2 d-flex align-items-center" href="{$blog_data.POST_LINK}" style="text-decoration:none;">
+    {if $blog_show_image && $blog_data.POST_IMAGE != ''}
+    <img class="rounded mr-2 flex-shrink-0" src="{$blog_data.POST_IMAGE}" alt="{$blog_data.POST_NAME}" style="width:40px;height:40px;object-fit:cover;" />
+    {else}
+    <span class="mr-2 flex-shrink-0 text-center" style="width:40px;">
+      <span class="fa fa-file-text-o fa-lg text-muted" aria-hidden="true"></span>
+    </span>
+    {/if}
+    <span class="text-truncate flex-grow-1" style="min-width:0;">{$blog_data.POST_NAME}</span>
+    {if $blog_data.CATEGORIES_NAME != ''}
+    <small class="badge badge-light text-muted ml-2 flex-shrink-0">{$blog_data.CATEGORIES_NAME}</small>
+    {/if}
+  </a>
+</div>
+{/foreach}
+{/if}

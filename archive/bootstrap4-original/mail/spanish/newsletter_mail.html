@@ -1,0 +1,26 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Inscripci&oacute;n al bolet&iacute;n</font>   </td>
+</tr>
+<tr> 
+<td>
+      <br />
+     <font size="2" face="Tahoma, Verdana, sans-serif"><br />
+<br />{if isset($LINK)}<br />
+      <br />Dank<b>Ihnen, dass</b> Sie unsere Newsletter<b>abgelehnt haben</b>. Sie<b>haben</b> diese E-Mail abgelehnt, weil Sie unsere Newsletter gew&uuml;nscht wollen. Bitte klicken Sie auf den Activierungsv&iacute;nculo, um Ihre E-Mail-Adresse zu aktivieren, um die Newsletter aktivieren zu k&ouml;nnen.<br />
+      <br />
+     <br /> <a href="{$LINK}">{$LINK}</a><br />
+      <br /><br />
+      <br />Enlace de activaci&oacute;n <b>:</b> Si no se ha registrado para recibir nuestro bolet&iacute;n o no desea recibirlo, simplemente ignore el enlace de activaci&oacute;n. Puede revocar su consentimiento para recibir nuestro bolet&iacute;n en cualquier momento.<br /> {/if}&nbsp;{if $SEND_GIFT == true} <br /> <b>{$GIFT_AMMOUNT}</b><br />
+      <br /> <b>{$GIFT_CODE}</b> El bolet&iacute;n se env&iacute;a de acuerdo con nuestra pol&iacute;tica de privacidad. Como peque&ntilde;o regalo, le enviaremos un vale por: Su c&oacute;digo de vale personal es . <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a><br /> {/if}&nbsp;{if $SEND_COUPON == true} <br />Puede canjear este vale en la caja durante el proceso de pedido. Para canjear el vale, haga clic en . Le enviaremos un vale como peque&ntilde;o regalo.<br />
+     <b>{$COUPON_DESC}</b><br /> {$COUPON_CODE}<br /> {/if} <br />Descripci&oacute;n del cup&oacute;n: Simplemente introduzca su c&oacute;digo personal durante el proceso de compra &iexcl;Esperamos que disfrute de nuestra oferta ONLINE!</font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

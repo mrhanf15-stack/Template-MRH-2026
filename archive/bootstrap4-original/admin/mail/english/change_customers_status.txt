@@ -1,0 +1,16 @@
+
+{if $GENDER == 'm'}Dear Mr.{elseif $GENDER == 'f'}Dear Ms.{else}Hello{/if} {$NAME} ,
+
+we would like to thank you for your loyalty and have included you in our special V.I.P. customer group. In future you will benefit from special offers and discounts. 
+
+As a V.I.P. you will receive a permanent -10% discount on your entire purchase! 
+
+
+{*Alte Kundengruppe: {$CUSTOMERS_STATUS}
+{if !empty($ORDERS_MIN)}Number of orders: {$ORDERS_MIN}{/if}*}
+New customer group: {$NEW_CUSTOMERS_STATUS}
+
+You can view the status of your current orders at any time in your account area: {$LINK_ACCOUNT}
+
+[SIGNATURE]
+

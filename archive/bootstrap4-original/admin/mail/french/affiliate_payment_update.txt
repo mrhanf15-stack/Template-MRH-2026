@@ -1,0 +1,13 @@
+Bonjour {$content.PARTNER_NAME},
+
+Le statut de votre d&eacute;compte de commissions a &eacute;t&eacute; modifi&eacute;.
+Nouveau statut : {$content.PAYMENT_STATUS}
+ Si vous avez des questions concernant votre d&eacute;compte de commissions, veuillez r&eacute;pondre &agrave; cet e-mail.
+
+N&deg; de d&eacute;compte de commissions : {$content.PAYMENT_ID}
+ D&eacute;compte d&eacute;taill&eacute; des commissions : {$content.INVOICE_URL}
+ Date de d&eacute;compte : {$content.PAYMENT_DATE}
+
+ Nous nous r&eacute;jouissons de poursuivre notre bonne collaboration.
+
+Votre &eacute;quipe de programme d&#039;affiliation

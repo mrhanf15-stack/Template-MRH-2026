@@ -1,0 +1,14 @@
+{if $GENDER == 'm'}Lieber Herr{elseif $GENDER == 'f'}Liebe Frau{else}Hallo{/if} {$NAME},
+
+bevor du in unserem Shop eine Bestellung aufgeben kannst, musst du erst deine E-Mail-Adresse best&auml;tigen. Die Best&auml;tigung verifiziert dich als den Besitzer der hinterlegten E-Mail-Adresse.
+
+Bitte klicke auf den Aktivierungslink, damit deine E-Mail-Adresse f&uuml;r Bestellungen freigeschaltet wird.
+
+Dein Aktivierungslink:
+{$LINK}
+
+Solltest du dich nicht in unserem Shop angemeldet haben, bitten wir dich, den Aktivierungslink einfach zu ignorieren.
+
+Falls du Fragen zu unserem Kunden-Service hast, wende dich bitte an: {$MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

@@ -1,0 +1,114 @@
+{*
+  AdvancedSearch Blog Extension
+  Template: Blog-Suchergebnisse (fuer Bootstrap4 Template von KarlBogen)
+  
+  Verfuegbare Variablen:
+  - $blog_results          : Array mit Blog-Ergebnissen
+  - $blog_results_count    : Anzahl der Ergebnisse
+  - $blog_show_image       : Bilder anzeigen (true/false)
+  - $BLOG_SEARCH_HEADING   : Ueberschrift
+  - $BLOG_SEARCH_RESULTS_TEXT : Ergebnistext
+  - $TEXT_BLOG_READ_MORE   : "Weiterlesen" Text
+  - $TEXT_BLOG_PUBLISHED   : "Veroeffentlicht am" Text
+  - $TEXT_BLOG_CATEGORY    : "Kategorie" Text
+  
+  Jedes Element in $blog_results enthaelt:
+  - POST_ID, POST_NAME, POST_TITLE, POST_EXCERPT, POST_LINK
+  - POST_IMAGE, POST_DATE_ADDED
+  - CATEGORIES_NAME, CATEGORIES_ID, CATEGORIES_LINK
+*}
+
+{if $blog_results_count > 0}
+<div class="advanced-search-blog-results mt-4 mb-4">
+  <div class="card mb-3">
+    <div class="card-header bg-h">
+      <h2 class="mb-0 h5">{$BLOG_SEARCH_HEADING}</h2>
+    </div>
+    <div class="card-body pb-2">
+      <p class="text-secondary small mb-3">{$BLOG_SEARCH_RESULTS_TEXT}</p>
+    </div>
+  </div>
+
+  {foreach name=blog_results item=blog_item from=$blog_results}
+  <div class="card mb-2">
+    <div class="row mx-0">
+
+      {if $blog_show_image && $blog_item.POST_IMAGE != ''}
+      <div class="card-body col-md-3 text-center d-flex align-items-center justify-content-center">
+        <a href="{$blog_item.POST_LINK}" title="{$blog_item.POST_NAME}">
+          <img class="lazyload img-fluid rounded" src="data:," data-src="{$blog_item.POST_IMAGE}" alt="{$blog_item.POST_NAME}" />
+          <noscript><img class="img-fluid rounded" src="{$blog_item.POST_IMAGE}" alt="{$blog_item.POST_NAME}" /></noscript>
+        </a>
+      </div>
+      {/if}
+
+      <div class="card-body {if $blog_show_image && $blog_item.POST_IMAGE != ''}col-md-7{else}col-md-10{/if} d-flex flex-column">
+        <h3 class="lead text-secondary mb-1">
+          <a href="{$blog_item.POST_LINK}" title="{$blog_item.POST_NAME}" class="text-secondary">
+            {$blog_item.POST_NAME}
+          </a>
+        </h3>
+
+        {if $blog_item.POST_TITLE != '' && $blog_item.POST_TITLE != $blog_item.POST_NAME}
+        <p class="small text-muted font-italic mb-1">{$blog_item.POST_TITLE}</p>
+        {/if}
+
+        <div class="small text-muted mb-2">
+          {if $blog_item.POST_DATE_ADDED != ''}
+          <span>
+            <i class="far fa-calendar-alt mr-1"></i>
+            {if is_array($blog_item.POST_DATE_ADDED)}
+              {$blog_item.POST_DATE_ADDED.DAY}.{$blog_item.POST_DATE_ADDED.MONTH}.{$blog_item.POST_DATE_ADDED.YEAR}
+            {else}
+              {$blog_item.POST_DATE_ADDED}
+            {/if}
+          </span>
+          {/if}
+
+          {if $blog_item.CATEGORIES_NAME != ''}
+          <span class="ml-2">
+            <i class="far fa-folder-open mr-1"></i>
+            <a href="{$blog_item.CATEGORIES_LINK}" class="text-muted" title="{$blog_item.CATEGORIES_NAME}">{$blog_item.CATEGORIES_NAME}</a>
+          </span>
+          {/if}
+        </div>
+
+        {if $blog_item.POST_EXCERPT != ''}
+        <div class="mb-2 blog-search-excerpt">{$blog_item.POST_EXCERPT}</div>
+        {/if}
+
+        <div class="mt-auto">
+          <a href="{$blog_item.POST_LINK}" class="btn btn-sm btn-outline-primary" title="{$blog_item.POST_NAME}">
+            {$TEXT_BLOG_READ_MORE}
+          </a>
+        </div>
+      </div>
+
+      <div class="card-footer col-md-2 border-top-0 d-flex align-items-center justify-content-center">
+        <span class="badge badge-light text-secondary">
+          <i class="far fa-newspaper mr-1"></i>Blog
+        </span>
+      </div>
+
+    </div>
+  </div>
+  {/foreach}
+</div>
+
+<style>
+.blog-search-excerpt .blog-search-highlight {
+  background-color: #fff3cd;
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+.advanced-search-blog-results .card:hover {
+  box-shadow: 0 .125rem .5rem rgba(0,0,0,.1);
+  transition: box-shadow .2s ease;
+}
+.advanced-search-blog-results .lead a:hover {
+  text-decoration: none;
+  color: #333 !important;
+}
+</style>
+{/if}

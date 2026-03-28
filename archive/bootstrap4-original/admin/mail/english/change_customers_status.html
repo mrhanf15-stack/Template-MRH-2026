@@ -1,0 +1,20 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Your new customer group</font>    </td>
+</tr>
+<tr> 
+<td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}Dear Mr.{elseif $GENDER == 'f'}Dear Ms.{else}Hello{/if} {$NAME}</b>, <br /><br />We would like to thank you for your loyalty and have added you to our special V.I.P. customer group. In future you will benefit from special offers and discount promotions. <br /><br />As a VIP you will receive a permanent 10% discount on your entire purchase, in addition to the existing volume discounts! <br /><br />You can find out about other benefits here: <a href="https://mr-hanf.de/info/rabatte-und-vips" title="Rabatte und VIP`s">Our discounts for VIPs</a> <br /><br /> {*Alte Kundengruppe: {$CUSTOMERS_STATUS} <br /> {if !empty($ORDERS_MIN)} Number of orders: {$ORDERS_MIN}<br />{/if}*} New customer group: {$NEW_CUSTOMERS_STATUS} {if !empty($NEW_CUSTOMERS_STATUS_IMAGE)} <br /><br />
+        <img src="{$NEW_CUSTOMERS_STATUS_IMAGE}" alt="" title="{$NEW_CUSTOMERS_STATUS}"> {/if} <br /><br /> You can view the status of your current orders at any time in your account area: <a href="{$LINK_ACCOUNT}">hier klicken</a></font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>
+

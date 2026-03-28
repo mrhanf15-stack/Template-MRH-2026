@@ -1,0 +1,79 @@
+{config_load file="$language/lang_$language.conf" section="create_account"}
+{config_load file="lang_`$language`.section" section="print_fax_order"}
+<script>
+function myFunction(element) {
+  var checkBox = document.getElementById("myCheck");
+  var checkBox2 = document.getElementById("myCheck2");
+  if (element.checked == true){
+    if (element.id == "myCheck")
+      checkBox2.checked = false;
+    else
+      checkBox.checked = false;
+  }
+}
+</script>
+<table style="width:100%;" border="0" cellpadding="0" cellspacing="0">
+  {if $gender=='1'}
+  <tr>
+    <td class="form_print">{#text_gender#}</td>
+    <td>{$INPUT_MALE}&nbsp;{#text_male#}&nbsp;&nbsp;&nbsp;{$INPUT_FEMALE}&nbsp;{#text_female#}</td>
+  </tr>
+  {/if}
+  <tr>
+    <td class="form_print">{#text_firstname#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_FIRSTNAME}</td>
+  </tr>
+  <tr>
+    <td class="form_print">{#text_lastname#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_LASTNAME}</td>
+  </tr>
+	  <tr>
+    <td class="form_print">{#text_company#}</td>
+    <td>{$INPUT_COMPANY}</td>
+  </tr>
+  {if $birthdate=='1'}
+  <tr>
+    <td class="form_print">{#text_birthdate#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_DOB}</td>
+  </tr>
+  {/if}
+  <tr>
+    <td class="form_print">{#text_email#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_EMAIL}</td>
+  </tr> 
+  <tr>
+    <td class="form_print" style="margin-top: 10px">{#benach#}<b class="screen" style="color:red">*</b></td>
+    <td>{#benach_no#} &nbsp;<input type="checkbox" id="myCheck" onclick="myFunction(this)" checked="checked"> {#benach_yes#} &nbsp;<input type="checkbox" id="myCheck2" onclick="myFunction(this)"></td>
+  </tr>
+  {if $vat=='1'}
+  <tr>
+    <td class="form_print off">{#text_ustid#}</td>
+    <td class="off">{$INPUT_VAT}</td>
+  </tr>
+  {/if}
+  <tr>
+    <td class="form_print">{#text_street#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_STREET}</td>
+  </tr>
+    <tr> 
+    <td class="form_print"></td>
+    <td><input name="street_address" value="" type="1"></td>
+  </tr>
+  <tr>
+    <td class="form_print">{#text_code#}/{#text_city#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_CODE}&nbsp;{$INPUT_CITY}</td>
+  </tr>
+  <tr>
+    <td class="form_print">{#text_country#}<b class="screen" style="color:red">*</b></td>
+    <td>{$INPUT_COUNTRY}</td>
+  </tr>
+  <tr>
+    <td class="form_print">{#text_tel#}</td>
+    <td>{$INPUT_TEL}</td>
+  </tr>
+  <tr class="off">
+    <td class="form_print">{#text_fax#}</td>
+    <td>{$INPUT_FAX}</td>
+  </tr>
+</table>
+{$FORM_END}

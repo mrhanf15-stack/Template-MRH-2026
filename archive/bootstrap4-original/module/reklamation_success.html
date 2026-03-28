@@ -1,0 +1,353 @@
+{* -----------------------------------------------------------------------------------------
+   Modified Shop 2.0.7 - Reklamation Erfolgsseite Template
+   Datei: templates/[TEMPLATE]/module/reklamation_success.html
+   
+   Template für die Bestätigungsseite
+   ----------------------------------------------------------------------------------------- *}
+
+{config_load file="$language/lang_$language.conf" section="reklamation"}
+
+<div class="page">
+    <div class="pageHeading success-page">
+        <div class="success-icon">
+            <i class="icon-check-circle"></i>
+        </div>
+        <h1>Reklamation erfolgreich eingereicht</h1>
+        <p class="pageDescription">Vielen Dank! Ihre Reklamation wurde erfolgreich übermittelt.</p>
+    </div>
+
+    <div class="contentContainer">
+        <div class="success-details">
+            <div class="detail-box">
+                <h2>Ihre Reklamationsnummer</h2>
+                <div class="reklamation-number">#{$reklamation.reklamation_id}</div>
+                <p class="help-text">Bitte notieren Sie sich diese Nummer für Ihre Unterlagen.</p>
+            </div>
+
+            <div class="detail-box">
+                <h3>Zusammenfassung</h3>
+                <table class="summary-table">
+                    <tr>
+                        <td><strong>Eingereicht am:</strong></td>
+                        <td>{$reklamation.erstellt_am|date_format:"%d.%m.%Y um %H:%M"} Uhr</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bestellnummer:</strong></td>
+                        <td>{$reklamation.bestellnummer}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kontakt-E-Mail:</strong></td>
+                        <td>{$reklamation.kunde_email}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status:</strong></td>
+                        <td><span class="status-badge status-neu">Neu</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="detail-box">
+                <h3>Wie geht es weiter?</h3>
+                <div class="process-steps">
+                    <div class="step active">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Reklamation eingereicht</h4>
+                            <p>Ihre Reklamation wurde erfolgreich übermittelt.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Bestätigungs-E-Mail</h4>
+                            <p>Sie erhalten in wenigen Minuten eine Bestätigungs-E-Mail.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Bearbeitung</h4>
+                            <p>Unser Team prüft Ihre Reklamation und meldet sich bei Ihnen.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Lösung</h4>
+                            <p>Wir finden gemeinsam eine zufriedenstellende Lösung.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-box">
+                <h3>Wichtige Hinweise</h3>
+                <ul class="info-list">
+                    <li><strong>Bearbeitungszeit:</strong> Wir bearbeiten Ihre Reklamation in der Regel innerhalb von 2-3 Werktagen.</li>
+                    <li><strong>E-Mail-Bestätigung:</strong> Prüfen Sie auch Ihren Spam-Ordner, falls Sie keine Bestätigung erhalten.</li>
+                    <li><strong>Rückfragen:</strong> Bei dringenden Fragen können Sie uns unter <a href="mailto:info@mr-hanf.de">info@mr-hanf.de</a> kontaktieren.</li>
+                    <li><strong>Reklamationsnummer:</strong> Geben Sie bei Rückfragen immer Ihre Reklamationsnummer #{$reklamation.reklamation_id} an.</li>
+                </ul>
+            </div>
+
+            <div class="action-buttons">
+                <a href="{$smarty.const.FILENAME_DEFAULT}" class="btn btn-primary">
+                    <i class="icon-home"></i>
+                    Zur Startseite
+                </a>
+                <a href="reklamation.php" class="btn btn-secondary">
+                    <i class="icon-plus"></i>
+                    Weitere Reklamation einreichen
+                </a>
+                {if !$smarty.session.customer_id}
+                <a href="{$smarty.const.FILENAME_ACCOUNT}" class="btn btn-secondary">
+                    <i class="icon-user"></i>
+                    Kundenkonto
+                </a>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Erfolgsseite Styling */
+.success-page {
+    text-align: center;
+    background: linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 100%);
+    border: 2px solid #c3e6c3;
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+}
+
+.success-icon {
+    font-size: 4em;
+    color: #27ae60;
+    margin-bottom: 20px;
+}
+
+.success-page h1 {
+    color: #27ae60;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.success-details {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.detail-box {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.detail-box h2 {
+    color: #2c3e50;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.detail-box h3 {
+    color: #34495e;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 8px;
+}
+
+.reklamation-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #27ae60;
+    text-align: center;
+    background: #f8f9fa;
+    border: 2px dashed #27ae60;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    font-family: monospace;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.summary-table td:first-child {
+    width: 40%;
+    background: #f8f9fa;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-neu {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+/* Prozess-Schritte */
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.step.active {
+    background: #e8f5e8;
+    opacity: 1;
+    border-left: 4px solid #27ae60;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #bdc3c7;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step.active .step-number {
+    background: #27ae60;
+}
+
+.step-content h4 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+}
+
+.step-content p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Info-Liste */
+.info-list {
+    list-style: none;
+    padding: 0;
+}
+
+.info-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ecf0f1;
+    line-height: 1.6;
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+/* Action Buttons */
+.action-buttons {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    margin: 0 10px 10px 0;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .success-page {
+        padding: 30px 15px;
+    }
+    
+    .reklamation-number {
+        font-size: 2em;
+        padding: 15px;
+    }
+    
+    .summary-table td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+        justify-content: center;
+    }
+    
+    .process-steps {
+        gap: 10px;
+    }
+    
+    .step {
+        padding: 12px;
+    }
+}
+
+/* Icons */
+.icon-check-circle::before { content: "✓"; }
+.icon-home::before { content: "🏠"; }
+.icon-plus::before { content: "+"; }
+.icon-user::before { content: "👤"; }
+</style>
+

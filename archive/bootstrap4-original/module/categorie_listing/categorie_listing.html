@@ -1,0 +1,57 @@
+{config_load file="$language/lang_$language.conf" section="categorie_listing"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="categorie_listing"}
+<div class="cat-listing mb-2 clearfix">
+	{if isset($SLIDER)}
+		{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/slider.html"}
+	{/if}
+	{if isset($CATEGORIES_HEADING_TITLE) && $CATEGORIES_HEADING_TITLE != ''}
+	  <h1 class="card p-2 bg-h">{$CATEGORIES_HEADING_TITLE}</h1>
+	{else}
+	  <h1 class="card p-2 bg-h">{$CATEGORIES_NAME}</h1>
+	{/if}
+	{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+    {if
+      !empty($CATEGORIES_DESCRIPTION)
+      || !empty($CATEGORIES_SHORT_DESCRIPTION)
+      || !empty($CATEGORIES_IMAGE)
+      || !empty($CATEGORIES_IMAGE_MOBILE)
+    }
+	<div class="cat_description mb-2">
+		{if isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != ''}
+		<div {if !empty($CATEGORIES_DESCRIPTION) || !empty($CATEGORIES_SHORT_DESCRIPTION)}class="col-sm-4"{/if}>
+			{if isset($CATEGORIES_IMAGE_MOBILE) && $CATEGORIES_IMAGE_MOBILE != ''}
+				<picture>
+					<source media="(max-width:600px)" srcset="data:,1w" data-srcset="{$CATEGORIES_IMAGE_MOBILE}" width="{$smarty.const.CATEGORIES_IMAGE_MOBILE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_MOBILE_HEIGHT}">
+					<source srcset="data:,1w" data-srcset="{$CATEGORIES_IMAGE}" width="{$smarty.const.CATEGORIES_IMAGE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_HEIGHT}">
+					<img class="lazyload img-fluid float-left p-2 mb-2 mr-4" src="data:," data-src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" title="{$CATEGORIES_HEADING_TITLE|onlytext}" width="{$smarty.const.CATEGORIES_IMAGE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_HEIGHT}" />
+				</picture>
+			{else}
+				<img class="lazyload img-fluid float-left p-2 mb-2 mr-4" src="data:," data-src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" title="{$CATEGORIES_HEADING_TITLE|onlytext}" width="{$smarty.const.CATEGORIES_IMAGE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_HEIGHT}" />
+			{/if}
+		</div>
+		{/if}
+		{if !empty($CATEGORIES_SHORT_DESCRIPTION)}{$CATEGORIES_SHORT_DESCRIPTION}{elseif !empty($CATEGORIES_DESCRIPTION)}{$CATEGORIES_DESCRIPTION}{/if}
+	</div>
+	{/if}
+</div>
+
+{if isset($CATEGORIES_LISTING)}{$CATEGORIES_LISTING}{/if}
+
+{* //BOF - Kategorieerweiterungen (Zweites Kategoriebild) - fivebytes 08.02.2020 *}
+{if empty($smarty.get.page) || $smarty.get.page < 2}
+  {if (isset( $CATEGORIES_IMAGE_2 ) && $CATEGORIES_IMAGE_2 != '')}
+    <img class="lazyload cat_image img-fluid float-right mt-3 mr-4" src="data:," data-src="{$CATEGORIES_IMAGE_2}" title="{$CATEGORIES_IMAGE_2|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+  {/if}
+  {if isset($MODULE_new_products)}{$MODULE_new_products}{/if}
+  {if !empty($CATEGORIES_SHORT_DESCRIPTION) && !empty($CATEGORIES_DESCRIPTION)}
+    <div class="cat_description mb-2">
+      <p>{$CATEGORIES_DESCRIPTION}</p>
+    </div>
+  {elseif !empty($CATEGORIES_DESCRIPTION_2)}
+  <div class="cat_description mb-2">
+    <p>{$CATEGORIES_DESCRIPTION_2}</p>
+  </div>
+  {/if}
+{/if}
+{* //EOF - Kategorieerweiterungen (Zweiter Beschreibungstext) - fivebytes *}

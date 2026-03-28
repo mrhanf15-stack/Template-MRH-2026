@@ -1,0 +1,14 @@
+{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if} {$NAME} ,
+
+Avant de pouvoir passer une commande dans notre boutique, tu dois d&#039;abord confirmer ton adresse e-mail. Cette confirmation te permet de v&eacute;rifier que tu es bien le propri&eacute;taire de l&#039;adresse e-mail enregistr&eacute;e.
+
+Veuillez cliquer sur le lien d&#039;activation afin que votre adresse e-mail soit activ&eacute;e pour les commandes.
+
+Votre lien d&#039;activation :
+{$LINK} 
+
+ Si vous n&#039;&ecirc;tes pas inscrit dans notre boutique, nous vous prions d&#039;ignorer simplement le lien d&#039;activation.
+
+Si vous avez des questions concernant notre service client&egrave;le, veuillez vous adresser &agrave; : {$MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

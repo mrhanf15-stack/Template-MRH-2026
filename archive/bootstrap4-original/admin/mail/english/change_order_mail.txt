@@ -1,0 +1,189 @@
+{if $ORDER_STATUS_ID ==  "8"} {$ORDER_STATUS}
+    
+              Dear{if $GENDER=='Herr'}r{/if} {$GENDER} {$NAME} , 
+ 
+ 
+ Thank you for your purchase on {if $ORDER_DATE}from {$ORDER_DATE}{/if} with the order number {if $ORDER_NR}{$ORDER_NR} {/if} !     
+You have chosen the payment method EU standard bank transfer, but unfortunately we have not been able to detect any payments on your part on our account to date.   
+        
+        We therefore kindly ask you to transfer the outstanding amount to our account below. 
+
+       Name of the bank: Raiffeisen Regionalbank Hall in Tirol
+ Recipient: MRH N-Trade GmbH
+ Bank code: 36362
+ Account number: 00000217968
+ IBAN: AT753636200000217968
+ BIC/SWIFT: RZTIAT22362
+
+ Name of the bank: N26
+ Recipient: Hansjoerg Scherzer
+ Bank code: 10011001
+ Account number: 2625932471
+ IBAN: DE34100110012625932471
+ BIC/SWIFT: NTSBDEB1XXX
+ 
+ Please always state your order number {$ORDER_NR} as the payment reference when making a bank transfer. The correct indication of the payment reference enables a quick and clear allocation of your payment. This prevents possible delays and ensures that your order is released quickly by our accounting department.
+       
+           {if $ORDER_LINK}Link to order:
+ click here{/if}
+ 
+ 
+ Green Greetings
+ Your Mr. Hanf Team
+ 
+ {else} Dear{if $GENDER=='Herr'}r{/if} {$GENDER} {$NAME} , 
+ 
+ The status of your order with the {if $ORDER_NR}No. {$ORDER_NR}{/if} {if $ORDER_DATE} from
+ {$ORDER_DATE} {/if} has just changed.
+       
+        New status: {$ORDER_STATUS}
+ 
+ {if $ORDER_STATUS_ID == "30"} 
+ We confirm the withdrawal of your order <strong>{$ORDER_NR}</strong> from {$ORDER_DATE}.
+
+   The amount will be refunded to your original account within the next few days. Please note that the refund may take a few days depending on the bank. 
+
+    If you have any questions, our customer service team will be happy to help you.
+{/if}
+                 Thank you for your payment No.  . We hereby confirm receipt of your payment and thank you for your prompt transfer. If you have any further questions or concerns, please do not hesitate to contact us. We are at your disposal.                     We confirm with this email that we have received the above order. Please transfer the total amount to the following account:                Bank name: Raiffeisen Regionalbank Hall in Tirol Recipient: MRH N-Trade GmbH Bank code: 36362 Account number: 00000217968 IBAN: AT753636200000217968 BIC/SWIFT: RZTIAT22362 Name of the bank: N26 Recipient: Hansjoerg Scherzer Bank code: 10011001 Account number: 2625932471 IBAN: DE34100110012625932471 BIC/SWIFT: NTSBDEB1XXX  Please always state your order number as the payment reference when making a bank transfer. The correct indication of the payment reference enables a quick and clear allocation of your payment. This prevents possible delays and ensures that your order is released quickly by our accounting department.                The goods will be dispatched after receipt of payment, unless otherwise stated.          We regret to inform you that your shipment has been declared a total loss by the shipping service provider. You now have the following options: - Cancellation of the order: We will transfer the full amount back to your account. - Credit note: If you have an existing customer account, we can credit the amount to it or alternatively we can send you a voucher. - Re-shipment: If you wish, we can send you the order again. Please let us know which option you prefer. We will do our best to resolve your request as quickly as possible.                      Thank you for your order!  Please note that the order with the order number from is still unpaid! Payable after receipt of the package, but within 7 working days!   The total amount can be transferred to the following account:                Name of the bank: Raiffeisen Regionalbank Hall in Tirol Recipient: MRH N-Trade GmbH Bank code: 36362 Account number: 00000217968 IBAN: AT753636200000217968 BIC/SWIFT: RZTIAT22362 Name of the bank: N26 Recipient: Hansjoerg Scherzer Bank code: 10011001 Account number: 2625932471 IBAN: DE34100110012625932471 BIC/SWIFT: NTSBDEB1XXX   Please always state your order number as the payment reference when making a bank transfer. The correct indication of the payment reference enables a quick and clear allocation of your payment. This prevents possible delays and ensures that your order is released quickly by our accounting department.                Hot news!!!          Your parcel has just been sent to you by cash on delivery. As parcel service providers often have problems exchanging money when delivering cash on delivery, we kindly ask you to have the amount to be paid ready as accurately as possible.               The shipment consists of parcel(s).          You can check the delivery status by clicking on the parcel number(s) below:                                          Please note that it may take around 24 hours for the tracking to be updated.                            Thank you for your trust and your order with the order number from . Your order is now being processed and the next step is to check the availability of the products in our warehouse. If all products are in stock, they will be prepared for shipment immediately. As soon as your order is shipped, you will receive a separate e-mail with the shipping confirmation and tracking number.              Invoices are like umbrellas, they are easy to forget! Unfortunately, we have not received any payment for your order from  with the order number   despite several requests! For this reason, the status for the order number   has changed to complaint. In order to avoid further costs, we are granting you a final payment deadline of 7 working days. Should this deadline expire and you fail to comply with this request for payment, we will unfortunately be forced to take legal action. We would like to draw your attention to the fact that considerable additional costs will be incurred! If you have already transferred the outstanding amount, please send us a copy of the booking receipt in digital form. If you have any further questions, please contact us at info@mr-hanf.de.                             Hot news!!!                You can be happy, your order from has been handed over to our logistics partner today and your delivery will arrive in the next few days!                                  The shipment consists of parcel(s).          You can check the delivery status by clicking on the parcel number(s) below:                                          Please note that it may take about 24 hours for the tracking to be updated.                                We have handed over part of your order from to our logistics partner for shipment today.        Missing items will be sent free of charge as soon as available.                        We have just canceled your order from . Please check back later!                        We have just refunded the amount of your order from to your known bank account.                   We have initiated an investigation with our service provider to clarify the status of your shipment. We apologize for any inconvenience caused. Sometimes unforeseen circumstances can lead to delays. We are already working hard to find a solution and will inform you as soon as we have news about the whereabouts of your shipment. Your satisfaction is important to us and we are doing everything we can to resolve the issue quickly. Thank you for your understanding and patience.                 Link to order: click here     Notes and comments about your order:     If you have any questions about your order, please reply to this e-mail.                 Greetings Your Mr. Hanf Team 
+ {if $ORDER_STATUS_ID ==  "27"}
+ {if $ORDER_NR} {$ORDER_NR}{/if}
+
+ 
+ {/if}
+ {if $ORDER_STATUS ==  "Offen"}
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ {$ORDER_NR}
+ 
+ 
+ {/if}
+ {if $ORDER_STATUS_ID == "32"}
+
+
+
+
+
+
+
+
+
+{/if} 
+ 
+ {if $ORDER_STATUS_ID ==  "18"}
+ 
+ 
+ {$ORDER_NR} {$ORDER_DATE} 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ {$ORDER_NR}
+ {/if} 
+ {if $ORDER_STATUS_ID ==  "20"}
+ 
+
+ {if $PARCEL_COUNT > 0}
+ {$PARCEL_COUNT}
+ 
+ {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+ {$tracking_data.parcel_id}
+ 
+ {/foreach}
+ {/if}
+ 
+ {/if} 
+ {if $ORDER_STATUS_ID ==  "2"}
+ {$ORDER_NR} {$ORDER_DATE}
+ {/if} 
+ 
+ {if $ORDER_STATUS_ID ==  "9"}
+ 
+
+ {if $ORDER_DATE} {$ORDER_DATE}{/if} {if $ORDER_NR}{$ORDER_NR}{/if}
+
+ {if $ORDER_NR}{$ORDER_NR}{/if} 
+
+
+
+
+
+
+ {/if} 
+ 
+ 
+ {if $ORDER_STATUS_ID ==  "3"}
+
+ 
+ {$ORDER_DATE}
+ 
+ {if $PARCEL_COUNT > 0}
+ 
+ {$PARCEL_COUNT}
+ 
+ {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+ {$tracking_data.parcel_id}
+ 
+ {/foreach}
+ {/if}
+ {/if}
+ {if $ORDER_STATUS_ID ==  "11"}
+ {$ORDER_DATE}
+
+ {/if}
+ {if $ORDER_STATUS_ID ==  "6"}
+ {$ORDER_DATE}
+ {/if}
+ {if $ORDER_STATUS_ID ==  "10"}
+ {$ORDER_DATE} 
+ 
+ {/if}
+ {if $ORDER_STATUS_ID == "12"}
+
+
+
+
+
+
+
+
+{/if}
+ 
+ {if $ORDER_LINK}{/if}
+ 
+ {if $NOTIFY_COMMENTS}
+ 
+ {$NOTIFY_COMMENTS} 
+ {/if} 
+ 
+ 
+
+ {/if} 
+[SIGNATUR]

@@ -1,0 +1,490 @@
+BS4_catlist_title = 'Our offer'
+
+BS4_heading_custombox = 'Additional box'
+BS4_text_custombox = 'The box can be changed under bootstrap4/boxes/box_custom.html. Language variables can be found in the file templates/bootstrap4/lang/lang_german.custom!'
+
+BS4_alert_qty_wanted = 'desired'
+BS4_alert_qty_available = 'available'
+
+BS4_heading_text_top = 'TOP article'
+
+BS4_top1 = '<span class="fa fa-truck fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Free shipping: AT 40&euro;, DE 85&euro;, EU 150&euro;'
+BS4_top3 = '<span class="fa fa-clock fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Fast delivery'
+BS4_top2 = '<span class="fa fa-phone fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;+43 512 312 411'
+BS4_top4 = '<span class="fa fa-key  fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Simple, secure payment' 
+BS4_top5 = '<span class="fa fa-envelope  fa-lg" aria-hidden="true"></span>&nbsp;&nbsp; <a class="iframe" href="/popup_content.php?coID=46" rel="nofollow" target="_blank" title="Briefbestellung" data-src="/popup_content.php?coID=46" data-toggle="modal" data-target="#modal">Letter order</a>' 
+ 
+BS4_special = 'Offer'
+BS4_top = 'Top'
+BS4_new = 'New'
+
+BS4_agb = '&nbsp;&nbsp;&nbsp;GTC&nbsp;&nbsp;&nbsp;'
+
+BS4_closex = 'X'
+BS4_close = 'Close'
+
+BS4_noscript = '<span class="font-weight-bold">JavaScript is deactivated!</span> Not all store functions are available. Please check your browser settings.'
+BS4_heading_responsivemenu = 'Menu'
+BS4_heading_sidebar = 'Sidebar'
+BS4_checkout_express_infolinktext = 'My quick purchase'
+
+BS4_zoomtext = 'Click on the preview image for a larger view'
+
+BS4_customers_remind_leider_vergriffen = 'Unfortunately out of stock!<br/>Find out HERE<br/>about the new delivery date.'
+BS4_customers_remind_daten_eingetragen = 'Thank you, your data<br/>has been entered!'
+BS4_customers_remind_box_heading = 'The item is currently out of stock. Register here if you would like to be informed about new items.<br /><br />'
+BS4_customers_remind_box_heading2 = 'We will be happy to inform you as soon as the item is back in stock!<br />'
+BS4_customers_remind_box_firstname = 'First name:'
+BS4_customers_remind_box_lastname = 'Surname:'
+BS4_customers_remind_box_mail = 'Email address:'
+BS4_customers_remind_box_email_head1 = 'Product reminder: '
+BS4_customers_remind_box_email_head2 = ' is back in stock'
+BS4_customers_remind_box_st = 'Quantity:'
+BS4_customers_remind_box_stk = 'pcs.'
+BS4_customers_remind_box_art = 'Article:'
+BS4_customers_remind_box_info = 'Please enter the quantity you require:'
+BS4_customers_remind_box_guest = 'For data protection reasons, unfortunately only registered users can register for this service.'
+BS4_customers_remind_box_success = 'You are already registered!'
+BS4_customers_remind_added = '<h1>Thank you very much!</h1><p>Your e-mail address has been successfully entered!</p>'
+
+BS4_text_firstname = 'First name:'
+BS4_text_lastname = 'Surname:'
+BS4_text_subject = 'Subject:'
+BS4_text_salutation = 'Salutation:'
+BS4_text_competitor_url = 'Competitor URL:'
+BS4_text_competitor_price = 'Competitor price (in euros):'
+BS4_text_sec_code = 'Security code'
+BS4_text_inp_code = 'Please enter the security code here:'
+bs4_text_privacy_accept = 'I have taken note of the data protection guidelines.'
+BS4_text_pflicht = '* Mandatory information!'
+
+
+text_shippingtime_box = 'Delivery time:'
+
+products_desc = 'Product description'
+products_fsk18_check = 'This item can only be purchased after age verification.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Properties'
+heading_products_tags = 'Product features'
+
+first = '&laquo; First'
+back = '&laquo; previous'
+overview = 'Overview'
+next = 'next &raquo;'
+last = 'Last &raquo;'
+
+heading_miscellaneous = 'Payment methods'
+text_miscellaneous = 'The box can be changed under bootstrap4/boxes/box_miscellaneous.html. The language variables can be found in the file bootstrap4/lang/english/lang_german.custom.'
+
+ab_admin = 'Admin area'
+ab_orders = 'Orders'
+ab_contentmanager = 'Content Manager'
+ab_customers = 'Customers'
+ab_category = 'Categories/Articles'
+ab_logoff = 'Log out'
+ab_news = 'News'
+ab_offline = 'Store offline'
+ab_update = 'Update'
+ab_support = 'Support'
+ab_shop = 'Store'
+ab_caching = 'Caching'
+
+ab_edit_content = 'Edit content'
+ab_edit_product = 'Edit article'
+ab_edit_attributes = 'Edit attributes'
+ab_edit_category = 'Edit category'
+ab_edit_xsell = 'Edit cross-selling'
+ab_edit_tags = 'Item properties'
+
+info_reviews = 'Ratings:'
+info_review = 'Rating:'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = 'The search did not return any exact matches'
+
+listing_listview = 'List view'
+listing_boxview = 'Box view'
+
+# blog
+ab_blog = 'Blog'
+ab_edit_blog_post = 'Edit post'
+ab_edit_blog_category = 'Edit category'
+seite = 'Page'
+klickk = 'Click here to display categories'
+
+# custom
+none_customer = '&nbsp;&nbsp;Order as guest'
+
+zahlungsweisen = 'Payment methods'
+liefernmit = 'Shipping service provider'
+ausblenden = 'hide'
+weiterlesen = 'read more'
+text_filter = 'Filter'
+shipping_lager = 'In stock'
+shipping_vergriffen = 'out of print'
+shipping_lagers = 'Sold out'
+shipping_lagerson = 'Ready to order'
+# Auf Lager
+availability_in_stock_title = 'In stock'
+availability_in_stock_description = 'Item is in stock and will be shipped immediately after receipt of payment.'
+
+# Bestellbereit
+availability_reordered_title = 'Ready to order'
+availability_reordered_description = 'Item is already on its way to us. The specified delivery time will be extended by a maximum of 2 days. You can order now - we will ship immediately upon receipt of the goods. <br><br>
+<em>We always ensure optimum freshness for seeds by regularly reordering.</em>'
+
+# Ausverkauft
+availability_sold_out_title = 'Sold out'
+availability_sold_out_description = 'Item is currently sold out. Sign up for a notification and we will inform you as soon as the item is available again.'
+shipping_ils = '<b>Delivery status at a glance</b>'
+fast_shipp = 'Fast<br />delivery'
+secuer_shipp = 'Discreet<br />Shipping'
+tracking = 'Consignment<br />Tracking'
+saye_pay = 'Secure<br />payment'
+shipping_1_3werktage = 'approx. 2-4 days'
+item_Lagernd = 'only'
+item_stuek = 'Piece in stock'
+morethen = '<span class="ml-2" style="color: #277602">Shipping in approx. 1-3 working days</span>'
+link_shipping_info = 'see here'
+text_shipping_info = 'Applies to deliveries to Austria (excluding dangerous/restricted goods).'
+kostenlos = '&nbsp;&nbsp;FREE delivery from 75&euro;'
+
+# box_add_a_quickie
+anfaenger = 'Top 10 beginner seeds'
+top_cannabissamen = 'Top 10 masterpieces'
+top_haze = 'Top 10 Haze strains'
+top_indica = 'Top 10 Indica strains'
+top_samenbanken = 'Top 10 Seedbanks'
+top_reg = 'Top 10 regular seeds'
+top_auto = 'Top 5 Autoflowering'
+cannabis_cup_sieger = 'Cannabis Cup winner'
+samen_unter = 'Top seeds under 1% THC'
+hall_of_fame = 'Top 20 Hall of Fame'
+top_empfehlung = 'Our recommendations' 
+top_cannabissamen_2024 = 'Top 10 seeds 2024'
+
+# Newsletter
+new_anmelden = '<p class="mb-2 mt-2"style="color:white"> <strong style="color:white">Do you want to stay up to date?</strong> Then register here for our newsletter</p>'
+new_reg = 'Please confirm your registrations - we have sent you an email for this purpose'
+err_ung = 'Invalid email'
+err_vorhanden = 'Email already exists'
+butt_send = 'Submit'
+new_support = 'Support'
+new_soz ='Social media'
+ 
+
+# EMAIL CONFIRMATION
+email_confirmation_info = 'After registering, you must confirm your e-mail address. We will send you an e-mail with a confirmation link. Click on the link to verify that you are the owner of the e-mail address. You can only place an order after confirmation.<br><br>Please note that our email may end up in your spam or junk mail folder. Please check this regularly.'
+
+samen_shop = 'Buy Cannabis seeds'
+title = 'Seedfinder - Find your perfect seeds from 7500+ strains'
+subtitle = 'Choose a category and refine your search with advanced filters'
+products_label = 'Products'
+select_category = 'Choose category'
+info_title = 'How the Seedfinder works'
+info_step1 = 'Choose a main category from the tiles above'
+info_step2 = 'Use the advanced filters for precise results'
+info_step3 = 'Browse the filtered products and order directly'
+BS4_marken = '<span class="fa-solid fa-industry gold"></span> Brand'
+BS4_blog = '<span class="fa-solid fa-newspaper gold"></span> Cannabis Blog'
+BS4_SF = '<span class="fa-solid fa-seedling gold"></span> Seedfinder'
+seedfinder_filter_all = 'All'
+seedfinder_all_filters_button = 'All Filters'
+seedfinder_all_filters_title = 'All Filters'
+seedfinder_price_filter = 'Price'
+seedfinder_price_from = 'From'
+seedfinder_price_to = 'To'
+seedfinder_search_button = 'Search'
+seedfinder_reset_button = 'Reset'
+
+# ========================================
+# SEEDFINDER - STAGE 1 (CATEGORIES)
+# ========================================
+
+# Product Label
+products_label = 'Products'
+
+# Category Button
+select_category = 'Select'
+
+# Info-Card
+info_title = 'How the Seedfinder Works'
+info_step1 = 'Choose a category (e.g. Autoflowering, Indica, Sativa)'
+info_step2 = 'Use the Seedfinder to refine your selection'
+info_step3 = 'Find the perfect seeds for your grow project'
+# Benefits
+benefit1_title = 'Fast Shipping'
+benefit1_text = 'Your order will be processed and shipped quickly'
+benefit2_title = 'Premium Quality'
+benefit2_text = 'Only original breeder seeds from top manufacturers'
+benefit3_title = 'Personal Support'
+benefit3_text = 'We are happy to advise you on any questions about your seeds'
+
+# Top Manufacturers Section
+top_manufacturers_title = 'Top Manufacturers &amp; Bestsellers'
+manufacturer_products_count = 'Products'
+manufacturer_all_products = 'All Products'
+
+# ========================================
+# SEEDFINDER - STAGE 2 (PRODUCT LIST)
+# ========================================
+
+# Navigation
+back_to_categories = 'Back to Categories'
+
+# Filter - Main Filter Section
+main_filters_title = 'Main Filters'
+total_products_found = 'Products found'
+reset_main_filters = 'Reset Main Filters'
+apply_main_filters = 'Apply Main Filters'
+show_all_filters = 'Show all filters...'
+
+# Filter - Modal
+modal_title_all_filters = 'All Filters'
+filter_category_main = 'Main Filters'
+filter_category_genetics = 'Genetics &amp; Origin'
+filter_category_cultivation = 'Cultivation'
+filter_category_taste = 'Taste &amp; Effect'
+filter_category_advanced = 'Advanced'
+
+# Filter - Mobile Dropdown
+filter_category_select_main = 'Main Filters'
+filter_category_select_genetics = 'Genetics &amp; Origin'
+filter_category_select_cultivation = 'Cultivation'
+filter_category_select_taste = 'Taste &amp; Effect'
+filter_category_select_advanced = 'Advanced'
+
+# Filter - Buttons
+reset_all_filters = 'Reset all'
+apply_filters = 'Apply filters'
+close_modal = 'Close'
+
+# Filter - Active Filters
+filter_open_button = 'Open filters'
+active_filters_title = 'Your selected criteria'
+
+# Product Card
+special_badge = 'Special Offer'
+selection_label = 'Products in stock:'
+only_x_available = 'only {stock} available'
+from_price_prefix = 'from'
+sold_out_badge = 'Sold Out'
+details_button = 'View details'
+
+# No Products Found
+no_products_title = 'No products found.'
+no_products_text = 'Please change your filter selection.'
+
+# ========================================
+# FILTER-TAGS (NEW v18.0.0)
+# ========================================
+
+# Filter names are loaded from the database
+# These keys are only used when filter names are missing
+
+filter_thc = 'THC'
+filter_flowering_time = 'Flowering Time'
+filter_flowering_time_auto = 'Flowering Time Autoflowering'
+filter_cultivation = 'Cultivation'
+filter_taste = 'Taste/Aroma'
+filter_effect = 'Effect'
+
+# ========================================
+# GENERAL TEXTS
+# ========================================
+
+# Buttons
+button_back = 'Back'
+button_next = 'Next'
+button_close = 'Close'
+button_apply = 'Apply'
+button_reset = 'Reset'
+
+# Status
+loading = 'Loading...'
+error = 'Error'
+success = 'Success'
+
+# ========================================
+# PAGINATION
+# ========================================
+
+pagination_previous = 'Previous'
+pagination_next = 'Next'
+pagination_first = 'First'
+pagination_last = 'Last'
+
+# ========================================
+# ACCESSIBILITY
+# ========================================
+
+aria_close = 'Close'
+aria_open = 'Open'
+aria_filter = 'Filter'
+aria_sort = 'Sort'
+
+# ========================================
+# SEO / META
+# ========================================
+meta_title = 'The #1 Seedfinder: Find Your Perfect Cannabis Strain from 7,500+ Seeds'
+meta_description = 'Find the perfect cannabis strain with the Mr. Hanf Seedfinder from over 7,500 seeds. Filter by THC, CBD, yield, flowering time and more. 20 years of expertise!'
+
+# ========================================
+# SEEDFINDER
+# ========================================
+
+
+beginner_badge = 'For Beginners'
+beginner_title = 'Your first harvest?  
+We make it easy!'
+beginner_subtitle = 'Find the perfect strain for your first grow in 60 seconds'
+beginner_problem_title = 'Your Problem:'
+beginner_problem_text = '7,500+ strains, complicated terms, fear of mistakes... You don\'t know where to start?'
+beginner_solution_title = 'Our Solution:'
+beginner_solution_text = 'Answer 5 simple questions and we will ONLY show you the strains that are perfect for beginners!'
+benefit1_title = 'Forgiving'
+benefit1_text = 'Robust strains that forgive small mistakes'
+benefit2_title = 'Quick & Easy'
+benefit2_text = 'Short flowering time, little maintenance required'
+benefit3_title = 'High Success Rate'
+benefit3_text = '95% of our beginners are successful'
+benefit4_title = 'Guaranteed Yield'
+benefit4_text = 'A good harvest even on the first try'
+beginner_trust_headline = 'Over 10,000 satisfied beginners'
+beginner_trust_quote = 'Finally a recommendation that really fits!'
+beginner_cta_button = 'Find my strain now'
+beginner_guarantee = '100% free • No registration required • Start immediately'
+
+ 
+pro_badge = 'For Pros'
+pro_title = 'You know your stuff?  
+Find your dream strain!'
+pro_subtitle = 'Search all 7,500+ strains with advanced filters'
+pro_challenge_title = 'Your Challenge:'
+pro_challenge_text = 'You know what you want, but finding the perfect combination of THC, yield, flowering time, and genetics is time-consuming?'
+pro_solution_title = 'Our Solution:'
+pro_solution_text = 'Use advanced filters and search all 7,500+ strains specifically for your requirements!'
+pro_benefit1_title = 'Advanced Filters'
+pro_benefit1_text = 'THC/CBD, flowering time, yield, size, and more'
+pro_benefit2_title = 'All Categories'
+pro_benefit2_text = 'Indoor, Outdoor, Autoflowering, Feminized'
+pro_benefit3_title = 'Premium Strains'
+pro_benefit3_text = 'Exclusive and limited editions'
+pro_benefit4_title = 'Detailed Info'
+pro_benefit4_text = 'Genetics, effects, taste, reviews'
+pro_trust_headline = 'Developed by pros for pros'
+pro_trust_quote = 'The best search function on the market!'
+pro_cta_button = 'To the advanced search'
+pro_info_text = 'All filters and categories available immediately'
+inwarko = 'Add to cart'
+
+# ========================================
+# Beginner Wizard: General
+# ========================================
+wizard_title = 'Find your perfect strain!'
+wizard_subtitle = 'Your ideal recommendation in 4 easy steps'
+wizard_close_button_aria = 'Close'
+wizard_progress_text = 'Step {current} of {total}'
+wizard_back_button = 'Back'
+wizard_reset_button = 'Restart'
+wizard_why_important = 'Why is this important?'
+wizard_what_is_difference = 'What\'s the difference?'
+
+# ========================================
+# Beginner Wizard: Badges
+# ========================================
+badge_popular = 'Popular'
+badge_natural = 'Natural'
+badge_easy = 'Easy'
+badge_classic = 'Classic'
+badge_recommended = 'Recommended'
+
+# ========================================
+# Beginner Wizard: Step 1 (Location)
+# ========================================
+step1_title = 'Where do you want to grow?'
+step1_subtitle = 'Select your growing location'
+step1_explanation = 'The growing location determines which strains are suitable for you.'
+step1_opt1_title = 'Indoor'
+step1_opt1_benefit1 = 'Year-round cultivation'
+step1_opt1_benefit2 = 'Full control'
+step1_opt2_title = 'Outdoor'
+step1_opt2_benefit1 = 'Natural sunlight'
+step1_opt2_benefit2 = 'Larger yields'
+
+# ========================================
+# Beginner Wizard: Step 2 (Type)
+# ========================================
+step2_title = 'Which type?'
+step2_subtitle = 'Choose between Autoflowering and Photoperiod'
+step2_explanation = 'Autoflowering strains bloom automatically, photoperiod ones need a light cycle change.'
+step2_opt1_title = 'Autoflowering'
+step2_opt1_benefit1 = 'Fast harvest'
+step2_opt1_benefit2 = 'No light cycle needed'
+step2_opt2_title = 'Photoperiod'
+step2_opt2_benefit1 = 'Larger plants'
+step2_opt2_benefit2 = 'Higher yields'
+
+# ========================================
+# Beginner Wizard: Step 3 (Genetics)
+# ========================================
+step3_title = 'Which genetics do you prefer?'
+step3_subtitle = 'Choose your preferred genetic type'
+step3_explanation = 'Indica has a relaxing effect, Sativa is energizing, and Hybrids combine both.'
+step3_opt1_title = 'Indica Dominant'
+step3_opt1_benefit1 = 'Physically relaxing'
+step3_opt1_benefit2 = 'Calming'
+step3_opt1_benefit3 = 'Ideal for evenings'
+step3_opt2_title = 'Sativa Dominant'
+step3_opt2_benefit1 = 'Energizing'
+step3_opt2_benefit2 = 'Creative'
+step3_opt2_benefit3 = 'Perfect for daytime'
+step3_opt3_title = 'Indica/Sativa Hybrids'
+step3_opt3_benefit1 = 'Balanced effect'
+step3_opt3_benefit2 = 'Versatile'
+step3_opt3_benefit3 = 'Best of both worlds'
+
+# ========================================
+# Beginner Wizard: Step 4 (Flowering Time)
+# ========================================
+step4_title = 'How fast should it be?'
+step4_subtitle = 'Choose the desired flowering time'
+step4_explanation_title = 'Flowering Time'
+step4_explanation_text = 'The flowering time determines how long it takes until harvest. Faster strains are ideal for beginners!'
+step4_opt1_title = 'Normal'
+step4_opt1_desc = '6-9 weeks flowering time - ideal for most growers'
+step4_opt2_title = 'Long'
+step4_opt2_desc = '9-12+ weeks flowering time - for patient growers with higher yields'
+# ========================================
+# Beginner Wizard: Results Page (Stage 3)
+# ========================================
+beginner_results_title = 'Beginner Strains:'
+beginner_results_info_title = 'Why These Strains?'
+beginner_results_info_text = 'These strains have been specially selected for beginners. They are robust, forgiving, and easy to cultivate – perfect for your first grow!'
+beginner_results_adjust_filters = 'Adjust Filters'
+beginner_results_new_selection = 'New Selection'
+beginner_results_back_to_selection = 'Back to Selection'
+loading_category_filters = 'Loading filters for new category...'
+hersteller = 'Brand'
+# ========================================
+# SEO Text Seedfinder
+# ========================================
+seedfinder_welcome_title = 'Welcome to Europe&apos;s Largest Cannabis Seed Finder!'
+seedfinder_welcome_text1 = 'Choosing the right cannabis strain can be overwhelming &ndash; with over <strong>7,500 different strains</strong> from the world&apos;s best breeders, it&apos;s easy to lose track. Our intelligent <strong>Seedfinder</strong> makes it easy: simply select one of the main categories below and then use the advanced filters to refine your search by THC content, flowering time, yield, flavor, or effect.'
+seedfinder_welcome_text2 = 'Whether you&apos;re a <strong>beginner</strong> looking for easy-to-grow autoflowering seeds, or an <strong>experienced grower</strong> hunting for rare genetics &ndash; our <strong>seed finder</strong> will guide you to the perfect strain in seconds. Start your search now and benefit from over 20 years of experience and our freshness guarantee!'
+fax_modal_title = 'Are you sure?'
+fax_modal_headline = 'This is a mail order form!'
+fax_modal_text1 = 'This is <strong>NOT an online order</strong>.'
+fax_modal_text2 = 'For online orders, please use the checkout.'
+fax_modal_button_checkout = 'Go to Checkout'
+cat_autoflowering = 'Autoflowering Seeds'
+cat_indica = 'Indica Seeds'
+cat_sativa = 'Sativa Seeds'
+cat_feminized = 'Feminized Seeds'
+cat_regular = 'Regular Seeds'
+cat_medical = 'Medical Seeds'
+cat_samen_shop = 'Seed Shop'
+title_brief = 'Mail Order'
+product_compare_button = 'Compare'
+TEXT_BLOG_SEARCH_HEADING ='Blog result'

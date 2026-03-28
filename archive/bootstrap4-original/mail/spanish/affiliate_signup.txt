@@ -1,0 +1,14 @@
+{$content.PARTNER_NAME}
+
+
+
+
+
+
+Hola Dank Sie f&uuml;r unsere Afiliierungsprogramme abzuschlie&szlig;en. Ihre Zugangsdaten: ************************** Ihre Afiliierliche ID ist: {$content.PARTNER_ID}
+Su nombre de usuario es: {$content.PARTNER_LOGIN}
+ {$content.PARTNER_PW}
+Su contrase&ntilde;a es: Inicie sesi&oacute;n aqu&iacute;: {$content.LINK}
+
+
+Estamos deseando trabajar con usted. Su equipo del programa de afiliaci&oacute;n

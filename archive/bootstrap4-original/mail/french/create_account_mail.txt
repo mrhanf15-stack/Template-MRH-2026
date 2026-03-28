@@ -1,0 +1,32 @@
+{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if} {$NAME} ,
+
+Tu viens de cr&eacute;er ton compte client avec succ&egrave;s.
+
+En tant que client enregistr&eacute;, tu b&eacute;n&eacute;ficies des avantages suivants dans notre boutique :
+
+- Panier du client : chaque article reste enregistr&eacute; jusqu&#039;&agrave; ce que tu passes &agrave; la caisse ou que tu supprimes les produits du panier.
+- Carnet d&#039;adresses : nous pouvons maintenant envoyer les produits &agrave; l&#039;adresse que tu as choisie. Le moyen id&eacute;al d&#039;envoyer un cadeau d&#039;anniversaire.
+- Commandes pr&eacute;c&eacute;dentes : Tu peux consulter tes commandes pr&eacute;c&eacute;dentes &agrave; tout moment.
+- Avis sur les produits : Partage ton avis sur nos produits avec d&#039;autres clients.
+
+Attention : cette adresse e-mail nous a &eacute;t&eacute; communiqu&eacute;e par un client. Si tu n&#039;es pas inscrit, envoie un e-mail &agrave; : {$content.MAIL_REPLY_ADDRESS}
+
+{if $SEND_GIFT == true}
+Comme petit cadeau de bienvenue, nous t&#039;envoyons un bon d&#039;achat sur : {$GIFT_AMMOUNT}
+
+ Ton code de bon d&#039;achat personnel est {$GIFT_CODE}. Tu peux utiliser ce bon &agrave; la caisse pendant le processus de commande.
+
+Pour utiliser le bon, veuillez utiliser le lien suivant : {$GIFT_LINK}.
+{/if} 
+
+ {if $SEND_COUPON == true} 
+ En guise de petit cadeau de bienvenue, nous t&#039;envoyons un coupon.
+
+Description du coupon : {$COUPON_DESC}
+
+ Saisis simplement ton code personnel {$COUPON_CODE} lors du processus de paiement.
+{/if} 
+
+ Si tu as des questions concernant notre service client&egrave;le, contacte-nous : {$content.MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

@@ -1,0 +1,23 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Confirme su direcci&oacute;n de correo</font>electr&oacute;nico    </td>
+</tr>
+<tr> 
+<td>
+      <br />
+     <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}</b><br />
+      <br />E<b>stimado Sr. Estimada Sra. Hola ,</b> Antes de poder realizar un pedido en nuestra tienda, primero debe confirmar su direcci&oacute;n de correo electr&oacute;nico.<br />
+      <br /><br />
+      <br /><br /> <a href="{$LINK}">{$LINK}</a><br />
+      <br /><br />
+      <br /> <a href="mailto:{$MAIL_REPLY_ADDRESS}">{$MAIL_REPLY_ADDRESS}</a>La confirmaci&oacute;n verifica que usted es el propietario de la direcci&oacute;n de correo electr&oacute;nico que ha introducido. Por favor, haga clic en el enlace de activaci&oacute;n para activar su direcci&oacute;n de correo electr&oacute;nico para los pedidos<b>.</b><b>Su enlace de activaci&oacute;n:</b> Si no se ha registrado en nuestra tienda, le pedimos que simplemente ignore el enlace de activaci&oacute;n. Si tiene alguna pregunta sobre nuestro servicio de atenci&oacute;n al cliente, p&oacute;ngase en contacto con:</font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

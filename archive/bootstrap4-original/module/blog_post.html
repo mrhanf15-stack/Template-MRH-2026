@@ -1,0 +1,50 @@
+{config_load file="$language/lang_$language.conf" section="blog"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+
+<article id="blog-post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+	{*<!-- microdata -->*}
+    <meta itemprop="url" content="{$LINK}">
+    <meta itemprop="dateCreated" content="{$DATE_ADDED.C}">
+    <meta itemprop="datePublished" content="{$DATE_ADDED.C}">
+    {if !empty($DATE_MODIFIED)}<meta itemprop="dateModified" content="{$DATE_MODIFIED.C}">{/if}
+    {if !empty($AUTHOR)}
+    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" content="{$AUTHOR}">
+        {if !empty($AUTHOR_LINK)}<meta itemprop="url" content="{$AUTHOR_LINK}">{/if}
+    </span>
+    {/if}
+    <meta itemprop="name" content="{$NAME}">
+    {if !empty($SHORT_DESCRIPTION)}<meta itemprop="description" content="{$SHORT_DESCRIPTION}">{/if}
+        
+    {if !empty($IMAGE)}
+    <div class="blog-post-image">
+        <img class="rounded" src="{$IMAGE}" alt="{$NAME|onlytext}" title="{$NAME|onlytext}" itemprop="image" />
+    </div>
+    {/if}
+
+    <h1 itemprop="headline">{if !empty($TITLE)}{$TITLE}{else}{$NAME}{/if}</h1>
+    
+    <div class="blog-post-meta blog-clearfix">
+        <div class="blog-post-date">
+            <span class="fa fa-calendar"></span><time itemprop="datePublished" datetime="{$DATE_ADDED.C}">{$DATE_ADDED.LONG}</time>{*{if !empty($DATE_MODIFIED)} | {#date_modified#} {$DATE_MODIFIED.SHORT}{/if}*}
+        </div>
+        {if !empty($CATEGORIES_NAME)}
+        <div class="blog-post-category">
+            <a href="{$CATEGORIES_LINK}" title="{$CATEGORIES_NAME|onlytext}"><span class="fa fa-folder"></span>{$CATEGORIES_NAME}</a>
+        </div>
+        {/if}
+    </div>
+    
+    {if !empty($DESCRIPTION)}
+    <div class="blog-post-desc" itemprop="articleBody">
+        {$DESCRIPTION}
+    </div>
+    {/if}
+
+    <div class="blog-buttons">
+		<div>{$BUTTON_BACK}</div>
+	</div>
+
+</article>

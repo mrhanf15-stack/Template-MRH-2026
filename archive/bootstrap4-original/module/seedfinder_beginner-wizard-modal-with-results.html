@@ -1,0 +1,182 @@
+<div class="modal fade" id="beginnerWizardModal" tabindex="-1" role="dialog" aria-labelledby="beginnerWizardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content wizard-modal-card">
+      
+      <div class="modal-header wizard-header-gradient">
+        <div class="header-content">
+          <div class="badge-top">Seedfinder</div>
+          <h2 class="modal-title wizard-main-title" id="beginnerWizardModalLabel">{#wizard_title#}</h2>
+          <p class="wizard-subtitle">{#wizard_subtitle#}</p>
+        </div>
+        <button type="button" class="close wizard-close-btn" data-dismiss="modal" aria-label="{#wizard_close_button_aria#}">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body wizard-body">
+        
+        <div class="wizard-progress-wrapper">
+          <div class="wizard-progress-label">
+            <i class="fas fa-check-circle"></i>
+            <!-- KORRIGIERTE ZEILE: Keine Modifier mehr im Template -->
+            <span id="wizard-progress-text" data-template="{#wizard_progress_text#}"></span>
+          </div>
+          <div class="wizard-progress-track">
+            <div class="wizard-progress-fill" id="wizard-progress-bar" style="width: 25%;"></div>
+          </div>
+        </div>
+        
+        <div id="wizard-steps-container">
+          
+          <div id="wizard-step-1" class="wizard-step active">
+            <div class="step-header-section">
+              <h2 class="step-title">{#step1_title#}</h2>
+              <p class="step-subtitle">{#step1_subtitle#}</p>
+            </div>
+            <div class="problem-solution-box">
+              <div class="problem-part">
+                <h5><i class="fas fa-question-circle"></i> {#wizard_why_important#}</h5>
+                <p>{#step1_explanation#}</p>
+              </div>
+            </div>
+            <div class="wizard-options-grid">
+              <div class="wizard-option-card-style" data-step="1" data-value="indoor">
+                <span class="option-badge">{#badge_popular#}</span>
+                <div class="option-icon-wrapper"><i class="fas fa-home"></i></div>
+                <h3 class="option-card-title">{#step1_opt1_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step1_opt1_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step1_opt1_benefit2#}</span></div>
+                </div>
+              </div>
+              <div class="wizard-option-card-style" data-step="1" data-value="outdoor">
+                <span class="option-badge">{#badge_natural#}</span>
+                <div class="option-icon-wrapper"><i class="fas fa-sun"></i></div>
+                <h3 class="option-card-title">{#step1_opt2_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step1_opt2_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step1_opt2_benefit2#}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="wizard-step-2" class="wizard-step">
+            <div class="step-header-section">
+              <h2 class="step-title">{#step2_title#}</h2>
+              <p class="step-subtitle">{#step2_subtitle#}</p>
+            </div>
+            <div class="problem-solution-box">
+              <div class="problem-part">
+                <h5><i class="fas fa-question-circle"></i> {#wizard_what_is_difference#}</h5>
+                <p>{#step2_explanation#}</p>
+              </div>
+            </div>
+            <div class="wizard-options-grid">
+              <div class="wizard-option-card-style" data-step="2" data-value="autoflowering">
+                <span class="option-badge">{#badge_easy#}</span>
+                <div class="option-icon-wrapper"><i class="fas fa-bolt"></i></div>
+                <h3 class="option-card-title">{#step2_opt1_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step2_opt1_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step2_opt1_benefit2#}</span></div>
+                </div>
+              </div>
+              <div class="wizard-option-card-style" data-step="2" data-value="photoperiodisch">
+                <span class="option-badge">{#badge_classic#}</span>
+                <div class="option-icon-wrapper"><i class="fas fa-leaf"></i></div>
+                <h3 class="option-card-title">{#step2_opt2_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step2_opt2_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step2_opt2_benefit2#}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="wizard-step-3" class="wizard-step">
+            <div class="step-header-section">
+              <h2 class="step-title">{#step3_title#}</h2>
+              <p class="step-subtitle">{#step3_subtitle#}</p>
+            </div>
+            <div class="problem-solution-box">
+              <div class="problem-part">
+                <h5><i class="fas fa-question-circle"></i> {#wizard_what_is_difference#}</h5>
+                <p>{#step3_explanation#}</p>
+              </div>
+            </div>
+            <div class="wizard-options-grid wizard-options-three">
+              <div class="wizard-option-card-style" data-step="3" data-value="90" data-filter-id="11">
+                <div class="option-icon-wrapper"><i class="fas fa-moon"></i></div>
+                <h3 class="option-card-title">{#step3_opt1_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt1_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt1_benefit2#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt1_benefit3#}</span></div>
+                </div>
+              </div>
+              <div class="wizard-option-card-style" data-step="3" data-value="88" data-filter-id="11">
+                <div class="option-icon-wrapper"><i class="fas fa-sun"></i></div>
+                <h3 class="option-card-title">{#step3_opt2_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt2_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt2_benefit2#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt2_benefit3#}</span></div>
+                </div>
+              </div>
+              <div class="wizard-option-card-style" data-step="3" data-value="105" data-filter-id="11">
+                <span class="option-badge">{#badge_popular#}</span>
+                <div class="option-icon-wrapper"><i class="fas fa-balance-scale"></i></div>
+                <h3 class="option-card-title">{#step3_opt3_title#}</h3>
+                <div class="option-benefits">
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt3_benefit1#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt3_benefit2#}</span></div>
+                  <div class="benefit-item"><i class="fas fa-check-circle"></i><span>{#step3_opt3_benefit3#}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="wizard-step-4" class="wizard-step">
+            <div class="step-header-section">
+              <h2 class="step-title">{#step4_title#}</h2>
+              <p class="step-subtitle">{#step4_subtitle#}</p>
+            </div>
+            <div class="problem-solution-box">
+              <div class="problem-part">
+                <h5><i class="fas fa-clock"></i> {#step4_explanation_title#}</h5>
+                <p>{#step4_explanation_text#}</p>
+              </div>
+            </div>
+            <div class="wizard-options-grid wizard-multi-select">
+              <div class="wizard-option-card-style wizard-multi-option" data-step="4" data-value="496,92,58,59" data-filter-id="7">
+                <span class="option-badge">{#badge_recommended#}</span>
+                <div class="option-icon-wrapper"><i class="fas fa-tachometer-alt"></i></div>
+                <h3 class="option-card-title">{#step4_opt1_title#}</h3>
+                <p class="option-description">{#step4_opt1_desc#}</p>
+                <div class="multi-select-indicator"><i class="fas fa-check-circle"></i></div>
+              </div>
+              <div class="wizard-option-card-style wizard-multi-option" data-step="4" data-value="60,61,62,63,98,99,100" data-filter-id="7">
+                <div class="option-icon-wrapper"><i class="fas fa-hourglass-half"></i></div>
+                <h3 class="option-card-title">{#step4_opt2_title#}</h3>
+                <p class="option-description">{#step4_opt2_desc#}</p>
+                <div class="multi-select-indicator"><i class="fas fa-check-circle"></i></div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="modal-footer wizard-footer">
+        <button type="button" class="btn btn-outline-secondary wizard-back-btn" id="wizard-back-btn" style="display: none;">
+          <i class="fas fa-arrow-left mr-1"></i> {#wizard_back_button#}
+        </button>
+        <button type="button" class="btn btn-outline-danger wizard-reset-btn" id="wizard-reset-btn">
+          <i class="fas fa-redo mr-1"></i> {#wizard_reset_button#}
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>

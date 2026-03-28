@@ -1,0 +1,154 @@
+{config_load file="$language/lang_$language.conf" section="shopping_cart"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="print_fax_order"}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="{$charset}" />
+	<title>{$smarty.const.TITLE}</title>
+	<link rel="stylesheet" type="text/css" href="{$tpl_path}css/print.css" />
+	<link rel="stylesheet" type="text/css" href="{$tpl_path}css/fax_print.css" media="print">
+	<link rel="stylesheet" type="text/css" href="{$tpl_path}css/fax.css" media="screen">
+    <link rel="shortcut icon" href="{$tpl_path}/favicons/favicon.ico">
+	<script type="text/javascript" src="{$tpl_path}javascript/jquery.min.js"></script> 
+ <script type="text/javascript" src="{$tpl_path}javascript/qr_gen.js"></script> 
+    <script type="text/javascript" src="{$tpl_path}javascript/datum.js"></script> 
+    <script type="text/javascript">var error_fax_order_select_shipping = '{$smarty.const.ERROR_FAX_ORDER_SELECT_SHIPPING}', text_ot_total = '{$smarty.const.HEADER_TOTAL}';</script>
+	<script type="text/javascript" src="{$tpl_path}javascript/print_fax_order.js"></script> 
+</head>
+<body>
+<div stlye="width: 100%;">
+<div class="screen" style="font-size:12pt; font-weight:bold; padding-bottom:10px; border-bottom: 1px solid black; text-align:right;">{#heading_checkout#}</div>
+<p class="screen"><br/>
+  {#text_info_box_heder#}<br>
+  <br></p>
+<div class="screen">
+  <div id="bank">{#text_checkout#}<br>
+    <br>
+    {#text_checkout2#}
+    {#bank_daten#}</div>
+  <div id="fancy">{#text_checkout#}</div>
+  <div>
+    <p id="btn" class="descpoinzer" style="vertical-align:middle;margin-top:20px"><span>{#MORE#}</span></p>
+  </div>
+  <div id="btn-bk" class="descpoinzer" style="vertical-align:middle;margin-top:20px"><span>{#LESS#}</span> </div>
+  <br>
+  <br>
+</div>
+<table border="0" cellspacing="0" cellpadding="30" width="100%">
+  <tr>
+    <td width="auto" valign="top" class="bk_lightgrey" ><b>{#text_shipping_address#}</b><br></td>
+    <td width="180px" valign="top" class="bk_lightgrey"><b>{#title_shipping_to#}</b></td>
+  </tr>
+  <tr>
+    <td>{$ADDRESS_SHIPTO}</td>
+    <td colspan="2px" class="bk_lightgrey2">{*$ADDRESS_BILLTO*}{#shipping_to#}</td>
+  </tr>
+</table>
+<p class="screen">{#info_red3#}</p>
+<br>  
+    <!--Anfang Bestellnummer -->
+    <div class="countup" id="countup1"><p style="font-size:x-large"><strong>{#odernumber_date#}<span class="timeel years">00</span><span class="timeel days">00</span><strong><span class="timeel hours">00</span></strong>/<span class="timeel minutes">00</span><span class="timeel seconds">00</span></strong></p></div><div style="float-right"><div id="time">
+	</div></div>
+    <!--Anfang Bestellnummer -->
+<hr noshade>
+<br>
+<div align="center">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr align="center">
+      <td class="shopcart sc_right">&nbsp;</td>
+      <td width="20px" class="shopcart medname">{#text_qty#}</td>
+      <td width="200px" class="shopcart medname">{#text_article#}</td>
+      <td width="100%" class="shopcart medname bk_lightgrey ">{#text_total#}</td>
+    </tr>
+    {foreach name=aussen item=module_data from=$PRODUCTS}
+    <tr valign="top" class="{cycle values="topdist2,topdist1"}">
+      <td class="sc_right sc_bot">{if $module_data.PRODUCTS_IMAGE!=''}<img class="screen" style=" margin-top: 10px;width:60px; margin-bottom:10px; padding:0px 10px" src="/{$module_data.PRODUCTS_IMAGE}" border="0">{/if}</td>
+      <td class="sc_bot" align="center" style="padding-right:10px; width:80px">{$module_data.PRODUCTS_QTY}</td>
+      <td class="sc_bot"  style=" width:100%">{if $module_data.PRODUCTS_STOCK}<span style="color:red">***</span>  {/if}<a href="/{$module_data.PRODUCTS_LINK}" target="_blank">{$module_data.PRODUCTS_NAME}</a> &nbsp;&nbsp;{#artikelnummer#}&nbsp;{$module_data.PRODUCTS_MODEL}&nbsp;&nbsp;<b>({$module_data.PRODUCTS_SINGLE_PRICE})</b>{if $module_data.ATTRIBUTES!=''}<br>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          {foreach key=key_data item=item_data from=$module_data.ATTRIBUTES}
+          <tr>
+            <td style="padding:5px; font-size:12px;">{$item_data.NAME}: {$item_data.VALUE_NAME}</td>
+          </tr>
+          {/foreach}
+        </table>
+        {else}<span class="smallText">{*$module_data.PRODUCTS_SHORT_DESCRIPTION|truncate:150:"...":true*}</span>{/if}</td>
+      <td align="center" class="sc_bot bk_lightgrey medname">{$module_data.PRODUCTS_PRICE}
+	  {if $module_data.ATTRIBUTES!=''}
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          {foreach key=key_data item=item_data from=$module_data.ATTRIBUTES}
+          <tr>
+            <td class="medname">{$item_data.PRICE}</td>
+          </tr>
+          {/foreach}
+        </table>
+        {/if}</td>
+  
+    {/foreach}
+    <tr>
+      <td class="sc_right sc_bot">&nbsp;</td>
+      <td class="sc_bot bk_lightgrey sc_sum" style="padding-right: 10px;" colspan="3" align="right"><p id="sub-total" data-price="{$TOTAL}">{$TOTAL_CONTENT}{$GV_RESULT}</p> 
+      <p class="green box" data-price="7">{#info_exklsv#}, {#versand_opt2#}</p>
+      <p class="sixt box" data-price="9">{#info_exklsv#}, {#versand_opt7#}</p>
+	  <p class="post box" data-price="6">{#info_exklsv#}, {#versand_opt01#}</p>						  
+      <p class="six box" data-price="12">{#info_exklsv#}, {#versand_opt06#}</p>
+      <p class="red box" data-price="4">{#info_exklsv#}, {#versand_opt1#}</p>
+      <p class="packl box" data-price="8">{#info_exklsv#}, {#versand_opt07#}</p>
+      <p class="inter box" data-price="16">{#info_exklsv#}, {#versand_opt5#}</p>
+      <p class="pack box" data-price="18">{#info_exklsv#}, {#versand_opt6#}</p>
+      <p class="free box" data-price="0"> {#versand_opt4#}</p>
+      {*<p class="blue box" data-price="5">{#info_exklsv#}, {#versand_opt3#}</p>*}
+      <hr noshade style="width: 200px;"><hr noshade style="width: 200px"><div id="andere_DBs">{#method#}</div>
+      <div id="ot-total"></div>
+	  </td>
+    </tr>
+  </table>
+</div>
+<br>
+<hr noshade>
+<br>
+<div align="center"> 
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td style="padding-bottom:10px;"><p class="screen">{#text_select_payment#}</p>
+    <table width="100%" border="0">
+      <tbody>
+        <tr>
+          <td width="47%"><b>{#title_ahlungsart#}</b><br>
+           &nbsp;<input class="inputs_red" type="checkbox" name="opt[]" value="Standart Post" checked>
+           <strong>{#ahlungsart1#}<br/>
+            </strong > <b class="b">{#info_red2#}</b><br>
+            &nbsp;<input type="checkbox" name="opt[]" value="internet" >
+            <strong>{#ahlungsart2#}</strong></td>
+								
+          <td width="50%"><div class="screen"> <strong>{#versand_opt#}</strong><br>
+              <select name="Datenbank" id="Datenbank_id" class="validate-select l " title="Datenbank">
+                <option value="0">{#versandart#}</option>            
+                <option value="green">{#versand_opt2#}</option>
+				<option value="sixt">{#versand_opt7#}</option>
+                <option value="post">{#versand_opt01#}</option>
+				<option value="six">{#versand_opt06#}</option>
+			    <option value="red">{#versand_opt1#}</option>
+				<option value="packl">{#versand_opt07#}</option>
+	            <option value="inter">{#versand_opt5#}</option>     
+				<option value="pack">{#versand_opt6#}</option>
+				<option value="free">{#versand_opt4#}</option>
+              </select>
+            </div></td>
+        </tr>
+      </tbody>
+    </table> <br> <input type="checkbox" name="alter" value="DSVGO" checked>{#versand_alter#}
+								<br>
+    <br>
+    <br>
+    <textarea wrap="physical" onfocus="this.select()" onclick="this.value='Komentar: '" rows="5" cols="70px" name="address">{#versand_textarea#}</textarea>
+    <br>
+   
+    <br>
+    <div class="noprint screen d-lg-block" style="padding-bottom:40px;" align="right">
+      <input class="printbut screen sslboxs" type="button" onclick="print_fax_order();" value="{#printorder#}">
+    </div>
+
+</body>
+</html>

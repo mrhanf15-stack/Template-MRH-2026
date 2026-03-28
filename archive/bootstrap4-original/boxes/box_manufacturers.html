@@ -1,0 +1,11 @@
+{if isset($BOX_CONTENT) && $BOX_CONTENT != ''}
+	{config_load file="$language/lang_$language.conf" section="boxes"}
+	{config_load file="lang_`$language`.custom"}
+	<div class="box_manufacturers card mb-4">
+		<div class="box_header card-header">{#heading_manufacturers#}</div>
+		<div class="card-body">
+			<label for="box-manufacturers-select" class="sr-only">{#heading_manufacturers#}</label>
+            {$BOX_CONTENT|replace:'<select':'<select id="box-manufacturers-select"'}
+		</div>
+	</div>
+{/if}

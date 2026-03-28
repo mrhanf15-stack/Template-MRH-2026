@@ -1,0 +1,4 @@
+{$content.NAME}Nombre del socio: 
+Direcci&oacute;n de correo electr&oacute;nico: {$content.EMAIL}
+
+Mensaje: {$content.ENQUIRY}

@@ -1,0 +1,263 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_affiliate"}
+{config_load file="lang_`$language`.custom"}
+<link rel="stylesheet" href="/templates/bootstrap4/css/affiliate.css?v=20260318b">
+
+{* ================================================================ *}
+{* INLINE-STYLES: Fallback falls externe CSS nicht greift            *}
+{* ================================================================ *}
+<style>
+/* --- Form-Group: Flexbox-Column erzwingt Label ÜBER Input --- */
+form#login .form-group,
+div.affiliate-page .form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 1rem;
+}
+/* --- Labels --- */
+form#login .form-group > label,
+div.affiliate-page .form-group > label {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: .3rem;
+    font-weight: 600;
+    color: #212529 !important;
+    order: 1;
+}
+/* --- Input-Felder --- */
+form#login .form-group > input,
+form#login .form-group > select,
+div.affiliate-page .form-group > input,
+div.affiliate-page .form-group > select {
+    display: block !important;
+    width: 100% !important;
+    padding: .375rem .75rem;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    box-sizing: border-box;
+    order: 2;
+}
+/* --- Focus-State --- */
+form#login .form-group > input:focus,
+div.affiliate-page .form-group > input:focus {
+    border-color: #839A4F;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(131,154,79,.25);
+}
+/* --- Passwort-Wrapper (div.pssw-wrap) --- */
+form#login .form-group > .pssw-wrap,
+div.affiliate-page .form-group > .pssw-wrap {
+    display: block !important;
+    width: 100% !important;
+    order: 2;
+}
+form#login .form-group > .pssw-wrap > input,
+div.affiliate-page .form-group > .pssw-wrap > input {
+    display: block !important;
+    width: 100% !important;
+    padding: .375rem .75rem;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-sizing: border-box;
+}
+</style>
+
+<div class="affiliate-page">
+<h1 class="card p-2 bg-h">{#heading_title#}</h1>
+
+{if $info_message eq 'true'}<div class="alert alert-danger"><span class="fas fa-exclamation-triangle"></span> {#text_login_error#}</div>{/if}
+
+{* ================================================================ *}
+{* LOGIN / REGISTRIERUNG - OBEN                                     *}
+{* ================================================================ *}
+<div class="row clearfix mb-4">
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-h">
+                <h4 class="mb-0"><span class="fas fa-sign-in-alt"></span> {#heading_returning_affiliate#}</h4>
+            </div>
+            <div class="card-body">
+                {$FORM_ACTION}
+                <p>{#text_returning_affiliate#}</p>
+                <div class="form-group">
+                    <label>{#text_affiliate_id#}</label>
+                    {$INPUT_AFFILIATE_USERNAME}
+                </div>
+                <div class="form-group">
+                    <label>{#text_affiliate_password#}</label>
+                    {$INPUT_AFFILIATE_PASSWORD}
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>{$LINK_PASSWORD_FORGOTTEN}</div>
+                    <div>{$BUTTON_LOGIN}</div>
+                </div>
+                {$FORM_END}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-h">
+                <h4 class="mb-0"><span class="fas fa-user-plus"></span> {#heading_new_affiliate#}</h4>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <p><strong>{#text_new_affiliate#}</strong></p>
+                <p>{#text_new_affiliate_introduction#|replace:'%STORE_NAME%':$smarty.const.STORE_NAME}</p>
+                <div class="mt-auto text-right">
+                    {$LINK_SIGNUP}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* KURZINFO - WARUM PARTNER WERDEN                                  *}
+{* ================================================================ *}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3><span class="far fa-handshake"></span> {#text_info_welcome#}</h3>
+                <p class="lead">{#text_info_welcome_lead#}</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h1 class="display-4 font-weight-bold">20%</h1>
+                        <p class="mb-0">{#text_info_provision_label#}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* VORTEILE AUF EINEN BLICK                                        *}
+{* ================================================================ *}
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <span class="fas fa-money-bill-wave fa-3x text-success mb-3 affiliate-icon-block"></span>
+                <h5>{#text_info_benefit1_title#}</h5>
+                <p>{#text_info_benefit1_desc#}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <span class="far fa-clock fa-3x text-primary mb-3 affiliate-icon-block"></span>
+                <h5>{#text_info_benefit2_title#}</h5>
+                <p>{#text_info_benefit2_desc#}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <span class="fas fa-rss fa-3x text-warning mb-3 affiliate-icon-block"></span>
+                <h5>{#text_info_benefit3_title#}</h5>
+                <p>{#text_info_benefit3_desc#}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <span class="fas fa-chart-bar fa-3x text-info mb-3 affiliate-icon-block"></span>
+                <h5>{#text_info_benefit4_title#}</h5>
+                <p>{#text_info_benefit4_desc#}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <span class="fas fa-image fa-3x text-danger mb-3 affiliate-icon-block"></span>
+                <h5>{#text_info_benefit5_title#}</h5>
+                <p>{#text_info_benefit5_desc#}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <span class="fas fa-link fa-3x text-secondary mb-3 affiliate-icon-block"></span>
+                <h5>{#text_info_benefit6_title#}</h5>
+                <p>{#text_info_benefit6_desc#}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* SO FUNKTIONIERT ES                                               *}
+{* ================================================================ *}
+<div class="card mb-4">
+    <div class="card-header bg-h">
+        <h4 class="mb-0"><span class="fas fa-list-ol"></span> {#text_info_howto_title#}</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 text-center mb-3">
+                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center step-circle">1</div>
+                <h5 class="mt-2">{#text_info_step1_title#}</h5>
+                <p class="small">{#text_info_step1_desc#}</p>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center step-circle">2</div>
+                <h5 class="mt-2">{#text_info_step2_title#}</h5>
+                <p class="small">{#text_info_step2_desc#}</p>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center step-circle">3</div>
+                <h5 class="mt-2">{#text_info_step3_title#}</h5>
+                <p class="small">{#text_info_step3_desc#}</p>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center step-circle">4</div>
+                <h5 class="mt-2">{#text_info_step4_title#}</h5>
+                <p class="small">{#text_info_step4_desc#}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* ================================================================ *}
+{* PRODUKT-FEED HIGHLIGHT                                           *}
+{* ================================================================ *}
+<div class="card mb-4 border-warning">
+    <div class="card-header bg-warning text-dark">
+        <h4 class="mb-0"><span class="fas fa-rss"></span> {#text_info_feed_title#}</h4>
+    </div>
+    <div class="card-body">
+        <p>{#text_info_feed_desc#}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h5><span class="far fa-file-alt"></span> {#text_info_feed_csv_title#}</h5>
+                <p>{#text_info_feed_csv_desc#}</p>
+            </div>
+            <div class="col-md-6">
+                <h5><span class="fas fa-code"></span> {#text_info_feed_xml_title#}</h5>
+                <p>{#text_info_feed_xml_desc#}</p>
+            </div>
+        </div>
+        <p class="mb-0"><span class="fas fa-sync"></span> <strong>{#text_info_feed_update#}</strong></p>
+    </div>
+</div>
+</div>

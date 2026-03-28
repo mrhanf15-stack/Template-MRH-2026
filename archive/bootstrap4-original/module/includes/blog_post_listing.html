@@ -1,0 +1,58 @@
+{*<!-- set htag -->*}
+{if empty($listing_htag)}
+  {assign var='listing_htag' value='h2'}
+{/if}
+
+{*<!-- set page -->*}
+{if empty($listing_page)}
+  {assign var='listing_page' value='category'}
+{/if}
+
+<div class="blog-post-listing blog-row" itemscope itemtype="http://schema.org/Blog">
+
+    {foreach name=aussen item=data from=$listing_items}
+    <div class="blog-col">
+      <article class="blog-post" itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
+
+        {*<!-- microdata -->*}
+        <meta itemprop="url" content="{$data.LINK}">
+        <meta itemprop="dateCreated" content="{$data.DATE_ADDED.C}">
+        <meta itemprop="datePublished" content="{$data.DATE_ADDED.C}">
+        {if !empty($data.DATE_MODIFIED)}<meta itemprop="dateModified" content="{$data.DATE_MODIFIED.C}">{/if}
+        {if !empty($data.AUTHOR)}
+        <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <meta itemprop="name" content="{$data.AUTHOR}">
+            {if !empty($data.AUTHOR_LINK)}<meta itemprop="url" content="{$data.AUTHOR_LINK}">{/if}
+        </span>
+        {/if}
+    
+        <div class="blog-post-date">
+            <span class="day">{$data.DATE_ADDED.DAY}</span>
+            <span class="month">{$data.DATE_ADDED.MONTH_SHORT}</span>
+        </div>
+
+        {if !empty($data.IMAGE_LIST) || !empty($data.IMAGE)}
+        <div class="blog-post-image">
+            <a href="{$data.LINK}" title="{$data.NAME|onlytext}"><img class="lazyload" src="data:," data-src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" title="{$data.NAME|onlytext}" itemprop="image" width="{$smarty.const.MODULE_BLOG_THUMBNAIL_IMAGE_WIDTH}" height="{$smarty.const.MODULE_BLOG_THUMBNAIL_IMAGE_HEIGHT}" /></a>
+        </div>
+        {/if}
+        
+        <div class="blog-post-info">
+            <{$listing_htag} class="blog-post-name" itemprop="headline"><a href="{$data.LINK}" title="{$data.TITLE|onlytext}">{$data.TITLE}</a></{$listing_htag}>
+            
+            {if !empty($data.SHORT_DESCRIPTION)}
+            <div class="blog-post-desc" itemprop="description">{$data.SHORT_DESCRIPTION|truncate:180}</div>
+            {/if}
+        </div>
+        
+        <div class="blog-post-footer">
+            {if !empty($data.CATEGORIES_NAME)}
+            <div class="blog-post-category"><a href="{$data.CATEGORIES_LINK}" title="{$data.CATEGORIES_NAME|onlytext}"><span class="fa fa-folder"></span>{$data.CATEGORIES_NAME}</a></div>
+            {/if}
+        </div>
+    
+      </article>
+    </div>
+    {/foreach}
+
+</div>
