@@ -70,15 +70,15 @@
           <meta itemprop="ratingValue" content="{$MRH_RATING_VALUE}">
           <meta itemprop="bestRating" content="5">
           <meta itemprop="reviewCount" content="{$MRH_RATING_COUNT}">
-          {section name=star loop=5}
-            {if $smarty.section.star.index < $MRH_RATING_FULL}
+          {for $star=0 to 4}
+            {if $star < $MRH_RATING_FULL}
               <span class="fa fa-star text-warning"></span>
-            {elseif $smarty.section.star.index < $MRH_RATING_FULL + $MRH_RATING_HALF}
+            {elseif $star < $MRH_RATING_FULL + $MRH_RATING_HALF}
               <span class="fa fa-star-half-o text-warning"></span>
             {else}
               <span class="fa fa-star-o text-muted"></span>
             {/if}
-          {/section}
+          {/for}
           <a href="#mrh-reviews" class="small text-muted ms-1">({$MRH_RATING_COUNT} {#text_reviews#})</a>
         </div>
       {/if}
@@ -208,13 +208,13 @@
                 </div>
                 <div class="mrh-rating mb-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
                   <meta itemprop="ratingValue" content="{$review.RATING}">
-                  {section name=star loop=5}
-                    {if $smarty.section.star.index < $review.RATING}
+                  {for $star=0 to 4}
+                    {if $star < $review.RATING}
                       <span class="fa fa-star text-warning"></span>
                     {else}
                       <span class="fa fa-star-o text-muted"></span>
                     {/if}
-                  {/section}
+                  {/for}
                 </div>
                 <div itemprop="reviewBody">{$review.TEXT}</div>
               </div>

@@ -78,15 +78,15 @@
                 {* Bewertung *}
                 {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
                   <div class="mrh-rating small mb-1">
-                    {section name=star loop=5}
-                      {if $smarty.section.star.index < $product_data.MRH_RATING_FULL}
+                    {for $star=0 to 4}
+                      {if $star < $product_data.MRH_RATING_FULL}
                         <span class="fa fa-star"></span>
-                      {elseif $smarty.section.star.index < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
+                      {elseif $star < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
                         <span class="fa fa-star-half-o"></span>
                       {else}
                         <span class="fa fa-star-o"></span>
                       {/if}
-                    {/section}
+                    {/for}
                     <span class="text-muted">({$product_data.MRH_RATING_COUNT})</span>
                   </div>
                 {/if}
@@ -140,15 +140,15 @@
                 {* Bewertung *}
                 {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
                   <div class="mrh-rating">
-                    {section name=star loop=5}
-                      {if $smarty.section.star.index < $product_data.MRH_RATING_FULL}
+                    {for $star=0 to 4}
+                      {if $star < $product_data.MRH_RATING_FULL}
                         <span class="fa fa-star"></span>
-                      {elseif $smarty.section.star.index < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
+                      {elseif $star < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
                         <span class="fa fa-star-half-o"></span>
                       {else}
                         <span class="fa fa-star-o"></span>
                       {/if}
-                    {/section}
+                    {/for}
                     <span class="mrh-rating-count">({$product_data.MRH_RATING_COUNT})</span>
                   </div>
                 {/if}

@@ -23,12 +23,12 @@
           <span class="small text-body-secondary">{$review_data.DATE}</span>
         </div>
         <div class="mb-2">
-          {section name=stars loop=$review_data.RATING}
+          {for $star=0 to $review_data.RATING-1}
             <span class="fa fa-star text-warning" aria-hidden="true"></span>
-          {/section}
-          {section name=empty loop=5-$review_data.RATING}
+          {/for}
+          {for $empty=0 to 4-$review_data.RATING}
             <span class="fa fa-star-o text-body-secondary" aria-hidden="true"></span>
-          {/section}
+          {/for}
         </div>
         <p class="small mb-0">{$review_data.TEXT}</p>
       </div>

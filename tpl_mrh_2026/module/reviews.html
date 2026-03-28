@@ -13,9 +13,9 @@
             <span class="small text-body-secondary">{$review_data.DATE}</span>
           </div>
           <div class="mb-2">
-            {section name=stars loop=$review_data.RATING}
+            {for $star=0 to $review_data.RATING-1}
               <span class="fa fa-star text-warning" aria-hidden="true"></span>
-            {/section}
+            {/for}
           </div>
           <p class="small mb-0">{$review_data.TEXT|truncate:200:"..."}</p>
         </div>
