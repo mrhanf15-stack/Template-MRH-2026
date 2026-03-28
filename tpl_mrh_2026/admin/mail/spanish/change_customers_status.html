@@ -1,0 +1,20 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Su nuevo grupo de clientes</font>     </td>
+</tr>
+<tr> 
+<td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}</b> <br /><br />E<b>stimado Sr. Estimada Sra. Hola ,</b> Queremos agradecerle su fidelidad y le hemos a&ntilde;adido a nuestro grupo especial de clientes V.I.P. En el futuro se beneficiar&aacute; de ofertas especiales y campa&ntilde;as de descuento. <br /><br /> <br /><br />En el futuro se beneficiar&aacute; de ofertas especiales y campa&ntilde;as de descuento. Como VIP recibir&aacute; un descuento permanente del -10% en toda su compra, adem&aacute;s de los descuentos por volumen existentes. Puede informarse sobre otras ventajas aqu&iacute;:<a href="https://mr-hanf.de/info/rabatte-und-vips" title="Rabatte und VIP`s"></a> <br /><br /> {*Alte Kundengruppe: {$CUSTOMERS_STATUS}<br /> {if !empty($ORDERS_MIN)}N <a href="https://mr-hanf.de/info/rabatte-und-vips" title="Rabatte und VIP`s">uestros descuentos para</a>VIP N&uacute;mero de pedidos: {$ORDERS_MIN}<br />{/if} {$NEW_CUSTOMERS_STATUS} {if !empty($NEW_CUSTOMERS_STATUS_IMAGE)} <br /><br />
+        <img src="{$NEW_CUSTOMERS_STATUS_IMAGE}" alt="" title="{$NEW_CUSTOMERS_STATUS}"> {/if} <br /><br /> <a href="{$LINK_ACCOUNT}">hier klicken</a>*} Nuevo grupo de clientes: Puede consultar el estado de sus pedidos actuales en cualquier momento en su &aacute;rea de cuenta:</font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>
+

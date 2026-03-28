@@ -1,0 +1,44 @@
+{config_load file="$language/lang_$language.conf" section="advanced_search"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="advanced_search"}
+{* MRH 2026: Erweiterte Suche – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_search#}</h1>
+{$FORM_ACTION}
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">{#title_keywords#}</label>
+          {$INPUT_KEYWORDS|replace:'<input':'<input class="form-control"'}
+        </div>
+        <p class="small"><a href="{$HELP_LINK}" title="{$smarty.const.TEXT_LINK_TITLE_INFORMATION}" class="{if $smarty.const.TPL_POPUP_CONTENT_LINK_CLASS}{$smarty.const.TPL_POPUP_CONTENT_LINK_CLASS}{else}{$smarty.const.POPUP_CONTENT_LINK_CLASS}{/if}">{#text_help#}</a></p>
+        <div class="mb-3">
+          <label class="form-label">{#text_categories#}</label>
+          {$SELECT_CATEGORIES|replace:'<select':'<select class="form-select"'}
+        </div>
+        <div class="form-check mb-3">
+          {$ENTRY_SUBCAT|replace:'<input':'<input class="form-check-input"'}
+          <label class="form-check-label">{#text_subkategories#}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">{#text_manufacturer#}</label>
+          {$SELECT_MANUFACTURERS|replace:'<select':'<select class="form-select"'}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_min#}</label>
+          {$SELECT_PFROM|replace:'<input':'<input class="form-control"'}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_max#}</label>
+          {$SELECT_PTO|replace:'<input':'<input class="form-control"'}
+        </div>
+        <div class="d-flex justify-content-end">{$BUTTON_SUBMIT}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{$FORM_END}

@@ -1,0 +1,30 @@
+{config_load file="$language/lang_$language.conf" section="blog"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+{* MRH 2026: Blog Kategorie – BS5.3 *}
+<div id="blog-category" class="mrh-blog">
+  {if !empty($CATEGORIES_IMAGE)}
+    <div class="mrh-blog-category-image mb-3">
+      <img class="img-fluid rounded" src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
+    </div>
+  {/if}
+  <h1 class="mrh-page-title">{if !empty($CATEGORIES_TITLE)}{$CATEGORIES_TITLE}{else}{$CATEGORIES_NAME}{/if}</h1>
+  {if ($smarty.get.page >= 2)}
+    <button class="btn btn-sm btn-outline-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#blogCatIntro" aria-expanded="false" aria-controls="blogCatIntro">
+      {#klickk#}
+    </button>
+  {/if}
+  <div class="collapse {if ($smarty.get.page < 2) || ($smarty.get.page == '')}show{/if}" id="blogCatIntro">
+    {if ($smarty.get.page == 1) || ($smarty.get.page == '')}
+      {if !empty($CATEGORIES_DESCRIPTION)}
+        <div class="mrh-blog-category-desc mb-4">{$CATEGORIES_DESCRIPTION}</div>
+      {/if}
+    {/if}
+  </div>
+  {if !empty($POSTS)}
+    <div class="mrh-blog-posts mb-4">
+      {include file='module/includes/blog_post_listing.html' listing_items=$POSTS listing_htag='h2'}
+      {if !empty($NAVIGATION)}<div class="mt-3">{$NAVIGATION}</div>{/if}
+    </div>
+  {/if}
+</div>

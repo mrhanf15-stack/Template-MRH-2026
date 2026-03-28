@@ -1,0 +1,9 @@
+{* MRH 2026: Message Stack – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  {foreach name=aussen item=msg_data from=$module_content}
+    <div class="alert alert-{$msg_data.CLASS|default:'info'} alert-dismissible fade show" role="alert">
+      {$msg_data.TEXT}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schliessen"></button>
+    </div>
+  {/foreach}
+{/if}

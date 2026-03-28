@@ -1,0 +1,14 @@
+Hallo {$content.PARTNER_NAME}
+
+Vielen Dank für Ihre Anmeldung bei unserem Partnerprogramm.
+
+Ihre Anmeldeinformationen:
+**************************
+
+Ihre Partner-ID ist: {$content.PARTNER_ID}
+Ihr Benutzername ist: {$content.PARTNER_LOGIN}
+Ihr Passwort ist: {$content.PARTNER_PW}
+Melden Sie sich hier an: {$content.LINK}
+Wir freuen uns auf eine gute Zusammenarbeit mit Ihnen!
+
+Ihr Partnerprogramm Team

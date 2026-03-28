@@ -1,0 +1,25 @@
+{config_load file="$language/lang_$language.conf" section="advanced_search"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="advanced_search"}
+{* MRH 2026: Blog-Suchergebnisse – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  <section class="mrh-blog-search-results mb-4">
+    <h2 class="h5 mb-3">{#heading_blog_results#}</h2>
+    {foreach name=aussen item=blog_data from=$module_content}
+      <div class="card mb-2">
+        <div class="card-body d-flex gap-3">
+          {if isset($blog_data.IMAGE) && $blog_data.IMAGE != ''}
+            <div class="flex-shrink-0" style="width:80px">
+              <img src="{$blog_data.IMAGE}" alt="{$blog_data.TITLE|onlytext}" class="img-fluid rounded" loading="lazy">
+            </div>
+          {/if}
+          <div>
+            <h3 class="h6 mb-1"><a href="{$blog_data.LINK}" class="text-decoration-none">{$blog_data.TITLE}</a></h3>
+            <p class="small text-body-secondary mb-0">{$blog_data.DATE}</p>
+            {if isset($blog_data.EXCERPT)}<p class="small mb-0">{$blog_data.EXCERPT}</p>{/if}
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  </section>
+{/if}

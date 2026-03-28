@@ -1,0 +1,142 @@
+{config_load file="$language/lang_$language.conf" section="shopping_cart"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="shopping_cart"}
+{* MRH 2026: Bestelldetails / Warenkorb-Positionen – BS5.3 *}
+{assign "dummy" ""}
+<div class="mrh-order-details mb-4">
+  {foreach name=aussen item=module_data from=$module_content}
+    <div class="card mb-2">
+      <div class="card-body">
+        <div class="row g-3 align-items-center">
+          <div class="col-3 col-md-2">
+            {if $module_data.PRODUCTS_IMAGE != ''}
+              <a href="{$module_data.PRODUCTS_LINK}">
+                <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" class="img-fluid rounded" loading="lazy">
+              </a>
+            {/if}
+          </div>
+          <div class="col-9 col-md-6">
+            <h3 class="h6 mb-1">
+              <a href="{$module_data.PRODUCTS_LINK}" class="text-decoration-none">{$module_data.PRODUCTS_NAME}</a>
+            </h3>
+            {if isset($module_data.PRODUCTS_MODEL) && $module_data.PRODUCTS_MODEL != ''}
+              <div class="small text-body-secondary">{#text_model#}: {$module_data.PRODUCTS_MODEL}</div>
+            {/if}
+            {if is_array($module_data.ATTRIBUTES) && count($module_data.ATTRIBUTES) > 0}
+              <div class="small mt-1">
+                {foreach key=key_data item=item_data from=$module_data.ATTRIBUTES}
+                  <div>
+                    <strong>{$item_data.NAME}:</strong> {$item_data.VALUE_NAME}
+                    {if $item_data.STOCK > 0}
+                      {if !empty($item_data.STOCK > 15)}
+                        <span class="text-success ms-1">{#morethen#}</span>
+                      {else}
+                        <span class="text-success ms-1">{#item_Lagernd#} {$item_data.STOCK} {#item_stuek#}</span>
+                      {/if}
+                    {else}
+                      <span class="text-danger ms-1">{#shipping_vergriffen#}</span>
+                    {/if}
+                  </div>
+                {/foreach}
+              </div>
+            {/if}
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <strong class="small">{#text_qty#}:</strong>
+              <div class="d-flex align-items-center gap-1">
+                {$module_data.PRODUCTS_QTY|replace:'size="':'class="form-control form-control-sm text-center" style="width:60px" '}
+                {$module_data.BUTTON_DELETE}
+                {$smarty.const.IMAGE_BUTTON_UPDATE_CART|bs4button:'button_update_cart.gif':'':true}
+                {if $module_data.BUTTON_WISHLIST != ''}
+                  {$module_data.BUTTON_WISHLIST|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'button_wishlist_now'}<"}
+                {/if}
+              </div>
+            </div>
+            <div class="d-flex justify-content-between small">
+              <span>{#text_single#}:</span>
+              <span>{$module_data.PRODUCTS_SINGLE_PRICE}</span>
+            </div>
+            <div class="d-flex justify-content-between fw-medium">
+              <span>{#text_total#}:</span>
+              <span>{$module_data.PRODUCTS_PRICE}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/foreach}
+</div>
+{if isset($TOTAL_BLOCK_ARRAY) && count($TOTAL_BLOCK_ARRAY) > 0}
+  <div class="row mb-4">
+    <div class="col-md-8 offset-md-4 col-lg-6 offset-lg-6">
+      <div class="card">
+        <div class="card-header">
+          {foreach name=aussen item=order_total_values from=$TOTAL_BLOCK_ARRAY}
+            <div class="d-flex justify-content-between">
+              <span>{$order_total_values.title}</span>
+              <span>{$order_total_values.text}</span>
+            </div>
+          {/foreach}
+        </div>
+        {if isset($shipping_content) && count($shipping_content) > 0}
+          {if $SELECT_COUNTRY}
+            <div class="card-body d-flex justify-content-end align-items-center gap-2">
+              {$SELECT_COUNTRY|replace:'<select':'<select class="form-select form-select-sm" style="width:auto"'}
+            </div>
+          {/if}
+          <div class="list-group list-group-flush">
+            {foreach name=aussen item=shipping_data from=$shipping_content}
+              <div class="list-group-item d-flex justify-content-between">
+                <span>{$shipping_data.NAME} ({$COUNTRY}):</span>
+                <span>{$shipping_data.VALUE}</span>
+              </div>
+            {/foreach}
+          </div>
+        {/if}
+        {if $total}
+          <div class="card-footer d-flex justify-content-between fw-bold">
+            <span>{#text_total#}:</span>
+            <span>{$total}</span>
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+{else}
+  <div class="row mb-4">
+    <div class="col-md-8 offset-md-4 col-lg-6 offset-lg-6">
+      <div class="card">
+        <div class="card-header text-end">
+          {if $smarty.const.MODULE_SMALL_BUSINESS != 'true'}
+            {if $UST_CONTENT}{$UST_CONTENT}{else}{$smarty.const.TAX_INFO_EXCL|sprintf:''}<br>{/if}
+          {/if}
+          <strong>{$TOTAL_CONTENT}</strong>
+        </div>
+        {if isset($shipping_content) && count($shipping_content) > 0}
+          {if $SELECT_COUNTRY}
+            <div class="card-body d-flex justify-content-end align-items-center gap-2">
+              {$SELECT_COUNTRY|replace:'<select':'<select class="form-select form-select-sm" style="width:auto"'}
+            </div>
+          {/if}
+          <div class="list-group list-group-flush">
+            {foreach name=aussen item=shipping_data from=$shipping_content}
+              <div class="list-group-item d-flex justify-content-between">
+                <span>{$shipping_data.NAME} ({$COUNTRY}):</span>
+                <span>{$shipping_data.VALUE}</span>
+              </div>
+            {/foreach}
+          </div>
+        {/if}
+        {if $total}
+          <div class="card-footer d-flex justify-content-between fw-bold">
+            <span>{#text_total#}:</span>
+            <span>{$total}</span>
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+{/if}
+{if isset($FREE_SHIPPING_INFO)}<div class="alert alert-info"><span class="fa fa-info-circle me-1" aria-hidden="true"></span>{$FREE_SHIPPING_INFO}</div>{/if}
+{if $PAYPAL_INSTALLMENT && !$PAYPALPLAN}<div class="mb-3">{$PAYPAL_INSTALLMENT}</div>{/if}

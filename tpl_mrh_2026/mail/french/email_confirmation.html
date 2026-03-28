@@ -1,0 +1,23 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Confirme ton adresse e-mail</font>   </td>
+</tr>
+<tr> 
+<td>
+      <br />
+     <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if}&nbsp;{$NAME}</b>,<br />
+      <br />Avant de pouvoir passer une commande dans notre boutique, tu dois d&#039;abord confirmer ton adresse e-mail. Cette confirmation te permet de v&eacute;rifier que tu es bien le propri&eacute;taire de l&#039;adresse e-mail enregistr&eacute;e.<br />
+      <br />Veuillez cliquer sur le lien d&#039;activation afin que votre adresse e-mail soit activ&eacute;e pour les commandes.<br />
+      <br /><b>Votre lien d&#039;activation :</b><br /> <a href="{$LINK}">{$LINK}</a> <br />
+      <br /> Si vous n&#039;&ecirc;tes pas inscrit dans notre boutique, nous vous prions d&#039;ignorer simplement le lien d&#039;activation.<br />
+      <br />Si vous avez des questions concernant notre service client&egrave;le, veuillez vous adresser &agrave; : <a href="mailto:{$MAIL_REPLY_ADDRESS}">{$MAIL_REPLY_ADDRESS}</a></font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

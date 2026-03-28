@@ -1,0 +1,44 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_banners"}
+{* MRH 2026: Affiliate Werbemittel – BS5.3 *}
+<div class="mrh-affiliate-banners">
+  <h1 class="mrh-page-title">{#heading_title#}</h1>
+  <p class="text-body-secondary mb-4">{#text_information#}</p>
+  {if isset($BANNERS) && count($BANNERS) > 0}
+    {foreach name=groups item=group from=$BANNERS}
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2 class="h6 mb-0"><span class="fa fa-image me-2" aria-hidden="true"></span>{$group.GROUP_NAME}</h2>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            {foreach name=banners item=banner from=$group.ITEMS}
+              <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <div class="mb-2 p-2 bg-body-tertiary rounded">
+                      {$banner.PREVIEW}
+                    </div>
+                    <p class="small text-body-secondary mb-1">{$banner.SIZE}</p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control form-control-sm" value='{$banner.CODE}' readonly onclick="this.select()">
+                      <button class="btn btn-outline-primary btn-sm" type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.value)">
+                        <span class="fa fa-copy" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {/foreach}
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  {else}
+    <div class="alert alert-info"><span class="fa fa-info-circle me-1" aria-hidden="true"></span>{#text_no_banners#}</div>
+  {/if}
+  <div class="mt-3">
+    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
+  </div>
+</div>

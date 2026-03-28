@@ -1,0 +1,51 @@
+{config_load file="$language/lang_$language.conf" section="reminder"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="reminder"}
+{* MRH 2026: Verfügbarkeits-Erinnerung – BS5.3 *}
+<div class="mrh-reminder">
+  {if isset($CUSTOMERS_ID) && $CUSTOMERS_ID > 0}
+    {if $SUCCESS_MESSAGE == '0'}
+      {$FORM_ACTION_REMIND}
+        <input type="hidden" name="products_id" value="{$PRODUCTS_ID}">
+        <input type="hidden" name="head1" value="{#BS4_customers_remind_box_email_head1#}{$PRODUCTS_NAME}{#BS4_customers_remind_box_email_head2#}">
+        <input type="hidden" name="language_input" value="{$language}">
+        <div class="mb-3">
+          <label class="form-label">{#BS4_customers_remind_box_firstname#}</label>
+          {$CUSTOMERS_FIRSTNAME_INPUT|replace:'<input':'<input class="form-control"'}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#BS4_customers_remind_box_lastname#}</label>
+          {$CUSTOMERS_LASTNAME_INPUT|replace:'<input':'<input class="form-control"'}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#BS4_customers_remind_box_mail#}</label>
+          {$CUSTOMERS_MAIL_INPUT|replace:'<input':'<input class="form-control"'|replace:"type=\"text\"":"type=\"email\""}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#BS4_customers_remind_box_st#}</label>
+          {$CUSTOMERS_INPUT_ST|replace:'<input':'<input class="form-control"'|replace:'<select':'<select class="form-select"'}
+        </div>
+        {if isset($PRIVACY_CHECKBOX)}
+          <div class="form-check mb-3">
+            {$PRIVACY_CHECKBOX|replace:'<input':'<input class="form-check-input"'}
+            <label class="form-check-label">{#bs4_text_privacy_accept#}</label> {$PRIVACY_LINK}
+          </div>
+        {/if}
+        <div class="d-flex justify-content-between">
+          {$BUTTON_BACK}
+          {$BUTTON_SUBMIT_REMIND}
+        </div>
+      {$FORM_END_REMIND}
+    {/if}
+    {if $SUCCESS_MESSAGE == '1'}
+      <div class="alert alert-success">{#BS4_customers_remind_box_success#}</div>
+      <div>{$BUTTON_BACK}</div>
+    {/if}
+    {if $SUCCESS_MESSAGE == '2'}
+      <div class="alert alert-success">{#BS4_customers_remind_added#}</div>
+      <div>{$BUTTON_BACK}</div>
+    {/if}
+  {else}
+    <p class="text-danger">{#BS4_customers_remind_box_guest#}</p>
+  {/if}
+</div>

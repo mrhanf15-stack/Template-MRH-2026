@@ -1,0 +1,56 @@
+<div style="width:700px; margin: 0 auto;">
+  <table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+    <tr>
+      <td align="center" style="padding: 10px 0;">
+        <img src="{$logo_path}logo.gif" alt="Firmenlogo" />
+      </td>
+    </tr>
+    <tr>
+      <td style="font-size: 14px; text-transform: uppercase; padding: 10px 5px; border-top: 1px dotted #999; border-bottom: 1px dotted #999;">
+        <font face="Tahoma, Verdana, sans-serif">Dein Kundenkonto wurde erfolgreich erstellt</font>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <br />
+        <font size="2" face="Tahoma, Verdana, sans-serif">
+          <b>{if $GENDER == 'm'}Lieber Herr{elseif $GENDER == 'f'}Liebe Frau{else}Hallo{/if} {$NAME},</b>
+          <br /><br />
+          Herzlichen Gl&uuml;ckwunsch! Dein Kundenkonto wurde erfolgreich erstellt.
+          <br /><br />
+          Als registrierter Kunde genie&szlig;t du folgende Vorteile in unserem Shop:
+          <br /><br />
+          <b>Kundenwarenkorb</b> - Deine Artikel bleiben gespeichert, bis du zur Kasse gehst oder sie aus dem Warenkorb entfernst.
+          <br /><br />
+          <b>Adressbuch</b> - Wir k&ouml;nnen deine Bestellungen an jede von dir ausgew&auml;hlte Adresse senden. Ideal f&uuml;r Geburtstagsgeschenke.
+          <br /><br />
+          <b>Vorherige Bestellungen</b> - Du kannst jederzeit deine fr&uuml;heren Bestellungen einsehen.
+          <br /><br />
+          <b>Produktbewertungen</b> - Teile deine Meinung zu unseren Produkten mit anderen Kunden.
+          <br /><br />
+          <u>Wichtig:</u> Diese E-Mail-Adresse wurde von einem Kunden angegeben. Wenn du dich nicht registriert hast, sende bitte eine E-Mail an: <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a>
+          <br />
+          {if $SEND_GIFT == true}
+          <br />
+          Als Willkommensgeschenk senden wir dir einen Gutschein &uuml;ber: <b>{$GIFT_AMMOUNT}</b>
+          <br /><br />
+          Dein pers&ouml;nlicher Gutscheincode lautet <b>{$GIFT_CODE}</b>. Du kannst den Gutschein an der Kasse w&auml;hrend des Bestellvorgangs einl&ouml;sen. Um den Gutschein einzul&ouml;sen, klicke bitte auf <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a>.
+          <br />
+          {/if}
+          {if $SEND_COUPON == true}
+          <br />
+          Zus&auml;tzlich erh&auml;ltst du einen Willkommenskupon.
+          <br />
+          Kuponbeschreibung: <b>{$COUPON_DESC}</b>
+          <br />
+          Gib einfach deinen pers&ouml;nlichen Code {$COUPON_CODE} w&auml;hrend des Bezahlvorgangs ein.
+          <br />
+          {/if}
+          <br />
+          Bei Fragen zu unserem Kundenservice wende dich bitte an: <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a>
+        </font>
+      </td>
+    </tr>
+  </table>
+  [SIGNATUR]
+</div>

@@ -1,0 +1,45 @@
+{* MRH 2026: Wiederverwendbare Produktkarte – BS5.3 *}
+<div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
+  <a href="{$module_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$module_data.PRODUCTS_NAME|onlytext}">
+    {* Flags: Sonderangebot, Top, Neu *}
+    {if $smarty.const.MRH_FLAG_SPECIAL_SHOW == 'true' && isset($module_data.PRODUCTS_PRICE_SAVE_PERCENT) && $module_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
+      <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-special">{#MRH_special#}</span></div>
+    {elseif $smarty.const.MRH_FLAG_TOP_SHOW == 'true' && isset($module_data.PRODUCTS_STARTPAGE) && $module_data.PRODUCTS_STARTPAGE == '1'}
+      <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-top">{#MRH_top#}</span></div>
+    {elseif $smarty.const.MRH_FLAG_NEW_SHOW == 'true' && isset($module_data.PRODUCTS_OLDNEW) && $module_data.PRODUCTS_OLDNEW == '1'}
+      <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-new">{#MRH_new#}</span></div>
+    {/if}
+    {if $module_data.PRODUCTS_IMAGE != ''}
+      <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" itemprop="image" loading="lazy" width="300" height="300">
+    {/if}
+  </a>
+  <div class="mrh-product-card-body">
+    {* Hersteller *}
+    {if isset($module_data.MANUFACTURER) && $module_data.MANUFACTURER != ''}
+      <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+        <span itemprop="name">{$module_data.MANUFACTURER}</span>
+      </div>
+    {/if}
+    {* Produktname *}
+    <h3 class="mrh-product-card-title">
+      <a href="{$module_data.PRODUCTS_LINK}" itemprop="name">{$module_data.PRODUCTS_NAME}</a>
+    </h3>
+    {* Preis – Zentrale price_box verwenden *}
+    <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+      <meta itemprop="priceCurrency" content="EUR">
+      {if isset($module_data.PRODUCTS_PRICE_ARRAY) && count($module_data.PRODUCTS_PRICE_ARRAY) > 0}
+        {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+          {include file="module/includes/price_box.html"}
+        {/foreach}
+      {else}
+        <span class="mrh-price-current fw-bold" itemprop="price">{$module_data.PRODUCTS_PRICE}</span>
+      {/if}
+      {* VPE (Grundpreis) *}
+      {if isset($module_data.PRODUCTS_VPE) && $module_data.PRODUCTS_VPE != ''}
+        <div class="small text-body-secondary">{$module_data.PRODUCTS_VPE}</div>
+      {/if}
+      {* Steuer + Versandkosten-Link *}
+      <div class="small text-body-secondary">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Se ha creado una cuenta para usted</font>    </td>
+</tr>
+<tr> 
+<td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}</b> <br /><br /> {if $COMMENTS} <br /><br /> {$COMMENTS} {/if} <br /><br /><br />
+        <br />E<b>stimado Sr. Estimada Sra. Hola , Se ha creado una cuenta</b> </font> <font size="2" face="Tahoma, Verdana, sans-serif"></font> <font size="2" face="Tahoma, Verdana, sans-serif">para usted, puede iniciar sesi&oacute;n en nuestra tienda con los siguientes datos. Comentarios: Sus datos de acceso a nuestra tienda:</font>      <table width="100%"  border="0" bgcolor="f1f1f1" cellpadding="5">
+  <tr>
+            <td><font size="2" face="Tahoma, Verdana, sans-serif"><b>Direcci&oacute;n de correo</b> electr&oacute;nico: {$EMAIL}</font></td>
+          </tr>
+  <tr>
+            <td><font size="2" face="Tahoma, Verdana, sans-serif"><b>Su contrase&ntilde;a</b>: {$PASSWORD}</font></td>
+          </tr>
+        </table>
+
+</td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>
+
+

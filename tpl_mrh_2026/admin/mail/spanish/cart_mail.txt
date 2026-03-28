@@ -1,0 +1,31 @@
+Inicie sesi&oacute;n aqu&iacute;: {$LOGIN}
+------------------------------------------------------
+{if $GENDER}{if $GENDER eq 'm'}{elseif $GENDER eq 'f'}{else} {$FIRSTNAME}{/if} {$LASTNAME}
+{else}{/if}
+
+{if $NEW == true} {$STORE_NAME}
+{else} {$STORE_NAME} Estimado r Sr Sra (r) , Hola, Dank Sie Ihren Besuchen und Ihre Vertrauen auf uns. Dank Sie Ihren &Uuml;berpr&uuml;fung und Ihre weiterhin bekommen.{/if}
+
+
+
+
+
+{foreach name=outer item=product from=$products_data}
+{$product.QUANTITY} {$product.NAME}
+ {$product.LINK}
+{/foreach}
+
+Hemos observado que durante su visita a nuestra tienda online ha llenado su cesta de la compra con los siguientes art&iacute;culos, pero no ha completado su compra. Contenido de su cesta de la compra: x Siempre nos esforzamos por mejorar nuestro servicio en beneficio de nuestros clientes.
+ {$STORE_NAME}
+Por este motivo, nos interesa saber cu&aacute;les han sido los motivos por los que no ha completado su compra en este momento, por lo que le estar&iacute;amos muy agradecidos si nos comunicara si ha tenido alg&uacute;n problema o duda a la hora de completar con &eacute;xito su compra durante su visita a nuestra tienda online.
+ {$STORE_NAME}
+
+ {$STORE_NAME}
+
+
+
+Nuestro objetivo es facilitar y mejorar su compra y la de otros clientes. Dank Ihnen wieder f&uuml;r Ihre Zeit und Ihre Beitrag zur Verbesserung der Online-Shop. Atentamente Su equipo de {$STORE_NAME}
+{if $MESSAGE}
+
+{$MESSAGE}
+{/if}

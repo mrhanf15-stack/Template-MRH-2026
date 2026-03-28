@@ -1,0 +1,13 @@
+Hello {$content.PARTNER_NAME},
+
+The status of your commission statement has been changed.
+New status: {$content.PAYMENT_STATUS}
+If you have any questions about your commission statement, please reply to this email.
+
+Commission statement no.: {$content.PAYMENT_ID}
+Detailed commission statement: {$content.INVOICE_URL}
+Settlement date: {$content.PAYMENT_DATE}
+
+We look forward to continuing our good cooperation.
+
+Your partner program team

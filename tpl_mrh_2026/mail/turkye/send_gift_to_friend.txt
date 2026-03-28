@@ -1,0 +1,15 @@
+----------------------------------------------------------------------------------------
+{$AMMOUNT} değerinde hediye çeki kazanıldı!
+----------------------------------------------------------------------------------------
+
+Bu hediye çeki size {$FROM_NAME} tarafından şu mesajla birlikte gönderilmiştir:
+
+{$MESSAGE}
+
+Kişisel hediye çekiniz {$GIFT_CODE} olarak belirlenmiştir. Bu hediye çekini sipariş verirken kullanabilirsiniz.
+
+Hediye çekini kullanmak için lütfen {$GIFT_LINK} linkine tıklayın.
+
+Yukarıdaki link çalışmazsa, hediye çekini sipariş verirken kullanabilirsiniz.
+
+[SIGNATUR]

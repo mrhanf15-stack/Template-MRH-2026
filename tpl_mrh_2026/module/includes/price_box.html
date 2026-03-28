@@ -1,19 +1,47 @@
-{* MRH 2026: Zentrale Preisdarstellung – wird in allen Boxen und Listings verwendet *}
-{if $price_data.PRODUCTS_PRICE_FLAG == 'NotAllowed'}
-  <span class="mrh-price-na text-muted small">{$price_data.PRODUCTS_PRICE}</span>
-{else}
-  <div class="mrh-price-box">
-    {if $price_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
-      {* Sonderpreis *}
-      <span class="mrh-price-old text-decoration-line-through text-muted small">{$price_data.PRODUCTS_PRICE_ORIGINAL}</span>
-      <span class="mrh-price-new fw-bold text-danger">{$price_data.PRODUCTS_PRICE}</span>
-      <span class="mrh-price-save badge bg-danger small">-{$price_data.PRODUCTS_PRICE_SAVE_PERCENT}%</span>
-    {else}
-      {* Normalpreis *}
-      {if $price_data.PRODUCTS_PRICE_PRICE_LABEL != ''}
-        <span class="mrh-price-label small text-muted">{$price_data.PRODUCTS_PRICE_PRICE_LABEL}</span>
-      {/if}
-      <span class="mrh-price fw-bold" itemprop="price" content="{$price_data.PRODUCTS_PRICE_PLAIN|default:''}">{$price_data.PRODUCTS_PRICE}</span>
+{* MRH 2026: Zentrale Preisdarstellung – BS5.3 *}
+{* Wird in allen Listings, Boxen und Produktseiten verwendet *}
+{* Unterstützt: Special, SpecialDiscount, SpecialGraduated, Standard, NotAllowed *}
+
+{if $price_data.PRODUCTS_PRICE_FLAG == 'Special' || $price_data.PRODUCTS_PRICE_FLAG == 'SpecialDiscount'}
+  {* Sonderpreis / Rabattpreis *}
+  <div class="mrh-price-box mrh-price-special">
+    <span class="mrh-price-label small text-body-secondary">{#special_price#}{$price_data.PRODUCTS_PRICE_FROM}</span>
+    <span class="mrh-price-new fw-bold text-danger">{$price_data.PRODUCTS_PRICE_SPECIAL_PRICE}</span>
+    {if $smarty.const.BS4_FLAG_PERCENT_SHOW == 'true' && $price_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
+      <span class="mrh-price-save badge text-bg-danger ms-1">-{$price_data.PRODUCTS_PRICE_SAVE_PERCENT}%</span>
     {/if}
+  </div>
+
+{elseif $price_data.PRODUCTS_PRICE_FLAG == 'SpecialGraduated'}
+  <div class="mrh-price-box mrh-price-graduated">
+    {if $price_data.PRODUCTS_PRICE_UVP != ''}
+      {* UVP-Preis *}
+      <span class="mrh-price-label small text-body-secondary">{$smarty.const.YOUR_PRICE}</span>
+      <span class="mrh-price-new fw-bold text-danger">{$price_data.PRODUCTS_PRICE_SPECIAL_PRICE}</span>
+    {else}
+      {* Staffelpreis *}
+      <span class="mrh-price-from fw-bold">
+        <span class="mrh-price-label small text-body-secondary">{$smarty.const.FROM}</span>
+        {$price_data.PRODUCTS_PRICE_OLD_PRICE}
+      </span>
+      <span class="mrh-price-unit small text-body-secondary d-block">
+        <span class="mrh-price-label">{$smarty.const.UNIT_PRICE}</span> {$price_data.PRODUCTS_PRICE_SPECIAL_PRICE}
+      </span>
+    {/if}
+  </div>
+
+{elseif $price_data.PRODUCTS_PRICE_FLAG == 'NotAllowed'}
+  {* Preis nicht erlaubt *}
+  <div class="mrh-price-box mrh-price-na">
+    <span class="text-body-secondary small">{$price_data.PRODUCTS_PRICE_NOT_ALLOWED}</span>
+  </div>
+
+{else}
+  {* Standardpreis *}
+  <div class="mrh-price-box mrh-price-standard">
+    {if $price_data.PRODUCTS_PRICE_FROM != ''}
+      <span class="mrh-price-label small text-body-secondary">{$price_data.PRODUCTS_PRICE_FROM} </span>
+    {/if}
+    <span class="mrh-price fw-bold" itemprop="price" content="{$price_data.PRODUCTS_PRICE_PLAIN|default:''}">{$price_data.PRODUCTS_PRICE_STANDARD_PRICE}</span>
   </div>
 {/if}

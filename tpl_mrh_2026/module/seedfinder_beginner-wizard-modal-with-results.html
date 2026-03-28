@@ -1,0 +1,208 @@
+{config_load file="$language/lang_$language.conf" section="seedfinder"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="seedfinder"}
+{* MRH 2026: Seedfinder Beginner Wizard Modal – BS5.3 *}
+<div class="modal fade" id="beginnerWizardModal" tabindex="-1" aria-labelledby="beginnerWizardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content mrh-wizard-modal">
+      <div class="modal-header bg-primary text-white">
+        <div>
+          <span class="badge text-bg-light mb-1">Seedfinder</span>
+          <h2 class="modal-title h5 text-white" id="beginnerWizardModalLabel">{#wizard_title#}</h2>
+          <p class="small mb-0 opacity-75">{#wizard_subtitle#}</p>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{#wizard_close_button_aria#}"></button>
+      </div>
+      <div class="modal-body">
+        {* Fortschrittsbalken *}
+        <div class="mb-4">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="fa fa-check-circle text-primary" aria-hidden="true"></span>
+            <span class="small" id="wizard-progress-text" data-template="{#wizard_progress_text#}"></span>
+          </div>
+          <div class="progress" style="height:6px">
+            <div class="progress-bar" id="wizard-progress-bar" style="width:25%"></div>
+          </div>
+        </div>
+
+        <div id="wizard-steps-container">
+          {* Schritt 1: Indoor/Outdoor *}
+          <div id="wizard-step-1" class="wizard-step active">
+            <div class="mb-3">
+              <h3 class="h6">{#step1_title#}</h3>
+              <p class="small text-body-secondary">{#step1_subtitle#}</p>
+            </div>
+            <div class="alert alert-light small">
+              <span class="fa fa-question-circle me-1 text-primary" aria-hidden="true"></span>
+              <strong>{#wizard_why_important#}</strong> {#step1_explanation#}
+            </div>
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="card h-100 wizard-option-card" role="button" data-step="1" data-value="indoor">
+                  <div class="card-body text-center">
+                    <span class="badge text-bg-warning mb-2">{#badge_popular#}</span>
+                    <div class="mb-2"><span class="fa fa-home fa-2x text-primary" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step1_opt1_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step1_opt1_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step1_opt1_benefit2#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card h-100 wizard-option-card" role="button" data-step="1" data-value="outdoor">
+                  <div class="card-body text-center">
+                    <span class="badge text-bg-success mb-2">{#badge_natural#}</span>
+                    <div class="mb-2"><span class="fa fa-sun fa-2x text-warning" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step1_opt2_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step1_opt2_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step1_opt2_benefit2#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {* Schritt 2: Autoflowering/Feminisiert *}
+          <div id="wizard-step-2" class="wizard-step">
+            <div class="mb-3">
+              <h3 class="h6">{#step2_title#}</h3>
+              <p class="small text-body-secondary">{#step2_subtitle#}</p>
+            </div>
+            <div class="alert alert-light small">
+              <span class="fa fa-question-circle me-1 text-primary" aria-hidden="true"></span>
+              <strong>{#wizard_what_is_difference#}</strong> {#step2_explanation#}
+            </div>
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="card h-100 wizard-option-card" role="button" data-step="2" data-value="autoflowering">
+                  <div class="card-body text-center">
+                    <span class="badge text-bg-info mb-2">{#badge_easy#}</span>
+                    <div class="mb-2"><span class="fa fa-bolt fa-2x text-warning" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step2_opt1_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step2_opt1_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step2_opt1_benefit2#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card h-100 wizard-option-card" role="button" data-step="2" data-value="feminized">
+                  <div class="card-body text-center">
+                    <div class="mb-2"><span class="fa fa-venus fa-2x text-danger" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step2_opt2_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step2_opt2_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step2_opt2_benefit2#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {* Schritt 3: Blütezeit *}
+          <div id="wizard-step-3" class="wizard-step">
+            <div class="mb-3">
+              <h3 class="h6">{#step3_title#}</h3>
+              <p class="small text-body-secondary">{#step3_subtitle#}</p>
+            </div>
+            <div class="alert alert-light small">
+              <span class="fa fa-question-circle me-1 text-primary" aria-hidden="true"></span>
+              <strong>{#wizard_what_is_difference#}</strong> {#step3_explanation#}
+            </div>
+            <div class="row g-3">
+              <div class="col-4">
+                <div class="card h-100 wizard-option-card" role="button" data-step="3" data-value="90" data-filter-id="11">
+                  <div class="card-body text-center">
+                    <div class="mb-2"><span class="fa fa-moon fa-2x text-primary" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step3_opt1_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt1_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt1_benefit2#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt1_benefit3#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card h-100 wizard-option-card" role="button" data-step="3" data-value="88" data-filter-id="11">
+                  <div class="card-body text-center">
+                    <div class="mb-2"><span class="fa fa-sun fa-2x text-warning" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step3_opt2_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt2_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt2_benefit2#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt2_benefit3#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card h-100 wizard-option-card" role="button" data-step="3" data-value="105" data-filter-id="11">
+                  <div class="card-body text-center">
+                    <span class="badge text-bg-warning mb-2">{#badge_popular#}</span>
+                    <div class="mb-2"><span class="fa fa-balance-scale fa-2x text-success" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step3_opt3_title#}</h4>
+                    <ul class="list-unstyled small text-start mb-0">
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt3_benefit1#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt3_benefit2#}</li>
+                      <li><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#step3_opt3_benefit3#}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {* Schritt 4: Blütezeit-Dauer *}
+          <div id="wizard-step-4" class="wizard-step">
+            <div class="mb-3">
+              <h3 class="h6">{#step4_title#}</h3>
+              <p class="small text-body-secondary">{#step4_subtitle#}</p>
+            </div>
+            <div class="alert alert-light small">
+              <span class="fa fa-clock me-1 text-primary" aria-hidden="true"></span>
+              <strong>{#step4_explanation_title#}</strong> {#step4_explanation_text#}
+            </div>
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="card h-100 wizard-option-card wizard-multi-option" role="button" data-step="4" data-value="496,92,58,59" data-filter-id="7">
+                  <div class="card-body text-center">
+                    <span class="badge text-bg-success mb-2">{#badge_recommended#}</span>
+                    <div class="mb-2"><span class="fa fa-tachometer-alt fa-2x text-primary" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step4_opt1_title#}</h4>
+                    <p class="small text-body-secondary">{#step4_opt1_desc#}</p>
+                    <div class="wizard-multi-indicator"><span class="fa fa-check-circle fa-lg text-success" aria-hidden="true"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card h-100 wizard-option-card wizard-multi-option" role="button" data-step="4" data-value="60,61,62,63,98,99,100" data-filter-id="7">
+                  <div class="card-body text-center">
+                    <div class="mb-2"><span class="fa fa-hourglass-half fa-2x text-warning" aria-hidden="true"></span></div>
+                    <h4 class="h6">{#step4_opt2_title#}</h4>
+                    <p class="small text-body-secondary">{#step4_opt2_desc#}</p>
+                    <div class="wizard-multi-indicator"><span class="fa fa-check-circle fa-lg text-success" aria-hidden="true"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" id="wizard-back-btn" style="display:none">
+          <span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#wizard_back_button#}
+        </button>
+        <button type="button" class="btn btn-outline-danger" id="wizard-reset-btn">
+          <span class="fa fa-redo me-1" aria-hidden="true"></span>{#wizard_reset_button#}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

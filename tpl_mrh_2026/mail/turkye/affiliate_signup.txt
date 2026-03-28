@@ -1,0 +1,16 @@
+Merhaba {$content.PARTNER_NAME}
+
+Ortaklik programimiza kayit oldugunuz için tesekkür ederiz.
+
+Kayit bilgileriniz:
+**************************
+
+Ortaklik ID'niz: {$content.PARTNER_ID}
+Kullanici adiniz: {$content.PARTNER_LOGIN}
+Sifreniz: {$content.PARTNER_PW}
+Buradan oturum açin: {$content.LINK}
+Sizinle iyi bir isbirligi yapmayi dört gözle bekliyoruz!
+
+Ortaklik Programi Ekibiniz
+
+

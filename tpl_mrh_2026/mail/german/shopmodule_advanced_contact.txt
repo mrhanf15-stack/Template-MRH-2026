@@ -1,0 +1,17 @@
+
+{* /templates/[YOUR_TEMPLATE]/mail/german/shopmodule_advanced_contact.txt *}
+
+{config_load file="$language/lang_$language.conf" section="newsletter"}
+{config_load file="$language/lang_$language.conf" section="contact_us"}
+{config_load file="lang_`$language`.custom"}
+Neue Anfrage im Formular > {$FORM.name} <
+
+{if isset($MANAGE_LINK)}Verwaltung im Shop: {$MANAGE_LINK}{/if}
+
+Nachfolgend die Details der Anfrage:
+
+{foreach from=$FIELDS item="f"}
+{$f.name}: {$f.value}
+{/foreach}
+
+[SIGNATUR]

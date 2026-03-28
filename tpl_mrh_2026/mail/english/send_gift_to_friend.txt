@@ -1,0 +1,17 @@
+----------------------------------------------------------------------------------------
+  Congratulations, you have received a voucher for {$AMMOUNT}!
+----------------------------------------------------------------------------------------
+
+This voucher was sent to you by {$FROM_NAME},
+With the message:
+
+{$MESSAGE}
+
+Your personal voucher code is {$GIFT_CODE}. You can redeem this voucher during the order process.
+
+To redeem the voucher, please click on {$GIFT_LINK}
+
+If you have problems redeeming the voucher using the above link,
+you can redeem the amount during the order process.
+
+[SIGNATURE]

@@ -1,0 +1,14 @@
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}Estimado Sr. Estimada Sra. Hola ,
+
+Antes de poder realizar un pedido en nuestra tienda, primero debe confirmar su direcci&oacute;n de correo electr&oacute;nico.{$LINK} La confirmaci&oacute;n le verifica como propietario de la direcci&oacute;n de correo electr&oacute;nico registrada.
+
+Haga clic en el enlace de activaci&oacute;n para activar su direcci&oacute;n de correo electr&oacute;nico para pedidos.
+
+Su enlace de activaci&oacute;n:
+ 
+
+Si no se ha registrado en nuestra tienda, simplemente ignore el enlace de activaci&oacute;n.
+
+Si tiene alguna pregunta sobre nuestro servicio de atenci&oacute;n al cliente, p&oacute;ngase en contacto con nosotros: {$MAIL_REPLY_ADDRESS}
+
+[SIGNATURE]

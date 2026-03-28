@@ -1,0 +1,11 @@
+Bonjour {$content.PARTNER_NAME},
+
+Un nouveau d&eacute;compte de vos commissions a &eacute;t&eacute; &eacute;tabli.
+
+Num&eacute;ro de d&eacute;compte de commission : {$content.PAYMENT_ID}
+ D&eacute;compte d&eacute;taill&eacute; des commissions : {$content.INVOICE_URL}
+ Date de d&eacute;compte : {$content.PAYMENT_DATE}
+
+ Nous nous r&eacute;jouissons de poursuivre notre bonne collaboration.
+
+Votre &eacute;quipe de programme d&#039;affiliation

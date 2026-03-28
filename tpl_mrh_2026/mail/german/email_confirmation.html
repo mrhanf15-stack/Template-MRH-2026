@@ -1,0 +1,32 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+    	<td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+	</tr>
+	<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+      <font face="Tahoma, Verdana, sans-serif">Bitte best&auml;tige deine E-Mail-Adresse</font>
+    </td>
+	</tr>
+	<tr> 
+		<td>
+      <br />
+      <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}Lieber Herr{elseif $GENDER == 'f'}Liebe Frau{else}Hallo{/if} {$NAME},</b><br />
+      <br />
+      bevor du in unserem Shop eine Bestellung durchf&uuml;hren kannst, musst du erst deine E-Mail Adresse best&auml;tigen. Die Best&auml;tigung verifiziert dich als den Besitzer der hinterlegten E-Mail-Adresse.<br />
+      <br />
+      Bitte klicke auf den Aktivierungslink, damit deine E-Mail-Adresse f&uuml;r Bestellungen freigeschaltet wird.<br />
+      <br />
+      <b>Dein Aktivierungslink:</b><br />
+      <a href="{$LINK}">{$LINK}</a><br />
+      <br />
+      Solltest du dich nicht in unserem Shop angemeldet haben, bitten wir dich, den Aktivierungslink einfach zu ignorieren.<br />
+      <br />
+      Falls du Fragen zu unserem Kunden-Service hast, wende dich bitte an: <a href="mailto:{$MAIL_REPLY_ADDRESS}">{$MAIL_REPLY_ADDRESS}</a>
+      </font>
+		</td>
+	</tr>
+</table>
+
+[SIGNATUR]
+</div>

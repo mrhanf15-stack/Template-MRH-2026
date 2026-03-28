@@ -1,0 +1,226 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+    	<td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo_head.png" /></td>
+	</tr>
+	 <tr>
+    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+		{if $ORDER_STATUS_ID ==  "8"}<strong>  <h3><b>{$ORDER_STATUS}</b></h3>
+    </strong></font>
+      <p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>        <br />Sehr geehrte{if $GENDER=='Herr'}r{/if} {$GENDER} {$NAME},</strong> <br />
+        <br />
+        <br />
+        Vielen Dank f&uuml;r Deinen Einkauf am {if $ORDER_DATE}vom {$ORDER_DATE}{/if} mit der Bestellnummer {if $ORDER_NR}{$ORDER_NR}{/if}!   <br />   <br />
+		<br />Du hast die Zahlungsart EU-Standard&uuml;berweisung gew&auml;hlt, doch leider konnten wir bis zum heutigen Datum keinerlei Einzahlungen Deinerseits auf unserem Konto feststellen.   <br />
+        <br />
+        Wir bitten Dich daher h&ouml;flichst den offenen Betrag auf unser u. a. Konto zu &Uuml;berweisen.<br /> 
+        <br />
+    Name der Bank: Raiffeisen Regionalbank Hall in Tirol<br />
+            Empf&auml;nger: MRH N-Trade GmbH<br />
+            Bankleitzahl: 36362<br />
+            Kontonummer: 00000217968<br />
+            IBAN: AT753636200000217968<br />
+            BIC/SWIFT: RZTIAT22362<br /><br />
+            Name der Bank: N26<br />
+            Empf&auml;nger: Hansjoerg Scherzer<br />
+            Bankleitzahl: 10011001<br />
+            Kontonummer: 2625932471<br />
+            IBAN: DE34100110012625932471<br />
+            BIC/SWIFT: NTSBDEB1XXX<br /><br />
+		  Bitte gib bei deiner Überweisung stets deine Bestellnummer <strong>{$ORDER_NR}</strong> als Zahlungsreferenz an. Die korrekte<strong> Angabe der Zahlungsreferenz ermöglicht eine schnelle und eindeutige Zuordnung</strong> deiner Zahlung. Dadurch verhinderst du mögliche Verzögerungen und gewährleistest eine zügige Freigabe deiner Bestellung durch unsere Buchhaltung.<br /><br />
+        
+            {if $ORDER_LINK}Link zur Bestellung:
+        <a href="{$ORDER_LINK}">hier klicken</a>{/if}<br />
+        <br />
+        <br />
+        Gr&uuml;ne Gr&uuml;&szlig;e</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><br />
+        Dein Mr. Hanf Team<br />
+        
+        {else} <strong> Sehr geehrte{if $GENDER=='Herr'}r{/if} {$GENDER} {$NAME}, </strong><br />
+        <br />
+        Der Status Deiner Bestellung mit der {if $ORDER_NR}Nr. {$ORDER_NR}{/if} {if $ORDER_DATE}vom
+        {$ORDER_DATE}{/if} hat sich soeben ge&auml;ndert.<br />
+        <br />
+        Neuer Status: <b>{$ORDER_STATUS}</b><br />
+        <br />
+        <!-- Beginn der Statustexte --> 
+        {if $ORDER_STATUS_ID == "32"}
+    Wir müssen Dir leider mitteilen, dass Deine Sendung vom Versanddienstleister als Totalverlust erklärt wurde.<br /><br />
+
+    Du hast jetzt folgende Möglichkeiten:<br />
+    <strong>- Stornierung des Auftrags:</strong> Wir überweisen Dir den gesamten Betrag auf Dein Konto zurück.<br />
+   <strong> - Gutschrift:</strong> Wenn Du ein bestehendes Kundenkonto hast, können wir den Betrag darauf gutschreiben oder alternative können wir dir einen Gutschein zusenden.<br />
+   <strong> - Erneuter Versand:</strong> Auf Wunsch senden wir Dir die Bestellung noch einmal zu.<br /><br />
+
+    Bitte lass uns wissen, welche Option Du bevorzugst. Wir kümmern uns darum, Dein Anliegen schnellstmöglich zu klären.<br /><br />
+{/if}
+        {if $ORDER_STATUS_ID ==  "27"}
+  Vielen Dank f&uuml;r Ihren Zahlungseingang {if $ORDER_NR}Nr. {$ORDER_NR}{/if}. Wir best&auml;tigen hiermit den Eingang Ihrer Zahlung und bedanken uns f&uuml;r Ihre prompte &Uuml;berweisung.<br /><br />
+ 
+Sollten Sie weitere Fragen oder Anliegen haben, z&ouml;gern Sie bitte nicht, uns zu kontaktieren. Wir stehen Ihnen gerne zur Verf&uuml;gung. 
+        {/if}
+		    {if $ORDER_STATUS ==  "Offen"}
+        Wir best&auml;tigen mit dieser Email, dass die obenstehende Bestellung bei uns eingegangen ist. Bitte &uuml;berweise den Gesamtbetrag auf folgendes Konto: <br />
+        <br />
+        Name der Bank: Raiffeisen Regionalbank Hall in Tirol<br />
+            Empf&auml;nger: MRH N-Trade GmbH<br />
+            Bankleitzahl: 36362<br />
+            Kontonummer: 00000217968<br />
+            IBAN: AT753636200000217968<br />
+            BIC/SWIFT: RZTIAT22362<br /><br />
+            Name der Bank: N26<br />
+            Empf&auml;nger: Hansjoerg Scherzer<br />
+            Bankleitzahl: 10011001<br />
+            Kontonummer: 2625932471<br />
+            IBAN: DE34100110012625932471<br />
+            BIC/SWIFT: NTSBDEB1XXX<br /><br />
+       Bitte gib bei deiner Überweisung stets deine Bestellnummer <strong>{$ORDER_NR}</strong> als Zahlungsreferenz an. Die korrekte<strong> Angabe der Zahlungsreferenz ermöglicht eine schnelle und eindeutige Zuordnung</strong> deiner Zahlung. Dadurch verhinderst du mögliche Verzögerungen und gewährleistest eine zügige Freigabe deiner Bestellung durch unsere Buchhaltung.
+		  <br />
+        <br />
+        Die Ware wird nach Zahlungseingang, sofern nicht anders angegeben versandt. 
+        {/if}
+{if $ORDER_STATUS_ID == "30"}
+    Wir bestätigen den Widerruf deiner Bestellung <strong>{$ORDER_NR}</strong> vom {$ORDER_DATE}. <br /><br />
+    Der Betrag wird in den nächsten Tagen auf dein ursprüngliches Konto zurücküberwiesen. Bitte beachte, dass die Rückerstattung je nach Bank einige Tage in Anspruch nehmen kann. <br /><br />
+    Falls du noch Fragen hast, steht dir unser Kundenservice gerne zur Verfügung. <br /><br />
+{/if}
+
+        {if $ORDER_STATUS_ID ==  "18"}
+        <br />
+		  Vielen Dank f&uuml;r Deine Bestellung! <br /> <br />
+		Bitte beachte, dass die Bestellung mit der Bestellnummer <strong>{$ORDER_NR}</strong> vom {$ORDER_DATE} noch unbeglichen ist! <br /><br />Zahlbar nach erhalt des Paketes, jedoch innerhalb von 7 Werktagen! 
+		 <br /> <br />Der Gesamtbetrag kann auf folgendes Konto &uuml;berwiesen werden: <br />
+        <br />
+        Name der Bank: Raiffeisen Regionalbank Hall in Tirol<br />
+            Empf&auml;nger: MRH N-Trade GmbH<br />
+            Bankleitzahl: 36362<br />
+            Kontonummer: 00000217968<br />
+            IBAN: AT753636200000217968<br />
+            BIC/SWIFT: RZTIAT22362<br /><br />
+            Name der Bank: N26<br />
+            Empf&auml;nger: Hansjoerg Scherzer<br />
+            Bankleitzahl: 10011001<br />
+            Kontonummer: 2625932471<br />
+            IBAN: DE34100110012625932471<br />
+            BIC/SWIFT: NTSBDEB1XXX<br /><br />
+   
+		  Bitte gib bei deiner Überweisung stets deine Bestellnummer <strong>{$ORDER_NR}</strong> als Zahlungsreferenz an. Die korrekte<strong> Angabe der Zahlungsreferenz ermöglicht eine schnelle und eindeutige Zuordnung</strong> deiner Zahlung. Dadurch verhinderst du mögliche Verzögerungen und gewährleistest eine zügige Freigabe deiner Bestellung durch unsere Buchhaltung.<br /><br />
+        <br />
+        
+        {/if}  
+		    {if $ORDER_STATUS_ID ==  "20"}  Scharfe Nachrichten!!<br />
+        <br />
+		  Dein Paket wurde soeben per Nachnahme an Dich versandt. Da es bei der Anlieferung via Nachnahme vermehrt zu Geldwechselproblemen seitens der Paketdienstleister kommt, bitten wir Dich darum, den zu bezahlenden Betrag so genau wie m&ouml;glich bereitzuhalten.
+		    <br /><br /> {if $PARCEL_COUNT > 0}
+
+         
+          Die Sendung besteht aus {$PARCEL_COUNT} Paket(en).<br />
+          Du kannst dich &uuml;ber den Zustellstatus durch einen Klick auf die nachstende(n) Paketnummer(n) informieren: 
+          {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+            <a target="_blank" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a><br />
+        
+          {/foreach}<br /> Bitte beachte, dass es etwa 24 Stunden dauern kann, bis die Sendungsverfolgung aktualisiert wird.
+        {/if}
+        <br /><br />
+        {/if}  
+		  {if $ORDER_STATUS_ID ==  "2"}
+Vielen Dank f&uuml;r dein Vertrauen und deine Bestellung mit der Bestellnummer <strong>{$ORDER_NR}</strong> vom {$ORDER_DATE}. Deine Bestellung wird nun bearbeitet.<br /><br />Im n&auml;chsten Schritt wird in unserem Lager die Verf&uuml;gbarkeit der Produkte &uuml;berpr&uuml;ft. Sofern alle Produkte auf Lager sind, werden sie sofort f&uuml;r den Versand vorbereitet. Sobald deine Bestellung versandt wird, erh&auml;ltst du eine separate E-Mail mit der Versandbest&auml;tigung und der Trackingnummer.<br /><br />
+        
+        {/if}  
+		  
+		  {if $ORDER_STATUS_ID ==  "9"}
+ 
+<br /><br /> 
+<strong>Trotz mehrfacher Mahnungen</strong> ist zu Ihrer Bestellung 
+{if $ORDER_DATE}vom {$ORDER_DATE}{/if} mit der Bestellnummer 
+{if $ORDER_NR}<strong>{$ORDER_NR}</strong>{/if} bis heute 
+<strong>kein Zahlungseingang</strong> bei uns erfolgt.
+<br /><br /> 
+Der Status Ihrer Bestellung {if $ORDER_NR}<strong>{$ORDER_NR}</strong>{/if} wurde daher auf 
+<strong>Klageeinreichung</strong> gesetzt. 
+<br /><br /> 
+Wir räumen Ihnen <strong>letztmalig</strong> eine Nachfrist von 
+<strong>7 Werktagen</strong> ein. Sollte innerhalb dieser Frist 
+<strong>keine vollständige Zahlung</strong> eingehen, sehen wir uns gezwungen, 
+<strong>umgehend rechtliche Schritte</strong> einzuleiten. 
+Dies beinhaltet unter anderem:
+<ul>
+  <li>die <strong>Übergabe an ein Inkassounternehmen</strong></li>
+  <li>die <strong>gerichtliche Titulierung der Forderung</strong></li>
+  <li>die <strong>Meldung der offenen Forderung an Auskunfteien wie die SCHUFA</strong>, 
+      was zu einem <strong>negativen Eintrag führt, der sich erheblich auf Ihre Kreditwürdigkeit auswirkt</strong></li>
+</ul>
+<br />
+Bitte beachten Sie, dass dadurch <strong>erhebliche Zusatzkosten</strong> entstehen 
+und Ihre <strong>Kreditwürdigkeit nachhaltig geschädigt</strong> werden kann – mit 
+Folgen wie erschwertem Zugang zu Krediten, Mietverträgen oder Mobilfunkverträgen.
+<br /><br />
+<strong>Ab sofort</strong> werden <strong>alle Geschäftsbeziehungen</strong> zu Ihrer 
+Person <strong>ausgesetzt</strong>. Ihr <strong>VIP-Status</strong> ist bis zur 
+vollständigen Begleichung <strong>entzogen</strong>. Eine zukünftige Zusammenarbeit ist 
+ausschließlich nach <strong>kompletter Zahlung aller Forderungen</strong> möglich.
+<br /><br />
+Sollten Sie die <strong>ausstehende Zahlung</strong> inzwischen vorgenommen haben, 
+senden Sie uns bitte <strong>umgehend einen Nachweis</strong> (z. B. Screenshot oder 
+Überweisungsbeleg im PDF-Format) an: <strong>info@mr-hanf.de</strong>
+<br /><br />
+
+        {/if} 
+		  
+		  
+        {if $ORDER_STATUS_ID ==  "3"}
+        Scharfe Nachrichten!!<br />
+        <br />
+        Du kannst dich freuen, deine Bestellung vom {$ORDER_DATE} haben wir heute unserem Logistikpartner &uuml;bergeben.<br /><br />Deine Lieferung wird in den n&auml;chsten Tagen bei Dir eintreffen!<br /><br />
+      <br />
+         {if $PARCEL_COUNT > 0}
+         
+          Die Sendung besteht aus {$PARCEL_COUNT} Paket(en).<br />
+          Du kannst dich &uuml;ber den Zustellstatus durch einen Klick auf die nachstende(n) Paketnummer(n) informieren: 
+          {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+            <a target="_blank" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a><br />
+        
+          {/foreach}<br /> Bitte beachte, dass es etwa 24 Stunden dauern kann, bis die Sendungsverfolgung aktualisiert wird.
+        {/if}
+        {/if}
+        {if $ORDER_STATUS_ID ==  "11"}
+        Einen Teil deiner Bestellung vom {$ORDER_DATE} haben wir heute unserem Logistikpartner zum Versand &uuml;bergeben.
+        Noch Fehlende Artikel, werden so bald verf&uuml;gbar kostenfrei nachgesandt.<br />
+        {/if}
+      {if $ORDER_STATUS_ID == "6"}
+    Deine Bestellung vom {$ORDER_DATE} haben wir soeben storniert. Falls du Fragen hast, kontaktiere bitte unseren Kundenservice. Schau doch später noch einmal vorbei!<br /><br />
+{/if}
+		  {if $ORDER_STATUS_ID == "33"}
+    Deine Bestellung vom {$ORDER_DATE} haben wir soeben storniert. Falls du Fragen hast, kontaktiere bitte unseren Kundenservice. Schau doch später noch einmal vorbei!<br /><br />
+{/if}
+{if $ORDER_STATUS_ID == "10"}
+    Wir haben den Betrag aus Ihrer Bestellung vom {$ORDER_DATE} soeben auf Ihr hinterlegtes Bankkonto zurücküberwiesen. Falls Sie Fragen haben, kontaktieren Sie bitte unseren Kundenservice.<br /><br />
+{/if}
+
+{if $ORDER_STATUS_ID == "12"}
+Wir haben eine Nachforschung bei unserem Dienstleister eingeleitet, um den Status deiner Sendung zu klären. Wir entschuldigen uns für die entstandenen Unannehmlichkeiten.<br /><br />
+
+Manchmal können unvorhergesehene Umstände zu Verzögerungen führen. Wir arbeiten bereits mit Hochdruck an einer Lösung und informieren dich, sobald wir Neuigkeiten zum Verbleib deiner Sendung haben.<br /><br />
+
+Deine Zufriedenheit ist uns wichtig, und wir tun alles, um das Problem schnell zu lösen.<br /><br />
+
+Vielen Dank für dein Verständnis und deine Geduld.<br /><br />
+{/if}
+
+        <!-- Ende der Statustexte --> 
+        {if $ORDER_LINK}Link zur Bestellung: <a href="{$ORDER_LINK}">hier klicken</a>{/if}<br />
+        <br />
+        {if $NOTIFY_COMMENTS}<br />
+        Anmerkungen und Kommentare zu Ihrer Bestellung: 
+        {$NOTIFY_COMMENTS} <br />
+        {/if}  
+        Bei Fragen zu deiner Bestellung antworte bitte auf diese E-Mail. <br />
+        <br />
+        Gr&uuml;ne Gr&uuml;&szlig;e<br />
+      Dein Mr. Hanf Team </font>{/if} </p></td>
+  </tr>
+</table>
+
+[SIGNATUR]
+</div>
+

@@ -1,0 +1,21 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="index"}
+{* MRH 2026: Hauptinhalt (Startseite / Content Manager) – BS5.3 *}
+{if isset($MODULE_error)}{$MODULE_error}{/if}
+{if isset($title) && $title != ''}
+  <h1 class="mrh-page-title">{$title}</h1>
+{/if}
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{if isset($text) && $text != ''}
+  <div class="mrh-home-content mb-4">{$text}</div>
+{/if}
+{if isset($BS4_CATEGORIES_LIST) && $BS4_CATEGORIES_LIST != ''}
+  {$BS4_CATEGORIES_LIST}
+{/if}
+{if isset($MODULE_new_products) && $MODULE_new_products != ''}
+  {$MODULE_new_products}
+{/if}
+{if isset($MODULE_upcoming_products) && $MODULE_upcoming_products != ''}
+  {$MODULE_upcoming_products}
+{/if}

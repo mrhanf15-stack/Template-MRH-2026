@@ -1,0 +1,189 @@
+{if $ORDER_STATUS_ID ==  "8"} {$ORDER_STATUS}
+    
+              Cher{if $GENDER=='Herr'}r{/if} {$GENDER} {$NAME} , 
+ 
+ 
+ Merci pour ton achat du {if $ORDER_DATE}du {$ORDER_DATE}{/if} avec le nummro de commande {if $ORDER_NR}{$ORDER_NR} {/if} !     
+Tu as choisi le mode de paiement par virement bancaire standard de l&#039;UE, mais nous n&#039;avons malheureusement constat&eacute; aucun versement de ta part sur notre compte &agrave; la date d&#039;aujourd&#039;hui.   
+        
+        Nous te prions donc de bien vouloir virer le montant d&ucirc; sur notre compte. 
+
+       Nom de la banque : Raiffeisen Regionalbank Hall in Tirol
+ Destinataire : MRH N-Trade GmbH
+ Code bancaire : 36362
+ Num&eacute;ro de compte : 00000217968
+ IBAN : AT753636200000217968
+ BIC/SWIFT : RZTIAT22362
+
+ Nom de la banque : N26
+ Destinataire : Hansjoerg Scherzer
+ Code bancaire : 10011001
+ Num&eacute;ro de compte : 2625932471
+ IBAN : DE34100110012625932471
+ BIC/SWIFT : NTSBDEB1XXX
+ 
+ Veuillez toujours indiquer votre num&eacute;ro de commande {$ORDER_NR} comme r&eacute;f&eacute;rence de paiement lors de votre virement. L&#039;indication correcte de la r&eacute;f&eacute;rence de paiement permet une attribution rapide et claire de ton paiement. Tu &eacute;vites ainsi des retards &eacute;ventuels et tu garantis une validation rapide de ta commande par notre service de comptabilit&eacute;.
+       
+           {if $ORDER_LINK}Lien vers la commande :
+ cliquez ici{/if}
+ 
+ 
+ Grne Gre
+ Ton &eacute;quipe Mr. Hanf
+ 
+ {else} Ch&egrave;re{if $GENDER=='Herr'}r{/if} {$GENDER} {$NAME} , 
+ 
+ Le statut de ta commande avec le {if $ORDER_NR}no {$ORDER_NR}{/if} {if $ORDER_DATE} du
+ {$ORDER_DATE} {/if} vient de changer.
+       
+        Nouveau statut : {$ORDER_STATUS}
+ 
+ {if $ORDER_STATUS_ID == "30"} 
+ Nous confirmons l&#039;annulation de ta commande. <strong>{$ORDER_NR}</strong> du {$ORDER_DATE}.
+
+   Le montant sera rembours&eacute; sur ton compte d&#039;origine dans les prochains jours. Veuillez noter que le remboursement peut prendre quelques jours en fonction de la banque. 
+
+    Si tu as encore des questions, notre service client&egrave;le se tient &agrave; ta disposition.
+{/if}
+                 Merci d&#039;avoir re&ccedil;u votre paiement No.  . Nous accusons r&eacute;ception de votre paiement et vous remercions de la rapidit&eacute; de votre virement. Si vous avez d&#039;autres questions ou pr&eacute;occupations, n&#039;h&eacute;sitez pas &agrave; nous contacter. Nous sommes &agrave; votre disposition.                     Nous confirmons par cet e-mail que nous avons bien re&ccedil;u la commande ci-dessus. Veuillez virer le montant total sur le compte suivant :                Nom de la banque : Raiffeisen Regionalbank Hall in Tirol B&eacute;n&eacute;ficiaire : MRH N-Trade GmbH Code bancaire : 36362 Num&eacute;ro de compte : 00000217968 IBAN : AT753636200000217968 BIC/SWIFT : RZTIAT22362 Nom de la banque : N26 Destinataire : Hansjoerg Scherzer Code bancaire : 10011001 Num&eacute;ro de compte : 2625932471 IBAN : DE34100110012625932471 BIC/SWIFT : NTSBDEB1XXX  Veuillez toujours indiquer votre num&eacute;ro de commande comme r&eacute;f&eacute;rence de paiement lors de votre virement. L&#039;indication correcte de la r&eacute;f&eacute;rence de paiement permet une attribution rapide et claire de ton paiement. Ainsi, tu &eacute;vites des retards &eacute;ventuels et tu garantis une validation rapide de ta commande par notre service de comptabilit&eacute;.                La marchandise sera envoy&eacute;e apr&egrave;s r&eacute;ception du paiement, sauf indication contraire.          Nous sommes au regret de t&#039;informer que ton envoi a &eacute;t&eacute; d&eacute;clar&eacute; perdu par le service d&#039;exp&eacute;dition. Tu as maintenant les possibilit&eacute;s suivantes : - Annulation de la commande : Nous reversons la totalit&eacute; du montant sur ton compte. - Cr&eacute;dit : Si tu as un compte client existant, nous pouvons cr&eacute;diter le montant sur ce compte ou t&#039;envoyer un bon d&#039;achat. - Renvoi : si tu le souhaites, nous pouvons te renvoyer la commande. Merci de nous faire savoir quelle option tu pr&eacute;f&egrave;res. Nous nous efforcerons de r&eacute;pondre &agrave; ta demande dans les plus brefs d&eacute;lais.                      Merci beaucoup pour ta commande !  Veuillez noter que la commande portant le num&eacute;ro n&#039;a pas encore &eacute;t&eacute; r&eacute;gl&eacute;e par ! Payable &agrave; la r&eacute;ception du colis, mais dans les 7 jours ouvrables !   Le montant total peut &ecirc;tre vers&eacute; sur le compte suivant :                Nom de la banque : Raiffeisen Regionalbank Hall in Tirol B&eacute;n&eacute;ficiaire : MRH N-Trade GmbH Code bancaire : 36362 Num&eacute;ro de compte : 00000217968 IBAN : AT753636200000217968 BIC/SWIFT : RZTIAT22362 Nom de la banque : N26 Destinataire : Hansjoerg Scherzer Code bancaire : 10011001 Num&eacute;ro de compte : 2625932471 IBAN : DE34100110012625932471 BIC/SWIFT : NTSBDEB1XXX   Veuillez toujours indiquer votre num&eacute;ro de commande comme r&eacute;f&eacute;rence de paiement lors de votre virement. L&#039;indication correcte de la r&eacute;f&eacute;rence de paiement permet une attribution rapide et claire de ton paiement. Tu &eacute;vites ainsi des retards &eacute;ventuels et tu garantis une validation rapide de ta commande par notre service de comptabilit&eacute;.                Des nouvelles choc !          Ton colis vient de t&#039;&ecirc;tre envoy&eacute; contre remboursement. Etant donn&eacute; que les services de livraison contre remboursement rencontrent de plus en plus de probl&egrave;mes de change, nous te demandons de pr&eacute;parer le montant &agrave; payer avec le plus de pr&eacute;cision possible.               L&#039;envoi se compose de paquet(s).          Tu peux t&#039;informer sur le statut de livraison en cliquant sur le(s) num&eacute;ro(s) de colis suivant(s) :                                          Veuillez noter que la mise &agrave; jour du suivi peut prendre environ 24 heures.                            Nous te remercions de ta confiance et de ta commande avec le num&eacute;ro de commande du . La prochaine &eacute;tape consiste &agrave; v&eacute;rifier la disponibilit&eacute; des produits dans notre entrep&ocirc;t. Si tous les produits sont en stock, ils sont imm&eacute;diatement pr&eacute;par&eacute;s pour l&#039;exp&eacute;dition. D&egrave;s que ta commande est exp&eacute;di&eacute;e, tu recevras un e-mail s&eacute;par&eacute; avec la confirmation d&#039;exp&eacute;dition et le num&eacute;ro de suivi.              Les factures sont comme les parapluies, on les oublie facilement ! Malheureusement, malgr&eacute; plusieurs demandes, nous n&#039;avons re&ccedil;u aucun paiement concernant ta commande du  avec le num&eacute;ro de commande   ! Pour cette raison, le statut du num&eacute;ro de commande   est devenu D&eacute;p&ocirc;t de plainte. Afin d&#039;&eacute;viter des frais suppl&eacute;mentaires, nous vous accordons un dernier d&eacute;lai de paiement de 7 jours ouvrables. Si ce d&eacute;lai expire et que vous ne donnez pas suite &agrave; cette demande de paiement, nous nous verrons malheureusement contraints d&#039;entamer des poursuites judiciaires. Nous attirons votre attention sur le fait que des frais supplmentaires considrables en rsultent ! Si vous avez dj effectu un virement de la crance en cours, nous vous prions de nous faire parvenir une copie du rcapitulatif de comptabilit sous forme numrique. Pour toute question supplmentaire, n&#039;hsitez pas info@mr-hanf.de.                             Des nouvelles choc !                Tu peux te r&eacute;jouir, ta commande de a &eacute;t&eacute; remise aujourd&#039;hui &agrave; notre partenaire logistique et tu recevras ton colis dans les prochains jours !                                  L&#039;envoi se compose de paquet(s).          Tu peux t&#039;informer sur le statut de la livraison en cliquant sur le(s) num&eacute;ro(s) de colis suivant(s) :                                          Veuillez noter que cela peut prendre environ 24 heures pour que le suivi soit mis &agrave; jour.                                Une partie de ta commande de a &eacute;t&eacute; transmise aujourd&#039;hui &agrave; notre partenaire logistique pour exp&eacute;dition.        Les articles encore manquants seront envoy&eacute;s gratuitement d&egrave;s qu&#039;ils seront disponibles.                        Nous venons d&#039;annuler ta commande de . Revenez nous voir plus tard !                        Nous venons de rembourser le montant de ta commande sur sur ton compte bancaire connu.                   Nous avons entam&eacute; une recherche aupr&egrave;s de notre prestataire de services afin de clarifier le statut de ton envoi. Nous nous excusons pour les inconv&eacute;nients caus&eacute;s. Parfois, des circonstances impr&eacute;vues peuvent entra&icirc;ner des retards. Nous travaillons d&#039;ores et d&eacute;j&agrave; d&#039;arrache-pied pour trouver une solution et t&#039;informerons d&egrave;s que nous aurons des nouvelles sur le sort de ton envoi. Ta satisfaction est importante pour nous et nous faisons tout notre possible pour r&eacute;soudre le probl&egrave;me rapidement. Nous te remercions de ta compr&eacute;hension et de ta patience.                 Lien vers la commande : cliquer ici     Remarques et commentaires sur ta commande :     Si tu as des questions sur ta commande, r&eacute;ponds &agrave; cet e-mail.                 Grne Gre Ton &eacute;quipe Mr. Hanf 
+ {if $ORDER_STATUS_ID ==  "27"}
+ {if $ORDER_NR} {$ORDER_NR}{/if}
+
+ 
+ {/if}
+ {if $ORDER_STATUS ==  "Offen"}
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ {$ORDER_NR}
+ 
+ 
+ {/if}
+ {if $ORDER_STATUS_ID == "32"}
+
+
+
+
+
+
+
+
+
+{/if} 
+ 
+ {if $ORDER_STATUS_ID ==  "18"}
+ 
+ 
+ {$ORDER_NR} {$ORDER_DATE} 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ {$ORDER_NR}
+ {/if} 
+ {if $ORDER_STATUS_ID ==  "20"}
+ 
+
+ {if $PARCEL_COUNT > 0}
+ {$PARCEL_COUNT}
+ 
+ {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+ {$tracking_data.parcel_id}
+ 
+ {/foreach}
+ {/if}
+ 
+ {/if} 
+ {if $ORDER_STATUS_ID ==  "2"}
+ {$ORDER_NR} {$ORDER_DATE}
+ {/if} 
+ 
+ {if $ORDER_STATUS_ID ==  "9"}
+ 
+
+ {if $ORDER_DATE} {$ORDER_DATE}{/if} {if $ORDER_NR}{$ORDER_NR}{/if}
+
+ {if $ORDER_NR}{$ORDER_NR}{/if} 
+
+
+
+
+
+
+ {/if} 
+ 
+ 
+ {if $ORDER_STATUS_ID ==  "3"}
+
+ 
+ {$ORDER_DATE}
+ 
+ {if $PARCEL_COUNT > 0}
+ 
+ {$PARCEL_COUNT}
+ 
+ {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+ {$tracking_data.parcel_id}
+ 
+ {/foreach}
+ {/if}
+ {/if}
+ {if $ORDER_STATUS_ID ==  "11"}
+ {$ORDER_DATE}
+
+ {/if}
+ {if $ORDER_STATUS_ID ==  "6"}
+ {$ORDER_DATE}
+ {/if}
+ {if $ORDER_STATUS_ID ==  "10"}
+ {$ORDER_DATE} 
+ 
+ {/if}
+ {if $ORDER_STATUS_ID == "12"}
+
+
+
+
+
+
+
+
+{/if}
+ 
+ {if $ORDER_LINK}{/if}
+ 
+ {if $NOTIFY_COMMENTS}
+ 
+ {$NOTIFY_COMMENTS} 
+ {/if} 
+ 
+ 
+
+ {/if} 
+[SIGNATUR]

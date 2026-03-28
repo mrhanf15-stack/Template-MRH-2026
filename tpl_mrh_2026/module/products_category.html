@@ -1,0 +1,36 @@
+{config_load file="$language/lang_$language.conf" section="new_products"}
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="new_products"}
+{* MRH 2026: Kategorie-Seite – BS5.3 *}
+{if isset($MODULE_error)}{$MODULE_error}{/if}
+{if isset($CATEGORIES_HEADING) && $CATEGORIES_HEADING != ''}
+  <h1 class="mrh-page-title">{$CATEGORIES_HEADING}</h1>
+{/if}
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{* Kategoriebild *}
+{if isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != ''}
+  <div class="mrh-category-image mb-3">
+    <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_HEADING|onlytext}" class="img-fluid rounded" loading="lazy">
+  </div>
+{/if}
+{* Kategoriebeschreibung *}
+{if isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
+  <div class="mrh-category-description mb-4">{$CATEGORIES_DESCRIPTION}</div>
+{/if}
+{* Unterkategorien *}
+{if isset($MODULE_sub_categories_listing) && $MODULE_sub_categories_listing != ''}
+  {$MODULE_sub_categories_listing}
+{/if}
+{* Listing-Filter *}
+{if isset($MODULE_listing_filter) && $MODULE_listing_filter != ''}
+  {$MODULE_listing_filter}
+{/if}
+{* Produktliste *}
+{if isset($MODULE_product_listing) && $MODULE_product_listing != ''}
+  {$MODULE_product_listing}
+{/if}
+{* Pagination *}
+{if isset($PAGINATION) && $PAGINATION != ''}
+  {$PAGINATION}
+{/if}

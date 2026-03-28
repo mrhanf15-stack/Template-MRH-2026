@@ -1,0 +1,14 @@
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+ Estimado Sr. Estimada Sra. Hola ,
+
+se ha creado una cuenta para usted, puede iniciar sesi&oacute;n en nuestra tienda con los siguientes datos
+
+{if $COMMENTS} Notas: {$COMMENTS}{/if}
+
+Sus datos de acceso a nuestra tienda:
+
+E-mail: {$EMAIL} {$PASSWORD}
+
+Su contrase&ntilde;a: 
+
+[FIRMA]

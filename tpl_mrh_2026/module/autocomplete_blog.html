@@ -1,0 +1,20 @@
+{* MRH 2026: Autocomplete Blog-Ergebnisse – BS5.3 *}
+{if $error}
+  <span class="autocomplete_error text-body-secondary">{#text_search_again#}</span>
+{else}
+  <ul id="autocomplete_blog" class="list-group">
+    {foreach item=blog_data from=$module_content}
+      <li class="autocomplete_content">
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{$blog_data.LINK}">
+          {if $blog_data.IMAGE}
+            <span class="flex-shrink-0" style="width:40px">
+              <img class="img-fluid" src="{$blog_data.IMAGE}" alt="{$blog_data.TITLE|onlytext}" loading="lazy">
+            </span>
+          {/if}
+          <span class="flex-grow-1">{$blog_data.TITLE}</span>
+          <span class="small text-body-secondary">{$blog_data.DATE}</span>
+        </a>
+      </li>
+    {/foreach}
+  </ul>
+{/if}

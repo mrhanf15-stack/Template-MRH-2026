@@ -1,0 +1,11 @@
+Hallo {$content.PARTNER_NAME},
+
+Eine neue Abrechnung über Ihre Provisionen wurde erstellt.
+
+Provisionsabrechnung-Nr.: {$content.PAYMENT_ID}
+Detailierte Provisionsabrechnung: {$content.INVOICE_URL}
+Abrechnungsdatum: {$content.PAYMENT_DATE}
+
+Wir freuen uns auf eine weiterhin gute Zusammenarbeit.
+
+Ihr Partnerprogramm Team

@@ -1,0 +1,80 @@
+{config_load file="$language/lang_$language.conf" section="duty_info"} 
+{$address_label_customer}
+
+{if $SHIPPING_METHOD}Mode de livraison : {$SHIPPING_METHOD}
+ {/if} 
+ {if $PAYMENT_METHOD} Mode de paiement : {$PAYMENT_METHOD}
+ {/if} 
+ Num&eacute;ro de commande : {$oID}
+ Date : {$DATE}
+ {if $csID} Num&eacute;ro de client : {$csID}
+ {/if} 
+ Votre adresse e-mail : {$EMAIL}
+{if $vatID}Votre num&eacute;ro de TVA : {$vatID}
+ {/if} 
+----------------------------------------------------------------------
+
+
+ {if $GENDER == 'm'} Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if} {$NAME} ,
+
+Merci beaucoup pour votre commande.
+
+{if isset($NEW_PASSWORD) && $NEW_PASSWORD != ''} 
+ Votre compte a &eacute;t&eacute; prot&eacute;g&eacute; par un mot de passe.
+Vous pouvez changer le mot de passe en cliquant sur le lien suivant : {$NEW_PASSWORD}
+{/if}
+
+{if $COMMENTS}
+Vos remarques :
+{$COMMENTS} 
+ {/if} 
+
+ Vos produits command&eacute;s pour contr&ocirc;le
+----------------------------------------------------------------------
+{foreach name=aussen item=order_values from=$order_data} 
+ {$order_values.PRODUCTS_QTY} x {$order_values.PRODUCTS_NAME} {$order_values.PRODUCTS_PRICE} 
+ Art.-.No. {$order_values.PRODUCTS_MODEL}{$order_values.PRODUCTS_ATTRIBUTES_MODEL}
+{if $order_values.PRODUCTS_ORDER_DESCRIPTION != ''}{$order_values.PRODUCTS_ORDER_DESCRIPTION}
+{/if}
+{if $order_values.PRODUCTS_SHIPPING_TIME != ''}D&eacute;lai de livraison : {$order_values.PRODUCTS_SHIPPING_TIME}
+{/if}
+{if $order_values.PRODUCTS_ATTRIBUTES != ''}{$order_values.PRODUCTS_ATTRIBUTES}
+{/if}
+
+{/foreach}
+
+{foreach name=aussen item=order_total_values from=$order_total}
+{$order_total_values.TITLE}{$order_total_values.TEXT}
+{/foreach}
+
+{$downloads_content_txt}
+
+{if $address_label_payment != $address_label_shipping}
+{if isset($SHIPPING_CLASS) && strpos($SHIPPING_CLASS, 'selfpickup') !== false}Adresse de retrait
+{else} Adresse d&#039;exp&eacute;dition
+{/if} 
+----------------------------------------------------------------------
+ {$address_label_shipping} {/if} 
+
+ {if $address_label_payment} 
+ {if $address_label_payment != $address_label_shipping} Adresse de facturation
+{else} Adresse de facturation/Adresse de livraison
+{/if}
+----------------------------------------------------------------------
+{$address_label_payment}
+{/if}
+
+{if $DELIVERY_DUTY_INFO != ''}
+
+----------------------------------------------------------------------
+{#text_duty_info#}
+----------------------------------------------------------------------
+{/if}
+
+[SIGNATUR]
+
+{$REVOCATION_TXT}
+
+{$AGB_TXT}
+
+{$PRIVACY_POLICY_TXT}

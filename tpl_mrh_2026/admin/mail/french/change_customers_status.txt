@@ -1,0 +1,16 @@
+
+{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if} {$NAME} ,
+
+nous tenons &agrave; te remercier pour ta fid&eacute;lit&eacute; et t&#039;avons int&eacute;gr&eacute; dans notre groupe sp&eacute;cial de clients V.I.P. A l&#039;avenir, tu profiteras d&#039;offres sp&eacute;ciales et d&#039;actions de r&eacute;duction. 
+
+En tant que V.I.P., tu b&eacute;n&eacute;ficies d&#039;une r&eacute;duction permanente de -10 % sur l&#039;ensemble de tes achats ! 
+
+
+{*Alte Kundengruppe: {$CUSTOMERS_STATUS}
+{if !empty($ORDERS_MIN)}Nombre de commandes : {$ORDERS_MIN}{/if}*}
+Nouveau groupe de clients : {$NEW_CUSTOMERS_STATUS}
+
+ Tu peux consulter &agrave; tout moment le statut de tes commandes actuelles dans ton compte : {$LINK_ACCOUNT}
+
+[SIGNATUR]
+

@@ -1,0 +1,10 @@
+{$MESSAGE}
+
+Puede canjear el cup&oacute;n al realizar su pedido. {$COUPON_ID} {$WEBSITE} Para ello, introduzca su c&oacute;digo de cup&oacute;n en el campo de c&oacute;digos de cup&oacute;n/cup&oacute;n.
+
+Su c&oacute;digo de cup&oacute;n es: 
+
+Guarde bien su c&oacute;digo de cup&oacute;n para poder beneficiarse de esta oferta
+la pr&oacute;xima vez que nos visite en...
+
+[FIRMA].

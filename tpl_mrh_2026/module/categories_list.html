@@ -1,0 +1,23 @@
+{config_load file="$language/lang_$language.conf" section="categories_list"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="categories_list"}
+{* MRH 2026: Kategorien-Liste (Startseite) – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  <section class="mrh-categories-list mb-4">
+    <h2 class="h5 mb-3">{#heading_categories#}</h2>
+    <div class="row g-3">
+      {foreach name=aussen item=cat_data from=$module_content}
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="{$cat_data.CATEGORIES_LINK}" class="card h-100 text-decoration-none text-body">
+            {if $cat_data.CATEGORIES_IMAGE != ''}
+              <img src="{$cat_data.CATEGORIES_IMAGE}" alt="{$cat_data.CATEGORIES_NAME|onlytext}" class="card-img-top" loading="lazy">
+            {/if}
+            <div class="card-body text-center">
+              <h3 class="h6 mb-0">{$cat_data.CATEGORIES_NAME}</h3>
+            </div>
+          </a>
+        </div>
+      {/foreach}
+    </div>
+  </section>
+{/if}

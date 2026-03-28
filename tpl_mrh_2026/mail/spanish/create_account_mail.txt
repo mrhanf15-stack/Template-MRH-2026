@@ -1,0 +1,32 @@
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+
+
+
+
+
+
+Estimado Sr. Estimada Sra. Hola , Acaba de crear correctamente su cuenta de cliente. Como cliente registrado tiene las siguientes ventajas en nuestra tienda: - Cesta de la compra del cliente: Cada art&iacute;culo permanece registrado hasta que pase por caja o elimine los productos de la cesta de la compra. - Libreta de direcciones: Ahora podemos enviarle los productos a la direcci&oacute;n que haya seleccionado.
+ La forma perfecta de enviar un regalo de cumplea&ntilde;os. - Pedidos anteriores:
+ Puedes consultar tus pedidos anteriores en cualquier momento. - Opiniones sobre productos:
+
+Comparta su opini&oacute;n sobre nuestros productos con otros clientes. Atenci&oacute;n: Esta direcci&oacute;n de correo electr&oacute;nico nos ha sido facilitada por un cliente. Si no se ha registrado, env&iacute;e un correo electr&oacute;nico a : {$content.MAIL_REPLY_ADDRESS}
+
+{if $SEND_GIFT == true}
+ {$GIFT_AMMOUNT}
+
+ {$GIFT_CODE} Como peque&ntilde;o regalo de bienvenida, le enviaremos un vale por: Su c&oacute;digo de vale personal es .
+
+Puede canjear este vale en la caja durante el proceso de pedido. Para canjear el vale, utilice el siguiente enlace: {$GIFT_LINK}
+{/if}
+
+{if $SEND_COUPON == true}
+
+
+ {$COUPON_DESC}
+
+ {$COUPON_CODE}
+{/if}
+
+Le enviaremos un vale como peque&ntilde;o regalo de bienvenida. Descripci&oacute;n del vale: Simplemente introduzca su c&oacute;digo personal durante el proceso de compra. Si tiene alguna pregunta sobre nuestro servicio de atenci&oacute;n al cliente, p&oacute;ngase en contacto con nosotros: {$content.MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

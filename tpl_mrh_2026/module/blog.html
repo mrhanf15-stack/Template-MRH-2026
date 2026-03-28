@@ -1,0 +1,36 @@
+{config_load file="$language/lang_$language.conf" section="blog"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+{* MRH 2026: Blog Startseite – BS5.3 *}
+<div id="blog-startpage" class="mrh-blog">
+  {if !empty($TITLE)}<h1 class="mrh-page-title">{$TITLE}</h1>{/if}
+  {* Beschreibung (nur Seite 1) *}
+  {if ($smarty.get.page >= 2)}
+    <button class="btn btn-sm btn-outline-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#blogIntro" aria-expanded="false" aria-controls="blogIntro">
+      {#klickk#}
+    </button>
+  {/if}
+  <div class="collapse {if ($smarty.get.page < 2) || ($smarty.get.page == '')}show{/if}" id="blogIntro">
+    {if ($smarty.get.page == 1) || ($smarty.get.page == '')}
+      {if !empty($TEXT)}
+        <div class="mrh-blog-intro mb-4">{$TEXT}</div>
+      {/if}
+    {/if}
+    {* Kategorie-Listing *}
+    {if !empty($CATEGORIES)}
+      <div class="mrh-blog-categories mb-4">
+        {include file='module/includes/blog_category_listing.html' listing_items=$CATEGORIES listing_htag='h3'}
+      </div>
+    {/if}
+  </div>
+  {* Blog-Posts *}
+  {if !empty($POSTS)}
+    <div class="mrh-blog-posts mb-4">
+      <h2 class="h5 mb-3">{#new_blog_posts#}</h2>
+      {include file='module/includes/blog_post_listing.html' listing_items=$POSTS listing_htag='h3'}
+      {if !empty($NAVIGATION) && $POSTS_COUNT > $smarty.const.MODULE_BLOG_STARTPAGE_POSTS_MAX}
+        <div class="mt-3">{$NAVIGATION}</div>
+      {/if}
+    </div>
+  {/if}
+</div>

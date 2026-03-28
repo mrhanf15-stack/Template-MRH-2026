@@ -1,0 +1,13 @@
+{$content.PARTNER_NAME} {$content.PAYMENT_STATUS} {$content.PAYMENT_ID} {$content.INVOICE_URL} {$content.PAYMENT_DATE}Hola ,
+
+Se ha modificado el estado de su declaraci&oacute;n de comisiones.
+Nuevo estado: 
+Si tiene alguna pregunta sobre su declaraci&oacute;n de comisiones, responda a este correo electr&oacute;nico.
+
+N&ordm; de declaraci&oacute;n de comisiones: 
+Declaraci&oacute;n de comisiones detallada: 
+Fecha de liquidaci&oacute;n: 
+
+Esperamos continuar nuestra buena cooperaci&oacute;n.
+
+Su equipo del programa de socios.

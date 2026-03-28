@@ -1,0 +1,12 @@
+{config_load file="$language/lang_$language.conf" section="reklamation"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="reklamation"}
+{* MRH 2026: Reklamation Erfolg – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_reklamation_success#}</h1>
+<div class="card mb-4">
+  <div class="card-body text-center py-5">
+    <span class="fa fa-check-circle fa-3x text-success mb-3 d-block" aria-hidden="true"></span>
+    <p>{#text_reklamation_success#}</p>
+    <div>{$BUTTON_CONTINUE}</div>
+  </div>
+</div>

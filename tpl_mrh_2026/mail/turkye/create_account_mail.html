@@ -1,0 +1,49 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+    	<td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+	</tr>
+	<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+      <font face="Tahoma, Verdana, sans-serif">Müşteri hesabı başarıyla oluşturuldu.</font>
+    </td>
+	</tr>
+	<tr> 
+		<td>
+      <br />
+      <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}Sayın Bay{elseif $GENDER == 'f'}Sayın Bayan{else}Merhaba{/if} {$NAME},</b><br />
+<br />
+Müşteri hesabınızı başarıyla oluşturdunuz.<br />
+Kayıtlı bir müşteri olarak mağazamızda şu avantajlara sahipsiniz:<br />
+<br />
+<b>Müşteri Sepeti</b> - Sepete eklediğiniz her ürün, kasaya gitmeden ya da sepetten çıkarmadan önce kaydedilir.<br />
+<br />
+<b>Adres Defteri</b> - Artık ürünleri sizin seçtiğiniz adrese gönderebiliriz. Bir doğum günü hediyesi göndermenin mükemmel yolu.<br />
+<br />
+<b>Önceki Siparişler</b> - Daha önce verdiğiniz siparişleri istediğiniz zaman inceleyebilirsiniz.<br />
+<br />
+<b>Ürünler Hakkında Görüşler</b> - Diğer müşterilerle ürünlerimiz hakkındaki görüşlerinizi paylaşın.<br />
+<br />
+<u>Not:</u> Bu e-posta adresi, bir müşteri tarafından bize bildirildi. Eğer hesap açmadıysanız, lütfen şu adrese e-posta gönderin: <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a><br />
+
+    {if $SEND_GIFT == true}
+<br />
+Küçük bir hoşgeldin hediyesi olarak size şu tutarda bir hediye çeki gönderiyoruz: <b>{$GIFT_AMMOUNT}</b><br />
+<br />
+Kişisel hediye çeki kodunuz: <b>{$GIFT_CODE}</b>. Bu krediyi sipariş sırasında kasada kullanabilirsiniz.
+Hediye çekini kullanmak için lütfen <a href="{$GIFT_LINK}">[Hediye Çeki Kullan]</a> tıklayınız.<br />
+{/if}  {*if $SEND_COUPON == true}
+  <br />
+  Küçük bir hoşgeldin hediyesi olarak size bir kupon gönderiyoruz.<br />
+  Kupon açıklaması: <b>{$COUPON_DESC}</b><br />
+  Ödeme sırasında sadece kişisel kodunuzu {$COUPON_CODE} girin.<br />
+  {/if*}
+  <br />
+  Müşteri hizmetlerimizle ilgili herhangi bir sorunuz varsa, lütfen şu adrese başvurun: <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a>
+  </font>
+		</td>
+	</tr>
+</table>
+
+[SIGNATUR]
+</div>

@@ -1,0 +1,37 @@
+{* MRH 2026: Seedfinder Cards (Hersteller-Karten) – BS5.3 *}
+{if isset($MANUFACTURERS) && count($MANUFACTURERS) > 0}
+  {foreach name=aussen item=manufacturer from=$MANUFACTURERS}
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="card h-100 mrh-seedfinder-card">
+        <div class="card-body text-center">
+          {if !empty($manufacturer.IMAGE)}
+            <a href="{$manufacturer.LINK}" title="{$manufacturer.NAME}">
+              <img src="{$manufacturer.IMAGE}" alt="{$manufacturer.NAME}" class="img-fluid mb-2" style="max-height:80px;object-fit:contain" loading="lazy">
+            </a>
+          {else}
+            <a href="{$manufacturer.LINK}" class="h6 text-decoration-none d-block mb-2">{$manufacturer.NAME}</a>
+          {/if}
+          {if isset($manufacturer.COUNT)}<span class="badge text-bg-light">{$manufacturer.COUNT} {#products#}</span>{/if}
+        </div>
+        {if !empty($manufacturer.TOP_PRODUCTS)}
+          <div class="card-body pt-0 border-top">
+            <p class="small fw-bold text-body-secondary mb-1">{#top_products#}</p>
+            <ol class="small ps-3 mb-0">
+              {foreach name=products item=product from=$manufacturer.TOP_PRODUCTS}
+                <li class="mb-1">
+                  <a href="{$product.LINK}" class="text-decoration-none small">{$product.NAME|truncate:30:"..."}</a>
+                  <span class="small fw-bold text-primary">{$product.PRICE}</span>
+                </li>
+              {/foreach}
+            </ol>
+          </div>
+        {/if}
+        <div class="card-footer text-center">
+          <a href="{$manufacturer.LINK}" class="btn btn-sm btn-outline-primary">
+            {#manufacturer_all_products#} <span class="fa fa-arrow-right ms-1" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  {/foreach}
+{/if}

@@ -1,0 +1,41 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_payment"}
+{* MRH 2026: Affiliate Zahlungsinformationen – BS5.3 *}
+<div class="mrh-affiliate-payment">
+  <h1 class="mrh-page-title">{#heading_title#}</h1>
+  {$FORM_ACTION}
+  {$HIDDEN_ACTION}
+  <div class="card mb-4">
+    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-credit-card me-2" aria-hidden="true"></span>{#heading_payment#}</h2></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">{#entry_payment_check#}</label>
+          {$INPUT_CHECK_PAYABLE|replace:'class="':'class="form-control '}
+        </div>
+        {if isset($INPUT_PAYPAL)}
+          <div class="col-md-6">
+            <label class="form-label">{#entry_payment_paypal#}</label>
+            {$INPUT_PAYPAL|replace:'class="':'class="form-control '}
+          </div>
+        {/if}
+        {if isset($INPUT_BANK_NAME)}
+          <div class="col-md-6">
+            <label class="form-label">{#entry_payment_bank_name#}</label>
+            {$INPUT_BANK_NAME|replace:'class="':'class="form-control '}
+          </div>
+        {/if}
+        {if isset($INPUT_BANK_ACCOUNT)}
+          <div class="col-md-6">
+            <label class="form-label">{#entry_payment_bank_account#}</label>
+            {$INPUT_BANK_ACCOUNT|replace:'class="':'class="form-control '}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
+    {$BUTTON_SUBMIT}
+  </div>
+  </form>
+</div>

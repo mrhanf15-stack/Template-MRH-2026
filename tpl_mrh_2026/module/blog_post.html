@@ -1,0 +1,52 @@
+{config_load file="$language/lang_$language.conf" section="blog"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+{* MRH 2026: Blog Post (Einzelansicht) – BS5.3, Schema.org *}
+<article id="blog-post" class="mrh-blog" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+  {* Microdata *}
+  <meta itemprop="url" content="{$LINK}">
+  <meta itemprop="dateCreated" content="{$DATE_ADDED.C}">
+  <meta itemprop="datePublished" content="{$DATE_ADDED.C}">
+  {if !empty($DATE_MODIFIED)}<meta itemprop="dateModified" content="{$DATE_MODIFIED.C}">{/if}
+  {if !empty($AUTHOR)}
+    <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="d-none">
+      <meta itemprop="name" content="{$AUTHOR}">
+      {if !empty($AUTHOR_LINK)}<meta itemprop="url" content="{$AUTHOR_LINK}">{/if}
+    </span>
+  {/if}
+  <meta itemprop="name" content="{$NAME}">
+  {if !empty($SHORT_DESCRIPTION)}<meta itemprop="description" content="{$SHORT_DESCRIPTION}">{/if}
+  {* Beitragsbild *}
+  {if !empty($IMAGE)}
+    <div class="mrh-blog-post-image mb-4">
+      <img class="img-fluid rounded" src="{$IMAGE}" alt="{$NAME|onlytext}" itemprop="image" loading="lazy">
+    </div>
+  {/if}
+  {* Titel *}
+  <h1 class="mrh-page-title" itemprop="headline">{if !empty($TITLE)}{$TITLE}{else}{$NAME}{/if}</h1>
+  {* Meta-Informationen *}
+  <div class="d-flex flex-wrap gap-3 mb-4 small text-body-secondary">
+    <span>
+      <span class="fa fa-calendar me-1" aria-hidden="true"></span>
+      <time itemprop="datePublished" datetime="{$DATE_ADDED.C}">{$DATE_ADDED.LONG}</time>
+    </span>
+    {if !empty($CATEGORIES_NAME)}
+      <a href="{$CATEGORIES_LINK}" class="text-decoration-none" title="{$CATEGORIES_NAME|onlytext}">
+        <span class="fa fa-folder me-1" aria-hidden="true"></span>{$CATEGORIES_NAME}
+      </a>
+    {/if}
+    {if !empty($AUTHOR)}
+      <span><span class="fa fa-user me-1" aria-hidden="true"></span>{$AUTHOR}</span>
+    {/if}
+  </div>
+  {* Inhalt *}
+  {if !empty($DESCRIPTION)}
+    <div class="mrh-blog-post-content mb-4" itemprop="articleBody">
+      {$DESCRIPTION}
+    </div>
+  {/if}
+  {* Zurück-Button *}
+  <div class="mb-4">
+    {$BUTTON_BACK}
+  </div>
+</article>

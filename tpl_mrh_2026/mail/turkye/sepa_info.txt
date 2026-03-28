@@ -1,0 +1,7 @@
+{$PAYMENT_BANKTRANSFER_TOTAL} tutarindaki fatura bedelini, {$PAYMENT_BANKTRANSFER_DUE_DATE} tarihinde SEPA otomatik ödeme talimati olarak,
+mandat referansiniz {$PAYMENT_BANKTRANSFER_MANDATE_REFERENCE},
+bizim alacakli kimlik numaramiz {$PAYMENT_BANKTRANSFER_CREDITOR_ID},
+hesap numaraniz {$PAYMENT_BANKTRANSFER_IBAN},
+{$PAYMENT_BANKTRANSFER_BANKNAME} bankasi araciligiyla tahsil edecegiz.
+
+Lütfen ödeme için yeterli miktarda para oldugundan emin olun.

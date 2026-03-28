@@ -1,0 +1,15 @@
+
+{if $GENDER == 'm'}Sayın Bay{elseif $GENDER == 'f'}Sayın Bayan{else}Merhaba{/if} {$NAME},
+
+Mağazamızda sipariş verebilmeniz için önce e-posta adresinizi onaylamanız gerekiyor. Bu onay, sağladığınız e-posta adresinin sahibi olduğunuzu doğrular.
+
+Lütfen sipariş verebilmeniz için e-posta adresinizi aktifleştirecek aşağıdaki aktivasyon bağlantısına tıklayın.
+
+Aktivasyon bağlantınız:
+{$LINK}
+
+Eğer mağazamıza kayıt olmadıysanız, lütfen bu aktivasyon bağlantısını dikkate almayın.
+
+Herhangi bir sorunuz varsa, lütfen bize şu adresten ulaşın: {$MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

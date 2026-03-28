@@ -1,0 +1,32 @@
+{if $GENDER == 'm'}Dear Mr.{elseif $GENDER == 'f'}Dear Mrs.{else}Hello{/if} {$NAME} ,
+
+You have just successfully created your customer account.
+
+As a registered customer you have the following advantages in our store:
+
+- Customer shopping cart: Each item remains registered until you go to the checkout or remove the products from the shopping cart.
+- Address book: We can now send the products to the address you have selected. The perfect way to send a birthday present.
+- Previous orders: You can check your previous orders at any time.
+- Opinions about products: Share your opinion about our products with other customers.
+
+Attention: This email address was provided to us by a customer. If you have not registered, please send an e-mail to : {$content.MAIL_REPLY_ADDRESS}
+
+{if $SEND_GIFT == true}
+As a small welcome gift, we will send you a voucher for: {$GIFT_AMMOUNT}
+
+ Your personal voucher code is {$GIFT_CODE}. You can redeem this voucher at the checkout during the order process.
+
+To redeem the voucher, please use the following link: {$GIFT_LINK}.
+{/if} 
+
+ {if $SEND_COUPON == true} 
+ We will send you a coupon as a small welcome gift.
+
+Coupon description: {$COUPON_DESC}
+
+ Simply enter your personal code {$COUPON_CODE} during the checkout process.
+{/if} 
+
+ If you have any questions about our customer service, please contact us: {$content.MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

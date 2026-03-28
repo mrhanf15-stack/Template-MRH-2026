@@ -1,0 +1,91 @@
+{config_load file="$language/lang_$language.conf" section="account"}
+{config_load file="$language/lang_$language.conf" section="new_products"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="account"}
+{* MRH 2026: Mein Konto – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_account#}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{if $success_message}<div class="alert alert-success">{$success_message}</div>{/if}
+<div class="row g-4 mb-4">
+  {* Kontodaten *}
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="h5 mb-3"><span class="fa fa-user me-2" aria-hidden="true"></span>{#title_personal#}</h2>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2"><a href="{$LINK_ACCOUNT_EDIT}" class="text-decoration-none">{#text_account_edit#}</a></li>
+          <li class="mb-2"><a href="{$LINK_ADDRESS_BOOK}" class="text-decoration-none">{#text_address_book#}</a></li>
+          <li class="mb-2"><a href="{$LINK_PASSWORD}" class="text-decoration-none">{#text_password#}</a></li>
+          {if isset($LINK_DELETE_ACCOUNT)}
+            <li class="mb-2"><a href="{$LINK_DELETE_ACCOUNT}" class="text-decoration-none text-danger">{#text_delete_account#}</a></li>
+          {/if}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {* Bestellungen *}
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="h5 mb-3"><span class="fa fa-shopping-bag me-2" aria-hidden="true"></span>{#title_orders#}</h2>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2"><a href="{$LINK_ORDERS}" class="text-decoration-none">{#text_orders#}</a></li>
+          {if isset($LINK_DOWNLOADS) && $LINK_DOWNLOADS != ''}
+            <li class="mb-2"><a href="{$LINK_DOWNLOADS}" class="text-decoration-none">{#text_downloads#}</a></li>
+          {/if}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {* Extras *}
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="h5 mb-3"><span class="fa fa-star me-2" aria-hidden="true"></span>{#title_extras#}</h2>
+        <ul class="list-unstyled mb-0">
+          {if isset($LINK_NEWSLETTER) && $LINK_NEWSLETTER != ''}
+            <li class="mb-2"><a href="{$LINK_NEWSLETTER}" class="text-decoration-none">{#text_newsletter#}</a></li>
+          {/if}
+          {if isset($LINK_WISHLIST) && $LINK_WISHLIST != ''}
+            <li class="mb-2"><a href="{$LINK_WISHLIST}" class="text-decoration-none">{#text_wishlist#}</a></li>
+          {/if}
+          {if isset($LINK_GV) && $LINK_GV != ''}
+            <li class="mb-2"><a href="{$LINK_GV}" class="text-decoration-none">{#text_gv#}</a></li>
+          {/if}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{* Zuletzt angesehene Produkte *}
+{if $products_history}
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h5 mb-0">{#title_viewed_products#}</h2>
+    </div>
+    <div class="list-group list-group-flush">
+      {foreach name=history_products item=prod_history_data from=$products_history}
+        <div class="list-group-item">
+          <div class="d-flex gap-3 align-items-center">
+            <div class="flex-shrink-0" style="width:60px">
+              {if $prod_history_data.PRODUCTS_IMAGE != ''}
+                <a href="{$prod_history_data.PRODUCTS_LINK}">
+                  <img src="{$prod_history_data.PRODUCTS_IMAGE}" alt="{$prod_history_data.PRODUCTS_NAME|onlytext}" class="img-fluid" loading="lazy" width="60" height="60">
+                </a>
+              {/if}
+            </div>
+            <div class="flex-grow-1">
+              <a href="{$prod_history_data.PRODUCTS_LINK}" class="text-decoration-none fw-medium">{$prod_history_data.PRODUCTS_NAME}</a>
+              <div class="small text-body-secondary">{#text_goto_cat#} <a href="{$prod_history_data.CAT_URL}">{$prod_history_data.CATEGORIES_NAME}</a></div>
+            </div>
+            <div class="text-end">
+              {foreach name=inner item=price_data from=$prod_history_data.PRODUCTS_PRICE_ARRAY}
+                {include file="module/includes/price_box.html"}
+              {/foreach}
+            </div>
+          </div>
+        </div>
+      {/foreach}
+    </div>
+  </div>
+{/if}

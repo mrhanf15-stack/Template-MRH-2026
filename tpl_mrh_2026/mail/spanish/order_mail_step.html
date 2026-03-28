@@ -1,0 +1,125 @@
+{config_load file="$language/lang_$language.conf" section="duty_info"} 
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+  <tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+  </tr>
+  <tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif"> {$oID} Su n&uacute;mero de pedido</font>   </td>
+  </tr>
+  <tr> 
+    <td>
+      <br />
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top">
+           <font size="2" face="Tahoma, Verdana, sans-serif">{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if}&nbsp;{$NAME}<br />
+            <br /><br />Dear Mr Dear Mrs Hello , Dank very much for your order.</font>     </td>
+        </tr>
+      </table>
+      <br />
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top" width="50%">        
+            <font size="2" face="Tahoma, Verdana, sans-serif">{$address_label_customer}</font>
+          </td>
+          <td valign="top" width="50%">        
+           <font size="2" face="Tahoma, Verdana, sans-serif">
+           {if $SHIPPING_METHOD}<b></b> {$SHIPPING_METHOD}<br />{/if}&nbsp;{if $PAYMENT_METHOD} {$PAYMENT_METHOD}<br />{/if} {$oID}<br /> {$DATE}<br /> {if $csID} {$csID}<br />{/if}F<b>orma de env&iacute;o:</b><b>Forma de</b><b>pago</b><b>:</b> <b>N&ordm; de</b> <b>pedido</b><b>:</b> <b>Fecha de</b> <b>pedido:</b><b>N&uacute;mero de</b><b>cliente</b><b>:</b> <b>Su</b><b>direcci&oacute;n de correo electr&oacute;nico:</b> {$EMAIL}&nbsp;{if $vatID}<br /><b></b> {$vatID}&nbsp;{/if}S<b>u n&uacute;mero de IVA</b>: </font>   </td>
+        </tr>
+      </table>
+      
+     {if $COMMENTS}
+      <br />
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top">
+           <font size="1" face="Tahoma, Verdana, sans-serif"><b>Sus comentarios:</b></font><br />
+            <font size="2" face="Tahoma, Verdana, sans-serif">{$COMMENTS|nl2br}</font>
+          </td>
+        </tr>
+      </table>
+     {/if}&nbsp;{if $NEW_PASSWORD}
+      <br />
+      <table bgcolor="f1f1f1" width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top">
+           <font size="1" face="Tahoma, Verdana, sans-serif"><b>Su cuenta est&aacute; protegida por contrase&ntilde;a.</b></font><br />
+           <font size="2" face="Tahoma, Verdana, sans-serif"> <a href="{$NEW_PASSWORD}">{$NEW_PASSWORD}</a> Puede cambiar la contrase&ntilde;a en el siguiente enlace:      </font></td>
+        </tr>
+      </table>
+     {/if}
+
+      <br />
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+         {if $address_label_payment != $address_label_shipping}
+          
+           <td valign="top"> <font size="1" face="Tahoma, Verdana, sans-serif"><b>{if isset($SHIPPING_CLASS) && strpos($SHIPPING_CLASS, 'selfpickup') !== false}{else}{/if}</b></font><br /> <font size="2" face="Tahoma, Verdana, sans-serif">{$address_label_shipping}</font> {/if}&nbsp;{if $address_label_payment} {if $address_label_payment != $address_label_shipping}{else}{/if}{if $address_label_payment != $address_label_shipping}{else}D <font size="1" face="Tahoma, Verdana, sans-serif"><b>irecci&oacute;n de recogida Direcci&oacute;n de entrega</b></font> <font size="1" face="Tahoma, Verdana, sans-serif"><b></b></font><td </td>valign=&quot;top&quot; width=&quot;50%&quot; width=&quot;100%&quot; &gt;<font size="1" face="Tahoma, Verdana, sans-serif"><b>Direcci&oacute;n de facturaci&oacute;n Direcci&oacute;n de facturaci&oacute;n/entrega</b></font>. <font size="1" face="Tahoma, Verdana, sans-serif"><b>{/if}</b></font><br />
+            <font size="2" face="Tahoma, Verdana, sans-serif">{$address_label_payment}</font>
+          </td>
+          {/if}
+        </tr>
+      </table>
+
+        
+      <br />
+      <table width="100%" border="0" cellpadding="5" cellspacing="0">
+        <tr>
+          <td colspan="5"><font size="1" face="Tahoma, Verdana, sans-serif"><b>Sus productos pedidos de nuevo para comprobar: </b></font></td>
+        </tr>
+        <tr> 
+          <td style="padding:10px 5px;border-top:1px solid #999;border-bottom:1px solid #999;" align="right"><font size="1" face="Tahoma, Verdana, sans-serif"><strong>Pcs. </strong></font></td>
+          {if $smarty.const.SHOW_IMAGES_IN_EMAIL == 'true'}
+          <td style="padding:10px 5px;border-top:1px solid #999;border-bottom:1px solid #999;" align="center"><font size="1" face="Tahoma, Verdana, sans-serif"><strong>Foto </strong></font></td>
+          {/if}
+          <td style="padding:10px 5px;border-top:1px solid #999;border-bottom:1px solid #999;"><font size="1" face="Tahoma, Verdana, sans-serif"><strong>producto</strong></font></td>
+          <td style="padding:10px 5px;border-top:1px solid #999;border-bottom:1px solid #999;white-space:nowrap" width="50"><font size="1" face="Tahoma, Verdana, sans-serif"><strong>N&ordm; de art&iacute;culo</strong></font></td>
+          <td style="padding:10px 5px;border-top:1px solid #999;border-bottom:1px solid #999;" width="80" align="right"><font size="1" face="Tahoma, Verdana, sans-serif"><strong>Precio unitario</strong></font></td>
+          <td style="padding:10px 5px;border-top:1px solid #999;border-bottom:1px solid #999;" width="80" align="right"><font size="1" face="Tahoma, Verdana, sans-serif"><strong>Precio unitario</strong></font></td>
+        </tr>
+        {foreach name=aussen item=order_values from=$order_data} 
+        <tr> 
+          <td nowrap="nowrap" style="border-bottom:1px dotted #999;" valign="top" width="20" align="right"><font size="2" face="Tahoma, Verdana, sans-serif">{$order_values.PRODUCTS_QTY} x</font></td>
+          {if $smarty.const.SHOW_IMAGES_IN_EMAIL == 'true'}
+          <td style="border-bottom:1px dotted #999;" valign="top" width="60" align="center">
+            {if $order_values.PRODUCTS_IMAGE neq ''}
+              <img src="{$img_path} {$order_values.PRODUCTS_IMAGE}" alt="{$order_values.PRODUCTS_NAME}" title="{$order_values.PRODUCTS_NAME}" style="{$smarty.const.SHOW_IMAGES_IN_EMAIL_STYLE}" />
+            {else}&nbsp;{/if}
+          </td>
+          {/if}
+          <td style="border-bottom:1px dotted #999;" valign="top">
+           <font size="2" face="Tahoma, Verdana, sans-serif"> <strong>{$order_values.PRODUCTS_NAME}</strong>
+           </font><font size="2" face="Tahoma, Verdana, sans-serif"> {if $order_values.PRODUCTS_ORDER_DESCRIPTION neq ''}<div style="padding: 0px 0px 4px 0px;" style="font-size: 10px !important;line-height:14px;">{$order_values.PRODUCTS_ORDER_DESCRIPTION}</div>{/if}&nbsp;{if $order_values.PRODUCTS_ATTRIBUTES neq ''}<div style="padding: 4px 0px 4px 0px;"><em>{$order_values.PRODUCTS_ATTRIBUTES}</em></div>{/if}&nbsp;{if $order_values.PRODUCTS_SHIPPING_TIME neq ''}<div style="padding: 4px 0px 4px 0px;"> {$order_values.PRODUCTS_SHIPPING_TIME}</div>{/if}P<div style="padding: 4px 0px 4px 0px;">lazo de entrega</div>:       </font></td>
+          <td style="border-bottom:1px dotted #999;" valign="top"><font size="2" face="Tahoma, Verdana, sans-serif">{$order_values.PRODUCTS_MODEL}&nbsp;{$order_values.PRODUCTS_ATTRIBUTES_MODEL}</font></td>
+          <td style="border-bottom:1px dotted #999;" valign="top" align="right"><font size="2" face="Tahoma, Verdana, sans-serif">{$order_values.PRODUCTS_SINGLE_PRICE}</font></td>
+          <td style="border-bottom:1px dotted #999;" valign="top" align="right"><font size="2" face="Tahoma, Verdana, sans-serif">{$order_values.PRODUCTS_PRICE}</font></td>
+        </tr>
+        {/foreach}&nbsp;{foreach name=aussen item=order_total_values from=$order_total}
+        <tr> 
+          <td style="padding:1px 5px;" valign="top" align="right" colspan="{if $smarty.const.SHOW_IMAGES_IN_EMAIL == 'true'}5{else}4{/if}"><font size="2" face="Tahoma, Verdana, sans-serif">{$order_total_values.TITLE}</font></td>
+          <td style="padding:1px 5px;" valign="top" align="right" width="90"><font size="2" face="Tahoma, Verdana, sans-serif">{$order_total_values.TEXT}</font></td>
+        </tr>
+        {/foreach}
+      </table>
+
+
+      {$downloads_content_html}&nbsp;{if $DELIVERY_DUTY_INFO neq ''}
+      <br />
+      <table style="border:1px solid #a3a3a3;" width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td valign="top"><font size="1" face="Tahoma, Verdana, sans-serif">{#text_duty_info#}</font></td>
+        </tr>
+      </table>
+      {/if}
+
+
+    </td>
+  </tr>
+</table>
+
+[SIGNATUR]
+
+
+</div>

@@ -1,0 +1,13 @@
+{* MRH 2026: Unterseiten-Listing – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  <div class="mrh-sub-content-listing">
+    <h3 class="h6 mb-2">{#heading_sub_content#}</h3>
+    <ul class="list-unstyled">
+      {foreach name=aussen item=content_data from=$module_content}
+        <li class="mb-1">
+          <a href="{$content_data.CONTENT_LINK}" class="text-decoration-none">{$content_data.CONTENT_TITLE}</a>
+        </li>
+      {/foreach}
+    </ul>
+  </div>
+{/if}

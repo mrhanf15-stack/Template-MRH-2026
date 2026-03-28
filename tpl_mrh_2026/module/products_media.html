@@ -1,0 +1,21 @@
+{* MRH 2026: Produktmedien – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  <div class="mrh-products-media mb-4">
+    <div class="row g-2">
+      {foreach name=aussen item=media_data from=$module_content}
+        <div class="col-auto">
+          {if $media_data.TYPE == 'image'}
+            <a href="{$media_data.LINK}" class="d-block" data-bs-toggle="modal" data-bs-target="#mediaModal">
+              <img src="{$media_data.THUMBNAIL}" alt="{$media_data.TITLE|onlytext}" class="img-thumbnail" style="max-height:80px" loading="lazy">
+            </a>
+          {elseif $media_data.TYPE == 'video'}
+            <a href="{$media_data.LINK}" class="d-block position-relative" data-bs-toggle="modal" data-bs-target="#mediaModal">
+              <img src="{$media_data.THUMBNAIL}" alt="{$media_data.TITLE|onlytext}" class="img-thumbnail" style="max-height:80px" loading="lazy">
+              <span class="position-absolute top-50 start-50 translate-middle"><span class="fa fa-play-circle fa-2x text-white" aria-hidden="true"></span></span>
+            </a>
+          {/if}
+        </div>
+      {/foreach}
+    </div>
+  </div>
+{/if}

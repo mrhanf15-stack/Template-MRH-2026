@@ -1,0 +1,10 @@
+{$MESSAGE}
+
+Vous pouvez utiliser le coupon lors de votre commande. Pour ce faire, saisissez votre code de coupon dans la case r&eacute;serv&eacute;e aux codes de bon de r&eacute;duction/coupon.
+
+Votre code de coupon est : {$COUPON_ID}
+
+ Conservez bien votre code de coupon, c&#039;est la seule fa&ccedil;on de profiter de cette offre
+la prochaine fois que vous nous rendrez visite &agrave; {$WEBSITE}.
+
+[SIGNATUR]

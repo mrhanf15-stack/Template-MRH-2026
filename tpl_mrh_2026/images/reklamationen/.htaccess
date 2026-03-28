@@ -1,0 +1,44 @@
+# .htaccess für Upload-Sicherheit
+
+# Verhindere Ausführung von PHP-Dateien
+<Files *.php>
+    Deny from all
+</Files>
+
+# Verhindere Ausführung anderer Skriptdateien
+<Files *.phtml>
+    Deny from all
+</Files>
+<Files *.php3>
+    Deny from all
+</Files>
+<Files *.php4>
+    Deny from all
+</Files>
+<Files *.php5>
+    Deny from all
+</Files>
+<Files *.pl>
+    Deny from all
+</Files>
+<Files *.py>
+    Deny from all
+</Files>
+<Files *.jsp>
+    Deny from all
+</Files>
+<Files *.asp>
+    Deny from all
+</Files>
+<Files *.sh>
+    Deny from all
+</Files>
+<Files *.cgi>
+    Deny from all
+</Files>
+
+# Erlaube nur Bilddateien
+<FilesMatch "\.(jpg|jpeg|png|gif|bmp|webp)$">
+    Allow from all
+</FilesMatch>
+

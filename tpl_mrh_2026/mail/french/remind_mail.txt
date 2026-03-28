@@ -1,0 +1,11 @@
+
+{if $CUSTOMERS_GENDER == 'f'}Ch&egrave;re Madame{elseif $CUSTOMERS_GENDER == 'm'}Cher Monsieur{else}Bonjour Madame/Monsieur{/if} {$CUSTOMERS_LASTNAME} ,
+
+nous voulions vous informer que nous venons de recevoir une nouvelle livraison qui pourrait vous int&eacute;resser.
+
+vous vouliez avoir un rappel de produit en cas de nouvelle arriv&eacute;e de l&#039;article suivant :
+
+{$LINK} 
+
+ Cordialement,
+Votre &eacute;quipe de vente

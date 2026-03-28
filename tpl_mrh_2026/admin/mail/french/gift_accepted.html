@@ -1,0 +1,18 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Votre bon d&#039;achat</font>     </td>
+</tr>
+<tr> 
+<td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if}&nbsp;{$NAME}</b>, <br /><br />Vous avez r&eacute;cemment command&eacute; dans notre boutique en ligne un bon d&#039;achat qui n&#039;a pas &eacute;t&eacute; activ&eacute; imm&eacute;diatement pour des raisons de s&eacute;curit&eacute;. <br /><br />Cet avoir est maintenant &agrave; votre disposition. Vous pouvez comptabiliser votre bon d&#039;achat et l&#039;envoyer par e-mail. <br /><br />Le bon d&#039;achat que vous avez command&eacute; a une valeur de {$AMMOUNT}. </font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

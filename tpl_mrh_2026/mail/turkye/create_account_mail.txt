@@ -1,0 +1,32 @@
+{if $GENDER == 'm'}Sayın Bay{elseif $GENDER == 'f'}Sayın Bayan{else}Merhaba{/if} {$NAME},
+
+Müşteri hesabınızı başarıyla oluşturdunuz.
+
+Kayıtlı bir müşteri olarak mağazamızda şu avantajlara sahipsiniz:
+
+-Müşteri Sepeti - Sepete eklediğiniz her ürün, kasaya gitmeden ya da sepetten çıkarmadan önce kaydedilir.
+-Adres Defteri - Artık ürünleri sizin seçtiğiniz adrese gönderebiliriz. Bir doğum günü hediyesi göndermenin mükemmel yolu.
+-Önceki Siparişler - Daha önce verdiğiniz siparişleri istediğiniz zaman inceleyebilirsiniz.
+-Ürünler Hakkında Görüşler - Diğer müşterilerle ürünlerimiz hakkındaki görüşlerinizi paylaşın.
+
+Dikkat: Bu e-posta adresi, bir müşteri tarafından bize bildirildi. Eğer hesap açmadıysanız, lütfen şu adrese e-posta gönderin: {$content.MAIL_REPLY_ADDRESS}
+
+{if $SEND_GIFT == true}
+Küçük bir hoşgeldin hediyesi olarak size şu tutarda bir hediye çeki gönderiyoruz: {$GIFT_AMMOUNT}
+
+Kişisel hediye çeki kodunuz: {$GIFT_CODE}. Bu krediyi sipariş sırasında kasada kullanabilirsiniz.
+
+Hediye çekini kullanmak için lütfen şu bağlantıyı kullanın: {$GIFT_LINK}.
+{/if}
+
+{if $SEND_COUPON == true}
+Küçük bir hoşgeldin hediyesi olarak size bir kupon gönderiyoruz.
+
+Kupon açıklaması: {$COUPON_DESC}
+
+Ödeme sırasında sadece kişisel kodunuzu {$COUPON_CODE} girin.
+{/if}
+
+Müşteri hizmetlerimizle ilgili herhangi bir sorunuz varsa, lütfen şu adrese başvurun: {$content.MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

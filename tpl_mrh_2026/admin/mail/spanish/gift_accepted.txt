@@ -1,0 +1,9 @@
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+ Estimado Sr. Estimada Sra. Hola ,
+
+Recientemente ha pedido un vale en nuestra tienda en l&iacute;nea,
+que no se ha activado inmediatamente por motivos de seguridad.
+Este cr&eacute;dito est&aacute; ahora a su disposici&oacute;n.
+Puede reservar su vale y enviarlo por correo electr&oacute;nico. {$AMMOUNT} El vale que ha solicitado tiene un valor de .
+
+[FIRMA]

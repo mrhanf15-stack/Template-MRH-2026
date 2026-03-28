@@ -1,0 +1,27 @@
+{config_load file="$language/lang_$language.conf" section="sitemap"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="sitemap"}
+{* MRH 2026: Sitemap – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_sitemap#}</h1>
+<div class="row g-4 mb-4">
+  {if isset($CATEGORIES_SITEMAP)}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="h5 mb-3"><span class="fa fa-folder-open me-2" aria-hidden="true"></span>{#title_categories#}</h2>
+          {$CATEGORIES_SITEMAP}
+        </div>
+      </div>
+    </div>
+  {/if}
+  {if isset($CONTENT_SITEMAP)}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="h5 mb-3"><span class="fa fa-file-text me-2" aria-hidden="true"></span>{#title_content#}</h2>
+          {$CONTENT_SITEMAP}
+        </div>
+      </div>
+    </div>
+  {/if}
+</div>

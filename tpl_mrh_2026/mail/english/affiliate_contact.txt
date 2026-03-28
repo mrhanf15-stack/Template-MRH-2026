@@ -1,0 +1,4 @@
+Partner name: {$content.NAME}
+eMail address: {$content.EMAIL}
+
+Message: {$content.ENQUIRY}

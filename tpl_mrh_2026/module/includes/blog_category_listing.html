@@ -1,0 +1,16 @@
+{* MRH 2026: Blog Kategorie Listing Include – BS5.3 *}
+{if empty($listing_htag)}{assign var='listing_htag' value='h2'}{/if}
+<div class="mrh-blog-category-listing row g-3">
+  {foreach name=aussen item=data from=$listing_items}
+    <div class="col-6 col-md-4 col-lg-3">
+      <a href="{$data.LINK}" class="card h-100 text-decoration-none text-body" title="{$data.NAME|onlytext}">
+        {if !empty($data.IMAGE_LIST) || !empty($data.IMAGE)}
+          <img class="card-img-top lazyload" src="data:," data-src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" loading="lazy">
+        {/if}
+        <div class="card-body text-center">
+          <{$listing_htag} class="h6 mb-0">{$data.NAME}</{$listing_htag}>
+        </div>
+      </a>
+    </div>
+  {/foreach}
+</div>

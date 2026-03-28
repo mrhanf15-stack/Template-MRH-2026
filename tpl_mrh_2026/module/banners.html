@@ -1,0 +1,11 @@
+{* MRH 2026: Banner – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  {foreach name=aussen item=banner_data from=$module_content}
+    {if !empty($banner_data.IMAGE)}
+      {if !empty($banner_data.LINK)}<a href="{$banner_data.LINK}" title="{$banner_data.TITLE|onlytext}">{/if}
+        <img src="{$banner_data.IMAGE}" alt="{$banner_data.TITLE|onlytext}" title="{$banner_data.TITLE|onlytext}" class="img-fluid" loading="lazy"{if $smarty.const.BANNERS_IMAGE_WIDTH} width="{$smarty.const.BANNERS_IMAGE_WIDTH}"{/if}{if $smarty.const.BANNERS_IMAGE_HEIGHT} height="{$smarty.const.BANNERS_IMAGE_HEIGHT}"{/if}>
+      {if !empty($banner_data.LINK)}</a>{/if}
+    {/if}
+    {if !empty($banner_data.HTML)}{$banner_data.HTML}{/if}
+  {/foreach}
+{/if}

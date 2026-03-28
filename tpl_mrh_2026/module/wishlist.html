@@ -1,0 +1,52 @@
+{config_load file="$language/lang_$language.conf" section="new_products"}
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="$language/lang_$language.conf" section="wishlist"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="wishlist"}
+{* MRH 2026: Wunschliste – BS5.3 *}
+{if isset($BUTTON_CONTINUE)}
+  <h1 class="mrh-page-title">{#heading_wishlist#}</h1>
+  <div class="card mb-4">
+    <div class="card-body text-center py-5">
+      <span class="fa fa-heart fa-3x text-body-secondary mb-3 d-block" aria-hidden="true"></span>
+      <p>{#text_empty_wishlist#}</p>
+      {$BUTTON_CONTINUE}
+    </div>
+  </div>
+{elseif isset($module_content)}
+  <h1 class="mrh-page-title">{#heading_wishlist#}</h1>
+  <div class="row g-3 mb-4">
+    {foreach name=aussen item=module_data from=$module_content}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="mrh-product-card">
+          <a href="{$module_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$module_data.PRODUCTS_NAME|onlytext}">
+            {if $smarty.const.MRH_FLAG_SPECIAL_SHOW == 'true' && $module_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
+              <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-special">{#MRH_special#}</span></div>
+            {elseif $smarty.const.MRH_FLAG_TOP_SHOW == 'true' && $module_data.PRODUCTS_STARTPAGE == '1'}
+              <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-top">{#MRH_top#}</span></div>
+            {elseif $smarty.const.MRH_FLAG_NEW_SHOW == 'true' && $module_data.PRODUCTS_OLDNEW == '1'}
+              <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-new">{#MRH_new#}</span></div>
+            {/if}
+            {if $module_data.PRODUCTS_IMAGE != ''}
+              <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" loading="lazy" width="300" height="300">
+            {/if}
+          </a>
+          <div class="mrh-product-card-body">
+            <h2 class="mrh-product-card-title">
+              <a href="{$module_data.PRODUCTS_LINK}">{$module_data.PRODUCTS_NAME}</a>
+            </h2>
+            <div class="mrh-product-card-price">
+              <span class="mrh-price-current">{$module_data.PRODUCTS_PRICE}</span>
+              {if $module_data.PRODUCTS_VPE}<div class="small text-body-secondary">{$module_data.PRODUCTS_VPE}</div>{/if}
+              <div class="small text-body-secondary">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+            </div>
+            <div class="d-flex gap-1 mt-2">
+              {$module_data.PRODUCTS_BUTTON_BUY_NOW}
+              {$module_data.PRODUCTS_BUTTON_DELETE}
+            </div>
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  </div>
+{/if}

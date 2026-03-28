@@ -1,0 +1,155 @@
+{config_load file="$language/lang_$language.conf" section="account_history_info"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="account_history_info"}
+{* MRH 2026: Bestelldetails – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_order#} #{$ORDER_ID}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{* Adressen *}
+<div class="row g-3 mb-4">
+  {if $DELIVERY_LABEL}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="h6 mb-2">{#title_delivery#}</h2>
+          <div class="small">{$DELIVERY_LABEL}</div>
+        </div>
+      </div>
+    </div>
+  {/if}
+  {if $BILLING_LABEL}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="h6 mb-2">{#title_billing#}</h2>
+          <div class="small">{$BILLING_LABEL}</div>
+        </div>
+      </div>
+    </div>
+  {/if}
+</div>
+{* Versand & Zahlung *}
+<div class="row g-3 mb-4">
+  {if isset($SHIPPING_METHOD) && $SHIPPING_METHOD != ''}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="h6 mb-2">{#title_shipping#}</h2>
+          <div class="small">{$SHIPPING_METHOD}</div>
+        </div>
+      </div>
+    </div>
+  {/if}
+  {if isset($PAYMENT_METHOD) && $PAYMENT_METHOD != ''}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="h6 mb-2">{#title_payment#}</h2>
+          <div class="small">{$PAYMENT_METHOD}</div>
+        </div>
+      </div>
+    </div>
+  {/if}
+</div>
+{* Bestellpositionen *}
+{if isset($order_content) && count($order_content) > 0}
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h6 mb-0">{#title_products#}</h2>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>{#table_qty#}</th>
+            <th>{#table_product#}</th>
+            {if isset($show_model)}<th class="d-none d-md-table-cell">{#table_model#}</th>{/if}
+            <th class="text-end">{#table_price#}</th>
+            <th class="text-end">{#table_total#}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foreach name=aussen item=order_data from=$order_content}
+            <tr>
+              <td>{$order_data.QTY}</td>
+              <td>
+                {if isset($order_data.PRODUCTS_LINK)}<a href="{$order_data.PRODUCTS_LINK}">{/if}
+                  {$order_data.NAME}
+                {if isset($order_data.PRODUCTS_LINK)}</a>{/if}
+                {if isset($order_data.ATTRIBUTES)}
+                  <div class="small text-body-secondary">
+                    {foreach item=attr from=$order_data.ATTRIBUTES}
+                      {$attr.OPTION}: {$attr.VALUE}<br>
+                    {/foreach}
+                  </div>
+                {/if}
+              </td>
+              {if isset($show_model)}<td class="d-none d-md-table-cell small">{$order_data.MODEL}</td>{/if}
+              <td class="text-end">{$order_data.SINGLE_PRICE}</td>
+              <td class="text-end">{$order_data.TOTAL_PRICE}</td>
+            </tr>
+          {/foreach}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{/if}
+{* Bestellsumme *}
+{if isset($order_total) && count($order_total) > 0}
+  <div class="card mb-4">
+    <div class="card-body">
+      <table class="table table-sm table-borderless mb-0">
+        {foreach name=aussen item=total_data from=$order_total}
+          <tr{if $smarty.foreach.aussen.last} class="fw-bold border-top"{/if}>
+            <td>{$total_data.TITLE}</td>
+            <td class="text-end">{$total_data.TEXT}</td>
+          </tr>
+        {/foreach}
+      </table>
+    </div>
+  </div>
+{/if}
+{* Status-Verlauf *}
+{if isset($status_content) && count($status_content) > 0}
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h6 mb-0">{#title_status#}</h2>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>{#table_date#}</th>
+            <th>{#table_status#}</th>
+            <th>{#table_comment#}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foreach name=aussen item=status_data from=$status_content}
+            <tr>
+              <td class="small">{$status_data.DATE}</td>
+              <td><span class="badge bg-secondary">{$status_data.STATUS}</span></td>
+              <td class="small">{$status_data.COMMENT}</td>
+            </tr>
+          {/foreach}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{/if}
+{* Tracking *}
+{if isset($tracking_content) && count($tracking_content) > 0}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h6 mb-2">{#title_tracking#}</h2>
+      {foreach item=tracking_data from=$tracking_content}
+        <div class="mb-1">
+          <a target="_blank" rel="noopener" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a>
+        </div>
+      {/foreach}
+    </div>
+  </div>
+{/if}
+<div class="d-flex justify-content-between mb-4">
+  {$BUTTON_BACK}
+  {if isset($BUTTON_REORDER)}{$BUTTON_REORDER}{/if}
+</div>

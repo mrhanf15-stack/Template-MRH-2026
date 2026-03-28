@@ -284,6 +284,204 @@ const MRH_Gallery = {
   }
 };
 
+/* === SEEDFINDER WIZARD === */
+const MRH_SeedfinderWizard = {
+  selections: {},
+  currentStep: 1,
+  totalSteps: 4,
+
+  init() {
+    const container = document.getElementById('wizard-steps-container');
+    if (!container) return;
+
+    /* Option-Card Klicks */
+    container.addEventListener('click', (e) => {
+      const card = e.target.closest('.wizard-option-card');
+      if (!card) return;
+      const step = parseInt(card.dataset.step);
+      const value = card.dataset.value;
+      if (!step || !value) return;
+
+      /* Multi-Select oder Single-Select */
+      if (card.classList.contains('wizard-multi-option')) {
+        card.classList.toggle('selected');
+      } else {
+        container.querySelectorAll(`#wizard-step-${step} .wizard-option-card`).forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      }
+
+      this.selections[step] = value;
+      this.updateProgress();
+
+      /* Auto-Advance nach kurzer Verzoegerung */
+      if (!card.classList.contains('wizard-multi-option') && step < this.totalSteps) {
+        setTimeout(() => this.goToStep(step + 1), 300);
+      }
+    });
+
+    /* Back Button */
+    const backBtn = document.getElementById('wizard-back-btn');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        if (this.currentStep > 1) this.goToStep(this.currentStep - 1);
+      });
+    }
+
+    /* Reset Button */
+    const resetBtn = document.getElementById('wizard-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => this.reset());
+    }
+  },
+
+  goToStep(step) {
+    document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById(`wizard-step-${step}`);
+    if (target) {
+      target.classList.add('active');
+      this.currentStep = step;
+      this.updateProgress();
+    }
+    const backBtn = document.getElementById('wizard-back-btn');
+    if (backBtn) backBtn.style.display = step > 1 ? '' : 'none';
+  },
+
+  updateProgress() {
+    const bar = document.getElementById('wizard-progress-bar');
+    const text = document.getElementById('wizard-progress-text');
+    const percent = (this.currentStep / this.totalSteps) * 100;
+    if (bar) bar.style.width = percent + '%';
+    if (text) {
+      const tpl = text.dataset.template || 'Schritt {step} von {total}';
+      text.textContent = tpl.replace('{step}', this.currentStep).replace('{total}', this.totalSteps);
+    }
+  },
+
+  reset() {
+    this.selections = {};
+    this.currentStep = 1;
+    document.querySelectorAll('.wizard-option-card.selected').forEach(c => c.classList.remove('selected'));
+    this.goToStep(1);
+  }
+};
+
+/* === SEEDFINDER FILTER === */
+const MRH_SeedfinderFilter = {
+  init() {
+    const applyBtn = document.getElementById('seedfinder-filter-apply');
+    const resetBtn = document.getElementById('seedfinder-filter-reset');
+    if (!applyBtn) return;
+
+    applyBtn.addEventListener('click', () => this.apply());
+    if (resetBtn) resetBtn.addEventListener('click', () => this.reset());
+  },
+
+  apply() {
+    const form = document.getElementById('seedfinder-filter-form');
+    if (!form) return;
+    const formData = new FormData(form);
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+      if (value) params.append(key, value);
+    }
+    /* Redirect mit Filtern */
+    const baseUrl = window.location.pathname;
+    window.location.href = baseUrl + '?' + params.toString();
+  },
+
+  reset() {
+    const form = document.getElementById('seedfinder-filter-form');
+    if (form) form.reset();
+  }
+};
+
+/* === CHECKOUT STEPPER === */
+const MRH_CheckoutStepper = {
+  init() {
+    const nav = document.querySelector('.mrh-checkout-nav');
+    if (!nav) return;
+    /* Stepper ist rein visuell – wird per Smarty-Klassen gesteuert */
+  }
+};
+
+/* === AUTOCOMPLETE === */
+const MRH_Autocomplete = {
+  debounceTimer: null,
+
+  init() {
+    const inputs = document.querySelectorAll('[data-mrh-autocomplete]');
+    if (!inputs.length) return;
+
+    inputs.forEach(input => {
+      const url = input.dataset.mrhAutocomplete;
+      const resultsId = input.dataset.mrhAutocompleteResults;
+      const results = resultsId ? document.getElementById(resultsId) : null;
+      if (!url || !results) return;
+
+      input.addEventListener('input', () => {
+        clearTimeout(this.debounceTimer);
+        const query = input.value.trim();
+        if (query.length < 2) {
+          results.innerHTML = '';
+          results.style.display = 'none';
+          return;
+        }
+        this.debounceTimer = setTimeout(() => this.fetch(url, query, results), 250);
+      });
+
+      /* Schliessen bei Klick ausserhalb */
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('[data-mrh-autocomplete]') && !e.target.closest('.mrh-autocomplete-results')) {
+          results.innerHTML = '';
+          results.style.display = 'none';
+        }
+      });
+    });
+  },
+
+  fetch(url, query, container) {
+    fetch(`${url}?keywords=${encodeURIComponent(query)}`)
+      .then(r => r.json())
+      .then(data => {
+        if (!data || !data.length) {
+          container.innerHTML = '';
+          container.style.display = 'none';
+          return;
+        }
+        container.innerHTML = data.map(item => `
+          <a href="${item.link}" class="mrh-autocomplete-item">
+            ${item.image ? `<img src="${item.image}" alt="" loading="lazy">` : ''}
+            <div>
+              <div class="fw-semibold small">${item.name}</div>
+              ${item.price ? `<div class="small text-body-secondary">${item.price}</div>` : ''}
+            </div>
+          </a>
+        `).join('');
+        container.style.display = 'block';
+      })
+      .catch(() => {
+        container.innerHTML = '';
+        container.style.display = 'none';
+      });
+  }
+};
+
+/* === PRODUCT OPTIONS (Variant Selector) === */
+const MRH_ProductOptions = {
+  init() {
+    /* Delegiert an Shop-eigene Optionen-Logik */
+    /* Hier nur visuelle Verbesserungen */
+    document.querySelectorAll('.mrh-option-swatch').forEach(swatch => {
+      swatch.addEventListener('click', function() {
+        this.closest('.mrh-option-swatches')?.querySelectorAll('.mrh-option-swatch').forEach(s => s.classList.remove('active'));
+        this.classList.add('active');
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+      });
+    });
+  }
+};
+
 /* === INIT === */
 document.addEventListener('DOMContentLoaded', () => {
   MRH_StickyHeader.init();
@@ -293,4 +491,9 @@ document.addEventListener('DOMContentLoaded', () => {
   MRH_MegaMenu.init();
   MRH_LazyLoad.init();
   MRH_Gallery.init();
+  MRH_SeedfinderWizard.init();
+  MRH_SeedfinderFilter.init();
+  MRH_CheckoutStepper.init();
+  MRH_Autocomplete.init();
+  MRH_ProductOptions.init();
 });

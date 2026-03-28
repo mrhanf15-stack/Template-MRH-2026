@@ -1,0 +1,13 @@
+{config_load file="$language/lang_$language.conf" section="logoff"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="logoff"}
+{* MRH 2026: Abmeldung – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_logoff#}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{if $success_message}<div class="alert alert-success">{$success_message}</div>{/if}
+<div class="card mb-4">
+  <div class="card-body">
+    <p>{#text_logoff#}</p>
+    <div>{$BUTTON_CONTINUE}</div>
+  </div>
+</div>

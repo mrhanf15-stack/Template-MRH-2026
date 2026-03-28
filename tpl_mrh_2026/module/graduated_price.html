@@ -1,0 +1,35 @@
+{if isset($module_content)}
+  {config_load file="$language/lang_$language.conf" section="graduated_price"}
+  {config_load file="lang_`$language`.custom"}
+  {config_load file="lang_`$language`.section" section="graduated_price"}
+  {* MRH 2026: Staffelpreise – BS5.3, Schema.org *}
+  <div class="card mrh-graduated-price mb-3">
+    <div class="card-body p-2">
+      <strong class="small">{#heading_text#}</strong>
+      <div class="table-responsive mt-1">
+        <table class="table table-sm table-borderless mb-0 small">
+          <tbody>
+            {foreach name=aussen item=module_data from=$module_content}
+              <tr>
+                <td>{$module_data.FROM_QUANTITY} {$module_data.PLAIN_QUANTITY} {#unit#}</td>
+                <td class="text-end fw-medium">{#pieces#} {$module_data.PRICE}</td>
+                {if $module_data.VPE != ''}<td class="text-end text-body-secondary">({$module_data.VPE})</td>{/if}
+              </tr>
+              {if $smarty.foreach.aussen.first}
+                {assign var=maxPrice value=$module_data.PLAIN_PRICE}
+              {elseif $smarty.foreach.aussen.last}
+                {assign var=minPrice value=$module_data.PLAIN_PRICE}
+              {/if}
+            {/foreach}
+          </tbody>
+        </table>
+      </div>
+      <div itemprop="PriceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+        <meta itemprop="priceCurrency" content="{$smarty.session.currency}">
+        <meta itemprop="price" content="{$maxPrice}">
+        <meta itemprop="minPrice" content="{$minPrice}">
+        <meta itemprop="maxPrice" content="{$maxPrice}">
+      </div>
+    </div>
+  </div>
+{/if}

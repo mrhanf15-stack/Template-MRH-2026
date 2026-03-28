@@ -1,0 +1,39 @@
+{config_load file="$language/lang_$language.conf" section="product_navigator"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="product_navigator"}
+{* MRH 2026: Produkt-Navigator (Vor/Zurück) – BS5.3 *}
+{if isset($PRODUCTS_NAVIGATOR) && $PRODUCTS_NAVIGATOR == 'true'}
+  <nav class="mrh-product-nav d-flex justify-content-between align-items-center mb-3" aria-label="Produktnavigation">
+    <div class="d-flex gap-2 align-items-center">
+      {if $FIRST != ''}
+        <a href="{$FIRST}" class="btn btn-sm btn-outline-secondary" title="{#first#|replace:'&laquo; ':''}">
+          <span class="fa fa-fast-backward" aria-hidden="true"></span>
+          <span class="d-none d-md-inline ms-1">{#first#|replace:'&laquo; ':''}</span>
+        </a>
+      {/if}
+      {if $PREVIOUS != ''}
+        <a href="{$PREVIOUS}" class="btn btn-sm btn-outline-secondary" title="{#previous#|replace:'&laquo; ':''}">
+          <span class="fa fa-backward" aria-hidden="true"></span>
+          <span class="d-none d-md-inline ms-1">{#previous#|replace:'&laquo; ':''}</span>
+        </a>
+      {/if}
+    </div>
+    {if $POSITION != ''}
+      <span class="small text-body-secondary">{$POSITION}</span>
+    {/if}
+    <div class="d-flex gap-2 align-items-center">
+      {if $NEXT != ''}
+        <a href="{$NEXT}" class="btn btn-sm btn-outline-secondary" title="{#next#|replace:' &raquo;':''}">
+          <span class="d-none d-md-inline me-1">{#next#|replace:' &raquo;':''}</span>
+          <span class="fa fa-forward" aria-hidden="true"></span>
+        </a>
+      {/if}
+      {if $LAST != ''}
+        <a href="{$LAST}" class="btn btn-sm btn-outline-secondary" title="{#last#|replace:' &raquo;':''}">
+          <span class="d-none d-md-inline me-1">{#last#|replace:' &raquo;':''}</span>
+          <span class="fa fa-fast-forward" aria-hidden="true"></span>
+        </a>
+      {/if}
+    </div>
+  </nav>
+{/if}

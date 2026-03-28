@@ -1,0 +1,63 @@
+{if $dl neq ''}
+  {config_load file="$language/lang_$language.conf" section="downloads_module"}
+  {config_load file="$language/lang_$language.conf" section="login"}
+  {config_load file="lang_`$language`.custom"}
+  {config_load file="lang_`$language`.section" section="downloads_module"}
+{* MRH 2026: Downloads – BS5.3 *}
+<div class="card mb-4">
+  <div class="card-header">
+    <h2 class="h5 mb-0">{#heading_download#}</h2>
+  </div>
+  {if $FORM_ACTION}
+    {if $error_message}<div class="alert alert-danger m-3">{$error_message}</div>{/if}
+    {$FORM_ACTION}
+    <div class="card-body">
+      <p>{#text_confirm_download#}</p>
+    </div>
+    <div class="card-footer">
+      <div class="mb-3">
+        <label class="form-label">{#text_email#}</label>
+        {$INPUT_MAIL|replace:'<input':'<input class="form-control"'|replace:"type=\"text\"":"type=\"email\""}
+      </div>
+    </div>
+    <div class="d-flex justify-content-end p-3">
+      {$BUTTON_LOGIN}
+    </div>
+    {$FORM_END}
+  {else}
+    {if $dl_prevented eq 'true'}
+      <div class="card-body">
+        {if $dl_not_found}
+          {#download_not_found#}
+        {elseif $dl_exceeded eq 'true'}
+          {#download_exceeded#}
+        {else}
+          {#download_not_allowed#}
+        {/if}
+      </div>
+    {/if}
+    {if $dl|@sizeof > 0}
+      {foreach name=aussen item=dl_data from=$dl}
+        <div class="card-body border-top">
+          <div class="d-flex gap-3 align-items-center">
+            <div class="flex-shrink-0">
+              {if $dl_data.allowed}
+                <a href="{$dl_data.pic_link}"><img src="{$tpl_path}img/img_download.png" alt="Download" width="48" height="48"></a>
+              {else}
+                <img src="{$tpl_path}img/img_download_locked.png" alt="Gesperrt" width="48" height="48">
+              {/if}
+            </div>
+            <div>
+              <strong>{$dl_data.download_link}</strong><br>
+              <span class="small text-body-secondary">{#table_heading_download_date#} {$dl_data.date} &bull; <strong>{$dl_data.count}</strong> {#table_heading_download_count#}</span>
+            </div>
+          </div>
+        </div>
+      {/foreach}
+    {/if}
+  {/if}
+</div>
+{/if}
+{if $BUTTON_BACK && !$FORM_ACTION}
+  <div class="d-flex justify-content-end mb-4">{$BUTTON_BACK}</div>
+{/if}

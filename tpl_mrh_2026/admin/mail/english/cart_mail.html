@@ -1,0 +1,31 @@
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+</table>
+Register here: <a href="{$LOGIN}">{$LOGIN}</a>
+<hr />
+{if $GENDER}Dear{if $GENDER eq 'm'}r Mr.{elseif $GENDER eq 'f'} Mrs.{else}(r) {$FIRSTNAME}{/if} {$LASTNAME} ,{else}Hello,{/if}<p>{if $NEW == true}Thank you very much for visiting {$STORE_NAME} and for the trust you have placed in us.{else}Thank you very much for visiting {$STORE_NAME} again and for the trust you have placed in us.{/if}</p>
+
+<p>We have seen that you have filled the shopping cart with the following items during your visit to our online store, but have not completed the purchase.</p>
+
+<p>Contents of your shopping cart:</p>
+<table border="0" cellpadding="0" cellspacing="3">
+{foreach name=outer item=product from=$products_data}
+<tr>
+    &lt;!--<td><img src="{$product.IMAGE}" alt="{$product.NAME}" /></td>--&gt;
+    <td valign="center">{$product.QUANTITY} x </td>
+    <td valign="center"><a href="{$product.LINK}">{$product.NAME}</a></td>
+</tr>
+{/foreach}
+</table>
+<p>We are always striving to improve our service in the interests of our customers. For this reason, we are naturally interested to know what the reasons were for not making your purchase this time at {$STORE_NAME}. We would therefore be very grateful if you could let us know if you had any problems or concerns about successfully completing your purchase when you visited our online store. Our aim is to make shopping at {$STORE_NAME} easier and better for you and other customers.</p>
+
+<p>Thank you again for your time and help in improving the {$STORE_NAME} online store.</p>
+
+<p>Yours sincerely</p>
+
+<p>Your team from <a href="{$STORE_LINK}">Mr. Hanf</a></p>
+{if $MESSAGE}
+<p>{$MESSAGE}</p>
+{/if}

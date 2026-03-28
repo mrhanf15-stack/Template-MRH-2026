@@ -1,0 +1,64 @@
+{config_load file="$language/lang_$language.conf" section="reklamation"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="reklamation"}
+{* MRH 2026: Reklamationsformular – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_reklamation#}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{$FORM_ACTION}
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">{#text_name#}</label>
+          {$INPUT_NAME|replace:'<input':'<input class="form-control" autocomplete="name"'}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_email#}</label>
+          {$INPUT_EMAIL|replace:'<input':'<input class="form-control" autocomplete="email"'|replace:"type=\"text\"":"type=\"email\""}
+        </div>
+        {if isset($INPUT_PHONE)}
+          <div class="mb-3">
+            <label class="form-label">{#text_phone#}</label>
+            {$INPUT_PHONE|replace:'<input':'<input class="form-control" autocomplete="tel"'|replace:"type=\"text\"":"type=\"tel\""}
+          </div>
+        {/if}
+        <div class="mb-3">
+          <label class="form-label">{#text_order_id#}</label>
+          {$INPUT_ORDER_ID|replace:'<input':'<input class="form-control"'}
+        </div>
+      </div>
+      <div class="col-md-6">
+        {if isset($SELECT_REASON)}
+          <div class="mb-3">
+            <label class="form-label">{#text_reason#}</label>
+            {$SELECT_REASON|replace:'<select':'<select class="form-select"'}
+          </div>
+        {/if}
+        <div class="mb-3">
+          <label class="form-label">{#text_message#}</label>
+          {$INPUT_MESSAGE|replace:'<textarea':'<textarea class="form-control" rows="6"'}
+        </div>
+        {if isset($INPUT_FILE)}
+          <div class="mb-3">
+            <label class="form-label">{#text_file#}</label>
+            {$INPUT_FILE|replace:'<input':'<input class="form-control"'}
+          </div>
+        {/if}
+        {if isset($PRIVACY_LINK)}
+          <div class="form-check mb-3">
+            {if $PRIVACY_checkbox}{$PRIVACY_checkbox|replace:'<input':'<input class="form-check-input"'}{/if}
+            <label class="form-check-label">
+              {if $PRIVACY_checkbox}{#text_privacy_accept#}{else}{#text_privacy_notice#}{/if} {$PRIVACY_LINK}
+            </label>
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-between mb-4">
+  {if isset($BUTTON_BACK)}{$BUTTON_BACK}{/if}
+  {$BUTTON_SUBMIT}
+</div>
+{$FORM_END}

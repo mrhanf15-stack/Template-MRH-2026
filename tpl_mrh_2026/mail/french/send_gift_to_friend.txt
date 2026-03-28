@@ -1,0 +1,17 @@
+----------------------------------------------------------------------------------------
+ F&eacute;licitations, vous avez re&ccedil;u un bon d&#039;achat sur {$AMMOUNT}!
+----------------------------------------------------------------------------------------
+
+Ce bon d&#039;achat vous a &eacute;t&eacute; envoy&eacute; par {$FROM_NAME},
+Avec le message :
+
+{$MESSAGE} 
+
+ Votre code personnel de bon d&#039;achat est {$GIFT_CODE}. Vous pouvez comptabiliser ce bon pendant le processus de commande.
+
+Pour valider le bon, veuillez cliquer sur {$GIFT_LINK}
+
+ Si vous rencontrez des probl&egrave;mes pour valider le bon avec le lien ci-dessus,
+vous pouvez comptabiliser le montant pendant le processus de commande.
+
+[SIGNATUR]

@@ -1,0 +1,39 @@
+{config_load file="$language/lang_$language.conf" section="account"}
+{config_load file="$language/lang_$language.conf" section="account_history"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="account_history"}
+{* MRH 2026: Bestellhistorie – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_history#}</h1>
+<div class="row g-3 mb-4">
+  {foreach name=aussen item=order_data from=$order_content}
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h2 class="h6 mb-0">
+              <a href="{$order_data.ORDER_LINK}" class="text-decoration-none">{#text_oid#}{$order_data.ORDER_ID}</a>
+            </h2>
+            <div class="d-flex gap-1">
+              {if isset($order_data.BUTTON_CART_EXPRESS)}{$order_data.BUTTON_CART_EXPRESS}{/if}
+              {$order_data.BUTTON_CART}
+            </div>
+          </div>
+          <div class="small">
+            <div><strong>{$order_data.ORDER_DATE}</strong> / {#order_nr#}{$order_data.ORDER_ID}</div>
+            <div>{#text_total#} {$order_data.ORDER_TOTAL}</div>
+            <div>{#text_status#} <span class="badge bg-secondary">{$order_data.ORDER_STATUS}</span></div>
+            {if count($order_data.ORDER_TRACKING) > 0}
+              {foreach name=aussen item=tracking_data from=$order_data.ORDER_TRACKING}
+                <div>{#label_tracking#} <a target="_blank" rel="noopener" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a></div>
+              {/foreach}
+            {/if}
+          </div>
+        </div>
+      </div>
+    </div>
+  {/foreach}
+</div>
+{$PAGINATION}
+<div class="mb-4">
+  {$BUTTON_BACK}
+</div>

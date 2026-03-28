@@ -1,0 +1,45 @@
+{* MRH 2026: Blog Post Listing Include – BS5.3, Schema.org *}
+{if empty($listing_htag)}{assign var='listing_htag' value='h2'}{/if}
+{if empty($listing_page)}{assign var='listing_page' value='category'}{/if}
+<div class="mrh-blog-post-listing row g-4" itemscope itemtype="http://schema.org/Blog">
+  {foreach name=aussen item=data from=$listing_items}
+    <div class="col-md-6 col-lg-4">
+      <article class="card h-100" itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
+        <meta itemprop="url" content="{$data.LINK}">
+        <meta itemprop="dateCreated" content="{$data.DATE_ADDED.C}">
+        <meta itemprop="datePublished" content="{$data.DATE_ADDED.C}">
+        {if !empty($data.DATE_MODIFIED)}<meta itemprop="dateModified" content="{$data.DATE_MODIFIED.C}">{/if}
+        {if !empty($data.AUTHOR)}
+          <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="d-none">
+            <meta itemprop="name" content="{$data.AUTHOR}">
+            {if !empty($data.AUTHOR_LINK)}<meta itemprop="url" content="{$data.AUTHOR_LINK}">{/if}
+          </span>
+        {/if}
+        {if !empty($data.IMAGE_LIST) || !empty($data.IMAGE)}
+          <a href="{$data.LINK}" title="{$data.NAME|onlytext}" class="d-block overflow-hidden" style="max-height:220px">
+            <img class="card-img-top lazyload" src="data:," data-src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" itemprop="image" loading="lazy">
+          </a>
+        {/if}
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge text-bg-light">
+              <span class="fa fa-calendar me-1" aria-hidden="true"></span>{$data.DATE_ADDED.DAY}. {$data.DATE_ADDED.MONTH_SHORT}
+            </span>
+            {if !empty($data.CATEGORIES_NAME)}
+              <a href="{$data.CATEGORIES_LINK}" class="badge text-bg-primary text-decoration-none" title="{$data.CATEGORIES_NAME|onlytext}">
+                <span class="fa fa-folder me-1" aria-hidden="true"></span>{$data.CATEGORIES_NAME}
+              </a>
+            {/if}
+          </div>
+          <{$listing_htag} class="h6 mb-2" itemprop="headline">
+            <a href="{$data.LINK}" class="text-decoration-none" title="{$data.TITLE|onlytext}">{$data.TITLE}</a>
+          </{$listing_htag}>
+          {if !empty($data.SHORT_DESCRIPTION)}
+            <p class="small text-body-secondary flex-grow-1" itemprop="description">{$data.SHORT_DESCRIPTION|truncate:180}</p>
+          {/if}
+          <a href="{$data.LINK}" class="btn btn-sm btn-outline-primary mt-auto align-self-start">{#read_more#}</a>
+        </div>
+      </article>
+    </div>
+  {/foreach}
+</div>

@@ -1,0 +1,33 @@
+
+Teşekkürler, bültenimize abone olduğunuz için.
+
+{if isset($LINK)}
+Bu e-postayı alıyorsunuz çünkü bültenimizi almak istiyorsunuz.
+E-posta adresinizin bülten alımı için etkinleştirilmesi için lütfen etkinleştirme bağlantısına tıklayın.
+
+Aktivasyon bağlantınız:
+{$LINK}
+
+Eğer bültenimize kaydolmamışsanız veya bülten almayı istemiyorsanız,
+aktivasyon bağlantısını görmezden gelmenizi rica ederiz.
+
+Bülten gönderimine ilişkin rızanız her zaman geri alınabilir. Bülten gönderimi, gizlilik politikamıza göre gerçekleştirilir.
+{/if}
+
+{if $SEND_GIFT == true}
+Küçük bir hediye olarak size şu değerde bir kupon gönderiyoruz: {$GIFT_AMMOUNT}
+
+Kişisel kupon kodunuz {$GIFT_CODE}. Bu krediyi, sipariş işlemi sırasında kasada kullanabilirsiniz.
+
+Kuponu kullanmak için lütfen şu bağlantıyı kullanın {$GIFT_LINK}.
+{/if}
+
+{if $SEND_COUPON == true}
+Küçük bir hediye olarak size bir kupon gönderiyoruz.
+
+Kupon açıklaması: {$COUPON_DESC}
+
+Ödeme işlemi sırasında sadece kişisel kodunuzu {$COUPON_CODE} girin.
+{/if}
+
+[SIGNATUR]

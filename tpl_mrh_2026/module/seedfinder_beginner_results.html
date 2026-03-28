@@ -1,0 +1,81 @@
+{config_load file="$language/lang_$language.conf" section="seedfinder"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="seedfinder"}
+{* MRH 2026: Seedfinder Beginner Ergebnisse – BS5.3 *}
+<div class="mrh-seedfinder-beginner-results">
+  <div class="text-center mb-4">
+    <h1 class="h3">{#beginner_results_title#}</h1>
+    <p class="text-body-secondary">{#beginner_results_subtitle#}</p>
+  </div>
+
+  {* Ergebnis-Zusammenfassung *}
+  {if isset($WIZARD_SELECTIONS) && count($WIZARD_SELECTIONS) > 0}
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2 class="h6 mb-0"><span class="fa fa-check-circle text-success me-1" aria-hidden="true"></span>{#beginner_results_your_selection#}</h2>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap gap-2">
+          {foreach item=selection from=$WIZARD_SELECTIONS}
+            <span class="badge text-bg-primary">{$selection.LABEL}: {$selection.VALUE}</span>
+          {/foreach}
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  {* Produkte *}
+  {if isset($PRODUCTS) && count($PRODUCTS) > 0}
+    <div class="row g-3" id="beginner-results-grid">
+      {foreach name=aussen item=module_data from=$PRODUCTS}
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 mrh-seedfinder-product">
+            {if $module_data.PRODUCTS_IMAGE != ''}
+              <a href="{$module_data.PRODUCTS_LINK}" title="{$module_data.PRODUCTS_NAME|onlytext}">
+                <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" class="card-img-top" loading="lazy">
+              </a>
+            {/if}
+            <div class="card-body d-flex flex-column">
+              {if !empty($module_data.MANUFACTURER)}
+                <div class="small text-body-secondary mb-1">{$module_data.MANUFACTURER}</div>
+              {/if}
+              <h3 class="h6 mb-2">
+                <a href="{$module_data.PRODUCTS_LINK}" class="text-decoration-none">{$module_data.PRODUCTS_NAME}</a>
+              </h3>
+              {if isset($module_data.MATCH_SCORE)}
+                <div class="mb-2">
+                  <span class="badge text-bg-success">{$module_data.MATCH_SCORE}% {#match#}</span>
+                </div>
+              {/if}
+              <div class="mt-auto">
+                {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+                  {include file="module/includes/price_box.html"}
+                {/foreach}
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="{$module_data.PRODUCTS_LINK}" class="btn btn-sm btn-outline-primary w-100">{#details#}</a>
+            </div>
+          </div>
+        </div>
+      {/foreach}
+    </div>
+
+    {if isset($PAGINATION) && $PAGINATION != ''}
+      <div class="mt-4">{$PAGINATION}</div>
+    {/if}
+  {else}
+    <div class="alert alert-info text-center">
+      <span class="fa fa-info-circle me-2" aria-hidden="true"></span>{#beginner_results_no_products#}
+    </div>
+  {/if}
+
+  {* Zurück zum Wizard *}
+  <div class="text-center mt-4">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#beginnerWizardModal">
+      <span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#beginner_results_back_to_selection#}
+    </button>
+  </div>
+
+  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_beginner-wizard-modal-with-results.html"}
+</div>

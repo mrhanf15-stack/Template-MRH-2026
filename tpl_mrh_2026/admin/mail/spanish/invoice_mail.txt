@@ -1,0 +1,19 @@
+{if $GENDER == MALE}{elseif $GENDER == FEMALE}{else}{/if} {$LASTNAME}
+
+{if $ORDER_NR} {$ORDER_NR}{/if}{if $ORDER_DATE} {$ORDER_DATE}{/if}
+
+ {$PDF_TYPE}
+
+
+{if $ORDER_LINK}{$ORDER_LINK} Estimado Sr. Estimada Sra. Hola , Dank f&uuml;r Ihre Encargo No. de . Por favor, encuentre adjunto a este e-mail su para hacer el pedido. Para hacer el pedido: 
+{/if}
+
+{$SIGNATURE_TXT}
+
+{*$REVOCATION_TXT*}
+
+{*$AGB_TITLE_TXT*}
+{*$AGB_TXT*}
+
+{*$PRIVACY_POLICY_TXT*}
+[NOSIGNATUR]

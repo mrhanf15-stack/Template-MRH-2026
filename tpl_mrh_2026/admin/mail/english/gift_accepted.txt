@@ -1,0 +1,9 @@
+
+{if $GENDER == 'm'}Dear Mr.{elseif $GENDER == 'f'}Dear Ms.{else}Hello{/if} {$NAME} ,
+
+You recently ordered a voucher in our online store,
+which was not activated immediately for security reasons.
+This credit is now available to you.
+You can book your voucher and send it by e-mail. The voucher you have ordered has a value of {$AMMOUNT}.
+
+[SIGNATURE]

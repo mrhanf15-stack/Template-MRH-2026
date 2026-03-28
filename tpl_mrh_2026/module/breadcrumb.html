@@ -1,0 +1,16 @@
+{* MRH 2026: Breadcrumb – Schema.org BreadcrumbList, BS5.3, barrierefrei *}
+{if isset($TRAIL) && count($TRAIL) > 0}
+  <ol class="breadcrumb mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
+    {foreach name=aussen item=breadcrumb from=$TRAIL}
+      <li class="breadcrumb-item{if $smarty.foreach.aussen.last} active{/if}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        {if !$smarty.foreach.aussen.last}
+          <a itemprop="item" href="{$breadcrumb.link}"><span itemprop="name">{$breadcrumb.title|onlytext}</span></a>
+        {else}
+          <span itemprop="name">{$breadcrumb.title|onlytext}</span>
+          <meta itemprop="item" content="{$breadcrumb.link}">
+        {/if}
+        <meta itemprop="position" content="{$smarty.foreach.aussen.iteration}">
+      </li>
+    {/foreach}
+  </ol>
+{/if}

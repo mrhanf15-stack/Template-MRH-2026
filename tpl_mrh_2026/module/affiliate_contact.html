@@ -1,0 +1,23 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_contact"}
+{* MRH 2026: Affiliate Kontakt – BS5.3 *}
+<div class="mrh-affiliate-contact">
+  <h1 class="mrh-page-title">{#heading_title#}</h1>
+  {$FORM_ACTION}
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">{#entry_subject#}</label>
+        {$INPUT_SUBJECT|replace:'class="':'class="form-control '}
+      </div>
+      <div class="mb-3">
+        <label class="form-label">{#entry_message#}</label>
+        {$INPUT_MESSAGE|replace:'class="':'class="form-control '|replace:'<textarea':'<textarea class="form-control" rows="6"'}
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
+    {$BUTTON_SUBMIT}
+  </div>
+  </form>
+</div>

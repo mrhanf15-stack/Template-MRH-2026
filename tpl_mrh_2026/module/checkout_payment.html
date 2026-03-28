@@ -1,0 +1,83 @@
+{config_load file="$language/lang_$language.conf" section="checkout_payment"}
+{config_load file="$language/lang_$language.conf" section="checkout_navigation"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="checkout_payment"}
+{* MRH 2026: Checkout Zahlung – BS5.3 *}
+{assign var="checkout_step" value=2}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/checkout_nav.html"}
+<h1 class="mrh-page-title">{#heading_payment#}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{$FORM_ACTION}
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body pb-0">
+        <h2 class="h5 mb-3">{#title_payment#}</h2>
+      </div>
+      {if (!isset($GV_COVER) || $GV_COVER != 'true') && (!isset($NO_PAYMENT) || $NO_PAYMENT != 'true')}
+        <div class="card-body pt-0 small">{#text_payment#}</div>
+        {$PAYMENT_BLOCK}
+        {if isset($module_gift)}{$module_gift}{/if}
+      {elseif isset($GV_COVER) && $GV_COVER == 'true'}
+        <div class="card-body"><div class="alert alert-info mb-0">{#text_gccover#}</div></div>
+      {elseif isset($NO_PAYMENT) && $NO_PAYMENT == 'true'}
+        <div class="card-body"><div class="alert alert-info mb-0">{#text_nopayment#}</div></div>
+      {/if}
+    </div>
+  </div>
+  <div class="col-md-6">
+    {if $step2 != 'true'}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h5 mb-3">{#title_address#}</h2>
+          <p class="small">{$ADDRESS_LABEL}</p>
+          {$BUTTON_ADDRESS}
+        </div>
+      </div>
+    {/if}
+    {if $step2 != 'true'}
+      <div class="card">
+        <div class="card-body">
+          <h2 class="h5 mb-3">{#title_comments_short#}</h2>
+          {$COMMENTS|replace:'<textarea':'<textarea class="form-control"'}
+        </div>
+        {if $smarty.const.DISPLAY_CONDITIONS_ON_CHECKOUT == 'true'}
+          <div class="card-body border-top">
+            <h3 class="h6 mb-2">{#title_agb#}</h3>
+            <div class="border rounded p-2 small mb-3" style="max-height:200px;overflow-y:auto">{$AGB}</div>
+          </div>
+        {/if}
+        <div class="card-footer">
+          {if "SIGN_CONDITIONS_ON_CHECKOUT"|defined}
+            <div class="form-check mb-2">
+              {if $smarty.const.SIGN_CONDITIONS_ON_CHECKOUT == 'true'}{$AGB_checkbox|replace:'<input':'<input class="form-check-input"'}{/if}
+              <label class="form-check-label"><strong>{#text_accept_agb#}</strong> {$AGB_LINK}</label>
+            </div>
+          {else}
+            <div class="form-check mb-2">
+              {$AGB_checkbox|replace:'<input':'<input class="form-check-input"'}
+              <label class="form-check-label"><strong>{#text_accept_agb#}</strong> {$AGB_LINK}</label>
+            </div>
+          {/if}
+          {if isset($PRIVACY_LINK)}
+            <div class="form-check mb-2">
+              {if $PRIVACY_checkbox}{$PRIVACY_checkbox|replace:'<input':'<input class="form-check-input"'}{/if}
+              <label class="form-check-label"><strong>{if $PRIVACY_checkbox}{#text_privacy_accept#}{else}{#text_privacy_notice#}{/if}</strong> {$PRIVACY_LINK}</label>
+            </div>
+          {/if}
+          {if isset($REVOCATION_checkbox)}
+            <div class="form-check mb-2">
+              {$REVOCATION_checkbox|replace:'<input':'<input class="form-check-input"'}
+              <label class="form-check-label"><strong>{#text_accept_revocation#}</strong> {$REVOCATION_LINK}</label>
+            </div>
+          {/if}
+        </div>
+      </div>
+    {/if}
+  </div>
+</div>
+<div class="d-flex justify-content-between mb-4">
+  {if isset($BUTTON_BACK)}{$BUTTON_BACK}{/if}
+  {$BUTTON_CONTINUE}
+</div>
+{$FORM_END}

@@ -1,0 +1,19 @@
+{if $GENDER == MALE}Cher Monsieur{elseif $GENDER == FEMALE}Ch&egrave;re Madame{else}Bonjour{/if} {$LASTNAME} ,
+
+merci beaucoup pour votre commande{if $ORDER_NR} no {$ORDER_NR}{/if} {if $ORDER_DATE} du {$ORDER_DATE}{/if} .
+
+En annexe de ce mail vous trouverez votre {$PDF_TYPE} pour commander.
+
+
+{if $ORDER_LINK} Pour commander :{$ORDER_LINK} 
+{/if}
+
+{$SIGNATURE_TXT}
+
+{*$REVOCATION_TXT*}
+
+{*$AGB_TITLE_TXT*}
+{*$AGB_TXT*}
+
+{*$PRIVACY_POLICY_TXT*}
+[NOSIGNATUR]

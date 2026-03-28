@@ -1,0 +1,42 @@
+{config_load file="$language/lang_$language.conf" section="listing_filter"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="listing_filter"}
+{* MRH 2026: Listing-Filter – BS5.3 *}
+{if isset($FILTER_CONTENT) || isset($SORT_BY) || isset($LISTING_COUNT)}
+  <div class="mrh-listing-filter card mb-3">
+    <div class="card-body py-2">
+      <div class="row g-2 align-items-center">
+        {* Sortierung *}
+        {if isset($SORT_BY)}
+          <div class="col-auto">
+            <label class="form-label small mb-0 me-1">{#text_sort_by#}</label>
+          </div>
+          <div class="col-auto">
+            {$SORT_BY|replace:'<select':'<select class="form-select form-select-sm"'}
+          </div>
+        {/if}
+        {* Anzahl pro Seite *}
+        {if isset($LISTING_COUNT)}
+          <div class="col-auto">
+            <label class="form-label small mb-0 me-1">{#text_per_page#}</label>
+          </div>
+          <div class="col-auto">
+            {$LISTING_COUNT|replace:'<select':'<select class="form-select form-select-sm"'}
+          </div>
+        {/if}
+        {* Ansicht *}
+        {if isset($LISTING_VIEW)}
+          <div class="col-auto ms-auto">
+            {$LISTING_VIEW}
+          </div>
+        {/if}
+      </div>
+      {* Erweiterte Filter *}
+      {if isset($FILTER_CONTENT) && $FILTER_CONTENT != ''}
+        <div class="mt-2 pt-2 border-top">
+          {$FILTER_CONTENT}
+        </div>
+      {/if}
+    </div>
+  </div>
+{/if}

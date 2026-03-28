@@ -1,0 +1,43 @@
+{config_load file="$language/lang_$language.conf" section="reviews"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="reviews"}
+{* MRH 2026: Alle Bewertungen (Seite) – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_reviews#}</h1>
+{if isset($module_content) && count($module_content) > 0}
+  {foreach name=aussen item=review_data from=$module_content}
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row g-3">
+          {if isset($review_data.PRODUCTS_IMAGE) && $review_data.PRODUCTS_IMAGE != ''}
+            <div class="col-auto">
+              <a href="{$review_data.PRODUCTS_LINK}">
+                <img src="{$review_data.PRODUCTS_IMAGE}" alt="{$review_data.PRODUCTS_NAME|onlytext}" class="img-fluid" style="max-width:80px" loading="lazy">
+              </a>
+            </div>
+          {/if}
+          <div class="col">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <strong>{$review_data.AUTHOR}</strong>
+              <span class="small text-body-secondary">{$review_data.DATE}</span>
+            </div>
+            <div class="mb-2">
+              {section name=stars loop=$review_data.RATING}
+                <span class="fa fa-star text-warning" aria-hidden="true"></span>
+              {/section}
+              {section name=empty loop=5-$review_data.RATING}
+                <span class="fa fa-star-o text-body-secondary" aria-hidden="true"></span>
+              {/section}
+            </div>
+            <h2 class="h6"><a href="{$review_data.PRODUCTS_LINK}" class="text-decoration-none">{$review_data.PRODUCTS_NAME}</a></h2>
+            <p class="small mb-0">{$review_data.TEXT|truncate:300:"..."}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/foreach}
+  {$PAGINATION}
+{else}
+  <div class="text-center py-5">
+    <p class="text-body-secondary">{#text_no_reviews#}</p>
+  </div>
+{/if}

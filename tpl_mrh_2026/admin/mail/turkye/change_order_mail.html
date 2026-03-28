@@ -1,0 +1,182 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+    	<td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo_head.png" /></td>
+	</tr>
+	 <tr>
+    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+	{if $ORDER_STATUS_ID == "8"}
+<strong><h3><b>{$ORDER_STATUS}</b></h3></strong></font>
+<p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><br />Sayın{if $GENDER=='Herr'}ım{/if} {$GENDER} {$NAME},</strong> <br />
+<br />
+<br />
+{if $ORDER_DATE}{$ORDER_DATE} tarihindeki {/if}{$ORDER_NR} sipariş numarasıyla gerçekleştirdiğin alışveriş için teşekkür ederiz! <br /> <br />
+<br />EU Standart Banka Havalesi ödeme yöntemini seçtin, ancak bugüne kadar hesabımızda herhangi bir ödeme tespit edemedik. <br />
+<br />
+Bu nedenle lütfen açık olan miktarı aşağıda belirtilen hesabımıza gönderin.<br /> 
+<br />
+Banka Adı: BAWAG<br />
+Alıcı: Naturprodukte<br />
+Banka Kodu: 14000<br />
+Hesap Numarası: 00910105175<br />
+IBAN: AT06 1400 0009 1010 5175<br />
+BIC/SWIFT: BAWAATWWXXX <br />
+  <br />
+  Banka Adı: N26<br />
+  Alıcı: Hansjoerg Scherzer<br />
+  Banka Kodu: 10011001<br />
+  Hesap Numarası: 2625932471<br />
+  IBAN: DE34100110012625932471<br />
+  BIC/SWIFT: NTSBDEB1XXX<br /><br />
+
+{if $ORDER_LINK}Siparişe bağlantı:
+<a href="{$ORDER_LINK}">buraya tıklayın</a>{/if}<br />
+<br />
+<br />
+Yeşil selamlar</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><br />
+Mr. Hanf Ekibi<br />
+
+{else} <strong> Sayın{if $GENDER=='Herr'}ım{/if} {$GENDER} {$NAME}, </strong><br />
+<br />
+Siparişinizin durumu {if $ORDER_NR}Nr. {$ORDER_NR}{/if} {if $ORDER_DATE}tarihinde {$ORDER_DATE} itibariyle değişmiştir.<br />
+<br />
+Yeni Durum: <b>{$ORDER_STATUS}</b><br />
+<br />
+<!-- Statü metni başlangıcı -->
+{/if}
+    {if $ORDER_STATUS_ID == "27"}
+Ödeme alındığı için teşekkür ederiz {if $ORDER_NR}Nr. {$ORDER_NR}{/if}. Ödemenizin alındığını teyit ediyoruz ve hızlı ödemeniz için size teşekkür ediyoruz.<br /><br />
+
+Herhangi bir sorunuz veya talebiniz varsa, lütfen bize iletmekten çekinmeyin. Size yardımcı olmaktan mutluluk duyarız.
+{/if}
+{if $ORDER_STATUS == "Offen"}
+Bu e-posta ile yukarıdaki siparişin tarafımıza ulaştığını teyit ediyoruz. Lütfen toplam tutarı aşağıdaki hesaba transfer edin: <br />
+<br />
+Banka Adı: BAWAG<br />
+Alıcı: Naturprodukte<br />
+Banka Kodu: 14000<br />
+Hesap Numarası: 00910105175<br />
+IBAN: AT06 1400 0009 1010 5175<br />
+BIC/SWIFT: BAWAATWWXXX<br />
+<br />
+Banka Adı: N26<br />
+Alıcı: Hansjoerg Scherzer<br />
+Banka Kodu: 10011001<br />
+Hesap Numarası: 2625932471<br />
+IBAN: DE34100110012625932471<br />
+BIC/SWIFT: NTSBDEB1XXX<br />
+<br />
+Kullanım Amaçlı olarak lütfen sipariş numaranızı <strong>{$ORDER_NR}</strong> belirtin.<br />
+<br />
+Ürünler, ödemenin alınmasını takiben, aksi belirtilmedikçe gönderilecektir.
+{/if}
+
+{if $ORDER_STATUS_ID == "18"}
+<br />
+Siparişiniz için teşekkür ederiz! <br /> <br />
+Lütfen {$ORDER_DATE} tarihli, {$ORDER_NR} sipariş numaralı siparişinizin hala ödenmemiş olduğunu dikkate alın! <br /><br />Ödeme, paketin teslim alındıktan sonra, ancak 7 iş günü içinde yapılmalıdır! 
+ <br /> <br />Toplam tutar aşağıdaki hesaba havale edilebilir: <br />
+<br />
+Banka Adı: BAWAG<br />
+Alıcı: Naturprodukte<br />
+Banka Kodu: 14000<br />
+Hesap Numarası: 00910105175<br />
+IBAN: AT06 1400 0009 1010 5175<br />
+BIC/SWIFT: BAWAATWWXXX<br />
+<br />
+Banka Adı: N26<br />
+Alıcı: Hansjoerg Scherzer<br />
+Banka Kodu: 10011001<br />
+Hesap Numarası: 2625932471<br />
+IBAN: DE34100110012625932471<br />
+BIC/SWIFT: NTSBDEB1XXX<br /><br />
+BITCOIN:<br />34eHTu1XgyjSiejc825kS3MoTskPx78Eo9<br /><br />
+     Kullanım Amaçlı olarak lütfen sipariş numaranızı <strong>{$ORDER_NR}</strong> olarak belirtiniz.<br />
+<br />
+
+{/if}
+
+	{if $ORDER_STATUS_ID == "20"}
+  <strong>Önemli Haberler!!</strong><br />
+  <br />
+  Paketiniz şu anda kapıda ödeme yöntemiyle size gönderildi. Kapıda ödeme yöntemiyle teslimat sırasında kuryeler arasında para değişimi sorunları yaşandığı için lütfen ödenecek tutarı mümkün olduğunca doğru bir şekilde hazır tutmaya özen gösterin.
+  <br /><br />
+  {if $PARCEL_COUNT > 0}
+    Gönderiniz {$PARCEL_COUNT} paketten oluşuyor.<br />
+    Gönderinin durumunu aşağıdaki paket numaralarını tıklayarak kontrol edebilirsiniz:
+    {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+      <a target="_blank" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a><br />
+    {/foreach}<br /> Lütfen takip bilgilerinin güncellenmesi için yaklaşık 24 saat bekleyin.
+  {/if}
+  <br /><br />
+{/if} 
+{if $ORDER_STATUS_ID == "2"}
+  Siparişiniz için teşekkür ederiz! Sipariş numaranız <strong>{$ORDER_NR}</strong> ve tarih {$ORDER_DATE}. Siparişiniz şu anda işleme alınmaktadır.<br /><br />
+  Bir sonraki adımda depomuzda ürünlerin stok durumu kontrol edilecektir. Tüm ürünler stokta bulunuyorsa, gönderim için hemen hazırlanacaklardır. Siparişiniz gönderildiğinde ayrı bir e-posta ile gönderi onayı ve takip numarası alacaksınız.<br /><br />
+{/if} 
+		  
+		 {if $ORDER_STATUS_ID == "9"}
+  <strong>Faturalar şemsiyeler gibidir, kolayca unutulurlar!</strong> 
+  <br /><br />
+  Ne yazık ki, {if $ORDER_DATE}{$ORDER_DATE} tarihli{/if} siparişinizle ilgili olarak, {if $ORDER_NR}<strong>{$ORDER_NR}</strong>{/if} sipariş numarasına rağmen, tekrar tekrar yapılan uyarılara rağmen ödeme tarafımıza ulaşmamıştır!
+  <br /><br />
+  Bu nedenle, {if $ORDER_NR}<strong>{$ORDER_NR}</strong>{/if} sipariş numarasına ilişkin durum <strong>Dava Açma</strong> olarak değiştirilmiştir.
+  <br /><br />
+  Ek maliyetlerden kaçınmak için size son kez 7 iş günü ödeme süresi tanıyoruz. Bu süre geçer ve ödeme talebine uymazsanız, maalesef yasal adımlar atmaktan başka seçeneğimiz kalmayacaktır! Hatırlatmak isteriz ki, <strong>ciddi ek maliyetler</strong> oluşacaktır!
+  <br /><br />
+  Eğer açık olan faturayı zaten ödediyseniz, lütfen bize Dijital Formatta bir ödeme makbuzu kopyasını gönderin.
+  <br /><br />
+  Daha fazla sorunuz varsa, info@mr-hanf.de adresinden bize ulaşmaktan memnuniyet duyarız.
+  <br /><br />
+{/if}
+{if $ORDER_STATUS_ID == "3"}
+  <strong>Sert Haberler!!</strong><br />
+  <br />
+  Sevindirecek bir haber, {$ORDER_DATE} tarihli siparişinizi bugün lojistik ortağımıza teslim ettik.<br /><br />Teslimatın birkaç gün içinde size ulaşması bekleniyor!<br /><br />
+  <br />
+  {if $PARCEL_COUNT > 0}
+    Gönderiniz {$PARCEL_COUNT} adet paketten oluşmaktadır.<br />
+    Paketlerin teslim durumunu aşağıdaki paket numaralarını tıklayarak takip edebilirsiniz:
+    {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+      <a target="_blank" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a><br />
+    {/foreach}<br />
+    Lütfen takip güncellemelerinin yaklaşık 24 saat sürebileceğini unutmayın.
+  {/if}
+{/if}
+
+{if $ORDER_STATUS_ID == "11"}
+  Bugün {$ORDER_DATE} tarihli siparişinizin bir kısmını lojistik ortağımıza gönderdik.
+  Eksik olan ürünler en kısa sürede temin edilerek ücretsiz olarak yeniden gönderilecektir.<br />
+{/if}
+{if $ORDER_STATUS_ID == "6"}
+  {$ORDER_DATE} tarihli siparişinizi şu anda iptal ettik. Lütfen daha sonra tekrar kontrol edin!<br /><br />
+{/if}
+{if $ORDER_STATUS_ID == "10"}
+  {$ORDER_DATE} tarihli siparişinizin tutarını banka hesabınıza geri ödedik.<br /><br />
+{/if}
+{if $ORDER_STATUS_ID == "12"}
+  Gönderinizin durumunu kontrol etmek için ilgili hizmet sağlayıcıda bir araştırma başlattık. Gecikmelerden dolayı oluşabilecek herhangi bir rahatsızlık için özür dileriz.
+  <br /><br />
+  Lütfen, teslimatın gecikmesine neden olabilecek beklenmedik durumlar olabileceğini anlayışla karşılayın. Gönderinizin nerede olduğu ve durumu hakkında daha fazla bilgi sağlamak için hizmet sağlayıcımızla yakın çalışıyoruz.
+  <br /><br />
+  Sizin memnuniyetiniz ve siparişinizin sorunsuz bir şekilde işlem görmesi bizim en öncelikli hedefimizdir. Daha fazla bilgi aldığımızda ve bir çözüm bulduğumuzda sizi hemen bilgilendireceğiz.
+  <br /><br />
+  Anlayışınız ve sabrınız için teşekkür ederiz.<br /><br />
+{/if}
+<!-- Statü metinlerinin sonu -->
+{if $ORDER_LINK}Sipariş bağlantısı: <a href="{$ORDER_LINK}">buraya tıklayın</a>{/if}<br />
+<br />
+       {if $NOTIFY_COMMENTS}<br />
+        Siparişinizle ilgili notlar ve yorumlar: 
+        {$NOTIFY_COMMENTS} <br />
+{/if}  
+Siparişinizle ilgili herhangi bir sorunuz varsa lütfen bu e-postaya yanıt verin. <br />
+<br />
+Saygılarımızla<br />
+Mr. Hanf Ekibi </font>{/if} </p></td>
+  </tr>
+</table>
+
+[SIGNATUR]
+</div>
+

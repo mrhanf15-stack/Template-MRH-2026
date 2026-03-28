@@ -1,0 +1,47 @@
+{config_load file="$language/lang_$language.conf" section="shopping_cart"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="shopping_cart"}
+{* MRH 2026: Warenkorb – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_cart#}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{if !empty($success_message)}<div class="alert alert-success">{$success_message}</div>{/if}
+{if $cart_empty == true}
+  <div class="card mb-4">
+    <div class="card-body text-center py-5">
+      <span class="fa fa-shopping-cart fa-3x text-body-secondary mb-3 d-block" aria-hidden="true"></span>
+      <p class="mb-3">{#text_empty#}</p>
+      {$BUTTON_CONTINUE}
+    </div>
+  </div>
+{else}
+  {if $info_message_3}<div class="alert alert-danger">{$info_message_3}</div>{/if}
+  {$FORM_ACTION}
+  {$HIDDEN_OPTIONS}
+  {$MODULE_order_details}
+  {if $info_message_1}<div class="alert alert-warning">{$info_message_1}{$min_order}&nbsp;{$info_message_2}{$order_amount}</div>{/if}
+  {* Action-Buttons *}
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    {if $CONTINUE_LINK}<a href="{$CONTINUE_LINK}" class="btn btn-outline-secondary">{#text_continue_shopping#}</a>{/if}
+    <div class="ms-auto">{$BUTTON_CHECKOUT}</div>
+    {if isset($ACTIVATE_EXPRESS_LINK)}
+      <a href="{$ACTIVATE_EXPRESS_LINK}" class="btn btn-outline-primary">{#checkout_express_activate#}</a>
+    {/if}
+    {if isset($MODULE_gift_cart)}
+      <a id="gift_link" href="#gift_coupon" class="btn btn-outline-secondary"><span class="fa fa-gift me-1" aria-hidden="true"></span> {#text_gift_coupon#}</a>
+    {/if}
+    {if isset($BUTTON_CHECKOUT_EXPRESS) && !$PAYPALPLAN}
+      <span>{$BUTTON_CHECKOUT_EXPRESS}</span>
+    {/if}
+    {if $BUTTON_PAYPAL != '' && !$PAYPALPLAN}
+      <span>{$BUTTON_PAYPAL}</span>
+    {/if}
+    {if !empty($BUTTON_FAXORDER)}
+      <span>{$BUTTON_FAXORDER}</span>
+    {/if}
+  </div>
+  {$FORM_END}
+{/if}
+{* Gutschein-Modul *}
+{if isset($MODULE_gift_cart)}{$MODULE_gift_cart}{/if}
+{* Wunschliste *}
+{if isset($MODULE_wishlist) && $MODULE_wishlist}{$MODULE_wishlist}{/if}

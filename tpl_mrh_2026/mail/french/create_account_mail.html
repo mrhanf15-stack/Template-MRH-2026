@@ -1,0 +1,20 @@
+<div style="width:700px; margin: 0 auto;">
+  <table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+    <tr>
+      <td align="center" style="padding: 10px 0;">
+        <img src="{$logo_path}logo.gif" alt="Firmenlogo" />
+      </td>
+    </tr>
+    <tr>
+      <td style="font-size: 14px; text-transform: uppercase; padding: 10px 5px; border-top: 1px dotted #999; border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Ton compte client a &eacute;t&eacute; cr&eacute;&eacute; avec succ&egrave;s</font>     </td>
+    </tr>
+    <tr>
+      <td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif">
+         <b>{if $GENDER == 'm'}Cher Monsieur{elseif $GENDER == 'f'}Ch&egrave;re Madame{else}Bonjour{/if}&nbsp;{$NAME}</b>, <br /><br />F&eacute;licitations ! Ton compte client a &eacute;t&eacute; cr&eacute;&eacute; avec succ&egrave;s. <br /><br />En tant que client enregistr&eacute;, tu b&eacute;n&eacute;ficies des avantages suivants dans notre boutique : <br /><br /><b>Panier client</b> - Tes articles restent enregistr&eacute;s jusqu&#039;&agrave; ce que tu passes &agrave; la caisse ou que tu les supprimes du panier. <br /><br /><b>Carnet d&#039;adresses</b> - Nous pouvons envoyer tes commandes &agrave; toute adresse que tu as choisie. Id&eacute;al pour les cadeaux d&#039;anniversaire. <br /><br /><b>Commandes pr&eacute;c&eacute;dentes</b> - Tu peux consulter tes commandes pr&eacute;c&eacute;dentes &agrave; tout moment. <br /><br /><b>Commentaires sur les produits</b> - Partage ton avis sur nos produits avec d&#039;autres clients. <br /><br /><u>Important :</u> cette adresse e-mail a &eacute;t&eacute; fournie par un client. Si tu n&#039;es pas enregistr&eacute;, envoie un e-mail &agrave; : <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a> <br /> {if $SEND_GIFT == true} <br /> En guise de cadeau de bienvenue, nous t&#039;envoyons un bon d&#039;achat de : <b>{$GIFT_AMMOUNT}</b> <br /><br /> Ton code de bon d&#039;achat personnel est <b>{$GIFT_CODE}</b>. Tu peux utiliser le bon d&#039;achat &agrave; la caisse pendant le processus de commande. Pour utiliser le bon, clique sur <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a>. <br /> {/if}&nbsp;{if $SEND_COUPON == true} <br /> Tu recevras en plus un coupon de bienvenue. <br />Description du coupon : <b>{$COUPON_DESC}</b> <br /> Saisis simplement ton code personnel {$COUPON_CODE} pendant le processus de paiement. <br /> {/if} <br /> Si tu as des questions sur notre service client&egrave;le, adresse-toi &agrave; : <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a></font></td>
+    </tr>
+  </table>
+  [SIGNATUR]
+</div>

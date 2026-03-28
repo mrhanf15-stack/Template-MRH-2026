@@ -1,0 +1,11 @@
+{if $CUSTOMERS_GENDER == 'f'}{elseif $CUSTOMERS_GENDER == 'm'}{else}{/if} {$CUSTOMERS_LASTNAME}{$LINK}
+ Estimada Sra. Estimado Sr. Hola Sra./Sr. ,
+
+quer&iacute;amos informarle de que acabamos de recibir una nueva entrega que tambi&eacute;n puede ser de su inter&eacute;s.
+
+Quer&iacute;a que le record&aacute;semos cuando llegue de nuevo el siguiente art&iacute;culo:
+
+ 
+
+Un cordial saludo,
+El equipo de su tienda

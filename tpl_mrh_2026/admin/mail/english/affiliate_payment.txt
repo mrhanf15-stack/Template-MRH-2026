@@ -1,0 +1,11 @@
+Hello {$content.PARTNER_NAME},
+
+A new statement about your commissions has been created.
+
+Commission statement no.: {$content.PAYMENT_ID}
+Detailed commission statement: {$content.INVOICE_URL}
+Settlement date: {$content.PAYMENT_DATE}
+
+We look forward to continuing our good cooperation.
+
+Your partner program team

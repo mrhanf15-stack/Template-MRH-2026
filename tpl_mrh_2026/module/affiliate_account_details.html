@@ -1,0 +1,106 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_account_details"}
+{* MRH 2026: Affiliate Kontodetails – BS5.3 *}
+<div class="mrh-affiliate-account">
+  <h1 class="mrh-page-title">{#heading_title#}</h1>
+  {$FORM_ACTION}
+  {$HIDDEN_ACTION}
+  {* Persönliche Daten *}
+  <div class="card mb-4">
+    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-user me-2" aria-hidden="true"></span>{#category_personal#}</h2></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">{#entry_firstname#}</label>
+          {$INPUT_FIRSTNAME|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{#entry_lastname#}</label>
+          {$INPUT_LASTNAME|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{#entry_email_address#}</label>
+          {$INPUT_EMAIL|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{#entry_telephone#}</label>
+          {$INPUT_TELEPHONE|replace:'class="':'class="form-control '}
+        </div>
+      </div>
+    </div>
+  </div>
+  {* Firmenadresse *}
+  <div class="card mb-4">
+    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-building me-2" aria-hidden="true"></span>{#category_company#}</h2></div>
+    <div class="card-body">
+      <div class="row g-3">
+        {if isset($INPUT_COMPANY)}
+          <div class="col-md-6">
+            <label class="form-label">{#entry_company#}</label>
+            {$INPUT_COMPANY|replace:'class="':'class="form-control '}
+          </div>
+        {/if}
+        <div class="col-12">
+          <label class="form-label">{#entry_street_address#}</label>
+          {$INPUT_STREET|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">{#entry_postcode#}</label>
+          {$INPUT_POSTCODE|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">{#entry_city#}</label>
+          {$INPUT_CITY|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">{#entry_country#}</label>
+          {$INPUT_COUNTRY|replace:'<select':'<select class="form-select"'}
+        </div>
+        {if isset($INPUT_STATE)}
+          <div class="col-md-6">
+            <label class="form-label">{#entry_state#}</label>
+            {$INPUT_STATE|replace:'<select':'<select class="form-select"'|replace:'class="':'class="form-control '}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+  {* Website *}
+  <div class="card mb-4">
+    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-globe me-2" aria-hidden="true"></span>{#category_website#}</h2></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">{#entry_homepage#}</label>
+          {$INPUT_HOMEPAGE|replace:'class="':'class="form-control '}
+        </div>
+        {if isset($INPUT_DESCRIPTION)}
+          <div class="col-12">
+            <label class="form-label">{#entry_description#}</label>
+            {$INPUT_DESCRIPTION|replace:'class="':'class="form-control '}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+  {* Passwort *}
+  <div class="card mb-4">
+    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-lock me-2" aria-hidden="true"></span>{#category_password#}</h2></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">{#entry_password#}</label>
+          {$INPUT_PASSWORD|replace:'class="':'class="form-control '}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{#entry_password_confirmation#}</label>
+          {$INPUT_PASSWORD_CONFIRM|replace:'class="':'class="form-control '}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
+    {$BUTTON_SUBMIT}
+  </div>
+  </form>
+</div>

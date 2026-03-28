@@ -1,0 +1,85 @@
+{config_load file="$language/lang_$language.conf" section="manufacturers_overview"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="manufacturers_overview"}
+{* MRH 2026: Hersteller-Übersicht – BS5.3 *}
+<div class="mrh-manufacturers-overview">
+  {* Top-Hersteller *}
+  {if isset($TOP_MANUFACTURERS) && count($TOP_MANUFACTURERS) > 0}
+    <div class="mb-4">
+      <h2 class="h5 mb-3">{#title_top_brands#}</h2>
+      <div class="row g-3">
+        {foreach name=aussen item=module_data from=$TOP_MANUFACTURERS}
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-3 position-relative">
+                {if $smarty.foreach.aussen.iteration == 1}
+                  <span class="badge text-bg-warning position-absolute top-0 start-0 m-2" title="Platz 1"><span class="fa fa-gem" aria-hidden="true"></span></span>
+                {elseif $smarty.foreach.aussen.iteration == 2}
+                  <span class="badge text-bg-secondary position-absolute top-0 start-0 m-2" title="Platz 2"><span class="fa fa-medal" aria-hidden="true"></span></span>
+                {elseif $smarty.foreach.aussen.iteration == 3}
+                  <span class="badge text-bg-dark position-absolute top-0 start-0 m-2" title="Platz 3"><span class="fa fa-medal" aria-hidden="true"></span></span>
+                {/if}
+                {if !empty($module_data.IMAGE)}
+                  <div class="d-flex align-items-center justify-content-center mb-3" style="height:100px">
+                    <a href="{$module_data.LINK}" title="{$module_data.NAME}">
+                      <img src="{$module_data.IMAGE}" alt="{$module_data.NAME}" class="img-fluid" style="max-height:100px;object-fit:contain" loading="lazy">
+                    </a>
+                  </div>
+                {else}
+                  <div class="d-flex align-items-center justify-content-center mb-3" style="height:100px">
+                    <a href="{$module_data.LINK}" class="h6 text-decoration-none">{$module_data.NAME}</a>
+                  </div>
+                {/if}
+                {if !empty($module_data.TOP_PRODUCTS) && $smarty.foreach.aussen.iteration <= 4}
+                  <div class="mt-3 pt-3 border-top text-start">
+                    <p class="text-body-secondary mb-2 small fw-bold">{#top#}</p>
+                    <ol class="ps-3 mb-0 small">
+                      {foreach name=products item=product from=$module_data.TOP_PRODUCTS}
+                        <li class="mb-1"><a href="{$product.LINK}" class="text-decoration-none">{$product.NAME|truncate:30:"..."}</a></li>
+                      {/foreach}
+                    </ol>
+                  </div>
+                {/if}
+              </div>
+            </div>
+          </div>
+        {/foreach}
+      </div>
+    </div>
+  {/if}
+  {* Seitentitel *}
+  <h1 class="mrh-page-title">{$TITLE}</h1>
+  {if !empty($TEXT)}<div class="mb-3">{$TEXT}</div>{/if}
+  {* Alphabet-Navigation *}
+  {if isset($ALPHABET) && count($ALPHABET) > 0}
+    <nav class="mrh-alphabet-nav mb-4" aria-label="Alphabet-Navigation">
+      <div class="d-flex flex-wrap gap-1">
+        {foreach name=aussen item=data from=$ALPHABET}
+          <a href="{$MANUFACTURERS_LINK}#letter_{$data}" class="btn btn-sm btn-outline-secondary" title="{#scroll_to#} {$data}">{$data}</a>
+        {/foreach}
+      </div>
+    </nav>
+  {/if}
+  {* Hersteller A-Z *}
+  {assign var="letter" value=""}
+  {foreach name=aussen item=data from=$MANUFACTURERS}
+    {if $letter != $data.LETTER}
+      {if $letter != ''}</div>{/if}
+      <div class="mb-4 pt-3 border-top">
+        <h2 class="h4" id="letter_{$data.LETTER}">{$data.LETTER}</h2>
+        <div class="row g-2">
+    {assign var="letter" value=$data.LETTER}
+    {/if}
+    <div class="col-sm-6 col-md-4 col-lg-3 py-1">
+      <a href="{$data.LINK}" class="text-decoration-none">{$data.NAME}</a>
+    </div>
+  {/foreach}
+    </div>
+  </div>
+  {* Zurück nach oben *}
+  <div class="text-end mb-4">
+    <a href="{$MANUFACTURERS_LINK}#" class="btn btn-sm btn-outline-secondary">
+      {#back_to_top#} <span class="fa fa-arrow-up ms-1" aria-hidden="true"></span>
+    </a>
+  </div>
+</div>

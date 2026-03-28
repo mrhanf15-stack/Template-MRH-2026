@@ -1,0 +1,4 @@
+Ortak adı: {$content.NAME}
+ePosta adresi: {$content.EMAIL}
+
+Mesaj: {$content.ENQUIRY}

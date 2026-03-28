@@ -1,0 +1,33 @@
+{config_load file="$language/lang_$language.conf" section="gift_cart"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="gift_cart"}
+{* MRH 2026: Gutschein im Warenkorb – BS5.3 *}
+<div id="gift_coupon" class="card mb-4">
+  <div class="card-body">
+    <h2 class="h5 mb-3"><span class="fa fa-gift me-2" aria-hidden="true"></span>{#heading_gift_cart#}</h2>
+    {$FORM_ACTION}
+      <div class="row g-3 align-items-end">
+        <div class="col-md-8">
+          <label for="mrh-coupon-code" class="form-label">{#text_coupon_code#}</label>
+          {$INPUT_COUPON|replace:'<input':'<input id="mrh-coupon-code" class="form-control"'}
+        </div>
+        <div class="col-md-4">
+          {$BUTTON_SUBMIT}
+        </div>
+      </div>
+      {if isset($COUPON_GV_REDEEM)}
+        <div class="mt-3">
+          <label for="mrh-gv-code" class="form-label">{#text_gv_code#}</label>
+          <div class="row g-3 align-items-end">
+            <div class="col-md-8">
+              {$INPUT_GV|replace:'<input':'<input id="mrh-gv-code" class="form-control"'}
+            </div>
+            <div class="col-md-4">
+              {$BUTTON_GV_SUBMIT}
+            </div>
+          </div>
+        </div>
+      {/if}
+    {$FORM_END}
+  </div>
+</div>

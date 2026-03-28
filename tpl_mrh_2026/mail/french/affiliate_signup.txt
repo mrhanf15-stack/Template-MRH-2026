@@ -1,0 +1,14 @@
+Bonjour {$content.PARTNER_NAME}
+
+ Nous vous remercions de votre inscription &agrave; notre programme d&#039;affiliation.
+
+Vos informations de connexion :
+**************************
+
+Votre ID de partenaire est : {$content.PARTNER_ID}
+Votre nom d&#039;utilisateur est : {$content.PARTNER_LOGIN}
+Votre mot de passe est : {$content.PARTNER_PW}
+ Inscrivez-vous ici : {$content.LINK}
+Nous nous r&eacute;jouissons de travailler avec vous !
+
+Votre &eacute;quipe du programme d&#039;affiliation

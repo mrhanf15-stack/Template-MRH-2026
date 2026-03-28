@@ -1,0 +1,17 @@
+----------------------------------------------------------------------------------------
+ {$AMMOUNT} {$FROM_NAME}{$MESSAGE} {$GIFT_CODE} Enhorabuena, ha recibido un vale por !
+----------------------------------------------------------------------------------------
+
+Este vale le ha sido enviado por ,
+Con el mensaje:
+
+ 
+
+Su c&oacute;digo de vale personal es . {$GIFT_LINK} Puede canjear este vale durante el proceso de pedido.
+
+Para canjear el vale, haga clic en 
+
+Si tiene problemas para canjear el vale utilizando el enlace anterior,
+puede canjear el importe durante el proceso de pedido.
+
+[FIRMA].

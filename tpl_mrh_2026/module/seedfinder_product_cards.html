@@ -1,0 +1,46 @@
+{* MRH 2026: Seedfinder Produkt-Karten – BS5.3 *}
+{foreach name=aussen item=module_data from=$PRODUCTS}
+  <div class="col-6 col-md-4 col-lg-3 mb-3 seedfinder-product-col" {if isset($module_data.FILTER_DATA)}data-filters='{$module_data.FILTER_DATA}'{/if}>
+    <div class="card h-100 mrh-seedfinder-product">
+      {* Produktbild *}
+      <a href="{$module_data.PRODUCTS_LINK}" class="d-block overflow-hidden" title="{$module_data.PRODUCTS_NAME|onlytext}">
+        {if $module_data.PRODUCTS_IMAGE != ''}
+          <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" class="card-img-top" loading="lazy">
+        {/if}
+      </a>
+      <div class="card-body d-flex flex-column">
+        {* Hersteller *}
+        {if !empty($module_data.MANUFACTURER)}
+          <div class="small text-body-secondary mb-1">{$module_data.MANUFACTURER}</div>
+        {/if}
+        {* Titel *}
+        <h3 class="h6 mb-2">
+          <a href="{$module_data.PRODUCTS_LINK}" class="text-decoration-none">{$module_data.PRODUCTS_NAME}</a>
+        </h3>
+        {* Tags/Eigenschaften *}
+        {if isset($module_data.TAGS) && count($module_data.TAGS) > 0}
+          <div class="d-flex flex-wrap gap-1 mb-2">
+            {foreach item=tag from=$module_data.TAGS}
+              <span class="badge text-bg-light small">{$tag.NAME}: {$tag.VALUE}</span>
+            {/foreach}
+          </div>
+        {/if}
+        {* Preis *}
+        <div class="mt-auto">
+          {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+            {include file="module/includes/price_box.html"}
+          {/foreach}
+          {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+            {if isset($module_data.PRODUCTS_VPE) && $module_data.PRODUCTS_VPE != ''}
+              <div class="small text-body-secondary">{$module_data.PRODUCTS_VPE}</div>
+            {/if}
+          {/if}
+          <div class="small text-body-secondary">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="{$module_data.PRODUCTS_LINK}" class="btn btn-sm btn-outline-primary w-100">{#details#}</a>
+      </div>
+    </div>
+  </div>
+{/foreach}

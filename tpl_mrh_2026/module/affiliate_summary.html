@@ -1,0 +1,109 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_summary"}
+{* MRH 2026: Affiliate Dashboard – BS5.3 *}
+<div class="mrh-affiliate-dashboard">
+  <h1 class="mrh-page-title">{#heading_title#}</h1>
+  {* Willkommen & Partner-ID *}
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5"><span class="fa fa-tachometer-alt me-2" aria-hidden="true"></span>{#text_greeting#} <strong>{$affiliate.affiliate_firstname} {$affiliate.affiliate_lastname}</strong></h2>
+          <p class="text-body-secondary mb-0">{#text_dashboard_welcome#}</p>
+        </div>
+        <div class="col-md-4 text-center mt-3 mt-md-0">
+          <div class="card bg-body-tertiary">
+            <div class="card-body py-2">
+              <p class="small mb-0 text-body-secondary">{#text_dashboard_partner_id#}</p>
+              <span class="h4 fw-bold text-primary mb-0">{$affiliate.affiliate_id}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {* Statistik-Übersicht *}
+  <div class="card mb-4">
+    <div class="card-header"><h3 class="h6 mb-0"><span class="fa fa-chart-bar me-2" aria-hidden="true"></span>{#text_summary_title#}</h3></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-4 col-6">
+          <div class="card text-center h-100">
+            <div class="card-body">
+              <span class="fa fa-eye fa-2x text-info mb-2 d-block" aria-hidden="true"></span>
+              <p class="small mb-1">{#text_impressions#}{$LINK_IMPRESSION}{#text_summary_help#}</a></p>
+              <span class="h4 fw-bold">{$affiliate_impressions}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="card text-center h-100">
+            <div class="card-body">
+              <span class="fa fa-mouse-pointer fa-2x text-primary mb-2 d-block" aria-hidden="true"></span>
+              <p class="small mb-1">{#text_visits#}{$LINK_VISIT}{#text_summary_help#}</a></p>
+              <span class="h4 fw-bold">{$affiliate_clickthroughs}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="card text-center h-100">
+            <div class="card-body">
+              <span class="fa fa-shopping-cart fa-2x text-success mb-2 d-block" aria-hidden="true"></span>
+              <p class="small mb-1">{#text_transactions#}{$LINK_TRANSACTIONS}{#text_summary_help#}</a></p>
+              <span class="h4 fw-bold">{$affiliate_transactions}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="card text-center h-100">
+            <div class="card-body">
+              <span class="fa fa-percent fa-2x text-warning mb-2 d-block" aria-hidden="true"></span>
+              <p class="small mb-1">{#text_conversions#}{$LINK_CONVERSION}{#text_summary_help#}</a></p>
+              <span class="h4 fw-bold">{$affiliate_conversions}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="card text-center h-100">
+            <div class="card-body">
+              <span class="fa fa-money-bill-wave fa-2x text-success mb-2 d-block" aria-hidden="true"></span>
+              <p class="small mb-1">{#text_amount#}{$LINK_AMOUNT}{#text_summary_help#}</a></p>
+              <span class="h4 fw-bold">{$affiliate_amount}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="card text-center h-100">
+            <div class="card-body">
+              <span class="fa fa-hand-holding-usd fa-2x text-danger mb-2 d-block" aria-hidden="true"></span>
+              <p class="small mb-1">{#text_commission#}{$LINK_COMMISSION}{#text_summary_help#}</a></p>
+              <span class="h4 fw-bold">{$affiliate_commission}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {* Affiliate-Link *}
+  {if isset($AFFILIATE_LINK)}
+    <div class="card mb-4">
+      <div class="card-header"><h3 class="h6 mb-0"><span class="fa fa-link me-2" aria-hidden="true"></span>{#text_your_link#}</h3></div>
+      <div class="card-body">
+        <div class="input-group">
+          <input type="text" class="form-control" value="{$AFFILIATE_LINK}" id="affiliateLinkInput" readonly>
+          <button class="btn btn-outline-primary" type="button" onclick="navigator.clipboard.writeText(document.getElementById('affiliateLinkInput').value)">
+            <span class="fa fa-copy me-1" aria-hidden="true"></span>{#text_copy#}
+          </button>
+        </div>
+      </div>
+    </div>
+  {/if}
+  {* Navigation *}
+  <div class="row g-2">
+    <div class="col-auto"><a href="{$LINK_BANNERS}" class="btn btn-outline-primary btn-sm"><span class="fa fa-image me-1" aria-hidden="true"></span>{#text_banners#}</a></div>
+    <div class="col-auto"><a href="{$LINK_CLICKS}" class="btn btn-outline-primary btn-sm"><span class="fa fa-mouse-pointer me-1" aria-hidden="true"></span>{#text_clicks#}</a></div>
+    <div class="col-auto"><a href="{$LINK_SALES}" class="btn btn-outline-primary btn-sm"><span class="fa fa-shopping-cart me-1" aria-hidden="true"></span>{#text_sales#}</a></div>
+    <div class="col-auto"><a href="{$LINK_ACCOUNT}" class="btn btn-outline-primary btn-sm"><span class="fa fa-user me-1" aria-hidden="true"></span>{#text_account#}</a></div>
+    <div class="col-auto"><a href="{$LINK_PAYMENT}" class="btn btn-outline-primary btn-sm"><span class="fa fa-credit-card me-1" aria-hidden="true"></span>{#text_payment#}</a></div>
+    <div class="col-auto"><a href="{$LINK_CONTACT}" class="btn btn-outline-primary btn-sm"><span class="fa fa-envelope me-1" aria-hidden="true"></span>{#text_contact#}</a></div>
+  </div>
+</div>

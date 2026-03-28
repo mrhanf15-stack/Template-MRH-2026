@@ -1,0 +1,31 @@
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+</table>
+Reg&iacute;strese aqu&iacute;: <a href="{$LOGIN}">{$LOGIN}</a>
+<hr />
+{if $GENDER}{if $GENDER eq 'm'}{elseif $GENDER eq 'f'}{else} {$FIRSTNAME}&nbsp;{/if}&nbsp;{$LASTNAME}{else}{/if}Estimado r Sr Sra (r) , Hola,<p>{if $NEW == true} {$STORE_NAME}{else} {$STORE_NAME} Muchas gracias por su visita y por la confianza que nos ha demostrado. Muchas gracias por su continuo patrocinio y por su renovada confianza en nosotros.{/if}</p>
+
+<p>Hemos visto que ha llenado su cesta de la compra con los siguientes art&iacute;culos durante su visita a nuestra tienda online, pero no ha completado su compra.</p>
+
+<p>Contenido de su cesta de la compra:</p>
+<table border="0" cellpadding="0" cellspacing="3">
+{foreach name=outer item=product from=$products_data}
+<tr>
+    &lt;!--<td><img src="{$product.IMAGE}" alt="{$product.NAME}" /></td>--&gt;
+    <td valign="center">{$product.QUANTITY} x </td>
+    <td valign="center"><a href="{$product.LINK}">{$product.NAME}</a></td>
+</tr>
+{/foreach}
+</table>
+<p>{$STORE_NAME} {$STORE_NAME} Siempre nos esforzamos por mejorar nuestro servicio en inter&eacute;s de nuestros clientes. Por este motivo, naturalmente nos interesa saber cu&aacute;les fueron los motivos por los que no realiz&oacute; su compra esta vez en . Por lo tanto, le estar&iacute;amos muy agradecidos si nos comunicara si tuvo alg&uacute;n problema o duda a la hora de completar con &eacute;xito su compra cuando visit&oacute; nuestra tienda online. Nuestro objetivo es hacer que comprar en sea m&aacute;s f&aacute;cil y mejor para usted y para otros clientes.</p>
+
+<p>{$STORE_NAME} Dank wieder f&uuml;r Ihre Zeit und Ihre Beitrag zur Verbesserung der Online-Shop.</p>
+
+<p>Atentamente</p>
+
+<p>Su equipo de <a href="{$STORE_LINK}">Mr. Hanf</a></p>
+{if $MESSAGE}
+<p>{$MESSAGE}</p>
+{/if}

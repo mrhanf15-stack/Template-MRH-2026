@@ -1,0 +1,14 @@
+The stock level of an item in the store has fallen below the minimum quantity of {$STOCK_AMOUNT} 
+
+
+Item: {if $PRODUCTS_QUANTITY < $STOCK_AMOUNT}at{else}at{/if}: {$PRODUCTS_NAME}{if !empty($PRODUCTS_MODEL)} ({$PRODUCTS_MODEL}){/if}
+Stock: {$PRODUCTS_QUANTITY} 
+Link: {$PRODUCTS_LINK}
+
+{if !empty($PRODUCTS_ATTRIBUTES)}
+{foreach name=aussen item=attr from=$PRODUCTS_ATTRIBUTES}
+{$attr.OPTIONS_NAME}: {$attr.VALUES_NAME}
+Stock: {$attr.STOCK} 
+
+{/foreach}
+{/if}

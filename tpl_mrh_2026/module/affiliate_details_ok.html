@@ -1,0 +1,15 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_details_ok"}
+{* MRH 2026: Affiliate Details OK – BS5.3 *}
+<div class="mrh-affiliate-details-ok">
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="alert alert-success mb-3">
+        <span class="fa fa-check-circle me-1" aria-hidden="true"></span>{#text_information#}
+      </div>
+      <p class="text-body-secondary">{#text_details_saved#}</p>
+    </div>
+  </div>
+  <div class="text-end">
+    <a href="{$LINK_SUMMARY}" class="btn btn-primary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_continue#}</a>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Stock warning</font>   </td>
+</tr>
+<tr> 
+      <td><font size="2" face="Tahoma, Verdana, sans-serif">
+      The stock level of an item in the store has dropped {if $PRODUCTS_QUANTITY < $STOCK_LIMIT}from{else}to{/if} the minimum quantity of <b>{$STOCK_LIMIT}</b>.<br /><br />Item: {$PRODUCTS_NAME}{if !empty($PRODUCTS_MODEL)} ({$PRODUCTS_MODEL}){/if}<br /> Stock: {$PRODUCTS_QUANTITY}<br /> Link: <a href="{$PRODUCTS_LINK}">zur Artikelseite</a><br /> {if !empty($PRODUCTS_ATTRIBUTES)} {foreach name=aussen item=attr from=$PRODUCTS_ATTRIBUTES} <br /> {$attr.OPTIONS_NAME} : {$attr.VALUES_NAME} <br /> Stock: {$attr.STOCK} <br /> {/foreach} {/if}</font></td>
+  </tr>
+</table>

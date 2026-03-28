@@ -1,0 +1,32 @@
+
+{* /templates/[YOUR_TEMPLATE]/mail/german/shopmodule_advanced_contact.html *}&nbsp;{config_load file="$language/lang_$language.conf" section="newsletter"}&nbsp;{config_load file="$language/lang_$language.conf" section="contact_us"}&nbsp;{config_load file="lang_`$language`.custom"}
+
+<div style="width:700px;margin: 0px auto;">
+    <table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+        <tr>
+            <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+        </tr>
+        <tr> 
+            <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+               <font face="Tahoma, Verdana, sans-serif">Nouvelle demande via le formulaire &quot;{$FORM.name}&quot;</font>     </td>
+        </tr>
+        {if isset($MANAGE_LINK)}
+            <tr>
+                <td>
+                    <font size="2" face="Tahoma, Verdana, sans-serif">
+                        <a href="{$MANAGE_LINK}">Verwaltung im Shop</a>
+                    </font>
+                </td>
+            </tr>
+        {/if}
+        <tr> 
+            <td>
+                <br />
+                
+                   <font size="2" face="Tahoma, Verdana, sans-serif">Ci-dessous les d&eacute;tails de la demande :<br /><br /> {foreach from=$FIELDS item="f"} <strong>{$f.name}</strong> </font>: <font size="2" face="Tahoma, Verdana, sans-serif"> {$f.value}<br /> {/foreach} </font><br /><br />
+            </td>
+        </tr>
+    </table>
+</div>
+
+[SIGNATUR]

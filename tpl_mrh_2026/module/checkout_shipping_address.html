@@ -1,0 +1,47 @@
+{config_load file="$language/lang_$language.conf" section="checkout_shipping_address"}
+{config_load file="$language/lang_$language.conf" section="checkout_navigation"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="checkout_shipping_address"}
+{* MRH 2026: Checkout Versandadresse – BS5.3 *}
+{assign var="checkout_step" value=1}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/checkout_nav.html"}
+<h1 class="mrh-page-title">{#heading_address#}</h1>
+{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{if !isset($NEW_ADDRESS)}
+  <div class="card mb-3">
+    <div class="card-header">
+      <h2 class="h5 mb-1">{#title_old_addresses#}</h2>
+      <p class="small text-body-secondary mb-0">{#text_old_addresses#}</p>
+    </div>
+  </div>
+  <div class="row g-3 mb-4">
+    {foreach item=module_data from=$BLOCK_ADDRESS_ARRAY}
+      <div class="col-md-6">
+        <div class="card h-100{if $module_data.SELECTED == 1} border-success{/if}">
+          <div class="card-body">
+            {$module_data.FORM_ACTION}
+            <h3 class="h6">{$module_data.FIRSTNAME} {$module_data.LASTNAME}, {$module_data.CITY}</h3>
+            <div class="small mb-2">{$module_data.ADDRESS_LABEL|replace:"<br />":", "}</div>
+            <div class="d-flex gap-2">
+              {if isset($module_data.BUTTON_EDIT)}{$module_data.BUTTON_EDIT}{/if}
+              {if isset($module_data.BUTTON_CONTINUE)}{$module_data.BUTTON_CONTINUE}{/if}
+            </div>
+            {$module_data.FORM_END}
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  </div>
+  <div class="d-flex justify-content-between mb-4">
+    {$BUTTON_BACK}
+    {$BUTTON_NEW}
+  </div>
+{else}
+  {$FORM_ACTION}
+    {if $MODULE_new_address}{$MODULE_new_address}{/if}
+    <div class="d-flex justify-content-between mt-4 mb-4">
+      {$BUTTON_BACK}
+      {$BUTTON_CONTINUE}
+    </div>
+  {$FORM_END}
+{/if}

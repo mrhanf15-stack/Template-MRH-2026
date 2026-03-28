@@ -1,0 +1,31 @@
+Inscrivez-vous ici : {$LOGIN}
+------------------------------------------------------
+{if $GENDER}Cher{if $GENDER eq 'm'}r Monsieur{elseif $GENDER eq 'f'} Madame{else}(r) {$FIRSTNAME}{/if} {$LASTNAME} ,
+{else} Bonjour,{/if}
+
+ {if $NEW == true} Nous vous remercions de votre visite sur {$STORE_NAME} et de la confiance que vous nous avez t&eacute;moign&eacute;e.
+{else} Nous vous remercions de votre nouvelle visite sur {$STORE_NAME} et de la confiance que vous nous avez t&eacute;moign&eacute;e.{/if}
+
+Nous avons constat&eacute; que lors de votre visite dans notre boutique en ligne, vous avez rempli votre panier avec les articles suivants, mais que vous n&#039;avez pas termin&eacute; votre achat.
+
+Contenu de votre panier :
+
+{foreach name=outer item=product from=$products_data} 
+ {$product.QUANTITY} x {$product.NAME}
+ {$product.LINK} 
+ {/foreach} 
+
+ Nous nous effor&ccedil;ons toujours d&#039;am&eacute;liorer notre service dans l&#039;int&eacute;r&ecirc;t de nos clients.
+C&#039;est pourquoi nous sommes naturellement int&eacute;ress&eacute;s par les raisons pour lesquelles vous n&#039;avez pas effectu&eacute; votre achat sur {$STORE_NAME} cette fois-ci.
+Nous vous serions donc tr&egrave;s reconnaissants si vous pouviez nous dire si vous avez rencontr&eacute; des probl&egrave;mes ou des doutes lors de votre visite dans notre boutique en ligne pour mener &agrave; bien votre achat.
+Notre objectif est de faciliter et d&#039;amliorer vos achats et ceux des autres clients sur {$STORE_NAME}.
+
+Merci encore pour le temps que vous nous avez consacr et pour votre aide l&#039;amlioration de la boutique en ligne de {$STORE_NAME}.
+
+Cordialement
+
+Votre quipe de {$STORE_NAME}
+{if $MESSAGE}
+
+{$MESSAGE}
+{/if}

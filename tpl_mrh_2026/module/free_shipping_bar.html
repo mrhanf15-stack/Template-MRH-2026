@@ -1,0 +1,32 @@
+{config_load file="lang_free_shipping_bar.custom"}
+{* MRH 2026: Versandkostenfrei-Balken (Warenkorb-Seite) – BS5.3 *}
+{if isset($FREE_SHIPPING_AMOUNT) && $FREE_SHIPPING_AMOUNT > 0}
+  <div class="mrh-free-shipping-bar-cart mb-3">
+    {if $CART_TOTAL >= $FREE_SHIPPING_AMOUNT}
+      {* Schwelle erreicht *}
+      <div class="alert alert-success py-2 mb-0 d-flex align-items-center gap-2">
+        <span class="fa fa-check-circle" aria-hidden="true"></span>
+        <span>{#FSB_TEXT_REACHED#}</span>
+      </div>
+    {else}
+      {* Fortschritt anzeigen *}
+      {assign var=percentage value=($CART_TOTAL / $FREE_SHIPPING_AMOUNT * 100)|round}
+      {assign var=remaining value=$FREE_SHIPPING_AMOUNT - $CART_TOTAL}
+      <div class="card border-success">
+        <div class="card-body py-2">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="fa fa-truck text-success" aria-hidden="true"></span>
+            <span class="small">{#FSB_TEXT_REMAINING#|sprintf:$remaining_formatted}</span>
+          </div>
+          <div class="progress" style="height:8px" role="progressbar" aria-valuenow="{$percentage}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-success" style="width:{$percentage}%"></div>
+          </div>
+          <div class="d-flex justify-content-between mt-1">
+            <span class="small text-body-secondary">{$CART_TOTAL_FORMATTED}</span>
+            <span class="small text-body-secondary">{$FREE_SHIPPING_AMOUNT_FORMATTED}</span>
+          </div>
+        </div>
+      </div>
+    {/if}
+  </div>
+{/if}

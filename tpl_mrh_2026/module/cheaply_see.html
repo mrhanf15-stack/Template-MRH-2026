@@ -1,0 +1,21 @@
+{config_load file="$language/lang_$language.conf" section="cheaply_see"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="cheaply_see"}
+{* MRH 2026: Günstigste Produkte / Preisvergleich – BS5.3 *}
+{if isset($module_content) && count($module_content) > 0}
+  <section class="mrh-cheaply-see mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h5 mb-0">
+        <span class="fa fa-tags text-success me-2" aria-hidden="true"></span>{#heading_cheaply_see#}
+      </h2>
+      {if isset($LINK_ALL)}<a href="{$LINK_ALL}" class="btn btn-sm btn-outline-primary">{#show_all#}</a>{/if}
+    </div>
+    <div class="row g-3">
+      {foreach name=aussen item=module_data from=$module_content}
+        <div class="col-6 col-md-4 col-lg-3">
+          {include file="module/includes/product_listing_include.html"}
+        </div>
+      {/foreach}
+    </div>
+  </section>
+{/if}

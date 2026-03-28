@@ -1,0 +1,40 @@
+{config_load file="$language/lang_$language.conf" section="error_handler"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="error_handler"}
+{* MRH 2026: Autocomplete Suchergebnisse – BS5.3 *}
+{assign "dummy" ""}
+{if $error}
+  <span class="autocomplete_error text-body-secondary">{#text_search_again#}</span>
+{else}
+  <ul id="autocomplete_main" class="list-group">
+    {foreach item=products_data from=$module_content}
+      <li class="autocomplete_content">
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{$products_data.PRODUCTS_LINK}">
+          {if $products_data.PRODUCTS_IMAGE}
+            <span class="autocomplete_image flex-shrink-0" style="width:40px">
+              {if $smarty.const.PICTURESET_ACTIVE === true}
+                <img class="img-fluid lazyload" src="data:," data-src="{$products_data.PRODUCTS_IMAGE|replace:"thumbnail_":"mini_"}" alt="{$products_data.PRODUCTS_NAME|onlytext}">
+              {else}
+                <img class="img-fluid lazyload" src="data:," data-src="{$products_data.PRODUCTS_IMAGE}" alt="{$products_data.PRODUCTS_NAME|onlytext}">
+              {/if}
+            </span>
+          {/if}
+          <span class="flex-grow-1">{$products_data.PRODUCTS_NAME}</span>
+          <span class="text-end flex-shrink-0">
+            {foreach name=inner item=price_data from=$products_data.PRODUCTS_PRICE_ARRAY}
+              {include file="module/includes/price_box.html"}
+            {/foreach}
+            {if $products_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+              {if $products_data.PRODUCTS_VPE}<div class="small text-body-secondary">{$products_data.PRODUCTS_VPE}</div>{/if}
+            {/if}
+          </span>
+        </a>
+      </li>
+    {/foreach}
+  </ul>
+  <div id="autocomplete_pagination" class="d-flex justify-content-between align-items-center p-2">
+    <div id="autocomplete_prev">{$dummy|bs4button:'button_autocomp_prev'}</div>
+    <div id="autocomplete_count" class="small text-body-secondary"></div>
+    <div id="autocomplete_next">{$dummy|bs4button:'button_autocomp_next'}</div>
+  </div>
+{/if}

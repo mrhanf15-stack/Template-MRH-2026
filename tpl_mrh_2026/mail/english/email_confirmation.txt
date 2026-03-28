@@ -1,0 +1,14 @@
+{if $GENDER == 'm'}Dear Mr.{elseif $GENDER == 'f'}Dear Ms.{else}Hello{/if} {$NAME} ,
+
+Before you can place an order in our store, you must first confirm your e-mail address. The confirmation verifies you as the owner of the email address you have provided.
+
+Please click on the activation link to activate your email address for orders.
+
+Your activation link:
+{$LINK}
+
+If you have not registered in our store, we ask you to simply ignore the activation link.
+
+If you have any questions about our customer service, please contact us: {$MAIL_REPLY_ADDRESS}
+
+[SIGNATURE]

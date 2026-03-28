@@ -1,0 +1,31 @@
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+</table>
+Inscrivez-vous ici : <a href="{$LOGIN}">{$LOGIN}</a>
+<hr />
+{if $GENDER}Cher{if $GENDER eq 'm'}r Monsieur{elseif $GENDER eq 'f'} Madame{else}(r) {$FIRSTNAME}&nbsp;{/if}&nbsp;{$LASTNAME},{else}Bonjour,{/if}<p>{if $NEW == true}Nous vous remercions de votre visite sur {$STORE_NAME} et de la confiance que vous nous avez accord&eacute;e.{else}Nous vous remercions de votre nouvelle visite sur {$STORE_NAME} et de la confiance que vous nous avez accord&eacute;e &agrave; plusieurs reprises.{/if}</p>
+
+<p>Nous avons constat&eacute; que lors de votre visite dans notre boutique en ligne, vous avez rempli votre panier avec les articles suivants, mais que vous n&#039;avez pas effectu&eacute; l&#039;achat dans son int&eacute;gralit&eacute;.</p>
+
+<p>Contenu de votre panier :</p>
+<table border="0" cellpadding="0" cellspacing="3">
+{foreach name=outer item=product from=$products_data}
+<tr>
+    &lt;!--<td><img src="{$product.IMAGE}" alt="{$product.NAME}" /></td>--&gt;
+    <td valign="center">{$product.QUANTITY} x </td>
+    <td valign="center"><a href="{$product.LINK}">{$product.NAME}</a></td>
+</tr>
+{/foreach}
+</table>
+<p>Nous nous effor&ccedil;ons toujours d&#039;am&eacute;liorer notre service dans l&#039;int&eacute;r&ecirc;t de nos clients. C&#039;est pourquoi nous sommes naturellement int&eacute;ress&eacute;s par les raisons qui vous ont emp&ecirc;ch&eacute; d&#039;effectuer votre achat sur {$STORE_NAME} cette fois-ci. Nous vous serions donc tr&egrave;s reconnaissants de nous dire si vous avez rencontr&eacute; des probl&egrave;mes ou des doutes lors de votre visite sur notre boutique en ligne pour mener &agrave; bien votre achat. Notre objectif est de faciliter et d&#039;am&eacute;liorer votre exp&eacute;rience d&#039;achat sur {$STORE_NAME}, ainsi que celle des autres clients.</p>
+
+<p>Nous vous remercions encore une fois pour le temps que vous nous avez consacr&eacute; et pour votre aide &agrave; l&#039;am&eacute;lioration de la boutique en ligne de {$STORE_NAME}.</p>
+
+<p>Avec nos meilleures salutations</p>
+
+<p>Votre &eacute;quipe de <a href="{$STORE_LINK}">Mr. Hanf</a></p>
+{if $MESSAGE}
+<p>{$MESSAGE}</p>
+{/if}

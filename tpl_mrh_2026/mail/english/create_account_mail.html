@@ -1,0 +1,20 @@
+<div style="width:700px; margin: 0 auto;">
+  <table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+    <tr>
+      <td align="center" style="padding: 10px 0;">
+        <img src="{$logo_path}logo.gif" alt="Firmenlogo" />
+      </td>
+    </tr>
+    <tr>
+      <td style="font-size: 14px; text-transform: uppercase; padding: 10px 5px; border-top: 1px dotted #999; border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Your customer account has been successfully created</font>     </td>
+    </tr>
+    <tr>
+      <td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif">
+         <b>{if $GENDER == 'm'}Dear Mr.{elseif $GENDER == 'f'}Dear Mrs.{else}Hello{/if}&nbsp;{$NAME}</b>, <br /><br />Congratulations! Your customer account has been successfully created. <br /><br />As a registered customer you will enjoy the following benefits in our store: <br /><br /><b>Customer shopping cart</b> - Your items will be saved until you checkout or remove them from the cart. <br /><br /><b>Address book</b> - We can send your orders to any address you choose. Ideal for birthday presents. <br /><br /><b>Previous orders</b> - You can view your previous orders at any time. <br /><br /><b>Product reviews</b> - Share your opinion about our products with other customers. <br /><br /><u>Important:</u> This email address was provided by a customer. If you have not registered, please send an e-mail to: <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a> <br /> {if $SEND_GIFT == true} <br /> As a welcome gift we will send you a voucher for: <b>{$GIFT_AMMOUNT}</b> <br /><br /> Your personal voucher code is <b>{$GIFT_CODE}</b>. You can redeem the voucher at the checkout during the order process. To redeem the voucher, please click on <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a>. <br /> {/if}&nbsp;{if $SEND_COUPON == true} <br /> You will also receive a welcome coupon. <br />Coupon description: <b>{$COUPON_DESC}</b> <br /> Simply enter your personal code {$COUPON_CODE} during the checkout process. <br /> {/if} <br /> If you have any questions about our customer service, please contact: <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a></font></td>
+    </tr>
+  </table>
+  [SIGNATUR]
+</div>

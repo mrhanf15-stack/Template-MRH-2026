@@ -1,0 +1,12 @@
+{$MESSAGE}
+ 
+ {$AMMOUNT} {$GIFT_ID} {$GIFT_LINK} {$WEBSITE} 
+Valor del vale 
+
+Su c&oacute;digo del vale es: 
+
+Para canjear su vale, haga clic en el siguiente enlace - .
+
+Si, al contrario de lo esperado, tiene problemas para canjear su vale, visite nuestro sitio web e introduzca el c&oacute;digo del vale manualmente.
+
+[FIRMA].

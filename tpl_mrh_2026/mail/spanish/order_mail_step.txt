@@ -1,0 +1,80 @@
+{config_load file="$language/lang_$language.conf" section="duty_info"} 
+{$address_label_customer}
+
+{if $SHIPPING_METHOD} {$SHIPPING_METHOD}
+{/if}
+{if $PAYMENT_METHOD} {$PAYMENT_METHOD}
+{/if}
+ {$oID}
+ {$DATE}
+{if $csID} {$csID}
+{/if}
+Forma de env&iacute;o: Forma de pago: N&uacute;mero de pedido: Fecha: N&uacute;mero de cliente: Su direcci&oacute;n de correo electr&oacute;nico: {$EMAIL}
+{if $vatID} {$vatID}
+{/if}
+----------------------------------------------------------------------
+
+
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+
+
+
+{if isset($NEW_PASSWORD) && $NEW_PASSWORD != ''}
+
+Su n&uacute;mero de IVA: Estimado Sr. Estimada Sra. Hola , Dank f&uuml;r Ihre Encargo. Ihre Zugang ist mit einem Passwort gesch&uuml;tzt. Sie k&ouml;nnen das Passwort durch den n&auml;chsten Link ver&auml;ndern: {$NEW_PASSWORD}
+{/if}
+
+{if $COMMENTS}
+
+{$COMMENTS}
+{/if}
+
+
+----------------------------------------------------------------------
+{foreach name=aussen item=order_values from=$order_data} 
+{$order_values.PRODUCTS_QTY} {$order_values.PRODUCTS_NAME} {$order_values.PRODUCTS_PRICE}
+Sus comentarios: Sus productos pedidos para comprobar x N&ordm; de art&iacute;culoNo. {$order_values.PRODUCTS_MODEL}{$order_values.PRODUCTS_ATTRIBUTES_MODEL}
+{if $order_values.PRODUCTS_ORDER_DESCRIPTION != ''}{$order_values.PRODUCTS_ORDER_DESCRIPTION}
+{/if}
+{if $order_values.PRODUCTS_SHIPPING_TIME != ''}Plazo de entrega {$order_values.PRODUCTS_SHIPPING_TIME}
+{/if}
+{if $order_values.PRODUCTS_ATTRIBUTES != ''}{$order_values.PRODUCTS_ATTRIBUTES}
+{/if}
+
+{/foreach}
+
+{foreach name=aussen item=order_total_values from=$order_total}
+{$order_total_values.TITLE}{$order_total_values.TEXT}
+{/foreach}
+
+{$downloads_content_txt}
+
+{if $address_label_payment != $address_label_shipping}
+{if isset($SHIPPING_CLASS) && strpos($SHIPPING_CLASS, 'selfpickup') !== false}
+{else}
+{/if} 
+----------------------------------------------------------------------
+{$address_label_shipping}{/if}
+
+{if $address_label_payment}
+{if $address_label_payment != $address_label_shipping}
+{else}Direcci&oacute;n de recogida Direcci&oacute;n de env&iacute;o Direcci&oacute;n de facturaci&oacute;n / direcci&oacute;n de entrega/Direcci&oacute;n de entrega
+{/if}
+----------------------------------------------------------------------
+{$address_label_payment}
+{/if}
+
+{if $DELIVERY_DUTY_INFO != ''}
+
+----------------------------------------------------------------------
+{#text_duty_info#}
+----------------------------------------------------------------------
+{/if}
+
+[SIGNATUR]
+
+{$REVOCATION_TXT}
+
+{$AGB_TXT}
+
+{$PRIVACY_POLICY_TXT}

@@ -1,0 +1,49 @@
+{config_load file="$language/affiliate_lang_$language.conf" section="affiliate_sales"}
+{* MRH 2026: Affiliate Verkäufe – BS5.3 *}
+<div class="mrh-affiliate-sales">
+  <h1 class="mrh-page-title">{#heading_title#}</h1>
+  {if isset($SALES) && count($SALES) > 0}
+    <div class="table-responsive">
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th>{#table_heading_date#}</th>
+            <th>{#table_heading_order_id#}</th>
+            <th class="text-end">{#table_heading_amount#}</th>
+            <th class="text-end">{#table_heading_commission#}</th>
+            <th>{#table_heading_status#}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foreach name=aussen item=sale from=$SALES}
+            <tr>
+              <td class="small">{$sale.DATE}</td>
+              <td class="small">{$sale.ORDER_ID}</td>
+              <td class="small text-end">{$sale.AMOUNT}</td>
+              <td class="small text-end fw-bold">{$sale.COMMISSION}</td>
+              <td class="small">
+                {if $sale.STATUS == 'approved'}<span class="badge text-bg-success">{$sale.STATUS_TEXT}</span>
+                {elseif $sale.STATUS == 'pending'}<span class="badge text-bg-warning">{$sale.STATUS_TEXT}</span>
+                {else}<span class="badge text-bg-secondary">{$sale.STATUS_TEXT}</span>{/if}
+              </td>
+            </tr>
+          {/foreach}
+        </tbody>
+        {if isset($TOTALS)}
+          <tfoot>
+            <tr class="fw-bold">
+              <td colspan="2">{#text_total#}</td>
+              <td class="text-end">{$TOTALS.AMOUNT}</td>
+              <td class="text-end">{$TOTALS.COMMISSION}</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        {/if}
+      </table>
+    </div>
+    {if isset($PAGINATION)}{$PAGINATION}{/if}
+  {else}
+    <div class="alert alert-info"><span class="fa fa-info-circle me-1" aria-hidden="true"></span>{#text_no_sales#}</div>
+  {/if}
+  <div class="mt-3"><a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a></div>
+</div>

@@ -1,0 +1,13 @@
+Hallo {$content.PARTNER_NAME},
+
+Der Status Ihrer Provisionsabrechnung wurde geändert.
+Neuer Status: {$content.PAYMENT_STATUS}
+Bei Fragen zu Ihrer Provisionsabrechnung antworten Sie bitte auf diese eMail.
+
+Provisionsabrechnung-Nr.: {$content.PAYMENT_ID}
+Detailierte Provisionsabrechnung: {$content.INVOICE_URL}
+Abrechnungsdatum: {$content.PAYMENT_DATE}
+
+Wir freuen uns auf eine weiterhin gute Zusammenarbeit.
+
+Ihr Partnerprogramm Team

@@ -1,0 +1,78 @@
+{config_load file="$language/lang_$language.conf" section="account_edit"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="account_edit"}
+{* MRH 2026: Kontodaten bearbeiten – BS5.3 *}
+<h1 class="mrh-page-title">{#heading_account#}</h1>
+{$FORM_ACTION}
+{if $error_message}<div class="alert alert-warning">{$error_message}</div>{/if}
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="h5 mb-3">{#title_personal#}</h2>
+        <p class="small text-body-secondary">({#text_must#})</p>
+        {if $csID}
+          <div class="mb-3">
+            <label class="form-label">{#csID#}</label>
+            {$csID|replace:'<input':'<input class="form-control"'}
+          </div>
+        {/if}
+        {if $gender == '1'}
+          <div class="mb-3">
+            <label class="form-label">{#text_gender#}</label>
+            {$INPUT_GENDER|replace:'<select':'<select class="form-select"'}
+          </div>
+        {/if}
+        <div class="mb-3">
+          <label class="form-label">{#text_firstname#}</label>
+          {$INPUT_FIRSTNAME|replace:'<input':'<input class="form-control"'}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_lastname#}</label>
+          {$INPUT_LASTNAME|replace:'<input':'<input class="form-control"'}
+        </div>
+        {if $birthdate == '1'}
+          <div class="mb-3">
+            <label class="form-label">{#text_birthdate#}</label>
+            {$INPUT_DOB|replace:'<input':'<input class="form-control"'}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="h5 mb-3">{#title_contact#}</h2>
+        <p class="small text-body-secondary">({#text_must#})</p>
+        <div class="mb-3">
+          <label class="form-label">{#text_email#}</label>
+          {$INPUT_EMAIL|replace:'<input':'<input class="form-control"'|replace:"type=\"text\"":"type=\"email\""}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_confirm_email#}</label>
+          {$INPUT_CONFIRM_EMAIL|replace:'<input':'<input class="form-control"'|replace:"type=\"text\"":"type=\"email\""}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_tel#}</label>
+          {$INPUT_TEL|replace:'<input':'<input class="form-control"'|replace:"type=\"text\"":"type=\"tel\""}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{#text_fax#}</label>
+          {$INPUT_FAX|replace:'<input':'<input class="form-control"'|replace:"type=\"text\"":"type=\"tel\""}
+        </div>
+        {if $vat == '1'}
+          <div class="mb-3">
+            <label class="form-label">{#text_ustid#}</label>
+            {$INPUT_VAT|replace:'<input':'<input class="form-control"'}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-between mb-4">
+  {$BUTTON_BACK}
+  {$BUTTON_SUBMIT}
+</div>
+{$FORM_END}
