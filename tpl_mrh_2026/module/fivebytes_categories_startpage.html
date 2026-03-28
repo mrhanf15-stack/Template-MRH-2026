@@ -1,0 +1,24 @@
+{* fivebytes_categories_startpage.html – MRH 2026 *}
+{if isset($startpage_categories) && $startpage_categories|@count > 0}
+<section class="mb-4">
+  {if isset($startpage_categories_heading) && $startpage_categories_heading != ''}
+    <h2 class="h4 mb-3">{$startpage_categories_heading}</h2>
+  {/if}
+  <div class="row g-3">
+    {foreach $startpage_categories as $category}
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{$category.CATEGORIES_LINK}" class="text-decoration-none">
+          <div class="card h-100 border-0 shadow-sm text-center">
+            {if $category.CATEGORIES_IMAGE}
+              <img src="{$category.CATEGORIES_IMAGE}" alt="{$category.CATEGORIES_NAME|escape:'html'}" class="card-img-top p-2" loading="lazy" />
+            {/if}
+            <div class="card-body p-2">
+              <h3 class="card-title h6 mb-0">{$category.CATEGORIES_NAME}</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+    {/foreach}
+  </div>
+</section>
+{/if}

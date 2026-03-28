@@ -2,6 +2,13 @@
 
 require_once(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/lang/buttons_'.$_SESSION['language'].'.php');
 
+// Fallback-Definitionen für Konstanten die erst auf bestimmten Seiten geladen werden
+defined('PRODUCTS_REVIEW_LINK') OR define('PRODUCTS_REVIEW_LINK', '');
+defined('TEXT_CHECKOUT_EXPRESS_INFO_LINK') OR define('TEXT_CHECKOUT_EXPRESS_INFO_LINK', '');
+defined('PRINTVIEW_INFO') OR define('PRINTVIEW_INFO', '');
+defined('IMAGE_REDEEM_GIFT') OR define('IMAGE_REDEEM_GIFT', '');
+defined('TEXT_PRINT') OR define('TEXT_PRINT', '');
+
 function css_button($image, $alt, $parameters = '', $submit = false) {
 
     $name           = substr(basename($image), 0);
@@ -112,9 +119,8 @@ function css_button($image, $alt, $parameters = '', $submit = false) {
     'account_express'				=> array('Text' => $alt,								'icon' => 'fa fa-cart-plus',        'iconposition' => 'left',		'Class' => 'btn btn-sm btn-primary btn-block'),
     'account_login'					=> array('Text' => $alt,								'icon' => 'fa fa-user',	        	'iconposition' => 'left',		'Class' => 'btn btn-sm btn-secondary'),
     'account_newsletter'			=> array('Text' => $alt,								'icon' => 'fa fa-envelope',        	'iconposition' => 'left',		'Class' => 'btn btn-sm btn-info btn-block'),
-    'account_password'				=> array('Text' => $alt,								'icon' => 'fa fa-lock',	        	'iconposition' => 'left',		'Class' => 'btn btn-sm btn-warning btn-block'),
-	// Mehrfachnutzung Box Warenkorb, Box Merkzettel
-    'box_cart'						=> array('Text' => $alt.'&nbsp;&raquo;',				'icon' => '',				       	'iconposition' => 'left',		'Class' => 'btn btn-outline-primary btn-sm'),
+    'account_password'				=> array('Text' => $alt,								'icon' => 'fa fa-lock',	        	'iconposition' => 'left',	'Class' => 'btn btn-sm btn-secondary'),
+	// Mehrfachnutzung Box Warenkorb, Box Merkzettel    'box_cart'						=> array('Text' => $alt.'&nbsp;&raquo;',				'icon' => '',				       	'iconposition' => 'left',		'Class' => 'btn btn-outline-primary btn-sm'),
 	// Suche -> Autovervollständigung
     'button_autocomp_next'			=> array('Text' => '&raquo;',							'icon' => '',				       	'iconposition' => 'left',		'Class' => 'btn btn-primary'),
     'button_autocomp_prev'			=> array('Text' => '&laquo;',							'icon' => '',				       	'iconposition' => 'left',		'Class' => 'btn btn-primary'),
