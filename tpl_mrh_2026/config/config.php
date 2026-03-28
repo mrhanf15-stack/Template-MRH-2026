@@ -12,7 +12,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
+// Hinweis: Kein _VALID_XTC Guard hier, da die Template-Config
+// VOR der Definition dieser Konstante geladen wird.
 
 // Sprachdatei laden
 require_once(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/lang/template_' . $_SESSION['language'] . '.php');
