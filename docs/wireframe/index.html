@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="de" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRH 2026 – Wireframe Navigation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --mrh-green: #4a8c2a;
+            --mrh-green-dark: #3a7020;
+            --mrh-dark: #1a1a2e;
+            --mrh-topbar: #222;
+            --mrh-nav: #2d6a1e;
+        }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f5f5f5; margin: 0; }
+
+        /* ===== TOPBAR ===== */
+        .mrh-topbar {
+            background: var(--mrh-topbar);
+            color: #ccc;
+            font-size: 0.78rem;
+            padding: 4px 0;
+            letter-spacing: 0.02em;
+        }
+        .mrh-topbar .bi { color: var(--mrh-green); margin-right: 4px; }
+        .mrh-topbar a { color: #eee; text-decoration: none; }
+
+        /* ===== HEADER / LOGOBAR ===== */
+        .mrh-header {
+            background: #fff;
+            padding: 10px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .mrh-logo img { max-height: 55px; }
+        .mrh-search { max-width: 480px; }
+        .mrh-search .form-control {
+            border-radius: 25px 0 0 25px;
+            border: 2px solid var(--mrh-green);
+            border-right: none;
+            padding-left: 18px;
+        }
+        .mrh-search .btn {
+            border-radius: 0 25px 25px 0;
+            background: var(--mrh-green);
+            color: #fff;
+            border: 2px solid var(--mrh-green);
+            padding: 0 20px;
+        }
+        .mrh-header-icons a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.82rem;
+            position: relative;
+        }
+        .mrh-header-icons .bi { font-size: 1.3rem; display: block; text-align: center; }
+        .mrh-header-icons .badge {
+            position: absolute;
+            top: -4px;
+            right: 50%;
+            transform: translateX(14px);
+            background: #dc3545;
+            font-size: 0.65rem;
+        }
+
+        /* ===== MAIN NAV ===== */
+        .mrh-nav {
+            background: var(--mrh-nav);
+        }
+        .mrh-nav .navbar { padding: 0; }
+        .mrh-nav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            font-size: 0.88rem;
+            padding: 10px 14px !important;
+            transition: background 0.2s;
+        }
+        .mrh-nav .nav-link:hover { background: rgba(255,255,255,0.12); }
+        .mrh-nav .nav-link .bi { margin-right: 4px; font-size: 0.9rem; }
+
+        /* ===== STICKY HEADER (scroll state) ===== */
+        .mrh-sticky-header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 6px 0;
+            border-bottom: 3px solid var(--mrh-green);
+        }
+        .mrh-sticky-header .mrh-logo img { max-height: 36px; }
+
+        /* ===== FREE SHIPPING BAR ===== */
+        .mrh-shipping-bar {
+            background: linear-gradient(90deg, var(--mrh-green), #6db33f);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 0;
+            text-align: center;
+        }
+        .mrh-shipping-bar .bi { margin-right: 4px; }
+
+        /* ===== PRODUCT CARD (Option A) ===== */
+        .mrh-product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .mrh-product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        .mrh-product-card .card-img-top {
+            aspect-ratio: 1;
+            object-fit: contain;
+            padding: 12px;
+            background: #fafafa;
+        }
+        .mrh-product-card .ribbon {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background: var(--mrh-green);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 12px 3px 8px;
+            border-radius: 0 4px 4px 0;
+        }
+        .mrh-product-card .ribbon.sale { background: #dc3545; }
+        .mrh-product-card .ribbon.new { background: #0d6efd; }
+        .mrh-product-card .card-body { padding: 12px 14px; }
+        .mrh-product-card .brand { font-size: 0.72rem; color: #888; font-weight: 500; }
+        .mrh-product-card .card-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #222;
+            margin: 4px 0;
+            line-height: 1.3;
+        }
+        .mrh-product-card .strain-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin: 6px 0;
+        }
+        .mrh-product-card .strain-badge {
+            font-size: 0.68rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: #f0f7ec;
+            color: var(--mrh-green-dark);
+            font-weight: 600;
+            border: 1px solid #d4e8c8;
+            white-space: nowrap;
+        }
+        .mrh-product-card .strain-badge .bi { font-size: 0.7rem; margin-right: 2px; }
+        .mrh-product-card .stars { color: #f5a623; font-size: 0.78rem; }
+        .mrh-product-card .stars .count { color: #888; font-size: 0.72rem; }
+        .mrh-product-card .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin: 6px 0 4px;
+        }
+        .mrh-product-card .price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--mrh-green-dark);
+        }
+        .mrh-product-card .price-from { font-size: 0.72rem; color: #888; }
+        .mrh-product-card .btn-cart {
+            background: var(--mrh-green);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 7px 0;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .mrh-product-card .btn-cart:hover { background: var(--mrh-green-dark); }
+        .mrh-product-card .btn-icon {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .mrh-product-card .btn-icon:hover { border-color: var(--mrh-green); color: var(--mrh-green); }
+
+        /* ===== MOBILE BOTTOM BAR ===== */
+        .mrh-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1050;
+            padding: 6px 0 env(safe-area-inset-bottom, 4px);
+            display: none;
+        }
+        .mrh-bottom-bar a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.68rem;
+            text-align: center;
+            flex: 1;
+            padding: 4px 0;
+        }
+        .mrh-bottom-bar a.active { color: var(--mrh-green); }
+        .mrh-bottom-bar .bi { font-size: 1.3rem; display: block; }
+
+        /* ===== OFFCANVAS MOBILE ===== */
+        .offcanvas-header { background: var(--mrh-dark); color: #fff; }
+        .offcanvas-body .nav-link { color: #333; font-weight: 500; padding: 12px 16px; border-bottom: 1px solid #eee; }
+        .offcanvas-body .nav-link .bi { color: var(--mrh-green); margin-right: 8px; width: 20px; text-align: center; }
+
+        /* ===== SECTION LABELS ===== */
+        .wireframe-label {
+            background: #ff6b35;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 20px 0 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .wireframe-section {
+            border: 2px dashed #ff6b35;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 4px;
+            position: relative;
+        }
+        .wireframe-note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            margin: 12px 0;
+        }
+        .wireframe-note .bi { color: #ffc107; margin-right: 6px; }
+
+        /* ===== MOBILE VIEWPORT DEMO ===== */
+        .mobile-frame {
+            width: 375px;
+            margin: 0 auto;
+            border: 3px solid #333;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #f5f5f5;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .mobile-frame .mrh-bottom-bar { display: flex !important; position: relative; }
+        .mobile-notch {
+            width: 120px;
+            height: 24px;
+            background: #333;
+            border-radius: 0 0 16px 16px;
+            margin: 0 auto;
+        }
+
+        /* ===== MEGA MENU ===== */
+        .mrh-mega-menu {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            padding: 20px;
+        }
+        .mrh-mega-menu h6 { color: var(--mrh-green-dark); font-weight: 700; font-size: 0.85rem; border-bottom: 2px solid var(--mrh-green); padding-bottom: 6px; }
+        .mrh-mega-menu a { color: #444; font-size: 0.82rem; text-decoration: none; display: block; padding: 3px 0; }
+        .mrh-mega-menu a:hover { color: var(--mrh-green); }
+
+        hr.section-divider { border-top: 3px solid #ff6b35; margin: 40px 0 10px; }
+
+        @media (max-width: 767px) {
+            .desktop-only { display: none !important; }
+        }
+        @media (min-width: 768px) {
+            .mobile-only { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- DESKTOP VERSION -->
+<!-- ============================================================ -->
+<div class="container-fluid px-0">
+
+    <div class="text-center py-3" style="background:#1a1a2e; color:#fff;">
+        <h4 class="mb-0"><i class="bi bi-display"></i> MRH 2026 Wireframe – DESKTOP ANSICHT</h4>
+        <small class="text-white-50">Bootstrap 5.3 | Mobile First | Speed Optimiert</small>
+    </div>
+
+    <!-- TOPBAR -->
+    <span class="wireframe-label">1. Topbar (Trust-Elemente)</span>
+    <div class="wireframe-section">
+        <div class="mrh-topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-auto"><i class="bi bi-telephone-fill"></i> +43 512 312 411</div>
+                    <div class="col-auto"><i class="bi bi-lightning-fill"></i> Schnelle Lieferung</div>
+                    <div class="col-auto"><i class="bi bi-shield-check"></i> Einfache, sichere Zahlung</div>
+                    <div class="col-auto"><i class="bi bi-envelope-fill"></i> Briefbestellung</div>
+                    <div class="col text-end"><i class="bi bi-truck"></i> <strong>Kostenfrei ab: AT 40€, DE 85€, EU 150€</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FREE SHIPPING BAR -->
+    <span class="wireframe-label">2. Free Shipping Progress Bar</span>
+    <div class="wireframe-section">
+        <div class="mrh-shipping-bar">
+            <i class="bi bi-truck"></i> Noch <strong>85,00 €</strong> bis zum kostenlosen Versand!
+            <div class="container mt-1">
+                <div class="progress" style="height:4px; max-width:400px; margin:0 auto; background:rgba(255,255,255,0.3);">
+                    <div class="progress-bar bg-white" style="width:15%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / LOGOBAR -->
+    <span class="wireframe-label">3. Header (Logo + Suche + Icons)</span>
+    <div class="wireframe-section">
+        <div class="mrh-header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-auto mrh-logo">
+                        <img src="https://mr-hanf.de/templates/bootstrap4/img/logo_head.png" alt="Mr. Hanf" style="max-height:55px;">
+                    </div>
+                    <div class="col">
+                        <div class="mrh-search mx-auto">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Cannabis Samen suchen...">
+                                <button class="btn" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="mrh-header-icons d-flex gap-4">
+                            <a href="#" class="text-center"><i class="bi bi-globe2"></i><small>Sprache</small></a>
+                            <a href="#" class="text-center"><i class="bi bi-person"></i><small>Konto</small></a>
+                            <a href="#" class="text-center"><i class="bi bi-heart"></i><small>Merkliste</small></a>
+                            <a href="#" class="text-center position-relative">
+                                <i class="bi bi-cart3"></i>
+                                <span class="badge rounded-pill">2</span>
+                                <small>Warenkorb</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION -->
+    <span class="wireframe-label">4. Hauptnavigation (Mega-Menu fähig)</span>
+    <div class="wireframe-section">
+        <div class="mrh-nav">
+            <div class="container">
+                <nav class="navbar navbar-expand">
+                    <ul class="navbar-nav w-100 justify-content-between">
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-flower1"></i> Samen Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-tree"></i> Cannabispflanzen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Growshop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Headshop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-tag"></i> Angebote</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Neue Artikel</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Marken</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-journal-text"></i> Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-search-heart"></i> Seedfinder</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEGA MENU PREVIEW -->
+    <span class="wireframe-label">4a. Mega-Menu (Dropdown bei Hover auf "Samen Shop")</span>
+    <div class="wireframe-section">
+        <div class="container">
+            <div class="mrh-mega-menu">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6><i class="bi bi-flower1"></i> Sortenvielfalt</h6>
+                        <a href="#">THC-Reiche Sorten</a>
+                        <a href="#">CBD-Reiche Sorten</a>
+                        <a href="#">Autoflowering</a>
+                        <a href="#">Feminisierte Samen</a>
+                        <a href="#">Reguläre Samen</a>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="bi bi-stars"></i> Beliebte Sorten</h6>
+                        <a href="#">Amnesia Haze</a>
+                        <a href="#">White Widow</a>
+                        <a href="#">Northern Lights</a>
+                        <a href="#">Girl Scout Cookies</a>
+                        <a href="#">Gorilla Glue</a>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="bi bi-building"></i> Top Hersteller</h6>
+                        <a href="#">Royal Queen Seeds</a>
+                        <a href="#">Barney's Farm</a>
+                        <a href="#">Dutch Passion</a>
+                        <a href="#">Sensi Seeds</a>
+                        <a href="#">Fast Buds</a>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="p-3 rounded" style="background:#f0f7ec;">
+                            <h6><i class="bi bi-percent"></i> Aktion</h6>
+                            <p class="small text-muted">Royal Queen Seeds<br><strong>2+1 GRATIS</strong></p>
+                            <a href="#" class="btn btn-sm text-white" style="background:var(--mrh-green);">Jetzt sparen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY HEADER PREVIEW -->
+    <span class="wireframe-label">5. Sticky Header (erscheint beim Scrollen)</span>
+    <div class="wireframe-section">
+        <div class="mrh-sticky-header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-auto mrh-logo">
+                        <img src="https://mr-hanf.de/templates/bootstrap4/img/logo_head.png" alt="Mr. Hanf" style="max-height:36px;">
+                    </div>
+                    <div class="col-auto">
+                        <nav class="d-flex gap-3">
+                            <a href="#" class="text-dark text-decoration-none small fw-semibold">Samen Shop</a>
+                            <a href="#" class="text-dark text-decoration-none small fw-semibold">Cannabispflanzen</a>
+                            <a href="#" class="text-dark text-decoration-none small fw-semibold">Growshop</a>
+                            <a href="#" class="text-dark text-decoration-none small fw-semibold">Headshop</a>
+                            <a href="#" class="text-dark text-decoration-none small fw-semibold">Angebote</a>
+                        </nav>
+                    </div>
+                    <div class="col">
+                        <div class="mrh-search ms-auto" style="max-width:300px;">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Suchen...">
+                                <button class="btn" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-dark"><i class="bi bi-person fs-5"></i></a>
+                            <a href="#" class="text-dark"><i class="bi bi-heart fs-5"></i></a>
+                            <a href="#" class="text-dark position-relative"><i class="bi bi-cart3 fs-5"></i><span class="badge rounded-pill bg-danger" style="font-size:0.6rem; position:absolute; top:-4px; right:-8px;">2</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT CARDS (Option A) -->
+    <hr class="section-divider">
+    <div class="text-center py-2" style="background:#1a1a2e; color:#fff;">
+        <h5 class="mb-0"><i class="bi bi-grid-3x3-gap"></i> Produktkarten – Option A (Boxansicht)</h5>
+    </div>
+    <span class="wireframe-label">6. Produktkarten mit Preis + Strain-Badges (Option A)</span>
+    <div class="wireframe-section">
+        <div class="container py-3">
+            <div class="row g-3">
+                <!-- Card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="mrh-product-card position-relative">
+                        <span class="ribbon">Top</span>
+                        <img src="https://mr-hanf.de/images/product_images/midi_images/amnesia-haze-fem-103-0.png" class="card-img-top" alt="Amnesia Haze" loading="lazy" width="200" height="200">
+                        <div class="card-body">
+                            <div class="brand">Royal Queen Seeds</div>
+                            <h3 class="card-title">Amnesia Haze</h3>
+                            <div class="strain-badges">
+                                <span class="strain-badge"><i class="bi bi-droplet-half"></i> THC 22%</span>
+                                <span class="strain-badge"><i class="bi bi-flower2"></i> Sativa 70%</span>
+                                <span class="strain-badge"><i class="bi bi-clock"></i> 10-11 Wo.</span>
+                            </div>
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                <span class="count">(4)</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-from">ab</span>
+                                <span class="price">9,99 €</span>
+                            </div>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn-cart flex-grow-1"><i class="bi bi-cart-plus"></i> Warenkorb</button>
+                                <button class="btn-icon"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="mrh-product-card position-relative">
+                        <span class="ribbon sale">-15%</span>
+                        <img src="https://mr-hanf.de/images/product_images/midi_images/amnesia-haze-fem-103-0.png" class="card-img-top" alt="00 Kush FAST" loading="lazy" width="200" height="200">
+                        <div class="card-body">
+                            <div class="brand">00 Seeds Bank</div>
+                            <h3 class="card-title">00 Kush FAST</h3>
+                            <div class="strain-badges">
+                                <span class="strain-badge"><i class="bi bi-droplet-half"></i> THC 22%</span>
+                                <span class="strain-badge"><i class="bi bi-flower2"></i> Indica 90%</span>
+                                <span class="strain-badge"><i class="bi bi-clock"></i> 45-50 T.</span>
+                            </div>
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i>
+                                <span class="count">(8)</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-from">ab</span>
+                                <span class="price">14,99 €</span>
+                                <span class="text-decoration-line-through text-muted small">17,50 €</span>
+                            </div>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn-cart flex-grow-1"><i class="bi bi-cart-plus"></i> Warenkorb</button>
+                                <button class="btn-icon"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="mrh-product-card position-relative">
+                        <span class="ribbon new">Neu</span>
+                        <img src="https://mr-hanf.de/images/product_images/midi_images/amnesia-haze-fem-103-0.png" class="card-img-top" alt="3 Kingdoms" loading="lazy" width="200" height="200">
+                        <div class="card-body">
+                            <div class="brand">Freedom Of Seeds</div>
+                            <h3 class="card-title">3 Kingdoms</h3>
+                            <div class="strain-badges">
+                                <span class="strain-badge"><i class="bi bi-droplet-half"></i> THC 25%</span>
+                                <span class="strain-badge"><i class="bi bi-flower2"></i> Sativa</span>
+                                <span class="strain-badge"><i class="bi bi-clock"></i> 9-11 Wo.</span>
+                            </div>
+                            <div class="stars">
+                                <i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                <span class="count">(0)</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-from">ab</span>
+                                <span class="price">19,20 €</span>
+                            </div>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn-cart flex-grow-1"><i class="bi bi-cart-plus"></i> Warenkorb</button>
+                                <button class="btn-icon"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="mrh-product-card position-relative">
+                        <img src="https://mr-hanf.de/images/product_images/midi_images/amnesia-haze-fem-103-0.png" class="card-img-top" alt="Aca-Dos Delight" loading="lazy" width="200" height="200">
+                        <div class="card-body">
+                            <div class="brand">Pure Instinto</div>
+                            <h3 class="card-title">Aca-Dos Delight</h3>
+                            <div class="strain-badges">
+                                <span class="strain-badge"><i class="bi bi-droplet-half"></i> THC 25-30%</span>
+                                <span class="strain-badge"><i class="bi bi-flower2"></i> Hybrid</span>
+                                <span class="strain-badge"><i class="bi bi-clock"></i> 8-9 Wo.</span>
+                            </div>
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                <span class="count">(12)</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-from">ab</span>
+                                <span class="price">22,00 €</span>
+                            </div>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn-cart flex-grow-1"><i class="bi bi-cart-plus"></i> Warenkorb</button>
+                                <button class="btn-icon"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MOBILE VERSION -->
+    <!-- ============================================================ -->
+    <hr class="section-divider">
+    <div class="text-center py-3" style="background:#1a1a2e; color:#fff;">
+        <h4 class="mb-0"><i class="bi bi-phone"></i> MRH 2026 Wireframe – MOBILE ANSICHT (375px)</h4>
+        <small class="text-white-50">Offcanvas Navigation + Bottom Bar + Produktkarten</small>
+    </div>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <!-- Mobile Phone Frame -->
+            <div class="col-auto">
+                <div class="mobile-frame">
+                    <div class="mobile-notch"></div>
+
+                    <!-- Mobile Topbar (kompakt) -->
+                    <div style="background:#222; color:#ccc; font-size:0.65rem; padding:3px 10px; text-align:center;">
+                        <i class="bi bi-truck" style="color:#4a8c2a;"></i> Kostenfrei ab: AT 40€, DE 85€, EU 150€
+                    </div>
+
+                    <!-- Mobile Header -->
+                    <div style="background:#fff; padding:8px 12px; display:flex; align-items:center; gap:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                        <button style="background:none; border:none; font-size:1.3rem; color:#333; padding:0;"><i class="bi bi-list"></i></button>
+                        <img src="https://mr-hanf.de/templates/bootstrap4/img/logo_head.png" alt="Mr. Hanf" style="height:32px;">
+                        <div style="flex:1;"></div>
+                        <a href="#" style="color:#333; font-size:1.1rem;"><i class="bi bi-search"></i></a>
+                        <a href="#" style="color:#333; font-size:1.1rem; position:relative;"><i class="bi bi-cart3"></i><span style="position:absolute;top:-6px;right:-8px;background:#dc3545;color:#fff;font-size:0.55rem;padding:1px 4px;border-radius:10px;">2</span></a>
+                    </div>
+
+                    <!-- Mobile Free Shipping -->
+                    <div style="background:linear-gradient(90deg,#4a8c2a,#6db33f); color:#fff; font-size:0.65rem; font-weight:600; padding:4px 12px; text-align:center;">
+                        <i class="bi bi-truck"></i> Noch <strong>85,00 €</strong> bis kostenloser Versand!
+                    </div>
+
+                    <!-- Mobile Product Cards (2 columns) -->
+                    <div style="padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px; background:#f5f5f5;">
+                        <!-- Mobile Card 1 -->
+                        <div style="background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                            <div style="position:relative; background:#fafafa; padding:8px;">
+                                <span style="position:absolute;top:6px;left:0;background:#4a8c2a;color:#fff;font-size:0.55rem;font-weight:700;padding:2px 8px;border-radius:0 3px 3px 0;">Top</span>
+                                <img src="https://mr-hanf.de/images/product_images/midi_images/amnesia-haze-fem-103-0.png" style="width:100%; aspect-ratio:1; object-fit:contain;" alt="Amnesia Haze">
+                            </div>
+                            <div style="padding:8px;">
+                                <div style="font-size:0.6rem; color:#888;">Royal Queen Seeds</div>
+                                <div style="font-size:0.78rem; font-weight:600; color:#222; line-height:1.2; margin:2px 0;">Amnesia Haze</div>
+                                <div style="display:flex; flex-wrap:wrap; gap:2px; margin:4px 0;">
+                                    <span style="font-size:0.55rem; padding:1px 5px; border-radius:10px; background:#f0f7ec; color:#3a7020; font-weight:600; border:1px solid #d4e8c8;">THC 22%</span>
+                                    <span style="font-size:0.55rem; padding:1px 5px; border-radius:10px; background:#f0f7ec; color:#3a7020; font-weight:600; border:1px solid #d4e8c8;">Sativa 70%</span>
+                                </div>
+                                <div style="color:#f5a623; font-size:0.65rem;">★★★★★ <span style="color:#888;">(4)</span></div>
+                                <div style="margin:4px 0;">
+                                    <span style="font-size:0.6rem; color:#888;">ab</span>
+                                    <span style="font-size:0.95rem; font-weight:700; color:#3a7020;">9,99 €</span>
+                                </div>
+                                <button style="width:100%; background:#4a8c2a; color:#fff; border:none; border-radius:6px; font-size:0.7rem; font-weight:600; padding:6px 0;">
+                                    <i class="bi bi-cart-plus"></i> Warenkorb
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Mobile Card 2 -->
+                        <div style="background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                            <div style="position:relative; background:#fafafa; padding:8px;">
+                                <span style="position:absolute;top:6px;left:0;background:#dc3545;color:#fff;font-size:0.55rem;font-weight:700;padding:2px 8px;border-radius:0 3px 3px 0;">-15%</span>
+                                <img src="https://mr-hanf.de/images/product_images/midi_images/amnesia-haze-fem-103-0.png" style="width:100%; aspect-ratio:1; object-fit:contain;" alt="00 Kush FAST">
+                            </div>
+                            <div style="padding:8px;">
+                                <div style="font-size:0.6rem; color:#888;">00 Seeds Bank</div>
+                                <div style="font-size:0.78rem; font-weight:600; color:#222; line-height:1.2; margin:2px 0;">00 Kush FAST</div>
+                                <div style="display:flex; flex-wrap:wrap; gap:2px; margin:4px 0;">
+                                    <span style="font-size:0.55rem; padding:1px 5px; border-radius:10px; background:#f0f7ec; color:#3a7020; font-weight:600; border:1px solid #d4e8c8;">THC 22%</span>
+                                    <span style="font-size:0.55rem; padding:1px 5px; border-radius:10px; background:#f0f7ec; color:#3a7020; font-weight:600; border:1px solid #d4e8c8;">Indica 90%</span>
+                                </div>
+                                <div style="color:#f5a623; font-size:0.65rem;">★★★☆☆ <span style="color:#888;">(8)</span></div>
+                                <div style="margin:4px 0;">
+                                    <span style="font-size:0.6rem; color:#888;">ab</span>
+                                    <span style="font-size:0.95rem; font-weight:700; color:#3a7020;">14,99 €</span>
+                                    <span style="font-size:0.65rem; text-decoration:line-through; color:#999;">17,50 €</span>
+                                </div>
+                                <button style="width:100%; background:#4a8c2a; color:#fff; border:none; border-radius:6px; font-size:0.7rem; font-weight:600; padding:6px 0;">
+                                    <i class="bi bi-cart-plus"></i> Warenkorb
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Bottom Bar -->
+                    <div class="mrh-bottom-bar">
+                        <a href="#" class="active"><i class="bi bi-house-fill"></i>Home</a>
+                        <a href="#"><i class="bi bi-search"></i>Suche</a>
+                        <a href="#"><i class="bi bi-search-heart"></i>Seedfinder</a>
+                        <a href="#"><i class="bi bi-heart"></i>Merkliste</a>
+                        <a href="#" class="position-relative"><i class="bi bi-cart3"></i>Warenkorb</a>
+                    </div>
+                </div>
+
+                <div class="wireframe-note mt-3" style="max-width:375px;">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <strong>Bottom Bar:</strong> Fixiert am unteren Bildschirmrand. Immer sichtbar. Ersetzt die Desktop-Icons auf dem Handy. Seedfinder als prominenter Punkt!
+                </div>
+            </div>
+
+            <!-- Mobile Offcanvas Preview -->
+            <div class="col-auto ms-4">
+                <div class="mobile-frame">
+                    <div class="mobile-notch"></div>
+
+                    <!-- Offcanvas Overlay -->
+                    <div style="background:rgba(0,0,0,0.5); height:100%; position:relative;">
+                        <!-- Offcanvas Panel -->
+                        <div style="width:280px; background:#fff; height:100%; position:absolute; left:0; top:0;">
+                            <!-- Offcanvas Header -->
+                            <div style="background:#1a1a2e; color:#fff; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
+                                <img src="https://mr-hanf.de/templates/bootstrap4/img/logo_head.png" alt="Mr. Hanf" style="height:28px; filter:brightness(10);">
+                                <button style="background:none; border:none; color:#fff; font-size:1.2rem;"><i class="bi bi-x-lg"></i></button>
+                            </div>
+
+                            <!-- Offcanvas Search -->
+                            <div style="padding:10px 12px; border-bottom:1px solid #eee;">
+                                <div style="display:flex; border:2px solid #4a8c2a; border-radius:20px; overflow:hidden;">
+                                    <input type="text" placeholder="Suchen..." style="border:none; padding:6px 12px; flex:1; font-size:0.8rem; outline:none;">
+                                    <button style="background:#4a8c2a; border:none; color:#fff; padding:6px 12px;"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Offcanvas Menu Items -->
+                            <div style="overflow-y:auto;">
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-flower1" style="color:#4a8c2a; margin-right:10px; width:20px; text-align:center;"></i>
+                                    Samen Shop
+                                    <i class="bi bi-chevron-right" style="margin-left:auto; color:#ccc; font-size:0.75rem;"></i>
+                                </a>
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-tree" style="color:#4a8c2a; margin-right:10px; width:20px; text-align:center;"></i>
+                                    Cannabispflanzen
+                                    <i class="bi bi-chevron-right" style="margin-left:auto; color:#ccc; font-size:0.75rem;"></i>
+                                </a>
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-box-seam" style="color:#4a8c2a; margin-right:10px; width:20px; text-align:center;"></i>
+                                    Growshop
+                                    <i class="bi bi-chevron-right" style="margin-left:auto; color:#ccc; font-size:0.75rem;"></i>
+                                </a>
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-shop" style="color:#4a8c2a; margin-right:10px; width:20px; text-align:center;"></i>
+                                    Headshop
+                                    <i class="bi bi-chevron-right" style="margin-left:auto; color:#ccc; font-size:0.75rem;"></i>
+                                </a>
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-tag" style="color:#dc3545; margin-right:10px; width:20px; text-align:center;"></i>
+                                    <span style="color:#dc3545; font-weight:600;">Angebote</span>
+                                </a>
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-search-heart" style="color:#4a8c2a; margin-right:10px; width:20px; text-align:center;"></i>
+                                    Seedfinder
+                                </a>
+                                <a href="#" style="display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #f0f0f0; color:#333; text-decoration:none; font-weight:500; font-size:0.88rem;">
+                                    <i class="bi bi-journal-text" style="color:#4a8c2a; margin-right:10px; width:20px; text-align:center;"></i>
+                                    Cannabis Blog
+                                </a>
+                                <div style="padding:12px 16px; border-top:2px solid #eee; margin-top:8px;">
+                                    <div style="font-size:0.72rem; color:#888; text-transform:uppercase; font-weight:600; margin-bottom:8px;">Mein Konto</div>
+                                    <a href="#" style="display:flex; align-items:center; padding:8px 0; color:#555; text-decoration:none; font-size:0.82rem;">
+                                        <i class="bi bi-person" style="margin-right:10px; width:20px; text-align:center;"></i> Anmelden
+                                    </a>
+                                    <a href="#" style="display:flex; align-items:center; padding:8px 0; color:#555; text-decoration:none; font-size:0.82rem;">
+                                        <i class="bi bi-person-plus" style="margin-right:10px; width:20px; text-align:center;"></i> Registrieren
+                                    </a>
+                                </div>
+                                <div style="padding:12px 16px; background:#f8f8f8;">
+                                    <div style="font-size:0.65rem; color:#888; text-align:center;">
+                                        <i class="bi bi-telephone"></i> +43 512 312 411<br>
+                                        <i class="bi bi-globe2"></i> Versandland: <strong>Deutschland</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wireframe-note mt-3" style="max-width:375px;">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <strong>Offcanvas Menü:</strong> Gleitet nativ von links ein (Bootstrap 5.3). Kein jQuery nötig. Enthält Suche, Kategorien mit Chevron für Untermenüs, Konto-Bereich und Kontaktinfo.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
