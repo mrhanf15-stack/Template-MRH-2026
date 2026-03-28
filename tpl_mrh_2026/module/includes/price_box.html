@@ -7,7 +7,7 @@
   <div class="mrh-price-box mrh-price-special">
     <span class="mrh-price-label small text-body-secondary">{#special_price#}{$price_data.PRODUCTS_PRICE_FROM}</span>
     <span class="mrh-price-new fw-bold text-danger">{$price_data.PRODUCTS_PRICE_SPECIAL_PRICE}</span>
-    {if $smarty.const.BS4_FLAG_PERCENT_SHOW == 'true' && $price_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
+    {if $smarty.const.MRH_FLAG_PERCENT_SHOW == 'true' && $price_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
       <span class="mrh-price-save badge text-bg-danger ms-1">-{$price_data.PRODUCTS_PRICE_SAVE_PERCENT}%</span>
     {/if}
   </div>

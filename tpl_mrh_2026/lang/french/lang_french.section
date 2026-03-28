@@ -1,0 +1,183 @@
+# Die lang_german.section wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" oder "smarty_4" gesetzt ist!
+
+[account_checkout_express]
+
+[account_delete]
+
+[account_edit]
+
+[account_history_info]
+
+[account_history]
+
+[account_password]
+
+[account]
+
+[address_book_process]
+
+[address_book]
+
+[advanced_search]
+
+[also_purchased]
+
+[error_handler]
+
+[checkout_confirmation]
+
+[checkout_payment]
+
+[checkout_new_address]
+
+[checkout_payment_address]
+
+[checkout_shipping_address]
+
+[checkout_shipping]
+
+[checkout_success]
+
+[contact_us]
+
+[cookie_usage]
+
+[create_account]
+
+[create_account_guest]
+
+[cross_selling]
+
+[downloads_module]
+
+[main]
+
+[gift_cart]
+
+[graduated_price]
+
+[gv_redeem]
+
+[gv_send]
+
+[filter]
+
+[login]
+
+[logoff]
+
+[index]
+
+[new_products]
+
+[newsletter]
+
+[shopping_cart]
+
+[new_password]
+
+[password_forgotten]
+
+[popup_coupon_help]
+
+[popup_search_help]
+
+[print_order]
+
+[print_product_info]
+
+[product_info]
+
+[product_navigator]
+
+[reviews]
+
+[product_tags]
+
+[products_category]
+
+[products_media]
+
+[reverse_cross_selling]
+
+[sitemap]
+cont_site = '<p>La page Sitemap offre un aper&ccedil;u de tous les liens disponibles sur le site. Il s\'agit notamment de la boutique de graines, de la boutique CBD &amp; terp&egrave;nes, du Growshop, du Headshop ainsi que de divers articles de blog sur diff&eacute;rents th&egrave;mes li&eacute;s &agrave; la culture du cannabis. Dans notre boutique de graines, vous trouverez un grand choix de graines de cannabis, divis&eacute; en vari&eacute;t&eacute;s riches en CBD, graines f&eacute;minis&eacute;es, vari&eacute;t&eacute;s riches en THC, graines autoflorissantes et graines m&eacute;dicinales.</p>
+<p>Dans la boutique CBD &amp; terp&egrave;nes, nous vous proposons une grande vari&eacute;t&eacute; de produits CBD comme des fleurs, de l\'huile, des gouttes et plus encore, ainsi que des terp&egrave;nes et d\'autres produits &agrave; base de chanvre. Dans le Growshop, vous trouverez tout ce dont vous avez besoin pour cultiver du cannabis, de la technique d\'&eacute;clairage &agrave; la ventilation et &agrave; la climatisation, en passant par les engrais et les substrats. Dans le Headshop, vous trouverez des bangs, des grinders et d\'autres accessoires pour fumer. Nos articles de blog vous offrent des informations et des conseils int&eacute;ressants sur la culture du cannabis.</p>'
+heading_tag_content = 'Recherches populaires'
+
+[specials]
+
+[ssl_check]
+
+[categorie_listing]
+
+[upcoming_products]
+
+[wishlist]
+
+[manufacturers]
+title_top_brands = 'Les meilleures marques de Mr. Hanf'
+scroll_to = 'Sauter &agrave; '
+back_to_top = 'Haut de page'
+
+[print_fax_order]
+heading_checkout = 'Formulaire de commande de lettres'
+text_checkout = 'Tu trouveras ci-dessous le formulaire de commande pour la commande manuelle de tes produits. Coche le mode de paiement et l\'option d\'exp&eacute;dition souhait&eacute;s et compl&egrave;te les informations manquantes. Imprime la commande et envoie-la nous. Nous te recommandons de ne pas joindre de monnaie, de cacher l\'argent liquide dans une enveloppe suppl&eacute;mentaire, un papier pli&eacute;, une carte postale ou entre deux cartons et d\'envoyer la lettre scell&eacute;e avec du ruban adh&eacute;sif suppl&eacute;mentaire en recommand&eacute; ! <br>  <br> Donn&eacute;es bancaires et DHL Packstation... <br> '
+bank_daten = '<strong>Coordonn&eacute;es bancaires</strong><p>Nom de la banque : Raiffeisen Regionalbank Hall in Tirol<br>Destinataire : MRH N-Trade GmbH<br>Code bancaire : 36362<br>Num&eacute;ro de compte : 00000217968<br>IBAN : AT753636200000217968<br>BIC/SWIFT : RZTIAT22362<br>Motif du virement : DEIN-STRASSENNAME<br><br></p>'
+
+text_checkout2 = '<strong>Envoi &agrave; des stations d\'emballage, veuillez remplir comme suit.</strong><br /> <img  width="350px" src="/images/icons/FAQ-%20Frage%20und%20Antwort.gif" alt="Packstation"> <br /><br /> Si vous avez des questions, notre support est &agrave; votre disposition au 0043 (0) 676 5124971 !<br><br>.'
+text_select_payment = 'Veuillez cocher le mode de paiement et le mode d\'exp&eacute;dition souhait&eacute;s et compl&eacute;ter les informations manquantes.  '
+text_signature = 'Date, lieu, signature'
+text_payment_address = 'Adresse de facturation'
+title_shipping_to = '<strong>Envoyer la commande &agrave;</strong>'
+shipping_to = '<p><span style="color: #508B01">RECOMMAND&Eacute;</span>.<br /><b>Adresse fran&ccedil;aise :<br /></b> D-A-Packs 3326655<br />
+Produits naturels MR. H.<br />
+Am Rain 53<br />
+83088 Kiefersfelden<br /><br />
+<hr /><br /><span style="color: #A00002">*</span><br />
+<b>Autriche - si&egrave;ge social :</b><br />
+MRH N-Trade GmbH <br />
+7, rue de l\'&eacute;cole<br />
+A-6161 Natters<br />
+Autriche <br /><br /><br />  <br /><br />
+</p>'
+text_shipping_address = 'Adresse de livraison'
+text_sameasbill = 'L\'adresse de livraison correspond &agrave; l\'adresse de facturation' 
+text_info_box_heder =  'Tu cherches des graines de chanvre ! Mais tu ne veux pas laisser de donn&eacute;es personnelles, alors tu peux facilement commander des graines de chanvre sans enregistrer tes donn&eacute;es gr&acirc;ce &agrave; ce formulaire.<br /> <br /> <span style="color: #A00002">*La poste autrichienne n\'est pas recommand&eacute;e, merci de n\'envoyer qu\'&agrave; l\'adresse DE ! <br />*S\'il vous pla&icirc;t, n\'envoyez pas de lettres ou de paquets &agrave; l\'adresse autrichienne.</span>'
+title_ahlungsart='Mode de paiement :'
+info_red = '<b class="b"> *Veuillez prendre note des frais d\'exp&eacute;dition, voir ci-dessous ! </b>'
+info_red2 = '<b class="b"> *Cachez l\'argent liquide entre un papier pli&eacute;, s\'il vous pla&icirc;t !</b>'
+info_red3 = ' '
+versand_opt = 'Choisir le mode d\'exp&eacute;dition :'
+ahlungsart1  = 'En esp&egrave;ces dans l\'enveloppe :'
+ahlungsart2 = 'Transfert bancaire standard de l\'UE <br /> <b class="screen b">*Vous trouverez nos coordonn&eacute;es bancaires dans les mentions l&eacute;gales !</b>'
+versand_opt01 = 'Exp&eacute;dition assur&eacute;e - Poste (lettre) AT : 6,-- EUR'
+versand_opt06 = 'Exp&eacute;dition assur&eacute;e - Poste (lettre) UE : 12,-- EUR'
+versand_opt1 = 'Exp&eacute;dition non assur&eacute;e - Poste (lettre) AT : 4,-- EUR'
+versand_opt07 = 'Exp&eacute;dition non assur&eacute;e - Poste (lettre) UE : 8,-- EUR'
+versand_opt2 = 'Service de colis AT : 7,-- EUR'
+versand_opt7 = 'Service de colis UE : 9,-- EUR'
+versand_opt4 = 'Dans l\'UE &agrave; partir de &euro; 75,-- Livraison gratuite : 0,00 EUR'
+versand_opt5 = 'Envoi hors UE (&eacute;tranger) : 16,-- EUR'
+versand_opt6 = 'DHL + Packstation DE : 18,-- EUR'
+info_exklsv = 'plus frais de port '
+method= '<b class="c"> *S\'il vous pla&icirc;t, choisissez une m&eacute;thode d\'exp&eacute;dition !</b>'
+artikelnummer= 'N&deg; d\'art :'
+shipping_adress = 'Ton adresse d\'exp&eacute;dition'
+versand_textarea = 'Veuillez indiquer ici les informations suppl&eacute;mentaires ! 
+*Si les articles souhait&eacute;s ne sont pas en stock et que tu ne nous as pas laiss&eacute; d\'e-mail ou de num&eacute;ro de t&eacute;l&eacute;phone, nous t\'enverrons automatiquement les produits alternatifs apr&egrave;s 7 jours ! '
+versandart = 'Choisir la m&eacute;thode d\'envoi '
+versand_alter = ' Je confirme que j\'ai plus de 18 ans, que j\'ai lu et que j\'accepte les conditions g&eacute;n&eacute;rales.'
+MORE = 'PLUS'
+LESS = 'MOINS'
+printorder = 'Imprimer la commande'
+versandwal = 'Veuillez choisir un mode d\'exp&eacute;dition'
+benach = 'Prise de contact :'
+benach_yes = 'Oui'
+benach_no = 'Non'
+
+[blog]
+new_blog_posts = 'Nouveaux articles'
+date_modified = 'modifi&eacute; le'
+box_blog_categories = 'Cat&eacute;gories de blogs'
+box_blog_posts = 'Nouveaux articles de blog'

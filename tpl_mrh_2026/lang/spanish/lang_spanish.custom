@@ -1,0 +1,4 @@
+# MRH 2026 Template - Archivo de idioma personalizado (Espanol)
+# Los textos especificos de la tienda van aqui.
+# Este archivo se carga DESPUES del archivo de idioma principal
+# y sobrescribe los valores existentes.
