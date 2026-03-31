@@ -1,0 +1,31 @@
+:root {
+    /* MRH 2026 Design System - Mr. Hanf Corporate Identity */
+    --tpl-main-color: #4a8c2a;
+    --tpl-main-color-2: #1e1e1e;
+    --tpl-secondary-color: #3a7020;
+    --tpl-bg-color: #ffffff;
+    --tpl-bg-color-2: #f0fdf4;
+    --tpl-bg-productbox: #ffffff;
+    --tpl-bg-footer: #0f172a;
+    --tpl-text-standard: #0f172a;
+    --tpl-text-headings: #0f172a;
+    --tpl-text-button: #ffffff;
+    --tpl-text-footer: #94a3b8;
+    --tpl-text-footer-headings: #ffffff;
+    --tpl-borders-color: #e2e8f0;
+    --tpl-font-heading: 'Plus Jakarta Sans', sans-serif;
+    --tpl-font-text: 'Inter', sans-serif;
+
+    /* MRH 2026 Erweiterte Variablen */
+    --mrh-topbar-bg: #1e293b;
+    --mrh-topbar-text: #e2e8f0;
+    --mrh-green-light: #f0fdf4;
+    --mrh-green-accent: #22c55e;
+    --mrh-shipping-bar-bg: #f0fdf4;
+    --mrh-shipping-bar-text: #3a7020;
+    --mrh-header-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --mrh-nav-bg: #ffffff;
+    --mrh-nav-hover: #f0fdf4;
+    --mrh-badge-bg: #4a8c2a;
+    --mrh-badge-text: #ffffff;
+}

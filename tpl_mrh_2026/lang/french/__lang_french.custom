@@ -1,0 +1,97 @@
+# Die lang_german.custom wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" gesetzt ist!
+
+zoomtext = 'Cliquez sur l\image pour l\agrandir'
+products_desc = 'Description du produit'
+products_fsk18_check = '0'
+products_manufacturer_model = 'HAN :'
+products_tags = 'Caract&eacute;ristiques'
+heading_products_tags = 'Caract&eacute;ristiques du produit'
+
+first = '&laquo; Premier'
+back = '&laquo; pr&eacute;c&eacute;dent'
+overview = 'Aper&ccedil;u'
+next = 'prochain &raquo;'
+last = 'Dernier &raquo;'
+
+heading_miscellaneous = 'M&eacute;thodes de paiement'
+text_miscellaneous = 'La bo&icirc;te peut &ecirc;tre modifi&eacute;e dans tpl_modified/boxes/box_miscellaneous.html. Les variables de langue se trouvent dans le fichier tpl_modified/lang/french/lang_german.custom.'
+
+ab_admin = '0'
+ab_orders = 'Commandes'
+ab_contentmanager = 'Gestionnaire de contenu'
+ab_customers = 'Clients'
+ab_category = 'Cat&eacute;gories/articles'
+ab_logoff = 'Se d&eacute;sinscrire'
+ab_news = 'Actualit&eacute;s'
+ab_offline = 'Boutique hors ligne'
+
+ab_edit_content = 'Modifier le contenu'
+ab_edit_product = '0'
+ab_edit_attributes = '&Eacute;diter les attributs'
+ab_edit_category = 'Modifier la cat&eacute;gorie'
+ab_edit_xsell = 'Traiter la vente crois&eacute;e'
+
+info_reviews = '&Eacute;valuations :'
+info_review = '&eacute;valuation :'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = '0'
+
+liefernmit = 'Prestataire de services d\'exp&eacute;dition'
+zahlungsweisen = 'Modes de paiement'
+topprodukte = 'Nos recommandations'
+neueprodukte = 'Nos nouveaut&eacute;s'
+heading_content = 'En savoir plus sur...'
+heading_information = 'Informations'
+sortiment = 'Gamme de produits';
+bestseller = 'Nos meilleures ventes';
+
+headerbox_titel = 'SANS FRAIS DE LIVRAISON'
+headerbox_text = 'A partir d\'une commande de 50&euro; en DE'
+
+ihrwegzuuns = 'Votre chemin vers nous'
+indenwarenkorb = 'Ajouter au panier'
+randomproducts = 'S&eacute;lection al&eacute;atoire de produits'
+text_shippingtime = 'D&eacute;lai de livraison'
+
+cookies_text = 'Ce site utilise des cookies pour vous garantir la meilleure exp&eacute;rience d\'achat en ligne possible.'
+cookies_linktext = 'Plus d\'informations sur la protection des donn&eacute;es.'
+
+ichakzeptieredie = 'J\'accepte les'
+Datenschutzrichtlinien = 'Politique de confidentialit&eacute;'
+
+newslettertext = 'Nous te proposons des r&eacute;ductions et des promotions exceptionnelles et nous t\'informons sur les nouveaux produits de notre boutique.'
+
+menu = 'Menu'
+konto = 'Compte'
+merkzettel = 'M&eacute;mo'
+info = 'Info'
+kasse = 'Caisse'
+kontakt = 'Contact'
+warenkorb = 'Panier d\'achat'
+coupon_note_1 = 'Attention : si vous avez un bon/coupon, vous pouvez l\'utiliser apr&egrave;s avoir cr&eacute;&eacute; votre compte client. '
+coupon_note_2 = 'encaisser.'
+coupon_note_link = 'ici'
+
+lieferzeit = 'D&eacute;lai de livraison'
+folgeuns = 'Suivez-nous'
+
+unsere_topseller = 'Nos meilleures ventes'
+zufaellige_produkte = 'S&eacute;lection al&eacute;atoire de produits'
+
+service_1_title = 'Vous avez des questions ? Nous vous r&eacute;pondons !'
+service_1_small = '+49 (0) 12 34 56 78 911'
+service_2_title = 'S\'abonner &agrave; la newsletter'
+service_2_small = 'et ne manquer aucune offre '
+service_3_title = 'Livraisons &eacute;clair'
+service_3_small = 'en seulement 2 &agrave; 4 jours'
+
+details = 'D&eacute;tails'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Menu mobile ; Navigation'
+
+# WCAG Cart Content Labels
+cart_content_aria_label = 'Article dans le panier'
+wishlist_content_aria_label = 'Articles sur le m&eacute;mo'

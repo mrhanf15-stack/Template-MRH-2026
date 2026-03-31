@@ -1,0 +1,190 @@
+# Die lang_german.section wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" oder "smarty_4" gesetzt ist!
+
+[account_checkout_express]
+
+[account_delete]
+title_delete_account = 'Wil je echt je account verwijderen?'
+text_password = 'Wachtwoord:'
+
+[account_edit]
+text_must = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+
+[account_history_info]
+order_text_each = 'elke'
+
+[account_history]
+text_account_history = 'Hier zie je alle bestellingen die je hebt geplaatst.<br />Je kunt ze nog eens in detail bekijken of de bestelling opnieuw plaatsen met behulp van de knoppen in het winkelmandje.'
+
+[account_password]
+text_must = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+text_note = 'Opmerking'
+text_account_new_password_info = 'Na het verzenden van het formulier wordt je nieuwe wachtwoord opgeslagen en word je automatisch doorgestuurd naar de inlogpagina. Hier kun je vervolgens inloggen met het nieuwe wachtwoord.'
+
+[account]
+title_nav_account = 'Mijn account'
+title_nav_account_edit = 'Accountgegevens bewerken'
+title_nav_address_book = 'Adresboek'
+title_nav_password = 'Wachtwoord wijzigen'
+title_nav_orders = 'Bestellingen'
+title_nav_account_delete = 'Account verwijderen'
+title_nav_checkout_express = 'Mijn snelle aankoop'
+title_nav_newsletter = 'Nieuwsbrief'
+title_nav_logoff = 'Afmelden'
+
+title_accountbox_create = 'Klantaccount aanmaken'
+title_accountbox_create_guest = 'Gastenaccount aanmaken'
+title_accountbox_password_forgotten = 'Wachtwoord vergeten?'
+title_accountbox_login_success = 'Een warm welkom'
+
+
+[address_book_process]
+text_must = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+
+[address_book]
+
+[advanced_search]
+
+[also_purchased]
+
+[boxes]
+text_shippingtime = 'Levertijd:'
+show_all = 'Alles weergeven'
+
+[error_handler]
+
+[checkout_navigation]
+title_shipping = 'Verzendmethode'
+desc_shipping = 'Selecteer de gewenste verzendmethode'
+title_payment = 'Betaalmethode'
+desc_payment = 'Selecteer de gewenste betaalmethode'
+title_confirmation = 'Bevestig'
+desc_confirmation = 'Bevestig je bestelling'
+title_success = 'Afgewerkt'
+desc_success = 'Hartelijk dank'
+
+
+[checkout_confirmation]
+order_text_each = 'elke'
+text_payment_info_layertext = 'Info'
+
+[checkout_payment]
+checkout_edit_address = 'Adres wijzigen'
+
+[checkout_new_address]
+
+[checkout_payment_address]
+
+[checkout_shipping_address]
+
+[checkout_shipping]
+checkout_edit_address = 'Adres wijzigen'
+
+[checkout_success]
+
+[contact_us]
+text_hint = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+
+[cookie_usage]
+
+[create_account]
+text_must = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+
+[create_account_guest]
+text_must = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+
+[cross_selling]
+
+[downloads_module]
+heading_personal = 'Uw gegevens'
+
+[main]
+
+[gift_cart]
+text_heading_gift = 'Heb je een coupon/voucher?'
+voucher_info_text = 'Je huidige kredietsaldo is'
+voucher_heading_text_popup = 'Informatie over je kredietsaldo'
+text_create_account = 'Klantaccount aanmaken'
+
+[graduated_price]
+
+[gv_redeem]
+
+[gv_send]
+
+[filter]
+listing_text_filter_sort = 'Filteren en sorteren'
+listing_text_sort = 'Sorteer'
+listing_filter_text_delete = 'Filter verwijderen'
+
+[login]
+text_returning = 'Heb je al eerder bij ons besteld?<br />Nogmaals bedankt voor je vertrouwen.'
+
+[logoff]
+
+[index]
+
+[new_products]
+
+[newsletter]
+
+[shopping_cart]
+order_text_update = 'Vernieuw'
+order_total_heading = 'Samenvatting'
+checkout_express_activate = 'Mijn snelle aankoop activeren'
+order_text_each = 'elke'
+products_basket_quantity = 'Hoeveelheid'
+text_cart_or = 'of'
+
+
+[new_password]
+heading_personal = 'Uw gegevens'
+text_must = '<i class="fa-solid fa-asterisk"></i> Noodzakelijke informatie'
+text_note = 'Opmerking'
+
+[password_forgotten]
+
+[popup_coupon_help]
+
+[popup_search_help]
+
+[print_order]
+
+[print_product_info]
+
+[product_info]
+products_basket_quantity = 'Hoeveelheid'
+
+[product_navigator]
+
+[reviews]
+heading_reviews = 'Beoordelingen van klanten'
+text_reviews_avg = 'Gemiddelde waardering'
+text_reviews_based = 'Gebaseerd op'
+text_single_review = 'Waardering'
+text_multiple_review = 'Taxaties'
+text_review_show_1 = 'Alle'
+text_review_show_2 = 'Toon beoordelingen'
+text_review_show = 'Beoordeling weergeven'
+reviews_signs = 'Aanmelden'
+reviews_min = 'Ten minste'
+
+[product_tags]
+
+[products_category]
+
+[products_media]
+
+[reverse_cross_selling]
+
+[sitemap]
+
+[specials]
+
+[ssl_check]
+
+[categorie_listing]
+
+[upcoming_products]
+
+[wishlist]
+

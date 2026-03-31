@@ -1,0 +1,337 @@
+/* ============================================================
+   MRH 2026 – Custom Styles
+   Alle MRH-spezifischen Anpassungen gesammelt
+   ============================================================ */
+
+/* ---- Global Font Override ---- */
+body {
+  font-family: var(--tpl-font-text), sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--tpl-font-heading), sans-serif !important;
+}
+
+/* ============================================================
+   01 TOPBAR – Trust-Elemente
+   ============================================================ */
+#mrh-topbar {
+  background-color: var(--mrh-topbar-bg);
+  color: var(--mrh-topbar-text);
+  font-size: 11px;
+  font-family: var(--tpl-font-text), sans-serif;
+  padding: 6px 0;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+#mrh-topbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#mrh-topbar .mrh-trust-items {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+#mrh-topbar .mrh-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--mrh-topbar-text);
+  white-space: nowrap;
+}
+#mrh-topbar .mrh-trust-item i {
+  font-size: 10px;
+  opacity: 0.8;
+}
+/* Topbar Link (Briefbestellung) */
+#mrh-topbar .mrh-topbar-link,
+#mrh-topbar .mrh-topbar-link:hover {
+  color: var(--mrh-topbar-text);
+  text-decoration: none;
+}
+#mrh-topbar .mrh-topbar-link:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+#mrh-topbar .mrh-shipping-info {
+  font-weight: 600;
+  color: #86efac; /* green-300 */
+  white-space: nowrap;
+}
+/* Mobile: Trust-Items ausblenden, nur Shipping-Info */
+@media (max-width: 767px) {
+  #mrh-topbar .mrh-trust-items {
+    display: none;
+  }
+  #mrh-topbar .container {
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   02 FREE SHIPPING PROGRESS BAR
+   ============================================================ */
+#mrh-shipping-bar {
+  background-color: var(--mrh-shipping-bar-bg);
+  padding: 8px 0;
+  font-size: 11px;
+  font-family: var(--tpl-font-text), sans-serif;
+}
+#mrh-shipping-bar .container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#mrh-shipping-bar .mrh-progress-track {
+  flex: 1;
+  background-color: #d1fae5;
+  border-radius: 999px;
+  height: 6px;
+  overflow: hidden;
+}
+#mrh-shipping-bar .mrh-progress-fill {
+  background-color: var(--tpl-main-color);
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+#mrh-shipping-bar .mrh-shipping-text {
+  color: var(--mrh-shipping-bar-text);
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#mrh-shipping-bar .mrh-shipping-text i {
+  font-size: 12px;
+}
+
+/* ============================================================
+   03 HEADER – Anpassungen
+   ============================================================ */
+#main-header {
+  box-shadow: var(--mrh-header-shadow);
+  background-color: var(--tpl-bg-color);
+  transition: box-shadow 0.3s ease, padding 0.3s ease;
+}
+.header-wrapper {
+  padding: 12px 0;
+  transition: padding 0.3s ease;
+}
+.logo-top {
+  max-height: 60px;
+  width: auto;
+  transition: max-height 0.3s ease;
+}
+
+/* Badges im Header */
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ============================================================
+   04 NAVIGATION – Anpassungen
+   ============================================================ */
+.main-header-menu-row {
+  background-color: var(--mrh-nav-bg);
+  border-top: 1px solid var(--tpl-borders-color);
+  border-bottom: 2px solid var(--tpl-main-color);
+}
+.main-header-menu-wrap .nav-link {
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+.main-header-menu-wrap .nav-link:hover {
+  background-color: var(--mrh-nav-hover);
+  color: var(--tpl-main-color);
+}
+
+/* ============================================================
+   05 STICKY HEADER
+   ============================================================ */
+#main-header.mrh-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  background-color: var(--tpl-bg-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  animation: mrh-slideDown 0.3s ease;
+}
+#main-header.mrh-sticky .header-wrapper {
+  padding: 6px 0;
+}
+#main-header.mrh-sticky .logo-top {
+  max-height: 40px;
+}
+/* Sticky Header: Navigation-Row ausblenden um Platz zu sparen */
+#main-header.mrh-sticky .main-header-menu-row {
+  display: none;
+}
+#main-header.mrh-sticky-hidden {
+  transform: translateY(-100%);
+}
+@keyframes mrh-slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* ============================================================
+   06 BACK TO TOP BUTTON
+   ============================================================ */
+.mrh-back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1040;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--tpl-main-color);
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 140, 42, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mrh-back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.mrh-back-to-top:hover {
+  background-color: var(--tpl-secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(74, 140, 42, 0.4);
+}
+@media (max-width: 767px) {
+  .mrh-back-to-top {
+    bottom: 80px; /* Über der Mobile Bottom Bar */
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ============================================================
+   07 ACCESSIBILITY – Skip-Link & Keyboard-Focus
+   ============================================================ */
+.mrh-skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: var(--tpl-main-color);
+  color: #ffffff;
+  padding: 8px 24px;
+  border-radius: 0 0 6px 6px;
+  font-family: var(--tpl-font-text), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.mrh-skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--mrh-green-accent);
+  outline-offset: 2px;
+}
+/* Keyboard-Focus-Styles (nur bei Tab-Navigation) */
+body.using-keyboard *:focus {
+  outline: 2px solid var(--tpl-main-color) !important;
+  outline-offset: 2px !important;
+}
+body:not(.using-keyboard) *:focus {
+  outline: none;
+}
+
+/* ============================================================
+   FOOTER – Anpassungen
+   ============================================================ */
+#footer {
+  font-family: var(--tpl-font-text), sans-serif;
+}
+#footer h4,
+#footer h5,
+#footer .footer-heading {
+  font-family: var(--tpl-font-heading), sans-serif;
+  color: var(--tpl-text-footer-headings);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+/* ============================================================
+   ALLGEMEIN – Buttons, Cards, Badges
+   ============================================================ */
+.btn-primary,
+.btn-cart,
+.cssbutton {
+  background-color: var(--tpl-main-color) !important;
+  border-color: var(--tpl-main-color) !important;
+  color: var(--tpl-text-button) !important;
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.btn-primary:hover,
+.btn-cart:hover,
+.cssbutton:hover {
+  background-color: var(--mrh-shipping-bar-text) !important;
+  border-color: var(--mrh-shipping-bar-text) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 140, 42, 0.25);
+}
+
+/* Product Cards */
+.product-box {
+  border-radius: 8px;
+  border: 1px solid var(--tpl-borders-color);
+  transition: all 0.2s ease;
+}
+.product-box:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/* Badges */
+.badge-new,
+.badge-sale {
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   SMOOTH TRANSITIONS – Globale Übergänge
+   ============================================================ */
+a {
+  transition: color 0.2s ease;
+}
+img {
+  transition: opacity 0.3s ease;
+}

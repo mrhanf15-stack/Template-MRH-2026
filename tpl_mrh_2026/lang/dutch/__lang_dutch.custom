@@ -1,0 +1,97 @@
+# Die lang_german.custom wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" gesetzt ist!
+
+zoomtext = 'Klik op de voorbeeldafbeelding voor een grotere weergave'
+products_desc = 'Productbeschrijving'
+products_fsk18_check = 'Dit artikel kan alleen worden gekocht na leeftijdscontrole.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Eigenschappen'
+heading_products_tags = 'Productkenmerken'
+
+first = '&laquo; Eerste'
+back = '&laquo; vorige'
+overview = 'Overzicht'
+next = 'volgende &raquo;'
+last = 'Laatste &raquo;'
+
+heading_miscellaneous = 'Betaalmethoden'
+text_miscellaneous = 'De box kan worden gewijzigd onder tpl_modified/boxes/box_miscellaneous.html. De taalvariabelen staan in het bestand tpl_modified/lang/dutch/lang_german.custom.'
+
+ab_admin = 'Beheerdersgebied'
+ab_orders = 'Bestellingen'
+ab_contentmanager = 'Inhoud Manager'
+ab_customers = 'Klanten'
+ab_category = 'Categorie&euml;n/Artikelen'
+ab_logoff = 'Afmelden'
+ab_news = 'Nieuws'
+ab_offline = 'Offline winkelen'
+
+ab_edit_content = 'Inhoud bewerken'
+ab_edit_product = 'Artikel bewerken'
+ab_edit_attributes = 'Kenmerken bewerken'
+ab_edit_category = 'Categorie bewerken'
+ab_edit_xsell = 'Cross-selling bewerken'
+
+info_reviews = 'Beoordelingen:'
+info_review = 'Beoordeling:'
+
+heading_trustedshops = 'Vertrouwde winkels'
+
+text_search_again = 'De zoekopdracht leverde geen exacte overeenkomsten op'
+
+liefernmit = 'Dienstverlener voor verzending'
+zahlungsweisen = 'Betaalmethoden'
+topprodukte = 'Onze aanbevelingen'
+neueprodukte = 'Onze nieuwigheden'
+heading_content = 'Meer over...'
+heading_information = 'Informatie over'
+sortiment = 'Assortiment';
+bestseller = 'Onze topverkopers';
+
+headerbox_titel = 'GRATIS VERZENDING'
+headerbox_text = 'Vanaf een bestelwaarde van 50&euro; binnen DE'
+
+ihrwegzuuns = 'Jouw weg naar ons'
+indenwarenkorb = 'Toevoegen aan winkelmandje'
+randomproducts = 'Willekeurige productselectie'
+text_shippingtime = 'Levertijd'
+
+cookies_text = 'Deze website maakt gebruik van cookies om ervoor te zorgen dat je de beste online winkelervaring krijgt.'
+cookies_linktext = 'Meer informatie over gegevensbescherming.'
+
+ichakzeptieredie = 'Ik accepteer de'
+Datenschutzrichtlinien = 'Privacybeleid'
+
+newslettertext = 'We bieden je geweldige kortingen &amp; sales promoties en informeren je over de nieuwste producten in onze winkel.'
+
+menu = 'Menu'
+konto = 'Account'
+merkzettel = 'Kladblok'
+info = 'Info'
+kasse = 'Kassa'
+kontakt = 'Neem contact met ons op'
+warenkorb = 'Winkelmandje'
+coupon_note_1 = 'Let op: Als je een voucher/coupon hebt, kun je deze gebruiken nadat je je klantenaccount hebt aangemaakt. '
+coupon_note_2 = 'aflossen.'
+coupon_note_link = 'hier'
+
+lieferzeit = 'Levertijd'
+folgeuns = 'Volg ons'
+
+unsere_topseller = 'Onze topverkopers'
+zufaellige_produkte = 'Willekeurige productselectie'
+
+service_1_title = 'Heb je vragen? Wij beantwoorden ze!'
+service_1_small = '+49 (0) 12 34 56 78 911'
+service_2_title = 'Abonneer je op onze nieuwsbrief'
+service_2_small = 'en mis geen enkele aanbieding '
+service_3_title = 'Flash leveringen'
+service_3_small = 'in slechts 2 - 4 dagen'
+
+details = 'details'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Mobiele menunavigatie'
+
+# WCAG Cart Content Labels
+cart_content_aria_label = 'Item in winkelmandje'
+wishlist_content_aria_label = 'Item op het notitieblok'
