@@ -205,11 +205,13 @@ h1, h2, h3, h4, h5, h6,
   top: auto !important;
   right: auto !important;
   float: none !important;
-  margin-top: 0 !important;
+  margin: 0 !important;
+  margin-left: -2px !important; /* Eliminiert weissen Spalt am linken Rand */
   line-height: 44px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  flex-shrink: 0 !important;
 }
 #quick_find button:hover,
 #search .input-group-append button:hover,
