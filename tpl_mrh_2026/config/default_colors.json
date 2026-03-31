@@ -1,0 +1,21 @@
+{
+    "tpl-main-color": "rgb(195, 167, 88)",
+    "tpl-main-color-2": "rgb(54, 54, 54)",
+    "tpl-bg-color": "rgb(252, 252, 252)",
+    "tpl-bg-color-2": "rgb(245, 245, 245)",
+    "tpl-bg-productbox": "rgb(255, 255, 255)",
+    "tpl-bg-footer": "rgb(25, 25, 30)",
+    "tpl-text-standard": "rgb(10, 10, 10)",
+    "tpl-text-headings": "rgb(51, 51, 51)",
+    "tpl-text-button": "rgb(255, 255, 255)",
+    "tpl-text-footer": "rgb(197, 197, 197)",
+    "tpl-text-footer-headings": "rgb(195, 167, 88)",
+    "tpl-menu-bg": "rgb(74, 140, 42)",
+    "tpl-menu-text": "rgb(255, 255, 255)",
+    "tpl-menu-hover": "rgb(56, 112, 30)",
+    "tpl-menu-active": "rgb(255, 255, 255)",
+    "tpl-topbar-bg": "rgb(74, 140, 42)",
+    "tpl-topbar-text": "rgb(255, 255, 255)",
+    "tpl-sticky-bg": "rgb(255, 255, 255)",
+    "tpl-sticky-text": "rgb(51, 65, 85)"
+}

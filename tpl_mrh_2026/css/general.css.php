@@ -30,7 +30,6 @@
     DIR_TMPL_CSS . 'variables.css',
     DIR_TMPL_CSS . 'mrh-fonts.css',
     DIR_TMPL_CSS . 'mrh-custom.css',
-	DIR_TMPL_CSS . 'fivebytes.css',
   );
   $css_min = DIR_TMPL.'stylesheet.min.css';
 
@@ -44,7 +43,10 @@
   // Put CSS-Inline-Definitions here, these CSS-files will be loaded at the TOP of every page
   
   foreach ($css_array as $css) {
-    $css .= strpos($css,$css_min) === false ? '?v=' . filemtime(DIR_FS_CATALOG.$css) : '';
+    // Datei nur laden wenn sie existiert
+    $full_path = DIR_FS_CATALOG . $css;
+    if (!file_exists($full_path)) continue;
+    $css .= strpos($css,$css_min) === false ? '?v=' . filemtime($full_path) : '';
     echo '<link rel="preload" as="style" href="'.DIR_WS_BASE.$css.'" type="text/css" media="screen" />'.PHP_EOL;
     echo '<link rel="stylesheet" href="'.DIR_WS_BASE.$css.'" type="text/css" media="screen" />'.PHP_EOL;
   }
@@ -64,28 +66,45 @@ if (file_exists($colors_file)) {
         $json_a = $decoded;
     }
 }
-// Fallback-Defaults wenn JSON leer oder nicht vorhanden
+// Defaults fuer neue Felder die evtl. noch nicht in der JSON stehen
+$defaults = [
+    'tpl-menu-bg' => 'rgb(22, 163, 74)',
+    'tpl-menu-text' => 'rgb(255, 255, 255)',
+    'tpl-menu-hover' => 'rgb(56, 112, 30)',
+    'tpl-menu-active' => 'rgb(255, 255, 255)',
+    'tpl-topbar-bg' => 'rgb(30, 41, 59)',
+    'tpl-topbar-text' => 'rgb(255, 255, 255)',
+    'tpl-sticky-bg' => 'rgb(255, 255, 255)',
+    'tpl-sticky-text' => 'rgb(51, 65, 85)',
+];
+// Defaults nur setzen wenn Key noch nicht in JSON vorhanden
+foreach ($defaults as $dk => $dv) {
+    if (!isset($json_a[$dk])) {
+        $json_a[$dk] = $dv;
+    }
+}
+// Fallback wenn JSON komplett leer
 if (empty($json_a)) {
     $json_a = [
-        'mrh-primary' => 'rgb(74, 140, 42)',
-        'mrh-secondary' => 'rgb(30, 30, 30)',
-        'mrh-bg-color' => 'rgb(255, 255, 255)',
-        'mrh-bg-color-2' => 'rgb(240, 253, 244)',
-        'mrh-bg-productbox' => 'rgb(255, 255, 255)',
-        'mrh-bg-footer' => 'rgb(15, 23, 42)',
-        'mrh-text-standard' => 'rgb(15, 23, 42)',
-        'mrh-text-headings' => 'rgb(15, 23, 42)',
-        'mrh-text-button' => 'rgb(255, 255, 255)',
-        'mrh-text-footer' => 'rgb(148, 163, 184)',
-        'mrh-text-footer-headings' => 'rgb(255, 255, 255)',
-        'mrh-menu-bg' => 'rgb(22, 163, 74)',
-        'mrh-menu-text' => 'rgb(255, 255, 255)',
-        'mrh-menu-hover-bg' => 'rgba(255, 255, 255, 0.15)',
-        'mrh-menu-active-bg' => 'rgba(255, 255, 255, 0.25)',
-        'mrh-topbar-bg' => 'rgb(30, 41, 59)',
-        'mrh-topbar-text' => 'rgb(255, 255, 255)',
-        'mrh-sticky-bg' => 'rgb(255, 255, 255)',
-        'mrh-sticky-text' => 'rgb(51, 65, 85)',
+        'tpl-main-color' => 'rgb(74, 140, 42)',
+        'tpl-main-color-2' => 'rgb(30, 30, 30)',
+        'tpl-bg-color' => 'rgb(255, 255, 255)',
+        'tpl-bg-color-2' => 'rgb(240, 253, 244)',
+        'tpl-bg-productbox' => 'rgb(255, 255, 255)',
+        'tpl-bg-footer' => 'rgb(15, 23, 42)',
+        'tpl-text-standard' => 'rgb(15, 23, 42)',
+        'tpl-text-headings' => 'rgb(15, 23, 42)',
+        'tpl-text-button' => 'rgb(255, 255, 255)',
+        'tpl-text-footer' => 'rgb(148, 163, 184)',
+        'tpl-text-footer-headings' => 'rgb(255, 255, 255)',
+        'tpl-menu-bg' => 'rgb(22, 163, 74)',
+        'tpl-menu-text' => 'rgb(255, 255, 255)',
+        'tpl-menu-hover' => 'rgb(56, 112, 30)',
+        'tpl-menu-active' => 'rgb(255, 255, 255)',
+        'tpl-topbar-bg' => 'rgb(30, 41, 59)',
+        'tpl-topbar-text' => 'rgb(255, 255, 255)',
+        'tpl-sticky-bg' => 'rgb(255, 255, 255)',
+        'tpl-sticky-text' => 'rgb(51, 65, 85)',
     ];
 }
 ?>
@@ -94,9 +113,9 @@ if (empty($json_a)) {
 :root{
   <?php    
   foreach ($json_a as $key => $value) {
-    if (!is_array($value)) {
-        echo '--'. htmlspecialchars($key) . ':' . htmlspecialchars($value) . ';';
-    } 
+    // submit-Buttons und Arrays ueberspringen
+    if (is_array($value) || strpos($key, 'submit') !== false) continue;
+    echo '--'. htmlspecialchars($key) . ':' . htmlspecialchars($value) . ';';
   }
 ?>
 }

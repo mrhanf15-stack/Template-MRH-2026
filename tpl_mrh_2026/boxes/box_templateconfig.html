@@ -1,0 +1,535 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/css/bootstrap-colorpicker.css" rel="stylesheet">
+
+<section class="jumbotron templateconfigs" role="region" aria-labelledby="template-config-title">
+	<button class="toggle-templateconfigs" type="button" role="button" aria-expanded="false" aria-controls="accordion" id="template-config-title">Anpassen</button>
+
+	<div id="accordion" class="accordion accordion-flush" role="region" aria-labelledby="template-config-title">
+		<section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="headingOne">
+			<header class="card-header" id="headingOne" role="banner">
+				<strong class="h5 mb-0">Farben individualisieren</strong>
+			</header>
+
+			<div id="collapseOne" class="accordion-collapse " aria-labelledby="headingOne" data-parent="#accordion">
+				<div class="card-body">
+					<form id="colorsettings" class="row" method="post" action="" role="form">
+						<section class="col-sm-12" role="region" aria-label="Farbauswahl">
+							<div class="row">
+								<div class="col-sm-6">
+									<label for="color-primary"><strong>Primärfarbe</strong></label>
+									<input id="color-primary" type="text" name="tpl-main-color" class="form-control" value="{$tpl_cfg_colors['tpl-main-color']}" /><div class="demo-farbe tpl-main-color"></div>
+								</div>
+								<div class="col-sm-6">
+									<label for="color-secondary"><strong>Sekundärfarbe</strong></label>
+									<input id="color-secondary" type="text" name="tpl-main-color-2" class="form-control" value="{$tpl_cfg_colors['tpl-main-color-2']}" /><div class="demo-farbe tpl-main-color-2"></div>
+								</div>
+							</div>
+
+							<hr>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Hintergrundfarben">
+							<label for="color-bglight1"><strong>Hintergrundefarbe 1</strong></label><br>
+							<input id="color-bglight1" type="text" name="tpl-bg-color" class="form-control" value="{$tpl_cfg_colors['tpl-bg-color']}" /><div class="demo-farbe tpl-bg-color"></div><br>
+							<label for="color-bglight2"><strong>Hintergrundfarbe 2</strong></label><br>
+							<input id="color-bglight2" type="text" name="tpl-bg-color-2" class="form-control" value="{$tpl_cfg_colors['tpl-bg-color-2']}" /><div class="demo-farbe tpl-bg-color-2"></div><br>
+							<label for="color-bgproductbox"><strong>Produktboxen Hintergrund</strong></label>
+							<input id="color-bgproductbox" type="text" name="tpl-bg-productbox" class="form-control" value="{$tpl_cfg_colors['tpl-bg-productbox']}" /><div class="demo-farbe tpl-bg-productbox"></div><br>
+							<label for="tpl-bg-footer"><strong>Footer Hintergrund</strong></label>
+							<input id="tpl-bg-footer" type="text" name="tpl-bg-footer" class="form-control" value="{$tpl_cfg_colors['tpl-bg-footer']}" /><div class="demo-farbe tpl-bg-footer"></div><br>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Schriftfarben">
+							<label for="tpl-text-standard"><strong>Standard Schriftfarbe</strong></label>
+							<input id="tpl-text-standard" type="text" name="tpl-text-standard" class="form-control" value="{$tpl_cfg_colors['tpl-text-standard']}" /><div class="demo-farbe tpl-text-standard"></div><br>
+							<label for="tpl-text-headings"><strong>Überschriften Schriftfarbe</strong></label>
+							<input id="tpl-text-headings" type="text" name="tpl-text-headings" class="form-control" value="{$tpl_cfg_colors['tpl-text-headings']}" /><div class="demo-farbe tpl-text-headings"></div><br>
+							<label for="tpl-text-button"><strong>Schriftfarbe in Buttons &amp; Badges</strong></label>
+							<input id="tpl-text-button" type="text" name="tpl-text-button" class="form-control" value="{$tpl_cfg_colors['tpl-text-button']}" /><div class="demo-farbe tpl-text-button"></div><br>
+							<label for="tpl-text-footer"><strong>Schriftfarbe Text &amp; Links im Footer </strong></label>
+							<input id="tpl-text-footer" type="text" name="tpl-text-footer" class="form-control" value="{$tpl_cfg_colors['tpl-text-footer']}" /><div class="demo-farbe tpl-text-footer"></div><br>
+							<label for="tpl-text-footer-headings"><strong>Überschriften im Footer </strong></label>
+							<input id="tpl-text-footer-headings" type="text" name="tpl-text-footer-headings" class="form-control" value="{$tpl_cfg_colors['tpl-text-footer-headings']}" /><div class="demo-farbe tpl-text-footer-headings"></div>
+						</section>
+
+						<section class="col-sm-12" role="region" aria-label="Trennlinie Menü">
+							<hr>
+							<strong class="h6 mb-2"><i class="fa fa-bars me-1"></i> Hauptnavigation (Menü-Leiste)</strong>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Menü Hintergrund">
+							<label for="tpl-menu-bg"><strong>Menü Hintergrund</strong></label>
+							<input id="tpl-menu-bg" type="text" name="tpl-menu-bg" class="form-control" value="{$tpl_cfg_colors['tpl-menu-bg']}" /><div class="demo-farbe tpl-menu-bg"></div><br>
+							<label for="tpl-menu-hover"><strong>Menü Hover Hintergrund</strong></label>
+							<input id="tpl-menu-hover" type="text" name="tpl-menu-hover" class="form-control" value="{$tpl_cfg_colors['tpl-menu-hover']}" /><div class="demo-farbe tpl-menu-hover"></div><br>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Menü Textfarben">
+							<label for="tpl-menu-text"><strong>Menü Textfarbe</strong></label>
+							<input id="tpl-menu-text" type="text" name="tpl-menu-text" class="form-control" value="{$tpl_cfg_colors['tpl-menu-text']}" /><div class="demo-farbe tpl-menu-text"></div><br>
+							<label for="tpl-menu-active"><strong>Menü Aktiv/Hover Textfarbe</strong></label>
+							<input id="tpl-menu-active" type="text" name="tpl-menu-active" class="form-control" value="{$tpl_cfg_colors['tpl-menu-active']}" /><div class="demo-farbe tpl-menu-active"></div><br>
+						</section>
+
+						<section class="col-sm-12" role="region" aria-label="Trennlinie Topbar">
+							<hr>
+							<strong class="h6 mb-2"><i class="fa fa-info-circle me-1"></i> Topbar (Trust-Leiste oben)</strong>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Topbar Hintergrund">
+							<label for="tpl-topbar-bg"><strong>Topbar Hintergrund</strong></label>
+							<input id="tpl-topbar-bg" type="text" name="tpl-topbar-bg" class="form-control" value="{$tpl_cfg_colors['tpl-topbar-bg']}" /><div class="demo-farbe tpl-topbar-bg"></div><br>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Topbar Textfarbe">
+							<label for="tpl-topbar-text"><strong>Topbar Textfarbe</strong></label>
+							<input id="tpl-topbar-text" type="text" name="tpl-topbar-text" class="form-control" value="{$tpl_cfg_colors['tpl-topbar-text']}" /><div class="demo-farbe tpl-topbar-text"></div><br>
+						</section>
+
+						<section class="col-sm-12" role="region" aria-label="Trennlinie Sticky">
+							<hr>
+							<strong class="h6 mb-2"><i class="fa fa-thumb-tack me-1"></i> Sticky Header</strong>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Sticky Header Hintergrund">
+							<label for="tpl-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
+							<input id="tpl-sticky-bg" type="text" name="tpl-sticky-bg" class="form-control" value="{$tpl_cfg_colors['tpl-sticky-bg']}" /><div class="demo-farbe tpl-sticky-bg"></div><br>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Sticky Header Textfarbe">
+							<label for="tpl-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
+							<input id="tpl-sticky-text" type="text" name="tpl-sticky-text" class="form-control" value="{$tpl_cfg_colors['tpl-sticky-text']}" /><div class="demo-farbe tpl-sticky-text"></div><br>
+						</section>
+
+						<section class="col-sm-12" role="region" aria-label="Farbauswahl">
+							<br><input type="submit" name="submit-colorsettings" id="submit-colorsettings" class="btn btn-success btn-lg btn-block" value="Farben speichern">
+						</section>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<section class="card mb-4 mx-3" role="region" aria-labelledby="headingTwo">
+			<header class="card-header" id="headingTwo" role="banner">
+				<strong class="h5 mb-0">Weitere Konfiguration</strong>
+			</header>
+
+			<div id="collapseTwo" class="accordion-collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+				<div class="card-body">
+					<form id="tplsettings" class="row" method="post" action="">
+						<section class="col-sm-6" role="region" aria-label="SSL-Konfiguration">
+							<fieldset>
+								<legend><strong>Ist ein SSL-Zertifikat (https) aktiv?</strong></legend>
+								<div class="radioswitch">
+									<input name="tpl_cfg_ssl" type="radio" value="off" id="ssl-off" {if $tpl_cfg_ssl== off}checked{/if}>
+									<label for="ssl-off">Kein SSL</label>
+
+									<input name="tpl_cfg_ssl" type="radio" value="on" id="ssl-on"  {if $tpl_cfg_ssl == on}checked{/if}>
+									<label for="ssl-on" class="right">SSL aktiv</label>
+
+									<span aria-hidden="true"  {if $tpl_cfg_ssl == on}class="right"{/if}></span>
+								</div>
+							</fieldset>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="TrustedShops-Konfiguration">
+							<fieldset>
+								<legend><strong>TrustedShops Siegel im Header?</strong></legend>
+
+								<div class="radioswitch">
+									<input name="tpl_cfg_ts" type="radio" value="off" id="ts-off" {if $tpl_cfg_ts== off}checked{/if}>
+									<label for="ts-off">Aus</label>
+
+									<input name="tpl_cfg_ts" type="radio" value="on" id="ts-on"  {if $tpl_cfg_ts == on}checked{/if}>
+									<label for="ts-on" class="right">An</label>
+
+									<span aria-hidden="true"  {if $tpl_cfg_ts == on}class="right"{/if}></span>
+								</div>
+							</fieldset>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Menü-Konfiguration">
+							<fieldset>
+								<legend><strong>Menü horizontal oder vertikal?</strong></legend>
+								<div class="radioswitch">
+									<input name="tpl_cfg_menu" type="radio" value="horizontal" id="horizontal" {if $tpl_cfg_menu== horizontal}checked{/if}>
+									<label for="horizontal">Horizontal</label>
+
+									<input name="tpl_cfg_menu" type="radio" value="vertikal" id="vertikal"  {if $tpl_cfg_menu == vertikal}checked{/if}>
+									<label for="vertikal" class="right">Vertikal</label>
+
+									<span aria-hidden="true"  {if $tpl_cfg_menu == vertikal}class="right"{/if}></span>
+								</div>
+							</fieldset>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Menü-Beschreibung">
+							<strong>Bei aktiviertem vertikalen Menü entsteht auf Unterseiten eine Sidebar, in der das Vertikalmenü, Banner sowie einige Boxen zur Verfügung stehen.</strong>
+						</section>
+						<section class="col-sm-6" role="region" aria-label="Infinite Scroll-Konfiguration">
+							<fieldset>
+								<legend><strong>Infinite Scroll (Auf Kategorie- und Suchergebnisseiten)?</strong></legend>
+								<div class="radioswitch">
+									<input name="tpl_cfg_infinitescroll" type="radio" value="off" id="infinitescroll-off" {if $tpl_cfg_infinitescroll== off}checked{/if}>
+									<label for="infinitescroll-off">Aus</label>
+
+									<input name="tpl_cfg_infinitescroll" type="radio" value="on" id="infinitescroll-on"  {if $tpl_cfg_infinitescroll == on}checked{/if}>
+									<label for="infinitescroll-on" class="right">An</label>
+
+									<span aria-hidden="true"  {if $tpl_cfg_infinitescroll == on}class="right"{/if}></span>
+								</div>
+							</fieldset>
+						</section>
+
+						<section class="col-sm-6" role="region" aria-label="Barrierefrei-Tool-Konfiguration">
+							<fieldset>
+								<legend><strong>Barrierefrei-Tool (untenlinks)</strong></legend>
+								<div class="radioswitch">
+									<input name="tpl_cfg_barrierefreiTool" type="radio" value="off" id="barrierefreiTool-off" {if $tpl_cfg_barrierefreiTool == "off"}checked{/if}>
+									<label for="barrierefreiTool-off">Aus</label>
+
+									<input name="tpl_cfg_barrierefreiTool" type="radio" value="on" id="barrierefreiTool-on"  {if $tpl_cfg_barrierefreiTool == "on"}checked{/if}>
+									<label for="barrierefreiTool-on" class="right">An</label>
+
+									<span aria-hidden="true"  {if $tpl_cfg_barrierefreiTool == "on"}class="right"{/if}></span>
+								</div>
+							</fieldset>
+						</section>
+
+
+
+						<section class="col-sm-12" role="region" aria-label="Konfiguration">
+							<input type="submit" name="submit-tplsettings" id="submit-tplsettings" class="btn btn-success btn-lg btn-block" value="Konfiguration speichern">
+						</section>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<section class="card mb-4 mx-3" role="region" aria-labelledby="headingThree">
+			<header class="card-header" id="headingThree" role="banner">
+				<strong class="h5 mb-0">Zahlungs- und Versandlogos konfigurieren</strong>
+			</header>
+
+			<div id="collapseThree" class="accordion-collapse" aria-labelledby="headingThree" data-parent="#accordion">
+				<div class="card-body">
+					<form id="logosettings" class="row" method="post" action="">
+						<section class="col-sm-12 mb-4" role="region" aria-label="Zahlungslogos">
+							<strong>Zahlungslogos</strong>
+							<div class="row mb-2">
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="vorkasse" id="payment_vorkasse" {if $tpl_cfg_payment_logos && in_array('vorkasse', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_vorkasse">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_vorkasse.webp" alt="Vorkasse"> Vorkasse
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="paypal" id="payment_paypal" {if $tpl_cfg_payment_logos && in_array('paypal', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_paypal">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_paypal.webp" alt="Paypal"> Paypal
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="kreditkarten" id="payment_kreditkarten" {if $tpl_cfg_payment_logos && in_array('kreditkarten', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_kreditkarten">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_kreditkarten.webp" alt="Kreditkarten"> Kreditkarten
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="applepay" id="payment_applepay" {if $tpl_cfg_payment_logos && in_array('applepay', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_applepay">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_applepay.webp" alt="Apple Pay"> Apple Pay
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="googlepay" id="payment_googlepay" {if $tpl_cfg_payment_logos && in_array('googlepay', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_googlepay">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_googlepay.webp" alt="Google Pay"> Google Pay
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="amazon" id="payment_amazon" {if $tpl_cfg_payment_logos && in_array('amazon', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_amazon">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_amazon.webp" alt="Amazon Pay"> Amazon Pay
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="klarna" id="payment_klarna" {if $tpl_cfg_payment_logos && in_array('klarna', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_klarna">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_klarna.webp" alt="Klarna"> Klarna
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="lastschrift" id="payment_lastschrift" {if $tpl_cfg_payment_logos && in_array('lastschrift', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_lastschrift">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_lastschrift.webp" alt="Lastschrift"> Lastschrift
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="rechnung" id="payment_rechnung" {if $tpl_cfg_payment_logos && in_array('rechnung', $tpl_cfg_payment_logos)}checked{/if}>
+										<label class="form-check-label" for="payment_rechnung">
+											<img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_rechnung.webp" alt="Rechnung"> Rechnung
+										</label>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<section class="col-sm-12 mb-4" role="region" aria-label="Versandlogos">
+							<strong>Versandlogos</strong>
+							<div class="row mb-2">
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="hermes" id="shipping_hermes" {if $tpl_cfg_shipping_logos && in_array('hermes', $tpl_cfg_shipping_logos)}checked{/if}>
+										<label class="form-check-label" for="shipping_hermes">
+											<img height="52" width="52" src="{$tpl_path}img/shipping/hermes.webp" alt="Hermes"> Hermes
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="dhl" id="shipping_dhl" {if $tpl_cfg_shipping_logos && in_array('dhl', $tpl_cfg_shipping_logos)}checked{/if}>
+										<label class="form-check-label" for="shipping_dhl">
+											<img height="52" width="52" src="{$tpl_path}img/shipping/dhl.webp" alt="DHL"> DHL
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="dpd" id="shipping_dpd" {if $tpl_cfg_shipping_logos && in_array('dpd', $tpl_cfg_shipping_logos)}checked{/if}>
+										<label class="form-check-label" for="shipping_dpd">
+											<img height="52" width="52" src="{$tpl_path}img/shipping/dpd.webp" alt="DPD"> DPD
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="ups" id="shipping_ups" {if $tpl_cfg_shipping_logos && in_array('ups', $tpl_cfg_shipping_logos)}checked{/if}>
+										<label class="form-check-label" for="shipping_ups">
+											<img height="52" width="52" src="{$tpl_path}img/shipping/ups.webp" alt="UPS"> UPS
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="gls" id="shipping_gls" {if $tpl_cfg_shipping_logos && in_array('gls', $tpl_cfg_shipping_logos)}checked{/if}>
+										<label class="form-check-label" for="shipping_gls">
+											<img height="52" width="52" src="{$tpl_path}img/shipping/gls.webp" alt="GLS"> GLS
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="fedex" id="shipping_fedex" {if $tpl_cfg_shipping_logos && in_array('fedex', $tpl_cfg_shipping_logos)}checked{/if}>
+										<label class="form-check-label" for="shipping_fedex">
+											<img height="52" width="52" src="{$tpl_path}img/shipping/fedex.webp" alt="FedEx"> FedEx
+										</label>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<section class="col-sm-12" role="region" aria-label="Logos">
+							<input type="submit" name="submit-logosettings" id="submit-logosettings" class="btn btn-success btn-lg btn-block" value="Logos speichern">
+						</section>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<section class="card mb-4 mx-3" role="region" aria-labelledby="headingFour">
+			<header class="card-header" id="headingFour" role="banner">
+				<strong class="h5 mb-0">Social Media Links konfigurieren</strong>
+			</header>
+
+			<div id="collapseFour" class="accordion-collapse" aria-labelledby="headingFour" data-parent="#accordion">
+				<div class="card-body">
+					<form id="socialsettings" class="row" method="post" action="">
+						<section class="col-sm-12 mb-4" role="region" aria-label="Social Media Links">
+							<p>Tragen Sie hier Ihre Social Media Links ein. Lassen Sie ein Feld leer, um das entsprechende Icon nicht anzuzeigen.</p>
+							<div class="row mb-3">
+								<div class="col-sm-12">
+									<label for="facebook"><strong>Facebook</strong></label>
+									<input type="url" class="form-control" id="facebook" name="facebook" value="{$tpl_cfg_social_links.facebook}" placeholder="https://www.facebook.com/IhrName">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-12">
+									<label for="twitter"><strong>X (Twitter)</strong></label>
+									<input type="url" class="form-control" id="twitter" name="twitter" value="{$tpl_cfg_social_links.twitter}" placeholder="https://twitter.com/IhrName">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-12">
+									<label for="instagram"><strong>Instagram</strong></label>
+									<input type="url" class="form-control" id="instagram" name="instagram" value="{$tpl_cfg_social_links.instagram}" placeholder="https://www.instagram.com/IhrName">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-12">
+									<label for="pinterest"><strong>Pinterest</strong></label>
+									<input type="url" class="form-control" id="pinterest" name="pinterest" value="{$tpl_cfg_social_links.pinterest}" placeholder="https://www.pinterest.com/IhrName">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-12">
+									<label for="linkedin"><strong>LinkedIn</strong></label>
+									<input type="url" class="form-control" id="linkedin" name="linkedin" value="{$tpl_cfg_social_links.linkedin}" placeholder="https://www.linkedin.com/company/IhrName">
+								</div>
+							</div>
+						</section>
+
+						<section class="col-sm-12" role="region" aria-label="Social Media Links">
+							<input type="submit" name="submit-socialsettings" id="submit-socialsettings" class="btn btn-success btn-lg btn-block" value="Social Media Links speichern">
+						</section>
+					</form>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/js/bootstrap-colorpicker.min.js"></script>
+<script async >
+	$(".toggle-templateconfigs").click(function() {
+		$(".templateconfigs").toggleClass("aktiv");
+		// Update aria-expanded for accessibility
+		const isExpanded = $(this).attr("aria-expanded") === "true";
+		$(this).attr("aria-expanded", !isExpanded);
+	});
+
+	$(function () {
+		// Bestehende Colorpicker:
+		$('#color-primary').colorpicker();
+		$('#color-secondary').colorpicker();
+		$('#color-bglight1').colorpicker();
+		$('#color-bglight2').colorpicker();
+		$('#tpl-bg-footer').colorpicker();
+		$('#color-bgproductbox').colorpicker();
+		$('#tpl-text-standard').colorpicker();
+		$('#tpl-text-headings').colorpicker();
+		$('#tpl-text-button').colorpicker();
+		$('#tpl-text-footer').colorpicker();
+		$('#tpl-text-footer-headings').colorpicker();
+
+		// NEU: Menü-Farben Colorpicker
+		$('#tpl-menu-bg').colorpicker();
+		$('#tpl-menu-text').colorpicker();
+		$('#tpl-menu-hover').colorpicker();
+		$('#tpl-menu-active').colorpicker();
+
+		// NEU: Topbar-Farben Colorpicker
+		$('#tpl-topbar-bg').colorpicker();
+		$('#tpl-topbar-text').colorpicker();
+
+		// NEU: Sticky Header Colorpicker
+		$('#tpl-sticky-bg').colorpicker();
+		$('#tpl-sticky-text').colorpicker();
+
+		// Live-Preview: Bestehende Farben
+		$('#color-primary').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-main-color', event.color.toString());
+		});
+
+		$('#color-secondary').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-main-color-2', event.color.toString());
+			$(':root').css('--tpl-secondary-color', event.color.toString());
+		});
+
+		$('#color-bglight1').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-bg-color', event.color.toString());
+		});
+
+		$('#color-bglight2').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-bg-color-2', event.color.toString());
+		});
+
+		$('#tpl-bg-footer').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-bg-footer', event.color.toString());
+		});
+
+		$('#color-bgproductbox').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-bg-productbox', event.color.toString());
+		});
+
+		$('#tpl-text-standard').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-text-standard', event.color.toString());
+		});
+
+		$('#tpl-text-headings').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-text-headings', event.color.toString());
+		});
+
+		$('#tpl-text-footer').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-text-footer', event.color.toString());
+		});
+
+		$('#tpl-text-footer-headings').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-text-footer-headings', event.color.toString());
+		});
+
+		$('#tpl-text-button').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-text-button', event.color.toString());
+		});
+
+		// NEU: Live-Preview Menü-Farben
+		$('#tpl-menu-bg').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-menu-bg', event.color.toString());
+		});
+
+		$('#tpl-menu-text').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-menu-text', event.color.toString());
+		});
+
+		$('#tpl-menu-hover').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-menu-hover', event.color.toString());
+		});
+
+		$('#tpl-menu-active').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-menu-active', event.color.toString());
+		});
+
+		// NEU: Live-Preview Topbar-Farben
+		$('#tpl-topbar-bg').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-topbar-bg', event.color.toString());
+		});
+
+		$('#tpl-topbar-text').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-topbar-text', event.color.toString());
+		});
+
+		// NEU: Live-Preview Sticky Header
+		$('#tpl-sticky-bg').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-sticky-bg', event.color.toString());
+		});
+
+		$('#tpl-sticky-text').on('colorpickerChange', function(event) {
+			$(':root').css('--tpl-sticky-text', event.color.toString());
+		});
+	});
+</script>
