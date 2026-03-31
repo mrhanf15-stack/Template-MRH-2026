@@ -177,22 +177,7 @@ h1, h2, h3, h4, h5, h6,
   opacity: 1;
 }
 
-/* Badges im Header */
-.badges {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.badges svg {
-  height: 50px;
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.badges svg:hover {
-  opacity: 1;
-  transform: scale(1.05);
-}
+/* Badges im Header – entfernt (Trust-Badges nicht mehr im Header) */
 
 /* Icon-Leiste */
 #iconMenu {
@@ -217,6 +202,22 @@ h1, h2, h3, h4, h5, h6,
 }
 #iconMenu li.rechts svg {
   transition: fill 0.2s ease;
+}
+/* FA 6 Pro Icons im Header */
+#iconMenu li.rechts > a .fa-solid,
+#iconMenu li.rechts > a .fa-regular {
+  font-size: 22px;
+  color: var(--tpl-text-standard);
+  transition: color 0.2s ease;
+}
+#iconMenu li.rechts > a:hover .fa-solid,
+#iconMenu li.rechts > a:hover .fa-regular {
+  color: var(--tpl-main-color);
+}
+/* Mobile Hamburger FA Icon */
+#toggle_mobilemenu .fa-solid {
+  font-size: 24px;
+  color: var(--tpl-text-standard);
 }
 .btn-desc {
   font-size: 11px;
@@ -334,9 +335,7 @@ h1, h2, h3, h4, h5, h6,
 #main-header.mrh-sticky .logo-top {
   max-height: 48px;
 }
-#main-header.mrh-sticky .badges svg {
-  height: 38px;
-}
+
 /* Sticky Header: Navigation-Row ausblenden um Platz zu sparen */
 #main-header.mrh-sticky .main-header-menu-row {
   display: none;
@@ -506,9 +505,7 @@ img {
   .logo-top {
     max-height: 60px;
   }
-  .badges svg {
-    height: 40px;
-  }
+
   #iconMenu li.rechts > a {
     padding: 4px 6px;
   }
@@ -523,9 +520,7 @@ img {
   .logo-top {
     max-height: 50px;
   }
-  .badges {
-    display: none;
-  }
+
   #search {
     width: 100% !important;
     margin: 8px 0;
