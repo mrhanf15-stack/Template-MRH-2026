@@ -614,35 +614,36 @@ img {
     max-height: 50px !important;
   }
 
-  /* ── Mobile Header Layout: Logo+Hamburger links, Icons rechts, Suche darunter ── */
+  /* ── Mobile Header Layout ── */
+  /* Aeussere Row: wrap erlauben damit Suche darunter rutscht */
   .header-wrapper .container > .row {
     flex-wrap: wrap !important;
   }
-  /* Logo-Spalte: Logo + Hamburger links */
+  /* Logo-Spalte: Logo + Hamburger, nur so breit wie noetig */
   .header-wrapper .logo-wrap {
     flex: 0 0 auto !important;
     width: auto !important;
     max-width: none !important;
   }
-  /* Suche+Icons-Spalte: Icons rechts, Suche volle Breite darunter */
+  /* Icons-Spalte: nur Icons, rechts ausrichten, kein Wrap */
   .header-wrapper .col-lg-9 {
     flex: 1 1 0 !important;
     width: auto !important;
     max-width: none !important;
     justify-content: flex-end !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
   }
-  /* Suche: eigene Zeile, volle Breite erzwingen */
+  /* Suche: volle Breite, eigene Zeile UNTER der gesamten Header-Reihe */
   #search {
     flex: 0 0 100% !important;
     width: 100% !important;
     max-width: 100% !important;
-    order: 2 !important;
+    order: 99 !important;
     margin: 8px 0 0 !important;
+    padding: 0 12px !important;
   }
-  /* iconMenu: rechts in der ersten Zeile neben Logo */
+  /* iconMenu: kompakt rechts */
   ul#iconMenu {
-    order: 1 !important;
     flex: 0 0 auto !important;
     position: static !important;
     bottom: auto !important;
