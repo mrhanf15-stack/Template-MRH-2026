@@ -447,43 +447,66 @@
 
     /**
      * Kategorie-spezifische Spalten-Konfiguration (SEO 2026)
-     * Jede Hauptkategorie bekommt passende Überschriften und Icons
+     * Jede Hauptkategorie bekommt passende Überschriften, Icons
+     * und eine feste Zuordnung welche Unterkategorien in welche Spalte gehören.
+     * maxPerCol: Maximale Anzahl Links pro Spalte (5 = SEO-optimiert)
      */
     getCategoryConfig: function(parentText) {
       var textLower = (parentText || '').toLowerCase();
 
-      // Samen Shop
-      if (textLower.indexOf('samen') > -1 || textLower.indexOf('seed') > -1) {
+      // Samen Shop – SEO 2026: Haupttypen | Kaufentscheidung | Anbau-Szenarien
+      if (textLower.indexOf('samen') > -1 || textLower.indexOf('seed') > -1 || textLower.indexOf('hanfsamen') > -1) {
         return {
-          titles: ['Samenarten', 'Empfehlungen', 'Mehr entdecken'],
-          icons:  ['fa-seedling', 'fa-star', 'fa-compass']
+          titles: ['Cannabis Samen kaufen', 'Beliebte Auswahl', 'Anbau & Spezial'],
+          icons:  ['fa-seedling', 'fa-fire', 'fa-leaf'],
+          maxPerCol: 5,
+          columns: [
+            ['feminisiert', 'autoflower', 'regulär', 'f1', 'cbd'],
+            ['top', 'seller', 'anfänger', 'thc', 'usa', 'klassik'],
+            ['indoor', 'outdoor', 'fast', 'medizin', 'bulk']
+          ]
         };
       }
-      // Growshop
+      // Growshop – SEO 2026: Grundausstattung | Nährstoffe & Pflege | Zubehör & Ernte
       if (textLower.indexOf('grow') > -1) {
         return {
-          titles: ['Grundausstattung', 'Pflanzenpflege', 'Spezialzubehör'],
-          icons:  ['fa-box-open', 'fa-hand-holding-droplet', 'fa-screwdriver-wrench']
+          titles: ['Grow Grundausstattung', 'Nährstoffe & Pflege', 'Zubehör & Ernte'],
+          icons:  ['fa-box-open', 'fa-hand-holding-droplet', 'fa-screwdriver-wrench'],
+          maxPerCol: 5,
+          columns: [
+            ['komplett', 'set', 'growbox', 'growzelt', 'beleuchtung', 'licht', 'led', 'töpfe', 'behälter', 'lüftung', 'klima'],
+            ['dünger', 'erde', 'substrat', 'bewässer', 'schädling', 'anzucht', 'propagat'],
+            ['zubehör', 'ernte', 'verarbeit']
+          ]
         };
       }
-      // Headshop
+      // Headshop – SEO 2026: Rauchen & Dampfen | Zubehör & Tools (2 Spalten)
       if (textLower.indexOf('head') > -1) {
         return {
-          titles: ['Rauchen & Dampfen', 'Zubehör & Tools', 'Mehr entdecken'],
-          icons:  ['fa-cloud', 'fa-wrench', 'fa-flask']
+          titles: ['Rauchen & Dampfen', 'Zubehör & Tools'],
+          icons:  ['fa-cloud', 'fa-wrench'],
+          maxPerCol: 5,
+          columns: [
+            ['bong', 'pfeif', 'verdampf', 'vaporiz', 'terpen', 'grinder'],
+            ['mischtablett', 'waage', 'zubehör', 'verarbeit', 'extrakt', 'bücher', 'multimedia']
+          ]
         };
       }
-      // Cannabispflanzen
+      // Cannabispflanzen – kein Mega-Dropdown nötig (nur 1 SubCat)
       if (textLower.indexOf('cannabispflanz') > -1 || textLower.indexOf('pflanz') > -1) {
         return {
-          titles: ['Pflanzen kaufen', 'Sorten', 'Mehr entdecken'],
-          icons:  ['fa-cannabis', 'fa-leaf', 'fa-compass']
+          titles: ['Pflanzen kaufen'],
+          icons:  ['fa-cannabis'],
+          maxPerCol: 5,
+          columns: [[]]
         };
       }
       // Fallback
       return {
         titles: ['Sortiment', 'Highlights', 'Mehr entdecken'],
-        icons:  ['fa-layer-group', 'fa-star', 'fa-compass']
+        icons:  ['fa-layer-group', 'fa-star', 'fa-compass'],
+        maxPerCol: 5,
+        columns: [[], [], []]
       };
     },
 
@@ -494,16 +517,22 @@
       var content = document.createElement('div');
       content.className = 'mrh-mega-content';
 
-      // Sub-Kategorien in Spalten aufteilen (max 3 Spalten + Promo)
+      // Sub-Kategorien sammeln
       var subItems = MRH.Utils.qsa(':scope > li', subUl);
-      var columns = this.splitIntoColumns(subItems, 3);
 
-      // Kategorie-spezifische Spalten-Titel und Icons (SEO 2026)
+      // Kategorie-spezifische Spalten-Konfiguration (SEO 2026)
       var config = this.getCategoryConfig(parentText);
       var colIcons = config.icons;
       var colTitles = config.titles;
+      var colKeywords = config.columns || [];
+      var maxPerCol = config.maxPerCol || 5;
+
+      // Intelligente Spalten-Zuordnung basierend auf Keywords
+      var columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
 
       columns.forEach(function(colItems, idx) {
+        if (colItems.length === 0) return; // Leere Spalten überspringen
+
         var col = document.createElement('div');
         col.className = 'mrh-mega-col';
 
@@ -514,9 +543,9 @@
                           (colTitles[idx] || 'Kategorie ' + (idx + 1));
         col.appendChild(title);
 
-        // Links
+        // Links (max 5 pro Spalte)
         var ul = document.createElement('ul');
-        colItems.forEach(function(item) {
+        colItems.slice(0, maxPerCol).forEach(function(item) {
           var a = MRH.Utils.qs('a', item);
           if (!a) return;
           var li = document.createElement('li');
@@ -563,15 +592,62 @@
     },
 
     /**
-     * Verteilt Sub-Items gleichmäßig auf n Spalten
+     * Verteilt Sub-Items intelligent basierend auf Keyword-Matching in Spalten.
+     * Jedes Item wird der Spalte zugeordnet, deren Keywords am besten zum
+     * Kategorienamen passen. Nicht zugeordnete Items kommen in die letzte Spalte.
      */
-    splitIntoColumns: function(items, numCols) {
+    assignToColumns: function(items, colKeywords, maxPerCol) {
+      var numCols = colKeywords.length || 3;
       var cols = [];
       for (var i = 0; i < numCols; i++) cols.push([]);
-      items.forEach(function(item, idx) {
-        cols[idx % numCols].push(item);
+
+      // Wenn keine Keywords definiert: gleichmäßig verteilen (Fallback)
+      if (!colKeywords || colKeywords.length === 0 || (colKeywords.length === 1 && colKeywords[0].length === 0)) {
+        items.forEach(function(item, idx) {
+          cols[idx % numCols].push(item);
+        });
+        return cols.filter(function(c) { return c.length > 0; });
+      }
+
+      var assigned = new Set();
+
+      // Schritt 1: Items den Spalten zuordnen basierend auf Keywords
+      items.forEach(function(item) {
+        var a = item.querySelector('a');
+        if (!a) return;
+        var text = a.textContent.trim().toLowerCase();
+
+        for (var colIdx = 0; colIdx < colKeywords.length; colIdx++) {
+          var keywords = colKeywords[colIdx];
+          for (var k = 0; k < keywords.length; k++) {
+            if (text.indexOf(keywords[k].toLowerCase()) > -1) {
+              if (cols[colIdx].length < maxPerCol) {
+                cols[colIdx].push(item);
+                assigned.add(item);
+              }
+              return; // Item ist zugeordnet, nächstes Item
+            }
+          }
+        }
       });
-      // Leere Spalten entfernen
+
+      // Schritt 2: Nicht zugeordnete Items in die Spalte mit wenigsten Einträgen
+      items.forEach(function(item) {
+        if (assigned.has(item)) return;
+        // Finde die Spalte mit den wenigsten Einträgen (die noch Platz hat)
+        var minIdx = -1;
+        var minLen = maxPerCol + 1;
+        for (var i = 0; i < cols.length; i++) {
+          if (cols[i].length < maxPerCol && cols[i].length < minLen) {
+            minLen = cols[i].length;
+            minIdx = i;
+          }
+        }
+        if (minIdx > -1) {
+          cols[minIdx].push(item);
+        }
+      });
+
       return cols.filter(function(c) { return c.length > 0; });
     },
 
