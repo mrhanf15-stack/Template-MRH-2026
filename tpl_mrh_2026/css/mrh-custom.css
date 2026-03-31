@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6,
   background-color: var(--tpl-bg-color);
   transition: box-shadow 0.3s ease, padding 0.3s ease;
   position: relative;
-  z-index: 100;
+  z-index: 0;
 }
 .header-wrapper {
   padding: 10px 0;

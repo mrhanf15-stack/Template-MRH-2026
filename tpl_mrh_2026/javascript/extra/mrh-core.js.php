@@ -455,15 +455,36 @@
       var textLower = (parentText || '').toLowerCase();
 
       // Samen Shop – SEO 2026: Haupttypen | Kaufentscheidung | Anbau-Szenarien
+      // staticLinks: Feste Links die IMMER angezeigt werden (Level-2 Kategorien)
+      // columns/keywords: Nur für Zuordnung von CatNavi Level-1 Items (Fallback)
       if (textLower.indexOf('samen') > -1 || textLower.indexOf('seed') > -1 || textLower.indexOf('hanfsamen') > -1) {
         return {
           titles: ['Cannabis Samen kaufen', 'Beliebte Auswahl', 'Anbau & Spezial'],
           icons:  ['fa-seedling', 'fa-fire', 'fa-leaf'],
           maxPerCol: 5,
-          columns: [
-            ['feminisiert', 'autoflower', 'regulär', 'f1', 'cbd'],
-            ['top', 'seller', 'anfänger', 'thc', 'usa', 'klassik'],
-            ['indoor', 'outdoor', 'fast', 'medizin', 'bulk']
+          useStaticOnly: true,
+          staticLinks: [
+            [
+              {text: 'Feminisierte Samen', href: '/samen-shop/feminisierte-samen/'},
+              {text: 'Autoflowering Samen', href: '/samen-shop/autoflowering-samen/'},
+              {text: 'Reguläre Samen', href: '/samen-shop/regulaere-samen/'},
+              {text: 'F1 Cannabis Sorten', href: '/samen-shop/sortenvielfalt/f1-cannabis-sorten/'},
+              {text: 'CBD-Reiche Sorten', href: '/samen-shop/sortenvielfalt/cbd-reiche-cannabis-sorten/'}
+            ],
+            [
+              {text: 'Top-Seller', href: '/samen-shop/favoriten/top-seller/'},
+              {text: 'Anfänger Samen', href: '/samen-shop/favoriten/anfaenger-samen/'},
+              {text: 'THC-Reiche Sorten', href: '/samen-shop/sortenvielfalt/thc-reiche-sorten/'},
+              {text: 'USA Genetik', href: '/samen-shop/weitere-kategorien/usa-genetik/'},
+              {text: 'Klassiker', href: '/samen-shop/favoriten/klassiker/'}
+            ],
+            [
+              {text: 'Reine Indoor Samen', href: '/samen-shop/weitere-kategorien/reine-indoor-samen/'},
+              {text: 'Reine Outdoor Samen', href: '/samen-shop/weitere-kategorien/reine-outdoor-samen/'},
+              {text: 'Fast Flowering Samen', href: '/samen-shop/sortenvielfalt/fast-flowering-samen/'},
+              {text: 'Medizinische Samen', href: '/samen-shop/weitere-kategorien/medizinische-samen/'},
+              {text: 'Bulk Samen', href: '/samen-shop/weitere-kategorien/bulk-samen/'}
+            ]
           ]
         };
       }
@@ -473,10 +494,11 @@
           titles: ['Grow Grundausstattung', 'Nährstoffe & Pflege', 'Zubehör & Ernte'],
           icons:  ['fa-box-open', 'fa-hand-holding-droplet', 'fa-screwdriver-wrench'],
           maxPerCol: 5,
+          useStaticOnly: false,
           columns: [
-            ['komplett', 'set', 'growbox', 'growzelt', 'beleuchtung', 'licht', 'led', 'töpfe', 'behälter', 'lüftung', 'klima'],
+            ['komplett', 'set', 'growbox', 'growzelt', 'beleuchtung', 'licht', 'led', 'töpfe', 'behälter'],
             ['dünger', 'erde', 'substrat', 'bewässer', 'schädling', 'anzucht', 'propagat'],
-            ['zubehör', 'ernte', 'verarbeit']
+            ['zubehör', 'ernte', 'verarbeit', 'lüftung', 'klima']
           ]
         };
       }
@@ -486,9 +508,10 @@
           titles: ['Rauchen & Dampfen', 'Zubehör & Tools'],
           icons:  ['fa-cloud', 'fa-wrench'],
           maxPerCol: 5,
+          useStaticOnly: false,
           columns: [
-            ['bong', 'pfeif', 'verdampf', 'vaporiz', 'terpen', 'grinder'],
-            ['mischtablett', 'waage', 'zubehör', 'verarbeit', 'extrakt', 'bücher', 'multimedia']
+            ['bong', 'pfeif', 'verdampf', 'vaporiz', 'terpen'],
+            ['grinder', 'mischtablett', 'waage', 'zubehör', 'verarbeit', 'extrakt', 'bücher', 'multimedia']
           ]
         };
       }
@@ -498,6 +521,7 @@
           titles: ['Pflanzen kaufen'],
           icons:  ['fa-cannabis'],
           maxPerCol: 5,
+          useStaticOnly: false,
           columns: [[]]
         };
       }
@@ -506,6 +530,7 @@
         titles: ['Sortiment', 'Highlights', 'Mehr entdecken'],
         icons:  ['fa-layer-group', 'fa-star', 'fa-compass'],
         maxPerCol: 5,
+        useStaticOnly: false,
         columns: [[], [], []]
       };
     },
@@ -517,55 +542,91 @@
       var content = document.createElement('div');
       content.className = 'mrh-mega-content';
 
-      // Sub-Kategorien sammeln
-      var subItems = MRH.Utils.qsa(':scope > li', subUl);
-
       // Kategorie-spezifische Spalten-Konfiguration (SEO 2026)
       var config = this.getCategoryConfig(parentText);
       var colIcons = config.icons;
       var colTitles = config.titles;
-      var colKeywords = config.columns || [];
       var maxPerCol = config.maxPerCol || 5;
 
-      // Intelligente Spalten-Zuordnung basierend auf Keywords
-      var columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
+      // MODUS A: Statische Links (für Samen Shop – Level-2 Kategorien fest definiert)
+      if (config.useStaticOnly && config.staticLinks) {
+        config.staticLinks.forEach(function(colLinks, idx) {
+          if (!colLinks || colLinks.length === 0) return;
 
-      columns.forEach(function(colItems, idx) {
-        if (colItems.length === 0) return; // Leere Spalten überspringen
+          var col = document.createElement('div');
+          col.className = 'mrh-mega-col';
 
-        var col = document.createElement('div');
-        col.className = 'mrh-mega-col';
+          // Spalten-Titel
+          var title = document.createElement('div');
+          title.className = 'mrh-mega-col-title';
+          title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
+                            (colTitles[idx] || 'Kategorie ' + (idx + 1));
+          col.appendChild(title);
 
-        // Spalten-Titel
-        var title = document.createElement('div');
-        title.className = 'mrh-mega-col-title';
-        title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
-                          (colTitles[idx] || 'Kategorie ' + (idx + 1));
-        col.appendChild(title);
+          // Statische Links
+          var ul = document.createElement('ul');
+          colLinks.slice(0, maxPerCol).forEach(function(linkData) {
+            var li = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = linkData.href;
+            link.textContent = linkData.text;
+            li.appendChild(link);
+            ul.appendChild(li);
+          });
+          col.appendChild(ul);
 
-        // Links (max 5 pro Spalte)
-        var ul = document.createElement('ul');
-        colItems.slice(0, maxPerCol).forEach(function(item) {
-          var a = MRH.Utils.qs('a', item);
-          if (!a) return;
-          var li = document.createElement('li');
-          var link = document.createElement('a');
-          link.href = a.getAttribute('href') || '#';
-          link.textContent = a.textContent.trim();
-          li.appendChild(link);
-          ul.appendChild(li);
+          // "Alle anzeigen" Link
+          var allLink = document.createElement('a');
+          allLink.href = parentHref;
+          allLink.className = 'mrh-mega-all';
+          allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+          col.appendChild(allLink);
+
+          content.appendChild(col);
         });
-        col.appendChild(ul);
+      } else {
+        // MODUS B: Dynamische Zuordnung aus CatNavi (für Growshop, Headshop etc.)
+        var subItems = MRH.Utils.qsa(':scope > li', subUl);
+        var colKeywords = config.columns || [];
+        var columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
 
-        // "Alle anzeigen" Link
-        var allLink = document.createElement('a');
-        allLink.href = parentHref;
-        allLink.className = 'mrh-mega-all';
-        allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
-        col.appendChild(allLink);
+        columns.forEach(function(colItems, idx) {
+          if (colItems.length === 0) return;
 
-        content.appendChild(col);
-      });
+          var col = document.createElement('div');
+          col.className = 'mrh-mega-col';
+
+          // Spalten-Titel
+          var title = document.createElement('div');
+          title.className = 'mrh-mega-col-title';
+          title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
+                            (colTitles[idx] || 'Kategorie ' + (idx + 1));
+          col.appendChild(title);
+
+          // Links (max 5 pro Spalte)
+          var ul = document.createElement('ul');
+          colItems.slice(0, maxPerCol).forEach(function(item) {
+            var a = MRH.Utils.qs('a', item);
+            if (!a) return;
+            var li = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = a.getAttribute('href') || '#';
+            link.textContent = a.textContent.trim();
+            li.appendChild(link);
+            ul.appendChild(li);
+          });
+          col.appendChild(ul);
+
+          // "Alle anzeigen" Link
+          var allLink = document.createElement('a');
+          allLink.href = parentHref;
+          allLink.className = 'mrh-mega-all';
+          allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+          col.appendChild(allLink);
+
+          content.appendChild(col);
+        });
+      }
 
       // Promo-Spalte hinzufügen
       var promoData = MRH.Utils.qs('#mrhMegaPromoData');
