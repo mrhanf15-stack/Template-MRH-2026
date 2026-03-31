@@ -613,17 +613,52 @@ img {
   .logo-top {
     max-height: 50px !important;
   }
+
+  /* ── Mobile Header Layout: Logo+Hamburger links, Icons rechts, Suche darunter ── */
+  .header-wrapper .container > .row {
+    flex-wrap: wrap !important;
+  }
+  /* Logo-Spalte: Logo + Hamburger links */
+  .header-wrapper .logo-wrap {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  /* Suche+Icons-Spalte: Icons rechts, Suche volle Breite darunter */
+  .header-wrapper .col-lg-9 {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+  }
+  /* Suche: volle Breite, eigene Zeile */
   #search {
     width: 100% !important;
     max-width: 100% !important;
-    margin: 8px 0 !important;
+    order: 2 !important;
+    margin: 8px 0 0 !important;
+  }
+  /* iconMenu: rechts in der ersten Zeile */
+  ul#iconMenu {
+    order: 1 !important;
+    position: static !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    background: transparent !important;
+    border-top: none !important;
+    width: auto !important;
+    left: auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    gap: 8px !important;
   }
   #quick_find button {
     width: auto !important;
     min-width: 44px !important;
   }
 
-  /* ── Mobile Header: Hamburger Abstand zum Logo ── */
+  /* ── Hamburger: Abstand zum Logo ── */
   a#toggle_mobilemenu {
     margin-left: 16px !important;
     position: static !important;
@@ -636,23 +671,26 @@ img {
     border-radius: 0 !important;
   }
 
-  /* ── Mobile Header: Merkzettel & Warenkorb ausblenden (sind in Bottom Bar) ── */
+  /* ── Beschriftungen ausblenden auf Mobile (nur Icons) ── */
+  #iconMenu .btn-desc,
+  a#toggle_mobilemenu .btn-desc {
+    display: none !important;
+  }
+
+  /* ── Merkzettel & Warenkorb ausblenden (sind in Bottom Bar) ── */
   #iconMenu li.wishlist.rechts,
   #iconMenu li.cart.rechts {
     display: none !important;
   }
 
-  /* ── Override template.css: iconMenu nicht als fixed bottom bar ── */
-  ul#iconMenu {
-    position: static !important;
-    bottom: auto !important;
-    z-index: auto !important;
-    background: transparent !important;
-    border-top: none !important;
-    width: auto !important;
-    left: auto !important;
-    padding: 0 !important;
-    box-shadow: none !important;
+  /* ── Icon-Groesse auf Mobile anpassen ── */
+  #iconMenu li.rechts a {
+    min-width: auto !important;
+    min-height: auto !important;
+    padding: 4px 6px !important;
+  }
+  #iconMenu li.rechts a .fa-xl {
+    font-size: 20px !important;
   }
 
   /* Reset nth-child Spacing */
