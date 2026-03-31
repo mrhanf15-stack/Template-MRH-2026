@@ -194,7 +194,7 @@ if (file_exists($mrh_panel_file)) {
     max-width: 95vw;
     height: calc(100vh - 36px);
     background: #fff;
-    z-index: 99999;
+    z-index: 100001 !important;
     overflow-y: auto;
     box-shadow: -4px 0 20px rgba(0,0,0,0.25);
     border-left: 3px solid #4a8c2a;
@@ -212,7 +212,7 @@ if (file_exists($mrh_panel_file)) {
     width: 100%;
     height: calc(100vh - 36px);
     background: rgba(0,0,0,0.4);
-    z-index: 99998;
+    z-index: 100000 !important;
 }
 #mrh-cfg-overlay.open {
     display: block;

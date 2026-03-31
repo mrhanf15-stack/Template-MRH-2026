@@ -158,7 +158,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Suchleiste – Wireframe: Pill-Shape mit grünem Such-Button */
-#search {
+#search,
+#search-mobile {
   border: 2px solid var(--tpl-main-color) !important;
   border-radius: 999px !important;
   overflow: hidden;
@@ -175,19 +176,34 @@ h1, h2, h3, h4, h5, h6,
   right: auto !important;
   bottom: auto !important;
 }
+/* Desktop: Suche in Zeile 1 zwischen Logo und Icons */
+.mrh-search-desktop {
+  flex: 1;
+  justify-content: center;
+}
+.mrh-search-desktop #search {
+  width: 100% !important;
+  max-width: 520px;
+  margin: 0 auto;
+}
 #search .d-flex,
 #search form .d-flex,
+#search-mobile .d-flex,
+#search-mobile form .d-flex,
 #quick_find .d-flex {
   align-items: stretch;
 }
-#search:focus-within {
+#search:focus-within,
+#search-mobile:focus-within {
   border-color: var(--tpl-main-color) !important;
   box-shadow: 0 0 0 3px rgba(74, 140, 42, 0.15);
 }
-#search .input-group {
+#search .input-group,
+#search-mobile .input-group {
   flex-wrap: nowrap;
 }
-#search input[type=text] {
+#search input[type=text],
+#search-mobile input[type=text] {
   border: none !important;
   font-family: var(--tpl-font-text), sans-serif;
   font-size: 14px !important;
@@ -197,14 +213,17 @@ h1, h2, h3, h4, h5, h6,
   text-indent: 0 !important;
   width: 100% !important;
 }
-#search input[type=text]::placeholder {
+#search input[type=text]::placeholder,
+#search-mobile input[type=text]::placeholder {
   color: #94a3b8;
   font-weight: 400;
 }
 /* Grüner Such-Button (Wireframe) – Override template.css absolute Positionierung */
 #quick_find button,
 #search .input-group-append button,
-#search button[type=submit] {
+#search button[type=submit],
+#search-mobile .input-group-append button,
+#search-mobile button[type=submit] {
   background-color: var(--tpl-main-color) !important;
   border: none !important;
   color: #ffffff !important;
@@ -229,7 +248,9 @@ h1, h2, h3, h4, h5, h6,
 }
 #quick_find button:hover,
 #search .input-group-append button:hover,
-#search button[type=submit]:hover {
+#search button[type=submit]:hover,
+#search-mobile .input-group-append button:hover,
+#search-mobile button[type=submit]:hover {
   background-color: var(--tpl-secondary-color) !important;
 }
 #quick_find button i,
@@ -237,7 +258,11 @@ h1, h2, h3, h4, h5, h6,
 #search button i,
 #search button span,
 #search button .fa-magnifying-glass,
-#search button .fa-search {
+#search button .fa-search,
+#search-mobile button i,
+#search-mobile button span,
+#search-mobile button .fa-magnifying-glass,
+#search-mobile button .fa-search {
   color: #ffffff !important;
   font-size: 16px !important;
   line-height: 1 !important;
@@ -899,11 +924,11 @@ img {
     width: auto !important;
     max-width: none !important;
   }
-  /* Zeile 2: Suchleiste volle Breite */
+  /* Zeile 2: Suchleiste volle Breite (Mobile) */
   .mrh-header-row-2 {
     margin-top: 8px !important;
   }
-  #search {
+  #search-mobile {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;

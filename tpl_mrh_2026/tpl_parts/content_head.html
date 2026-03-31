@@ -2,11 +2,12 @@
 <div class="row header-wrapper">
   <div class="container">
 
-    {* ── ZEILE 1: Logo + Hamburger + Icons ── *}
+    {* ── DESKTOP: 1 Zeile – Logo | Suche | Icons ── *}
+    {* ── MOBILE:  2 Zeilen – Logo+Hamburger+Icons | Suche ── *}
     <div class="row align-items-center mrh-header-row-1">
 
-      {* ── LOGO + HAMBURGER ── *}
-      <div class="col d-flex align-items-center logo-wrap">
+      {* ── LOGO + HAMBURGER (Mobile) ── *}
+      <div class="col-auto d-flex align-items-center logo-wrap">
         <a href="{$index}" title="{#link_index#} &bull; {$store_name}">
           <picture>
             <source srcset="{$tpl_path}img/logo_head_jubilaeum_png.webp" type="image/webp">
@@ -32,6 +33,25 @@
         <span class="fa-solid fa-bars fa-lg"></span>
         <span class="btn-desc">{#link_menu#}</span>
         </a>
+      </div>
+
+      {* ── SUCHLEISTE (Desktop: in Zeile 1 zwischen Logo und Icons) ── *}
+      <div class="col d-none d-lg-flex align-items-center mrh-search-desktop">
+        {if isset($box_SEARCH)}<div id="search" role="search">{$box_SEARCH}</div>{/if}
+        <script type="application/ld+json">
+          {literal}
+          {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url": "{/literal}{$index}{literal}",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "{/literal}{$index}{literal}advanced_search_result.php?keywords={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+          {/literal}
+        </script>
       </div>
 
       {* ── ICON-MENÜ (FA 6 Pro) ── *}
@@ -105,25 +125,10 @@
       </div>
     </div>
 
-    {* ── ZEILE 2: Suchleiste (volle Breite) ── *}
-    <div class="row mrh-header-row-2">
+    {* ── ZEILE 2: Suchleiste NUR auf Mobile (unter 992px) ── *}
+    <div class="row mrh-header-row-2 d-lg-none">
       <div class="col-12">
-        {if isset($box_SEARCH)}<div id="search" role="search">{$box_SEARCH}</div>{/if}
-        <!-- search structured-data for google-->
-        <script type="application/ld+json">
-          {literal}
-          {
-            "@context": "http://schema.org",
-            "@type": "WebSite",
-            "url": "{/literal}{$index}{literal}",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "{/literal}{$index}{literal}advanced_search_result.php?keywords={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          }
-          {/literal}
-        </script>
+        {if isset($box_SEARCH)}<div id="search-mobile" class="mrh-search-mobile" role="search">{$box_SEARCH}</div>{/if}
       </div>
     </div>
 
