@@ -1,10 +1,12 @@
 {config_load file="lang_`$language`.custom"}
 <div class="row header-wrapper">
   <div class="container">
-    <div class="row align-items-center">
 
-      {* ── LOGO ── *}
-      <div class="col-lg-3 col-md-3 d-flex align-items-center logo-wrap">
+    {* ── ZEILE 1: Logo + Hamburger + Icons ── *}
+    <div class="row align-items-center mrh-header-row-1">
+
+      {* ── LOGO + HAMBURGER ── *}
+      <div class="col d-flex align-items-center logo-wrap">
         <a href="{$index}" title="{#link_index#} &bull; {$store_name}">
           <picture>
             <source srcset="{$tpl_path}img/logo_head_jubilaeum_png.webp" type="image/webp">
@@ -30,30 +32,10 @@
         <span class="fa-solid fa-bars fa-lg"></span>
         <span class="btn-desc">{#link_menu#}</span>
         </a>
-      
       </div>
-      
-      {* ── SUCHE + ICONS ── *}
-      <div class="col-lg-9 col-md-9 col-sm-9 d-flex align-items-center justify-content-between flex-wrap">
-        
-        {if isset($box_SEARCH)}<div id="search" role="search">{$box_SEARCH}</div>{/if}
-        <!-- search structured-data for google-->
-        <script type="application/ld+json">
-          {literal}
-          {
-            "@context": "http://schema.org",
-            "@type": "WebSite",
-            "url": "{/literal}{$index}{literal}",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "{/literal}{$index}{literal}advanced_search_result.php?keywords={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          }
-          {/literal}
-        </script>
 
-        {* ── ICON-MENÜ (FA 6 Pro) ── *}
+      {* ── ICON-MENÜ (FA 6 Pro) ── *}
+      <div class="col-auto d-flex align-items-center">
         <ul id="iconMenu" class="list-unstyled mb-0 d-flex align-items-center">
           
           {* Einstellungen (Sprache/Land/Währung) *}
@@ -120,7 +102,30 @@
           {/if}
         
         </ul>
+      </div>
     </div>
+
+    {* ── ZEILE 2: Suchleiste (volle Breite) ── *}
+    <div class="row mrh-header-row-2">
+      <div class="col-12">
+        {if isset($box_SEARCH)}<div id="search" role="search">{$box_SEARCH}</div>{/if}
+        <!-- search structured-data for google-->
+        <script type="application/ld+json">
+          {literal}
+          {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url": "{/literal}{$index}{literal}",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "{/literal}{$index}{literal}advanced_search_result.php?keywords={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+          {/literal}
+        </script>
+      </div>
+    </div>
+
   </div>
-</div>
 </div>

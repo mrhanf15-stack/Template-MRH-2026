@@ -614,37 +614,30 @@ img {
     max-height: 50px !important;
   }
 
-  /* ── Mobile Header Layout ── */
-  /* Aeussere Row: wrap erlauben damit Suche darunter rutscht */
-  .header-wrapper .container > .row {
-    flex-wrap: wrap !important;
+  /* ── Mobile Header Layout (neue HTML-Struktur) ── */
+  /* Zeile 1: Logo+Hamburger links, Icons rechts */
+  .mrh-header-row-1 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
   }
-  /* Logo-Spalte: Logo + Hamburger, nur so breit wie noetig */
-  .header-wrapper .logo-wrap {
+  .mrh-header-row-1 .logo-wrap {
     flex: 0 0 auto !important;
     width: auto !important;
     max-width: none !important;
   }
-  /* Icons-Spalte: nur Icons, rechts ausrichten, kein Wrap */
-  .header-wrapper .col-lg-9 {
-    flex: 1 1 0 !important;
-    width: auto !important;
-    max-width: none !important;
-    justify-content: flex-end !important;
-    flex-wrap: nowrap !important;
+  /* Zeile 2: Suchleiste volle Breite */
+  .mrh-header-row-2 {
+    margin-top: 8px !important;
   }
-  /* Suche: volle Breite, eigene Zeile UNTER der gesamten Header-Reihe */
   #search {
-    flex: 0 0 100% !important;
     width: 100% !important;
     max-width: 100% !important;
-    order: 99 !important;
-    margin: 8px 0 0 !important;
-    padding: 0 12px !important;
+    margin: 0 !important;
   }
   /* iconMenu: kompakt rechts */
   ul#iconMenu {
-    flex: 0 0 auto !important;
     position: static !important;
     bottom: auto !important;
     z-index: auto !important;
@@ -654,7 +647,7 @@ img {
     left: auto !important;
     padding: 0 !important;
     box-shadow: none !important;
-    gap: 8px !important;
+    gap: 12px !important;
   }
   #quick_find button {
     width: auto !important;
