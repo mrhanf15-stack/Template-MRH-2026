@@ -182,7 +182,94 @@ if (file_exists($mrh_panel_file)) {
     ob_start();
     include($mrh_panel_file);
     $mrh_panel_html = ob_get_clean();
-    $box_admin .= '<div id="mrh-admin-configurator" class="container-fluid">' . $mrh_panel_html . '</div>';
+    // Panel ist standardmaessig versteckt, wird per Toggle-Button in der Admin-Bar geoeffnet
+    $box_admin .= '
+<style>
+#mrh-admin-configurator {
+    display: none;
+    position: fixed;
+    top: 36px;
+    right: 0;
+    width: 480px;
+    max-width: 95vw;
+    height: calc(100vh - 36px);
+    background: #fff;
+    z-index: 99999;
+    overflow-y: auto;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.25);
+    border-left: 3px solid #4a8c2a;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+#mrh-admin-configurator.open {
+    display: block;
+}
+#mrh-cfg-overlay {
+    display: none;
+    position: fixed;
+    top: 36px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 36px);
+    background: rgba(0,0,0,0.4);
+    z-index: 99998;
+}
+#mrh-cfg-overlay.open {
+    display: block;
+}
+#mrh-cfg-close {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #4a8c2a;
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 1;
+    cursor: default;
+}
+#mrh-cfg-close button {
+    background: none;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+#mrh-cfg-close button:hover {
+    background: rgba(255,255,255,0.2);
+}
+</style>
+<div id="mrh-cfg-overlay" onclick="document.getElementById(\'mrh-admin-configurator\').classList.remove(\'open\');this.classList.remove(\'open\');"></div>
+<div id="mrh-admin-configurator">
+    <div id="mrh-cfg-close">
+        <span>MRH 2026 Konfigurator</span>
+        <button onclick="document.getElementById(\'mrh-admin-configurator\').classList.remove(\'open\');document.getElementById(\'mrh-cfg-overlay\').classList.remove(\'open\');" title="Schliessen">&times;</button>
+    </div>
+    ' . $mrh_panel_html . '
+</div>
+<script>
+function mrhToggleConfigurator(){
+    var p=document.getElementById("mrh-admin-configurator");
+    var o=document.getElementById("mrh-cfg-overlay");
+    if(p.classList.contains("open")){
+        p.classList.remove("open");
+        o.classList.remove("open");
+    } else {
+        p.classList.add("open");
+        o.classList.add("open");
+    }
+}
+</script>';
 }
 
 $smarty->assign('box_ADMIN',$box_admin);
