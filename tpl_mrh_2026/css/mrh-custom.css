@@ -623,10 +623,26 @@ img {
     min-width: 44px !important;
   }
 
-  /* ============================================================
-     12 MOBILE BOTTOM BAR – Override template.css iconMenu fixed
-     ============================================================ */
-  /* Deaktiviere das alte iconMenu als fixed Bottom Bar */
+  /* ── Mobile Header: Hamburger Abstand zum Logo ── */
+  a#toggle_mobilemenu {
+    margin-left: 16px !important;
+    position: static !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    width: auto !important;
+    height: auto !important;
+    left: auto !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  /* ── Mobile Header: Merkzettel & Warenkorb ausblenden (sind in Bottom Bar) ── */
+  #iconMenu li.wishlist.rechts,
+  #iconMenu li.cart.rechts {
+    display: none !important;
+  }
+
+  /* ── Override template.css: iconMenu nicht als fixed bottom bar ── */
   ul#iconMenu {
     position: static !important;
     bottom: auto !important;
@@ -638,36 +654,155 @@ img {
     padding: 0 !important;
     box-shadow: none !important;
   }
-  /* Deaktiviere den alten fixed Hamburger-Button */
-  a#toggle_mobilemenu {
-    position: static !important;
-    bottom: auto !important;
-    z-index: auto !important;
-    width: auto !important;
-    height: auto !important;
-    left: auto !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-  }
-  /* Reset nth-child Spacing (template.css reservierte Platz fuer Hamburger) */
+
+  /* Reset nth-child Spacing */
   li.rechts:nth-child(2) {
     margin-right: 0 !important;
   }
   li.rechts:nth-child(3) {
     margin-left: 0 !important;
   }
-  /* Copyright padding-bottom fuer Bottom Bar Platz */
+
+  /* Copyright + Body padding fuer Bottom Bar Platz */
   .copyright {
     padding-bottom: 80px !important;
   }
-  /* Body padding-bottom damit Content nicht von Bottom Bar verdeckt wird */
   body {
     padding-bottom: 64px !important;
   }
 }
 
 /* ============================================================
-   13 MRH BOTTOM BAR – Wireframe Mobile Navigation
+   13 MRH SEARCH OVERLAY – Mobile Suche (Bottom Bar)
+   ============================================================ */
+body.mrh-no-scroll {
+  overflow: hidden !important;
+}
+.mrh-search-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1400;
+}
+.mrh-search-overlay.open {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.mrh-search-overlay-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.mrh-search-overlay-content {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 16px 24px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+  animation: mrhSlideUp 0.3s ease;
+}
+@keyframes mrhSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.mrh-search-overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.mrh-search-overlay-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tpl-text-standard, #1e293b);
+  font-family: var(--tpl-font-text, sans-serif);
+}
+.mrh-search-overlay-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--tpl-text-standard, #666);
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.mrh-search-overlay-close:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+.mrh-search-overlay-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mrh-search-overlay-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--mrh-primary, #4a8c2a);
+  border-radius: 999px;
+  padding: 0 16px;
+  height: 48px;
+  background: #f8faf7;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mrh-search-overlay-input-wrap:focus-within {
+  border-color: var(--mrh-primary, #4a8c2a);
+  box-shadow: 0 0 0 3px rgba(74, 140, 42, 0.15);
+}
+.mrh-search-overlay-input-wrap i {
+  color: var(--mrh-primary, #4a8c2a);
+  font-size: 16px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.mrh-search-overlay-input-wrap input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 16px;
+  font-family: var(--tpl-font-text, sans-serif);
+  color: var(--tpl-text-standard, #1e293b);
+  padding: 0;
+}
+.mrh-search-overlay-input-wrap input::placeholder {
+  color: #999;
+}
+.mrh-search-overlay-submit {
+  background: var(--mrh-primary, #4a8c2a);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--tpl-font-text, sans-serif);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.mrh-search-overlay-submit:active {
+  transform: scale(0.98);
+}
+/* Safe area fuer iPhone */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mrh-search-overlay-content {
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================================
+   14 MRH BOTTOM BAR – Wireframe Mobile Navigation
    ============================================================ */
 .mrh-bottom-bar {
   display: none; /* Nur auf Mobile sichtbar */

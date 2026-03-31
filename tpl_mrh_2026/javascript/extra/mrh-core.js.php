@@ -359,20 +359,41 @@
     // ============================================================
     var bottomBar = document.getElementById('mrhBottomBar');
     if (bottomBar) {
-      // Suche-Button: Fokus auf Suchfeld oder Scroll nach oben
+
+      // -- Suche: Overlay oeffnen/schliessen --
       var bbSearch = document.getElementById('mrhBottomSearch');
-      if (bbSearch) {
+      var searchOverlay = document.getElementById('mrhSearchOverlay');
+      var searchOverlayClose = document.getElementById('mrhSearchOverlayClose');
+      var searchOverlayBg = document.getElementById('mrhSearchOverlayBg');
+
+      if (bbSearch && searchOverlay) {
         bbSearch.addEventListener('click', function(e) {
           e.preventDefault();
-          var searchInput = document.getElementById('inputString');
-          if (searchInput) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            setTimeout(function() { searchInput.focus(); }, 400);
+          searchOverlay.classList.add('open');
+          document.body.classList.add('mrh-no-scroll');
+          var overlayInput = searchOverlay.querySelector('input[type="text"]');
+          if (overlayInput) {
+            setTimeout(function() { overlayInput.focus(); }, 200);
+          }
+        });
+
+        var closeOverlay = function() {
+          searchOverlay.classList.remove('open');
+          document.body.classList.remove('mrh-no-scroll');
+        };
+
+        if (searchOverlayClose) searchOverlayClose.addEventListener('click', closeOverlay);
+        if (searchOverlayBg) searchOverlayBg.addEventListener('click', closeOverlay);
+
+        // ESC-Taste schliesst Overlay
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && searchOverlay.classList.contains('open')) {
+            closeOverlay();
           }
         });
       }
 
-      // Warenkorb-Badge: Synchronisiere mit Header-Badge
+      // -- Warenkorb-Badge: Live-Sync mit Header --
       var bbCartBadge = bottomBar.querySelector('.mrh-bb-cart-count');
       if (bbCartBadge) {
         var syncCartBadge = function() {
@@ -385,17 +406,34 @@
           }
         };
         syncCartBadge();
-        // MutationObserver fuer dynamische Updates
-        var headerBadgeEl = document.querySelector('#iconMenu .cart .cart_content');
-        if (headerBadgeEl) {
-          var observer = new MutationObserver(syncCartBadge);
-          observer.observe(headerBadgeEl, { childList: true, characterData: true, subtree: true });
+        var headerCartEl = document.querySelector('#iconMenu .cart .cart_content');
+        if (headerCartEl) {
+          new MutationObserver(syncCartBadge).observe(headerCartEl, { childList: true, characterData: true, subtree: true });
         }
-        // Auch bei AJAX-Events synchronisieren
         document.addEventListener('cartUpdated', syncCartBadge);
       }
 
-      // Active State: Aktuellen Pfad markieren
+      // -- Merkzettel-Badge: Live-Sync mit Header --
+      var bbWishBadge = bottomBar.querySelector('.mrh-bb-wish-count');
+      if (bbWishBadge) {
+        var syncWishBadge = function() {
+          var headerWish = document.querySelector('#iconMenu .wishlist .cart_content');
+          if (headerWish && headerWish.textContent.trim() !== '' && headerWish.textContent.trim() !== '0') {
+            bbWishBadge.textContent = headerWish.textContent.trim();
+            bbWishBadge.style.display = 'block';
+          } else {
+            bbWishBadge.style.display = 'none';
+          }
+        };
+        syncWishBadge();
+        var headerWishEl = document.querySelector('#iconMenu .wishlist .cart_content');
+        if (headerWishEl) {
+          new MutationObserver(syncWishBadge).observe(headerWishEl, { childList: true, characterData: true, subtree: true });
+        }
+        document.addEventListener('wishlistUpdated', syncWishBadge);
+      }
+
+      // -- Active State: Aktuellen Pfad markieren --
       var currentPath = window.location.pathname;
       var bbLinks = bottomBar.querySelectorAll('a');
       bbLinks.forEach(function(link) {

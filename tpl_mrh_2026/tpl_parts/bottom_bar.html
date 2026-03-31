@@ -1,9 +1,31 @@
 {config_load file="lang_`$language`.custom"}
 {* ============================================================
-   MRH 2026 – Mobile Bottom Bar
+   MRH 2026 – Mobile Bottom Bar + Suche-Overlay
    Fixiert am unteren Bildschirmrand, nur auf Mobile sichtbar
-   Items: Home, Suche, Seedfinder, Merkliste, Warenkorb
+   Items: Home, Suche (Overlay), Seedfinder, Merkliste (Badge), Warenkorb (Badge)
    ============================================================ *}
+
+{* ── SUCHE OVERLAY ── *}
+<div class="mrh-search-overlay" id="mrhSearchOverlay">
+  <div class="mrh-search-overlay-bg" id="mrhSearchOverlayBg"></div>
+  <div class="mrh-search-overlay-content">
+    <div class="mrh-search-overlay-header">
+      <span class="mrh-search-overlay-title">{#bb_search#}</span>
+      <button type="button" class="mrh-search-overlay-close" id="mrhSearchOverlayClose" aria-label="{#close_button#}">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <form action="advanced_search_result.php" method="get" class="mrh-search-overlay-form">
+      <div class="mrh-search-overlay-input-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" name="keywords" placeholder="{#bb_search_placeholder#}" autocomplete="off" autofocus>
+      </div>
+      <button type="submit" class="mrh-search-overlay-submit">{#bb_search#}</button>
+    </form>
+  </div>
+</div>
+
+{* ── BOTTOM BAR ── *}
 <nav class="mrh-bottom-bar" id="mrhBottomBar" aria-label="Mobile Navigation">
   <ul>
     <li>
@@ -28,9 +50,7 @@
       <a href="{if isset($wishlist)}{$wishlist}{else}/wishlist.php{/if}" aria-label="{#bb_wishlist#}">
         <i class="fa-solid fa-heart"></i>
         <span>{#bb_wishlist#}</span>
-        {if isset($box_WISHLIST_COUNT) && $box_WISHLIST_COUNT > 0}
-          <span class="mrh-bb-badge">{$box_WISHLIST_COUNT}</span>
-        {/if}
+        <span class="mrh-bb-badge mrh-bb-wish-count" style="display:none;"></span>
       </a>
     </li>
     <li>

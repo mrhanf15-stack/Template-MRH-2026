@@ -182,6 +182,7 @@ bb_search = 'Search'
 bb_seedfinder = 'Seedfinder'
 bb_wishlist = 'Wishlist'
 bb_cart = 'Cart'
+bb_search_placeholder = 'Search cannabis seeds...'
 
 # ============================================================
 # MRH 2026 – Topbar & Shipping Bar

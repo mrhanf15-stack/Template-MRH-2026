@@ -186,6 +186,7 @@ bb_search = 'Suche'
 bb_seedfinder = 'Seedfinder'
 bb_wishlist = 'Merkliste'
 bb_cart = 'Warenkorb'
+bb_search_placeholder = 'Cannabis Samen suchen...'
 
 # ============================================================
 # MRH 2026 – Topbar & Shipping Bar
