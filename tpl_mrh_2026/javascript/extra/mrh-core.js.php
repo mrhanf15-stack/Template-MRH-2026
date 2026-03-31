@@ -535,6 +535,27 @@
       };
     },
 
+    /**
+     * Prüft ob eine Dashboard-Config (window.MRH_MEGAMENU_CONFIG) für
+     * die gegebene Kategorie existiert. Gibt die Config zurück oder null.
+     */
+    getDashboardConfig: function(parentText) {
+      var dashConfig = window.MRH_MEGAMENU_CONFIG;
+      if (!dashConfig || !Array.isArray(dashConfig)) return null;
+
+      var textLower = (parentText || '').toLowerCase().trim();
+
+      for (var i = 0; i < dashConfig.length; i++) {
+        var entry = dashConfig[i];
+        var entryName = (entry.parent_name || '').toLowerCase().trim();
+        // Match: Exakt oder enthält
+        if (entryName === textLower || textLower.indexOf(entryName) > -1 || entryName.indexOf(textLower) > -1) {
+          return entry;
+        }
+      }
+      return null;
+    },
+
     buildDropdown: function(subUl, parentHref, parentText) {
       var dropdown = document.createElement('div');
       dropdown.className = 'mrh-mega-dropdown';
@@ -542,16 +563,15 @@
       var content = document.createElement('div');
       content.className = 'mrh-mega-content';
 
-      // Kategorie-spezifische Spalten-Konfiguration (SEO 2026)
-      var config = this.getCategoryConfig(parentText);
-      var colIcons = config.icons;
-      var colTitles = config.titles;
-      var maxPerCol = config.maxPerCol || 5;
+      // ============================================================
+      // PRIORITÄT 1: Dashboard-Config (window.MRH_MEGAMENU_CONFIG)
+      // Nutzt System-URLs (index.php?cPath=...) – zukunftssicher!
+      // ============================================================
+      var dashConfig = this.getDashboardConfig(parentText);
 
-      // MODUS A: Statische Links (für Samen Shop – Level-2 Kategorien fest definiert)
-      if (config.useStaticOnly && config.staticLinks) {
-        config.staticLinks.forEach(function(colLinks, idx) {
-          if (!colLinks || colLinks.length === 0) return;
+      if (dashConfig?.columns?.length > 0) {
+        dashConfig.columns.forEach(function(column, idx) {
+          if (!column.items || column.items.length === 0) return;
 
           var col = document.createElement('div');
           col.className = 'mrh-mega-col';
@@ -559,17 +579,17 @@
           // Spalten-Titel
           var title = document.createElement('div');
           title.className = 'mrh-mega-col-title';
-          title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
-                            (colTitles[idx] || 'Kategorie ' + (idx + 1));
+          var iconHtml = column.icon ? '<span class="mrh-mega-col-icon">' + column.icon + '</span> ' : '';
+          title.innerHTML = iconHtml + (column.title || 'Spalte ' + (idx + 1));
           col.appendChild(title);
 
-          // Statische Links
+          // Links aus Dashboard-Config (cPath-basierte System-URLs)
           var ul = document.createElement('ul');
-          colLinks.slice(0, maxPerCol).forEach(function(linkData) {
+          column.items.forEach(function(item) {
             var li = document.createElement('li');
             var link = document.createElement('a');
-            link.href = linkData.href;
-            link.textContent = linkData.text;
+            link.href = item.url || ('index.php?cPath=' + (item.cpath || item.category_id));
+            link.textContent = item.label || '';
             li.appendChild(link);
             ul.appendChild(li);
           });
@@ -584,20 +604,63 @@
 
           content.appendChild(col);
         });
+
       } else {
-        // MODUS B: Dynamische Zuordnung aus CatNavi (für Growshop, Headshop etc.)
-        var subItems = MRH.Utils.qsa(':scope > li', subUl);
-        var colKeywords = config.columns || [];
-        var columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
+        // ============================================================
+        // PRIORITÄT 2: Fallback auf getCategoryConfig (hardcoded)
+        // Wird nur genutzt wenn keine Dashboard-Config existiert
+        // ============================================================
+        var config = this.getCategoryConfig(parentText);
+        var colIcons = config.icons;
+        var colTitles = config.titles;
+        var maxPerCol = config.maxPerCol || 5;
 
-        columns.forEach(function(colItems, idx) {
-          if (colItems.length === 0) return;
+        // MODUS A: Statische Links (für Samen Shop – Level-2 Kategorien fest definiert)
+        if (config.useStaticOnly && config.staticLinks) {
+          config.staticLinks.forEach(function(colLinks, idx) {
+            if (!colLinks || colLinks.length === 0) return;
 
-          var col = document.createElement('div');
-          col.className = 'mrh-mega-col';
+            var col = document.createElement('div');
+            col.className = 'mrh-mega-col';
 
-          // Spalten-Titel
-          var title = document.createElement('div');
+            var title = document.createElement('div');
+            title.className = 'mrh-mega-col-title';
+            title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
+                              (colTitles[idx] || 'Kategorie ' + (idx + 1));
+            col.appendChild(title);
+
+            var ul = document.createElement('ul');
+            colLinks.slice(0, maxPerCol).forEach(function(linkData) {
+              var li = document.createElement('li');
+              var link = document.createElement('a');
+              link.href = linkData.href;
+              link.textContent = linkData.text;
+              li.appendChild(link);
+              ul.appendChild(li);
+            });
+            col.appendChild(ul);
+
+            var allLink = document.createElement('a');
+            allLink.href = parentHref;
+            allLink.className = 'mrh-mega-all';
+            allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+            col.appendChild(allLink);
+
+            content.appendChild(col);
+          });
+        } else {
+          // MODUS B: Dynamische Zuordnung aus CatNavi
+          var subItems = MRH.Utils.qsa(':scope > li', subUl);
+          var colKeywords = config.columns || [];
+          var columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
+
+          columns.forEach(function(colItems, idx) {
+            if (colItems.length === 0) return;
+
+            var col = document.createElement('div');
+            col.className = 'mrh-mega-col';
+
+            var title = document.createElement('div');
           title.className = 'mrh-mega-col-title';
           title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
                             (colTitles[idx] || 'Kategorie ' + (idx + 1));
