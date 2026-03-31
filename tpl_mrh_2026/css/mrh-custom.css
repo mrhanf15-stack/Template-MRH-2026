@@ -405,7 +405,7 @@ div.navibar,
 
 /* ---- 04b: Nav-Bar Container (grüner Hintergrund) ---- */
 .main-header-menu-row {
-  background: var(--tpl-main-color) !important;
+  background: var(--mrh-menu-bg, var(--tpl-main-color)) !important;
   border: none !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -439,7 +439,7 @@ div.navibar,
   align-items: center;
   gap: 6px;
   padding: 12px 16px;
-  color: #fff !important;
+  color: var(--mrh-menu-text, #fff) !important;
   font-family: var(--tpl-font-heading), sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -453,8 +453,8 @@ div.navibar,
 }
 .mrh-nav-item:hover,
 .mrh-nav-item:focus {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #fff !important;
+  background-color: var(--mrh-menu-hover, rgba(255, 255, 255, 0.15));
+  color: var(--mrh-menu-text, #fff) !important;
 }
 .mrh-nav-item i {
   font-size: 13px;
@@ -470,7 +470,7 @@ div.navibar,
 
 /* Aktiver Nav-Item Indikator */
 .mrh-nav-item.active {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--mrh-menu-hover, rgba(255, 255, 255, 0.15));
 }
 .mrh-nav-item.active::after {
   content: '';
@@ -479,7 +479,7 @@ div.navibar,
   left: 12px;
   right: 12px;
   height: 3px;
-  background: #fff;
+  background: var(--mrh-menu-active, #fff);
   border-radius: 3px 3px 0 0;
 }
 
@@ -690,7 +690,7 @@ div.navibar,
   left: 0;
   right: 0;
   z-index: 1030;
-  background-color: var(--tpl-bg-color);
+  background-color: var(--mrh-sticky-bg, var(--tpl-bg-color));
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: transform 0.3s ease;
   animation: mrh-slideDown 0.3s ease;
@@ -716,7 +716,7 @@ div.navibar,
 }
 #main-header.mrh-sticky #toggle_mobilemenu .fa-solid {
   font-size: 20px;
-  color: var(--tpl-text-standard);
+  color: var(--mrh-sticky-text, var(--tpl-text-standard));
   transition: color 0.2s ease;
 }
 #main-header.mrh-sticky #toggle_mobilemenu:hover .fa-solid,
@@ -1250,3 +1250,41 @@ body.mrh-no-scroll {
     }
   }
 }
+
+/* ============================================================
+   KONFIGURATOR – Farb-Preview-Boxen (demo-farbe)
+   ============================================================ */
+.demo-farbe {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 8px;
+  margin-top: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+/* Bestehende Farben */
+.demo-farbe.tpl-main-color     { background-color: var(--tpl-main-color) !important; }
+.demo-farbe.tpl-main-color-2   { background-color: var(--tpl-main-color-2) !important; }
+.demo-farbe.tpl-bg-color        { background-color: var(--tpl-bg-color) !important; }
+.demo-farbe.tpl-bg-color-2      { background-color: var(--tpl-bg-color-2) !important; }
+.demo-farbe.tpl-bg-productbox   { background-color: var(--tpl-bg-productbox) !important; }
+.demo-farbe.tpl-bg-footer       { background-color: var(--tpl-bg-footer) !important; }
+.demo-farbe.tpl-text-standard   { background-color: var(--tpl-text-standard) !important; }
+.demo-farbe.tpl-text-headings   { background-color: var(--tpl-text-headings) !important; }
+.demo-farbe.tpl-text-button     { background-color: var(--tpl-text-button) !important; }
+.demo-farbe.tpl-text-footer     { background-color: var(--tpl-text-footer) !important; }
+.demo-farbe.tpl-text-footer-headings { background-color: var(--tpl-text-footer-headings) !important; }
+/* Menü-Farben */
+.demo-farbe.tpl-menu-bg         { background-color: var(--tpl-menu-bg) !important; }
+.demo-farbe.tpl-menu-text       { background-color: var(--tpl-menu-text) !important; }
+.demo-farbe.tpl-menu-hover      { background-color: var(--tpl-menu-hover) !important; }
+.demo-farbe.tpl-menu-active     { background-color: var(--tpl-menu-active) !important; }
+/* Topbar-Farben */
+.demo-farbe.tpl-topbar-bg       { background-color: var(--tpl-topbar-bg) !important; }
+.demo-farbe.tpl-topbar-text     { background-color: var(--tpl-topbar-text) !important; }
+/* Sticky Header Farben */
+.demo-farbe.tpl-sticky-bg       { background-color: var(--tpl-sticky-bg) !important; }
+.demo-farbe.tpl-sticky-text     { background-color: var(--tpl-sticky-text) !important; }

@@ -1,0 +1,6 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+<div class="d-none d-lg-block">
+	<label for="box-shipping-country-select-2" class="sr-only">{#heading_shipping_country#}</label>
+    {$BOX_CONTENT|replace:'<select':'<select id="box-shipping-country-select-2"'}
+</div>

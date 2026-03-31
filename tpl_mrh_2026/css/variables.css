@@ -1,5 +1,7 @@
 :root {
-    /* MRH 2026 Design System - Mr. Hanf Corporate Identity */
+    /* MRH 2026 Design System - Mr. Hanf Corporate Identity
+       Die --tpl-* Variablen werden dynamisch von general.css.php
+       aus config/colors.json gesetzt. Hier nur Fallback-Werte. */
     --tpl-main-color: #4a8c2a;
     --tpl-main-color-2: #1e1e1e;
     --tpl-secondary-color: #3a7020;
@@ -16,16 +18,32 @@
     --tpl-font-heading: 'Plus Jakarta Sans', sans-serif;
     --tpl-font-text: 'Inter', sans-serif;
 
-    /* MRH 2026 Erweiterte Variablen */
-    --mrh-topbar-bg: #1e293b;
-    --mrh-topbar-text: #e2e8f0;
+    /* MRH 2026 Erweiterte Variablen
+       Diese --mrh-* Variablen verweisen auf die --tpl-* Konfigurator-Variablen,
+       damit Farbänderungen im Konfigurator sofort wirksam werden. */
+
+    /* Topbar: nutzt --tpl-topbar-bg / --tpl-topbar-text aus Konfigurator */
+    --mrh-topbar-bg: var(--tpl-topbar-bg, #1e293b);
+    --mrh-topbar-text: var(--tpl-topbar-text, #e2e8f0);
+
+    /* Menü-Navigation: nutzt --tpl-menu-* aus Konfigurator */
+    --mrh-menu-bg: var(--tpl-menu-bg, #16a34a);
+    --mrh-menu-text: var(--tpl-menu-text, #ffffff);
+    --mrh-menu-hover: var(--tpl-menu-hover, #38701e);
+    --mrh-menu-active: var(--tpl-menu-active, #ffffff);
+
+    /* Sticky Header: nutzt --tpl-sticky-* aus Konfigurator */
+    --mrh-sticky-bg: var(--tpl-sticky-bg, #ffffff);
+    --mrh-sticky-text: var(--tpl-sticky-text, #334155);
+
+    /* Sonstige MRH-Variablen (nicht im Konfigurator) */
     --mrh-green-light: #f0fdf4;
     --mrh-green-accent: #22c55e;
-    --mrh-shipping-bar-bg: #f0fdf4;
-    --mrh-shipping-bar-text: #3a7020;
+    --mrh-shipping-bar-bg: var(--tpl-bg-color-2, #f0fdf4);
+    --mrh-shipping-bar-text: var(--tpl-secondary-color, #3a7020);
     --mrh-header-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    --mrh-nav-bg: #ffffff;
-    --mrh-nav-hover: #f0fdf4;
-    --mrh-badge-bg: #4a8c2a;
-    --mrh-badge-text: #ffffff;
+    --mrh-nav-bg: var(--tpl-bg-color, #ffffff);
+    --mrh-nav-hover: var(--tpl-bg-color-2, #f0fdf4);
+    --mrh-badge-bg: var(--tpl-main-color, #4a8c2a);
+    --mrh-badge-text: var(--tpl-text-button, #ffffff);
 }

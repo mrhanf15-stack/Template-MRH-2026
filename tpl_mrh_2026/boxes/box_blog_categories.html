@@ -1,0 +1,17 @@
+{if !empty($BOX_CONTENT)}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="blog"}
+
+<div class="card mb-4" id="box-blog-categories">
+  <div class="card-header">{#box_blog_categories#}</div>
+  <div class="card-body link">
+    <ul class="list-unstyled m-0">
+    {foreach name=aussen item=data from=$BOX_CONTENT}
+    <li class="level1{if $data.CURRENT == true} current{/if}"><a href="{$data.LINK}" title="{$data.NAME|onlytext}">{$data.NAME}</a></li>        
+    {/foreach}
+    </ul>
+  </div>
+</div>
+
+{/if}

@@ -1,0 +1,37 @@
+select{background-color:#7f8c8d;border:0 solid #ecf0f1;border-radius:4px;color:#fff;float:left;height:30px;line-height:30px;margin-bottom:15px;text-indent:15px;width:60%!important}selected{visibility:hidden}.sc_bot{padding:5px 40px}.c{color:red;font-size:10pt}.b{color:red;font-size:10pt}option{color:#fff}.l{color:#fff}.topdist2{background:#f1f5f4}.topdist1{background:#fbfbfb}#bank{display:none}#btn-bk{display:none}.descpoinzer{cursor:pointer}.descpoinzer{background-color:#17a2b8;border:medium none;border-radius:4px;color:#fff;cursor:pointer;display:inline-block;font-size:18px;padding:10px;text-align:center;transition:all .5s ease 0s;width:150px}.descpoinzer span{cursor:pointer;display:inline-block;position:relative;transition:.5s}.descpoinzer span:after{content:'\003e\003e';position:absolute;opacity:0;top:0;right:-10px;transition:.5s}.descpoinzer:hover span{padding-right:25px}.descpoinzer:hover span:after{ opacity:1;right:0}INPUT.printbut{background:#17a2b8;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;font-family:Georgia;color:#f7f4f7;font-size:18px;padding:10px 20px 10px 20px;text-decoration:none; margin-right: 10px;}INPUT.printbut:hover{background:#108cca;text-decoration:none;},A,BODY,DIV,P,SPAN,TABLE,TD,TR{font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size:11pt}BODY{background:#fff;color:#000;margin:20px;padding:20px}select{background-color:#7f8c8d;border:0 solid #ecf0f1;border-radius:4px;color:#fff;height:30px;line-height:30px;margin-bottom:15px;margin-left:50px;text-indent:15px;width:80%!important}selected{visibility:hidden}.sc_bot{padding:5px 40px}.c{color:red;font-size:10pt}.b{color:red;font-size:10pt}option{color:#fff}.l{color:#fff}.topdist2{background:#f1f5f4}.topdist1{background:#fbfbfb}#bank{display:none}#btn-bk{display:none}.descpoinzer{cursor:pointer}.descpoinzer{background-color:#17a2b8;border:medium none;border-radius:4px;color:#fff;cursor:pointer;display:inline-block;font-size:18px;padding:5px;text-align:center;transition:all .5s ease 0s;width:150px}.descpoinzer span{cursor:pointer;display:inline-block;position:relative;transition:.5s}.descpoinzer span:after{content:'\003e\003e';position:absolute;opacity:0;top:0;right:-10px;transition:.5s}.descpoinzer:hover span{padding-right:25px}.descpoinzer:hover span:after{opacity:1;right:0}input{border-bottom:solid 1px #c1c1c1;padding:5px;border-top:none;border-right:none;border-left:none;line-height:normal}[name=company],[name=dob],input[class=ipt_print],input[name=country],input[name=email_address],input[name=firstname],input[name=lastname],input[name=street_address],input[name=telephone]{width:80%}input[name="cart_quantity[]"]{width:30px;border:0}input[name=city],input[name=postcode]{width:auto}.off{display:none}input[type=checkbox],input[type=radio]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}input[type=checkbox]{-ms-transform:scale(1.5);-moz-transform:scale(1.5);-webkit-transform:scale(1.5);-o-transform:scale(1.5);padding:5px;margin-right:5px}.form_print{width:80px} 
+body {
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: left;
+} 
+.sslboxs {
+	bottom: 60px;
+	position: fixed;
+	right: 0;
+	z-index: 10000;
+}
+
+.box { display: none; } 
+@media screen and (min-width: 1200px) {
+	.sslbox {
+		margin: 30px;
+		position: fixed;
+		right: 0;
+		top: 0;
+		z-index: 10000;
+	}
+}
+
+.d-none { display: none; }
+@media (min-width: 768px) {
+	.d-md-block { display: block !important; }
+}
+@media (min-width: 992px) {
+	.d-lg-block { display: block !important; }
+}
+
+#ot-total { font-weight: 700; font-size: 16px; line-height: 1.5; color: #495057;} 
+.seconds,.minutes  { display: none; }

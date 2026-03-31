@@ -1,0 +1,23 @@
+
+/* /templates/[YOUR_TEMPLATE]/css/shopmodule_advanced_contact.css */
+
+form#shopmodule_advanced_contact label .required {
+  margin-left: 3px;
+  vertical-align: super;
+}
+
+form#shopmodule_advanced_contact .error,
+form#shopmodule_advanced_contact .error + input,
+form#shopmodule_advanced_contact .error + textarea {
+}
+
+form#shopmodule_advanced_contact .error {
+  color: #A94442;
+  display: block;
+}
+
+form#shopmodule_advanced_contact .error + input,
+form#shopmodule_advanced_contact .error + textarea {
+  background-color: #F2DEDE;
+  border: solid #DCA7A7 1px;
+}

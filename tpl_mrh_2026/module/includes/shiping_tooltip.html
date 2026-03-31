@@ -1,0 +1,97 @@
+
+    <div class="legend mb-2"> <!-- Statusanzeige mit Bootstrap Modal -->
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- Auf Lager -->
+        <div class="text-center" style="display: inline-block;">
+          <div class="d-flex justify-content-center align-items-center mb-1">
+            <div class="stock-indicator rounded-circle" style="width:12px; height:12px; background-color: rgba(135, 165, 22, 0.6);" 
+                aria-hidden="true">&nbsp;</div>
+          </div>
+          <small><span class="text-dark" style="font-size:12px;">{#shipping_lager#}</span></small>
+        </div>
+        
+        <!-- Nachbestellzeit -->
+        <div class="text-center" style="display: inline-block;">
+          <div class="d-flex justify-content-center align-items-center mb-1">
+            <div class="stock-indicator rounded-circle" style="width:12px; height:12px; background-color: rgba(237, 173, 68, 0.6);" 
+                aria-hidden="true">&nbsp;</div>
+          </div>
+          <small><span class="text-dark m2" style="font-size:12px;">{#shipping_lagerson#}</span></small>
+        </div>
+        
+        <!-- Ausverkauft -->
+        <div class="text-center" style="display: inline-block;">
+          <div class="d-flex justify-content-center align-items-center mb-1">
+            <div class="stock-indicator rounded-circle" style="width:12px; height:12px; background-color: rgba(220, 53, 69, 0.6);" 
+                aria-hidden="true">&nbsp;</div>
+          </div>
+          <small><span class="text-dark" style="font-size:12px;">{#shipping_lagers#}</span></small>
+        </div>
+        
+        <!-- Info Icon - öffnet Bootstrap Modal -->
+        <div class="text-center ml-2">
+          <span class="fa fa-info-circle" 
+             data-bs-toggle="modal" 
+             data-bs-target="#stockInfoModal"
+             tabindex="0"
+             role="button"
+             aria-label="{#shipping_ils#}" style="font-size: 25px">
+          </span>
+        </div>
+      </div>
+    </div>
+
+  <!-- Bootstrap Modal für Tooltip-Inhalt -->
+  <div class="modal fade" id="stockInfoModal" tabindex="-1" role="dialog" aria-labelledby="stockInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-tooltip" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="stockInfoModalLabel">{#shipping_ils#}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+<div class="modal-body">
+    <p class="mb-2">
+        <div class="d-flex align-items-center">
+            <div class="stock-indicator rounded-circle mr-2" style="width:12px; height:12px; background-color: rgba(135, 165, 22, 0.6);" aria-hidden="true"></div>
+            <strong>{#availability_in_stock_title#}:</strong>
+        </div>
+  
+        <span>{#availability_in_stock_description#}</span>
+    </p>
+    <p class="mb-2">
+        <div class="d-flex align-items-center">
+            <div class="stock-indicator rounded-circle mr-2" style="width:12px; height:12px; background-color: rgba(237, 173, 68, 0.6);" aria-hidden="true"></div>
+            <strong>{#availability_reordered_title#}:</strong>
+        </div>
+
+        <span>{#availability_reordered_description#}</span>
+    </p>
+    <p class="mb-0">
+        <div class="d-flex align-items-center">
+            <div class="stock-indicator rounded-circle mr-2" style="width:12px; height:12px; background-color: rgba(220, 53, 69, 0.6);" aria-hidden="true"></div>
+            <strong>{#availability_sold_out_title#}:</strong>
+        </div>
+    
+        <span>{#availability_sold_out_description#}</span>
+    </p>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+ 
+  <script>
+    // Tastaturunterstützung für das Info-Icon
+    $(document).ready(function() {
+      $('.info-icon').on('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          $(this).click();
+        }
+      });
+    });
+  </script>
+ 
