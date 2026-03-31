@@ -1,7 +1,193 @@
-# MRH 2026 Template - Custom Sprachdatei (Deutsch)
-# Hier koennen Shop-spezifische Texte ueberschrieben werden
-# Diese Datei wird NACH der Haupt-Sprachdatei geladen
-# und ueberschreibt vorhandene Werte.
-#
-# Beispiel:
-# MRH_top1 = "+43 660 999 8888"
+zoomtext = 'F&uuml;r eine gr&ouml;&szlig;ere Ansicht klicken Sie auf das Vorschaubild'
+products_desc = 'Produktbeschreibung'
+products_fsk18_check = 'Dieser Artikel kann erst nach erfolgter Altersverifikation gekauft werden.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Eigenschaften'
+heading_products_tags = 'Produkteigenschaften'
+
+first = '&laquo; Erster'
+back = '&laquo; vorheriger'
+overview = '&Uuml;bersicht'
+next = 'n&auml;chster &raquo;'
+last = 'Letzter &raquo;'
+
+heading_miscellaneous = 'Zahlungsmethoden'
+text_miscellaneous = 'Die Box kann unter tpl_modified_responsive/boxes/box_miscellaneous.html ver&auml;ndert werden. Die Sprachvariablen befinden sich in der Datei tpl_modified_responsive/lang/german/lang_german.custom.'
+
+ab_admin = 'Adminbereich'
+ab_orders = 'Bestellungen'
+ab_contentmanager = 'Content Manager'
+ab_customers = 'Kunden'
+ab_category = 'Kategorien/Artikel'
+ab_logoff = 'Abmelden'
+ab_news = 'News'
+ab_offline = 'Shop Offline'
+ab_update = 'Update'
+ab_support = 'Support'
+ab_shop = 'Shop'
+ab_caching = 'Caching'
+
+ab_edit_content = 'Content bearbeiten'
+ab_edit_product = 'Artikel bearbeiten'
+ab_edit_attributes = 'Attribute editieren'
+ab_edit_category = 'Kategorie bearbeiten'
+ab_edit_xsell = 'Cross Selling bearbeiten'
+ab_edit_tags = 'Artikeleigenschaften'
+ab_edit_manufacturer = 'Hersteller bearbeiten'
+
+info_reviews = 'Bewertungen:'
+info_review = 'Bewertung:'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = 'Die Suche ergab keine genauen Treffer'
+
+listing_listview = 'Listenansicht'
+listing_boxview = 'Boxansicht'
+
+subcats_menu_heading = 'Kategorien'
+
+# Header # 
+link_settings = 'Einstellungen'
+link_specials = 'Angebote'
+link_whatsnew = 'Neue Artikel'
+link_cart = 'Warenkorb'
+link_menu = 'Men&uuml;'
+link_search = 'Suchen'
+
+addquickie_placeholder = 'Artikelnummer ...'
+heading_flyout_text_quickie = 'Bitte geben Sie eine Artikelnummer ein.'
+heading_flyout_product_cart = 'Artikel im Warenkorb'
+heading_flyout_product_wishlist = 'Artikel auf dem Merkzettel'
+heading_flyout_qty = 'Anzahl:'
+heading_flyout_cart = 'Warenkorb anzeigen'
+heading_flyout_checkout = 'Weiter zur Kasse'
+heading_flyout_wishlist = 'Merkzettel anzeigen'
+
+heading_box_languages = 'Sprachen'
+
+header_back_to_shop = 'Zur&uuml;ck zum Shop'
+header_back_to_cart = 'Zur&uuml;ck zum Warenkorb'
+
+# Box Newsletter #
+subfooter_newsletter_headline = 'Abonnieren Sie unseren Newsletter'
+subfooter_newsletter_text = 'Kostenlose exklusive Angebote und Produktneuheiten per E-Mail'
+subfooter_newsletter_disclaim = 'Der Newsletter ist kostenlos und kann jederzeit hier oder in Ihrem Kundenkonto wieder abbestellt werden.'
+subfooter_text_email = 'Ihre E-Mail-Adresse ...'
+
+
+# Footer #
+footer_price_hinweis_1 = 'Alle Preise'
+footer_price_hinweis_incl = 'inkl.'
+footer_price_hinweis_excl = 'exkl.'
+footer_price_hinweis_2 = 'gesetzl. MwSt. zzgl.'
+footer_price_hinweis_3 = 'Versandkosten'
+footer_price_hinweis_4 = 'Die durchgestrichenen Preise entsprechen dem bisherigen Preis bei'
+
+footer_heading_payment = 'Zahlungsmethoden'
+footer_heading_social = 'Social Media'
+footer_heading_contact = 'Kontakt'
+footer_text_contact = 'MRH N-Trade GmbH<br />Innsbruck, &Ouml;sterreich<br /><br />Telefon: +43 512 312 411<br />Mail: info@mr-hanf.com'
+
+text_expires_date = 'Sonderangebot g&uuml;ltig bis:'
+products_flag_new = 'Neu'
+
+
+
+
+liefernmit = 'Versanddienstleister'
+zahlungsweisen = 'Zahlungsweisen'
+topprodukte = 'Unsere Empfehlungen'
+neueprodukte = 'Unsere Neuheiten'
+heading_content = 'Mehr &uuml;ber...'
+heading_information = 'Informationen'
+sortiment = 'Sortiment'
+bestseller = 'Unsere Topseller'
+saleprodukte = 'Aktuelle Angebote'
+
+headerbox_titel = 'VERSANDKOSTENFREI'
+headerbox_text = 'Ab Bestellwert von 50&euro; innerhalb DE'
+
+ihrwegzuuns = 'Ihr Weg zu uns'
+indenwarenkorb = 'In den Warenkorb'
+randomproducts = 'Zuf&auml;llige Produktauswahl'
+text_shippingtime = 'Lieferzeit'
+
+cookies_text = 'Diese Webseite verwendet Cookies, um Ihnen die bestm&ouml;gliche Online-Shopping-Erfahrung zu garantieren.'
+cookies_linktext = 'Weitere Informationen zum Datenschutz.'
+
+ichakzeptieredie = 'Ich akzeptiere die'
+Datenschutzrichtlinien = 'Datenschutzrichtlinien'
+
+newslettertext = 'Wir versorgen dich mit tollen Rabatten &amp; Sale-Aktionen dazu informieren wir dich &uuml;ber die neuesten Produkte in unserem Shop.'
+
+menu = 'Men&uuml;'
+konto = 'Konto'
+einstellungen = 'Einstellungen'
+merkzettel = 'Merkzettel'
+info = 'Info'
+kasse = 'Kasse'
+kontakt = 'Kontakt'
+warenkorb = 'Warenkorb'
+coupon_note_1 = 'Achtung: Wenn Sie einen Gutschein/Coupon haben, k&ouml;nnen Sie diesen nach dem Erstellen Ihres Kundenkontos '
+coupon_note_2 = 'einl&ouml;sen.'
+coupon_note_link = 'hier'
+
+lieferzeit = 'Lieferzeit'
+folgeuns = 'Folge uns'
+
+unsere_topseller = 'Unsere Topseller'
+zufaellige_produkte = 'Zuf&auml;llige Produktauswahl'
+
+service_1_title = 'Sie haben Fragen? Wir antworten!'
+service_1_small = '+43 512 312 411'
+service_2_title = 'Newsletter abonnieren'
+service_2_small = 'und keine Angebote verpassen '
+service_3_title = 'Blitzlieferungen'
+service_3_small = 'in nur 2 - 4 Tagen'
+
+details = 'Details'
+close_button = 'Schlie&szlig;en'
+view_product = 'Produkt aufrufen:'
+wishlist_product = 'Zum Merkzettel hinzuf&uuml;gen:'
+
+# WCAG aria-label texts
+search_start = 'Suche starten'
+shop_home = 'Shop-Startseite'
+social_on = 'auf'
+
+# WCAG Mobile Menu Labels (aus BS4 Original - werden im Template verwendet)
+mobile_menu_navigation = 'Mobile Men&uuml; Navigation'
+
+# WCAG Cart/Wishlist Content Labels
+cart_content_aria_label = 'Artikel im Warenkorb'
+wishlist_content_aria_label = 'Artikel auf dem Merkzettel'
+
+manufacturer_add_description = 'Herstellerkennzeichnung'
+heading_reviews = 'Rezensionen'
+
+# Currency selection labels for WCAG compliance
+heading_currencies = 'W&auml;hrung'
+currency_select_label = 'W&auml;hrung ausw&auml;hlen'
+currency_apply_button = 'W&auml;hrung &uuml;bernehmen'
+currency_auto_change_info = 'Die W&auml;hrung wird automatisch ge&auml;ndert, wenn Sie eine andere Option ausw&auml;hlen'
+
+# Shipping country selection labels for WCAG compliance
+heading_shipping_country = 'Lieferland'
+shipping_country_select_label = 'Lieferland ausw&auml;hlen'
+shipping_country_apply_button = 'Lieferland &uuml;bernehmen'
+shipping_country_auto_change_info = 'Das Lieferland wird automatisch ge&auml;ndert, wenn Sie eine andere Option ausw&auml;hlen'
+
+# ============================================================
+# MRH 2026 – Topbar & Shipping Bar
+# ============================================================
+mrh_topbar_phone = '+43 512 312 411'
+mrh_topbar_delivery = 'Schnelle Lieferung'
+mrh_topbar_payment = 'Einfache, sichere Zahlung'
+mrh_topbar_letter = 'Briefbestellung'
+mrh_topbar_freeshipping = 'Kostenfrei ab: AT 40&euro;, DE 85&euro;, EU 150&euro;'
+mrh_shipping_bar_text = 'Kostenloser Versand ab 40&euro; Bestellwert'
+# Länderspezifische Versandkostenfrei-Schwellen (für JS)
+mrh_freeship_at = '40'
+mrh_freeship_de = '85'
+mrh_freeship_eu = '150'

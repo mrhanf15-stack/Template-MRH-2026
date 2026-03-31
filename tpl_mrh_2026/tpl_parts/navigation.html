@@ -1,0 +1,42 @@
+{config_load file="lang_`$language`.custom"}
+
+<nav class="mrh-mega-nav" id="mrhMegaNav" aria-label="Hauptnavigation">
+	<div class="mrh-mega-nav-bar">
+		{* Home-Icon *}
+		<a href="{$index}" class="mrh-nav-item mrh-nav-home" aria-label="{#shop_home#}" title="{#shop_home#}">
+			<i class="fa-solid fa-house"></i>
+		</a>
+
+		{* Kategorien aus box_CATEGORIES werden per JS in die Nav-Bar eingefügt *}
+		<div class="mrh-nav-categories" id="mrhNavCategories">
+			{$box_CATEGORIES}
+		</div>
+
+		{* Statische Nav-Items mit Icons (Wireframe) *}
+		<a href="/angebote/" class="mrh-nav-item" data-nav="angebote">
+			<i class="fa-solid fa-tags"></i> <span>{#nav_angebote#}</span>
+		</a>
+		<a href="/neue-artikel/" class="mrh-nav-item" data-nav="neue-artikel">
+			<i class="fa-solid fa-sparkles"></i> <span>{#nav_neue_artikel#}</span>
+		</a>
+		<a href="/marken/" class="mrh-nav-item" data-nav="marken">
+			<i class="fa-solid fa-award"></i> <span>{#nav_marken#}</span>
+		</a>
+		<a href="/blog/" class="mrh-nav-item" data-nav="blog">
+			<i class="fa-solid fa-newspaper"></i> <span>{#nav_blog#}</span>
+		</a>
+		<a href="/seedfinder/" class="mrh-nav-item" data-nav="seedfinder">
+			<i class="fa-solid fa-magnifying-glass"></i> <span>{#nav_seedfinder#}</span>
+		</a>
+	</div>
+
+	{* Mega-Menü Promo-Daten als data-Attribute (für JS) *}
+	<div id="mrhMegaPromoData" style="display:none"
+		data-title="{#mega_promo_title#}"
+		data-brand="{#mega_promo_brand#}"
+		data-text="{#mega_promo_text#}"
+		data-button="{#mega_promo_button#}"
+		data-link="{#mega_promo_link#}"
+		data-icon="{#mega_promo_icon#}">
+	</div>
+</nav>

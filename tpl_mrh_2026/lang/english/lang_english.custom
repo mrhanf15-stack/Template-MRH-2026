@@ -1,4 +1,189 @@
-# MRH 2026 Template - Custom Language File (English)
-# Shop-specific text overrides go here.
-# This file is loaded AFTER the main language file
-# and overrides existing values.
+zoomtext = 'For a larger view click on the thumbnail'
+products_desc = 'Product description'
+products_fsk18_check = 'This article can only be purchased after age verification.'
+products_manufacturer_model = 'MPN:'
+products_tags = 'Features'
+heading_products_tags = 'Product Features'
+
+first = '&laquo; First'
+back = '&laquo; Previous'
+overview = 'Overview'
+next = 'Next &raquo;'
+last = 'Last &raquo;'
+
+heading_miscellaneous = 'Payment methods'
+text_miscellaneous = 'The box can be modified in tpl_modified_responsive/boxes/box_miscellaneous.html. The language variables are located in the file tpl_modified_responsive/lang/german/lang_german.custom.'
+
+ab_admin = 'Admin area'
+ab_orders = 'Orders'
+ab_contentmanager = 'Content Manager'
+ab_customers = 'Customers'
+ab_category = 'Categories/Products'
+ab_logoff = 'Logoff'
+ab_news = 'News'
+ab_offline = 'Shop Offline'
+ab_update = 'Update'
+ab_support = 'Support'
+ab_shop = 'Shop'
+ab_caching = 'Caching'
+
+ab_edit_content = 'Edit content'
+ab_edit_product = 'Edit product'
+ab_edit_attributes = 'Edit attributes'
+ab_edit_category = 'Edit category'
+ab_edit_xsell = 'Edit cross selling'
+ab_edit_tags = 'Edit product features'
+ab_edit_manufacturer = 'Edit Manufacturer'
+
+info_reviews = 'Reviews:'
+info_review = 'Review:'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = 'Sorry, no exact matches found'
+
+listing_listview = 'List view'
+listing_boxview = 'Box view'
+
+subcats_menu_heading = 'Categories'
+
+# Header # 
+link_settings = 'Settings'
+link_specials = 'Special offers'
+link_whatsnew = 'New products'
+link_cart = 'Shopping cart'
+link_menu = 'Menu'
+link_search = 'Search'
+
+addquickie_placeholder = 'Article no ...'
+heading_flyout_text_quickie = 'Please enter an article number.'
+heading_flyout_product_cart = 'Products in the cart'
+heading_flyout_product_wishlist = 'Products on the wishlist'
+heading_flyout_qty = 'Quantity:'
+heading_flyout_cart = 'Show cart'
+heading_flyout_checkout = 'Proceed to checkout'
+heading_flyout_wishlist = 'Show wishlist'
+
+heading_box_languages = 'Languages'
+
+header_back_to_shop = 'Back to shop'
+header_back_to_cart = 'Back to cart'
+
+# Box Newsletter #
+subfooter_newsletter_headline = 'Subscribe to our newsletter'
+subfooter_newsletter_text = 'Free exclusive offers and new products by email'
+subfooter_newsletter_disclaim = 'Our newsletter is free and can be unsubscribed here or in your customer account at any time.'
+subfooter_text_email = 'Your email address ...'
+
+# Footer #
+footer_price_hinweis_1 = 'All prices'
+footer_price_hinweis_incl = 'incl.'
+footer_price_hinweis_excl = 'excl.'
+footer_price_hinweis_2 = 'VAT. plus'
+footer_price_hinweis_3 = 'shipping costs'
+footer_price_hinweis_4 = 'The crossed out prices correspond to the previous price at'
+
+footer_heading_payment = 'Payment methods'
+footer_heading_social = 'Social Media'
+footer_heading_contact = 'Contact'
+footer_text_contact = 'MRH N-Trade GmbH<br />Innsbruck, Austria<br /><br />Phone: +43 512 312 411<br />Email: info@mr-hanf.com'
+
+text_expires_date = 'Special offer valid until:'
+products_flag_new = 'New'
+
+liefernmit = 'Shipping provider'
+zahlungsweisen = 'Payment methods'
+topprodukte = 'Our recommendations'
+neueprodukte = 'New products'
+heading_content = 'More about...'
+heading_information = 'Information'
+sortiment = 'Categories'
+bestseller = 'Our bestsellers'
+saleprodukte = 'Current offers'
+
+headerbox_titel = 'FREE SHIPPING'
+headerbox_text = 'From an order value of &euro;50 within DE'
+
+ihrwegzuuns = 'Your way to us'
+indenwarenkorb = 'Add to cart'
+randomproducts = 'Random product selection'
+text_shippingtime = 'Delivery time'
+
+cookies_text = 'This website uses cookies to ensure you get the best online shopping experience.'
+cookies_linktext = 'More information about data protection.'
+
+ichakzeptieredie = 'I accept the'
+Datenschutzrichtlinien = 'Privacy Policy'
+
+newslettertext = 'We provide you with great discounts &amp; sale promotions and inform you about the latest products in our shop.'
+
+menu = 'Menu'
+konto = 'Account'
+einstellungen = 'Settings'
+merkzettel = 'Wishlist'
+info = 'Info'
+kasse = 'Checkout'
+kontakt = 'Contact'
+warenkorb = 'Cart'
+coupon_note_1 = 'Note: If you have a voucher/coupon, you can redeem it after creating your customer account'
+coupon_note_2 = 'redeem it here.'
+coupon_note_link = 'here'
+
+lieferzeit = 'Delivery time'
+folgeuns = 'Follow us'
+
+unsere_topseller = 'Our bestsellers'
+zufaellige_produkte = 'Random product selection'
+
+service_1_title = 'Got questions? We got the answers!'
+service_1_small = '+43 512 312 411'
+service_2_title = 'Subscribe to our newsletter'
+service_2_small = 'and never miss special offers again!'
+service_3_title = 'Lightning-fast delivery'
+service_3_small = 'in just 2-4 days'
+
+details = 'Details'
+close_button = 'Close'
+view_product = 'Browse the product:'
+wishlist_product = 'Add the product to wishlist:'
+
+# WCAG aria-label texts
+search_start = 'Start search'
+shop_home = 'Shop homepage'
+social_on = 'on'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Mobile menu navigation'
+
+# WCAG Cart/Wishlist Content Labels
+cart_content_aria_label = 'Products in the cart'
+wishlist_content_aria_label = 'Products on the wishlist'
+
+manufacturer_add_description = 'Manufacturer Description'
+heading_reviews = 'Reviews'
+
+# Currency selection labels for WCAG compliance
+heading_currencies = 'Currency'
+currency_select_label = 'Select Currency'
+currency_apply_button = 'Apply currency selection'
+currency_auto_change_info = 'Currency will be changed automatically when you select a different option'
+
+# Shipping country selection labels for WCAG compliance
+heading_shipping_country = 'Shipping Country'
+shipping_country_select_label = 'Select Shipping Country'
+shipping_country_apply_button = 'Apply shipping country selection'
+shipping_country_auto_change_info = 'Shipping country will be changed automatically when you select a different option'
+
+# ============================================================
+# MRH 2026 – Topbar & Shipping Bar
+# ============================================================
+mrh_topbar_phone = '+43 512 312 411'
+mrh_topbar_delivery = 'Fast Delivery'
+mrh_topbar_payment = 'Easy, secure payment'
+mrh_topbar_letter = 'Letter Order'
+mrh_topbar_freeshipping = 'Free from: AT &euro;40, DE &euro;85, EU &euro;150'
+mrh_shipping_bar_text = 'Free shipping on orders over &euro;40'
+# Country-specific free shipping thresholds (for JS)
+mrh_freeship_at = '40'
+mrh_freeship_de = '85'
+mrh_freeship_eu = '150'

@@ -1,12 +1,89 @@
-{if isset($box_content)}
-{config_load file="$language/lang_$language.conf" section="boxes"}
-{config_load file="lang_`$language`.custom"}
-{* MRH 2026: Wunschzettel wird im Header-Icon angezeigt *}
-<a href="{$WISHLIST_LINK}" class="mrh-box-wishlist d-flex align-items-center gap-2 text-decoration-none position-relative" title="{#heading_wishlist#}">
-  <span class="fa fa-heart-o"></span>
-  <span class="d-none d-lg-inline small">{#heading_wishlist#}</span>
-  {if $WISHLIST_COUNT > 0}
-    <span class="mrh-badge-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{$WISHLIST_COUNT}</span>
+  {config_load file="$language/lang_$language.conf" section="boxes"}
+  {config_load file="$language/lang_$language.conf" section="wishlist"}
+  {config_load file="lang_`$language`.custom"}
+
+  {if $deny_cart != 'true'}
+    {if $empty == 'false'}
+    <a class="d-flex flex-column align-items-center justify-content-center" 
+    data-bs-toggle="offcanvas" href="#offcanvasWishlist" role="button" aria-controls="offcanvasWishlist"
+    title="{#heading_wishlist#}">
+    <span class="fa-solid fa-heart fa-xl" aria-hidden="true"></span>
+    <span class="btn-desc">{#heading_wishlist#}</span>
+      <span class="cart_content filled" aria-label="{#wishlist_content_aria_label#}: {$PRODUCTS}">{$PRODUCTS}</span>
+    </a>
+  {else}
+    <a class="d-flex flex-column align-items-center justify-content-center" 
+    data-bs-toggle="offcanvas" href="#offcanvasWishlist" role="button" aria-controls="offcanvasWishlist"
+    title="{#heading_wishlist#}">
+    <span class="fa-regular fa-heart fa-xl" aria-hidden="true"></span>
+    <span class="btn-desc">{#heading_wishlist#}</span>
+    <span class="cart_content">0</span>
+    </a>
   {/if}
-</a>
 {/if}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasWishlist" aria-labelledby="offcanvasWishlistLabel">
+	<div class="offcanvas-header">
+	  <strong class="h3 offcanvas-title" id="offcanvasWishlistLabel">{#heading_wishlist#}</strong>
+	  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="{#close_button#}">
+		<span class="visually-hidden">{#close_button#}</span>
+	  </button>
+	</div>
+	<div class="offcanvas-body">
+
+    {if $deny_cart != 'true'}
+      {if $empty == 'false'}
+  
+      
+        <div class="toggle_products">
+          {foreach name=aussen item=products_data from=$products}
+            <div class="toggle_products_item">
+              <div class="toggle_products_image">
+                <div class="toggle_products_image_inner">
+                  <div class="prod_image">
+                    {if $products_data.PRODUCTS_IMAGE != ''}
+                      {if $smarty.const.PICTURESET_ACTIVE === true}
+                        <img loading="lazy" src="{$products_data.PRODUCTS_IMAGE|replace:"thumbnail_":"mini_"}" alt="{$products_data.PRODUCTS_NAME|onlytext}" title="{$products_data.PRODUCTS_NAME|onlytext}" />
+                      {else}
+                        <img loading="lazy" src="{$products_data.PRODUCTS_IMAGE}" alt="{$products_data.PRODUCTS_NAME|onlytext}" title="{$products_data.PRODUCTS_NAME|onlytext}" />
+                      {/if}
+                    {/if}
+                  </div>
+                </div>
+              </div>
+              <div class="toggle_products_content">
+                <div class="tpc_title"><a href="{$products_data.PRODUCTS_LINK}">{$products_data.PRODUCTS_NAME}</a></div>    
+                <div class="tpc_quantity">{#heading_flyout_qty#} {$products_data.PRODUCTS_QTY}</div>
+              </div>
+              <div class="toggle_products_icon">
+                {$products_data.PRODUCTS_BUTTON_DELETE_CART}
+              </div>
+            </div>
+          {/foreach}
+        </div>
+  
+        <div class="toggle_action_1">
+          <a href="{$LINK_WISHLIST}" title="{#heading_flyout_wishlist#}">
+            <span class="cssButton cssButtonColor2" title="{#heading_flyout_wishlist#}">
+              <span class="cssButtonText">{#heading_flyout_wishlist#}</span>
+              <span class="cssButtonIcon"><i class="fa-solid fa-right-long"></i></span>
+            </span>
+          </a>
+        </div>
+  
+      {else}
+    
+        <div class="infomessage alert alert-warning">{#text_empty_wishlist_box#}</div>
+    
+        <div class="toggle_action_1">
+          <a href="{$LINK_WISHLIST}" title="{#heading_flyout_wishlist#}">
+            <span class="cssButton cssButtonColor2" title="{#heading_flyout_wishlist#}">
+              <span class="cssButtonText">{#heading_flyout_wishlist#}</span>
+              <span class="cssButtonIcon"><i class="fa-solid fa-right-long"></i></span>
+            </span>
+          </a>
+        </div>
+    
+      {/if}
+    {/if}
+</div>
+</div>

@@ -1,0 +1,97 @@
+# Die lang_german.custom wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" gesetzt ist!
+
+zoomtext = 'F&uuml;r eine gr&ouml;&szlig;ere Ansicht klicken Sie auf das Vorschaubild'
+products_desc = 'Produktbeschreibung'
+products_fsk18_check = 'Dieser Artikel kann erst nach erfolgter Altersverifikation gekauft werden.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Eigenschaften'
+heading_products_tags = 'Produkteigenschaften'
+
+first = '&laquo; Erster'
+back = '&laquo; vorheriger'
+overview = '&Uuml;bersicht'
+next = 'n&auml;chster &raquo;'
+last = 'Letzter &raquo;'
+
+heading_miscellaneous = 'Zahlungsmethoden'
+text_miscellaneous = 'Die Box kann unter tpl_modified/boxes/box_miscellaneous.html ver&auml;ndert werden. Die Sprachvariablen befinden sich in der Datei tpl_modified/lang/german/lang_german.custom.'
+
+ab_admin = 'Adminbereich'
+ab_orders = 'Bestellungen'
+ab_contentmanager = 'Content Manager'
+ab_customers = 'Kunden'
+ab_category = 'Kategorien/Artikel'
+ab_logoff = 'Abmelden'
+ab_news = 'News'
+ab_offline = 'Shop Offline'
+
+ab_edit_content = 'Content bearbeiten'
+ab_edit_product = 'Artikel bearbeiten'
+ab_edit_attributes = 'Attribute editieren'
+ab_edit_category = 'Kategorie bearbeiten'
+ab_edit_xsell = 'Cross Selling bearbeiten'
+
+info_reviews = 'Bewertungen:'
+info_review = 'Bewertung:'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = 'Die Suche ergab keine genauen Treffer'
+
+liefernmit = 'Versanddienstleister'
+zahlungsweisen = 'Zahlungsweisen'
+topprodukte = 'Unsere Empfehlungen'
+neueprodukte = 'Unsere Neuheiten'
+heading_content = 'Mehr &uuml;ber...'
+heading_information = 'Informationen'
+sortiment = 'Sortiment';
+bestseller = 'Unsere Topseller';
+
+headerbox_titel = 'VERSANDKOSTENFREI'
+headerbox_text = 'Ab Bestellwert von 50€ innerhalb DE'
+
+ihrwegzuuns = 'Ihr Weg zu uns'
+indenwarenkorb = 'In den Warenkorb'
+randomproducts = 'Zuf&auml;llige Produktauswahl'
+text_shippingtime = 'Lieferzeit'
+
+cookies_text = 'Diese Webseite verwendet Cookies, um Ihnen die bestm&ouml;gliche Online-Shopping-Erfahrung zu garantieren.'
+cookies_linktext = 'Weitere Informationen zum Datenschutz.'
+
+ichakzeptieredie = 'Ich akzeptiere die'
+Datenschutzrichtlinien = 'Datenschutzrichtlinien'
+
+newslettertext = 'Wir versorgen dich mit tollen Rabatten &amp; Sale-Aktionen dazu informieren wir dich &uuml;ber die neuesten Produkte in unserem Shop.'
+
+menu = 'Men&uuml;'
+konto = 'Konto'
+merkzettel = 'Merkzettel'
+info = 'Info'
+kasse = 'Kasse'
+kontakt = 'Kontakt'
+warenkorb = 'Warenkorb'
+coupon_note_1 = 'Achtung: Wenn Sie einen Gutschein/Coupon haben, k&ouml;nnen Sie diesen nach dem Erstellen Ihres Kundenkontos '
+coupon_note_2 = 'einl&ouml;sen.'
+coupon_note_link = 'hier'
+
+lieferzeit = 'Lieferzeit'
+folgeuns = 'Folge uns'
+
+unsere_topseller = 'Unsere Topseller'
+zufaellige_produkte = 'Zuf&auml;llige Produktauswahl'
+
+service_1_title = 'Sie haben Fragen? Wir antworten!'
+service_1_small = '+49 (0) 12 34 56 78 911'
+service_2_title = 'Newsletter abonnieren'
+service_2_small = 'und keine Angebote verpassen '
+service_3_title = 'Blitzlieferungen'
+service_3_small = 'in  nur 2 - 4 Tagen'
+
+details = 'Details'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Mobile Men&uuml; Navigation'
+
+# WCAG Cart Content Labels
+cart_content_aria_label = 'Artikel im Warenkorb'
+wishlist_content_aria_label = 'Artikel auf dem Merkzettel'

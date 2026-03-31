@@ -1,4 +1,193 @@
-# MRH 2026 Template - Fichier de langue personnalise (Francais)
-# Les textes specifiques au shop vont ici.
-# Ce fichier est charge APRES le fichier de langue principal
-# et ecrase les valeurs existantes.
+zoomtext = 'Cliquez sur l\image pour l\agrandir'
+products_desc = 'Description du produit'
+products_fsk18_check = '0'
+products_manufacturer_model = 'HAN :'
+products_tags = 'Caract&eacute;ristiques'
+heading_products_tags = 'Caract&eacute;ristiques du produit'
+
+first = '&laquo; Premier'
+back = '&laquo; pr&eacute;c&eacute;dent'
+overview = 'Aper&ccedil;u'
+next = 'prochain &raquo;'
+last = 'Dernier &raquo;'
+
+heading_miscellaneous = 'M&eacute;thodes de paiement'
+text_miscellaneous = 'La bo&icirc;te peut &ecirc;tre modifi&eacute;e dans tpl_modified_responsive/boxes/box_miscellaneous.html. Les variables de langue se trouvent dans le fichier tpl_modified_responsive/lang/french/lang_german.custom.'
+
+ab_admin = '0'
+ab_orders = 'Commandes'
+ab_contentmanager = 'Gestionnaire de contenu'
+ab_customers = 'Clients'
+ab_category = 'Cat&eacute;gories/articles'
+ab_logoff = 'Se d&eacute;sinscrire'
+ab_news = 'Actualit&eacute;s'
+ab_offline = 'Boutique hors ligne'
+ab_update = 'Mise &agrave; jour'
+ab_support = 'Support'
+ab_shop = 'Boutique'
+ab_caching = 'Mise en cache'
+
+ab_edit_content = 'Modifier le contenu'
+ab_edit_product = '0'
+ab_edit_attributes = '&Eacute;diter les attributs'
+ab_edit_category = 'Modifier la cat&eacute;gorie'
+ab_edit_xsell = 'Traiter la vente crois&eacute;e'
+ab_edit_tags = '0'
+ab_edit_manufacturer = 'Modifier le fabricant'
+
+info_reviews = '&Eacute;valuations :'
+info_review = '&eacute;valuation :'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = '0'
+
+listing_listview = 'Vue en liste'
+listing_boxview = 'Vue de la bo&icirc;te'
+
+subcats_menu_heading = 'Cat&eacute;gories'
+
+# Header # 
+link_settings = 'R&eacute;glages'
+link_specials = 'Offres'
+link_whatsnew = 'Nouveaux articles'
+link_cart = '0'
+link_menu = 'Menu'
+link_search = 'Rechercher'
+
+addquickie_placeholder = 'Num&eacute;ro d\'article ...'
+heading_flyout_text_quickie = '0'
+heading_flyout_product_cart = 'Article dans le panier'
+heading_flyout_product_wishlist = 'Articles sur le m&eacute;mo'
+heading_flyout_qty = 'nombre :'
+heading_flyout_cart = 'Voir le panier'
+heading_flyout_checkout = 'Passer &agrave; la caisse'
+heading_flyout_wishlist = 'Afficher le m&eacute;mo'
+
+heading_box_languages = 'Langues'
+
+header_back_to_shop = 'Retour &agrave; la boutique'
+header_back_to_cart = 'Retour au panier'
+
+# Box Newsletter #
+subfooter_newsletter_headline = 'Abonnez-vous &agrave; notre newsletter'
+subfooter_newsletter_text = 'Offres exclusives gratuites et nouveaux produits par e-mail'
+subfooter_newsletter_disclaim = 'La newsletter est gratuite et peut &ecirc;tre annul&eacute;e &agrave; tout moment ici ou dans votre compte client.'
+subfooter_text_email = 'Votre adresse e-mail ...'
+
+
+# Footer #
+footer_price_hinweis_1 = 'Tous les prix'
+footer_price_hinweis_incl = 'incl.'
+footer_price_hinweis_excl = 'excl.'
+footer_price_hinweis_2 = 'TVA l&eacute;gale en sus'
+footer_price_hinweis_3 = '0'
+footer_price_hinweis_4 = 'Les prix barr&eacute;s correspondent au prix pr&eacute;c&eacute;dent chez'
+
+footer_heading_payment = 'M&eacute;thodes de paiement'
+footer_heading_social = 'M&eacute;dias sociaux'
+footer_heading_contact = 'Contact'
+footer_text_contact = 'MRH N-Trade GmbH<br />Innsbruck, Autriche<br /><br />T&eacute;l&eacute;phone : +43 512 312 411<br />E-mail : info@mr-hanf.com'
+
+text_expires_date = 'Offre sp&eacute;ciale valable jusqu&apos;au :'
+products_flag_new = 'Nouveau'
+
+
+
+
+liefernmit = 'Prestataire de services d\'exp&eacute;dition'
+zahlungsweisen = 'Modes de paiement'
+topprodukte = 'Nos recommandations'
+neueprodukte = 'Nos nouveaut&eacute;s'
+heading_content = 'En savoir plus sur...'
+heading_information = 'Informations'
+sortiment = 'Gamme de produits'
+bestseller = 'Nos meilleures ventes'
+saleprodukte = 'Offres actuelles'
+
+headerbox_titel = 'SANS FRAIS DE LIVRAISON'
+headerbox_text = 'A partir d\'une commande de 50&euro; en DE'
+
+ihrwegzuuns = 'Votre chemin vers nous'
+indenwarenkorb = 'Ajouter au panier'
+randomproducts = 'S&eacute;lection al&eacute;atoire de produits'
+text_shippingtime = 'D&eacute;lai de livraison'
+
+cookies_text = 'Ce site utilise des cookies pour vous garantir la meilleure exp&eacute;rience d\'achat en ligne possible.'
+cookies_linktext = 'Plus d\'informations sur la protection des donn&eacute;es.'
+
+ichakzeptieredie = 'J\'accepte les'
+Datenschutzrichtlinien = 'Politique de confidentialit&eacute;'
+
+newslettertext = 'Nous te proposons des r&eacute;ductions et des promotions exceptionnelles et nous t\'informons sur les nouveaux produits de notre boutique.'
+
+menu = 'Menu'
+konto = 'Compte'
+einstellungen = 'R&eacute;glages'
+merkzettel = 'M&eacute;mo'
+info = 'Info'
+kasse = 'Caisse'
+kontakt = 'Contact'
+warenkorb = '0'
+coupon_note_1 = 'Attention : si vous avez un bon/coupon, vous pouvez l\'utiliser apr&egrave;s avoir cr&eacute;&eacute; votre compte client. '
+coupon_note_2 = 'encaisser.'
+coupon_note_link = 'ici'
+
+lieferzeit = 'D&eacute;lai de livraison'
+folgeuns = 'Suivez-nous'
+
+unsere_topseller = 'Nos meilleures ventes'
+zufaellige_produkte = 'S&eacute;lection al&eacute;atoire de produits'
+
+service_1_title = 'Vous avez des questions ? Nous vous r&eacute;pondons !'
+service_1_small = '+43 512 312 411'
+service_2_title = 'S\'abonner &agrave; la newsletter'
+service_2_small = 'et ne manquer aucune offre '
+service_3_title = 'Livraisons &eacute;clair'
+service_3_small = 'en seulement 2 &agrave; 4 jours'
+
+details = 'D&eacute;tails'
+close_button = 'Fermer'
+view_product = 'Appeler le produit :'
+wishlist_product = 'Ajouter &agrave; la liste de souhaits :'
+
+# WCAG aria-label texts
+search_start = 'Lancer la recherche'
+shop_home = 'Page d\'accueil de la boutique'
+social_on = 'sur'
+
+manufacturer_add_description = 'Marquage du fabricant'
+heading_reviews = 'Critiques'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Navigation du menu mobile'
+
+# WCAG Cart/Wishlist Content Labels
+cart_content_aria_label = 'Articles dans le panier'
+wishlist_content_aria_label = 'Articles sur la liste de souhaits'
+
+# Currency selection labels for WCAG compliance
+heading_currencies = 'Monnaie'
+currency_select_label = 'S&eacute;lectionner la devise'
+currency_apply_button = 'Reprendre la devise'
+currency_auto_change_info = 'La devise est automatiquement modifi&eacute;e si vous s&eacute;lectionnez une autre option'
+
+# Shipping country selection labels for WCAG compliance
+heading_shipping_country = 'Pays de livraison'
+shipping_country_select_label = 'Choisir le pays de livraison'
+shipping_country_apply_button = 'Reprendre le pays de livraison'
+shipping_country_auto_change_info = 'Le pays de livraison est automatiquement modifi&eacute; si vous choisissez une autre option'
+
+# ============================================================
+# MRH 2026 – Topbar & Shipping Bar
+# ============================================================
+mrh_topbar_phone = '+43 512 312 411'
+mrh_topbar_delivery = 'Livraison rapide'
+mrh_topbar_payment = 'Paiement simple et s&eacute;curis&eacute;'
+mrh_topbar_letter = 'Commande par courrier'
+mrh_topbar_freeshipping = 'Gratuit d&egrave;s : AT 40&euro;, DE 85&euro;, EU 150&euro;'
+mrh_shipping_bar_text = 'Livraison gratuite d&egrave;s 40&euro; de commande'
+# Seuils de livraison gratuite par pays (pour JS)
+mrh_freeship_at = '40'
+mrh_freeship_de = '85'
+mrh_freeship_eu = '150'

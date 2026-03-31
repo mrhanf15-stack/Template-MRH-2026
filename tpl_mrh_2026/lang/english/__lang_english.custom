@@ -1,0 +1,97 @@
+# Die lang_german.custom wird nur eingebunden, wenn in der "../config/config.php" die "TEMPLATE_ENGINE" auf "smarty_3" gesetzt ist!
+
+zoomtext = 'Click on the preview image for a larger view'
+products_desc = 'Product description'
+products_fsk18_check = 'This item can only be purchased after age verification.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Properties'
+heading_products_tags = 'Product features'
+
+first = '&laquo; First'
+back = '&laquo; previous'
+overview = 'Overview'
+next = 'next &raquo;'
+last = 'Last &raquo;'
+
+heading_miscellaneous = 'Payment methods'
+text_miscellaneous = 'The box can be changed under tpl_modified/boxes/box_miscellaneous.html. The language variables are located in the file tpl_modified/lang/english/lang_german.custom.'
+
+ab_admin = 'Admin area'
+ab_orders = 'Orders'
+ab_contentmanager = 'Content Manager'
+ab_customers = 'Customers'
+ab_category = 'Categories/Articles'
+ab_logoff = 'Log out'
+ab_news = 'News'
+ab_offline = 'Store offline'
+
+ab_edit_content = 'Edit content'
+ab_edit_product = 'Edit article'
+ab_edit_attributes = 'Edit attributes'
+ab_edit_category = 'Edit category'
+ab_edit_xsell = 'Edit cross-selling'
+
+info_reviews = 'Ratings:'
+info_review = 'Rating:'
+
+heading_trustedshops = 'Trusted Shops'
+
+text_search_again = 'The search did not return any exact matches'
+
+liefernmit = 'Shipping service provider'
+zahlungsweisen = 'Payment methods'
+topprodukte = 'Our recommendations'
+neueprodukte = 'Our novelties'
+heading_content = 'More about...'
+heading_information = 'Information on'
+sortiment = 'Assortment';
+bestseller = 'Our top sellers';
+
+headerbox_titel = 'FREE SHIPPING'
+headerbox_text = 'From order value of 50&euro; within DE'
+
+ihrwegzuuns = 'Your way to us'
+indenwarenkorb = 'Add to shopping cart'
+randomproducts = 'Random product selection'
+text_shippingtime = 'Delivery time'
+
+cookies_text = 'This website uses cookies to ensure you get the best online shopping experience.'
+cookies_linktext = 'Further information on data protection.'
+
+ichakzeptieredie = 'I accept the'
+Datenschutzrichtlinien = 'Privacy policy'
+
+newslettertext = 'We provide you with great discounts &amp; sale promotions and inform you about the latest products in our store.'
+
+menu = 'Menu'
+konto = 'Account'
+merkzettel = 'Notepad'
+info = 'Info'
+kasse = 'Cash register'
+kontakt = 'Contact us'
+warenkorb = 'Shopping cart'
+coupon_note_1 = 'Please note: If you have a voucher/coupon, you can use it after creating your customer account. '
+coupon_note_2 = 'redeem.'
+coupon_note_link = 'here'
+
+lieferzeit = 'Delivery time'
+folgeuns = 'Follow us'
+
+unsere_topseller = 'Our top sellers'
+zufaellige_produkte = 'Random product selection'
+
+service_1_title = 'Do you have any questions? We answer them!'
+service_1_small = '+49 (0) 12 34 56 78 911'
+service_2_title = 'Subscribe to our newsletter'
+service_2_small = 'and don\'t miss any offers '
+service_3_title = 'Flash deliveries'
+service_3_small = 'in only 2 - 4 days'
+
+details = 'Details'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Mobile Menu Navigation'
+
+# WCAG Cart Content Labels
+cart_content_aria_label = 'Items in cart'
+wishlist_content_aria_label = 'Items on wishlist'

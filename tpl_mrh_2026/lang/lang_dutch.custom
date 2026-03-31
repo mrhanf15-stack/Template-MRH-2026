@@ -1,0 +1,193 @@
+zoomtext = 'Klik op de voorbeeldafbeelding voor een grotere weergave'
+products_desc = 'Productbeschrijving'
+products_fsk18_check = 'Dit artikel kan alleen worden gekocht na leeftijdscontrole.'
+products_manufacturer_model = 'HAN:'
+products_tags = 'Eigenschappen'
+heading_products_tags = 'Productkenmerken'
+
+first = '&laquo; Eerste'
+back = '&laquo; vorige'
+overview = 'Overzicht'
+next = 'volgende &raquo;'
+last = 'Laatste &raquo;'
+
+heading_miscellaneous = 'Betaalmethoden'
+text_miscellaneous = 'De box kan worden gewijzigd onder tpl_modified_responsive/boxes/box_miscellaneous.html. De taalvariabelen kun je vinden in het bestand tpl_modified_responsive/lang/dutch/lang_german.custom.'
+
+ab_admin = 'Beheerdersgebied'
+ab_orders = 'Bestellingen'
+ab_contentmanager = 'Inhoud Manager'
+ab_customers = 'Klanten'
+ab_category = 'Categorie&euml;n/Artikelen'
+ab_logoff = 'Afmelden'
+ab_news = 'Nieuws'
+ab_offline = 'Offline winkelen'
+ab_update = 'Update'
+ab_support = 'Ondersteuning'
+ab_shop = 'Winkel op'
+ab_caching = 'Caching'
+
+ab_edit_content = 'Inhoud bewerken'
+ab_edit_product = 'Artikel bewerken'
+ab_edit_attributes = 'Kenmerken bewerken'
+ab_edit_category = 'Categorie bewerken'
+ab_edit_xsell = 'Cross-selling bewerken'
+ab_edit_tags = 'Item eigenschappen'
+ab_edit_manufacturer = 'Bewerk fabrikant'
+
+info_reviews = 'Beoordelingen:'
+info_review = 'Beoordeling:'
+
+heading_trustedshops = 'Vertrouwde winkels'
+
+text_search_again = 'De zoekopdracht leverde geen exacte overeenkomsten op'
+
+listing_listview = 'Lijstweergave'
+listing_boxview = 'Doosweergave'
+
+subcats_menu_heading = 'Categorie&euml;n'
+
+# Header # 
+link_settings = 'Instellingen'
+link_specials = 'Aanbiedingen'
+link_whatsnew = 'Nieuwe artikelen'
+link_cart = 'Winkelmandje'
+link_menu = 'Menu'
+link_search = 'Zoek op'
+
+addquickie_placeholder = 'Artikelnummer ...'
+heading_flyout_text_quickie = 'Voer een artikelnummer in.'
+heading_flyout_product_cart = 'Item in winkelmandje'
+heading_flyout_product_wishlist = 'Item op het notitieblok'
+heading_flyout_qty = 'Hoeveelheid:'
+heading_flyout_cart = 'Winkelmandje tonen'
+heading_flyout_checkout = 'Doorgaan naar kassa'
+heading_flyout_wishlist = 'Notitieblok weergeven'
+
+heading_box_languages = 'Talen'
+
+header_back_to_shop = 'Terug naar de winkel'
+header_back_to_cart = 'Terug naar het winkelmandje'
+
+# Box Newsletter #
+subfooter_newsletter_headline = 'Abonneer je op onze nieuwsbrief'
+subfooter_newsletter_text = 'Gratis exclusieve aanbiedingen en productnieuws per e-mail'
+subfooter_newsletter_disclaim = 'De nieuwsbrief is gratis en kan op elk moment hier of in je klantenaccount worden geannuleerd.'
+subfooter_text_email = 'Uw e-mailadres ...'
+
+
+# Footer #
+footer_price_hinweis_1 = 'Alle prijzen'
+footer_price_hinweis_incl = 'incl.'
+footer_price_hinweis_excl = 'excl.'
+footer_price_hinweis_2 = 'BTW plus'
+footer_price_hinweis_3 = 'Verzendkosten'
+footer_price_hinweis_4 = 'De doorgestreepte prijzen komen overeen met de vorige prijs op'
+
+footer_heading_payment = 'Betaalmethoden'
+footer_heading_social = 'Sociale media'
+footer_heading_contact = 'Neem contact met ons op'
+footer_text_contact = 'MRH N-Trade GmbH<br />Innsbruck, Oostenrijk<br /><br />Telefoon: +43 512 312 411<br />E-mail: info@mr-hanf.com'
+
+text_expires_date = 'Speciale aanbieding geldig tot:'
+products_flag_new = 'Nieuw'
+
+
+
+
+liefernmit = 'Dienstverlener voor verzending'
+zahlungsweisen = 'Betaalmethoden'
+topprodukte = 'Onze aanbevelingen'
+neueprodukte = 'Onze nieuwigheden'
+heading_content = 'Meer over...'
+heading_information = 'Informatie over'
+sortiment = 'Assortiment'
+bestseller = 'Onze topverkopers'
+saleprodukte = 'Huidige aanbiedingen'
+
+headerbox_titel = 'GRATIS VERZENDING'
+headerbox_text = 'Vanaf een bestelwaarde van 50&euro; binnen DE'
+
+ihrwegzuuns = 'Jouw weg naar ons'
+indenwarenkorb = 'Toevoegen aan winkelmandje'
+randomproducts = 'Willekeurige productselectie'
+text_shippingtime = 'Levertijd'
+
+cookies_text = 'Deze website maakt gebruik van cookies om ervoor te zorgen dat je de beste online winkelervaring krijgt.'
+cookies_linktext = 'Meer informatie over gegevensbescherming.'
+
+ichakzeptieredie = 'Ik accepteer de'
+Datenschutzrichtlinien = 'Privacybeleid'
+
+newslettertext = 'We bieden je geweldige kortingen &amp; sales promoties en informeren je over de nieuwste producten in onze winkel.'
+
+menu = 'Menu'
+konto = 'Account'
+einstellungen = 'Instellingen'
+merkzettel = 'Kladblok'
+info = 'Info'
+kasse = 'Kassa'
+kontakt = 'Neem contact met ons op'
+warenkorb = 'Winkelmandje'
+coupon_note_1 = 'Let op: Als je een voucher/coupon hebt, kun je deze gebruiken nadat je je klantenaccount hebt aangemaakt. '
+coupon_note_2 = 'aflossen.'
+coupon_note_link = 'hier'
+
+lieferzeit = 'Levertijd'
+folgeuns = 'Volg ons'
+
+unsere_topseller = 'Onze topverkopers'
+zufaellige_produkte = 'Willekeurige productselectie'
+
+service_1_title = 'Heb je vragen? Wij beantwoorden ze!'
+service_1_small = '+43 512 312 411'
+service_2_title = 'Abonneer je op onze nieuwsbrief'
+service_2_small = 'en mis geen enkele aanbieding '
+service_3_title = 'Flash leveringen'
+service_3_small = 'in slechts 2 - 4 dagen'
+
+details = 'details'
+close_button = 'Sluit'
+view_product = 'Product oproepen:'
+wishlist_product = 'Toevoegen aan notitieblok:'
+
+# WCAG aria-label texts
+search_start = 'Zoeken'
+shop_home = 'Homepage winkelen'
+social_on = 'op'
+
+manufacturer_add_description = 'Etikettering fabrikant'
+heading_reviews = 'Beoordelingen'
+
+# WCAG Mobile Menu Labels
+mobile_menu_navigation = 'Mobiele menunavigatie'
+
+# WCAG Cart/Wishlist Content Labels
+cart_content_aria_label = 'Artikelen in het winkelmandje'
+wishlist_content_aria_label = 'Artikelen op het notitieblok'
+
+# Currency selection labels for WCAG compliance
+heading_currencies = 'Valuta'
+currency_select_label = 'Selecteer valuta'
+currency_apply_button = 'Valuta aannemen'
+currency_auto_change_info = 'De valuta wordt automatisch gewijzigd als u een andere optie selecteert'
+
+# Shipping country selection labels for WCAG compliance
+heading_shipping_country = 'Land van levering'
+shipping_country_select_label = 'Selecteer het land van levering'
+shipping_country_apply_button = 'Land van levering kiezen'
+shipping_country_auto_change_info = 'Het land van levering wordt automatisch gewijzigd als u een andere optie selecteert'
+
+# ============================================================
+# MRH 2026 – Topbar & Shipping Bar
+# ============================================================
+mrh_topbar_phone = '+43 512 312 411'
+mrh_topbar_delivery = 'Snelle levering'
+mrh_topbar_payment = 'Eenvoudig, veilig betalen'
+mrh_topbar_letter = 'Briefbestelling'
+mrh_topbar_freeshipping = 'Gratis vanaf: AT &euro;40, DE &euro;85, EU &euro;150'
+mrh_shipping_bar_text = 'Gratis verzending bij bestellingen vanaf &euro;40'
+# Landspecifieke drempels voor gratis verzending (voor JS)
+mrh_freeship_at = '40'
+mrh_freeship_de = '85'
+mrh_freeship_eu = '150'
