@@ -25,7 +25,7 @@
         </script>
         
         <a 
-        class="d-flex flex-column align-items-center justify-content-center"
+        class="d-flex flex-column align-items-center justify-content-center d-lg-none"
         title="{#link_menu#}" id="toggle_mobilemenu" aria-label="{#link_menu#}" aria-hidden>
         <span class="fa-solid fa-bars fa-lg"></span>
         <span class="btn-desc">{#link_menu#}</span>
@@ -63,8 +63,7 @@
             class="d-flex flex-column align-items-center justify-content-center" 
             data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button" aria-controls="offcanvasSettings"
             title="{#link_settings#}" id="toggle_settings">
-            <span class="fa-solid fa-globe fa-xl"></span>
-              <img class="currentLanguageFlag" alt="{$smarty.session.language}" src="{$tpl_path}img/flags/{$smarty.session.language_code}.webp">
+            <span class="fa-solid fa-globe fa-xl" aria-hidden="true"></span>
             <span class="btn-desc">{#link_settings#}</span>
             </a>
           </li>
