@@ -411,6 +411,30 @@
 				</div>
 			</div>
 		</section>
+		<!-- ===== SEKTION 5: ERWEITERTE KONFIGURATION (MRH Dashboard Module) ===== -->
+		<section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="headingFive">
+			<header class="card-header" id="headingFive" role="banner">
+				<strong class="h5 mb-0"><i class="fa fa-cogs me-2"></i>Erweiterte Konfiguration</strong>
+			</header>
+			<div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFive" data-parent="#accordion">
+				<div class="card-body">
+					<!-- Mega-Menü Manager -->
+					<h6 class="text-muted text-uppercase small mb-3">
+						<i class="fa fa-bars me-1"></i> Mega-Menü Manager
+						<span class="badge bg-success ms-2">NEU</span>
+					</h6>
+					<p class="text-muted small mb-3">Konfiguriere die Spalten und Kategorien für das Mega-Dropdown-Menü. Kategorien werden direkt aus der Datenbank geladen. Die Sortierung erfolgt per Drag &amp; Drop.</p>
+					{php}
+						$mega_menu_admin = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/admin/mrh_dashboard/modules/mega_menu/admin.php';
+						if (file_exists($mega_menu_admin)) {
+							include($mega_menu_admin);
+						} else {
+							echo '<div class="alert alert-warning">Mega-Menü Manager nicht gefunden. Bitte prüfen Sie die Installation.</div>';
+						}
+					{/php}
+				</div>
+			</div>
+		</section>
 	</div>
 </section>
 

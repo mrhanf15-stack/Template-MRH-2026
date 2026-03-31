@@ -414,6 +414,50 @@ foreach ($socials as $skey => $info) {
                    class="btn btn-success btn-lg w-100" value="Social Media Links speichern">
           </section>
         </form>
+</div>
+</div>
+  </section>
+
+  <!-- ===== SEKTION 5: ERWEITERTE KONFIGURATION (MRH Dashboard Module) ===== -->
+  <section class="card mb-4 mx-3">
+    <header class="card-header" id="mrhHeadingDashboard">
+      <button class="btn btn-link text-start w-100 p-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mrhCollapseDashboard"
+              aria-expanded="false" aria-controls="mrhCollapseDashboard">
+        <strong class="h5 mb-0"><i class="fa fa-cogs me-2"></i>Erweiterte Konfiguration</strong>
+      </button>
+    </header>
+
+    <div id="mrhCollapseDashboard" class="accordion-collapse collapse"
+         aria-labelledby="mrhHeadingDashboard" data-bs-parent="#mrh-configurator">
+      <div class="card-body">
+
+        <!-- Mega-Men&uuml; Manager -->
+        <h6 class="text-muted text-uppercase small mb-3">
+          <i class="fa fa-bars me-1"></i> Mega-Men&uuml; Manager
+          <span class="badge bg-success ms-2">NEU</span>
+        </h6>
+        <p class="text-muted small mb-3">
+          Konfiguriere die Spalten und Kategorien f&uuml;r das Mega-Dropdown-Men&uuml;.
+          Kategorien werden direkt aus der Datenbank geladen. Die Sortierung erfolgt per Drag &amp; Drop.
+        </p>
+
+<?php
+// Dashboard-Kern laden
+$dashboard_core = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/admin/includes/mrh_dashboard.php';
+if (file_exists($dashboard_core)) {
+    require_once($dashboard_core);
+}
+
+// Mega-Men&uuml; Manager Admin-UI laden
+$mega_menu_admin = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/admin/mrh_dashboard/modules/mega_menu/admin.php';
+if (file_exists($mega_menu_admin)) {
+    include($mega_menu_admin);
+} else {
+    echo '<div class="alert alert-warning">Mega-Men&uuml; Manager nicht gefunden. Bitte pr&uuml;fen Sie die Installation.</div>';
+}
+?>
+
       </div>
     </div>
   </section>

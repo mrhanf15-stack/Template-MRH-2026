@@ -535,121 +535,214 @@
       };
     },
 
-    buildDropdown: function(subUl, parentHref, parentText) {
-      var dropdown = document.createElement('div');
+    /**
+     * Prüft ob eine Dashboard-Konfiguration (window.MRH_MEGAMENU_CONFIG)
+     * für eine Kategorie existiert. Matcht über cPath-Parameter in der URL.
+     * @param {string} href – Link der Hauptkategorie
+     * @returns {Object|null} Dashboard-Config oder null
+     */
+    getDashboardConfig(href) {
+      const dashConfig = window.MRH_MEGAMENU_CONFIG;
+      if (!dashConfig || typeof dashConfig !== 'object') return null;
+
+      // cPath aus href extrahieren (z.B. "index.php?cPath=581210" → "581210")
+      const cPathMatch = href.match(/cPath=([\d_]+)/);
+      if (!cPathMatch) return null;
+
+      const cPath = cPathMatch[1];
+      // Erste Zahl im cPath ist die Root-Kategorie-ID
+      const rootCatId = cPath.split('_')[0];
+
+      // Direkt nach ID suchen
+      return dashConfig[rootCatId] ?? null;
+    },
+
+    /**
+     * Baut ein Mega-Dropdown-Panel für eine Hauptkategorie.
+     * 
+     * Priorisierung:
+     * 1. Dashboard-Config (window.MRH_MEGAMENU_CONFIG) – aus Admin-Panel, cPath-basiert
+     * 2. JS-Fallback (getCategoryConfig) – hardcoded Keywords als Backup
+     * 
+     * @param {HTMLElement} subUl – UL mit Level-1 Unterkategorien aus CatNavi
+     * @param {string} parentHref – URL der Hauptkategorie
+     * @param {string} parentText – Name der Hauptkategorie
+     * @returns {HTMLElement} Fertiges Dropdown-Panel
+     */
+    buildDropdown(subUl, parentHref, parentText) {
+      const dropdown = document.createElement('div');
       dropdown.className = 'mrh-mega-dropdown';
 
-      var content = document.createElement('div');
+      const content = document.createElement('div');
       content.className = 'mrh-mega-content';
 
-      // Kategorie-spezifische Spalten-Konfiguration (SEO 2026)
-      var config = this.getCategoryConfig(parentText);
-      var colIcons = config.icons;
-      var colTitles = config.titles;
-      var maxPerCol = config.maxPerCol || 5;
+      // === PRIORISIERUNG: Dashboard-Config vor JS-Fallback ===
+      const dashConfig = this.getDashboardConfig(parentHref);
 
-      // MODUS A: Statische Links (für Samen Shop – Level-2 Kategorien fest definiert)
-      if (config.useStaticOnly && config.staticLinks) {
-        config.staticLinks.forEach(function(colLinks, idx) {
-          if (!colLinks || colLinks.length === 0) return;
-
-          var col = document.createElement('div');
-          col.className = 'mrh-mega-col';
-
-          // Spalten-Titel
-          var title = document.createElement('div');
-          title.className = 'mrh-mega-col-title';
-          title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
-                            (colTitles[idx] || 'Kategorie ' + (idx + 1));
-          col.appendChild(title);
-
-          // Statische Links
-          var ul = document.createElement('ul');
-          colLinks.slice(0, maxPerCol).forEach(function(linkData) {
-            var li = document.createElement('li');
-            var link = document.createElement('a');
-            link.href = linkData.href;
-            link.textContent = linkData.text;
-            li.appendChild(link);
-            ul.appendChild(li);
-          });
-          col.appendChild(ul);
-
-          // "Alle anzeigen" Link
-          var allLink = document.createElement('a');
-          allLink.href = parentHref;
-          allLink.className = 'mrh-mega-all';
-          allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
-          col.appendChild(allLink);
-
-          content.appendChild(col);
-        });
+      if (dashConfig?.useStaticOnly && dashConfig?.columns?.length) {
+        // MODUS A: Dashboard-Config (Admin-Panel, cPath-basierte URLs)
+        this._buildFromDashboardConfig(dashConfig, parentHref, content);
       } else {
-        // MODUS B: Dynamische Zuordnung aus CatNavi (für Growshop, Headshop etc.)
-        var subItems = MRH.Utils.qsa(':scope > li', subUl);
-        var colKeywords = config.columns || [];
-        var columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
+        // MODUS B: JS-Fallback (getCategoryConfig mit Keywords/staticLinks)
+        const config = this.getCategoryConfig(parentText);
+        const maxPerCol = config.maxPerCol ?? 5;
 
-        columns.forEach(function(colItems, idx) {
-          if (colItems.length === 0) return;
-
-          var col = document.createElement('div');
-          col.className = 'mrh-mega-col';
-
-          // Spalten-Titel
-          var title = document.createElement('div');
-          title.className = 'mrh-mega-col-title';
-          title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
-                            (colTitles[idx] || 'Kategorie ' + (idx + 1));
-          col.appendChild(title);
-
-          // Links (max 5 pro Spalte)
-          var ul = document.createElement('ul');
-          colItems.slice(0, maxPerCol).forEach(function(item) {
-            var a = MRH.Utils.qs('a', item);
-            if (!a) return;
-            var li = document.createElement('li');
-            var link = document.createElement('a');
-            link.href = a.getAttribute('href') || '#';
-            link.textContent = a.textContent.trim();
-            li.appendChild(link);
-            ul.appendChild(li);
-          });
-          col.appendChild(ul);
-
-          // "Alle anzeigen" Link
-          var allLink = document.createElement('a');
-          allLink.href = parentHref;
-          allLink.className = 'mrh-mega-all';
-          allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
-          col.appendChild(allLink);
-
-          content.appendChild(col);
-        });
+        if (config.useStaticOnly && config.staticLinks) {
+          this._buildFromStaticLinks(config, parentHref, content, maxPerCol);
+        } else {
+          const subItems = [...subUl.querySelectorAll(':scope > li')];
+          this._buildFromCatNavi(config, subItems, parentHref, content, maxPerCol);
+        }
       }
 
       // Promo-Spalte hinzufügen
-      var promoData = MRH.Utils.qs('#mrhMegaPromoData');
-      if (promoData) {
-        var promo = document.createElement('div');
-        promo.className = 'mrh-mega-promo';
-        promo.innerHTML =
-          '<div class="mrh-mega-promo-inner">' +
-            '<div class="mrh-mega-promo-title">' +
-              '<i class="fa-solid ' + (promoData.dataset.icon || 'fa-percent') + '"></i> ' +
-              (promoData.dataset.title || 'Aktion') +
-            '</div>' +
-            '<div class="mrh-mega-promo-brand">' + (promoData.dataset.brand || '') + '</div>' +
-            '<div class="mrh-mega-promo-text">' + (promoData.dataset.text || '') + '</div>' +
-            '<a href="' + (promoData.dataset.link || '/angebote/') + '" class="mrh-mega-promo-btn">' +
-              (promoData.dataset.button || 'Jetzt sparen') +
-            '</a>' +
-          '</div>';
-        content.appendChild(promo);
-      }
+      this._appendPromoColumn(content);
 
       dropdown.appendChild(content);
       return dropdown;
+    },
+
+    /**
+     * MODUS A: Dashboard-Config – Spalten und Items aus Admin-Panel
+     * URLs sind system-nah (index.php?cPath=...), SEO-Modul schreibt um
+     */
+    _buildFromDashboardConfig(dashConfig, parentHref, content) {
+      for (const col of dashConfig.columns) {
+        if (!col.items?.length) continue;
+
+        const colEl = document.createElement('div');
+        colEl.className = 'mrh-mega-col';
+
+        // Spalten-Titel
+        const titleEl = document.createElement('div');
+        titleEl.className = 'mrh-mega-col-title';
+        titleEl.innerHTML = `<i class="fa-solid ${col.icon || 'fa-folder'}"></i> ${col.title || 'Kategorie'}`;
+        colEl.appendChild(titleEl);
+
+        // Links
+        const ul = document.createElement('ul');
+        for (const item of col.items) {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = item.url;
+          a.textContent = item.name;
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+        colEl.appendChild(ul);
+
+        // "Alle anzeigen" Link
+        const allLink = document.createElement('a');
+        allLink.href = parentHref;
+        allLink.className = 'mrh-mega-all';
+        allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+        colEl.appendChild(allLink);
+
+        content.appendChild(colEl);
+      }
+    },
+
+    /**
+     * MODUS B1: Statische Links aus JS-Fallback (getCategoryConfig.staticLinks)
+     */
+    _buildFromStaticLinks(config, parentHref, content, maxPerCol) {
+      const { icons: colIcons = [], titles: colTitles = [] } = config;
+
+      config.staticLinks.forEach((colLinks, idx) => {
+        if (!colLinks?.length) return;
+
+        const col = document.createElement('div');
+        col.className = 'mrh-mega-col';
+
+        const title = document.createElement('div');
+        title.className = 'mrh-mega-col-title';
+        title.innerHTML = `<i class="fa-solid ${colIcons[idx] ?? 'fa-folder'}"></i> ${colTitles[idx] ?? 'Kategorie ' + (idx + 1)}`;
+        col.appendChild(title);
+
+        const ul = document.createElement('ul');
+        for (const linkData of colLinks.slice(0, maxPerCol)) {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = linkData.href;
+          a.textContent = linkData.text;
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+        col.appendChild(ul);
+
+        const allLink = document.createElement('a');
+        allLink.href = parentHref;
+        allLink.className = 'mrh-mega-all';
+        allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+        col.appendChild(allLink);
+
+        content.appendChild(col);
+      });
+    },
+
+    /**
+     * MODUS B2: Dynamische Zuordnung aus CatNavi (Keyword-Matching)
+     */
+    _buildFromCatNavi(config, subItems, parentHref, content, maxPerCol) {
+      const { icons: colIcons = [], titles: colTitles = [], columns: colKeywords = [] } = config;
+      const columns = this.assignToColumns(subItems, colKeywords, maxPerCol);
+
+      columns.forEach((colItems, idx) => {
+        if (!colItems.length) return;
+
+        const col = document.createElement('div');
+        col.className = 'mrh-mega-col';
+
+        const title = document.createElement('div');
+        title.className = 'mrh-mega-col-title';
+        title.innerHTML = `<i class="fa-solid ${colIcons[idx] ?? 'fa-folder'}"></i> ${colTitles[idx] ?? 'Kategorie ' + (idx + 1)}`;
+        col.appendChild(title);
+
+        const ul = document.createElement('ul');
+        for (const item of colItems.slice(0, maxPerCol)) {
+          const a = item.querySelector('a');
+          if (!a) continue;
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = a.getAttribute('href') ?? '#';
+          link.textContent = a.textContent.trim();
+          li.appendChild(link);
+          ul.appendChild(li);
+        }
+        col.appendChild(ul);
+
+        const allLink = document.createElement('a');
+        allLink.href = parentHref;
+        allLink.className = 'mrh-mega-all';
+        allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+        col.appendChild(allLink);
+
+        content.appendChild(col);
+      });
+    },
+
+    /**
+     * Promo-Spalte aus data-Attributen des #mrhMegaPromoData Elements
+     */
+    _appendPromoColumn(content) {
+      const promoData = document.querySelector('#mrhMegaPromoData');
+      if (!promoData) return;
+
+      const { icon, title, brand, text, link, button } = promoData.dataset;
+      const promo = document.createElement('div');
+      promo.className = 'mrh-mega-promo';
+      promo.innerHTML = `
+        <div class="mrh-mega-promo-inner">
+          <div class="mrh-mega-promo-title">
+            <i class="fa-solid ${icon ?? 'fa-percent'}"></i> ${title ?? 'Aktion'}
+          </div>
+          <div class="mrh-mega-promo-brand">${brand ?? ''}</div>
+          <div class="mrh-mega-promo-text">${text ?? ''}</div>
+          <a href="${link ?? '/angebote/'}" class="mrh-mega-promo-btn">
+            ${button ?? 'Jetzt sparen'}
+          </a>
+        </div>`;
+      content.appendChild(promo);
     },
 
     /**
