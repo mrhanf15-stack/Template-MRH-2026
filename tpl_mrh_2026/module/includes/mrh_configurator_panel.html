@@ -1,0 +1,454 @@
+{* =====================================================================
+   MRH 2026 Template – Konfigurator Panel
+   
+   Wird eingebunden in: boxes/box_admin.html (nur für Admins sichtbar)
+   Benötigt: admin/includes/mrh_configurator.php (PHP-Backend)
+   
+   Sektionen:
+   1. Farben individualisieren (inkl. NEU: Menü + Topbar)
+   2. Weitere Konfiguration
+   3. Zahlungs- und Versandlogos
+   4. Social Media Links
+   ===================================================================== *}
+
+{php}
+  // Konfigurator-Backend laden
+  $configurator = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/admin/includes/mrh_configurator.php';
+  if (file_exists($configurator)) {
+      require_once($configurator);
+  }
+{/php}
+
+{* Erfolgsmeldung *}
+{php}if (!empty($GLOBALS['mrh_config_message'])) echo $GLOBALS['mrh_config_message'];{/php}
+
+<div id="mrh-configurator" class="accordion accordion-flush" role="region" aria-labelledby="mrh-config-title">
+
+  {* ===== SEKTION 1: FARBEN ===== *}
+  <section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="mrhHeadingColors">
+    <header class="card-header" id="mrhHeadingColors">
+      <button class="btn btn-link text-start w-100 p-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mrhCollapseColors"
+              aria-expanded="true" aria-controls="mrhCollapseColors">
+        <strong class="h5 mb-0"><i class="fa fa-palette me-2"></i>Farben individualisieren</strong>
+      </button>
+    </header>
+
+    <div id="mrhCollapseColors" class="accordion-collapse collapse show"
+         aria-labelledby="mrhHeadingColors" data-bs-parent="#mrh-configurator">
+      <div class="card-body">
+        <form id="mrh-colorsettings" class="row" method="post" action="">
+
+          {* --- Primär + Sekundär --- *}
+          <section class="col-sm-12 mb-3" role="region" aria-label="Hauptfarben">
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-circle-half-stroke me-1"></i> Hauptfarben
+            </h6>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label for="mrh-primary"><strong>Primärfarbe</strong></label>
+                <input id="mrh-primary" type="text" name="mrh-primary"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-primary']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-primary']);{/php}"></div>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label for="mrh-secondary"><strong>Sekundärfarbe</strong></label>
+                <input id="mrh-secondary" type="text" name="mrh-secondary"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-secondary']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-secondary']);{/php}"></div>
+              </div>
+            </div>
+          </section>
+
+          <hr class="mx-3">
+
+          {* --- NEU: Menü-Farben --- *}
+          <section class="col-sm-12 mb-3" role="region" aria-label="Menü-Farben">
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-bars me-1"></i> Hauptnavigation (Menü-Leiste)
+              <span class="badge bg-success ms-2">NEU</span>
+            </h6>
+            <div class="row">
+              <div class="col-sm-3 mb-3">
+                <label for="mrh-menu-bg"><strong>Menü Hintergrund</strong></label>
+                <input id="mrh-menu-bg" type="text" name="mrh-menu-bg"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-bg']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-bg']);{/php}"></div>
+              </div>
+              <div class="col-sm-3 mb-3">
+                <label for="mrh-menu-text"><strong>Menü Textfarbe</strong></label>
+                <input id="mrh-menu-text" type="text" name="mrh-menu-text"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-text']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-text']);{/php}"></div>
+              </div>
+              <div class="col-sm-3 mb-3">
+                <label for="mrh-menu-hover-bg"><strong>Menü Hover</strong></label>
+                <input id="mrh-menu-hover-bg" type="text" name="mrh-menu-hover-bg"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-hover-bg']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-hover-bg']);{/php}"></div>
+              </div>
+              <div class="col-sm-3 mb-3">
+                <label for="mrh-menu-active-bg"><strong>Menü Aktiv</strong></label>
+                <input id="mrh-menu-active-bg" type="text" name="mrh-menu-active-bg"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-active-bg']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-menu-active-bg']);{/php}"></div>
+              </div>
+            </div>
+          </section>
+
+          <hr class="mx-3">
+
+          {* --- NEU: Topbar-Farben --- *}
+          <section class="col-sm-12 mb-3" role="region" aria-label="Topbar-Farben">
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-grip-lines me-1"></i> Topbar (Trust-Leiste)
+              <span class="badge bg-success ms-2">NEU</span>
+            </h6>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label for="mrh-topbar-bg"><strong>Topbar Hintergrund</strong></label>
+                <input id="mrh-topbar-bg" type="text" name="mrh-topbar-bg"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-topbar-bg']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-topbar-bg']);{/php}"></div>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label for="mrh-topbar-text"><strong>Topbar Textfarbe</strong></label>
+                <input id="mrh-topbar-text" type="text" name="mrh-topbar-text"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-topbar-text']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-topbar-text']);{/php}"></div>
+              </div>
+            </div>
+          </section>
+
+          <hr class="mx-3">
+
+          {* --- Hintergrundfarben --- *}
+          <section class="col-sm-6 mb-3" role="region" aria-label="Hintergrundfarben">
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-fill-drip me-1"></i> Hintergrundfarben
+            </h6>
+            <div class="mb-3">
+              <label for="mrh-bg-color"><strong>Hintergrundfarbe 1</strong></label>
+              <input id="mrh-bg-color" type="text" name="mrh-bg-color"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-color']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-color']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-bg-color-2"><strong>Hintergrundfarbe 2</strong></label>
+              <input id="mrh-bg-color-2" type="text" name="mrh-bg-color-2"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-color-2']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-color-2']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-bg-productbox"><strong>Produktboxen Hintergrund</strong></label>
+              <input id="mrh-bg-productbox" type="text" name="mrh-bg-productbox"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-productbox']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-productbox']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-bg-footer"><strong>Footer Hintergrund</strong></label>
+              <input id="mrh-bg-footer" type="text" name="mrh-bg-footer"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-footer']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-bg-footer']);{/php}"></div>
+            </div>
+          </section>
+
+          {* --- Schriftfarben --- *}
+          <section class="col-sm-6 mb-3" role="region" aria-label="Schriftfarben">
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-font me-1"></i> Schriftfarben
+            </h6>
+            <div class="mb-3">
+              <label for="mrh-text-standard"><strong>Standard Schriftfarbe</strong></label>
+              <input id="mrh-text-standard" type="text" name="mrh-text-standard"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-standard']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-standard']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-text-headings"><strong>Überschriften Schriftfarbe</strong></label>
+              <input id="mrh-text-headings" type="text" name="mrh-text-headings"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-headings']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-headings']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-text-button"><strong>Schriftfarbe in Buttons &amp; Badges</strong></label>
+              <input id="mrh-text-button" type="text" name="mrh-text-button"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-button']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-button']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-text-footer"><strong>Schriftfarbe Text &amp; Links im Footer</strong></label>
+              <input id="mrh-text-footer" type="text" name="mrh-text-footer"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-footer']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-footer']);{/php}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mrh-text-footer-headings"><strong>Überschriften im Footer</strong></label>
+              <input id="mrh-text-footer-headings" type="text" name="mrh-text-footer-headings"
+                     class="form-control colorpicker-element"
+                     value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-footer-headings']);{/php}">
+              <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-text-footer-headings']);{/php}"></div>
+            </div>
+          </section>
+
+          {* --- NEU: Sticky Header --- *}
+          <section class="col-sm-12 mb-3" role="region" aria-label="Sticky Header Farben">
+            <hr>
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-thumbtack me-1"></i> Sticky Header
+              <span class="badge bg-success ms-2">NEU</span>
+            </h6>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label for="mrh-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
+                <input id="mrh-sticky-bg" type="text" name="mrh-sticky-bg"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-sticky-bg']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-sticky-bg']);{/php}"></div>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label for="mrh-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
+                <input id="mrh-sticky-text" type="text" name="mrh-sticky-text"
+                       class="form-control colorpicker-element"
+                       value="{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-sticky-text']);{/php}">
+                <div class="demo-farbe mt-1" style="background:{php}echo htmlspecialchars($GLOBALS['mrh_colors']['mrh-sticky-text']);{/php}"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-sm-12">
+            <input type="submit" name="submit-colorsettings" id="submit-colorsettings"
+                   class="btn btn-success btn-lg w-100" value="Farben speichern">
+          </section>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {* ===== SEKTION 2: WEITERE KONFIGURATION ===== *}
+  <section class="card mb-4 mx-3" role="region" aria-labelledby="mrhHeadingConfig">
+    <header class="card-header" id="mrhHeadingConfig">
+      <button class="btn btn-link text-start w-100 p-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mrhCollapseConfig"
+              aria-expanded="false" aria-controls="mrhCollapseConfig">
+        <strong class="h5 mb-0"><i class="fa fa-sliders me-2"></i>Weitere Konfiguration</strong>
+      </button>
+    </header>
+
+    <div id="mrhCollapseConfig" class="accordion-collapse collapse"
+         aria-labelledby="mrhHeadingConfig" data-bs-parent="#mrh-configurator">
+      <div class="card-body">
+        <form id="mrh-tplsettings" class="row" method="post" action="">
+
+          <section class="col-sm-6 mb-3">
+            <fieldset>
+              <legend><strong>SSL-Zertifikat (https) aktiv?</strong></legend>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="mrh-ssl" name="tpl_cfg_ssl" value="on"
+                       {php}if($GLOBALS['mrh_tpl']['tpl_cfg_ssl']==='on') echo 'checked';{/php}>
+                <label class="form-check-label" for="mrh-ssl">SSL aktiv</label>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col-sm-6 mb-3">
+            <fieldset>
+              <legend><strong>TrustedShops Siegel im Header?</strong></legend>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="mrh-ts" name="tpl_cfg_ts" value="on"
+                       {php}if($GLOBALS['mrh_tpl']['tpl_cfg_ts']==='on') echo 'checked';{/php}>
+                <label class="form-check-label" for="mrh-ts">Anzeigen</label>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col-sm-6 mb-3">
+            <fieldset>
+              <legend><strong>Menü horizontal oder vertikal?</strong></legend>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tpl_cfg_menu"
+                       value="horizontal" id="mrh-menu-h"
+                       {php}if($GLOBALS['mrh_tpl']['tpl_cfg_menu']==='horizontal') echo 'checked';{/php}>
+                <label class="form-check-label" for="mrh-menu-h">Horizontal</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tpl_cfg_menu"
+                       value="vertikal" id="mrh-menu-v"
+                       {php}if($GLOBALS['mrh_tpl']['tpl_cfg_menu']==='vertikal') echo 'checked';{/php}>
+                <label class="form-check-label" for="mrh-menu-v">Vertikal</label>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col-sm-6 mb-3">
+            <fieldset>
+              <legend><strong>Infinite Scroll?</strong></legend>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="mrh-infinitescroll" name="tpl_cfg_infinitescroll" value="on"
+                       {php}if($GLOBALS['mrh_tpl']['tpl_cfg_infinitescroll']==='on') echo 'checked';{/php}>
+                <label class="form-check-label" for="mrh-infinitescroll">Aktiv (Kategorie- &amp; Suchergebnisseiten)</label>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col-sm-6 mb-3">
+            <fieldset>
+              <legend><strong>Barrierefrei-Tool?</strong></legend>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="mrh-barrierefreiTool" name="tpl_cfg_barrierefreiTool" value="on"
+                       {php}if($GLOBALS['mrh_tpl']['tpl_cfg_barrierefreiTool']==='on') echo 'checked';{/php}>
+                <label class="form-check-label" for="mrh-barrierefreiTool">Anzeigen (unten links)</label>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col-sm-12">
+            <input type="submit" name="submit-tplsettings" id="submit-tplsettings"
+                   class="btn btn-success btn-lg w-100" value="Konfiguration speichern">
+          </section>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {* ===== SEKTION 3: ZAHLUNGS- UND VERSANDLOGOS ===== *}
+  <section class="card mb-4 mx-3" role="region" aria-labelledby="mrhHeadingLogos">
+    <header class="card-header" id="mrhHeadingLogos">
+      <button class="btn btn-link text-start w-100 p-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mrhCollapseLogos"
+              aria-expanded="false" aria-controls="mrhCollapseLogos">
+        <strong class="h5 mb-0"><i class="fa fa-credit-card me-2"></i>Zahlungs- und Versandlogos</strong>
+      </button>
+    </header>
+
+    <div id="mrhCollapseLogos" class="accordion-collapse collapse"
+         aria-labelledby="mrhHeadingLogos" data-bs-parent="#mrh-configurator">
+      <div class="card-body">
+        <form id="mrh-logosettings" class="row" method="post" action="">
+
+          <section class="col-sm-12 mb-4">
+            <strong>Zahlungslogos</strong>
+            <div class="row mt-2">
+              {php}
+                $payments = ['vorkasse','paypal','kreditkarten','applepay','googlepay','amazon','klarna','lastschrift','rechnung'];
+                $active_payments = isset($GLOBALS['mrh_logos']['payment']) ? $GLOBALS['mrh_logos']['payment'] : [];
+                foreach ($payments as $p) {
+                    $checked = in_array($p, $active_payments) ? 'checked' : '';
+                    $label = ucfirst($p);
+                    if ($p === 'applepay') $label = 'Apple Pay';
+                    if ($p === 'googlepay') $label = 'Google Pay';
+                    if ($p === 'kreditkarten') $label = 'Kreditkarten';
+                    echo '<div class="col-sm-3 mb-2">';
+                    echo '<div class="form-check">';
+                    echo '<input class="form-check-input" type="checkbox" name="mrh_cfg_payment_logos[]" value="'.$p.'" id="mrh_pay_'.$p.'" '.$checked.'>';
+                    echo '<label class="form-check-label" for="mrh_pay_'.$p.'">';
+                    echo '<img height="36" width="36" src="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/img/payment/zahlungsarten_'.$p.'.webp" alt="'.$label.'" loading="lazy"> '.$label;
+                    echo '</label>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+              {/php}
+            </div>
+          </section>
+
+          <section class="col-sm-12 mb-4">
+            <strong>Versandlogos</strong>
+            <div class="row mt-2">
+              {php}
+                $shippers = ['hermes','dhl','dpd','ups','gls','fedex'];
+                $active_shipping = isset($GLOBALS['mrh_logos']['shipping']) ? $GLOBALS['mrh_logos']['shipping'] : [];
+                foreach ($shippers as $s) {
+                    $checked = in_array($s, $active_shipping) ? 'checked' : '';
+                    $label = strtoupper($s);
+                    if ($s === 'hermes') $label = 'Hermes';
+                    if ($s === 'fedex') $label = 'FedEx';
+                    echo '<div class="col-sm-3 mb-2">';
+                    echo '<div class="form-check">';
+                    echo '<input class="form-check-input" type="checkbox" name="mrh_cfg_shipping_logos[]" value="'.$s.'" id="mrh_ship_'.$s.'" '.$checked.'>';
+                    echo '<label class="form-check-label" for="mrh_ship_'.$s.'">';
+                    echo '<img height="36" width="36" src="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/img/shipping/'.$s.'.webp" alt="'.$label.'" loading="lazy"> '.$label;
+                    echo '</label>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+              {/php}
+            </div>
+          </section>
+
+          <section class="col-sm-12">
+            <input type="submit" name="submit-logosettings" id="submit-logosettings"
+                   class="btn btn-success btn-lg w-100" value="Logos speichern">
+          </section>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {* ===== SEKTION 4: SOCIAL MEDIA ===== *}
+  <section class="card mb-4 mx-3" role="region" aria-labelledby="mrhHeadingSocial">
+    <header class="card-header" id="mrhHeadingSocial">
+      <button class="btn btn-link text-start w-100 p-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mrhCollapseSocial"
+              aria-expanded="false" aria-controls="mrhCollapseSocial">
+        <strong class="h5 mb-0"><i class="fa-brands fa-instagram me-2"></i>Social Media Links</strong>
+      </button>
+    </header>
+
+    <div id="mrhCollapseSocial" class="accordion-collapse collapse"
+         aria-labelledby="mrhHeadingSocial" data-bs-parent="#mrh-configurator">
+      <div class="card-body">
+        <form id="mrh-socialsettings" class="row" method="post" action="">
+          <section class="col-sm-12 mb-3">
+            <p class="text-muted">Tragen Sie Ihre Social Media Links ein. Leere Felder werden nicht angezeigt.</p>
+            {php}
+              $socials = [
+                  'facebook'  => ['label' => 'Facebook',  'icon' => 'fa-brands fa-facebook',  'placeholder' => 'https://www.facebook.com/IhrName'],
+                  'twitter'   => ['label' => 'X (Twitter)','icon' => 'fa-brands fa-x-twitter','placeholder' => 'https://x.com/IhrName'],
+                  'instagram' => ['label' => 'Instagram', 'icon' => 'fa-brands fa-instagram', 'placeholder' => 'https://www.instagram.com/IhrName'],
+                  'tiktok'    => ['label' => 'TikTok',    'icon' => 'fa-brands fa-tiktok',    'placeholder' => 'https://www.tiktok.com/@IhrName'],
+                  'youtube'   => ['label' => 'YouTube',   'icon' => 'fa-brands fa-youtube',   'placeholder' => 'https://www.youtube.com/@IhrName'],
+                  'pinterest' => ['label' => 'Pinterest', 'icon' => 'fa-brands fa-pinterest', 'placeholder' => 'https://www.pinterest.com/IhrName'],
+                  'linkedin'  => ['label' => 'LinkedIn',  'icon' => 'fa-brands fa-linkedin',  'placeholder' => 'https://www.linkedin.com/company/IhrName'],
+              ];
+              foreach ($socials as $key => $info) {
+                  $val = htmlspecialchars($GLOBALS['mrh_social'][$key] ?? '');
+                  echo '<div class="row mb-3">';
+                  echo '<div class="col-sm-12">';
+                  echo '<label for="mrh-social-'.$key.'"><strong><i class="'.$info['icon'].' me-1"></i>'.$info['label'].'</strong></label>';
+                  echo '<input type="url" class="form-control" id="mrh-social-'.$key.'" name="'.$key.'" value="'.$val.'" placeholder="'.$info['placeholder'].'">';
+                  echo '</div>';
+                  echo '</div>';
+              }
+            {/php}
+          </section>
+
+          <section class="col-sm-12">
+            <input type="submit" name="submit-socialsettings" id="submit-socialsettings"
+                   class="btn btn-success btn-lg w-100" value="Social Media Links speichern">
+          </section>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -21,13 +21,13 @@
               method="get" class="d-none d-md-block">
           <div class="input-group input-group-sm" style="width:220px">
             <input type="text" name="keywords" class="form-control" placeholder="{#MRH_search#}" autocomplete="off">
-            <button class="btn btn-success btn-sm" type="submit"><span class="fa fa-search"></span></button>
+            <button class="btn btn-sm mrh-btn-primary" type="submit" style="background-color:var(--mrh-primary,#16a34a);border-color:var(--mrh-primary,#16a34a);color:var(--mrh-text-button,#fff)"><span class="fa fa-search"></span></button>
           </div>
         </form>
         <a href="{xtc_href_link('wishlist.php')}" class="text-dark d-none d-md-inline"><span class="fa fa-heart"></span></a>
         <a href="{xtc_href_link('shopping_cart.php')}" class="text-dark position-relative">
           <span class="fa fa-shopping-cart"></span>
-          <span class="mrh-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+          <span class="mrh-badge position-absolute top-0 start-100 translate-middle badge rounded-pill mrh-badge-primary" style="background-color:var(--mrh-primary,#16a34a);color:var(--mrh-text-button,#fff)"
                 id="mrh-sticky-cart-count">{$cart_count|default:'0'}</span>
         </a>
       </div>

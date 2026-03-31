@@ -137,8 +137,8 @@
     font-family: var(--mrh-font-body);
     font-size: var(--mrh-fs-base);
     line-height: 1.6;
-    color: var(--mrh-gray-800);
-    background-color: #fff;
+    color: var(--mrh-text-standard, var(--mrh-gray-800));
+    background-color: var(--mrh-bg-color, #fff);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -147,7 +147,7 @@
     font-family: var(--mrh-font-heading);
     font-weight: 700;
     line-height: 1.3;
-    color: var(--mrh-gray-900);
+    color: var(--mrh-text-headings, var(--mrh-gray-900));
   }
 
   h1 { font-size: var(--mrh-fs-3xl); }
@@ -223,6 +223,8 @@
 
   /* --- Topbar --- */
   #mrh-topbar {
+    background-color: var(--mrh-topbar-bg, var(--mrh-gray-800));
+    color: var(--mrh-topbar-text, #fff);
     font-size: var(--mrh-fs-xs);
     letter-spacing: 0.02em;
   }
@@ -246,23 +248,23 @@
 
   /* --- Header --- */
   #mrh-header {
-    background: #fff;
+    background: var(--mrh-bg-color, #fff);
     position: relative;
-    z-index: 10;
+    z-index: 100;
   }
   .mrh-logo-img {
     max-height: 60px;
     width: auto;
   }
   .mrh-icon-link {
-    color: var(--mrh-gray-700);
+    color: var(--mrh-text-standard, var(--mrh-gray-700));
     transition: color var(--mrh-transition-fast);
     display: inline-flex;
     align-items: center;
     position: relative;
   }
   .mrh-icon-link:hover {
-    color: var(--mrh-primary);
+    color: var(--mrh-primary, var(--mrh-green-600));
   }
   .mrh-badge {
     font-size: 0.65rem;
@@ -288,21 +290,37 @@
     border-radius: 0 var(--mrh-radius-full) var(--mrh-radius-full) 0;
     padding-left: var(--mrh-space-lg);
     padding-right: var(--mrh-space-lg);
+    background-color: var(--mrh-primary, var(--mrh-green-600));
+    border-color: var(--mrh-primary, var(--mrh-green-600));
+    color: var(--mrh-text-button, #fff);
+  }
+  .mrh-searchbar .btn:hover {
+    background-color: var(--mrh-primary-hover, var(--mrh-green-700));
+    border-color: var(--mrh-primary-hover, var(--mrh-green-700));
   }
 
   /* --- Hauptnavigation --- */
   #mrh-mainmenu {
+    background-color: var(--mrh-menu-bg, var(--mrh-green-600));
+    color: var(--mrh-menu-text, #fff);
     font-size: var(--mrh-fs-sm);
     font-weight: 500;
     letter-spacing: 0.01em;
+    position: relative;
+    z-index: 100;
   }
   #mrh-mainmenu .nav-link {
+    color: var(--mrh-menu-text, #fff);
     padding: var(--mrh-space-sm) var(--mrh-space-md);
-    transition: background-color var(--mrh-transition-fast);
+    transition: background-color var(--mrh-transition-fast), color var(--mrh-transition-fast);
     border-radius: var(--mrh-radius-sm);
   }
   #mrh-mainmenu .nav-link:hover {
-    background-color: rgb(255 255 255 / 0.15);
+    background-color: var(--mrh-menu-hover-bg, rgba(255, 255, 255, 0.15));
+    color: var(--mrh-menu-text, #fff);
+  }
+  #mrh-mainmenu .nav-link.active {
+    background-color: var(--mrh-menu-active-bg, rgba(255, 255, 255, 0.25));
   }
 
   /* KK-Mega-Menu */
@@ -355,6 +373,8 @@
     left: 0;
     right: 0;
     z-index: var(--mrh-z-sticky);
+    background-color: var(--mrh-sticky-bg, #fff);
+    color: var(--mrh-sticky-text, var(--mrh-gray-700));
     transform: translateY(-100%);
     transition: transform var(--mrh-transition-base);
     will-change: transform;
@@ -370,7 +390,7 @@
 
   /* --- Produktkarten --- */
   .mrh-product-card {
-    background: #fff;
+    background: var(--mrh-bg-productbox, #fff);
     border: 1px solid var(--mrh-gray-200);
     border-radius: var(--mrh-radius-lg);
     overflow: hidden;
@@ -521,17 +541,22 @@
   .mrh-traffic-red { background: var(--mrh-danger); }
 
   /* --- Footer --- */
+  #mrh-footer {
+    background-color: var(--mrh-bg-footer, var(--mrh-gray-900));
+    color: var(--mrh-text-footer, var(--mrh-gray-400));
+  }
   #mrh-footer h5 {
     font-size: var(--mrh-fs-base);
     font-weight: 700;
     letter-spacing: 0.03em;
+    color: var(--mrh-text-footer-headings, #fff);
   }
   #mrh-footer a {
-    color: rgb(255 255 255 / 0.7);
+    color: var(--mrh-text-footer, rgb(255 255 255 / 0.7));
     transition: color var(--mrh-transition-fast);
   }
   #mrh-footer a:hover {
-    color: #fff;
+    color: var(--mrh-text-footer-headings, #fff);
   }
   .mrh-social a {
     width: 36px;

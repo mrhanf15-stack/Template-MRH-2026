@@ -1,10 +1,12 @@
-{* MRH 2026 – Hauptnavigation (KK-Mega-Menu) *}
-<nav id="mrh-mainmenu" class="navbar navbar-expand-lg bg-success d-none d-lg-block" aria-label="{#MRH_main_navigation#}">
+{* MRH 2026 – Hauptnavigation (KK-Mega-Menu)
+   Farben werden via CSS Custom Properties gesteuert (--mrh-menu-bg, --mrh-menu-text etc.)
+   Konfigurierbar über den Farb-Konfigurator im Admin-Panel *}
+<nav id="mrh-mainmenu" class="navbar navbar-expand-lg d-none d-lg-block" aria-label="{#MRH_main_navigation#}">
   <div class="container">
     <ul class="navbar-nav w-100 justify-content-start" id="mrh-nav-list">
       {if $smarty.const.MRH_SHOW_HOMEBUTTON_IN_TOPCATMENU == 'true'}
         <li class="nav-item">
-          <a class="nav-link text-white" href="{$smarty.const.DIR_WS_BASE}">
+          <a class="nav-link" href="{$smarty.const.DIR_WS_BASE}">
             <span class="fa fa-home me-1"></span> {#MRH_home#}
           </a>
         </li>
