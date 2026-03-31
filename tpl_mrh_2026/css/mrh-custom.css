@@ -412,6 +412,7 @@ div.navibar,
 }
 .main-header-menu-wrap {
   padding: 0 !important;
+  background-color: var(--mrh-menu-bg, var(--tpl-menu-bg)) !important;
 }
 
 /* ---- 04c: Mega-Nav Bar ---- */
