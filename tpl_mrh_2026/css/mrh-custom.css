@@ -3,6 +3,11 @@
    Alle MRH-spezifischen Anpassungen gesammelt
    ============================================================ */
 
+/* ---- Admin Spacer ausblenden (nur für eingeloggte Admins relevant) ---- */
+.adminspacer {
+  display: none !important;
+}
+
 /* ---- Global Font Override ---- */
 body {
   font-family: var(--tpl-font-text), sans-serif !important;
