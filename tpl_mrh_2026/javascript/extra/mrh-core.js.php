@@ -382,12 +382,23 @@
 
       var self = this;
 
+      // Statische Nav-Items sammeln um Duplikate zu vermeiden (SEO: saubere URLs bevorzugen)
+      var staticNavTexts = [];
+      MRH.Utils.qsa('.mrh-nav-item[data-nav]', this.bar).forEach(function(item) {
+        var span = item.querySelector('span');
+        if (span) staticNavTexts.push(span.textContent.trim().toLowerCase());
+      });
+
       level1Items.forEach(function(li) {
         var link = MRH.Utils.qs(':scope > a', li);
         if (!link) return;
 
         var text = link.textContent.trim();
         var href = link.getAttribute('href') || '#';
+
+        // Duplikat-Check: Wenn ein statischer Nav-Item mit gleichem Text existiert, überspringen
+        if (staticNavTexts.indexOf(text.toLowerCase()) > -1) return;
+
         var subUl = MRH.Utils.qs(':scope > ul', li);
         var hasSubmenu = !!subUl;
 
@@ -435,8 +446,47 @@
     },
 
     /**
-     * Baut ein Mega-Dropdown Panel aus den Sub-Kategorien
+     * Kategorie-spezifische Spalten-Konfiguration (SEO 2026)
+     * Jede Hauptkategorie bekommt passende Überschriften und Icons
      */
+    getCategoryConfig: function(parentText) {
+      var textLower = (parentText || '').toLowerCase();
+
+      // Samen Shop
+      if (textLower.indexOf('samen') > -1 || textLower.indexOf('seed') > -1) {
+        return {
+          titles: ['Samenarten', 'Empfehlungen', 'Mehr entdecken'],
+          icons:  ['fa-seedling', 'fa-star', 'fa-compass']
+        };
+      }
+      // Growshop
+      if (textLower.indexOf('grow') > -1) {
+        return {
+          titles: ['Grundausstattung', 'Pflanzenpflege', 'Spezialzubehör'],
+          icons:  ['fa-box-open', 'fa-hand-holding-droplet', 'fa-screwdriver-wrench']
+        };
+      }
+      // Headshop
+      if (textLower.indexOf('head') > -1) {
+        return {
+          titles: ['Rauchen & Dampfen', 'Zubehör & Tools', 'Mehr entdecken'],
+          icons:  ['fa-cloud', 'fa-wrench', 'fa-flask']
+        };
+      }
+      // Cannabispflanzen
+      if (textLower.indexOf('cannabispflanz') > -1 || textLower.indexOf('pflanz') > -1) {
+        return {
+          titles: ['Pflanzen kaufen', 'Sorten', 'Mehr entdecken'],
+          icons:  ['fa-cannabis', 'fa-leaf', 'fa-compass']
+        };
+      }
+      // Fallback
+      return {
+        titles: ['Sortiment', 'Highlights', 'Mehr entdecken'],
+        icons:  ['fa-layer-group', 'fa-star', 'fa-compass']
+      };
+    },
+
     buildDropdown: function(subUl, parentHref, parentText) {
       var dropdown = document.createElement('div');
       dropdown.className = 'mrh-mega-dropdown';
@@ -448,9 +498,10 @@
       var subItems = MRH.Utils.qsa(':scope > li', subUl);
       var columns = this.splitIntoColumns(subItems, 3);
 
-      // Spalten-Titel Icons
-      var colIcons = ['fa-layer-group', 'fa-star', 'fa-industry'];
-      var colTitles = ['Sortenvielfalt', 'Beliebte Sorten', 'Top Hersteller'];
+      // Kategorie-spezifische Spalten-Titel und Icons (SEO 2026)
+      var config = this.getCategoryConfig(parentText);
+      var colIcons = config.icons;
+      var colTitles = config.titles;
 
       columns.forEach(function(colItems, idx) {
         var col = document.createElement('div');
