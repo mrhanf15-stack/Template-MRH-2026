@@ -1,0 +1,38 @@
+{config_load file="lang_`$language`.custom"}
+{*
+	<div class="mobile_nav">
+	<ul class="mobile_iconnav">
+
+		{if isset($box_CART)}
+			<li class="cart rechts links">{$box_CART}</li>
+		{/if}
+
+		{if isset($box_WISHLIST)}
+			<li class="wishlist rechts links">{$box_WISHLIST}</li>
+		{/if}
+
+		<li class="rechts" id="the-menu-button"><a id="my-button4">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30px" height="30px" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 896"><path d="M27 130q-4-4-7-9t-4-10.5T15 98q0-19 12-31t31-12h913q19 0 31 12t12 31t-12 31.5t-31 12.5H58q-19 0-31-12zm975 285q12 12 12 31t-12 31t-31 12H58q-19 0-31-12q-2-2-4-5t-3.5-6t-2.5-6t-1.5-6.5t-.5-7.5q0-19 12-31t31-12h913q19 0 31 12zm0 347q12 12 12 31t-12 31.5t-31 12.5H58q-19 0-31-12q-2-2-3.5-4.5l-3-5l-2.5-5l-2-5.5l-1-5.5V793q0-19 12-31t31-12h913q18 0 31 12z" fill="#ffffff" /></svg>
+			<span class="btn-desc">{#link_menu#}</span>
+		</li>
+
+			<li class="rechts" id="the-menu-button-close"><a id="my-button4-close">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30px" height="30px" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M512 0Q373 0 255 68.5T68.5 255T0 512t68.5 257T255 955.5t257 68.5t257-68.5T955.5 769t68.5-257t-68.5-257T769 68.5T512 0zm0 961q-73 0-141.5-22.5T247 874t-96.5-97t-64-123.5T64 512q0-91 35.5-174T195 195t143-95.5T512 64t174 35.5T829 195t95.5 143T960 512t-35.5 174T829 829.5t-143 96T512 961zm181-630q-9-9-22.5-9t-22.5 9L512 467L376 331q-9-9-22.5-9t-22.5 9t-9 22.5t9 22.5l136 136l-136 136q-6 6-8.5 14t0 16.5T331 693q9 9 22.5 9t22.5-9l136-136l136 136q9 9 22.5 9t22.5-9q6-6 8.5-14.5t0-16.5t-8.5-14L557 512l136-136q9-9 9-22.5t-9-22.5z" fill="#ffffff"/></svg>
+				<span class="btn-desc">{#link_menu#}</span>
+			</li>
+		<li class="rechts">
+			{if isset($account)}<a href="{$account}">{else}<a href="{$login}">{/if}
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30px" height="30px" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M512 64q39 0 80.5 15.5t72.5 39t51 52t20 53.5v160q0 57-24 127t-71 106q-8 7-14 16.5t-8.5 20T617 675q5 36 37 51l279 132l2 .5l4 1.5l5 3l5.5 4.5l5 6.5l3.5 10l1 13v62l-895 1v-65q0-25 27-37l281-133q32-15 36.5-50.5T385 617q-46-37-71.5-107.5T288 384V224q0-33 33-70.5T407 90t105-26zm0-64q-69 0-136.5 33.5t-109.5 86T224 224v160q0 65 30.5 149.5T345 667L64 800q-3 1-7 3t-15 9t-19.5 14T7 843.5T0 863v97q0 26 18.5 44.5T64 1023h896q26 0 44.5-18.5T1023 960v-97q0-10-6.5-20.5t-16-18T982 811t-16-9l-6-2l-279-133q60-47 89.5-130T800 384V224q0-39-25.5-79.5T709 72t-93-52T512 0z" fill="var(--tpl-text-standard)"/></svg>
+				<span class="btn-desc">{#konto#}</span>
+			</a>
+		</li>
+		
+		<li class="rechts">
+			<a id="my-button3">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30px" height="30px" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M576 736h-32V448q0-13-9.5-22.5T512 416h-64q-13 0-22.5 9.5T416 448t9.5 22.5T448 480h32v256h-32q-13 0-22.5 9.5T416 768t9.5 22.5T448 800h128q13 0 22.5-9.5T608 768t-9.5-22.5T576 736zm-64-384q27 0 45.5-18.5T576 288t-18.5-45.5T512 224t-45.5 18.5T448 288t18.5 45.5T512 352zm0-352q-83 0-161.5 26T209 99T99 209T26 350.5T0 512q0 104 40.5 199t109 163.5t163.5 109t199 40.5t199-40.5t163.5-109t109-163.5t40.5-199q0-83-26-161.5T925 209T815 99T673.5 26T512 0zm0 961q-73 0-141.5-22.5T247 874t-96.5-97t-64-123.5T64 512q0-91 35.5-174T195 195t143-95.5T512 64t174 35.5T829 195t95.5 143T960 512t-35.5 174T829 829.5t-143 96T512 961z" fill="var(--tpl-text-standard)"/></svg>
+				<span class="btn-desc">{#info#}</span>
+			</a>
+		</li>
+	</ul>
+</div>
+*}

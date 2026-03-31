@@ -1,0 +1,180 @@
+{config_load file="lang_`$language`.custom"}
+<div class="row header-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 d-flex align-items-center logo-wrap">
+        <a href="{$index}" title="{#link_index#} &bull; {$store_name}">
+          <picture>
+            <source srcset="{$tpl_path}img/logo.webp" type="image/webp">
+            <source srcset="{$tpl_path}img/logo.png" type="image/png"> 
+            <img height="171" width="300" class="logo-top" alt="{$store_name} Logo" src="{$tpl_path}img/logo.webp">
+          </picture>
+        </a>
+        <!-- logo structured-data for google -->
+        <script type="application/ld+json">
+        {literal}
+        {
+          "@context": "http://schema.org",
+          "@type": "Organization",
+          "url": "{/literal}{$index}{literal}",
+          "logo": "{/literal}{$tpl_path}img/logo.png{literal}"
+        }
+        {/literal}
+        </script>
+        
+        <a 
+        class="d-flex flex-column align-items-center justify-content-center"
+        title="{#link_menu#}" id="toggle_mobilemenu" aria-label="{#link_menu#}" aria-hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 1024 1024"><path fill="currentColor" d="M27 193.6c-8.2-8.2-12.2-18.6-12.2-31.2s4-23 12.2-31.2S45.6 119 58.2 119h912.4c12.6 0 23 4 31.2 12.2s12.2 18.6 12.2 31.2s-4 23-12.2 31.2s-18.6 12.2-31.2 12.2H58.2c-12.6 0-23-4-31.2-12.2zm974.8 285.2c8.2 8.2 12.2 18.6 12.2 31.2s-4 23-12.2 31.2s-18.6 12.2-31.2 12.2H58.2c-12.6 0-23-4-31.2-12.2S14.8 522.6 14.8 510s4-23 12.2-31.2s18.6-12.2 31.2-12.2h912.4c12.6 0 23 4 31.2 12.2zm0 347.4c8.2 8.2 12.2 18.6 12.2 31.2s-4 23-12.2 31.2s-18.6 12.2-31.2 12.2H58.2c-12.6 0-23-4-31.2-12.2S14.8 870 14.8 857.4s4-23 12.2-31.2S45.6 814 58.2 814h912.4c12.6 0 23 4.2 31.2 12.2z"/></svg>
+        <span class="btn-desc">{#link_menu#}</span>
+        </a>
+      
+      </div>
+      
+      <div class="col-lg-9 col-md-9 col-sm-9 d-flex align-items-center justify-content-between flex-wrap">
+        
+        {if isset($box_SEARCH)}<div id="search" role="search">{$box_SEARCH}</div>{/if}
+        <!-- search structured-data for google-->
+        <script type="application/ld+json">
+          {literal}
+          {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url": "{/literal}{$index}{literal}",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "{/literal}{$index}{literal}advanced_search_result.php?keywords={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+          {/literal}
+        </script>
+
+        <div class="badges">
+          {if $tpl_cfg_ts == on}
+            <!-- TrustedShops Guarantee Badge -->
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+        <style type="text/css">
+        {literal}
+          .stts0{fill:#FFFFFF;}
+          .stts1{fill:url(#SVGID_1_);}
+          .stts2{fill:#006CE2;}
+        {/literal}
+        </style>
+        <circle class="stts0" cx="60.1" cy="59.6" r="56.6"/>
+        <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="88.9306" y1="89.3558" x2="31.6048" y2="32.03">
+          <stop  offset="0.2682" style="stop-color:#E7C66F"/>
+          <stop  offset="1" style="stop-color:#F8F5ED"/>
+        </linearGradient>
+        <circle class="stts1" cx="60.3" cy="60.7" r="40.5"/>
+        <g>
+          <g>
+            <path d="M119.9,59.7c0.3,33.4-27.9,60.7-61.6,59.4C26.2,117.8-0.1,90.9,1.4,57.3C2.7,24.9,31.2-1.2,63.8,0.6
+              C95.2,2.3,119.9,28.5,119.9,59.7z M23.4,59.7c-0.2,20.2,16.4,37,36.6,37.2c20.6,0.2,37.5-16.2,37.7-36.8
+              c0.2-20.6-16.3-37.3-36.9-37.5C40.3,22.5,23.5,39,23.4,59.7z M57.2,12.3c-0.1,0-0.2,0-0.3,0c0,1.5,0,2.9,0,4.4c0,0.5-0.1,1,0.6,1
+              c2,0.2,4.1,0.4,6.1-0.3c2.3-0.7,3.5-2.8,3.5-5.6C67,9.4,65.7,7.7,63.4,7c-1.7-0.5-3.5-0.3-5.2-0.3c-0.8,0-1,0.3-1,1.1
+              C57.2,9.3,57.2,10.8,57.2,12.3z M90.7,30.3c0.4,0,0.6-0.4,0.7-0.6c1.9-2.3,3.8-4.7,5.7-7c0.5-0.6,0.5-1-0.2-1.5
+              c-1.5-1.1-1.4-1.2-2.6,0.3c-0.2,0.2-0.4,0.4-0.5,0.6c-0.6,1-1.1,1-2,0.2c-1.7-1.5-1.7-1.4-0.3-3.1c1.2-1.5,1.2-1.4-0.3-2.7
+              c-0.7-0.6-1-0.4-1.5,0.2c-1.6,2.1-3.3,4.1-5,6.2c-1.3,1.6-1.3,1.5,0.3,2.8c0.6,0.5,0.9,0.5,1.3-0.1c0.5-0.7,1.1-1.3,1.6-2
+              c0.4-0.6,0.8-0.6,1.4-0.1c2.1,1.7,2.1,1.6,0.4,3.7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.2,0.4-1,0.7-0.6,1.2
+              C89.3,29.3,90.1,29.7,90.7,30.3z"/>
+            <path class="stts2" d="M38.9,68.1c0.5-10.7,4.4-19.8,12.6-26.8c5.4-4.6,11.7-6.9,18.9-6c2.8,0.3,5.1,1.5,6.9,3.8
+              c3.2,4.2,2.6,10-1,13.9c-3.7,4-8.3,6.2-13.2,8c-4.2,1.5-8.5,2.7-13,3.5c-1.1,0.2-1.4,0.6-1.4,1.7c0.1,2.1,0.2,4.2,0.6,6.3
+              c1.1,5.3,4.7,6.7,9.6,6.1c3.8-0.5,6.6-2.8,9.2-5.4c1.3-1.3,2.4-2.7,3.5-4.1c0.8-1.1,1.1-1.1,2-0.1c0.2,0.2,0.3,0.3,0.5,0.5
+              c0.7,0.6,0.8,1.1,0.2,2c-2.1,2.9-4.4,5.6-7.3,7.8c-5.3,4-11.3,5.7-17.8,4.2c-5.3-1.2-8.7-4.7-9.9-10.1
+              C39,71.6,38.9,69.9,38.9,68.1z M70.1,45c0.1-4.6-2.2-6.6-6.3-5.9c-2.2,0.4-4.1,1.5-5.7,3.1c-5,5-7.5,11.2-8.8,18
+              c-0.1,0.7,0,1,0.8,0.7c2.7-0.8,5.5-1.5,8.1-2.7c3-1.3,5.9-2.9,8.2-5.3C68.7,50.5,70,47.8,70.1,45z"/>
+          </g>
+        </g>
+        </svg>
+          {/if}
+          {if $tpl_cfg_ssl == on}
+            <!-- SSL Datensicherheit Badge -->
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+              <circle cx="59.7" cy="60.1" r="57.4" style="fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;"/>
+              <linearGradient id="SVGID_SSL_" gradientUnits="userSpaceOnUse" x1="39.895" y1="26.2158" x2="78.816" y2="93.629">
+                <stop  offset="0" style="stop-color:#FFFFFF"/>
+                <stop  offset="1" style="stop-color:#777777"/>
+              </linearGradient>
+              <circle style="fill:url(#SVGID_SSL_);stroke:#000000;stroke-miterlimit:10;" cx="59.4" cy="59.9" r="38.9"/>
+              <rect x="43.9" y="57.5" style="fill:#FFFFFF;" width="30.4" height="22.1"/>
+              <g>
+                <path style="fill:#119103;" d="M59.3,84c-5,0-10,0-15,0c-3.4,0-5.8-2.4-5.8-5.7c0-6.2,0-12.4,0-18.5c0-3.3,2.4-5.7,5.7-5.7
+                  c10.1,0,20.3,0,30.4,0c3,0,5.6,2.5,5.6,5.5c0.1,6.4,0.1,12.8,0,19.2c0,2.9-2.6,5.3-5.6,5.3C69.4,84.1,64.3,84,59.3,84z M58,70.5
+                  c-0.8-1.5-1.5-2.7-2.2-3.9c-1-1.7-2-2.1-3.3-1.4c-1.3,0.7-1.5,2-0.5,3.7c1.2,2,2.5,4.1,3.7,6.1c1.2,2,2.9,2.2,4.2,0.3
+                  C63,70.9,66,66.4,69,61.9c0.7-1,0.7-2-0.3-2.8c-1-0.8-2.1-0.7-3,0.2c-0.5,0.5-0.9,1.2-1.4,1.9C62.2,64.2,60.2,67.2,58,70.5z"/>
+                <path style="fill:#119103;" d="M74.1,45.7c0,4.2,0,4.2-4.1,4.2c-2.1,0-2.1,0-2.1-2.2c0-1.7,0.2-3.4-0.3-5.2c-1.1-4.1-5-6.8-9.2-6.4
+                  c-4.2,0.5-7.4,4.1-7.4,8.3c0,1.4,0,2.8,0,4.2c0,1-0.3,1.2-1.3,1.2c-5.1,0.2-4.9,0.2-5.1-4.8c-0.2-7.5,5-13.9,12.4-15
+                  c9.2-1.4,17,5.3,17.1,14.7C74.1,45.1,74.1,45.4,74.1,45.7z"/>
+              </g>
+            </svg>
+          {/if}
+        </div>
+        
+        <ul id="iconMenu" class="list-unstyled mb-0 d-flex align-items-center">
+          
+          {if (isset($box_CURRENCIES) && $box_CURRENCIES != '') || (isset($box_SHIPPING_COUNTRY) && $box_SHIPPING_COUNTRY != '') || (isset($box_LANGUAGES) && $box_LANGUAGES != '')}
+          <li class="rechts">
+            <a 
+            class="d-flex flex-column align-items-center justify-content-center" 
+            data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button" aria-controls="offcanvasSettings"
+            title="{#link_settings#}" id="toggle_settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1025.02 512c0-272.016-213.663-495.104-482.319-511.023c-5.536-.608-11.088-1.009-16.72-1.009c-1.664 0-3.328.176-4.992.224c-2.992-.048-5.968-.224-8.992-.224C229.117-.032-1.026 229.664-1.026 512s230.144 512.032 513.023 512.032c3.024 0 6-.176 9.008-.24c1.664.064 3.328.24 4.992.24c5.632 0 11.184-.4 16.72-1.009c268.64-15.92 482.304-238.976 482.303-511.023z"/></svg>
+              <img class="currentLanguageFlag" alt="{$smarty.session.language}" src="{$tpl_path}img/flags/{$smarty.session.language_code}.webp">
+            <span class="btn-desc">{#link_settings#}</span>
+            </a>
+          </li>
+          {/if}
+            <li class="rechts">
+              {if isset($box_LOGIN) || isset($box_INFOBOX)}
+              
+                    {if isset($smarty.session.customer_id)}
+                      <a 
+                      class="d-flex flex-column align-items-center justify-content-center" 
+                      data-bs-toggle="offcanvas" href="#offcanvasAccount" role="button" aria-controls="offcanvasAccount"
+                      title="{#link_account#}" id="toggle_account">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30px" height="30px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M512 64q39 0 80.5 15.5t72.5 39t51 52t20 53.5v160q0 57-24 127t-71 106q-8 7-14 16.5t-8.5 20T617 675q5 36 37 51l279 132l2 .5l4 1.5l5 3l5.5 4.5l5 6.5l3.5 10l1 13v62l-895 1v-65q0-25 27-37l281-133q32-15 36.5-50.5T385 617q-46-37-71.5-107.5T288 384V224q0-33 33-70.5T407 90t105-26zm0-64q-69 0-136.5 33.5t-109.5 86T224 224v160q0 65 30.5 149.5T345 667L64 800q-3 1-7 3t-15 9t-19.5 14T7 843.5T0 863v97q0 26 18.5 44.5T64 1023h896q26 0 44.5-18.5T1023 960v-97q0-10-6.5-20.5t-16-18T982 811t-16-9l-6-2l-279-133q60-47 89.5-130T800 384V224q0-39-25.5-79.5T709 72t-93-52T512 0z" fill="var(--tpl-text-standard)"/></svg>
+                        <span class="btn-desc">{#konto#}</span>
+                      </a>
+                    {else}
+                      <a 
+                      class="d-flex flex-column align-items-center justify-content-center" 
+                      data-bs-toggle="offcanvas" href="#offcanvasAccount" role="button" aria-controls="offcanvasAccount"
+                      title="{#link_login#}" id="toggle_account">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30px" height="30px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M512 64q39 0 80.5 15.5t72.5 39t51 52t20 53.5v160q0 57-24 127t-71 106q-8 7-14 16.5t-8.5 20T617 675q5 36 37 51l279 132l2 .5l4 1.5l5 3l5.5 4.5l5 6.5l3.5 10l1 13v62l-895 1v-65q0-25 27-37l281-133q32-15 36.5-50.5T385 617q-46-37-71.5-107.5T288 384V224q0-33 33-70.5T407 90t105-26zm0-64q-69 0-136.5 33.5t-109.5 86T224 224v160q0 65 30.5 149.5T345 667L64 800q-3 1-7 3t-15 9t-19.5 14T7 843.5T0 863v97q0 26 18.5 44.5T64 1023h896q26 0 44.5-18.5T1023 960v-97q0-10-6.5-20.5t-16-18T982 811t-16-9l-6-2l-279-133q60-47 89.5-130T800 384V224q0-39-25.5-79.5T709 72t-93-52T512 0z" fill="var(--tpl-text-standard)"/></svg>
+                        <span class="btn-desc">{#konto#}</span>
+                      </a>
+                    {/if}
+                  
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAccount" aria-labelledby="offcanvasAccountLabel">
+                      <div class="offcanvas-header">
+                          <strong class="h3 offcanvas-title" id="offcanvasAccountLabel">{#konto#}</strong>
+                          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="{#close_button#}">
+                            <span class="visually-hidden">{#close_button#}</span>
+                          </button>
+                      </div>
+                      <div class="offcanvas-body">
+                        {if isset($box_LOGIN)}{$box_LOGIN}{/if}
+                        {if isset($box_INFOBOX)}{$box_INFOBOX}{/if}
+                      </div>
+                  </div>
+              {/if}
+            </li>
+          {if isset($box_WISHLIST)}
+            <li class="wishlist rechts" data-placement="bottom" data-toggle="tooltip" title="{#heading_wishlist#}">
+              {$box_WISHLIST}
+            </li>
+          {/if}
+          {if isset($box_CART)}
+            <li class="cart rechts" data-placement="bottom" data-toggle="tooltip" title="{#heading_cart#}">
+              {$box_CART}
+            </li>
+          {/if}
+        
+        </ul>
+    </div>
+  </div>
+</div>
+</div>
