@@ -141,40 +141,57 @@ h1, h2, h3, h4, h5, h6,
   object-fit: contain;
 }
 
-/* Suchleiste */
+/* Suchleiste – Wireframe: Pill-Shape mit grünem Such-Button */
 #search {
-  border: 2px solid var(--tpl-borders-color) !important;
-  border-radius: 8px !important;
+  border: 2px solid var(--tpl-main-color) !important;
+  border-radius: 999px !important;
   overflow: hidden;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   background: var(--tpl-bg-color);
+  flex: 1;
+  max-width: 520px;
+  margin: 0 24px;
 }
 #search:focus-within {
   border-color: var(--tpl-main-color) !important;
-  box-shadow: 0 0 0 3px rgba(74, 140, 42, 0.12);
+  box-shadow: 0 0 0 3px rgba(74, 140, 42, 0.15);
+}
+#search .input-group {
+  flex-wrap: nowrap;
 }
 #search input[type=text] {
   border: none !important;
   font-family: var(--tpl-font-text), sans-serif;
   font-size: 14px;
+  padding: 10px 20px;
+  background: transparent;
 }
 #search input[type=text]::placeholder {
   color: #94a3b8;
   font-weight: 400;
 }
-#quick_find button {
-  color: var(--tpl-main-color) !important;
-  transition: color 0.2s ease, background 0.2s ease;
+/* Grüner Such-Button (Wireframe) */
+#quick_find button,
+#search .input-group-append button,
+#search button[type=submit] {
+  background-color: var(--tpl-main-color) !important;
+  border: none !important;
+  color: #ffffff !important;
+  border-radius: 0 999px 999px 0 !important;
+  padding: 10px 18px;
+  transition: background-color 0.2s ease;
 }
-#quick_find button:hover {
-  color: var(--tpl-secondary-color) !important;
+#quick_find button:hover,
+#search .input-group-append button:hover,
+#search button[type=submit]:hover {
+  background-color: var(--tpl-secondary-color) !important;
 }
-#quick_find button i {
-  color: var(--tpl-main-color) !important;
-  opacity: 0.7;
-}
-#quick_find:hover button i {
-  opacity: 1;
+#quick_find button i,
+#search button i,
+#search button .fa-magnifying-glass,
+#search button .fa-search {
+  color: #ffffff !important;
+  font-size: 16px;
 }
 
 /* Badges im Header – entfernt (Trust-Badges nicht mehr im Header) */
@@ -223,9 +240,10 @@ h1, h2, h3, h4, h5, h6,
   font-size: 11px;
   font-family: var(--tpl-font-text), sans-serif;
   font-weight: 500;
-  letter-spacing: 0.01em;
-  margin-top: 2px;
-  color: inherit;
+  letter-spacing: 0.02em;
+  margin-top: 5px;
+  color: var(--tpl-text-standard);
+  line-height: 1;
 }
 
 /* Warenkorb-Badge */
@@ -251,12 +269,13 @@ h1, h2, h3, h4, h5, h6,
   100% { transform: scale(1); }
 }
 
-/* Einstellungen-Icon: Flagge */
-.currentLanguageFlag {
-  width: 22px;
-  height: auto;
-  border-radius: 2px;
-  margin-bottom: 1px;
+/* Icon-Menü: Gleichmäßiger Abstand */
+#iconMenu {
+  gap: 8px;
+}
+#iconMenu li.rechts > a {
+  min-width: 56px;
+  padding: 8px 10px;
 }
 
 /* ============================================================

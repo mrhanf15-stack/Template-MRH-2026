@@ -336,6 +336,24 @@
     MRH.A11y.init();
     MRH.Performance.init();
 
+    // Suchleisten-Placeholder anpassen (Core liefert nur "Suchen")
+    var searchInput = document.querySelector('#search input[type="text"], #search input[name="keywords"]');
+    if (searchInput) {
+      var placeholders = {
+        'german': 'Cannabis Samen suchen...',
+        'english': 'Search cannabis seeds...',
+        'french': 'Rechercher des graines...',
+        'dutch': 'Cannabis zaden zoeken...'
+      };
+      var lang = document.documentElement.lang || 'de';
+      // Sprache aus HTML-lang oder aus Body-Klasse ermitteln
+      if (lang === 'de' || lang === 'de-AT') searchInput.placeholder = placeholders['german'];
+      else if (lang === 'en') searchInput.placeholder = placeholders['english'];
+      else if (lang === 'fr') searchInput.placeholder = placeholders['french'];
+      else if (lang === 'nl') searchInput.placeholder = placeholders['dutch'];
+      else searchInput.placeholder = placeholders['german'];
+    }
+
     // Debug-Info in Konsole (nur Entwicklung)
     if (window.location.hostname === 'localhost' || window.location.search.indexOf('debug=1') > -1) {
       console.log('[MRH Core] v1.0.0 initialized', {
