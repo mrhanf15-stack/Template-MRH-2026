@@ -632,16 +632,18 @@ img {
     justify-content: flex-end !important;
     flex-wrap: wrap !important;
   }
-  /* Suche: volle Breite, eigene Zeile */
+  /* Suche: eigene Zeile, volle Breite erzwingen */
   #search {
+    flex: 0 0 100% !important;
     width: 100% !important;
     max-width: 100% !important;
     order: 2 !important;
     margin: 8px 0 0 !important;
   }
-  /* iconMenu: rechts in der ersten Zeile */
+  /* iconMenu: rechts in der ersten Zeile neben Logo */
   ul#iconMenu {
     order: 1 !important;
+    flex: 0 0 auto !important;
     position: static !important;
     bottom: auto !important;
     z-index: auto !important;
