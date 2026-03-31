@@ -53,19 +53,19 @@
 			'MinLevel'		=>	100,
 			'MaxLevel'		=>	false,
 			'HideEmpty'		=>	false,
-			'ShowCounts'	=>	BS4_SHOW_PRODUCTS_IN_TOPCATMENU,
+			'ShowCounts'	=>	MRH_SHOW_PRODUCTS_IN_TOPCATMENU,
 			'CatNaviID'		=>	'main',
-			'Home'			=>	BS4_SHOW_HOMEBUTTON_IN_TOPCATMENU
+			'Home'			=>	MRH_SHOW_HOMEBUTTON_IN_TOPCATMENU
 		);
 		$box_smarty->assign('language',$_SESSION['language']);
 		$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
 		$box_smarty->assign('BOX_CONTENT',gunnartCategories(0,1,$TopConfig));
 
-		if (BS4_ADD_LINK_IN_TOPCATMENU_LAST != '')
+		if (MRH_ADD_LINK_IN_TOPCATMENU_LAST != '')
 		{
             $link_content = array();
         	$add_links = array();
-			$add_links = explode(',', BS4_ADD_LINK_IN_TOPCATMENU_LAST);
+			$add_links = explode(',', MRH_ADD_LINK_IN_TOPCATMENU_LAST);
 			foreach ($add_links as $add_link) {
 				$links = explode('|', trim($add_link));
 				$link_content[] = array (

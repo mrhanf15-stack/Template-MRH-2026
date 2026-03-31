@@ -55,9 +55,39 @@
 
 <?php
 // Include and override colorsettings from json data
-// ? Alternative zu file_get_contents zum Holen der json-data ?
-$string_colors = file_get_contents(__DIR__ . "/../config/colors.json",0);
-$json_a = json_decode($string_colors, true);
+$colors_file = __DIR__ . "/../config/colors.json";
+$json_a = [];
+if (file_exists($colors_file)) {
+    $string_colors = file_get_contents($colors_file);
+    $decoded = json_decode($string_colors, true);
+    if (is_array($decoded)) {
+        $json_a = $decoded;
+    }
+}
+// Fallback-Defaults wenn JSON leer oder nicht vorhanden
+if (empty($json_a)) {
+    $json_a = [
+        'mrh-primary' => 'rgb(74, 140, 42)',
+        'mrh-secondary' => 'rgb(30, 30, 30)',
+        'mrh-bg-color' => 'rgb(255, 255, 255)',
+        'mrh-bg-color-2' => 'rgb(240, 253, 244)',
+        'mrh-bg-productbox' => 'rgb(255, 255, 255)',
+        'mrh-bg-footer' => 'rgb(15, 23, 42)',
+        'mrh-text-standard' => 'rgb(15, 23, 42)',
+        'mrh-text-headings' => 'rgb(15, 23, 42)',
+        'mrh-text-button' => 'rgb(255, 255, 255)',
+        'mrh-text-footer' => 'rgb(148, 163, 184)',
+        'mrh-text-footer-headings' => 'rgb(255, 255, 255)',
+        'mrh-menu-bg' => 'rgb(22, 163, 74)',
+        'mrh-menu-text' => 'rgb(255, 255, 255)',
+        'mrh-menu-hover-bg' => 'rgba(255, 255, 255, 0.15)',
+        'mrh-menu-active-bg' => 'rgba(255, 255, 255, 0.25)',
+        'mrh-topbar-bg' => 'rgb(30, 41, 59)',
+        'mrh-topbar-text' => 'rgb(255, 255, 255)',
+        'mrh-sticky-bg' => 'rgb(255, 255, 255)',
+        'mrh-sticky-text' => 'rgb(51, 65, 85)',
+    ];
+}
 ?>
 
 <style>
@@ -65,7 +95,7 @@ $json_a = json_decode($string_colors, true);
   <?php    
   foreach ($json_a as $key => $value) {
     if (!is_array($value)) {
-        echo '--'. $key . ':' . $value . ';';
+        echo '--'. htmlspecialchars($key) . ':' . htmlspecialchars($value) . ';';
     } 
   }
 ?>

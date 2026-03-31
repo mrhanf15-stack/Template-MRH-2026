@@ -25,7 +25,7 @@ function combine_files($f_array,$f_min,$compress_css = false,$f_time = 0)
 
     if ($f_min_ts && ($compress === true || filesize(DIR_FS_CATALOG.$f_min) == 0 || $f_time > $f_min_ts)) {
       require_once(DIR_TMPL.'source/external/compactor/compactor.php');
-      $compactor = new BS4_Compactor(array('strip_php_comments' => true, 'compress_css' => $compress_css));
+      $compactor = new MRH_Compactor(array('strip_php_comments' => true, 'compress_css' => $compress_css));
       foreach ($f_array as $f_plain) {
 
 		// Änderung: der relative Pfad zu zusätzlichen Schriftdateien in bootstrap.min.css muss geändert werden

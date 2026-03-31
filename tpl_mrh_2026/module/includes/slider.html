@@ -1,6 +1,54 @@
 {* MRH 2026 – Slider (Banner-Manager Carousel) *}
 {if isset($SLIDER) && $SLIDER != ''}
 <section id="mrh-slider" class="{if $smarty.const.MRH_CAROUSEL_SHOW == 'screen'}container-fluid px-0{else}mb-4{/if}" aria-label="{#MRH_slider#}">
+{if is_array($SLIDER)}
+  {if count($SLIDER) > 1}
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {foreach name=aussen item=slider from=$SLIDER}
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{$smarty.foreach.aussen.iteration - 1}" {if $smarty.foreach.aussen.first}class="active" aria-current="true"{/if} aria-label="Slide {$smarty.foreach.aussen.iteration}"></button>
+      {/foreach}
+    </div>
+    <div class="carousel-inner">
+      {foreach name=aussen item=slider from=$SLIDER}
+      <div class="carousel-item{if $smarty.foreach.aussen.first} active{/if}">
+        {if $slider.LINK != ''}
+          <a title="{$slider.TITLE|strip_tags}" href="{$slider.LINK}" {$slider.TARGET}>
+            <img class="d-block w-100 img-fluid" src="{$slider.IMAGE_SRC}" alt="{$slider.TITLE|strip_tags}">
+          </a>
+        {elseif $slider.IMAGE_IMG != ''}
+          <img class="d-block w-100 img-fluid" src="{$slider.IMAGE_SRC}" alt="{$slider.TITLE|strip_tags}">
+        {/if}
+        {if $slider.TEXT != ''}
+        <div class="carousel-caption d-none d-md-block">{$slider.TEXT}</div>
+        {/if}
+      </div>
+      {/foreach}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {else}
+    {foreach name=aussen item=slider from=$SLIDER}
+    <div class="text-center">
+      {if $slider.LINK != ''}
+        <a title="{$slider.TITLE|strip_tags}" href="{$slider.LINK}" {$slider.TARGET}>
+          <img class="img-fluid" src="{$slider.IMAGE_SRC}" alt="{$slider.TITLE|strip_tags}">
+        </a>
+      {elseif $slider.IMAGE_IMG != ''}
+        <img class="img-fluid" src="{$slider.IMAGE_SRC}" alt="{$slider.TITLE|strip_tags}">
+      {/if}
+    </div>
+    {/foreach}
+  {/if}
+{else}
   {$SLIDER}
+{/if}
 </section>
 {/if}

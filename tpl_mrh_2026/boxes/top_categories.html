@@ -1,15 +1,21 @@
-{if isset($BOX_CONTENT)}
-{config_load file="$language/lang_$language.conf" section="boxes"}
-{config_load file="lang_`$language`.custom"}
-<nav class="mrh-top-categories" aria-label="{#heading_top_categories#}">
-  <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
-    {foreach name=aussen item=box_data from=$BOX_CONTENT}
-      <li>
-        <a href="{$box_data.HREF}" class="btn btn-sm btn-outline-success{if $box_data.ACTIVE} active{/if}">
-          {$box_data.NAME}
-        </a>
-      </li>
-    {/foreach}
-  </ul>
-</nav>
+{if isset($BOX_CONTENT) && $BOX_CONTENT != ''}
+	{config_load file="$language/lang_$language.conf" section="boxes"}
+	{config_load file="lang_`$language`.custom"}
+	{$BOX_CONTENT}
+	{if $smarty.const.MRH_SPECIALS_CATEGORIES == 'true'}
+		{if $smarty.const.SPECIALS_EXISTS === true}
+			<li class="level1{if strpos($smarty.server.PHP_SELF, $smarty.const.FILENAME_SPECIALS) !== false} active Selected{/if}"><a href="{$smarty.const.FILENAME_SPECIALS|xtc_href_link}" class="{if strpos($smarty.server.PHP_SELF, $smarty.const.FILENAME_SPECIALS) !== false} active Selected{/if}{if $smarty.const.MRH_WHATSNEW_SPECIALS_UPPERCASE == 'true'}up{/if}">{#heading_specials#}</a></li>
+		{/if}
+	{/if}
+	{if $smarty.const.MRH_WHATSNEW_CATEGORIES == 'true'}
+		{*if $smarty.const.WHATSNEW_EXISTS === true*}
+			<li class="level1{if strpos($smarty.server.PHP_SELF, $smarty.const.FILENAME_PRODUCTS_NEW) !== false} active Selected{/if}"><a href="{$smarty.const.FILENAME_PRODUCTS_NEW|xtc_href_link}" class="{if strpos($smarty.server.PHP_SELF, $smarty.const.FILENAME_PRODUCTS_NEW) !== false} active Selected{/if}{if $smarty.const.MRH_WHATSNEW_SPECIALS_UPPERCASE == 'true'} up{/if}">{#heading_whatsnew#}</a></li>
+		{*/if*}
+	{/if}
+	{if isset($BOX_LINKS)}
+		{foreach name=aussen item=box_data from=$BOX_LINKS}
+			<li class="level1 nav-item added_link"><a class="nav-link" href="{$box_data.HREF}">{if strpos($box_data.NAME, 'MRH_') !== false}{#$box_data.NAME#}{else}{$box_data.NAME}{/if}</a></li>
+	   {/foreach}
+	{/if}
+	</ul>
 {/if}

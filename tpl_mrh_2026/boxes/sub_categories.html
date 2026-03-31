@@ -1,15 +1,9 @@
-{if isset($BOX_CONTENT)}
-{config_load file="$language/lang_$language.conf" section="boxes"}
-{config_load file="lang_`$language`.custom"}
-<nav class="mrh-sub-categories mb-3" aria-label="{#heading_sub_categories#}">
-  <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
-    {foreach name=aussen item=box_data from=$BOX_CONTENT}
-      <li>
-        <a href="{$box_data.HREF}" class="btn btn-sm btn-outline-secondary{if $box_data.ACTIVE} active{/if}">
-          {$box_data.NAME}
-        </a>
-      </li>
-    {/foreach}
-  </ul>
-</nav>
+{if $BOX_CONTENT}
+	{config_load file="$language/lang_$language.conf" section="boxes"}
+	<div class="Box" id="SubCategories">
+	<h4><span>{#heading_categories#}</span></h4>
+	<div class="Inner">
+	{$BOX_CONTENT}
+	</div>
+	</div>
 {/if}

@@ -488,3 +488,5 @@ title_brief = 'Pedido por correo'
 
 TEXT_BLOG_SEARCH_HEADING ='Resultado del blog'
 product_compare_button = 'Comparar'
+
+MRH_shop_offline_title = "Mantenimiento"

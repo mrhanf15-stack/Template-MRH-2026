@@ -10,6 +10,11 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
+// Trusted Shops Modul muss installiert sein
+if (!defined('MODULE_TS_REVIEW_STICKER') || MODULE_TS_REVIEW_STICKER == '') {
+  return;
+}
+
 // include smarty
 include(DIR_FS_BOXES_INC . 'smarty_default.php');
 

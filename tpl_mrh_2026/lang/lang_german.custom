@@ -1,4 +1,96 @@
-zoomtext = 'F&uuml;r eine gr&ouml;&szlig;ere Ansicht klicken Sie auf das Vorschaubild'
+MRH_catlist_title = 'Unser Angebot'
+
+MRH_heading_custombox = 'Zusatzbox'
+MRH_text_custombox = 'Die Box kann unter tpl_mrh_2026/boxes/box_custom.html ver&auml;ndert werden. Sprachvariablen befinden sich in der Datei templates/tpl_mrh_2026/lang/lang_german.custom!'
+
+MRH_alert_qty_wanted = 'gew&uuml;nscht'
+MRH_alert_qty_available = 'verf&uuml;gbar'
+
+MRH_heading_text_top = 'TOP-Artikel'
+
+MRH_top1 = '<span class="fa fa-truck fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Kostenfrei ab: AT 40€, DE 85€, EU 150€'
+MRH_top3 = '<span class="fa fa-clock fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Schnelle Lieferung'
+MRH_top2 = '<span class="fa fa-phone fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;+43 512 312 411'
+MRH_top4 = '<span class="fa fa-key  fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Einfache, sichere Zahlung' 
+MRH_top5 = '<span class="fa fa-envelope  fa-lg" aria-hidden="true"></span>&nbsp;&nbsp; <a class="iframe" href="/popup_content.php?coID=46" rel="nofollow" target="_blank" title="Briefbestellung" data-src="/popup_content.php?coID=46" data-bs-toggle="modal" data-bs-target="#modal">Briefbestellung</a>' 
+ 
+seite = 'Seite'
+seedling = 'Pflanzen'
+MRH_special = 'Angebot'
+MRH_top = 'Top'
+MRH_new = 'Neu'
+MRH_agb = '&nbsp;&nbsp;&nbsp;AGB&nbsp;&nbsp;&nbsp;'
+p_info1 = 'Diskreter<br>Versand'
+p_info2 = 'Sichere<br>Bezahlung'
+p_info3 = 'Schnelle<br>Lieferung'
+p_info4 = 'Sendungs<br>Verfolgung'
+keimgarantie = 'Keimquote - 90%+ Keimrate garantiert'
+cannabissamen = 'Cannabis Samen'
+cannabis_samen = 'cannabis-samen'
+autoflowering = 'Autoflowering'
+autoflowering2 = 'Auto'
+feminisiert = 'Feminisiert'
+regular = 'Regulär' 
+io = 'Indoor & Outdoor' 
+rechtliches = 'Rechtlicher Status Deutschland' 
+anbaueignung = 'Anbaueignung'
+legal_2024 = 'Legal seit April 2024'
+keimgarantie = 'Keimgarantie'
+keimgarantie2 = '90%+ Keimrate'
+erfahrungslevel = 'Erfahrungslevel'
+erfahrungslevel2 = 'Alle Level'
+Gewicht = 'Gewicht'
+vpe= 'Verpackungseinheit'
+vfr= 'Verfügbar seit'
+Versandklasse = 'Versandklasse'
+Diskret = 'Diskret und sicher'
+Lagerung = 'Lagerung'
+trocken = 'Kühl und trocken lagern'
+Country = 'Deutschland' 
+Enthusiasten = 'Cannabis Enthusiasten'
+
+
+MRH_closex = 'X'
+MRH_close = 'Schließen'
+
+MRH_noscript = '<span class="fw-bold">JavaScript ist deaktiviert!</span> Es stehen Ihnen nicht alle Shopfunktionen zur Verf&uuml;gung. Bitte &uuml;berpr&uuml;fen Sie Ihre Browsereinstellungen.'
+MRH_heading_responsivemenu = 'Men&uuml;'
+MRH_heading_sidebar = 'Seitenleiste'
+MRH_checkout_express_infolinktext = 'Mein Schnellkauf'
+
+MRH_zoomtext = 'F&uuml;r eine gr&ouml;&szlig;ere Ansicht klicken Sie auf das Vorschaubild'
+
+MRH_customers_remind_leider_vergriffen = 'Leider vergriffen!<br/>Informieren Sie sich HIER<br/>&uuml;ber den neuen Liefertermin.'
+MRH_customers_remind_daten_eingetragen = 'Vielen Dank, Ihre Daten<br/>wurden eingetragen!'
+MRH_customers_remind_box_heading = 'Der Artikel ist gerade nicht auf Lager. Tragen Sie sich hier ein, wenn Sie &uuml;ber Neuware informiert werden m&ouml;chten.<br /><br />'
+MRH_customers_remind_box_heading2 = 'Wir benachrichtigen Sie gerne, sobald der Artikel wieder vorr&auml;tig ist!<br />'
+MRH_customers_remind_box_firstname = 'Vorname:'
+MRH_customers_remind_box_lastname = 'Nachname:'
+MRH_customers_remind_box_mail = 'Email-Adresse:'
+MRH_customers_remind_box_email_head1 = 'Produkterinnerung: '
+MRH_customers_remind_box_email_head2 = ' ist wieder auf Lager'
+MRH_customers_remind_box_st = 'St&uuml;ckzahl:'
+MRH_customers_remind_box_stk = 'Stk.'
+MRH_customers_remind_box_art = 'Artikel:'
+MRH_customers_remind_box_info = 'Bitte geben Sie Ihre Gew&uuml;nschte St&uuml;ckzahl ein:'
+MRH_customers_remind_box_guest = 'Aus Datenschutzgr&uuml;nden k&ouml;nnen sich leider nur angemeldete Nutzer f&uuml;r diesen Service registrieren.'
+MRH_customers_remind_box_success = 'Sie sind bereits eingetragen!'
+MRH_customers_remind_added = '<h1>Vielen Dank!</h1><p>Ihre E-Mail-Adresse wurden erfolgreich eingetragen!</p>'
+
+MRH_text_firstname = 'Vorname:'
+MRH_text_lastname = 'Nachname:'
+MRH_text_subject = 'Betreff:'
+MRH_text_salutation = 'Anrede:'
+MRH_text_competitor_url = 'Mitbewerber-URL:'
+MRH_text_competitor_price = 'Mitbewerberpreis (in Euro):'
+MRH_text_sec_code = 'Sicherheitscode'
+MRH_text_inp_code = 'Sicherheitscode bitte hier eingeben:'
+mrh_text_privacy_accept = 'Ich habe die Datenschutzrichtlinien zur Kenntnis genommen.'
+MRH_text_pflicht = '* Pflichtangaben!'
+
+
+text_shippingtime_box = 'Lieferzeit:'
+
 products_desc = 'Produktbeschreibung'
 products_fsk18_check = 'Dieser Artikel kann erst nach erfolgter Altersverifikation gekauft werden.'
 products_manufacturer_model = 'HAN:'
@@ -12,7 +104,7 @@ next = 'n&auml;chster &raquo;'
 last = 'Letzter &raquo;'
 
 heading_miscellaneous = 'Zahlungsmethoden'
-text_miscellaneous = 'Die Box kann unter tpl_modified_responsive/boxes/box_miscellaneous.html ver&auml;ndert werden. Die Sprachvariablen befinden sich in der Datei tpl_modified_responsive/lang/german/lang_german.custom.'
+text_miscellaneous = 'Die Box kann unter tpl_mrh_2026/boxes/box_miscellaneous.html ver&auml;ndert werden. Die Sprachvariablen befinden sich in der Datei tpl_mrh_2026/lang/german/lang_german.custom.'
 
 ab_admin = 'Adminbereich'
 ab_orders = 'Bestellungen'
@@ -33,7 +125,6 @@ ab_edit_attributes = 'Attribute editieren'
 ab_edit_category = 'Kategorie bearbeiten'
 ab_edit_xsell = 'Cross Selling bearbeiten'
 ab_edit_tags = 'Artikeleigenschaften'
-ab_edit_manufacturer = 'Hersteller bearbeiten'
 
 info_reviews = 'Bewertungen:'
 info_review = 'Bewertung:'
@@ -45,182 +136,389 @@ text_search_again = 'Die Suche ergab keine genauen Treffer'
 listing_listview = 'Listenansicht'
 listing_boxview = 'Boxansicht'
 
-subcats_menu_heading = 'Kategorien'
+# blog
+ab_blog = 'Blog'
+ab_edit_blog_post = 'Beitrag bearbeiten'
+ab_edit_blog_category = 'Kategorie bearbeiten'
+seite = 'Seite'
+klickk = 'Hier klicken, um Kategorien anzuzeigen'
 
-# Header # 
-link_settings = 'Einstellungen'
-link_specials = 'Angebote'
-link_whatsnew = 'Neue Artikel'
-link_cart = 'Warenkorb'
-link_menu = 'Men&uuml;'
-link_search = 'Suchen'
+# custom
+none_customer = '&nbsp;&nbsp;Als Gast bestellen'
 
-addquickie_placeholder = 'Artikelnummer ...'
-heading_flyout_text_quickie = 'Bitte geben Sie eine Artikelnummer ein.'
-heading_flyout_product_cart = 'Artikel im Warenkorb'
-heading_flyout_product_wishlist = 'Artikel auf dem Merkzettel'
-heading_flyout_qty = 'Anzahl:'
-heading_flyout_cart = 'Warenkorb anzeigen'
-heading_flyout_checkout = 'Weiter zur Kasse'
-heading_flyout_wishlist = 'Merkzettel anzeigen'
-
-heading_box_languages = 'Sprachen'
-
-header_back_to_shop = 'Zur&uuml;ck zum Shop'
-header_back_to_cart = 'Zur&uuml;ck zum Warenkorb'
-
-# Box Newsletter #
-subfooter_newsletter_headline = 'Abonnieren Sie unseren Newsletter'
-subfooter_newsletter_text = 'Kostenlose exklusive Angebote und Produktneuheiten per E-Mail'
-subfooter_newsletter_disclaim = 'Der Newsletter ist kostenlos und kann jederzeit hier oder in Ihrem Kundenkonto wieder abbestellt werden.'
-subfooter_text_email = 'Ihre E-Mail-Adresse ...'
-
-
-# Footer #
-footer_price_hinweis_1 = 'Alle Preise'
-footer_price_hinweis_incl = 'inkl.'
-footer_price_hinweis_excl = 'exkl.'
-footer_price_hinweis_2 = 'gesetzl. MwSt. zzgl.'
-footer_price_hinweis_3 = 'Versandkosten'
-footer_price_hinweis_4 = 'Die durchgestrichenen Preise entsprechen dem bisherigen Preis bei'
-
-footer_heading_payment = 'Zahlungsmethoden'
-footer_heading_social = 'Social Media'
-footer_heading_contact = 'Kontakt'
-footer_text_contact = 'MRH N-Trade GmbH<br />Innsbruck, &Ouml;sterreich<br /><br />Telefon: +43 512 312 411<br />Mail: info@mr-hanf.com'
-
-text_expires_date = 'Sonderangebot g&uuml;ltig bis:'
-products_flag_new = 'Neu'
-
-
-
-
-liefernmit = 'Versanddienstleister'
 zahlungsweisen = 'Zahlungsweisen'
-topprodukte = 'Unsere Empfehlungen'
-neueprodukte = 'Unsere Neuheiten'
-heading_content = 'Mehr &uuml;ber...'
-heading_information = 'Informationen'
-sortiment = 'Sortiment'
-bestseller = 'Unsere Topseller'
-saleprodukte = 'Aktuelle Angebote'
+liefernmit = 'Versanddienstleister'
+ausblenden = 'ausblenden'
+weiterlesen = 'weiterlesen'
+text_filter = 'Filter'
+shipping_lager = 'Auf Lager'
+shipping_vergriffen = 'vergriffen'
+shipping_lagers = 'Ausverkauft' 
+shipping_lagerson = 'Bestellbereit'
+# Auf Lager
+availability_in_stock_title = 'Auf Lager'
+availability_in_stock_description = 'Artikel ist auf Lager und wird umgehend nach Zahlungseingang versendet.'
 
-headerbox_titel = 'VERSANDKOSTENFREI'
-headerbox_text = 'Ab Bestellwert von 50&euro; innerhalb DE'
+# Bestellbereit
+availability_reordered_title = 'Bestellbereit'
+availability_reordered_description = 'Artikel ist bereits unterwegs zu uns. Die angegebene Lieferzeit verlängert sich um maximal 2 Tage. Du kannst jetzt bestellen - wir versenden sofort nach Eingang der Ware. <br><br> <em>Bei Samen sichern wir durch regelmäßige Nachbestellungen stets optimale Frische.</em>'
 
-ihrwegzuuns = 'Ihr Weg zu uns'
-indenwarenkorb = 'In den Warenkorb'
-randomproducts = 'Zuf&auml;llige Produktauswahl'
-text_shippingtime = 'Lieferzeit'
+# Ausverkauft
+availability_sold_out_title = 'Ausverkauft'
+availability_sold_out_description = 'Artikel ist derzeit ausverkauft. Melde dich für eine Benachrichtigung an und wir informieren dich, sobald der Artikel wieder erhältlich ist.'
+shipping_ils = '<b>Lieferstatus auf einen Blick</b>'
+fast_shipp = 'Schnelle<br />Lieferung'
+secuer_shipp = 'Diskreter<br />Versand'
+tracking = 'Sendungs<br />Verfolgung'
+saye_pay = 'Sichere<br />Bezahlung'
+shipping_1_3werktage = 'ca. 2-4 Tage'
+item_Lagernd = 'nur noch'
+item_stuek = 'Stück auf Lager'
+morethen = '<span class="ms-2" style="color: #277602">Versand in ca. 1-3 Werktagen</span>'
+link_shipping_info = 'siehe hier'
+text_shipping_info = 'Gilt f&uuml;r Lieferungen nach &Ouml;sterreich (ausgenommen Gefahr-/Sperrg&uuml;ter).'
+kostenlos = '&nbsp;&nbsp;KOSTENLOSE Lieferung ab 75€'
 
-cookies_text = 'Diese Webseite verwendet Cookies, um Ihnen die bestm&ouml;gliche Online-Shopping-Erfahrung zu garantieren.'
-cookies_linktext = 'Weitere Informationen zum Datenschutz.'
+# box_add_a_quickie
+anfaenger = 'Top 10 Anf&auml;nger Samen'
+top_cannabissamen = 'Top 10 Meisterwerke'
+top_haze = 'Top 10 Haze-Sorten'
+top_indica = 'Top 10 Indica-Sorten'
+top_samenbanken = 'Top 10 Samenbanken'
+top_reg = 'Top 10 regul&auml;ren Samen'
+top_auto = 'Top 5 Autoflowering'
+cannabis_cup_sieger = 'Cannabis Cup Sieger'
+samen_unter = 'Top Samen unter 1% THC'
+hall_of_fame = 'Top 20 Hall of Fame'
+top_empfehlung = 'Unsere Empfehlungen' 
+top_cannabissamen_2024 = 'Top 10 Samen 2024'
 
-ichakzeptieredie = 'Ich akzeptiere die'
-Datenschutzrichtlinien = 'Datenschutzrichtlinien'
+# Newsletter
+new_anmelden = '<p class="mb-2 mt-2"style="color:white"> <strong style="color:white">Willst Du am laufenden bleiben?</strong> Dann registrieren Dich hier für unseren Newsletter</p>'
+new_reg = 'Bitte bestätige deine Registrierungen - wir haben Dir hierzu eine Email geschickt'
+err_ung = 'Ungültige Email'
+err_vorhanden = 'Email ist bereits vorhanden'
+butt_send = 'Submit'
+new_support = 'Support'
+new_soz ='Soziale Medien'
+MRH_marken = '<span class="fa-solid fa-industry gold"></span> Marken'
+MRH_blog = '<span class="fa-solid fa-newspaper gold"></span> Cannabis Blog'
+MRH_SF = '<span class="fa-solid fa-seedling gold"></span> Seedfinder'
 
-newslettertext = 'Wir versorgen dich mit tollen Rabatten &amp; Sale-Aktionen dazu informieren wir dich &uuml;ber die neuesten Produkte in unserem Shop.'
+# EMAIL CONFIRMATION
+email_confirmation_info = 'Nach der Registrierung musst du deine E-Mail-Adresse best&auml;tigen. Daf&uuml;r senden wir dir eine E-Mail mit einem Best&auml;tigungslink. Klick auf den Link, um dich als Besitzer der E-Mail-Adresse zu verifizieren. Erst nach erfolgter Best&auml;tigung kannst du eine Bestellung durchf&uuml;hren.<br><br>Bitte beachte, dass unsere E-Mail eventuell im Spam- oder Junk-Mail-Ordner landen k&ouml;nnte. &Uuml;berpr&uuml;fe diesen bitte regelm&auml;&szlig;ig.'
 
-menu = 'Men&uuml;'
-konto = 'Konto'
-einstellungen = 'Einstellungen'
-merkzettel = 'Merkzettel'
-info = 'Info'
-kasse = 'Kasse'
-kontakt = 'Kontakt'
-warenkorb = 'Warenkorb'
-coupon_note_1 = 'Achtung: Wenn Sie einen Gutschein/Coupon haben, k&ouml;nnen Sie diesen nach dem Erstellen Ihres Kundenkontos '
-coupon_note_2 = 'einl&ouml;sen.'
-coupon_note_link = 'hier'
+samen_shop = 'Hanfsamen kaufen'
 
-lieferzeit = 'Lieferzeit'
-folgeuns = 'Folge uns'
+title = 'Seedfinder - Finde deinen perfekten Samen aus 7500+ Sorten'
+subtitle = 'Wähle eine Kategorie und verfeinere deine Suche mit erweiterten Filtern' 
+products_label = 'Produkte'
+select_category = 'Kategorie wählen'
 
-unsere_topseller = 'Unsere Topseller'
-zufaellige_produkte = 'Zuf&auml;llige Produktauswahl'
+info_title = 'So funktioniert der Seedfinder'
+info_step1 = 'Wähle eine Hauptkategorie aus den Kacheln oben'
+info_step2 = 'Nutze die erweiterten Filter für präzise Ergebnisse'
+info_step3 = 'Durchstöbere die gefilterten Produkte und bestelle direkt'
 
-service_1_title = 'Sie haben Fragen? Wir antworten!'
-service_1_small = '+43 512 312 411'
-service_2_title = 'Newsletter abonnieren'
-service_2_small = 'und keine Angebote verpassen '
-service_3_title = 'Blitzlieferungen'
-service_3_small = 'in nur 2 - 4 Tagen'
+seedfinder_filter_all = 'Alle'
+seedfinder_all_filters_button = 'Alle Filter'
+seedfinder_all_filters_title = 'Alle Filter'
+seedfinder_price_filter = 'Preis'
+seedfinder_price_from = 'Von'
+seedfinder_price_to = 'Bis'
+seedfinder_search_button = 'Suchen'
+seedfinder_reset_button = 'Zur&uuml;cksetzen'
 
-details = 'Details'
-close_button = 'Schlie&szlig;en'
-view_product = 'Produkt aufrufen:'
-wishlist_product = 'Zum Merkzettel hinzuf&uuml;gen:'
+# ========================================
+# SEEDFINDER - STAGE 1 (KATEGORIEN)
+# ========================================
 
-# WCAG aria-label texts
-search_start = 'Suche starten'
-shop_home = 'Shop-Startseite'
-social_on = 'auf'
+# Produkt-Label
+products_label = 'Produkte'
 
-# WCAG Mobile Menu Labels (aus BS4 Original - werden im Template verwendet)
-mobile_menu_navigation = 'Mobile Men&uuml; Navigation'
+# Kategorie-Button
+select_category = 'Ausw&auml;hlen'
 
-# WCAG Cart/Wishlist Content Labels
-cart_content_aria_label = 'Artikel im Warenkorb'
-wishlist_content_aria_label = 'Artikel auf dem Merkzettel'
+# Info-Card
+info_title = 'So funktioniert der Seedfinder'
+info_step1 = 'W&auml;hle eine Kategorie aus (z.B. Autoflowering, Indica, Sativa)'
+info_step2 = 'Nutze den Seedfinder, um deine Auswahl zu verfeinern'
+info_step3 = 'Finde die perfekten Samen f&uuml;r dein Grow-Projekt'
+# Benefits
+benefit1_title = 'Schneller Versand'
+benefit1_text = 'Deine Bestellung wird z&uuml;gig bearbeitet und versendet'
+benefit2_title = 'Premium Qualit&auml;t'
+benefit2_text = 'Nur original Breeder-Samen von Top-Herstellern'
+benefit3_title = 'Pers&ouml;nlicher Support'
+benefit3_text = 'Wir beraten dich gerne bei Fragen zu deinen Samen'
 
-manufacturer_add_description = 'Herstellerkennzeichnung'
-heading_reviews = 'Rezensionen'
+# Top Hersteller Section
+top_manufacturers_title = 'Top Hersteller & Bestseller'
+manufacturer_products_count = 'Produkte'
+manufacturer_all_products = 'Alle Produkte'
 
-# Currency selection labels for WCAG compliance
-heading_currencies = 'W&auml;hrung'
-currency_select_label = 'W&auml;hrung ausw&auml;hlen'
-currency_apply_button = 'W&auml;hrung &uuml;bernehmen'
-currency_auto_change_info = 'Die W&auml;hrung wird automatisch ge&auml;ndert, wenn Sie eine andere Option ausw&auml;hlen'
+# ========================================
+# SEEDFINDER - STAGE 2 (PRODUKT-LISTE)
+# ========================================
 
-# Shipping country selection labels for WCAG compliance
-heading_shipping_country = 'Lieferland'
-shipping_country_select_label = 'Lieferland ausw&auml;hlen'
-shipping_country_apply_button = 'Lieferland &uuml;bernehmen'
-shipping_country_auto_change_info = 'Das Lieferland wird automatisch ge&auml;ndert, wenn Sie eine andere Option ausw&auml;hlen'
+# Navigation
+back_to_categories = 'Zur&uuml;ck zu Kategorien'
 
-# ============================================================
-# MRH 2026 – Bottom Bar (Mobile)
-# ============================================================
-bb_home = 'Home'
-bb_search = 'Suche'
-bb_seedfinder = 'Seedfinder'
-bb_wishlist = 'Merkliste'
-bb_cart = 'Warenkorb'
-bb_search_placeholder = 'Cannabis Samen suchen...'
+# Filter - Haupt-Filter Section
+main_filters_title = 'Haupt-Filter'
+total_products_found = 'Produkte gefunden'
+reset_main_filters = 'Haupt-Filter zur&uuml;cksetzen'
+apply_main_filters = 'Haupt-Filter anwenden'
+show_all_filters = 'Alle Filter anzeigen...'
 
-# ============================================================
-# MRH 2026 – Topbar & Shipping Bar
-# ============================================================
-mrh_topbar_phone = '+43 512 312 411'
-mrh_topbar_delivery = 'Schnelle Lieferung'
-mrh_topbar_payment = 'Einfache, sichere Zahlung'
-mrh_topbar_letter = 'Briefbestellung'
-mrh_topbar_freeshipping = 'Kostenfrei ab: AT 40&euro;, DE 85&euro;, EU 150&euro;'
-mrh_shipping_bar_text = 'Kostenloser Versand ab 40&euro; Bestellwert'
-# Länderspezifische Versandkostenfrei-Schwellen (für JS)
-mrh_freeship_at = '40'
-mrh_freeship_de = '85'
-mrh_freeship_eu = '150'
+# Filter - Modal
+modal_title_all_filters = 'Alle Filter'
+filter_category_main = 'Haupt-Filter'
+filter_category_genetics = 'Genetik & Herkunft'
+filter_category_cultivation = 'Anbau'
+filter_category_taste = 'Geschmack & Wirkung'
+filter_category_advanced = 'Erweitert'
 
-# ============================================================
-# MRH 2026 – Mega-Menü Aktions-Spalte (Promo)
-# ============================================================
-mega_promo_title = 'Aktion'
-mega_promo_brand = 'Royal Queen Seeds'
-mega_promo_text = '2+1 GRATIS'
-mega_promo_button = 'Jetzt sparen'
-mega_promo_link = '/angebote/'
-mega_promo_icon = 'fa-percent'
+# Filter - Mobile Dropdown
+filter_category_select_main = 'Haupt-Filter'
+filter_category_select_genetics = 'Genetik & Herkunft'
+filter_category_select_cultivation = 'Anbau'
+filter_category_select_taste = 'Geschmack & Wirkung'
+filter_category_select_advanced = 'Erweitert'
 
-# ============================================================
-# MRH 2026 – Navigation Labels & Icons
-# ============================================================
-nav_samen_shop = 'Samen Shop'
-nav_cannabispflanzen = 'Cannabispflanzen'
-nav_growshop = 'Growshop'
-nav_headshop = 'Headshop'
-nav_angebote = 'Angebote'
-nav_neue_artikel = 'Neue Artikel'
-nav_marken = 'Marken'
-nav_blog = 'Blog'
-nav_seedfinder = 'Seedfinder'
+# Filter - Buttons
+reset_all_filters = 'Alle zur&uuml;cksetzen'
+apply_filters = 'Filter anwenden'
+close_modal = 'Schlie&szlig;en'
+
+# Filter - Active Filters
+filter_open_button = 'Filter &ouml;ffnen'
+active_filters_title = 'Deine ausgew&auml;hlten Kriterien'
+
+# Product Card
+special_badge = 'Angebot'
+selection_label = 'Lagernde Produkte:'
+only_x_available = 'nur noch {stock} verf&uuml;gbar'
+from_price_prefix = 'ab'
+sold_out_badge = 'Ausverkauft'
+details_button = 'Details ansehen'
+
+# No Products Found
+no_products_title = 'Keine Produkte gefunden.'
+no_products_text = 'Bitte &auml;ndern Sie Ihre Filter-Auswahl.'
+
+# ========================================
+# FILTER-TAGS (NEU v18.0.0)
+# ========================================
+
+# Filter-Namen werden aus der Datenbank geladen
+# Diese Keys werden nur verwendet, wenn Filter-Namen fehlen
+
+filter_thc = 'THC'
+filter_flowering_time = 'Bl&uuml;tezeit'
+filter_flowering_time_auto = 'Bl&uuml;tezeit Autoflowering'
+filter_cultivation = 'Anbau'
+filter_taste = 'Geschmack/Aroma'
+filter_effect = 'Wirkung'
+
+# ========================================
+# ALLGEMEINE TEXTE
+# ========================================
+
+# Buttons
+button_back = 'Zur&uuml;ck'
+button_next = 'Weiter'
+button_close = 'Schlie&szlig;en'
+button_apply = 'Anwenden'
+button_reset = 'Zur&uuml;cksetzen'
+
+# Status
+loading = 'L&auml;dt...'
+error = 'Fehler'
+success = 'Erfolg'
+
+# ========================================
+# PAGINATION
+# ========================================
+
+pagination_previous = 'Zur&uuml;ck'
+pagination_next = 'Weiter'
+pagination_first = 'Erste'
+pagination_last = 'Letzte'
+
+# ========================================
+# ACCESSIBILITY
+# ========================================
+
+aria_close = 'Schlie&szlig;en'
+aria_open = '&Ouml;ffnen'
+aria_filter = 'Filter'
+aria_sort = 'Sortieren'
+
+# ========================================
+# SEO / META
+# ========================================
+
+meta_title = 'Der Nr. 1 Seedfinder: Finde deine perfekte Cannabis-Sorte aus 7.500+ Samen'
+meta_description = 'Finde mit dem Mr. Hanf Seedfinder die perfekte Cannabis-Sorte aus &uuml;ber 7.500 Samen. Filtere nach THC, CBD, Ertrag, Bl&uuml;tezeit und mehr. 20 Jahre Expertise!'
+ 
+# ========================================
+# SEEDFINDER
+# ========================================
+ 
+beginner_badge = 'Für Anfänger'
+beginner_title = 'Deine erste Ernte?   Wir machen es einfach!'
+beginner_subtitle = 'Finde in 60 Sekunden die perfekte Sorte für deinen ersten Grow'
+beginner_problem_title = 'Dein Problem:'
+beginner_problem_text = '7.500+ Sorten, komplizierte Begriffe, Angst vor Fehlern... Du weißt nicht, wo du anfangen sollst?'
+beginner_solution_title = 'Unsere Lösung:'
+beginner_solution_text = 'Beantworte 5 einfache Fragen und wir zeigen dir NUR die Sorten, die perfekt für Anfänger sind!'
+benefit1_title = 'Fehlerverzeihend'
+benefit1_text = 'Robuste Sorten, die kleine Fehler verzeihen'
+benefit2_title = 'Schnell & Einfach'
+benefit2_text = 'Kurze Blütezeit, wenig Pflege nötig'
+benefit3_title = 'Hohe Erfolgsrate'
+benefit3_text = '95% unserer Anfänger haben Erfolg'
+benefit4_title = 'Garantierter Ertrag'
+benefit4_text = 'Auch beim ersten Mal gute Ernte'
+beginner_trust_headline = 'Über 10.000 zufriedene Anfänger'
+beginner_trust_quote = 'Endlich eine Empfehlung, die wirklich passt!'
+beginner_cta_button = 'Jetzt meine Sorte finden'
+beginner_guarantee = '100% kostenlos • Keine Anmeldung nötig • Sofort starten'
+
+ 
+pro_badge = 'Für Profis'
+pro_title = 'Du kennst dich aus?   Finde deine Traumsorte!'
+pro_subtitle = 'Durchsuche alle 7.500+ Sorten mit erweiterten Filtern'
+pro_challenge_title = 'Deine Herausforderung:'
+pro_challenge_text = 'Du weißt was du willst, aber die perfekte Kombination aus THC, Ertrag, Blütezeit und Genetik zu finden ist zeitaufwendig?'
+pro_solution_title = 'Unsere Lösung:'
+pro_solution_text = 'Nutze erweiterte Filter und durchsuche alle 7.500+ Sorten gezielt nach deinen spezifischen Anforderungen!'
+pro_benefit1_title = 'Erweiterte Filter'
+pro_benefit1_text = 'THC/CBD, Blütezeit, Ertrag, Größe und mehr'
+pro_benefit2_title = 'Alle Kategorien'
+pro_benefit2_text = 'Indoor, Outdoor, Autoflowering, Feminisiert'
+pro_benefit3_title = 'Premium-Sorten'
+pro_benefit3_text = 'Exklusive und limitierte Editionen'
+pro_benefit4_title = 'Detaillierte Infos'
+pro_benefit4_text = 'Genetik, Wirkung, Geschmack, Bewertungen'
+pro_trust_headline = 'Von Profis für Profis entwickelt'
+pro_trust_quote = 'Die beste Suchfunktion auf dem Markt!'
+pro_cta_button = 'Zur erweiterten Suche'
+pro_info_text = 'Alle Filter und Kategorien sofort verfügbar'
+inwarko = 'In den Warenkorb'
+# ========================================
+# Anfänger-Wizard: Allgemein
+# ========================================
+wizard_title = 'Finde deine perfekte Sorte!'
+wizard_subtitle = 'In 4 einfachen Schritten zur idealen Empfehlung'
+wizard_close_button_aria = 'Schlie&szlig;en'
+wizard_progress_text = 'Schritt {current} von {total}'
+wizard_back_button = 'Zur&uuml;ck'
+wizard_reset_button = 'Neu starten'
+wizard_why_important = 'Warum ist das wichtig?'
+wizard_what_is_difference = 'Was ist der Unterschied?'
+
+# ========================================
+# Anfänger-Wizard: Badges
+# ========================================
+badge_popular = 'Beliebt'
+badge_natural = 'Nat&uuml;rlich'
+badge_easy = 'Einfach'
+badge_classic = 'Klassisch'
+badge_recommended = 'Empfohlen'
+
+# ========================================
+# Anfänger-Wizard: Step 1 (Anbauort)
+# ========================================
+step1_title = 'Wo m&ouml;chtest du anbauen?'
+step1_subtitle = 'W&auml;hle deinen Anbauort aus'
+step1_explanation = 'Der Anbauort bestimmt, welche Sorten f&uuml;r dich geeignet sind.'
+step1_opt1_title = 'Indoor'
+step1_opt1_benefit1 = 'Ganzj&auml;hriger Anbau'
+step1_opt1_benefit2 = 'Volle Kontrolle'
+step1_opt2_title = 'Outdoor'
+step1_opt2_benefit1 = 'Nat&uuml;rliches Sonnenlicht'
+step1_opt2_benefit2 = 'Gr&ouml;&szlig;ere Ertr&auml;ge'
+
+# ========================================
+# Anfänger-Wizard: Step 2 (Typ)
+# ========================================
+step2_title = 'Welcher Typ?'
+step2_subtitle = 'W&auml;hle zwischen Autoflowering und Photoperiodisch'
+step2_explanation = 'Autoflowering-Sorten bl&uuml;hen automatisch, Photoperiodische brauchen einen Lichtzyklus-Wechsel.'
+step2_opt1_title = 'Autoflowering'
+step2_opt1_benefit1 = 'Schnelle Ernte'
+step2_opt1_benefit2 = 'Kein Lichtzyklus n&ouml;tig'
+step2_opt2_title = 'Photoperiodisch'
+step2_opt2_benefit1 = 'Gr&ouml;&szlig;ere Pflanzen'
+step2_opt2_benefit2 = 'H&ouml;here Ertr&auml;ge'
+
+# ========================================
+# Anfänger-Wizard: Step 3 (Genetik)
+# ========================================
+step3_title = 'Welche Genetik bevorzugst du?'
+step3_subtitle = 'W&auml;hle deinen bevorzugten Genetik-Typ'
+step3_explanation = 'Indica wirkt entspannend, Sativa belebend, Hybriden kombinieren beide Eigenschaften.'
+step3_opt1_title = 'Indica Dominant'
+step3_opt1_benefit1 = 'K&ouml;rperlich entspannend'
+step3_opt1_benefit2 = 'Beruhigend'
+step3_opt1_benefit3 = 'Ideal f&uuml;r Abends'
+step3_opt2_title = 'Sativa Dominant'
+step3_opt2_benefit1 = 'Energetisierend'
+step3_opt2_benefit2 = 'Kreativ'
+step3_opt2_benefit3 = 'Perfekt f&uuml;r Tags&uuml;ber'
+step3_opt3_title = 'Indica/Sativa Hybriden'
+step3_opt3_benefit1 = 'Ausgewogene Wirkung'
+step3_opt3_benefit2 = 'Vielseitig einsetzbar'
+step3_opt3_benefit3 = 'Beste beider Welten'
+
+# ========================================
+# Anfänger-Wizard: Step 4 (Blütezeit)
+# ========================================
+step4_title = 'Wie schnell soll es gehen?'
+step4_subtitle = 'W&auml;hle die gew&uuml;nschte Bl&uuml;tezeit'
+step4_explanation_title = 'Bl&uuml;tezeit'
+step4_explanation_text = 'Die Bl&uuml;tezeit bestimmt, wie lange es bis zur Ernte dauert. Schnellere Sorten sind ideal f&uuml;r Anf&auml;nger!'
+step4_opt1_title = 'Normal'
+step4_opt1_desc = '6-9 Wochen Bl&uuml;tezeit - ideal f&uuml;r die meisten Grower'
+step4_opt2_title = 'Lang'
+step4_opt2_desc = '9-12+ Wochen Bl&uuml;tezeit - f&uuml;r geduldige Grower mit h&ouml;heren Ertr&auml;gen'
+# ========================================
+# Anfänger-Wizard: Ergebnisseite (Stage 3)
+# ========================================
+beginner_results_title = 'Anf&auml;nger-Sorten:'
+beginner_results_info_title = 'Warum diese Sorten?'
+beginner_results_info_text = 'Diese Sorten wurden speziell f&uuml;r Anf&auml;nger ausgew&auml;hlt. Sie sind robust, fehlerverzeihend und einfach zu kultivieren – perfekt f&uuml;r deinen ersten Grow!'
+beginner_results_adjust_filters = 'Filter anpassen'
+beginner_results_new_selection = 'Neue Auswahl'
+beginner_results_back_to_selection = 'Zur&uuml;ck zur Auswahl'
+loading_category_filters = 'Lade Filter f&uuml;r neue Kategorie...'
+hersteller = 'Hersteller'
+# ========================================
+# SEO Text Seedfinder
+# ========================================
+
+seedfinder_welcome_title = 'Willkommen beim gr&ouml;&szlig;ten Cannabis Samen Finder Europas!'
+seedfinder_welcome_text1 = 'Die Wahl der richtigen Cannabis-Sorte kann &uuml;berw&auml;ltigend sein &ndash; bei &uuml;ber <strong>7.500 verschiedenen Sorten</strong> von den weltweit besten Z&uuml;chtern verliert man schnell den &Uuml;berblick. Unser intelligenter <strong>Seedfinder</strong> macht es dir leicht: W&auml;hle einfach eine der Hauptkategorien unten aus und nutze dann die erweiterten Filter, um deine Suche nach THC-Gehalt, Bl&uuml;tezeit, Ertrag, Geschmack oder Wirkung zu verfeinern.'
+seedfinder_welcome_text2 = 'Egal ob du <strong>Anf&auml;nger</strong> bist und nach pflegeleichten Autoflowering-Samen suchst, oder <strong>erfahrener Grower</strong> auf der Jagd nach seltenen Genetiken &ndash; unser <strong>Samen finder</strong> f&uuml;hrt dich in Sekunden zur perfekten Sorte. Starte jetzt deine Suche und profitiere von &uuml;ber 20 Jahren Erfahrung und unserer Frische-Garantie!'
+
+fax_modal_title = 'Bist du sicher?'
+fax_modal_headline = 'Dies ist ein Briefformular!'
+fax_modal_text1 = 'Dies ist <strong>KEINE Online-Bestellung</strong>.'
+fax_modal_text2 = 'F&uuml;r Online-Bestellungen nutze bitte die Kasse.'
+fax_modal_button_checkout = 'Zur Kasse'
+title_brief = 'Briefbestellung'
+cat_autoflowering = 'Autoflowering Seeds'
+cat_indica = 'Indica Seeds'
+cat_sativa = 'Sativa Seeds'
+cat_feminized = 'Feminized Seeds'
+cat_regular = 'Regular Seeds'
+cat_medical = 'Medical Seeds'
+cat_samen_shop = 'Samen Shop'
+
+TEXT_BLOG_SEARCH_HEADING ='Blog-Ergebnis'
+product_compare_button ='Vergleichen'
+
+# Offline-Seite
+MRH_shop_offline_title = "Wartungsarbeiten"

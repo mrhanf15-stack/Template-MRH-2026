@@ -11,11 +11,9 @@
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
 
-if (!defined('_VALID_XTC')) {
-    // Fallback: Prüfe ob Admin eingeloggt ist
-    if (!isset($_SESSION['customers_status']['customers_status']) || $_SESSION['customers_status']['customers_status'] !== '0') {
-        die('Zugriff verweigert');
-    }
+// Sicherheitscheck: Nur im Shop-Kontext ausfuehren
+if (!defined('_VALID_XTC') && !defined('DIR_FS_CATALOG')) {
+    return; // Kein die() - verhindert White Screen
 }
 
 // === Pfade ===

@@ -73,7 +73,7 @@
 			if(($ProdsInCat && $CatConfig['HideEmpty'] == 'true') || $CatConfig['HideEmpty'] != 'true') {
 				// meine Änderung  ob Unterkategorie vorhanden ist
 					$hassubcat = '';
-					if($Level == 1) $hassubcat = bs4_has_cat_subcat($dbQueryResult['categories_id']) === true ? ' hassub' : '';
+					if($Level == 1) $hassubcat = mrh_has_cat_subcat($dbQueryResult['categories_id']) === true ? ' hassub' : '';
 				// Ende Karl
 				if ($first_cat==1) {
 					$CLASS = ' class="'.$dbQueryResult['categories_id'].'"';
@@ -87,7 +87,7 @@
 							.	'" title="'.$dbQueryResult['categories_name'].'" data-value="'.$dbQueryResult['categories_id'].'">'
 							.	$dbQueryResult['categories_name'];
 				if($CatConfig['ShowCounts'] == 'true') {
-					$Return .=	' <span class="badge badge-secondary">'
+					$Return .=	' <span class="badge bg-secondary">'
 							.	$ProdsInCat
 							.	'</span>';
 				}
@@ -112,7 +112,7 @@
 	}
 // ------------------------------------------------------------------------------------------
 
-function bs4_has_cat_subcat($category_id) {
+function mrh_has_cat_subcat($category_id) {
 	$child_category_query = "SELECT count(*) as count
 								FROM " . TABLE_CATEGORIES . "
 								WHERE parent_id = '" . (int)$category_id . "'

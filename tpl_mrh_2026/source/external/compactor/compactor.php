@@ -41,7 +41,7 @@
 	 * better with Yii framework thus minimize the impact on server by removing unnecessary functions.
 	 */
 
-	class BS4_Compactor
+	class MRH_Compactor
 	{
 
 		/**

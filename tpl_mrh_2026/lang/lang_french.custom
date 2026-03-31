@@ -1,4 +1,66 @@
-zoomtext = 'Cliquez sur l\image pour l\agrandir'
+MRH_catlist_title = 'Notre offre'
+
+MRH_heading_custombox = 'Bo&icirc;te suppl&eacute;mentaire'
+MRH_text_custombox = 'La bo&icirc;te peut &ecirc;tre modifi&eacute;e dans tpl_mrh_2026/boxes/box_custom.html. Les variables de langue se trouvent dans le fichier templates/tpl_mrh_2026/lang/lang_german.custom !'
+
+MRH_alert_qty_wanted = 'souhait&eacute;'
+MRH_alert_qty_available = 'disponible'
+
+MRH_heading_text_top = 'Articles au TOP'
+
+MRH_top1 = '<span class="fa fa-truck fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Gratuit &agrave; partir de : AT 40&euro;, DE 85&euro;, EU 150&euro;'
+MRH_top3 = '<span class="fa fa-clock fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Livraison rapide'
+MRH_top2 = '<span class="fa fa-phone fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;+43 512 312 411'
+MRH_top4 = '<span class="fa fa-key  fa-lg" aria-hidden="true"></span>&nbsp;&nbsp;Paiement simple et s&eacute;curis&eacute;' 
+MRH_top5 = '<span class="fa fa-envelope  fa-lg" aria-hidden="true"></span>&nbsp;&nbsp; <a class="iframe" href="/popup_content.php?coID=46" rel="nofollow" target="_blank" title="Briefbestellung" data-src="/popup_content.php?coID=46" data-bs-toggle="modal" data-bs-target="#modal">Commande de lettres</a>' 
+ 
+MRH_special = 'Offre'
+MRH_top = 'Top'
+MRH_new = 'Nouveau'
+
+MRH_agb = '<rq translate="no">&nbsp;&nbsp;&nbsp;</rq>CONDITIONS G&Eacute;N&Eacute;RALES DE VENTE<rq translate="no">&nbsp;&nbsp;&nbsp;</rq>'
+
+MRH_closex = 'X'
+MRH_close = 'Fermer'
+
+MRH_noscript = '<span class="fw-bold">JavaScript est d&eacute;sactiv&eacute; !</span>. Vous ne disposez pas de toutes les fonctions de la boutique. Veuillez v&eacute;rifier les param&egrave;tres de votre navigateur.'
+MRH_heading_responsivemenu = 'Menu'
+MRH_heading_sidebar = 'Barre lat&eacute;rale'
+MRH_checkout_express_infolinktext = 'Mon achat rapide'
+
+MRH_zoomtext = 'Cliquez sur l\'image pour l\'agrandir'
+
+MRH_customers_remind_leider_vergriffen = 'Malheureusement &eacute;puis&eacute; !<br/>Informez-vous ICI<br/>sur la nouvelle date de livraison.'
+MRH_customers_remind_daten_eingetragen = 'Merci beaucoup, vos donn&eacute;es<br/>ont &eacute;t&eacute; enregistr&eacute;es !'
+MRH_customers_remind_box_heading = 'L\'article n\'est pas en stock actuellement. Inscrivez-vous ici si vous souhaitez &ecirc;tre inform&eacute;(e) des nouveaux articles.<br /><br />'
+MRH_customers_remind_box_heading2 = 'Nous vous informerons volontiers d&egrave;s que l\'article sera &agrave; nouveau en stock !<br />'
+MRH_customers_remind_box_firstname = 'Pr&eacute;nom'
+MRH_customers_remind_box_lastname = 'Nom de famille :'
+MRH_customers_remind_box_mail = 'Adresse &eacute;lectronique :'
+MRH_customers_remind_box_email_head1 = 'Rappel du produit : '
+MRH_customers_remind_box_email_head2 = ' est de nouveau en stock'
+MRH_customers_remind_box_st = 'nombre de pi&egrave;ces :'
+MRH_customers_remind_box_stk = 'pcs.'
+MRH_customers_remind_box_art = 'Article :'
+MRH_customers_remind_box_info = 'Veuillez indiquer le nombre de pi&egrave;ces souhait&eacute;es :'
+MRH_customers_remind_box_guest = 'Pour des raisons de protection des donn&eacute;es, seuls les utilisateurs inscrits peuvent malheureusement s\'enregistrer pour ce service.'
+MRH_customers_remind_box_success = 'Vous &ecirc;tes d&eacute;j&agrave; inscrit !'
+MRH_customers_remind_added = '<h1>Merci beaucoup !</h1><p>Votre adresse e-mail a &eacute;t&eacute; enregistr&eacute;e avec succ&egrave;s !</p>'
+
+MRH_text_firstname = 'Pr&eacute;nom'
+MRH_text_lastname = 'Nom de famille :'
+MRH_text_subject = 'Objet :'
+MRH_text_salutation = 'Formule de politesse :'
+MRH_text_competitor_url = 'URL du concurrent :'
+MRH_text_competitor_price = 'Prix des concurrents (en euros) :'
+MRH_text_sec_code = 'Code de s&eacute;curit&eacute;'
+MRH_text_inp_code = 'Veuillez saisir le code de s&eacute;curit&eacute; ici :'
+mrh_text_privacy_accept = 'J\'ai pris connaissance de la politique de confidentialit&eacute;'
+MRH_text_pflicht = '* Donn&eacute;es obligatoires !'
+
+
+text_shippingtime_box = 'D&eacute;lai de livraison :'
+
 products_desc = 'Description du produit'
 products_fsk18_check = '0'
 products_manufacturer_model = 'HAN :'
@@ -12,7 +74,7 @@ next = 'prochain &raquo;'
 last = 'Dernier &raquo;'
 
 heading_miscellaneous = 'M&eacute;thodes de paiement'
-text_miscellaneous = 'La bo&icirc;te peut &ecirc;tre modifi&eacute;e dans tpl_modified_responsive/boxes/box_miscellaneous.html. Les variables de langue se trouvent dans le fichier tpl_modified_responsive/lang/french/lang_german.custom.'
+text_miscellaneous = 'La bo&icirc;te peut &ecirc;tre modifi&eacute;e dans tpl_mrh_2026/boxes/box_miscellaneous.html. Les variables de langue se trouvent dans le fichier tpl_mrh_2026/lang/fran&ccedil;ais/lang_fran&ccedil;ais.custom.'
 
 ab_admin = '0'
 ab_orders = 'Commandes'
@@ -33,7 +95,6 @@ ab_edit_attributes = '&Eacute;diter les attributs'
 ab_edit_category = 'Modifier la cat&eacute;gorie'
 ab_edit_xsell = 'Traiter la vente crois&eacute;e'
 ab_edit_tags = '0'
-ab_edit_manufacturer = 'Modifier le fabricant'
 
 info_reviews = '&Eacute;valuations :'
 info_review = '&eacute;valuation :'
@@ -45,149 +106,386 @@ text_search_again = '0'
 listing_listview = 'Vue en liste'
 listing_boxview = 'Vue de la bo&icirc;te'
 
-subcats_menu_heading = 'Cat&eacute;gories'
+# blog
+ab_blog = 'Blog'
+ab_edit_blog_post = 'Modifier une contribution'
+ab_edit_blog_category = 'Modifier la cat&eacute;gorie'
+seite = 'Page'
+klickk = 'Cliquez ici pour afficher les cat&eacute;gories'
 
-# Header # 
-link_settings = 'R&eacute;glages'
-link_specials = 'Offres'
-link_whatsnew = 'Nouveaux articles'
-link_cart = '0'
-link_menu = 'Menu'
-link_search = 'Rechercher'
+# custom
+none_customer = '&nbsp;&nbsp;Commander en tant qu\'invit&eacute;'
 
-addquickie_placeholder = 'Num&eacute;ro d\'article ...'
-heading_flyout_text_quickie = '0'
-heading_flyout_product_cart = 'Article dans le panier'
-heading_flyout_product_wishlist = 'Articles sur le m&eacute;mo'
-heading_flyout_qty = 'nombre :'
-heading_flyout_cart = 'Voir le panier'
-heading_flyout_checkout = 'Passer &agrave; la caisse'
-heading_flyout_wishlist = 'Afficher le m&eacute;mo'
-
-heading_box_languages = 'Langues'
-
-header_back_to_shop = 'Retour &agrave; la boutique'
-header_back_to_cart = 'Retour au panier'
-
-# Box Newsletter #
-subfooter_newsletter_headline = 'Abonnez-vous &agrave; notre newsletter'
-subfooter_newsletter_text = 'Offres exclusives gratuites et nouveaux produits par e-mail'
-subfooter_newsletter_disclaim = 'La newsletter est gratuite et peut &ecirc;tre annul&eacute;e &agrave; tout moment ici ou dans votre compte client.'
-subfooter_text_email = 'Votre adresse e-mail ...'
-
-
-# Footer #
-footer_price_hinweis_1 = 'Tous les prix'
-footer_price_hinweis_incl = 'incl.'
-footer_price_hinweis_excl = 'excl.'
-footer_price_hinweis_2 = 'TVA l&eacute;gale en sus'
-footer_price_hinweis_3 = '0'
-footer_price_hinweis_4 = 'Les prix barr&eacute;s correspondent au prix pr&eacute;c&eacute;dent chez'
-
-footer_heading_payment = 'M&eacute;thodes de paiement'
-footer_heading_social = 'M&eacute;dias sociaux'
-footer_heading_contact = 'Contact'
-footer_text_contact = 'MRH N-Trade GmbH<br />Innsbruck, Autriche<br /><br />T&eacute;l&eacute;phone : +43 512 312 411<br />E-mail : info@mr-hanf.com'
-
-text_expires_date = 'Offre sp&eacute;ciale valable jusqu&apos;au :'
-products_flag_new = 'Nouveau'
-
-
-
-
-liefernmit = 'Prestataire de services d\'exp&eacute;dition'
 zahlungsweisen = 'Modes de paiement'
-topprodukte = 'Nos recommandations'
-neueprodukte = 'Nos nouveaut&eacute;s'
-heading_content = 'En savoir plus sur...'
-heading_information = 'Informations'
-sortiment = 'Gamme de produits'
-bestseller = 'Nos meilleures ventes'
-saleprodukte = 'Offres actuelles'
+liefernmit = 'Prestataire de services d\'exp&eacute;dition'
+ausblenden = 'masquer'
+weiterlesen = 'lire la suite'
+text_filter = 'Filtre'
+shipping_lager = 'En stock'
+shipping_vergriffen = '&eacute;puis&eacute;'
+shipping_lagers = '&Eacute;puis&eacute;'
+shipping_lagerson = 'Pr&ecirc;t &agrave; commander'
+# Auf Lager
+availability_in_stock_title = 'En stock'
+availability_in_stock_description = 'L\'article est en stock et sera envoy&eacute; imm&eacute;diatement apr&egrave;s r&eacute;ception du paiement.'
 
-headerbox_titel = 'SANS FRAIS DE LIVRAISON'
-headerbox_text = 'A partir d\'une commande de 50&euro; en DE'
+# Bestellbereit
+availability_reordered_title = 'Pr&ecirc;t &agrave; commander'
+availability_reordered_description = 'L\'article est d&eacute;j&agrave; en route vers nous. Le d&eacute;lai de livraison indiqu&eacute; est prolong&eacute; de 2 jours maximum. Tu peux commander maintenant - nous exp&eacute;dions imm&eacute;diatement apr&egrave;s r&eacute;ception de la marchandise. <br><br> <em>Pour les graines, nous assurons toujours une fra&icirc;cheur optimale gr&acirc;ce &agrave; des r&eacute;assorts r&eacute;guliers.</em>'
 
-ihrwegzuuns = 'Votre chemin vers nous'
-indenwarenkorb = 'Ajouter au panier'
-randomproducts = 'S&eacute;lection al&eacute;atoire de produits'
-text_shippingtime = 'D&eacute;lai de livraison'
+# Ausverkauft
+availability_sold_out_title = '&Eacute;puis&eacute;'
+availability_sold_out_description = 'L\'article est actuellement &eacute;puis&eacute;. Inscris-toi pour recevoir une notification et nous t\'informerons d&egrave;s que l\'article sera &agrave; nouveau disponible.'
+shipping_ils = '<b>Le statut de la livraison en un coup d\'&oelig;il</b>'
+fast_shipp = 'Rapide<br />Livraison'
+secuer_shipp = 'Discret<br />Envoi'
+tracking = 'Envoi<br />Suivi'
+saye_pay = 'S&eacute;curis&eacute;<br />Paiement'
+shipping_1_3werktage = 'env. 2-4 jours'
+item_Lagernd = 'seulement'
+item_stuek = 'pi&egrave;ce en stock'
+morethen = '<span class="ms-2" style="color: #277602">Exp&eacute;di&eacute; sous 1 &agrave; 3 jours ouvrables environ</span>'
+link_shipping_info = 'voir ici'
+text_shipping_info = 'S\'applique aux livraisons vers l\'Autriche (&agrave; l\'exception des marchandises dangereuses/bloqu&eacute;es).'
+kostenlos = '&nbsp;&nbsp;Livraison GRATUITE &agrave; partir de 75&euro;'
 
-cookies_text = 'Ce site utilise des cookies pour vous garantir la meilleure exp&eacute;rience d\'achat en ligne possible.'
-cookies_linktext = 'Plus d\'informations sur la protection des donn&eacute;es.'
+# box_add_a_quickie
+anfaenger = 'Top 10 des graines pour d&eacute;butants'
+top_cannabissamen = 'Top 10 des chefs-d\'&oelig;uvre'
+top_haze = 'Top 10 des vari&eacute;t&eacute;s de Haze'
+top_indica = 'Top 10 des vari&eacute;t&eacute;s Indica'
+top_samenbanken = 'Top 10 des banques de sperme'
+top_reg = 'Top 10 des graines r&eacute;guli&egrave;res'
+top_auto = 'Top 5 Auto-floraison'
+cannabis_cup_sieger = 'Vainqueur de la Cannabis Cup'
+samen_unter = 'Top des graines &agrave; moins de 1% de THC'
+hall_of_fame = 'Top 20 Hall of Fame'
+top_empfehlung = 'Nos recommandations' 
+top_cannabissamen_2024 = 'Top 10 des graines 2024'
 
-ichakzeptieredie = 'J\'accepte les'
-Datenschutzrichtlinien = 'Politique de confidentialit&eacute;'
+# Newsletter
+new_anmelden = '<p class="mb-2 mt-2"style="color:white"> <strong style="color:white">Tu veux rester au courant ?</strong> Alors inscris-toi ici &agrave; notre newsletter</p>'
+new_reg = 'Veuillez confirmer votre inscription - nous vous avons envoy&eacute; un e-mail &agrave; ce sujet'
+err_ung = 'E-mail non valide'
+err_vorhanden = 'L\'email existe d&eacute;j&agrave;'
+butt_send = 'Submit'
+new_support = 'Support'
+new_soz ='M&eacute;dias sociaux'
 
-newslettertext = 'Nous te proposons des r&eacute;ductions et des promotions exceptionnelles et nous t\'informons sur les nouveaux produits de notre boutique.'
 
-menu = 'Menu'
-konto = 'Compte'
-einstellungen = 'R&eacute;glages'
-merkzettel = 'M&eacute;mo'
-info = 'Info'
-kasse = 'Caisse'
-kontakt = 'Contact'
-warenkorb = '0'
-coupon_note_1 = 'Attention : si vous avez un bon/coupon, vous pouvez l\'utiliser apr&egrave;s avoir cr&eacute;&eacute; votre compte client. '
-coupon_note_2 = 'encaisser.'
-coupon_note_link = 'ici'
+# EMAIL CONFIRMATION
+email_confirmation_info = 'Apr&egrave;s l\'inscription, tu dois confirmer ton adresse e-mail. Pour cela, nous t\'envoyons un e-mail avec un lien de confirmation. Clique sur le lien pour v&eacute;rifier que tu es bien le propri&eacute;taire de l\'adresse e-mail. V&eacute;rifie-le r&eacute;guli&egrave;rement. Tu ne peux passer une commande qu\'apr&egrave;s confirmation.<br><br>Veuillez noter que notre e-mail peut &eacute;ventuellement se retrouver dans le dossier des spams ou des courriers ind&eacute;sirables.'
 
-lieferzeit = 'D&eacute;lai de livraison'
-folgeuns = 'Suivez-nous'
+samen_shop = 'Acheter des graines de chanvre'
+title = 'Seedfinder - Trouve tes graines parfaites parmi plus de 7500 vari&eacute;t&eacute;s'
+subtitle = 'Choisis une cat&eacute;gorie et affine ta recherche avec des filtres avanc&eacute;s'
+products_label = 'Produits'
+select_category = 'Choisir une cat&eacute;gorie'
+info_title = 'Comment fonctionne le Seedfinder'
+info_step1 = 'Choisis une cat&eacute;gorie principale parmi les options ci-dessus'
+info_step2 = 'Utilise les filtres avanc&eacute;s pour des r&eacute;sultats pr&eacute;cis'
+info_step3 = 'Parcours les produits filtr&eacute;s et commande directement'
+MRH_marken = '<span class="fa-solid fa-industry gold"></span> Marques'
+MRH_blog = '<span class="fa-solid fa-newspaper gold"></span> Blog sur le cannabis'
+MRH_SF = '<span class="fa-solid fa-seedling gold"></span> Chercheur de Graines'
 
-unsere_topseller = 'Nos meilleures ventes'
-zufaellige_produkte = 'S&eacute;lection al&eacute;atoire de produits'
+seedfinder_filter_all = 'Tous'
+seedfinder_all_filters_button = 'Tous les filtres'
+seedfinder_all_filters_title = 'Tous les filtres'
+seedfinder_price_filter = 'Prix'
+seedfinder_price_from = 'De'
+seedfinder_price_to = '&Agrave;'
+seedfinder_search_button = 'Rechercher'
+seedfinder_reset_button = 'R&eacute;initialiser'
 
-service_1_title = 'Vous avez des questions ? Nous vous r&eacute;pondons !'
-service_1_small = '+43 512 312 411'
-service_2_title = 'S\'abonner &agrave; la newsletter'
-service_2_small = 'et ne manquer aucune offre '
-service_3_title = 'Livraisons &eacute;clair'
-service_3_small = 'en seulement 2 &agrave; 4 jours'
+# ========================================
+# SEEDFINDER - STAGE 1 (CAT&Eacute;GORIES)
+# ========================================
 
-details = 'D&eacute;tails'
-close_button = 'Fermer'
-view_product = 'Appeler le produit :'
-wishlist_product = 'Ajouter &agrave; la liste de souhaits :'
+# &Eacute;tiquette de produit
+products_label = 'Produits'
 
-# WCAG aria-label texts
-search_start = 'Lancer la recherche'
-shop_home = 'Page d\'accueil de la boutique'
-social_on = 'sur'
+# Bouton de cat&eacute;gorie
+select_category = 'S&eacute;lectionner'
 
-manufacturer_add_description = 'Marquage du fabricant'
-heading_reviews = 'Critiques'
+# Info-Card
+info_title = 'Comment fonctionne le Seedfinder'
+info_step1 = 'Choisis une cat&eacute;gorie (par ex. Autofloraison, Indica, Sativa)'
+info_step2 = 'Utilise le Seedfinder pour affiner ta s&eacute;lection'
+info_step3 = 'Trouve les graines parfaites pour ton projet de culture'
+# Avantages
+benefit1_title = 'Exp&eacute;dition rapide'
+benefit1_text = 'Ta commande sera trait&eacute;e et exp&eacute;di&eacute;e rapidement'
+benefit2_title = 'Qualit&eacute; Premium'
+benefit2_text = 'Uniquement des graines originales de breeders des meilleurs fabricants'
+benefit3_title = 'Support personnel'
+benefit3_text = 'Nous serons heureux de te conseiller pour toutes questions sur tes graines'
 
-# WCAG Mobile Menu Labels
-mobile_menu_navigation = 'Navigation du menu mobile'
+# Section des meilleurs fabricants
+top_manufacturers_title = 'Meilleurs fabricants &amp; Meilleures ventes'
+manufacturer_products_count = 'Produits'
+manufacturer_all_products = 'Tous les produits'
 
-# WCAG Cart/Wishlist Content Labels
-cart_content_aria_label = 'Articles dans le panier'
-wishlist_content_aria_label = 'Articles sur la liste de souhaits'
+# ========================================
+# SEEDFINDER - STAGE 2 (LISTE DE PRODUITS)
+# ========================================
 
-# Currency selection labels for WCAG compliance
-heading_currencies = 'Monnaie'
-currency_select_label = 'S&eacute;lectionner la devise'
-currency_apply_button = 'Reprendre la devise'
-currency_auto_change_info = 'La devise est automatiquement modifi&eacute;e si vous s&eacute;lectionnez une autre option'
+# Navigation
+back_to_categories = 'Retour aux cat&eacute;gories'
 
-# Shipping country selection labels for WCAG compliance
-heading_shipping_country = 'Pays de livraison'
-shipping_country_select_label = 'Choisir le pays de livraison'
-shipping_country_apply_button = 'Reprendre le pays de livraison'
-shipping_country_auto_change_info = 'Le pays de livraison est automatiquement modifi&eacute; si vous choisissez une autre option'
+# Filtre - Section des filtres principaux
+main_filters_title = 'Filtres principaux'
+total_products_found = 'Produits trouv&eacute;s'
+reset_main_filters = 'R&eacute;initialiser les filtres principaux'
+apply_main_filters = 'Appliquer les filtres principaux'
+show_all_filters = 'Afficher tous les filtres...'
 
-# ============================================================
-# MRH 2026 – Topbar & Shipping Bar
-# ============================================================
-mrh_topbar_phone = '+43 512 312 411'
-mrh_topbar_delivery = 'Livraison rapide'
-mrh_topbar_payment = 'Paiement simple et s&eacute;curis&eacute;'
-mrh_topbar_letter = 'Commande par courrier'
-mrh_topbar_freeshipping = 'Gratuit d&egrave;s : AT 40&euro;, DE 85&euro;, EU 150&euro;'
-mrh_shipping_bar_text = 'Livraison gratuite d&egrave;s 40&euro; de commande'
-# Seuils de livraison gratuite par pays (pour JS)
-mrh_freeship_at = '40'
-mrh_freeship_de = '85'
-mrh_freeship_eu = '150'
+# Filtre - Modal
+modal_title_all_filters = 'Tous les filtres'
+filter_category_main = 'Filtres principaux'
+filter_category_genetics = 'G&eacute;n&eacute;tique &amp; Origine'
+filter_category_cultivation = 'Culture'
+filter_category_taste = 'Go&ucirc;t &amp; Effet'
+filter_category_advanced = 'Avanc&eacute;'
+
+# Filtre - Menu d&eacute;roulant mobile
+filter_category_select_main = 'Filtres principaux'
+filter_category_select_genetics = 'G&eacute;n&eacute;tique &amp; Origine'
+filter_category_select_cultivation = 'Culture'
+filter_category_select_taste = 'Go&ucirc;t &amp; Effet'
+filter_category_select_advanced = 'Avanc&eacute;'
+
+# Filtre - Boutons
+reset_all_filters = 'Tout r&eacute;initialiser'
+apply_filters = 'Appliquer les filtres'
+close_modal = 'Fermer'
+
+# Filtre - Filtres actifs
+filter_open_button = 'Ouvrir les filtres'
+active_filters_title = 'Tes crit&egrave;res s&eacute;lectionn&eacute;s'
+
+# Carte de produit
+special_badge = 'Offre sp&eacute;ciale'
+selection_label = 'Produits en stock:'
+only_x_available = 'seulement {stock} disponibles'
+from_price_prefix = '&agrave; partir de'
+sold_out_badge = '&Eacute;puis&eacute;'
+details_button = 'Voir les d&eacute;tails'
+
+# Aucun produit trouv&eacute;
+no_products_title = 'Aucun produit trouv&eacute;.'
+no_products_text = 'Veuillez modifier votre s&eacute;lection de filtres.'
+
+# ========================================
+# &Eacute;TIQUETTES DE FILTRE (NOUVEAU v18.0.0)
+# ========================================
+
+# Les noms de filtres sont charg&eacute;s depuis la base de donn&eacute;es
+# Ces cl&eacute;s ne sont utilis&eacute;es que lorsque les noms de filtres manquent
+
+filter_thc = 'THC'
+filter_flowering_time = 'Temps de floraison'
+filter_flowering_time_auto = 'Temps de floraison autofloraison'
+filter_cultivation = 'Culture'
+filter_taste = 'Go&ucirc;t/Ar&ocirc;me'
+filter_effect = 'Effet'
+
+# ========================================
+# TEXTES G&Eacute;N&Eacute;RAUX
+# ========================================
+
+# Boutons
+button_back = 'Retour'
+button_next = 'Suivant'
+button_close = 'Fermer'
+button_apply = 'Appliquer'
+button_reset = 'R&eacute;initialiser'
+
+# Statut
+loading = 'Chargement...'
+error = 'Erreur'
+success = 'Succ&egrave;s'
+
+# ========================================
+# PAGINATION
+# ========================================
+
+pagination_previous = 'Pr&eacute;c&eacute;dent'
+pagination_next = 'Suivant'
+pagination_first = 'Premi&egrave;re'
+pagination_last = 'Derni&egrave;re'
+
+# ========================================
+# ACCESSIBILIT&Eacute;
+# ========================================
+
+aria_close = 'Fermer'
+aria_open = 'Ouvrir'
+aria_filter = 'Filtre'
+aria_sort = 'Trier'
+
+# ========================================
+# SEO / META
+# ========================================
+
+meta_title = 'Le Seedfinder n&deg;1&nbsp;: Trouvez votre vari&eacute;t&eacute; de cannabis parfaite parmi 7&nbsp;500+ graines'
+meta_description = 'Trouvez la vari&eacute;t&eacute; de cannabis parfaite avec le Seedfinder Mr. Hanf parmi plus de 7&nbsp;500 graines. Filtrez par THC, CBD, rendement, temps de floraison et plus. 20 ans d&apos;expertise&nbsp;!'
+
+
+# ========================================
+# SEEDFINDER
+# ========================================
+
+
+beginner_badge = 'Pour les débutants'
+beginner_title = 'Votre première récolte ?   Nous vous facilitons la tâche !'
+beginner_subtitle = 'Trouvez la variété parfaite pour votre première culture en 60 secondes'
+beginner_problem_title = 'Votre problème :'
+beginner_problem_text = '+7 500 variétés, termes compliqués, peur de faire des erreurs... Vous ne savez pas par où commencer ?'
+beginner_solution_title = 'Notre solution :'
+beginner_solution_text = 'Répondez à 5 questions simples et nous vous montrerons UNIQUEMENT les variétés parfaites pour les débutants !'
+benefit1_title = 'Indulgentes'
+benefit1_text = 'Des variétés robustes qui pardonnent les petites erreurs'
+benefit2_title = 'Rapide & Facile'
+benefit2_text = 'Temps de floraison court, peu d\'entretien nécessaire'
+benefit3_title = 'Taux de réussite élevé'
+benefit3_text = '95% de nos débutants réussissent'
+benefit4_title = 'Rendement garanti'
+benefit4_text = 'Une bonne récolte même la première fois'
+beginner_trust_headline = 'Plus de 10 000 débutants satisfaits'
+beginner_trust_quote = 'Enfin une recommandation qui convient vraiment !'
+beginner_cta_button = 'Trouver ma variété maintenant'
+beginner_guarantee = '100% gratuit • Aucune inscription requise • Commencez immédiatement'
+
+ 
+pro_badge = 'Pour les pros'
+pro_title = 'Vous vous y connaissez ?   Trouvez la variété de vos rêves !'
+pro_subtitle = 'Recherchez parmi plus de 7 500 variétés avec des filtres avancés'
+pro_challenge_title = 'Votre défi :'
+pro_challenge_text = 'Vous savez ce que vous voulez, mais trouver la combinaison parfaite de THC, rendement, temps de floraison et génétique prend du temps ?'
+pro_solution_title = 'Notre solution :'
+pro_solution_text = 'Utilisez des filtres avancés et recherchez parmi plus de 7 500 variétés en fonction de vos exigences spécifiques !'
+pro_benefit1_title = 'Filtres avancés'
+pro_benefit1_text = 'THC/CBD, temps de floraison, rendement, taille et plus'
+pro_benefit2_title = 'Toutes les catégories'
+pro_benefit2_text = 'Intérieur, Extérieur, Autofloraison, Féminisée'
+pro_benefit3_title = 'Variétés Premium'
+pro_benefit3_text = 'Éditions exclusives et limitées'
+pro_benefit4_title = 'Infos détaillées'
+pro_benefit4_text = 'Génétique, effets, goût, avis'
+pro_trust_headline = 'Développé par des pros pour des pros'
+pro_trust_quote = 'La meilleure fonction de recherche du marché !'
+pro_cta_button = 'Vers la recherche avancée'
+pro_info_text = 'Tous les filtres et catégories disponibles immédiatement'
+inwarko = 'Ajouter au panier'
+# ========================================
+# Assistant Débutant : Général
+# ========================================
+wizard_title = 'Trouvez votre variété parfaite !'
+wizard_subtitle = 'Votre recommandation idéale en 4 étapes faciles'
+wizard_close_button_aria = 'Fermer'
+wizard_progress_text = 'Étape {current} sur {total}'
+wizard_back_button = 'Retour'
+wizard_reset_button = 'Recommencer'
+wizard_why_important = 'Pourquoi est-ce important ?'
+wizard_what_is_difference = 'Quelle est la différence ?'
+
+# ========================================
+# Assistant Débutant : Badges
+# ========================================
+badge_popular = 'Populaire'
+badge_natural = 'Naturel'
+badge_easy = 'Facile'
+badge_classic = 'Classique'
+badge_recommended = 'Recommandé'
+
+# ========================================
+# Assistant Débutant : Étape 1 (Lieu)
+# ========================================
+step1_title = 'Où voulez-vous cultiver ?'
+step1_subtitle = 'Sélectionnez votre lieu de culture'
+step1_explanation = 'Le lieu de culture détermine les variétés qui vous conviennent.'
+step1_opt1_title = 'Intérieur'
+step1_opt1_benefit1 = 'Culture toute l\'année'
+step1_opt1_benefit2 = 'Contrôle total'
+step1_opt2_title = 'Extérieur'
+step1_opt2_benefit1 = 'Lumière naturelle du soleil'
+step1_opt2_benefit2 = 'Plus grands rendements'
+
+# ========================================
+# Assistant Débutant : Étape 2 (Type)
+# ========================================
+step2_title = 'Quel type ?'
+step2_subtitle = 'Choisissez entre Autofloraison et Photopériodique'
+step2_explanation = 'Les variétés à autofloraison fleurissent automatiquement, les photopériodiques nécessitent un changement de cycle lumineux.'
+step2_opt1_title = 'Autofloraison'
+step2_opt1_benefit1 = 'Récolte rapide'
+step2_opt1_benefit2 = 'Aucun cycle lumineux requis'
+step2_opt2_title = 'Photopériodique'
+step2_opt2_benefit1 = 'Plantes plus grandes'
+step2_opt2_benefit2 = 'Rendements plus élevés'
+
+# ========================================
+# Assistant Débutant : Étape 3 (Génétique)
+# ========================================
+step3_title = 'Quelle génétique préférez-vous ?'
+step3_subtitle = 'Choisissez votre type de génétique préféré'
+step3_explanation = 'L\'Indica a un effet relaxant, la Sativa est énergisante, et les Hybrides combinent les deux.'
+step3_opt1_title = 'Dominance Indica'
+step3_opt1_benefit1 = 'Relaxant physiquement'
+step3_opt1_benefit2 = 'Apaisant'
+step3_opt1_benefit3 = 'Idéal pour le soir'
+step3_opt2_title = 'Dominance Sativa'
+step3_opt2_benefit1 = 'Énergisant'
+step3_opt2_benefit2 = 'Créatif'
+step3_opt2_benefit3 = 'Parfait pour la journée'
+step3_opt3_title = 'Hybrides Indica/Sativa'
+step3_opt3_benefit1 = 'Effet équilibré'
+step3_opt3_benefit2 = 'Polyvalent'
+step3_opt3_benefit3 = 'Le meilleur des deux mondes'
+
+# ========================================
+# Assistant Débutant : Étape 4 (Temps de floraison)
+# ========================================
+step4_title = 'À quelle vitesse ?'
+step4_subtitle = 'Choisissez le temps de floraison souhaité'
+step4_explanation_title = 'Temps de floraison'
+step4_explanation_text = 'Le temps de floraison détermine la durée jusqu\'à la récolte. Les variétés plus rapides sont idéales pour les débutants !'
+step4_opt1_title = 'Normal'
+step4_opt1_desc = '6-9 semaines de floraison - idéal pour la plupart des cultivateurs'
+step4_opt2_title = 'Long'
+step4_opt2_desc = '9-12+ semaines de floraison - pour les cultivateurs patients avec des rendements plus élevés'
+# ========================================
+# Assistant Débutant : Page de Résultats (Étape 3)
+# ========================================
+beginner_results_title = 'Variétés pour Débutants :'
+beginner_results_info_title = 'Pourquoi ces variétés ?'
+beginner_results_info_text = 'Ces variétés ont été spécialement sélectionnées pour les débutants. Elles sont robustes, tolérantes aux erreurs et faciles à cultiver – parfaites pour votre première culture !'
+beginner_results_adjust_filters = 'Ajuster les filtres'
+beginner_results_new_selection = 'Nouvelle sélection'
+beginner_results_back_to_selection = 'Retour à la sélection'
+loading_category_filters = 'Chargement des filtres pour la nouvelle cat&eacute;gorie...'
+hersteller = 'Marque'
+# ========================================
+# SEO Text Seedfinder
+# ========================================
+seedfinder_welcome_title = 'Bienvenue au plus grand chercheur de graines de cannabis d&apos;Europe&nbsp;!'
+seedfinder_welcome_text1 = 'Choisir la bonne vari&eacute;t&eacute; de cannabis peut &ecirc;tre accablant &ndash; avec plus de <strong>7&nbsp;500 vari&eacute;t&eacute;s diff&eacute;rentes</strong> des meilleurs cultivateurs du monde, on perd rapidement le fil. Notre <strong>Seedfinder</strong> intelligent vous facilite la t&acirc;che&nbsp;: s&eacute;lectionnez simplement l&apos;une des cat&eacute;gories principales ci-dessous, puis utilisez les filtres avanc&eacute;s pour affiner votre recherche par teneur en THC, temps de floraison, rendement, saveur ou effet.'
+seedfinder_welcome_text2 = 'Que vous soyez <strong>d&eacute;butant</strong> &agrave; la recherche de graines autofloraison faciles &agrave; cultiver, ou <strong>cultivateur exp&eacute;riment&eacute;</strong> en qu&ecirc;te de g&eacute;n&eacute;tiques rares &ndash; notre <strong>chercheur de graines</strong> vous guidera vers la vari&eacute;t&eacute; parfaite en quelques secondes. Commencez votre recherche maintenant et profitez de plus de 20 ans d&apos;exp&eacute;rience et de notre garantie de fra&icirc;cheur&nbsp;!'
+fax_modal_title = '&Ecirc;tes-vous s&ucirc;r&nbsp;?'
+fax_modal_headline = 'Ceci est un formulaire de commande par courrier&nbsp;!'
+fax_modal_text1 = 'Ce n&apos;est <strong>PAS une commande en ligne</strong>.'
+fax_modal_text2 = 'Pour les commandes en ligne, veuillez utiliser la caisse.'
+fax_modal_button_checkout = 'Aller &agrave; la caisse'
+cat_autoflowering = 'Graines Autofloraison'
+cat_indica = 'Graines Indica'
+cat_sativa = 'Graines Sativa'
+cat_feminized = 'Graines F&eacute;minis&eacute;es'
+cat_regular = 'Graines R&eacute;guli&egrave;res'
+cat_medical = 'Graines M&eacute;dicinales'
+cat_samen_shop = 'Boutique de Graines'
+title_brief = 'Commande par courrier'
+product_compare_button = 'Comparer'
+TEXT_BLOG_SEARCH_HEADING ='Résultat du blog'
+
+MRH_shop_offline_title = "Maintenance"

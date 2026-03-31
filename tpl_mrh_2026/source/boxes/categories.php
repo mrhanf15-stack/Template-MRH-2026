@@ -71,7 +71,7 @@ if (
       );
 
       // meine Änderung zählen ob Unterkategorie vorhanden ist
-      $hassubcat = bs4_has_cat_subcat($categories['categories_id']);
+      $hassubcat = mrh_has_cat_subcat($categories['categories_id']);
       $foo[$categories['categories_id']]['hassubcat'] = $hassubcat === true ? true : false;
       // Ende Karl
 
@@ -123,7 +123,7 @@ if (
             if (!isset ($first_element)) {
               $first_element = $value;
             }
-            $hassubcat = bs4_has_cat_subcat($row['categories_id']);
+            $hassubcat = mrh_has_cat_subcat($row['categories_id']);
             $foo[$row['categories_id']]['hassubcat'] = $hassubcat === true ? true : false;
             // Ende Karl
 
@@ -154,10 +154,10 @@ if (
   }
 
   // meine Änderung Zusatzlinks
-  if (BS4_ADD_LINK_IN_TOPCATMENU_LAST != '') {
+  if (MRH_ADD_LINK_IN_TOPCATMENU_LAST != '') {
           $link_content = array();
         $add_links = array();
-    $add_links = explode(',', BS4_ADD_LINK_IN_TOPCATMENU_LAST);
+    $add_links = explode(',', MRH_ADD_LINK_IN_TOPCATMENU_LAST);
     foreach ($add_links as $add_link) {
       $links = explode('|', trim($add_link));
       if (substr($links[0], 0, 4) != 'http') {
@@ -186,7 +186,7 @@ if (!$cache) {
 $smarty->assign('box_CATEGORIES', $box_categories);
 $smarty->assign('box_CATEGORIES2', $box_categories2);
 
-function bs4_has_cat_subcat($category_id) {
+function mrh_has_cat_subcat($category_id) {
   $child_category_query = "SELECT count(*) as count
                 FROM " . TABLE_CATEGORIES . "
                 WHERE parent_id = '" . (int)$category_id . "'

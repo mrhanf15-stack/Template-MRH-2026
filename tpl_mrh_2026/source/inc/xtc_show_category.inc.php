@@ -26,7 +26,7 @@
     }
     if ($categories_string2 == '') { //Level 1 Start-UL
 		$categories_string2 .= '<ul id="main" class="' . $foo[$counter]['id'] . '">'."\n";
-		if (BS4_SHOW_HOMEBUTTON_IN_TOPCATMENU == 'true'){
+		if (MRH_SHOW_HOMEBUTTON_IN_TOPCATMENU == 'true'){
 			$categories_string2 .= '<li class="nav-item home"><a class="nav-link" href="' . xtc_href_link(FILENAME_DEFAULT) . '" aria-label="home"><span class="fa fa-home fa-lg"></span></a></li>'."\n";
 		}
     }
@@ -67,7 +67,7 @@
 	}
     //EOF +++ Kategorien markieren +++
 
-	if (SHOW_COUNTS == 'true' || BS4_HIDE_EMPTY_CATEGORIES == 'true') {
+	if (SHOW_COUNTS == 'true' || MRH_HIDE_EMPTY_CATEGORIES == 'true') {
 		$products_in_category = xtc_count_products_in_category($counter);
 	}
 
@@ -75,9 +75,9 @@
     $subcategories_class = $subcategories_class2 = '';
     $subcategories_button = '';
 	if ($foo[$counter]['hassubcat'] == true) {
-		if (BS4_HIDE_EMPTY_CATEGORIES != 'true' || (bs4_count_products_in_category($counter) != $products_in_category)) {
-			if (BS4_CATEGORIESMENU_AJAX == 'true') {
-				if (($level < BS4_CATEGORIESMENU_MAXLEVEL || BS4_CATEGORIESMENU_MAXLEVEL == 'false')) {
+		if (MRH_HIDE_EMPTY_CATEGORIES != 'true' || (mrh_count_products_in_category($counter) != $products_in_category)) {
+			if (MRH_CATEGORIESMENU_AJAX == 'true') {
+				if (($level < MRH_CATEGORIESMENU_MAXLEVEL || MRH_CATEGORIESMENU_MAXLEVEL == 'false')) {
 				   	$subcategories_class = ' category_li';
 			    	$subcategories_button = '<div class="category_button fa fa-sm fa-' . ($in_path ? 'chevron-up' : 'chevron-right') . '" data-value="'.($foo[$counter]['path']).'"></div>';
 				}
@@ -91,7 +91,7 @@
     if (trim($categories_string2 == '')) $categories_string2 = "\n"; //Zeilenschaltung Codedarstellung
     $categories_string .= $ul; //UL LI Versschachtelung
     $categories_string2 .= $ul2; //UL LI Versschachtelung
-	if ((BS4_HIDE_EMPTY_CATEGORIES == 'true' && $products_in_category > 0) || BS4_HIDE_EMPTY_CATEGORIES != 'true') {
+	if ((MRH_HIDE_EMPTY_CATEGORIES == 'true' && $products_in_category > 0) || MRH_HIDE_EMPTY_CATEGORIES != 'true') {
 	    $categories_string .= $tab; //Tabulator Codedarstellung
 	    $categories_string2 .= $tab; //Tabulator Codedarstellung
 	    $categories_string .= '<li class="nav-item level'.$level.$cat_active.$subcategories_class.'">';
@@ -108,8 +108,8 @@
 	    //Anzeige Anzahl der Produkte in Kategorie, für bessere Performance im Admin deaktivieren
 	    if (SHOW_COUNTS == 'true') {
 	      if ($products_in_category > 0) {
-	        $categories_string .= '<span class="badge badge-secondary float-right">' . $products_in_category . '</span>';
-	        $categories_string2 .= '&nbsp;<div class="badge badge-secondary">' . $products_in_category . '</div>';
+	        $categories_string .= '<span class="badge bg-secondary float-end">' . $products_in_category . '</span>';
+	        $categories_string2 .= '&nbsp;<div class="badge bg-secondary">' . $products_in_category . '</div>';
 	      }
 	    }
 	    $categories_string .= '</a>'.$subcategories_button.'</li>';
@@ -132,7 +132,7 @@
     }
   }
 
-  function bs4_count_products_in_category($category_id, $include_inactive = false) {
+  function mrh_count_products_in_category($category_id, $include_inactive = false) {
     static $products_count_array, $products_in_category_array;
 
     $active = (($include_inactive === false) ? 0 : 1);

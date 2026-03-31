@@ -7,53 +7,53 @@
     <a href="{$LINK_SPECIALS}" class="small text-decoration-none">{#show_all#} <span class="fa fa-chevron-right"></span></a>
   </div>
   <div class="row g-3">
-    {foreach name=aussen item=box_content from=$box_content}
+    {foreach name=aussen item=product_data from=$box_content}
     <div class="col-6 col-md-4 col-lg-3">
       <div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
-        <a href="{$box_content.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$box_content.PRODUCTS_NAME|onlytext}">
+        <a href="{$product_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$product_data.PRODUCTS_NAME|onlytext}">
           <div class="mrh-flag">
-            {if $box_content.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT != ''}
+            {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT != ''}
               <span class="mrh-flag-badge mrh-flag-special">{#MRH_special#}</span>
-              <span class="mrh-flag-badge mrh-flag-percent">-{$box_content.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT}%</span>
+              <span class="mrh-flag-badge mrh-flag-percent">-{$product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT}%</span>
             {/if}
           </div>
-          {if $box_content.PRODUCTS_IMAGE != ''}
-            <img src="{$box_content.PRODUCTS_IMAGE}" alt="{$box_content.PRODUCTS_NAME|onlytext}"
+          {if $product_data.PRODUCTS_IMAGE != ''}
+            <img src="{$product_data.PRODUCTS_IMAGE}" alt="{$product_data.PRODUCTS_NAME|onlytext}"
                  itemprop="image" loading="lazy" width="300" height="300">
           {/if}
         </a>
         <div class="mrh-product-card-body">
-          {if !empty($box_content.MANUFACTURER)}
+          {if !empty($product_data.MANUFACTURER)}
             <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-              <span itemprop="name">{$box_content.MANUFACTURER}</span>
+              <span itemprop="name">{$product_data.MANUFACTURER}</span>
             </div>
           {/if}
           <h3 class="mrh-product-card-title">
-            <a href="{$box_content.PRODUCTS_LINK}" itemprop="name">{$box_content.PRODUCTS_NAME}</a>
+            <a href="{$product_data.PRODUCTS_LINK}" itemprop="name">{$product_data.PRODUCTS_NAME}</a>
           </h3>
-          {if isset($box_content.MRH_RATING_PERCENT) && $box_content.MRH_RATING_PERCENT > 0}
+          {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
             <div class="mrh-rating">
               {section name=star loop=5}
-                {if $smarty.section.star.index < $box_content.MRH_RATING_FULL}
+                {if $smarty.section.star.index < $product_data.MRH_RATING_FULL}
                   <span class="fa fa-star"></span>
-                {elseif $smarty.section.star.index < $box_content.MRH_RATING_FULL + $box_content.MRH_RATING_HALF}
+                {elseif $smarty.section.star.index < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
                   <span class="fa fa-star-half-o"></span>
                 {else}
                   <span class="fa fa-star-o"></span>
                 {/if}
               {/section}
-              <span class="mrh-rating-count">({$box_content.MRH_RATING_COUNT})</span>
+              <span class="mrh-rating-count">({$product_data.MRH_RATING_COUNT})</span>
             </div>
           {/if}
           <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            {foreach name=inner item=price_data from=$box_content.PRODUCTS_PRICE_ARRAY}
+            {foreach name=inner item=price_data from=$product_data.PRODUCTS_PRICE_ARRAY}
               {include file="module/includes/price_box.html"}
             {/foreach}
-            {if $box_content.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-              {if $box_content.PRODUCTS_VPE}<div class="small text-muted">{$box_content.PRODUCTS_VPE}</div>{/if}
-              <div class="small text-muted">{$box_content.PRODUCTS_TAX_INFO}{$box_content.PRODUCTS_SHIPPING_LINK}</div>
-              {if $box_content.PRODUCTS_EXPIRES != 0}
-                <span class="small text-danger"><span class="fa fa-clock-o"></span> {#text_expires_date#} {$box_content.PRODUCTS_EXPIRES|date_format:"%x"}</span>
+            {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+              {if $product_data.PRODUCTS_VPE}<div class="small text-muted">{$product_data.PRODUCTS_VPE}</div>{/if}
+              <div class="small text-muted">{$product_data.PRODUCTS_TAX_INFO}{$product_data.PRODUCTS_SHIPPING_LINK}</div>
+              {if $product_data.PRODUCTS_EXPIRES != 0}
+                <span class="small text-danger"><span class="fa fa-clock-o"></span> {#text_expires_date#} {$product_data.PRODUCTS_EXPIRES|date_format:"%x"}</span>
               {/if}
             {/if}
           </div>

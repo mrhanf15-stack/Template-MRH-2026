@@ -175,5 +175,15 @@ $box_smarty->assign('SUPPORT', xtc_href_link_admin((defined('DIR_ADMIN') ? DIR_A
 
 $box_smarty->caching = 0;
 $box_admin = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_admin.html');
+
+// MRH 2026: Konfigurator-Panel als PHP laden (kein Smarty {php} Tag noetig)
+$mrh_panel_file = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/admin/includes/mrh_configurator_panel.php';
+if (file_exists($mrh_panel_file)) {
+    ob_start();
+    include($mrh_panel_file);
+    $mrh_panel_html = ob_get_clean();
+    $box_admin .= '<div id="mrh-admin-configurator" class="container-fluid">' . $mrh_panel_html . '</div>';
+}
+
 $smarty->assign('box_ADMIN',$box_admin);
 ?>

@@ -91,7 +91,7 @@ if ($product->isProduct() === true && $_SESSION['customers_status']['customers_s
         $box_smarty->assign($key, $value);
       }
 
-		if (defined('BS4_AWIDSRATINGBREAKDOWN') && BS4_AWIDSRATINGBREAKDOWN == 'true') {
+		if (defined('MRH_AWIDSRATINGBREAKDOWN') && MRH_AWIDSRATINGBREAKDOWN == 'true') {
 			$average_percent = number_format(($reviews['reviews_rating']*100/5), 0, ',','');
 			$review_image = '<span class="ratings" title="' . sprintf(BOX_REVIEWS_TEXT_OF_5_STARS, $reviews['reviews_rating']) . '"><span class="fas empty-stars"></span><span class="fas full-stars" style="width:' . $average_percent . '%"></span></span>';
 			$review_image_microtag = '<span class="ratings" itemprop="rating" title="' . sprintf(BOX_REVIEWS_TEXT_OF_5_STARS, $reviews['reviews_rating']) . '"><span class="fas empty-stars"></span><span class="fas full-stars" style="width:' . $average_percent . '%"></span></span>';
