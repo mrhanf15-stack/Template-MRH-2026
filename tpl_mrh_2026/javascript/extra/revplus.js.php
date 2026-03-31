@@ -474,60 +474,15 @@ document.addEventListener(
     })
 });
 
-document.addEventListener(
-        "DOMContentLoaded", () => {
- 
-        $("#mobiles_menu").mmenu({
-            offCanvas: {
-                position: "left",
-                zposition: "front"
-            },
-            navbar: {
-                title: "Sortiment"
-            },
-            extensions: ["pagedim-black"]
-        }, {
-            offCanvas: {
-                pageSelector: ".page-wrapper"
-            }
-        });
-        var n = $("#mobiles_menu").data("mmenu");
-        
-        // WCAG 2.4.1 Fix: Add proper labels to mmenu footer landmarks
-        setTimeout(function() {
-            // Get mobile menu label from data attribute (set in HTML)
-            var mobileMenuLabel = $('.page-wrapper').data('mobile-menu-label') || 'Mobile Menu Navigation';
-            
-            // Find mmenu footers and add proper ARIA labels
-            $('[id^="mm-"]').each(function() {
-                var $element = $(this);
-                if ($element.is('footer') || $element.find('footer').length > 0) {
-                    var footer = $element.is('footer') ? $element : $element.find('footer');
-                    if (!footer.attr('aria-label') && !footer.find('h1, h2, h3, h4, h5, h6').length) {
-                        footer.attr('aria-label', mobileMenuLabel);
-                    }
-                }
-            });
-        }, 100);
-        
-        $("#toggle_mobilemenu").click(function() {
-            n.open()
-        }), $("#my-button4").click(function() {
-            n.open(), $("#the-menu-button").hide(), $("#the-menu-button-close").show()
-        }), $("#my-button4-close").click(function() {
-            n.close(), $("#the-menu-button-close").hide(), $("#the-menu-button").show()
-        })
-   
-});
+/* MRH2026: mmenu komplett entfernt - Mega-Menu jetzt Vanilla JS in mrh-core.js.php
+   Mobile Offcanvas wird durch MRH.MobileMenu ersetzt */
 
+
+/* MRH2026: Alte mainnavi jQuery-Logik entfernt - wird jetzt in MRH.MegaMenu.init() gemacht */
 window.addEventListener("load", function() {
     $("#admin").length && $(".navibar").css("top", "36px"), $("#toggle_login").click(function() {
         return $(".toggle_login").slideToggle("slow"), ac_closing(), !1
-    }), $(".mainnavi li.level1").has("ul").find("> a").addClass("firstlevel-more"), $("a.firstlevel-more").each(function() {
-        var l = $(this),
-            a = (l.attr("href"), l.siblings("ul"));
-        l.clone().appendTo(a)
-    })
+    });
 });
 
 function setCookie(e, t, i) {

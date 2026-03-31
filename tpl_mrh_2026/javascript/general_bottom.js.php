@@ -22,7 +22,7 @@ defined('DIR_TMPL_JS') OR define('DIR_TMPL_JS', DIR_TMPL.'javascript/');
 $script_array = array(
   DIR_TMPL_JS.'popper.min.js',
   DIR_TMPL_JS.'bootstrap.min.js',
-  DIR_TMPL_JS.'jquery.mmenu.all.js',
+  //DIR_TMPL_JS.'jquery.mmenu.all.js', // MRH2026: deaktiviert - Mega-Menu jetzt Vanilla JS
   //DIR_TMPL_JS.'jquery.alertable.min.js',
   DIR_TMPL_JS.'owl.carousel.min.js'
 );

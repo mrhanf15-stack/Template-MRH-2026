@@ -325,6 +325,351 @@
   };
 
   /* ----------------------------------------------------------
+     08 MEGA-MENÜ: Vanilla JS Navigation
+     ---------------------------------------------------------- */
+  MRH.MegaMenu = {
+    hoverDelay: 150,
+    closeDelay: 250,
+    openTimer: null,
+    closeTimer: null,
+    activeItem: null,
+    activeDropdown: null,
+    isTouch: false,
+
+    init: function() {
+      var nav = MRH.Utils.qs('#mrhMegaNav');
+      if (!nav) return;
+      this.nav = nav;
+      this.bar = MRH.Utils.qs('.mrh-mega-nav-bar', nav);
+
+      // Touch-Erkennung
+      this.isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+      // 1. CatNavi in Nav-Items umwandeln
+      this.transformCategories();
+
+      // 2. Event-Listener
+      this.bindEvents();
+
+      // 3. Aktiven Nav-Item markieren
+      this.markActive();
+    },
+
+    /**
+     * Wandelt die Smarty-generierte CatNavi in mrh-nav-items um
+     * und baut Mega-Dropdown-Panels für Kategorien mit Submenüs
+     */
+    transformCategories: function() {
+      var catWrap = MRH.Utils.qs('#mrhNavCategories');
+      if (!catWrap) return;
+
+      var catNav = MRH.Utils.qs('.CatNavi', catWrap);
+      if (!catNav) return;
+
+      var level1Items = MRH.Utils.qsa(':scope > li', catNav);
+      var fragment = document.createDocumentFragment();
+
+      // Icon-Map für Hauptkategorien (aus Sprachdatei oder Fallback)
+      var iconMap = {
+        'samen': 'fa-seedling',
+        'seed': 'fa-seedling',
+        'cannabis': 'fa-cannabis',
+        'cannabispflanz': 'fa-cannabis',
+        'grow': 'fa-sun',
+        'head': 'fa-bong',
+        'default': 'fa-leaf'
+      };
+
+      var self = this;
+
+      level1Items.forEach(function(li) {
+        var link = MRH.Utils.qs(':scope > a', li);
+        if (!link) return;
+
+        var text = link.textContent.trim();
+        var href = link.getAttribute('href') || '#';
+        var subUl = MRH.Utils.qs(':scope > ul', li);
+        var hasSubmenu = !!subUl;
+
+        // Icon bestimmen
+        var iconClass = iconMap['default'];
+        var textLower = text.toLowerCase();
+        Object.keys(iconMap).forEach(function(key) {
+          if (textLower.indexOf(key) > -1) iconClass = iconMap[key];
+        });
+
+        // Nav-Item erstellen
+        var navItem = document.createElement('a');
+        navItem.href = href;
+        navItem.className = 'mrh-nav-item';
+        navItem.setAttribute('data-nav', text.toLowerCase().replace(/\s+/g, '-'));
+        navItem.innerHTML = '<i class="fa-solid ' + iconClass + '"></i> ' +
+                            '<span>' + text + '</span>';
+
+        if (hasSubmenu) {
+          navItem.innerHTML += ' <i class="fa-solid fa-chevron-down mrh-nav-arrow"></i>';
+          navItem.setAttribute('data-mega', 'true');
+
+          // Mega-Dropdown Panel bauen
+          var dropdown = self.buildDropdown(subUl, href, text);
+          navItem._megaDropdown = dropdown;
+          self.nav.appendChild(dropdown);
+        }
+
+        fragment.appendChild(navItem);
+      });
+
+      // Statische Items (Angebote, Neue Artikel, etc.) kommen NACH den Kategorien
+      var staticItems = MRH.Utils.qsa('.mrh-nav-item[data-nav]', this.bar);
+      var homeItem = MRH.Utils.qs('.mrh-nav-home', this.bar);
+
+      // Kategorien nach Home einfügen
+      if (homeItem && homeItem.nextSibling) {
+        this.bar.insertBefore(fragment, homeItem.nextSibling);
+      } else {
+        this.bar.appendChild(fragment);
+      }
+
+      // Original CatNavi verstecken
+      catWrap.style.display = 'none';
+    },
+
+    /**
+     * Baut ein Mega-Dropdown Panel aus den Sub-Kategorien
+     */
+    buildDropdown: function(subUl, parentHref, parentText) {
+      var dropdown = document.createElement('div');
+      dropdown.className = 'mrh-mega-dropdown';
+
+      var content = document.createElement('div');
+      content.className = 'mrh-mega-content';
+
+      // Sub-Kategorien in Spalten aufteilen (max 3 Spalten + Promo)
+      var subItems = MRH.Utils.qsa(':scope > li', subUl);
+      var columns = this.splitIntoColumns(subItems, 3);
+
+      // Spalten-Titel Icons
+      var colIcons = ['fa-layer-group', 'fa-star', 'fa-industry'];
+      var colTitles = ['Sortenvielfalt', 'Beliebte Sorten', 'Top Hersteller'];
+
+      columns.forEach(function(colItems, idx) {
+        var col = document.createElement('div');
+        col.className = 'mrh-mega-col';
+
+        // Spalten-Titel
+        var title = document.createElement('div');
+        title.className = 'mrh-mega-col-title';
+        title.innerHTML = '<i class="fa-solid ' + (colIcons[idx] || 'fa-folder') + '"></i> ' +
+                          (colTitles[idx] || 'Kategorie ' + (idx + 1));
+        col.appendChild(title);
+
+        // Links
+        var ul = document.createElement('ul');
+        colItems.forEach(function(item) {
+          var a = MRH.Utils.qs('a', item);
+          if (!a) return;
+          var li = document.createElement('li');
+          var link = document.createElement('a');
+          link.href = a.getAttribute('href') || '#';
+          link.textContent = a.textContent.trim();
+          li.appendChild(link);
+          ul.appendChild(li);
+        });
+        col.appendChild(ul);
+
+        // "Alle anzeigen" Link
+        var allLink = document.createElement('a');
+        allLink.href = parentHref;
+        allLink.className = 'mrh-mega-all';
+        allLink.innerHTML = 'Alle anzeigen <i class="fa-solid fa-arrow-right"></i>';
+        col.appendChild(allLink);
+
+        content.appendChild(col);
+      });
+
+      // Promo-Spalte hinzufügen
+      var promoData = MRH.Utils.qs('#mrhMegaPromoData');
+      if (promoData) {
+        var promo = document.createElement('div');
+        promo.className = 'mrh-mega-promo';
+        promo.innerHTML =
+          '<div class="mrh-mega-promo-inner">' +
+            '<div class="mrh-mega-promo-title">' +
+              '<i class="fa-solid ' + (promoData.dataset.icon || 'fa-percent') + '"></i> ' +
+              (promoData.dataset.title || 'Aktion') +
+            '</div>' +
+            '<div class="mrh-mega-promo-brand">' + (promoData.dataset.brand || '') + '</div>' +
+            '<div class="mrh-mega-promo-text">' + (promoData.dataset.text || '') + '</div>' +
+            '<a href="' + (promoData.dataset.link || '/angebote/') + '" class="mrh-mega-promo-btn">' +
+              (promoData.dataset.button || 'Jetzt sparen') +
+            '</a>' +
+          '</div>';
+        content.appendChild(promo);
+      }
+
+      dropdown.appendChild(content);
+      return dropdown;
+    },
+
+    /**
+     * Verteilt Sub-Items gleichmäßig auf n Spalten
+     */
+    splitIntoColumns: function(items, numCols) {
+      var cols = [];
+      for (var i = 0; i < numCols; i++) cols.push([]);
+      items.forEach(function(item, idx) {
+        cols[idx % numCols].push(item);
+      });
+      // Leere Spalten entfernen
+      return cols.filter(function(c) { return c.length > 0; });
+    },
+
+    /**
+     * Event-Listener für Hover (Desktop) und Click (Touch)
+     */
+    bindEvents: function() {
+      var self = this;
+      var megaItems = MRH.Utils.qsa('.mrh-nav-item[data-mega]', this.bar);
+
+      megaItems.forEach(function(item) {
+        if (self.isTouch) {
+          // Touch: Click öffnet/schließt Dropdown
+          item.addEventListener('click', function(e) {
+            if (self.activeItem === item) {
+              // Zweiter Klick: Navigiere zum Link
+              self.closeAll();
+              return;
+            }
+            e.preventDefault();
+            self.closeAll();
+            self.open(item);
+          });
+        } else {
+          // Desktop: Hover mit Delay
+          item.addEventListener('mouseenter', function() {
+            clearTimeout(self.closeTimer);
+            self.openTimer = setTimeout(function() {
+              self.closeAll();
+              self.open(item);
+            }, self.hoverDelay);
+          });
+
+          item.addEventListener('mouseleave', function() {
+            clearTimeout(self.openTimer);
+            self.closeTimer = setTimeout(function() {
+              self.closeAll();
+            }, self.closeDelay);
+          });
+        }
+      });
+
+      // Dropdown selbst: Hover hält es offen
+      var dropdowns = MRH.Utils.qsa('.mrh-mega-dropdown', this.nav);
+      dropdowns.forEach(function(dd) {
+        dd.addEventListener('mouseenter', function() {
+          clearTimeout(self.closeTimer);
+        });
+        dd.addEventListener('mouseleave', function() {
+          self.closeTimer = setTimeout(function() {
+            self.closeAll();
+          }, self.closeDelay);
+        });
+      });
+
+      // Klick außerhalb schließt alles
+      document.addEventListener('click', function(e) {
+        if (!self.nav.contains(e.target)) {
+          self.closeAll();
+        }
+      });
+
+      // ESC schließt Dropdown
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') self.closeAll();
+      });
+
+      // Keyboard: Arrow-Navigation
+      this.bindKeyboard(megaItems);
+    },
+
+    /**
+     * Keyboard-Navigation (Tab, Enter, Arrow Keys)
+     */
+    bindKeyboard: function(megaItems) {
+      var self = this;
+      megaItems.forEach(function(item) {
+        item.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (self.activeItem === item) {
+              self.closeAll();
+            } else {
+              self.closeAll();
+              self.open(item);
+              // Fokus auf ersten Link im Dropdown
+              var firstLink = item._megaDropdown ? item._megaDropdown.querySelector('a') : null;
+              if (firstLink) firstLink.focus();
+            }
+          }
+          if (e.key === 'ArrowDown' && self.activeItem === item) {
+            e.preventDefault();
+            var firstLink = item._megaDropdown ? item._megaDropdown.querySelector('a') : null;
+            if (firstLink) firstLink.focus();
+          }
+        });
+      });
+    },
+
+    /**
+     * Dropdown öffnen
+     */
+    open: function(item) {
+      if (!item._megaDropdown) return;
+      item.classList.add('mrh-mega-open');
+      item._megaDropdown.classList.add('open');
+      item.setAttribute('aria-expanded', 'true');
+      this.activeItem = item;
+      this.activeDropdown = item._megaDropdown;
+    },
+
+    /**
+     * Alle Dropdowns schließen
+     */
+    closeAll: function() {
+      clearTimeout(this.openTimer);
+      clearTimeout(this.closeTimer);
+      var openItems = MRH.Utils.qsa('.mrh-mega-open', this.bar);
+      openItems.forEach(function(item) {
+        item.classList.remove('mrh-mega-open');
+        item.setAttribute('aria-expanded', 'false');
+      });
+      var openDropdowns = MRH.Utils.qsa('.mrh-mega-dropdown.open', this.nav);
+      openDropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+      });
+      this.activeItem = null;
+      this.activeDropdown = null;
+    },
+
+    /**
+     * Aktiven Nav-Item basierend auf aktuellem Pfad markieren
+     */
+    markActive: function() {
+      var path = window.location.pathname;
+      var items = MRH.Utils.qsa('.mrh-nav-item', this.bar);
+      items.forEach(function(item) {
+        var href = item.getAttribute('href');
+        if (!href || href === '#') return;
+        if (href === '/' && path === '/') {
+          item.classList.add('active');
+        } else if (href !== '/' && path.indexOf(href) === 0) {
+          item.classList.add('active');
+        }
+      });
+    }
+  };
+
+  /* ----------------------------------------------------------
      INIT: Alles starten wenn DOM bereit
      ---------------------------------------------------------- */
   function mrhInit() {
@@ -335,6 +680,7 @@
     MRH.LazyLoad.init();
     MRH.A11y.init();
     MRH.Performance.init();
+    MRH.MegaMenu.init();
 
     // Suchleisten-Placeholder anpassen (Core liefert nur "Suchen")
     var searchInput = document.querySelector('#search input[type="text"], #search input[name="keywords"]');

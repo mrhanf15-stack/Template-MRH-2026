@@ -22,7 +22,7 @@
 
   $css_array = array(
     //DIR_TMPL.'stylesheet.css',
-    DIR_TMPL_CSS . 'jquery.mmenu.all.css',
+    //DIR_TMPL_CSS . 'jquery.mmenu.all.css', // MRH2026: deaktiviert - Mega-Menu jetzt Vanilla JS
     DIR_TMPL_CSS . 'bootstrap.min.css',
     DIR_TMPL_CSS . 'cssbuttons.css',
     DIR_TMPL_CSS . 'simple-line-icons.css',

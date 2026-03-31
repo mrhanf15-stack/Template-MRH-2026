@@ -197,3 +197,26 @@ mrh_shipping_bar_text = 'Free shipping on orders over &euro;40'
 mrh_freeship_at = '40'
 mrh_freeship_de = '85'
 mrh_freeship_eu = '150'
+
+# ============================================================
+# MRH 2026 – Mega Menu Promo Column
+# ============================================================
+mega_promo_title = 'Deal'
+mega_promo_brand = 'Royal Queen Seeds'
+mega_promo_text = '2+1 FREE'
+mega_promo_button = 'Save now'
+mega_promo_link = '/angebote/'
+mega_promo_icon = 'fa-percent'
+
+# ============================================================
+# MRH 2026 – Navigation Labels & Icons
+# ============================================================
+nav_samen_shop = 'Seed Shop'
+nav_cannabispflanzen = 'Cannabis Plants'
+nav_growshop = 'Growshop'
+nav_headshop = 'Headshop'
+nav_angebote = 'Deals'
+nav_neue_artikel = 'New Arrivals'
+nav_marken = 'Brands'
+nav_blog = 'Blog'
+nav_seedfinder = 'Seedfinder'

@@ -329,59 +329,317 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================================
-   04 NAVIGATION – Modernes Design
+   04 MEGA-MENÜ – Wireframe Navigation
    ============================================================ */
-.main-header-menu-row {
-  background-color: var(--mrh-nav-bg);
-  border-top: 1px solid var(--tpl-borders-color);
-  border-bottom: 2px solid var(--tpl-main-color);
+
+/* ---- 04a: Alte template.css Overrides neutralisieren ---- */
+div.navibar,
+.navibar {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  box-shadow: none !important;
 }
-.main-header-menu-wrap .nav-link {
+.navibar.fixed {
+  position: static !important;
+  box-shadow: none !important;
+}
+.mainnavi,
+.mainnavi ul,
+.mainnavi ul li,
+.mainnavi ul li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+.mainnavi > ul > li > ul {
+  display: none !important; /* Alte Dropdowns komplett deaktivieren */
+}
+.mainnavi .following-border {
+  display: none !important; /* Alter animierter Border-Indikator */
+}
+.mainnavi .level1 > a:before {
+  display: none !important; /* Alter Hover-Underline */
+}
+
+/* ---- 04b: Nav-Bar Container (grüner Hintergrund) ---- */
+.main-header-menu-row {
+  background: var(--tpl-main-color) !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.main-header-menu-wrap {
+  padding: 0 !important;
+}
+
+/* ---- 04c: Mega-Nav Bar ---- */
+.mrh-mega-nav {
+  position: relative;
+}
+.mrh-mega-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.mrh-mega-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- 04d: Nav Items (Links in der grünen Bar) ---- */
+.mrh-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  color: #fff !important;
   font-family: var(--tpl-font-heading), sans-serif;
   font-weight: 600;
   font-size: 14px;
+  text-decoration: none !important;
   text-transform: none;
   letter-spacing: 0.01em;
-  padding: 12px 16px !important;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease;
   position: relative;
+  cursor: pointer;
+  white-space: nowrap;
 }
-.main-header-menu-wrap .nav-link:hover,
-.main-header-menu-wrap .nav-link:focus {
-  background-color: var(--mrh-nav-hover);
-  color: var(--tpl-main-color);
+.mrh-nav-item:hover,
+.mrh-nav-item:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff !important;
 }
-/* Aktive Kategorie-Indikator */
-.main-header-menu-wrap .nav-link.active,
-.main-header-menu-wrap li.current > .nav-link {
-  color: var(--tpl-main-color);
+.mrh-nav-item i {
+  font-size: 13px;
+  opacity: 0.85;
 }
-.main-header-menu-wrap .nav-link.active::after,
-.main-header-menu-wrap li.current > .nav-link::after {
+.mrh-nav-item.mrh-nav-home {
+  padding: 12px 14px;
+}
+.mrh-nav-item.mrh-nav-home i {
+  font-size: 16px;
+  opacity: 1;
+}
+
+/* Aktiver Nav-Item Indikator */
+.mrh-nav-item.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.mrh-nav-item.active::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 16px;
-  right: 16px;
-  height: 2px;
-  background-color: var(--tpl-main-color);
-  border-radius: 2px 2px 0 0;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  background: #fff;
+  border-radius: 3px 3px 0 0;
 }
-/* Home-Icon in der Navigation */
-.mainnavi .home-link svg {
-  width: 18px;
-  height: 18px;
-  fill: var(--tpl-text-standard);
-  transition: fill 0.2s ease;
+
+/* Dropdown-Pfeil für Kategorien mit Submenü */
+.mrh-nav-item .mrh-nav-arrow {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-left: 2px;
+  transition: transform 0.2s ease;
 }
-.mainnavi .home-link:hover svg {
-  fill: var(--tpl-main-color);
+.mrh-nav-item.mrh-mega-open .mrh-nav-arrow {
+  transform: rotate(180deg);
 }
-/* Dropdown-Menü */
-.mainnavi ul > li.level1.hassubmenu:hover > ul {
-  border-top: 2px solid var(--tpl-main-color);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  border-radius: 0 0 8px 8px;
+
+/* ---- 04e: CatNavi im mrh-mega-nav-bar verstecken (wird per JS transformiert) ---- */
+.mrh-nav-categories {
+  display: contents; /* Kinder werden direkt in die Flex-Bar eingefügt */
+}
+.mrh-nav-categories .CatNavi {
+  display: none !important; /* Original-UL verstecken, JS baut neue Items */
+}
+
+/* ---- 04f: Mega-Menü Dropdown Panel ---- */
+.mrh-mega-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1020;
+  background: #fff;
+  border: 1px solid var(--tpl-borders-color, #e0e0e0);
+  border-top: 3px solid var(--tpl-main-color);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  padding: 24px 0;
+  animation: mrhMegaFadeIn 0.2s ease;
+}
+.mrh-mega-dropdown.open {
+  display: block;
+}
+@keyframes mrhMegaFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- 04g: Mega-Menü Inhalt (4-Spalten Grid) ---- */
+.mrh-mega-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 280px;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Kategorie-Spalten */
+.mrh-mega-col {
+  padding: 0 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+}
+.mrh-mega-col:last-child {
+  border-right: none;
+}
+.mrh-mega-col-title {
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--tpl-text-headings, #1e293b);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--tpl-main-color);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mrh-mega-col-title i {
+  color: var(--tpl-main-color);
+  font-size: 14px;
+}
+.mrh-mega-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mrh-mega-col ul li {
+  margin-bottom: 4px;
+}
+.mrh-mega-col ul li a {
+  display: block;
+  padding: 5px 0;
+  color: var(--tpl-text-standard, #333) !important;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none !important;
+  transition: color 0.15s ease, padding-left 0.15s ease;
+}
+.mrh-mega-col ul li a:hover {
+  color: var(--tpl-main-color) !important;
+  padding-left: 4px;
+}
+
+/* "Alle anzeigen" Link */
+.mrh-mega-col .mrh-mega-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: var(--tpl-main-color);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: background 0.2s ease;
+}
+.mrh-mega-col .mrh-mega-all:hover {
+  background: var(--tpl-secondary-color, #3a7020);
+}
+
+/* ---- 04h: Aktions-Spalte (Promo) ---- */
+.mrh-mega-promo {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.mrh-mega-promo-inner {
+  border: 2px dashed var(--tpl-main-color);
+  border-radius: 12px;
+  padding: 20px 16px;
+  width: 100%;
+  background: rgba(74, 140, 42, 0.04);
+}
+.mrh-mega-promo-title {
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--tpl-main-color);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.mrh-mega-promo-brand {
+  font-size: 14px;
+  color: var(--tpl-text-standard, #333);
+  margin-bottom: 4px;
+}
+.mrh-mega-promo-text {
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--tpl-text-headings, #1e293b);
+  margin-bottom: 12px;
+}
+.mrh-mega-promo-btn {
+  display: inline-block;
+  padding: 10px 28px;
+  background: var(--tpl-main-color);
+  color: #fff !important;
+  font-family: var(--tpl-font-heading), sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 999px;
+  text-decoration: none !important;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.mrh-mega-promo-btn:hover {
+  background: var(--tpl-secondary-color, #3a7020);
+  transform: translateY(-1px);
+}
+
+/* ---- 04i: Mega-Menü auf Mobile ausblenden ---- */
+@media (max-width: 991px) {
+  .main-header-menu-row {
+    display: none !important;
+  }
+}
+
+/* ---- 04j: Responsive Mega-Dropdown ---- */
+@media (max-width: 1200px) {
+  .mrh-mega-content {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .mrh-mega-promo {
+    grid-column: 1 / -1;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .mrh-mega-promo-inner {
+    max-width: 320px;
+    margin: 0 auto;
+  }
 }
 
 /* ============================================================
