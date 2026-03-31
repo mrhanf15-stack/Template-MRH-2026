@@ -3,6 +3,20 @@
    Alle MRH-spezifischen Anpassungen gesammelt
    ============================================================ */
 
+/* ============================================================
+   00 MRH DESIGN-VARIABLEN – Überschreiben der Template-Defaults
+   ============================================================ */
+:root {
+  --tpl-main-color: #2d7a3a !important;
+  --tpl-main-color-2: #236b2f !important;
+  --tpl-secondary-color: #236b2f !important;
+  --mrh-primary: #2d7a3a;
+  --mrh-primary-dark: #236b2f;
+  --mrh-primary-light: #4a8c2a;
+  --tpl-font-heading: 'Montserrat', sans-serif;
+  --tpl-font-text: 'Open Sans', sans-serif;
+}
+
 /* ---- Admin Spacer ausblenden (nur für eingeloggte Admins relevant) ---- */
 .adminspacer {
   display: none !important;
