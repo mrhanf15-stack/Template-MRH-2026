@@ -175,6 +175,15 @@ shipping_country_apply_button = 'Apply shipping country selection'
 shipping_country_auto_change_info = 'Shipping country will be changed automatically when you select a different option'
 
 # ============================================================
+# MRH 2026 – Bottom Bar (Mobile)
+# ============================================================
+bb_home = 'Home'
+bb_search = 'Search'
+bb_seedfinder = 'Seedfinder'
+bb_wishlist = 'Wishlist'
+bb_cart = 'Cart'
+
+# ============================================================
 # MRH 2026 – Topbar & Shipping Bar
 # ============================================================
 mrh_topbar_phone = '+43 512 312 411'

@@ -354,6 +354,60 @@
       else searchInput.placeholder = placeholders['german'];
     }
 
+    // ============================================================
+    // Bottom Bar – Mobile Navigation
+    // ============================================================
+    var bottomBar = document.getElementById('mrhBottomBar');
+    if (bottomBar) {
+      // Suche-Button: Fokus auf Suchfeld oder Scroll nach oben
+      var bbSearch = document.getElementById('mrhBottomSearch');
+      if (bbSearch) {
+        bbSearch.addEventListener('click', function(e) {
+          e.preventDefault();
+          var searchInput = document.getElementById('inputString');
+          if (searchInput) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(function() { searchInput.focus(); }, 400);
+          }
+        });
+      }
+
+      // Warenkorb-Badge: Synchronisiere mit Header-Badge
+      var bbCartBadge = bottomBar.querySelector('.mrh-bb-cart-count');
+      if (bbCartBadge) {
+        var syncCartBadge = function() {
+          var headerBadge = document.querySelector('#iconMenu .cart .cart_content');
+          if (headerBadge && headerBadge.textContent.trim() !== '' && headerBadge.textContent.trim() !== '0') {
+            bbCartBadge.textContent = headerBadge.textContent.trim();
+            bbCartBadge.style.display = 'block';
+          } else {
+            bbCartBadge.style.display = 'none';
+          }
+        };
+        syncCartBadge();
+        // MutationObserver fuer dynamische Updates
+        var headerBadgeEl = document.querySelector('#iconMenu .cart .cart_content');
+        if (headerBadgeEl) {
+          var observer = new MutationObserver(syncCartBadge);
+          observer.observe(headerBadgeEl, { childList: true, characterData: true, subtree: true });
+        }
+        // Auch bei AJAX-Events synchronisieren
+        document.addEventListener('cartUpdated', syncCartBadge);
+      }
+
+      // Active State: Aktuellen Pfad markieren
+      var currentPath = window.location.pathname;
+      var bbLinks = bottomBar.querySelectorAll('a');
+      bbLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href === '/' && currentPath === '/') {
+          link.classList.add('active');
+        } else if (href && href !== '/' && href !== '#' && currentPath.indexOf(href) === 0) {
+          link.classList.add('active');
+        }
+      });
+    }
+
     // Debug-Info in Konsole (nur Entwicklung)
     if (window.location.hostname === 'localhost' || window.location.search.indexOf('debug=1') > -1) {
       console.log('[MRH Core] v1.0.0 initialized', {

@@ -1,0 +1,44 @@
+{config_load file="lang_`$language`.custom"}
+{* ============================================================
+   MRH 2026 – Mobile Bottom Bar
+   Fixiert am unteren Bildschirmrand, nur auf Mobile sichtbar
+   Items: Home, Suche, Seedfinder, Merkliste, Warenkorb
+   ============================================================ *}
+<nav class="mrh-bottom-bar" id="mrhBottomBar" aria-label="Mobile Navigation">
+  <ul>
+    <li>
+      <a href="/" aria-label="{#bb_home#}">
+        <i class="fa-solid fa-house"></i>
+        <span>{#bb_home#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="mrhBottomSearch" aria-label="{#bb_search#}">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>{#bb_search#}</span>
+      </a>
+    </li>
+    <li class="mrh-bb-center">
+      <a href="/Seedfinder/" aria-label="{#bb_seedfinder#}">
+        <i class="fa-solid fa-seedling"></i>
+        <span>{#bb_seedfinder#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="{if isset($wishlist)}{$wishlist}{else}/wishlist.php{/if}" aria-label="{#bb_wishlist#}">
+        <i class="fa-solid fa-heart"></i>
+        <span>{#bb_wishlist#}</span>
+        {if isset($box_WISHLIST_COUNT) && $box_WISHLIST_COUNT > 0}
+          <span class="mrh-bb-badge">{$box_WISHLIST_COUNT}</span>
+        {/if}
+      </a>
+    </li>
+    <li>
+      <a href="{if isset($cart_link)}{$cart_link}{else}/shopping_cart.php{/if}" aria-label="{#bb_cart#}">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>{#bb_cart#}</span>
+        <span class="mrh-bb-badge mrh-bb-cart-count" style="display:none;"></span>
+      </a>
+    </li>
+  </ul>
+</nav>

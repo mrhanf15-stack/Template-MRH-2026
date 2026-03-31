@@ -620,4 +620,165 @@ img {
     width: auto !important;
     min-width: 44px !important;
   }
+
+  /* ============================================================
+     12 MOBILE BOTTOM BAR – Override template.css iconMenu fixed
+     ============================================================ */
+  /* Deaktiviere das alte iconMenu als fixed Bottom Bar */
+  ul#iconMenu {
+    position: static !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    background: transparent !important;
+    border-top: none !important;
+    width: auto !important;
+    left: auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  /* Deaktiviere den alten fixed Hamburger-Button */
+  a#toggle_mobilemenu {
+    position: static !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    width: auto !important;
+    height: auto !important;
+    left: auto !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+  /* Reset nth-child Spacing (template.css reservierte Platz fuer Hamburger) */
+  li.rechts:nth-child(2) {
+    margin-right: 0 !important;
+  }
+  li.rechts:nth-child(3) {
+    margin-left: 0 !important;
+  }
+  /* Copyright padding-bottom fuer Bottom Bar Platz */
+  .copyright {
+    padding-bottom: 80px !important;
+  }
+  /* Body padding-bottom damit Content nicht von Bottom Bar verdeckt wird */
+  body {
+    padding-bottom: 64px !important;
+  }
+}
+
+/* ============================================================
+   13 MRH BOTTOM BAR – Wireframe Mobile Navigation
+   ============================================================ */
+.mrh-bottom-bar {
+  display: none; /* Nur auf Mobile sichtbar */
+}
+@media (max-width: 768px) {
+  .mrh-bottom-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1340;
+    background: var(--tpl-bg-color, #ffffff);
+    border-top: 1px solid var(--tpl-borders-color, #e0e0e0);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+    padding: 0;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.96);
+  }
+  .mrh-bottom-bar ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mrh-bottom-bar li {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mrh-bottom-bar li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--tpl-text-standard, #1e293b);
+    padding: 8px 4px 6px;
+    width: 100%;
+    position: relative;
+    transition: color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mrh-bottom-bar li a:hover,
+  .mrh-bottom-bar li a:active,
+  .mrh-bottom-bar li a.active {
+    color: var(--tpl-main-color, #4a8c2a);
+  }
+  .mrh-bottom-bar li a i {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 3px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .mrh-bottom-bar li a:active i {
+    transform: scale(0.9);
+  }
+  .mrh-bottom-bar li a span {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    font-family: var(--tpl-font-text, sans-serif);
+  }
+  /* Seedfinder – Hervorgehobenes mittleres Icon */
+  .mrh-bottom-bar li.mrh-bb-center a {
+    color: var(--tpl-main-color, #4a8c2a);
+  }
+  .mrh-bottom-bar li.mrh-bb-center a i {
+    font-size: 22px;
+    background: var(--tpl-main-color, #4a8c2a);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -14px;
+    box-shadow: 0 2px 8px rgba(74, 140, 42, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .mrh-bottom-bar li.mrh-bb-center a:active i {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(74, 140, 42, 0.2);
+  }
+  /* Badge (Warenkorb/Merkliste Anzahl) */
+  .mrh-bb-badge {
+    position: absolute;
+    top: 2px;
+    right: calc(50% - 22px);
+    background: var(--tpl-main-color-2, #4a8c2a);
+    color: #fff;
+    font-size: 10px !important;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 0 3px;
+  }
+  /* Safe Area fuer iPhones mit Home-Indicator */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .mrh-bottom-bar {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    body {
+      padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important;
+    }
+  }
 }
