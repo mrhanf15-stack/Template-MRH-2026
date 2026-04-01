@@ -1,17 +1,60 @@
+{*
+  MRH 2026 – Produktdetailseite (product_info.html)
+  ═══════════════════════════════════════════════════════════════
+  Modified eCommerce 3.3.0 | Bootstrap 5.3 | Vanilla JS
+  Kein jQuery, kein EasyZoom-Pflicht
+  
+  Struktur (Wireframe v2):
+  ─────────────────────────────────────────────────────────────
+  1. Breadcrumb
+  2. Zwei-Spalten-Layout (Galerie links | Infos rechts)
+     - Galerie: Hauptbild + Thumbnails (Modal-Lightbox)
+     - Infos: Hersteller, H1, Bewertung, Picto-Leiste,
+              Quality Control, Short Description / MRH Characteristics,
+              Shipping Tooltip, Optionen, Preis, Warenkorb, Trust-Icons
+  3. Eigenschafts-Bildkarten (2×4 Grid) – {$PRODUCTS_MRH_CHARACTERISTICS}
+  4. Beschreibung (volle Breite)
+  5. FAQ-Platzhalter (separates Modul geplant)
+  6. Bewertungen + Hersteller-Info (Accordion)
+  7. Cross-Selling / Auch gekauft / Kategorie
+  8. Produkt-Navigator
+  9. Schema.org JSON-LD
+  
+  Includes:
+  - module/includes/price_info.html
+  - module/includes/list_shortdescription.html
+  - module/includes/shiping_tooltip.html
+  - module/includes/quality_control.html
+  - module/includes/schema_org_product.html
+  
+  Stand: 2026-04-01
+*}
+
 {config_load file="$language/lang_$language.conf" section="product_info"}
 {config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="product_info"}
 
-{* MRH 2026: Produktdetailseite – Volle Breite, Schema.org Product *}
-<article class="mrh-product-info mrh-cv-auto" itemscope itemtype="https://schema.org/Product">
+{* ── Alerts ── *}
+{if $error_message != ''}<div class="alert alert-danger">{$error_message}</div>{/if}
+{if isset($success_message) && $success_message != ''}<div class="alert alert-success">{$success_message}</div>{/if}
 
-  {* Breadcrumb *}
+{* ══════════════════════════════════════════════════════════════
+   PRODUCT WRAPPER – Schema.org Product (Microdata)
+   ══════════════════════════════════════════════════════════════ *}
+<article class="mrh-product-info" itemscope itemtype="https://schema.org/Product">
+  {$FORM_ACTION}
+
+  {* ── 1. BREADCRUMB ── *}
   {if isset($BREADCRUMB)}
     <nav aria-label="Breadcrumb" class="mb-3">
       <ol class="breadcrumb small" itemscope itemtype="https://schema.org/BreadcrumbList">
         {foreach name=bc item=bc_item from=$BREADCRUMB}
-          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}"
+              itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
             {if !$smarty.foreach.bc.last}
-              <a href="{$bc_item.HREF}" itemprop="item"><span itemprop="name">{$bc_item.NAME}</span></a>
+              <a href="{$bc_item.HREF}" itemprop="item">
+                <span itemprop="name">{$bc_item.NAME}</span>
+              </a>
             {else}
               <span itemprop="name">{$bc_item.NAME}</span>
             {/if}
@@ -22,36 +65,122 @@
     </nav>
   {/if}
 
-  <div class="row g-4">
-    {* Linke Spalte: Bildergalerie *}
+  {* ══════════════════════════════════════════════════════════════
+     2. ZWEI-SPALTEN-LAYOUT
+     ══════════════════════════════════════════════════════════════ *}
+  <div id="product_details" class="row g-4">
+
+    {* ────────────────────────────────────────────────────────────
+       LINKE SPALTE: Bildergalerie (col-12 col-lg-6, sticky)
+       ──────────────────────────────────────────────────────────── *}
     <div class="col-12 col-lg-6">
-      <div class="mrh-gallery">
+      <div class="mrh-gallery position-lg-sticky" style="top: 5rem;">
+
+        {* Versteckte Schema.org Bildergalerie *}
+        {if $PRODUCTS_IMAGE != ''}
+          <div style="display:none;" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+            <meta itemprop="name" content="product_images">
+            <div itemprop="value" itemscope itemtype="https://schema.org/ImageGallery">
+              <meta itemprop="thumbnail" content="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
+              {if isset($more_images)}
+                {foreach item=more_images_data from=$more_images}
+                  {if $more_images_data.PRODUCTS_IMAGE != ''}
+                    <meta itemprop="thumbnail" content="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
+                  {/if}
+                {/foreach}
+              {/if}
+            </div>
+          </div>
+        {/if}
+
         {* Hauptbild *}
-        <div class="mrh-gallery-main mb-3">
-          {if $PRODUCTS_IMAGE != ''}
-            <a href="{$PRODUCTS_IMAGE_POPUP}" data-mrh-gallery="product" data-mrh-full="{$PRODUCTS_IMAGE_POPUP}" class="d-block">
-              <img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME|onlytext}" itemprop="image"
-                   class="img-fluid rounded" width="600" height="600" id="mrh-main-image">
+        {if $PRODUCTS_IMAGE != ''}
+          <div class="mrh-gallery-main mb-3">
+            <a class="cbimages d-block text-center" title="{$PRODUCTS_NAME|onlytext}" href="#"
+               data-image-id="1" data-bs-toggle="modal"
+               data-title="{$PRODUCTS_NAME|onlytext}"
+               data-image="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
+               data-bs-target="#mrh-gallery-modal">
+              <img class="img-fluid rounded" itemprop="image"
+                   src="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
+                   alt="{$PRODUCTS_NAME|onlytext}"
+                   title="{$PRODUCTS_NAME|onlytext}"
+                   width="600" height="600"
+                   loading="eager" id="mrh-main-image" />
             </a>
-          {/if}
-        </div>
+          </div>
+        {/if}
+
         {* Thumbnails *}
-        {if isset($PRODUCTS_IMAGES) && count($PRODUCTS_IMAGES) > 0}
+        {if isset($more_images) && count($more_images) > 0}
           <div class="mrh-gallery-thumbs d-flex gap-2 flex-wrap">
-            {foreach name=imgs item=img_data from=$PRODUCTS_IMAGES}
-              <a href="{$img_data.IMAGE_POPUP}" data-mrh-gallery="product" data-mrh-full="{$img_data.IMAGE_POPUP}"
-                 class="mrh-gallery-thumb rounded overflow-hidden" style="width:80px;height:80px">
-                <img src="{$img_data.IMAGE_THUMB}" alt="{$PRODUCTS_NAME|onlytext} - {$smarty.foreach.imgs.iteration}"
-                     loading="lazy" width="80" height="80" class="img-fluid">
-              </a>
+            {* Erstes Thumbnail = Hauptbild *}
+            <a class="cbimages mrh-gallery-thumb rounded overflow-hidden" href="#"
+               data-image-id="1" data-bs-toggle="modal"
+               data-title="{$PRODUCTS_NAME|onlytext}"
+               data-image="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
+               data-bs-target="#mrh-gallery-modal"
+               title="{$PRODUCTS_NAME|onlytext}" style="width:80px;height:80px;">
+              {if $smarty.const.PICTURESET_ACTIVE === true}
+                <img class="img-fluid" src="{$PRODUCTS_IMAGE|replace:'info_':'midi_'}"
+                     alt="{$PRODUCTS_NAME|onlytext}" loading="lazy" width="80" height="80" />
+              {else}
+                <img class="img-fluid" src="{$PRODUCTS_IMAGE|replace:'info_':'thumbnail_'}"
+                     alt="{$PRODUCTS_NAME|onlytext}" loading="lazy" width="80" height="80" />
+              {/if}
+            </a>
+            {* Weitere Thumbnails *}
+            {assign var=zaehl value=2}
+            {foreach key=i item=more_images_data from=$more_images}
+              {if $more_images_data.PRODUCTS_IMAGE != ''}
+                <a class="cbimages mrh-gallery-thumb rounded overflow-hidden" href="#"
+                   data-image-id="{$zaehl}" data-bs-toggle="modal"
+                   data-title="{$PRODUCTS_NAME|onlytext}"
+                   data-image="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
+                   data-bs-target="#mrh-gallery-modal"
+                   title="{$PRODUCTS_NAME|onlytext}" style="width:80px;height:80px;">
+                  {if $smarty.const.PICTURESET_ACTIVE === true}
+                    <img class="img-fluid" src="{$more_images_data.PRODUCTS_IMAGE|replace:'info_':'midi_'}"
+                         alt="{$PRODUCTS_NAME|onlytext}" loading="lazy" width="80" height="80" />
+                  {else}
+                    <img class="img-fluid" src="{$more_images_data.PRODUCTS_IMAGE|replace:'info_':'thumbnail_'}"
+                         alt="{$PRODUCTS_NAME|onlytext}" loading="lazy" width="80" height="80" />
+                  {/if}
+                </a>
+                {assign var=zaehl value=$zaehl+1}
+              {/if}
             {/foreach}
           </div>
         {/if}
+
+        {* Zoom-Hinweis *}
+        {if $PRODUCTS_IMAGE != ''}
+          <div class="small text-secondary mt-2 mb-3">{#MRH_zoomtext#}</div>
+        {/if}
+
+        {* Hersteller-Logo (unter Bild) *}
+        {if isset($MANUFACTURER_LINK) && $MANUFACTURER_LINK != ''}
+          {if isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''}
+            <div class="text-center mb-3">
+              <a title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">
+                <img class="img-fluid" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER|onlytext}"
+                     style="max-width:120px" loading="lazy" />
+              </a>
+            </div>
+          {/if}
+        {/if}
+
+        {* Social Share *}
+        {if $SOCIALMEDIA_BUTTON != ''}{$SOCIALMEDIA_BUTTON}{/if}
+
       </div>
     </div>
 
-    {* Rechte Spalte: Produktinfos *}
+    {* ────────────────────────────────────────────────────────────
+       RECHTE SPALTE: Produktinfos (col-12 col-lg-6)
+       ──────────────────────────────────────────────────────────── *}
     <div class="col-12 col-lg-6">
+
       {* Hersteller *}
       {if isset($MANUFACTURER) && $MANUFACTURER != ''}
         <div class="mrh-pi-manufacturer mb-2" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
@@ -62,194 +191,652 @@
       {/if}
 
       {* Produktname *}
-      <h1 class="h3 mb-3" itemprop="name">{$PRODUCTS_NAME}</h1>
+      <h1 class="h3 mb-3" itemprop="name">
+        {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}
+      </h1>
 
-      {* Bewertung *}
-      {if isset($MRH_RATING_PERCENT) && $MRH_RATING_PERCENT > 0}
+      {* Bewertungen (Sterne) *}
+      {if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
         <div class="mrh-rating mb-3" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-          <meta itemprop="ratingValue" content="{$MRH_RATING_VALUE}">
-          <meta itemprop="bestRating" content="5">
-          <meta itemprop="reviewCount" content="{$MRH_RATING_COUNT}">
-          {for $star=0 to 4}
-            {if $star < $MRH_RATING_FULL}
-              <span class="fa fa-star text-warning"></span>
-            {elseif $star < $MRH_RATING_FULL + $MRH_RATING_HALF}
-              <span class="fa fa-star-half-o text-warning"></span>
-            {else}
-              <span class="fa fa-star-o text-muted"></span>
-            {/if}
-          {/for}
-          <a href="#mrh-reviews" class="small text-muted ms-1">({$MRH_RATING_COUNT} {#text_reviews#})</a>
+          {if isset($MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT) && $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
+            <span class="d-inline">
+              <a class="mrh_avg_container text-decoration-none" href="#mrh-reviews"
+                 data-pid="{$PRODUCTS_ID}" data-class="prod"
+                 title="{$smarty.const.MRH_AWIDSRATINGBREAKDOWN_ARROW_TITLE}">
+                <span class="ratings">
+                  <span class="fas empty-stars"></span>
+                  <span class="fas full-stars" style="width:{$MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}%"></span>
+                </span>
+                &nbsp;({if isset($MRH_AWIDS_PRODUCTS_SUM_REVIEWS)}{$MRH_AWIDS_PRODUCTS_SUM_REVIEWS}{else}{$PRODUCTS_RATING_COUNT}{/if})
+              </a>
+            </span>
+          {else}
+            <span class="pd_reviews_image">
+              <img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png"
+                   alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}" />
+            </span>
+            <a href="#mrh-reviews" class="small text-muted ms-1">({$PRODUCTS_RATING_COUNT} {#text_reviews#})</a>
+          {/if}
+          <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}" />
+          <meta itemprop="bestRating" content="5" />
+          <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}" />
         </div>
       {/if}
 
-      {* Short Description (HTML-Tabelle aus DB) *}
-      {if isset($PRODUCTS_SHORT_DESCRIPTION) && $PRODUCTS_SHORT_DESCRIPTION != ''}
-        <div class="mrh-short-desc mb-3" itemprop="description">
+      {* ── Picto-Leiste (Auszeichnungen) ── *}
+      {if isset($PRODUCTS_PICTO_ICONS) && $PRODUCTS_PICTO_ICONS != ''}
+        <div class="mrh-picto-bar mb-3">
+          {$PRODUCTS_PICTO_ICONS}
+        </div>
+      {/if}
+
+      {* ── BOC – QUALITY CONTROL ── *}
+      {include file="module/includes/quality_control.html"}
+
+      {* ── Short Description / MRH Characteristics ── *}
+      {if !empty($PRODUCTS_SHORT_DESCRIPTION)}
+        <div class="mrh-short-desc mb-3 lr_desc" itemprop="description">
           {$PRODUCTS_SHORT_DESCRIPTION}
         </div>
-      {/if}
-
-      {* Preis *}
-      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-        <meta itemprop="priceCurrency" content="{$CURRENCY_CODE|default:'EUR'}">
-        <meta itemprop="url" content="{$PRODUCTS_LINK}">
-        {foreach name=inner item=price_data from=$PRODUCTS_PRICE_ARRAY}
-          {include file="module/includes/price_box.html"}
-        {/foreach}
-        {if $PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-          <link itemprop="availability" href="https://schema.org/{if $PRODUCTS_QUANTITY > 0}InStock{else}OutOfStock{/if}">
-          {if $PRODUCTS_VPE}<div class="small text-muted">{$PRODUCTS_VPE}</div>{/if}
-          <div class="small text-muted">{$PRODUCTS_TAX_INFO}{$PRODUCTS_SHIPPING_LINK}</div>
-        {/if}
-      </div>
-
-      {* Lagerampel *}
-      {if isset($PRODUCTS_STOCK_STATUS)}
-        <div class="mrh-stock-status mb-3">
-          <span class="mrh-stock-indicator mrh-stock-{$PRODUCTS_STOCK_CLASS}"></span>
-          <span class="small">{$PRODUCTS_STOCK_STATUS}</span>
-        </div>
-      {/if}
-
-      {* Varianten / Optionen *}
-      {if isset($PRODUCTS_OPTIONS) && $PRODUCTS_OPTIONS != ''}
-        <div class="mrh-pi-options mb-3">
-          {$PRODUCTS_OPTIONS}
-        </div>
-      {/if}
-
-      {* Menge + In den Warenkorb *}
-      {if $PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-        <form action="{$BUY_ACTION}" method="post" class="mrh-pi-buy mb-4">
-          <div class="d-flex gap-2 align-items-end">
-            <div class="mrh-qty-wrapper" style="width:80px">
-              <label for="mrh-qty" class="visually-hidden">{#text_quantity#}</label>
-              <input type="number" name="products_qty" id="mrh-qty" value="1" min="1" class="form-control text-center">
-            </div>
-            <button type="submit" class="btn btn-success btn-lg flex-grow-1">
-              <span class="fa fa-cart-plus"></span> {#MRH_add_to_cart#}
-            </button>
+      {else}
+        {if isset($PRODUCTS_MRH_CHARACTERISTICS) && $PRODUCTS_MRH_CHARACTERISTICS != ''}
+          <div class="mrh-characteristics mb-3 NEUCLASSE">
+            {$PRODUCTS_MRH_CHARACTERISTICS}
           </div>
-          <input type="hidden" name="products_id" value="{$PRODUCTS_ID}">
-          <input type="hidden" name="action" value="buy_now">
-        </form>
+        {/if}
       {/if}
 
-      {* Wunschzettel + Vergleich *}
-      <div class="mrh-pi-actions d-flex gap-3 mb-4">
-        {if isset($WISHLIST_LINK)}
-          <a href="{$WISHLIST_LINK}" class="small text-decoration-none"><span class="fa fa-heart-o"></span> {#MRH_add_wishlist#}</a>
+      {* ── Lagerbestand-Legende + Optionen ── *}
+      {if isset($MODULE_product_options) && $MODULE_product_options != ''}
+        {if $SHIPPING_NAME != 'ca. 2 Wochen' && $SHIPPING_NAME != 'approx. 2 weeks' && $SHIPPING_NAME != 'env. 2 semaines' && $SHIPPING_NAME != 'aprox. 2 semanas'}
+          {include file="module/includes/shiping_tooltip.html"}
+        {else}
+          <div class="alert alert-dark rounded" role="alert">{1003215|contentAnywhere}</div>
         {/if}
-        {if isset($COMPARE_LINK)}
-          <a href="{$COMPARE_LINK}" class="small text-decoration-none"><span class="fa fa-exchange"></span> {#MRH_compare#}</a>
+
+        {$MODULE_product_options}
+      {/if}
+
+      {* ── Preis-Box ── *}
+      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+        <meta itemprop="url" content="{$PRODUCTS_LINK}" />
+        <meta itemprop="priceCurrency" content="{$smarty.session.currency}" />
+        {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
+          <meta itemprop="mpn" content="{$PRODUCTS_MANUFACTURERS_MODEL}" />
+        {/if}
+        <meta itemprop="itemCondition" content="https://schema.org/NewCondition" />
+        {if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}
+          <link itemprop="availability" href="https://schema.org/OutOfStock" />
+        {else}
+          <link itemprop="availability" href="https://schema.org/InStock" />
+        {/if}
+
+        <div class="pd_price" id="pd_puprice">
+          {if isset($PRODUCTS_FSK18) && $PRODUCTS_FSK18 == 'true'}<div class="pd_fsk18"></div>{/if}
+          {foreach name=inner item=price_data from=$PRODUCTS_PRICE_ARRAY}
+            {include file="module/includes/price_info.html"}
+          {/foreach}
+        </div>
+
+        {if $PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+          {if $PRODUCTS_VPE}<div class="pd_vpe text-secondary small">{$PRODUCTS_VPE}</div>{/if}
+          <div class="pd_tax text-secondary small">
+            {$PRODUCTS_TAX_INFO}{if $PRODUCTS_SHIPPING_LINK}{$PRODUCTS_SHIPPING_LINK}{/if}
+          </div>
+        {/if}
+
+        {if isset($PRODUCTS_FSK18) && $ADD_CART_BUTTON == '' && $PRODUCTS_FSK18 == 'true'}
+          <div class="text-danger small mt-1">{#products_fsk18_check#}</div>
         {/if}
       </div>
 
-      {* Artikelnummer / EAN *}
+      {* Staffelpreise *}
+      {if isset($MODULE_graduated_price) && $MODULE_graduated_price != ''}
+        {$MODULE_graduated_price}
+      {/if}
+
+      {* ── PayPal Plan ── *}
+      {if isset($PAYPALPLAN) && $PAYPALPLAN}
+        <div class="card bg-custom p-2 mb-2">{$PAYPALPLAN}</div>
+      {/if}
+
+      {* ── Warenkorb ── *}
+      {if $ADD_CART_BUTTON != ''}
+        <div class="mrh-pi-buy mb-3">
+          <div class="d-flex gap-2 align-items-end">
+            <div style="width:80px">
+              <label for="mrh-qty" class="visually-hidden">{#text_quantity#}</label>
+              {$ADD_QTY|replace:'input':'input class="form-control form-control-sm text-center" id="mrh-qty"'}
+            </div>
+            <div class="flex-grow-1">
+              {$ADD_CART_BUTTON|replace:'btn ':'btn btn-success btn-lg w-100 '}
+            </div>
+          </div>
+          {if $PRODUCTS_QUANTITY > 0}
+            {if isset($ADD_CART_BUTTON_EXPRESS) && !$PAYPALPLAN}
+              <div class="mt-2">{$ADD_CART_BUTTON_EXPRESS|replace:'btn ':'btn btn-outline-secondary btn-sm w-100 '}</div>
+            {/if}
+            {if isset($ADD_CART_BUTTON_PAYPAL) && !$PAYPALPLAN}
+              <div class="mt-2">{$ADD_CART_BUTTON_PAYPAL}</div>
+            {/if}
+          {/if}
+        </div>
+      {/if}
+
+      {* ── PayPal Ratenzahlung / EasyCredit ── *}
+      {if isset($PAYPAL_INSTALLMENT) && $PAYPAL_INSTALLMENT && !$PAYPALPLAN}
+        <div class="mb-2">{$PAYPAL_INSTALLMENT}</div>
+      {/if}
+      {if isset($EASYCREDIT) && $EASYCREDIT && !$PAYPALPLAN}
+        <div class="mb-2">{$EASYCREDIT}</div>
+      {/if}
+
+      {* ── Warnungen ── *}
+      {if $ADD_CART_BUTTON == '' && isset($PRODUCTS_GIFT_FORBIDDEN) && $PRODUCTS_GIFT_FORBIDDEN == 'true'}
+        <div class="alert alert-warning">{#products_gift_forbidden#}</div>
+      {/if}
+      {if isset($PRODUCTS_DATE_AVAILABLE) && $PRODUCTS_DATE_AVAILABLE != ''}
+        <div class="alert alert-warning">{$PRODUCTS_DATE_AVAILABLE}</div>
+      {/if}
+
+      {* ── Aktions-Buttons ── *}
+      <div class="mrh-pi-actions d-flex flex-wrap gap-2 mb-3">
+        {if isset($ADD_CART_BUTTON_WISHLIST) && $ADD_CART_BUTTON_WISHLIST != ''}
+          <span class="small"><span class="fa fa-heart me-1"></span>{$ADD_CART_BUTTON_WISHLIST}</span>
+        {/if}
+        {if $smarty.const.MODULE_PRODUCT_COMPARE_STATUS == 'true'}
+          <button type="button" class="btn btn-outline-secondary btn-sm"
+                  data-product-id="{$PRODUCTS_ID}"
+                  onclick="event.preventDefault(); window.ProductCompare && window.ProductCompare.toggle('{$PRODUCTS_ID}', this);">
+            <span class="fa fa-balance-scale me-1"></span>
+            <span>{#product_compare_button#}</span>
+          </button>
+        {/if}
+        {if isset($PRODUCTS_PRINT_LAYER)}
+          <span class="small">{$PRODUCTS_PRINT_LAYER}</span>
+        {/if}
+        {if $smarty.session.customers_status.customers_status_write_reviews == 1}
+          {if isset($PRODUCTS_WRITE_REVIEW)}
+            <span class="small">{$PRODUCTS_WRITE_REVIEW}</span>
+          {/if}
+        {/if}
+        {if isset($PRODUCTS_CHEAPLY)}
+          <span class="small">{$PRODUCTS_CHEAPLY}</span>
+        {/if}
+        {if isset($PRODUCT_INQUIRY)}
+          <span class="small">{$PRODUCT_INQUIRY}</span>
+        {/if}
+      </div>
+
+      {* ── Express Checkout ── *}
+      {if isset($EXPRESS_LINK) && isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
+        <div class="dropdown mb-3">
+          <a href="#" role="button" id="dropdownMenuLink"
+             class="btn btn-info btn-sm dropdown-toggle"
+             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="fa fa-info-circle me-1"></span> {#checkout_express_infotext#}
+          </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+            {$EXPRESS_LINK|replace:'class="':'class="dropdown-item '|replace:'</a>':'&nbsp;&nbsp;<span class="fa fa-info-circle"></span></a>'}
+            <a class="dropdown-item" href="{$ACTIVATE_EXPRESS_LINK}">{#checkout_express_activate#}</a>
+          </div>
+        </div>
+      {else}
+        {if isset($EXPRESS_LINK)}
+          <div class="mb-3">{$EXPRESS_LINK}</div>
+        {/if}
+        {if isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
+          <div class="mb-3">
+            <a class="btn btn-info btn-sm" href="{$ACTIVATE_EXPRESS_LINK}">
+              <span class="fa fa-bolt me-1"></span> {#checkout_express_activate#}
+            </a>
+          </div>
+        {/if}
+      {/if}
+
+      {* ── Artikelnummer / EAN / Meta ── *}
       <div class="mrh-pi-meta small text-muted mb-3">
         {if $PRODUCTS_MODEL != ''}
-          <div><strong>{#text_model#}:</strong> <span itemprop="sku">{$PRODUCTS_MODEL}</span></div>
+          <div><strong>{#model#}:</strong> <span itemprop="sku">{$PRODUCTS_MODEL}</span></div>
         {/if}
         {if isset($PRODUCTS_EAN) && $PRODUCTS_EAN != ''}
-          <div><strong>EAN:</strong> <span itemprop="gtin13">{$PRODUCTS_EAN}</span></div>
+          <div><strong>EAN:</strong> <span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></div>
+        {/if}
+        {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
+          <div><strong>{#products_manufacturer_model#}:</strong> <span itemprop="mpn">{$PRODUCTS_MANUFACTURERS_MODEL}</span></div>
+        {/if}
+        {if $PRODUCTS_ADDED != ''}
+          <div class="text-secondary">{$PRODUCTS_ADDED}</div>
         {/if}
       </div>
 
-      {* Social Share (Shariff) *}
-      {if $smarty.const.MRH_SHARIFF_SHOW == 'true'}
-        <div class="mrh-shariff mb-3" data-shariff data-lang="{$language}" data-services="[&quot;facebook&quot;,&quot;twitter&quot;,&quot;whatsapp&quot;,&quot;telegram&quot;,&quot;mail&quot;]"></div>
+      {* ── Lieferzeit ── *}
+      {if $SHIPPING_NAME}
+        <div class="mrh-pi-shipping small mb-3">
+          <span class="fa fa-truck me-1 text-success"></span>
+          <strong>{#text_shippingtime#}</strong>
+          {if isset($SHIPPING_IMAGE) && $SHIPPING_IMAGE != ''}
+            <img class="ms-1" src="{$SHIPPING_IMAGE}" alt="{$SHIPPING_NAME}" style="height:16px" />
+          {/if}
+          {$SHIPPING_NAME_LINK}
+        </div>
       {/if}
 
-      {* ShopVote Produkt-Bewertung *}
+      {* ── Trust-Icons ── *}
+      <div class="mrh-trust-bar d-flex justify-content-between text-center flex-wrap mb-3 py-3 border-top border-bottom">
+        <div class="p-2 flex-fill">
+          <span class="fa fa-shield-halved fa-2x text-secondary mb-2 d-block"></span>
+          <small>{#p_info1#}</small>
+        </div>
+        <div class="p-2 flex-fill">
+          <span class="fa fa-credit-card fa-2x text-secondary mb-2 d-block"></span>
+          <small>{#p_info2#}</small>
+        </div>
+        <div class="p-2 flex-fill">
+          <span class="fa fa-truck-fast fa-2x text-secondary mb-2 d-block"></span>
+          <small>{#p_info3#}</small>
+        </div>
+        <div class="p-2 flex-fill">
+          <span class="fa fa-location-dot fa-2x text-secondary mb-2 d-block"></span>
+          <small>{#p_info4#}</small>
+        </div>
+      </div>
+
+      {* ── ShopVote Widget ── *}
       {if $smarty.const.MRH_SHOPVOTE_PRODUCT_PAGE == 'true'}
         {assign var="shopvote_type" value="product"}
         {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
       {/if}
+
     </div>
   </div>
 
-  {* Tabs: Beschreibung, Bewertungen, etc. *}
-  <div class="mrh-pi-tabs mt-5">
-    <ul class="nav nav-tabs" id="mrh-product-tabs" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="mrh-tab-desc" data-bs-toggle="tab" data-bs-target="#mrh-pane-desc"
-                type="button" role="tab" aria-controls="mrh-pane-desc" aria-selected="true">
-          {#text_tab_description#}
-        </button>
-      </li>
-      {if isset($PRODUCTS_REVIEWS) && count($PRODUCTS_REVIEWS) > 0}
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="mrh-tab-reviews" data-bs-toggle="tab" data-bs-target="#mrh-pane-reviews"
-                  type="button" role="tab" aria-controls="mrh-pane-reviews" aria-selected="false">
-            {#text_tab_reviews#} ({$MRH_RATING_COUNT})
-          </button>
-        </li>
-      {/if}
-    </ul>
-    <div class="tab-content pt-4" id="mrh-product-tabs-content">
-      {* Beschreibung *}
-      <div class="tab-pane fade show active" id="mrh-pane-desc" role="tabpanel" aria-labelledby="mrh-tab-desc">
-        <div class="mrh-product-description" itemprop="description">
-          {$PRODUCTS_DESCRIPTION}
-        </div>
-      </div>
-      {* Bewertungen *}
-      {if isset($PRODUCTS_REVIEWS) && count($PRODUCTS_REVIEWS) > 0}
-        <div class="tab-pane fade" id="mrh-pane-reviews" role="tabpanel" aria-labelledby="mrh-tab-reviews">
-          <div id="mrh-reviews">
-            {foreach name=reviews item=review from=$PRODUCTS_REVIEWS}
-              <div class="mrh-review border-bottom py-3" itemprop="review" itemscope itemtype="https://schema.org/Review">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <strong itemprop="author" itemscope itemtype="https://schema.org/Person">
-                    <span itemprop="name">{$review.AUTHOR}</span>
-                  </strong>
-                  <span class="small text-muted" itemprop="datePublished">{$review.DATE}</span>
-                </div>
-                <div class="mrh-rating mb-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                  <meta itemprop="ratingValue" content="{$review.RATING}">
-                  {for $star=0 to 4}
-                    {if $star < $review.RATING}
-                      <span class="fa fa-star text-warning"></span>
-                    {else}
-                      <span class="fa fa-star-o text-muted"></span>
-                    {/if}
-                  {/for}
-                </div>
-                <div itemprop="reviewBody">{$review.TEXT}</div>
+  {$FORM_END}
+
+  {* ══════════════════════════════════════════════════════════════
+     3. EIGENSCHAFTS-BILDKARTEN (MRH Characteristics)
+     ══════════════════════════════════════════════════════════════
+     TODO: Dieses Modul muss noch entwickelt werden.
+     Datenquelle: $PRODUCTS_MRH_CHARACTERISTICS_CARDS (Array)
+     Jede Karte: Bild, Icon, Titel, Kurztext
+     Aktuell Platzhalter – wird über separates Include gelöst.
+  *}
+  {if isset($PRODUCTS_MRH_CHARACTERISTICS_CARDS) && count($PRODUCTS_MRH_CHARACTERISTICS_CARDS) > 0}
+    <section class="mrh-characteristics-grid mt-5 mb-4" aria-label="{#MRH_characteristics_heading#}">
+      <h2 class="h5 fw-bold mb-4">
+        <span class="fa fa-star me-2 text-warning"></span>{#MRH_characteristics_heading#}
+      </h2>
+      <div class="row row-cols-2 row-cols-md-4 g-3">
+        {foreach name=chars item=char from=$PRODUCTS_MRH_CHARACTERISTICS_CARDS}
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm text-center">
+              {if isset($char.IMAGE) && $char.IMAGE != ''}
+                <img src="{$char.IMAGE}" alt="{$char.TITLE|onlytext}" class="card-img-top"
+                     loading="lazy" width="300" height="200" style="object-fit:cover;aspect-ratio:3/2;" />
+              {/if}
+              <div class="card-body p-3">
+                {if isset($char.ICON) && $char.ICON != ''}
+                  <span class="{$char.ICON} fa-lg mb-2 d-block" style="color:{$char.COLOR|default:'#16a34a'}"></span>
+                {/if}
+                <h3 class="card-title small fw-bold mb-1">{$char.TITLE}</h3>
+                <p class="card-text small text-muted mb-0">{$char.TEXT}</p>
               </div>
-            {/foreach}
+            </div>
           </div>
-        </div>
-      {/if}
-    </div>
-  </div>
+        {/foreach}
+      </div>
+    </section>
+  {/if}
 
-  {* Zuletzt angesehen – Horizontal Carousel *}
-  {if isset($box_LAST_VIEWED)}
-    <div class="mrh-recently-viewed mt-5">
-      {$box_LAST_VIEWED}
+  {* ══════════════════════════════════════════════════════════════
+     4. BESCHREIBUNG (volle Breite)
+     ══════════════════════════════════════════════════════════════ *}
+  {if $PRODUCTS_DESCRIPTION != ''}
+    <div class="mrh-product-description mt-5 mb-4" itemprop="description">
+      <h2 class="h5 fw-bold mb-3">
+        <span class="fa fa-align-left me-2 text-secondary"></span>{#text_tab_description#}
+      </h2>
+      {$PRODUCTS_DESCRIPTION}
     </div>
   {/if}
 
+  {* ══════════════════════════════════════════════════════════════
+     5. FAQ-PLATZHALTER
+     ══════════════════════════════════════════════════════════════
+     TODO: Separates FAQ-Modul mit Admin-CRUD + Schema.org FAQPage
+     Wird als eigenes Include entwickelt:
+     {include file="module/includes/faq_product.html"}
+  *}
+  <section class="mrh-faq-placeholder mt-4 mb-4 p-4 border border-2 border-dashed rounded" aria-label="FAQ">
+    <h2 class="h5 fw-bold mb-3">
+      <span class="fa fa-circle-question me-2 text-secondary"></span>{#MRH_faq_heading#|default:'Häufig gestellte Fragen'}
+    </h2>
+    <p class="text-muted small mb-0">
+      <span class="fa fa-code me-1"></span>
+      FAQ-Modul wird als separates Modified-Modul entwickelt. Platzhalter für Wireframe-Vorschau.
+    </p>
+  </section>
+
+  {* ══════════════════════════════════════════════════════════════
+     6. ACCORDION: Bewertungen + Hersteller-Info
+     ══════════════════════════════════════════════════════════════ *}
+  <div class="accordion mb-4" id="productAccordion">
+
+    {* Bewertungen *}
+    {if isset($MODULE_products_reviews) && $MODULE_products_reviews != ''}
+      <div class="accordion-item" id="mrh-reviews">
+        <h2 class="accordion-header" id="reviewsHeading">
+          <button class="accordion-button" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#reviewsCollapse"
+                  aria-expanded="true" aria-controls="reviewsCollapse">
+            <span class="fa fa-star me-2 text-warning"></span>
+            {#heading_reviews#}
+            {if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
+              <span class="badge bg-secondary ms-2">{$PRODUCTS_RATING_COUNT}</span>
+            {/if}
+          </button>
+        </h2>
+        <div id="reviewsCollapse" class="accordion-collapse collapse show"
+             aria-labelledby="reviewsHeading" data-bs-parent="#productAccordion">
+          <div class="accordion-body">
+            {$MODULE_products_reviews}
+          </div>
+        </div>
+      </div>
+    {/if}
+
+    {* Hersteller-Info *}
+    {if isset($MANUFACTURER_CONTACT_ADDRESS) || isset($MANUFACTURER_RESPONSIBLE_ADDRESS) || (isset($MANUFACTURER_ADD_DESCRIPTION) && $MANUFACTURER_ADD_DESCRIPTION != '')}
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="manufacturerInfoHeading">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#manufacturerInfoCollapse"
+                  aria-expanded="false" aria-controls="manufacturerInfoCollapse">
+            <span class="fa fa-industry me-2 text-secondary"></span>
+            {#manufacturers_info#}
+          </button>
+        </h2>
+        <div id="manufacturerInfoCollapse" class="accordion-collapse collapse"
+             aria-labelledby="manufacturerInfoHeading" data-bs-parent="#productAccordion">
+          <div class="accordion-body">
+            {if isset($MANUFACTURER_ADD_DESCRIPTION) && $MANUFACTURER_ADD_DESCRIPTION != ''}
+              <div class="mb-3">{$MANUFACTURER_ADD_DESCRIPTION}</div>
+            {/if}
+            {if isset($MANUFACTURER_CONTACT_ADDRESS) || isset($MANUFACTURER_RESPONSIBLE_ADDRESS)}
+              <div class="row">
+                {if isset($MANUFACTURER_CONTACT_ADDRESS)}
+                  <div class="col-md-6 mb-3">
+                    <h6 class="fw-bold">{#manufacturers_heading_contact#}</h6>
+                    {$MANUFACTURER_CONTACT_ADDRESS}
+                  </div>
+                {/if}
+                {if isset($MANUFACTURER_RESPONSIBLE_ADDRESS)}
+                  <div class="col-md-6 mb-3">
+                    <h6 class="fw-bold">{#manufacturers_heading_responsible#}</h6>
+                    {$MANUFACTURER_RESPONSIBLE_ADDRESS}
+                  </div>
+                {/if}
+              </div>
+            {/if}
+          </div>
+        </div>
+      </div>
+    {/if}
+
+  </div>
+
+  {* ══════════════════════════════════════════════════════════════
+     7. CROSS-SELLING / AUCH GEKAUFT / KATEGORIE
+     ══════════════════════════════════════════════════════════════ *}
+  {if isset($MODULE_cross_selling) && $MODULE_cross_selling != '' || (isset($MODULE_reverse_cross_selling) && $MODULE_reverse_cross_selling != '')}
+    <div class="mb-4">
+      {if isset($MODULE_cross_selling) && $MODULE_cross_selling != ''}{$MODULE_cross_selling}{/if}
+      {if isset($MODULE_reverse_cross_selling) && $MODULE_reverse_cross_selling != ''}{$MODULE_reverse_cross_selling}{/if}
+    </div>
+  {/if}
+
+  {if isset($MODULE_also_purchased) && $MODULE_also_purchased != ''}
+    <div class="mb-4">{$MODULE_also_purchased}</div>
+  {/if}
+
+  {if isset($MODULE_products_category) && $MODULE_products_category != ''}
+    <div class="mb-4">{$MODULE_products_category}</div>
+  {/if}
+
+  {* ── Zuletzt angesehen ── *}
+  {if isset($box_LAST_VIEWED)}
+    <div class="mb-4">{$box_LAST_VIEWED}</div>
+  {/if}
+
+  {* ── Produkt-Navigator ── *}
+  {$PRODUCT_NAVIGATOR}
+
 </article>
 
-{* === Schema.org JSON-LD (zusaetzlich zum Microdata) === *}
+{* ══════════════════════════════════════════════════════════════
+   8. SCHEMA.ORG JSON-LD
+   ══════════════════════════════════════════════════════════════ *}
 {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_product.html"}
 
-{* Image Modal fuer Galerie *}
-<div class="modal fade" id="mrh-modal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content bg-transparent border-0">
-      <div class="modal-header border-0 p-2">
-        <span class="mrh-modal-counter text-white small"></span>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{#MRH_close#}"></button>
-      </div>
-      <div class="modal-body text-center p-0"></div>
-      <div class="modal-footer border-0 justify-content-between p-2">
-        <button type="button" class="btn btn-sm btn-outline-light" id="mrh-modal-prev"><span class="fa fa-chevron-left"></span></button>
-        <button type="button" class="btn btn-sm btn-outline-light" id="mrh-modal-next"><span class="fa fa-chevron-right"></span></button>
-      </div>
+{* ══════════════════════════════════════════════════════════════
+   9. GALERIE-MODAL (Vanilla JS Lightbox)
+   ══════════════════════════════════════════════════════════════ *}
+<div class="mrh-gallery-modal-backdrop" id="mrhGalleryBackdrop" aria-hidden="true"></div>
+<div class="mrh-gallery-modal" id="mrhGalleryModal" role="dialog" aria-modal="true" aria-label="Bildergalerie" aria-hidden="true">
+  <div class="mrh-gallery-modal__content">
+    <div class="mrh-gallery-modal__header">
+      <span class="mrh-gallery-modal__counter small text-white" id="mrhGalleryCounter"></span>
+      <button type="button" class="mrh-gallery-modal__close" id="mrhGalleryClose" aria-label="Schließen">
+        <span class="fa fa-times"></span>
+      </button>
+    </div>
+    <div class="mrh-gallery-modal__body text-center" id="mrhGalleryBody"></div>
+    <div class="mrh-gallery-modal__footer">
+      <button type="button" class="btn btn-sm btn-outline-light" id="mrhGalleryPrev">
+        <span class="fa fa-chevron-left"></span>
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-light" id="mrhGalleryNext">
+        <span class="fa fa-chevron-right"></span>
+      </button>
     </div>
   </div>
 </div>
+
+{* ── eTrusted Widget ── *}
+{if $smarty.const.MRH_ETRUSTED_SHOW == 'true'}
+  <div class="mt-2 mb-2">
+    <etrusted-widget data-etrusted-widget-id="wdg-9b0f30e0-f8b5-4012-9b01-99983d899434"></etrusted-widget>
+  </div>
+{/if}
+
+{* ══════════════════════════════════════════════════════════════
+   STYLES – Scoped via .mrh-
+   ══════════════════════════════════════════════════════════════ *}
+<style>
+/* Gallery */
+.mrh-gallery-thumb {
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.mrh-gallery-thumb:hover,
+.mrh-gallery-thumb:focus {
+  border-color: #16a34a;
+}
+
+/* Gallery Modal */
+.mrh-gallery-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1060;
+  background: rgba(0,0,0,0.85);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mrh-gallery-modal-backdrop.is-active {
+  display: block;
+  opacity: 1;
+}
+.mrh-gallery-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1061;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.mrh-gallery-modal.is-active {
+  display: flex;
+}
+.mrh-gallery-modal__content {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+.mrh-gallery-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.mrh-gallery-modal__close {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+.mrh-gallery-modal__close:hover { color: #f87171; }
+.mrh-gallery-modal__body img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+}
+.mrh-gallery-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+/* Trust Bar */
+.mrh-trust-bar .fa {
+  display: block;
+}
+
+/* Characteristics Grid */
+.mrh-characteristics-grid .card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mrh-characteristics-grid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+}
+
+/* Sticky Gallery (Desktop) */
+@media (min-width: 992px) {
+  .position-lg-sticky {
+    position: sticky !important;
+  }
+}
+</style>
+
+{* ══════════════════════════════════════════════════════════════
+   SCRIPT – Vanilla JS Galerie-Modal
+   ══════════════════════════════════════════════════════════════ *}
+<script>
+(function() {
+  'use strict';
+
+  var triggers = document.querySelectorAll('.cbimages');
+  var modal    = document.getElementById('mrhGalleryModal');
+  var backdrop = document.getElementById('mrhGalleryBackdrop');
+  var closeBtn = document.getElementById('mrhGalleryClose');
+  var prevBtn  = document.getElementById('mrhGalleryPrev');
+  var nextBtn  = document.getElementById('mrhGalleryNext');
+  var body     = document.getElementById('mrhGalleryBody');
+  var counter  = document.getElementById('mrhGalleryCounter');
+
+  if (!modal || !backdrop || triggers.length === 0) return;
+
+  var images = [];
+  var currentIndex = 0;
+
+  // Bilder aus Triggern sammeln
+  triggers.forEach(function(el) {
+    var src = el.getAttribute('data-image');
+    var title = el.getAttribute('data-title') || '';
+    if (src && images.indexOf(src) === -1) {
+      images.push({ src: src, title: title });
+    }
+  });
+
+  function showImage(index) {
+    if (index < 0) index = images.length - 1;
+    if (index >= images.length) index = 0;
+    currentIndex = index;
+    body.innerHTML = '<img src="' + images[index].src + '" alt="' + images[index].title + '" />';
+    counter.textContent = (index + 1) + ' / ' + images.length;
+  }
+
+  function openModal(index) {
+    showImage(index);
+    backdrop.classList.add('is-active');
+    modal.classList.add('is-active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal() {
+    backdrop.classList.remove('is-active');
+    modal.classList.remove('is-active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Trigger-Clicks
+  triggers.forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      var src = el.getAttribute('data-image');
+      var idx = 0;
+      for (var i = 0; i < images.length; i++) {
+        if (images[i].src === src) { idx = i; break; }
+      }
+      openModal(idx);
+    });
+  });
+
+  // Close
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  // Navigation
+  if (prevBtn) prevBtn.addEventListener('click', function() { showImage(currentIndex - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { showImage(currentIndex + 1); });
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    if (!modal.classList.contains('is-active')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  });
+
+  // Touch-Swipe (Mobile)
+  var touchStartX = 0;
+  modal.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  modal.addEventListener('touchend', function(e) {
+    var diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) showImage(currentIndex - 1);
+      else showImage(currentIndex + 1);
+    }
+  }, { passive: true });
+
+})();
+</script>
