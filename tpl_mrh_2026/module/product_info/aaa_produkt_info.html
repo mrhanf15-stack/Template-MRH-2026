@@ -1,11 +1,11 @@
 {config_load file="$language/lang_$language.conf" section="product_info"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="product_info"}
-{assign "dummy" ""}
+
 {if $error_message != ''}<div class="alert alert-danger">{$error_message}</div>{/if}
 <div itemscope itemtype="http://schema.org/Product">
 	{$FORM_ACTION}
-		<h1 class="p-2 bg-h" itemprop="name">{if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}{*if isset($PRODUCTS_PRINT_LAYER)}<span class="print-button position-absolute">{$PRODUCTS_PRINT_LAYER|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'print_product_small'}<"}</span>{/if*}</h1>
+		<h1 class="p-2 bg-h" itemprop="name">{if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}</h1>
 		<div id="product_details" class="row clearfix">
 			<div class="pd_imagebox col-md-6 mb-4">
 			{if $smarty.const.MRH_USE_EASYZOOM == 'true'}
@@ -68,7 +68,7 @@
 					</div>
 				{/if}
 				{if $PRODUCTS_IMAGE!=''}
-					<a class="cbimages easyzoom-link" title="{$PRODUCTS_NAME|onlytext}" data-image-id="1" data-bs-toggle="modal" data-title="{$PRODUCTS_NAME|onlytext}" data-image="{$PRODUCTS_IMAGE|replace:"info_":"popup_"}" data-bs-target="#modal" href="#">{#text_zoom#|bs4button:'button_easyzoom'}</a>
+					<a class="cbimages easyzoom-link btn btn-sm btn-outline-secondary" title="{$PRODUCTS_NAME|onlytext}" data-image-id="1" data-bs-toggle="modal" data-title="{$PRODUCTS_NAME|onlytext}" data-image="{$PRODUCTS_IMAGE|replace:"info_":"popup_"}" data-bs-target="#modal" href="#"><span class="fa fa-search-plus me-1"></span>{#text_zoom#}</a>
 				{/if}
 			{else}
 				{if $PRODUCTS_IMAGE != ''}
@@ -134,7 +134,7 @@
 						<div class="col-9">
 							{$ADD_CART_BUTTON|replace:'btn ':'mb-2 btn '}
 							{* Ausblenden der Links, wenn Modul Kundenerinnerung aktiviert und Lagerbestand kleiner 0 ist *}
-                            {if $PRODUCTS_QUANTITY > 0 || ($PRODUCTS_QUANTITY <= 0 && $smarty.const.MRH_CUSTOMERS_REMIND != 'true')}
+                            {if $PRODUCTS_QUANTITY > 0}
 								{if isset($ADD_CART_BUTTON_EXPRESS) && !$PAYPALPLAN}
 									{$ADD_CART_BUTTON_EXPRESS|replace:'btn ':'mb-2 btn '}
 								{/if}
@@ -178,24 +178,23 @@
 <div class="clearfix"></div>
 {/if}
 
-                    {*if isset($PRODUCTS_PRINT_LAYER)}<div class="col-sm-6 mb-2">{$PRODUCTS_PRINT_LAYER|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'print_product'}<"}</div><div class="clearfix"></div>{/if*}
+                   {if isset($PRODUCTS_PRINT_LAYER)}<div class="col-sm-6 mb-2">{$PRODUCTS_PRINT_LAYER}</div><div class="clearfix"></div>{/if}
 					{if $smarty.session.customers_status.customers_status_write_reviews == 1}
-						{if isset($PRODUCTS_WRITE_REVIEW)}<div class="col-sm-6 mb-2">{$PRODUCTS_WRITE_REVIEW|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'button_write_review'}<"}</div><div class="clearfix"></div>{/if}
-					{/if}
+						{if isset($PRODUCTS_WRITE_REVIEW)}<div class="col-sm-6 mb-2">{$PRODUCTS_WRITE_REVIEW}</div><div class="clearfix"></div>{/if}					{/if}
                     {if isset($PRODUCTS_CHEAPLY)}<div class="col-sm-6 mb-2">{$PRODUCTS_CHEAPLY}</div>{/if}
                     {if isset($PRODUCT_INQUIRY)}<div class="col-sm-6 mb-2">{$PRODUCT_INQUIRY}</div>{/if}
 					{if isset($EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
 						<div class="dropdown col-sm-6 mb-2">
-							<a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true">{#MRH_checkout_express_infolinktext#|bs4button:'express_dropdown'}</a>
-							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							<a href="#" role="button" id="dropdownMenuLink" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-info-circle me-1"></span> {#checkout_express_infotext#}</a>
+							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
 								{$EXPRESS_LINK|replace:'class="':'class="dropdown-item '|replace:'</a>':'&nbsp;&nbsp;<span class="fa fa-info-circle"></span></a>'}
 								<a class="dropdown-item" href="{$ACTIVATE_EXPRESS_LINK}">{#checkout_express_activate#}</a>
 							</div>
 						</div>
                         <div class="clearfix"></div>
 					{else}
-						{if isset($EXPRESS_LINK)}<div class="col-sm-6 mb-2">{$EXPRESS_LINK|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'express_content'}<"}</div><div class="clearfix"></div>{/if}
-						{if $ACTIVATE_EXPRESS_LINK}<div class="col-sm-6 mb-2"><a href="{$ACTIVATE_EXPRESS_LINK}">{#checkout_express_activate#|bs4button:'express_link'}</a></div><div class="clearfix"></div>{/if}
+					{if isset($EXPRESS_LINK)}<div class="col-sm-6 mb-2">{$EXPRESS_LINK}</div><div class="clearfix"></div>{/if}
+						{if $ACTIVATE_EXPRESS_LINK}<div class="col-sm-6 mb-2"><a class="btn btn-info btn-sm" href="{$ACTIVATE_EXPRESS_LINK}"><span class="fa fa-bolt me-1"></span> {#checkout_express_activate#}</a></div><div class="clearfix"></div>{/if}
 					{/if}
 				</div>
 				 
