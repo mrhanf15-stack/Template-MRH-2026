@@ -1601,3 +1601,45 @@ table.tebals.wite tr:last-child td:last-child {
   margin-bottom: 0.5rem !important;
 }
 
+
+/* ── 15s: Dynamischer Geschlechts-Badge (icon_sex.html) ── */
+/* Wird per JS erzeugt für Fem/Reg Foto-Sorten, wenn kein
+   Autoflowering-Picto-Badge sichtbar ist. */
+.mrh-sex-badge {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--tpl-font-text), sans-serif;
+  padding: 8px 16px;
+  border-radius: var(--mrh-tbl-radius);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.mrh-sex-badge .fa {
+  font-size: 1rem;
+}
+
+/* Feminisiert – Pink */
+.mrh-badge-fem {
+  background: var(--mrh-tbl-fem-bg);
+  border: 1px solid rgba(236, 72, 153, 0.25);
+  color: #be185d;
+}
+
+/* Regulär – Blau */
+.mrh-badge-reg {
+  background: var(--mrh-tbl-reg-bg);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: #1d4ed8;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .mrh-sex-badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+}
+

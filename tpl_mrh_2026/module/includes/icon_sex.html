@@ -1,7 +1,73 @@
-{config_load file="$language/lang_$language.conf" section="product_info"}
-{config_load file="lang_`$language`.custom"}
-{config_load file="lang_`$language`.section" section="product_info"}
-<span class="secondary fa fa-venus" title="Feminisiert"></span>
+{* ============================================================
+   icon_sex.html – Dynamischer Geschlechts-/Typ-Badge
+   Liest den Text direkt aus der Tabellenzelle (tr.fem/tr.reg)
+   und erzeugt einen Badge oberhalb der Produktdaten-Tabelle.
+   ============================================================ *}
 
-<script type="text/javascript">         const tr = document.querySelector('.fem');
-div.classList.contains('secondary'); // trueCode language: JavaScript (javascript)</script>
+<script>
+(function() {
+  'use strict';
+
+  function createSexBadge() {
+    /* ── Produktdaten-Tabelle finden (zweite .tebals.wite) ── */
+    var tables = document.querySelectorAll('table.tebals.wite');
+    var dataTable = tables.length > 1 ? tables[1] : tables[0];
+    if (!dataTable) return;
+
+    /* ── Typ erkennen: fem, reg oder aut ── */
+    var femRow = dataTable.querySelector('tr.fem');
+    var regRow = dataTable.querySelector('tr.reg');
+    /* Autoflowering wird bereits über .picto.templatestyle (ohne .off) gehandelt */
+    var picto = document.querySelector('.picto.templatestyle');
+    var pictoHasOff = picto && picto.classList.contains('off');
+    var pictoHasAuto = picto && !pictoHasOff && picto.querySelector('.shortfongc, .fa-tachometer');
+
+    /* Wenn bereits ein sichtbarer Autoflowering-Badge existiert, nichts tun */
+    if (pictoHasAuto) return;
+
+    var type = null;
+    var label = '';
+    var icon = '';
+    var colorClass = '';
+
+    if (femRow) {
+      type = 'fem';
+      /* Text aus der Wert-Spalte lesen (automatisch mehrsprachig) */
+      var lastTd = femRow.querySelector('td:last-child');
+      label = lastTd ? lastTd.textContent.trim() : 'Feminisiert';
+      icon = 'fa-venus';
+      colorClass = 'mrh-badge-fem';
+    } else if (regRow) {
+      type = 'reg';
+      var lastTd = regRow.querySelector('td:last-child');
+      label = lastTd ? lastTd.textContent.trim() : 'Regulär';
+      icon = 'fa-mars';
+      colorClass = 'mrh-badge-reg';
+    }
+
+    if (!type) return;
+
+    /* ── Badge-Element erstellen ── */
+    var badge = document.createElement('div');
+    badge.className = 'mrh-sex-badge ' + colorClass;
+    badge.innerHTML = '<span class="fa fa-fw ' + icon + '"></span> ' + label;
+
+    /* ── Badge vor der Tabelle einfügen ── */
+    /* Ziel: In den Container .bg-custom.teabls, vor der Tabelle */
+    var container = dataTable.closest('.bg-custom.teabls') || dataTable.parentElement;
+    if (container) {
+      container.insertBefore(badge, dataTable);
+    }
+
+    /* ── Wenn .picto.templatestyle.off ist, diesen nicht stören ── */
+    /* Der neue Badge ersetzt visuell den fehlenden Picto-Badge */
+  }
+
+  /* DOM Ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createSexBadge);
+  } else {
+    createSexBadge();
+  }
+})();
+</script>
