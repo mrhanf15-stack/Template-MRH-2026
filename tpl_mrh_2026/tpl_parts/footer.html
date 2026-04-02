@@ -1,0 +1,70 @@
+{*
+  MRH 2026 – Footer (tpl_parts/footer.html)
+  Bootstrap 5.3.0 | Keine Inline-CSS | Sprachkonstanten aus lang/
+  Wireframe Sektion 11
+*}
+<footer id="mrh-footer" class="mrh-footer mt-auto">
+  <div class="container">
+    <div class="row g-4 py-5">
+      {* Spalte 1: Kundenservice (Content-Seiten) *}
+      {if isset($box_CONTENT)}
+        <div class="col-lg-3 col-md-6 col-6">
+          <h5 class="text-uppercase fw-bold mb-3 small">{#footer_kundenservice#}</h5>
+          {$box_CONTENT}
+        </div>
+      {/if}
+      {* Spalte 2: Informationen *}
+      {if isset($box_INFORMATION)}
+        <div class="col-lg-3 col-md-6 col-6">
+          <h5 class="text-uppercase fw-bold mb-3 small">{#footer_informationen#}</h5>
+          {$box_INFORMATION}
+        </div>
+      {/if}
+      {* Spalte 3: Beliebte Kategorien *}
+      {if isset($box_MISCELLANEOUS)}
+        <div class="col-lg-3 col-md-6 col-6">
+          <h5 class="text-uppercase fw-bold mb-3 small">{#footer_kategorien#}</h5>
+          {$box_MISCELLANEOUS}
+        </div>
+      {/if}
+      {* Spalte 4: Sicher einkaufen + Trust *}
+      <div class="col-lg-3 col-md-6 col-6">
+        <h5 class="text-uppercase fw-bold mb-3 small">{#footer_sicher_einkaufen#}</h5>
+        {* Zahlungsarten Icons *}
+        <div class="mrh-payment-icons d-flex flex-wrap gap-2 mb-3">
+          <img src="{$tpl_path}img/payment/visa.svg" alt="Visa" width="40" height="25" class="img-fluid" loading="lazy">
+          <img src="{$tpl_path}img/payment/mastercard.svg" alt="Mastercard" width="40" height="25" class="img-fluid" loading="lazy">
+          <img src="{$tpl_path}img/payment/paypal.svg" alt="PayPal" width="40" height="25" class="img-fluid" loading="lazy">
+          <img src="{$tpl_path}img/payment/klarna.svg" alt="Klarna" width="40" height="25" class="img-fluid" loading="lazy">
+          <img src="{$tpl_path}img/payment/btc.svg" alt="Bitcoin" width="40" height="25" class="img-fluid" loading="lazy">
+        </div>
+        {* Trusted Shops Widget *}
+        {if $smarty.const.MRH_SHOPVOTE_BADGE_FOOTER == 'true'}
+          {assign var="shopvote_type" value="badge"}
+          {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+        {/if}
+        {* Social Media *}
+        <div class="mrh-social d-flex gap-3 mt-3">
+          <a href="{$smarty.const.MRH_SOCIAL_FACEBOOK|default:'#'}" class="text-light opacity-75" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+            <i class="fa-brands fa-facebook fa-lg"></i>
+          </a>
+          <a href="{$smarty.const.MRH_SOCIAL_INSTAGRAM|default:'#'}" class="text-light opacity-75" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+            <i class="fa-brands fa-instagram fa-lg"></i>
+          </a>
+          <a href="{$smarty.const.MRH_SOCIAL_YOUTUBE|default:'#'}" class="text-light opacity-75" aria-label="YouTube" rel="noopener noreferrer" target="_blank">
+            <i class="fa-brands fa-youtube fa-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {* ShopVote Rich Snippet (unsichtbar, SEO) *}
+    {if $smarty.const.MRH_SHOPVOTE_RICH_SNIPPET == 'true'}
+      {assign var="shopvote_type" value="rich"}
+      {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/shopvote_widget.html"}
+    {/if}
+    {* Copyright *}
+    <div class="border-top border-secondary pt-3 pb-3 text-center small opacity-75">
+      &copy; 2016 - {$smarty.now|date_format:"%Y"} {#footer_copyright#}
+    </div>
+  </div>
+</footer>

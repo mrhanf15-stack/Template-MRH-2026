@@ -1,0 +1,57 @@
+{*
+  MRH 2026 – Offcanvas Menu (tpl_parts/menu_offcanvas.html)
+  Bootstrap 5.3.0 | Mobile Navigation
+  Wird per data-bs-toggle="offcanvas" geoeffnet
+*}
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+  <div class="offcanvas-header border-bottom">
+    <strong class="h5 offcanvas-title" id="offcanvasMenuLabel">{#navigation#}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{#close_button#}"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    {* Suchfeld Mobile *}
+    <div class="p-3 border-bottom">
+      <form action="{$smarty.const.FILENAME_ADVANCED_SEARCH_RESULT}" method="get">
+        <div class="input-group">
+          <input type="text" name="keywords" class="form-control" placeholder="{#search_placeholder#}" aria-label="{#search_placeholder#}">
+          <button class="btn btn-outline-secondary" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    {* Hauptnavigation Mobile *}
+    {if isset($box_CATEGORIES)}
+      <nav class="mrh-mobile-nav">
+        {$box_CATEGORIES}
+      </nav>
+    {/if}
+    {* Account-Links *}
+    <div class="border-top p-3">
+      <ul class="list-unstyled mb-0">
+        <li class="mb-2">
+          <a href="{$smarty.const.FILENAME_ACCOUNT}" class="text-decoration-none">
+            <i class="fa-solid fa-user me-2"></i> {#link_account#}
+          </a>
+        </li>
+        <li class="mb-2">
+          <a href="{$smarty.const.FILENAME_WISHLIST}" class="text-decoration-none">
+            <i class="fa-solid fa-heart me-2"></i> {#link_wishlist#}
+          </a>
+        </li>
+        <li>
+          <a href="{$smarty.const.FILENAME_SHOPPING_CART}" class="text-decoration-none">
+            <i class="fa-solid fa-cart-shopping me-2"></i> {#link_cart#}
+          </a>
+        </li>
+      </ul>
+    </div>
+    {* Sprachauswahl Mobile *}
+    {if isset($box_LANGUAGES)}
+      <div class="border-top p-3">
+        <h6 class="fw-bold small text-uppercase">{#language_select#}</h6>
+        {$box_LANGUAGES}
+      </div>
+    {/if}
+  </div>
+</div>

@@ -1,0 +1,34 @@
+{*
+  MRH 2026 – FAQ Produkt (module/includes/faq_product.html)
+  Bootstrap 5.3.0 Accordion | Schema.org FAQPage
+  Sprachkonstanten aus lang/extra/
+*}
+{if isset($product_faq) && $product_faq|@count > 0}
+<section class="mrh-product-faq mt-4" itemscope itemtype="https://schema.org/FAQPage">
+  <h3 class="h5 fw-bold mb-3">{#faq_heading#}</h3>
+  <div class="accordion" id="mrh-faq-accordion">
+    {foreach from=$product_faq item=faq name=faq_loop}
+    <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h4 class="accordion-header" id="faq-head-{$smarty.foreach.faq_loop.index}">
+        <button class="accordion-button{if !$smarty.foreach.faq_loop.first} collapsed{/if}" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq-body-{$smarty.foreach.faq_loop.index}"
+                aria-expanded="{if $smarty.foreach.faq_loop.first}true{else}false{/if}"
+                aria-controls="faq-body-{$smarty.foreach.faq_loop.index}">
+          <span itemprop="name">{$faq.question}</span>
+        </button>
+      </h4>
+      <div id="faq-body-{$smarty.foreach.faq_loop.index}"
+           class="accordion-collapse collapse{if $smarty.foreach.faq_loop.first} show{/if}"
+           aria-labelledby="faq-head-{$smarty.foreach.faq_loop.index}"
+           data-bs-parent="#mrh-faq-accordion"
+           itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <div class="accordion-body" itemprop="text">
+          {$faq.answer}
+        </div>
+      </div>
+    </div>
+    {/foreach}
+  </div>
+</section>
+{/if}

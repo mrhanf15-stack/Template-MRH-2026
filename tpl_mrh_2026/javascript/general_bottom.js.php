@@ -11,6 +11,12 @@
   -----------------------------------------------------------
    Released under the GNU General Public License
    -----------------------------------------------------------
+   MRH2026: Bootstrap 5.3.0 Bundle (inkl. Popper) + Vanilla JS
+   - popper.min.js ENTFERNT (in bundle enthalten)
+   - bootstrap.min.js ERSETZT durch bootstrap.bundle.min.js
+   - owl.carousel.min.js ENTFERNT (BS5 Carousel nutzen)
+   - mrh2026.js HINZUGEFUEGT (Vanilla JS Module)
+   -----------------------------------------------------------
 */
 // this javascriptfile get includes at the BOTTOM of every template page in shop
 // you can add your template specific js scripts here
@@ -20,11 +26,10 @@ defined('DIR_TMPL_JS') OR define('DIR_TMPL_JS', DIR_TMPL.'javascript/');
 
 <?php
 $script_array = array(
-  DIR_TMPL_JS.'popper.min.js',
-  DIR_TMPL_JS.'bootstrap.min.js',
-  //DIR_TMPL_JS.'jquery.mmenu.all.js', // MRH2026: deaktiviert - Mega-Menu jetzt Vanilla JS
-  //DIR_TMPL_JS.'jquery.alertable.min.js',
-  DIR_TMPL_JS.'owl.carousel.min.js'
+  // Bootstrap 5.3.0 Bundle (inkl. Popper.js) - KEINE separaten Dateien noetig
+  DIR_TMPL_JS.'bootstrap.bundle.min.js',
+  // MRH2026 Vanilla JS Hauptmodul
+  DIR_TMPL_JS.'mrh2026.js'
 );
 $script_min = DIR_TMPL_JS.'tpl_plugins.min.js';
   
@@ -50,13 +55,6 @@ if (COMPRESS_JAVASCRIPT == 'true') {
 }
 echo $javascript.PHP_EOL;
 
-if (strstr($PHP_SELF, FILENAME_CONTENT) && isset($_GET['coID']) && $_GET['coID'] == 8) {
-?>
-<!--[if lt IE 10]>
-<script src="<?php echo DIR_WS_BASE.DIR_TMPL_JS; ?>jquery.css3-multi-column.js"></script>
-<![endif]-->
-<?php 
-}
 ?>
 
 

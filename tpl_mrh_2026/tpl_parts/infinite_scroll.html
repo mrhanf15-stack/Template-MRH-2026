@@ -1,0 +1,69 @@
+{*
+  MRH 2026 – Infinite Scroll (tpl_parts/infinite_scroll.html)
+  Bootstrap 5.3.0 | Vanilla JS
+  Wird nur geladen wenn tpl_cfg_infinitescroll == 'on'
+*}
+<script>
+(function() {
+  'use strict';
+  var loading = false;
+  var page = 1;
+  var container = document.querySelector('.mrh-product-listing');
+  var pagination = document.querySelector('.mrh-pagination');
+  if (!container || !pagination) return;
+
+  var nextLink = pagination.querySelector('a[rel="next"]');
+  if (!nextLink) return;
+
+  // Pagination ausblenden
+  pagination.style.display = 'none';
+
+  // Scroll-Observer
+  var sentinel = document.createElement('div');
+  sentinel.className = 'mrh-infinite-sentinel';
+  container.parentNode.insertBefore(sentinel, container.nextSibling);
+
+  var observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !loading && nextLink) {
+      loadMore();
+    }
+  }, { rootMargin: '200px' });
+
+  observer.observe(sentinel);
+
+  function loadMore() {
+    loading = true;
+    page++;
+    var url = nextLink.href;
+
+    // Loading-Spinner anzeigen
+    sentinel.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+    fetch(url)
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, 'text/html');
+        var newItems = doc.querySelectorAll('.mrh-product-listing .mrh-product-card');
+        var newNext = doc.querySelector('.mrh-pagination a[rel="next"]');
+
+        newItems.forEach(function(item) {
+          container.appendChild(item);
+        });
+
+        if (newNext) {
+          nextLink = { href: newNext.href };
+        } else {
+          nextLink = null;
+          observer.disconnect();
+          sentinel.innerHTML = '';
+        }
+        loading = false;
+      })
+      .catch(function() {
+        loading = false;
+        sentinel.innerHTML = '';
+      });
+  }
+})();
+</script>
