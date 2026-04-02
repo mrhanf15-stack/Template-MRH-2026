@@ -21,8 +21,6 @@
     $box_smarty->assign('LINK_CREATE_ACCOUNT', xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'));
     $box_smarty->assign('LINK_CREATE_GUEST_ACCOUNT', xtc_href_link(FILENAME_CREATE_GUEST_ACCOUNT, '', 'SSL'));
     $box_smarty->assign('FORM_END', '</form>');
-    // MRH 2026: Affiliate-Login Link (SEO-URL über xtc_href_link)
-    $box_smarty->assign('LINK_AFFILIATE', xtc_href_link(FILENAME_AFFILIATE, '', 'SSL'));
   } else {
     $box_smarty->assign('IS_CUSTOMER', ($_SESSION['customers_status']['customers_status_id'] != DEFAULT_CUSTOMERS_STATUS_ID_GUEST) ? 1 : 0);
     $box_smarty->assign('LINK_ACCOUNT', xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
@@ -40,22 +38,24 @@
       $box_smarty->assign('LINK_NEWSLETTER', xtc_href_link(FILENAME_NEWSLETTER, '', 'SSL'));
     }
     $box_smarty->assign('LINK_LOGOFF', xtc_href_link(FILENAME_LOGOFF, '', 'SSL'));
-    // MRH 2026: Affiliate-Login Link auch für eingeloggte Kunden
-    $box_smarty->assign('LINK_AFFILIATE', xtc_href_link(FILENAME_AFFILIATE, '', 'SSL'));
   }
 
-  // MRH 2026: Affiliate-Navigation Links wenn Partner eingeloggt
+  // MRH 2026: Affiliate-Login Link (immer setzen, mit defined()-Check)
+  $affiliate_file = defined('FILENAME_AFFILIATE') ? FILENAME_AFFILIATE : 'affiliate.php';
+  $box_smarty->assign('LINK_AFFILIATE', xtc_href_link($affiliate_file, '', 'SSL'));
+
+  // MRH 2026: Affiliate-Navigation wenn Partner eingeloggt
   if (isset($_SESSION['affiliate_id'])) {
-    $box_smarty->assign('LINK_AFFILIATE_SUMMARY', xtc_href_link(FILENAME_AFFILIATE_SUMMARY, '', 'SSL'));
-    $box_smarty->assign('LINK_AFFILIATE_DETAILS', xtc_href_link(FILENAME_AFFILIATE_DETAILS, '', 'SSL'));
-    $box_smarty->assign('LINK_AFFILIATE_PAYMENT', xtc_href_link(FILENAME_AFFILIATE_PAYMENT, '', 'SSL'));
-    $box_smarty->assign('LINK_AFFILIATE_CLICKS', xtc_href_link(FILENAME_AFFILIATE_CLICKS, '', 'SSL'));
-    $box_smarty->assign('LINK_AFFILIATE_SALES', xtc_href_link(FILENAME_AFFILIATE_SALES, '', 'SSL'));
-    $box_smarty->assign('LINK_AFFILIATE_BANNERS', xtc_href_link(FILENAME_AFFILIATE_BANNERS, 'type=b'));
-    $box_smarty->assign('LINK_AFFILIATE_TEXTLINKS', xtc_href_link(FILENAME_AFFILIATE_BANNERS, 'type=t'));
-    $box_smarty->assign('LINK_AFFILIATE_CONTACT', xtc_href_link(FILENAME_AFFILIATE_CONTACT));
+    $box_smarty->assign('LINK_AFFILIATE_SUMMARY', xtc_href_link(defined('FILENAME_AFFILIATE_SUMMARY') ? FILENAME_AFFILIATE_SUMMARY : 'affiliate_summary.php', '', 'SSL'));
+    $box_smarty->assign('LINK_AFFILIATE_DETAILS', xtc_href_link(defined('FILENAME_AFFILIATE_DETAILS') ? FILENAME_AFFILIATE_DETAILS : 'affiliate_details.php', '', 'SSL'));
+    $box_smarty->assign('LINK_AFFILIATE_PAYMENT', xtc_href_link(defined('FILENAME_AFFILIATE_PAYMENT') ? FILENAME_AFFILIATE_PAYMENT : 'affiliate_payment.php', '', 'SSL'));
+    $box_smarty->assign('LINK_AFFILIATE_CLICKS', xtc_href_link(defined('FILENAME_AFFILIATE_CLICKS') ? FILENAME_AFFILIATE_CLICKS : 'affiliate_clicks.php', '', 'SSL'));
+    $box_smarty->assign('LINK_AFFILIATE_SALES', xtc_href_link(defined('FILENAME_AFFILIATE_SALES') ? FILENAME_AFFILIATE_SALES : 'affiliate_sales.php', '', 'SSL'));
+    $box_smarty->assign('LINK_AFFILIATE_BANNERS', xtc_href_link(defined('FILENAME_AFFILIATE_BANNERS') ? FILENAME_AFFILIATE_BANNERS : 'affiliate_banners.php', 'type=b'));
+    $box_smarty->assign('LINK_AFFILIATE_TEXTLINKS', xtc_href_link(defined('FILENAME_AFFILIATE_BANNERS') ? FILENAME_AFFILIATE_BANNERS : 'affiliate_banners.php', 'type=t'));
+    $box_smarty->assign('LINK_AFFILIATE_CONTACT', xtc_href_link(defined('FILENAME_AFFILIATE_CONTACT') ? FILENAME_AFFILIATE_CONTACT : 'affiliate_contact.php'));
     $box_smarty->assign('LINK_AFFILIATE_FAQ', xtc_href_link(FILENAME_CONTENT, 'coID=902'));
-    $box_smarty->assign('LINK_AFFILIATE_LOGOUT', xtc_href_link(FILENAME_AFFILIATE_LOGOUT));
+    $box_smarty->assign('LINK_AFFILIATE_LOGOUT', xtc_href_link(defined('FILENAME_AFFILIATE_LOGOUT') ? FILENAME_AFFILIATE_LOGOUT : 'affiliate_logout.php'));
   }
 
   $box_smarty->caching = 0;

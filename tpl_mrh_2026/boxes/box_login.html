@@ -1,7 +1,8 @@
 {config_load file="$language/lang_$language.conf" section="boxes"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="account"}
-{* MRH 2026: Login-Box mit Partnerlogin + Affiliate-Navigation (mehrsprachig) – BS5.3 *}
+{* MRH 2026: Login-Box mit Partnerlogin + Affiliate-Navigation (mehrsprachig) – BS5.3
+   Sprachkonstanten TEXT_AFFILIATE_* kommen aus /lang/{sprache}/extra/mrh_affiliate_login.php *}
 
 {if isset($smarty.session.customer_id)}
   <div class="toggle_headline">
@@ -106,13 +107,13 @@
       </li>
     </ul>
 
-    {* --- Partnerlogin mit Abstand (SEO-URL über PHP, mehrsprachig) --- *}
+    {* --- Partnerlogin mit Abstand (SEO-URL über PHP, Text aus /lang/extra/) --- *}
     {if isset($LINK_AFFILIATE) && $LINK_AFFILIATE != ''}
       <hr class="my-3" style="border-color: rgba(0,0,0,.1);">
       <ul class="list-unstyled offCanvas--list">
         <li>
-          <a href="{$LINK_AFFILIATE}" title="{#title_accountbox_affiliate_login#}">
-            <span class="icon"><i class="fa-solid fa-handshake"></i></span><span class="title">{#title_accountbox_affiliate_login#}</span>
+          <a href="{$LINK_AFFILIATE}" title="{$smarty.const.TEXT_AFFILIATE_LOGIN|default:'Partnerlogin'}">
+            <span class="icon"><i class="fa-solid fa-handshake"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_LOGIN|default:'Partnerlogin'}</span>
           </a>
         </li>
       </ul>
@@ -124,80 +125,81 @@
 {* ================================================================
    AFFILIATE-NAVIGATION: Wird angezeigt wenn Partner eingeloggt ist
    Alle Links über xtc_href_link() in login.php → SEO-URLs
+   Texte aus /lang/{sprache}/extra/mrh_affiliate_login.php
    ================================================================ *}
 {if isset($smarty.session.affiliate_id)}
   <hr class="my-3" style="border-color: rgba(0,0,0,.1);">
   <div class="toggle_headline">
-    <i class="fa-solid fa-handshake me-1"></i> {#title_accountbox_affiliate_login#}
+    <i class="fa-solid fa-handshake me-1"></i> {$smarty.const.TEXT_AFFILIATE_LOGIN|default:'Partnerlogin'}
   </div>
   <ul class="list-unstyled offCanvas--list">
     {if isset($LINK_AFFILIATE_SUMMARY)}
       <li>
-        <a href="{$LINK_AFFILIATE_SUMMARY}" title="{#title_nav_affiliate_dashboard#}">
-          <span class="icon"><i class="fa-solid fa-chart-line"></i></span><span class="title">{#title_nav_affiliate_dashboard#}</span>
+        <a href="{$LINK_AFFILIATE_SUMMARY}" title="{$smarty.const.TEXT_AFFILIATE_DASHBOARD|default:'Dashboard'}">
+          <span class="icon"><i class="fa-solid fa-chart-line"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_DASHBOARD|default:'Dashboard'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_DETAILS)}
       <li>
-        <a href="{$LINK_AFFILIATE_DETAILS}" title="{#title_nav_affiliate_account#}">
-          <span class="icon"><i class="fa-solid fa-user-tie"></i></span><span class="title">{#title_nav_affiliate_account#}</span>
+        <a href="{$LINK_AFFILIATE_DETAILS}" title="{$smarty.const.TEXT_AFFILIATE_ACCOUNT|default:'Partnerkonto'}">
+          <span class="icon"><i class="fa-solid fa-user-tie"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_ACCOUNT|default:'Partnerkonto'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_PAYMENT)}
       <li>
-        <a href="{$LINK_AFFILIATE_PAYMENT}" title="{#title_nav_affiliate_payment#}">
-          <span class="icon"><i class="fa-solid fa-money-bill-transfer"></i></span><span class="title">{#title_nav_affiliate_payment#}</span>
+        <a href="{$LINK_AFFILIATE_PAYMENT}" title="{$smarty.const.TEXT_AFFILIATE_PAYMENT|default:'Auszahlungen'}">
+          <span class="icon"><i class="fa-solid fa-money-bill-transfer"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_PAYMENT|default:'Auszahlungen'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_CLICKS)}
       <li>
-        <a href="{$LINK_AFFILIATE_CLICKS}" title="{#title_nav_affiliate_clicks#}">
-          <span class="icon"><i class="fa-solid fa-arrow-pointer"></i></span><span class="title">{#title_nav_affiliate_clicks#}</span>
+        <a href="{$LINK_AFFILIATE_CLICKS}" title="{$smarty.const.TEXT_AFFILIATE_CLICKS|default:'Klickstatistik'}">
+          <span class="icon"><i class="fa-solid fa-arrow-pointer"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_CLICKS|default:'Klickstatistik'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_SALES)}
       <li>
-        <a href="{$LINK_AFFILIATE_SALES}" title="{#title_nav_affiliate_sales#}">
-          <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span><span class="title">{#title_nav_affiliate_sales#}</span>
+        <a href="{$LINK_AFFILIATE_SALES}" title="{$smarty.const.TEXT_AFFILIATE_SALES|default:'Verkäufe'}">
+          <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_SALES|default:'Verkäufe'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_BANNERS)}
       <li>
-        <a href="{$LINK_AFFILIATE_BANNERS}" title="{#title_nav_affiliate_banners#}">
-          <span class="icon"><i class="fa-solid fa-image"></i></span><span class="title">{#title_nav_affiliate_banners#}</span>
+        <a href="{$LINK_AFFILIATE_BANNERS}" title="{$smarty.const.TEXT_AFFILIATE_BANNERS|default:'Werbebanner'}">
+          <span class="icon"><i class="fa-solid fa-image"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_BANNERS|default:'Werbebanner'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_TEXTLINKS)}
       <li>
-        <a href="{$LINK_AFFILIATE_TEXTLINKS}" title="{#title_nav_affiliate_textlinks#}">
-          <span class="icon"><i class="fa-solid fa-link"></i></span><span class="title">{#title_nav_affiliate_textlinks#}</span>
+        <a href="{$LINK_AFFILIATE_TEXTLINKS}" title="{$smarty.const.TEXT_AFFILIATE_TEXTLINKS|default:'Textlinks'}">
+          <span class="icon"><i class="fa-solid fa-link"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_TEXTLINKS|default:'Textlinks'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_CONTACT)}
       <li>
-        <a href="{$LINK_AFFILIATE_CONTACT}" title="{#title_nav_affiliate_contact#}">
-          <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="title">{#title_nav_affiliate_contact#}</span>
+        <a href="{$LINK_AFFILIATE_CONTACT}" title="{$smarty.const.TEXT_AFFILIATE_CONTACT|default:'Kontakt'}">
+          <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_CONTACT|default:'Kontakt'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_FAQ)}
       <li>
-        <a href="{$LINK_AFFILIATE_FAQ}" title="{#title_nav_affiliate_faq#}">
-          <span class="icon"><i class="fa-solid fa-circle-question"></i></span><span class="title">{#title_nav_affiliate_faq#}</span>
+        <a href="{$LINK_AFFILIATE_FAQ}" title="{$smarty.const.TEXT_AFFILIATE_FAQ|default:'FAQ'}">
+          <span class="icon"><i class="fa-solid fa-circle-question"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_FAQ|default:'FAQ'}</span>
         </a>
       </li>
     {/if}
     {if isset($LINK_AFFILIATE_LOGOUT)}
       <li>
-        <a href="{$LINK_AFFILIATE_LOGOUT}" title="{#title_nav_affiliate_logout#}">
-          <span class="icon"><i class="fa-solid fa-right-from-bracket text-danger"></i></span><span class="title">{#title_nav_affiliate_logout#}</span>
+        <a href="{$LINK_AFFILIATE_LOGOUT}" title="{$smarty.const.TEXT_AFFILIATE_LOGOUT|default:'Partner abmelden'}">
+          <span class="icon"><i class="fa-solid fa-right-from-bracket text-danger"></i></span><span class="title">{$smarty.const.TEXT_AFFILIATE_LOGOUT|default:'Partner abmelden'}</span>
         </a>
       </li>
     {/if}
