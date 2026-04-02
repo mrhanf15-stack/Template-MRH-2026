@@ -1564,7 +1564,7 @@ table.tebals.wite tr:last-child td:last-child {
    zwischen Preisbox und Tabelle gleich wie mit Badge.
    Der Container .pd_infobox bekommt einen festen margin-top. */
 .pd_infobox {
-  margin-top: 0.75rem;
+  margin-top: 0.25rem;
 }
 /* Wenn Badge sichtbar ist, hat .picto.templatestyle bereits margin-bottom.
    Wenn Badge .off ist (display:none), sorgt .pd_infobox margin-top für Abstand. */
@@ -1614,7 +1614,7 @@ table.tebals.wite tr:last-child td:last-child {
   font-family: var(--tpl-font-text), sans-serif;
   padding: 8px 16px;
   border-radius: var(--mrh-tbl-radius);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   line-height: 1.3;
 }
 .mrh-sex-badge .fa {
