@@ -9,15 +9,26 @@
   'use strict';
 
   function createSexBadge() {
-    /* ── Produktdaten-Tabelle finden (zweite .tebals.wite) ── */
+    /* ── Produktdaten-Tabelle finden: diejenige mit tr.fem / tr.reg ── */
     var tables = document.querySelectorAll('table.tebals.wite');
-    var dataTable = tables.length > 1 ? tables[1] : tables[0];
+    var dataTable = null;
+    var femRow = null;
+    var regRow = null;
+
+    for (var i = 0; i < tables.length; i++) {
+      var f = tables[i].querySelector('tr.fem');
+      var r = tables[i].querySelector('tr.reg');
+      if (f || r) {
+        dataTable = tables[i];
+        femRow = f;
+        regRow = r;
+        break;
+      }
+    }
+
     if (!dataTable) return;
 
-    /* ── Typ erkennen: fem, reg oder aut ── */
-    var femRow = dataTable.querySelector('tr.fem');
-    var regRow = dataTable.querySelector('tr.reg');
-    /* Autoflowering wird bereits über .picto.templatestyle (ohne .off) gehandelt */
+    /* ── Autoflowering-Picto prüfen ── */
     var picto = document.querySelector('.picto.templatestyle');
     var pictoHasOff = picto && picto.classList.contains('off');
     var pictoHasAuto = picto && !pictoHasOff && picto.querySelector('.shortfongc, .fa-tachometer');
@@ -32,7 +43,6 @@
 
     if (femRow) {
       type = 'fem';
-      /* Text aus der Wert-Spalte lesen (automatisch mehrsprachig) */
       var lastTd = femRow.querySelector('td:last-child');
       label = lastTd ? lastTd.textContent.trim() : 'Feminisiert';
       icon = 'fa-venus';
@@ -53,14 +63,10 @@
     badge.innerHTML = '<span class="fa fa-fw ' + icon + '"></span> ' + label;
 
     /* ── Badge vor der Tabelle einfügen ── */
-    /* Ziel: In den Container .bg-custom.teabls, vor der Tabelle */
     var container = dataTable.closest('.bg-custom.teabls') || dataTable.parentElement;
     if (container) {
       container.insertBefore(badge, dataTable);
     }
-
-    /* ── Wenn .picto.templatestyle.off ist, diesen nicht stören ── */
-    /* Der neue Badge ersetzt visuell den fehlenden Picto-Badge */
   }
 
   /* DOM Ready */
