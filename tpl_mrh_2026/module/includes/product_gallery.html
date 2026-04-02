@@ -22,7 +22,7 @@
   - $MANUFACTURER_IMAGE, $MANUFACTURER_LINK, $MANUFACTURER
   - $SOCIALMEDIA_BUTTON
   
-  Stand: 2026-04-02 | v2 – Inner-Zoom statt Flyout
+  Stand: 2026-04-02 | v3 – Inner-Zoom, popup_images statt original_images (403 Fix)
 *}
 
 {* ── Schema.org ImageGallery (versteckt) ── *}
@@ -49,11 +49,11 @@
   <div class="mrh-gallery-main mb-3" id="mrhGalleryMain">
     {* Inner-Zoom Container *}
     <div class="mrh-zoom-container" id="mrhZoomContainer"
-         data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}">
+         data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
       <img class="mrh-zoom-img img-fluid rounded" 
            id="mrhMainImage"
            src="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
-           data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
+           data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
            alt="{$PRODUCTS_NAME|onlytext}"
            title="{$PRODUCTS_NAME|onlytext}"
            itemprop="image"
@@ -80,7 +80,7 @@
     {* Erstes Thumbnail = Hauptbild *}
     <button type="button" class="mrh-thumb-btn active" 
             data-popup="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
-            data-original="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
+            data-original="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
             data-title="{$PRODUCTS_NAME|onlytext}"
             aria-label="Bild 1" aria-pressed="true">
       {if $smarty.const.PICTURESET_ACTIVE === true}
@@ -97,7 +97,7 @@
       {if $more_images_data.PRODUCTS_IMAGE != ''}
         <button type="button" class="mrh-thumb-btn"
                 data-popup="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
-                data-original="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
+                data-original="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
                 data-title="{$PRODUCTS_NAME|onlytext}"
                 aria-label="Bild {$zaehl}" aria-pressed="false">
           {if $smarty.const.PICTURESET_ACTIVE === true}
