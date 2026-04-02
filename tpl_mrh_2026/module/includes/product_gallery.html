@@ -4,7 +4,7 @@
   Vanilla JS | Kein jQuery | Kein EasyZoom
   
   Features:
-  - Hover-Zoom (Desktop): Lupe/Flyout über dem Hauptbild
+  - Inner-Zoom (Desktop): Zoom direkt im Bildcontainer (EasyZoom-Stil)
   - Thumbnail-Wechsel per Hover (Desktop) / Tap (Mobile)
   - Fullscreen-Lightbox mit Prev/Next, Keyboard, Touch-Swipe
   - Schema.org ImageGallery Microdata
@@ -22,7 +22,7 @@
   - $MANUFACTURER_IMAGE, $MANUFACTURER_LINK, $MANUFACTURER
   - $SOCIALMEDIA_BUTTON
   
-  Stand: 2026-04-01
+  Stand: 2026-04-02 | v2 – Inner-Zoom statt Flyout
 *}
 
 {* ── Schema.org ImageGallery (versteckt) ── *}
@@ -43,12 +43,13 @@
 {/if}
 
 {* ══════════════════════════════════════════════════════════════
-   HAUPTBILD MIT HOVER-ZOOM
+   HAUPTBILD MIT INNER-ZOOM (EasyZoom-Stil)
    ══════════════════════════════════════════════════════════════ *}
 {if $PRODUCTS_IMAGE != ''}
   <div class="mrh-gallery-main mb-3" id="mrhGalleryMain">
-    {* Zoom-Container *}
-    <div class="mrh-zoom-container" id="mrhZoomContainer">
+    {* Inner-Zoom Container *}
+    <div class="mrh-zoom-container" id="mrhZoomContainer"
+         data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}">
       <img class="mrh-zoom-img img-fluid rounded" 
            id="mrhMainImage"
            src="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
@@ -58,16 +59,10 @@
            itemprop="image"
            width="600" height="600"
            loading="eager" />
-      {* Zoom-Lens (Desktop) *}
-      <div class="mrh-zoom-lens" id="mrhZoomLens" aria-hidden="true"></div>
       {* Zoom-Hinweis *}
       <div class="mrh-zoom-hint" id="mrhZoomHint">
         <span class="fa fa-search-plus"></span>
       </div>
-    </div>
-    {* Zoom-Flyout (Desktop: rechts neben Bild) *}
-    <div class="mrh-zoom-flyout" id="mrhZoomFlyout" aria-hidden="true">
-      <img id="mrhZoomFlyoutImg" src="" alt="" />
     </div>
     {* Fullscreen-Trigger *}
     <button type="button" class="mrh-gallery-fullscreen-btn" id="mrhGalleryFullscreenBtn" 
@@ -187,52 +182,19 @@
   display: block;
   width: 100%;
   height: auto;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 
-/* Zoom-Lens (Quadrat das der Maus folgt) */
-.mrh-zoom-lens {
-  display: none;
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  border: 2px solid var(--mrh-green, #16A34A);
-  border-radius: 4px;
-  background: rgba(22, 163, 74, 0.08);
-  pointer-events: none;
-  z-index: 5;
-  transition: opacity 0.15s ease;
+/* Inner-Zoom: Bild ausblenden wenn gezoomt */
+.mrh-zoom-container.is-zooming img.mrh-zoom-img {
+  opacity: 0;
 }
 
-.mrh-zoom-container.is-zooming .mrh-zoom-lens {
-  display: block;
-}
-
-/* Zoom-Flyout (rechts neben dem Bild) */
-.mrh-zoom-flyout {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: calc(100% + 16px);
-  width: 400px;
-  height: 400px;
-  border: 1px solid var(--mrh-border, #E2E8F0);
-  border-radius: var(--mrh-radius-lg, 0.75rem);
-  background: #fff;
-  overflow: hidden;
-  z-index: 100;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-  pointer-events: none;
-}
-
-.mrh-zoom-container.is-zooming ~ .mrh-zoom-flyout {
-  display: block;
-}
-
-.mrh-zoom-flyout img {
-  position: absolute;
-  max-width: none;
-  max-height: none;
+/* Inner-Zoom: Hintergrundbild zeigt gezoomte Version */
+.mrh-zoom-container.is-zooming {
+  background-size: var(--zoom-bg-width, 200%) var(--zoom-bg-height, 200%);
+  background-repeat: no-repeat;
+  background-position: var(--zoom-bg-x, center) var(--zoom-bg-y, center);
 }
 
 /* Zoom-Hint Icon */
@@ -428,14 +390,18 @@
 
 /* ── Mobile Anpassungen ── */
 @media (max-width: 991.98px) {
-  /* Kein Flyout-Zoom auf Tablet/Mobile */
-  .mrh-zoom-flyout,
-  .mrh-zoom-lens,
-  .mrh-zoom-hint {
-    display: none !important;
-  }
+  /* Kein Inner-Zoom auf Tablet/Mobile – Tap öffnet Lightbox */
   .mrh-zoom-container {
     cursor: pointer;
+  }
+  .mrh-zoom-container.is-zooming img.mrh-zoom-img {
+    opacity: 1;
+  }
+  .mrh-zoom-container.is-zooming {
+    background-image: none !important;
+  }
+  .mrh-zoom-hint {
+    display: none !important;
   }
 }
 
@@ -453,8 +419,6 @@
 
 /* ── Print ── */
 @media print {
-  .mrh-zoom-flyout,
-  .mrh-zoom-lens,
   .mrh-zoom-hint,
   .mrh-gallery-fullscreen-btn,
   .mrh-lightbox,
@@ -465,7 +429,7 @@
 </style>
 
 {* ══════════════════════════════════════════════════════════════
-   SCRIPT – Vanilla JS Galerie
+   SCRIPT – Vanilla JS Galerie mit Inner-Zoom
    ══════════════════════════════════════════════════════════════ *}
 <script>
 (function() {
@@ -474,9 +438,6 @@
   /* ── DOM-Referenzen ── */
   var mainImage     = document.getElementById('mrhMainImage');
   var zoomContainer = document.getElementById('mrhZoomContainer');
-  var zoomLens      = document.getElementById('mrhZoomLens');
-  var zoomFlyout    = document.getElementById('mrhZoomFlyout');
-  var flyoutImg     = document.getElementById('mrhZoomFlyoutImg');
   var fullscreenBtn = document.getElementById('mrhGalleryFullscreenBtn');
   var thumbsWrap    = document.getElementById('mrhGalleryThumbs');
 
@@ -535,7 +496,7 @@
       }, isMobile ? 0 : 80);
     }, true);
 
-    /* Auf Mobile auch Click */
+    /* Auf Desktop auch Click */
     if (!isMobile) {
       thumbsWrap.addEventListener('click', function(e) {
         var btn = e.target.closest('.mrh-thumb-btn');
@@ -555,6 +516,14 @@
     mainImage.src = popup;
     mainImage.setAttribute('data-zoom-src', original || popup);
 
+    /* Zoom-Src auf Container aktualisieren */
+    if (zoomContainer) {
+      zoomContainer.setAttribute('data-zoom-src', original || popup);
+      zoomContainer.style.backgroundImage = '';
+      zoomContainer.classList.remove('is-zooming');
+      zoomImageLoaded = false;
+    }
+
     /* Active-State */
     if (thumbsWrap) {
       thumbsWrap.querySelectorAll('.mrh-thumb-btn').forEach(function(b, i) {
@@ -564,84 +533,83 @@
         if (isActive) currentIndex = i;
       });
     }
-
-    /* Flyout-Bild vorladen */
-    if (flyoutImg && !isMobile) {
-      flyoutImg.src = original || popup;
-    }
   }
 
   /* ══════════════════════════════════════════════════════════
-     HOVER-ZOOM (nur Desktop)
+     INNER-ZOOM (EasyZoom-Stil, nur Desktop)
      ══════════════════════════════════════════════════════════ */
-  if (zoomContainer && zoomLens && zoomFlyout && flyoutImg && !isMobile) {
-    var zoomRatio = 2.5;
-    var flyoutW = 400;
-    var flyoutH = 400;
-    var lensW = 150;
-    var lensH = 150;
-    var zoomReady = false;
+  var zoomImageLoaded = false;
+  var zoomNatW = 0;
+  var zoomNatH = 0;
 
-    /* Original-Bild vorladen */
-    function preloadZoomImage() {
-      var zoomSrc = mainImage.getAttribute('data-zoom-src') || mainImage.src;
-      if (flyoutImg.src !== zoomSrc) {
-        flyoutImg.src = zoomSrc;
-      }
-      flyoutImg.onload = function() {
-        zoomReady = true;
-        /* Ratio berechnen basierend auf tatsächlicher Bildgröße */
-        var imgRect = mainImage.getBoundingClientRect();
-        var natW = flyoutImg.naturalWidth;
-        var natH = flyoutImg.naturalHeight;
-        if (natW > 0 && imgRect.width > 0) {
-          zoomRatio = natW / imgRect.width;
-          /* Lens-Größe anpassen */
-          lensW = Math.round(flyoutW / zoomRatio);
-          lensH = Math.round(flyoutH / zoomRatio);
-          zoomLens.style.width = lensW + 'px';
-          zoomLens.style.height = lensH + 'px';
-          /* Flyout-Bild Größe */
-          flyoutImg.style.width = natW + 'px';
-          flyoutImg.style.height = natH + 'px';
-        }
+  if (zoomContainer && !isMobile) {
+
+    /* Zoom-Bild vorladen */
+    function preloadZoomImage(callback) {
+      var zoomSrc = zoomContainer.getAttribute('data-zoom-src') || mainImage.getAttribute('data-zoom-src') || mainImage.src;
+      var preloader = new Image();
+      preloader.onload = function() {
+        zoomNatW = preloader.naturalWidth;
+        zoomNatH = preloader.naturalHeight;
+        zoomContainer.style.backgroundImage = 'url("' + zoomSrc + '")';
+        zoomImageLoaded = true;
+        if (callback) callback();
       };
+      preloader.src = zoomSrc;
     }
 
     zoomContainer.addEventListener('mouseenter', function() {
-      preloadZoomImage();
-      zoomContainer.classList.add('is-zooming');
+      if (!zoomImageLoaded) {
+        preloadZoomImage(function() {
+          zoomContainer.classList.add('is-zooming');
+        });
+      } else {
+        zoomContainer.classList.add('is-zooming');
+      }
     });
 
     zoomContainer.addEventListener('mouseleave', function() {
       zoomContainer.classList.remove('is-zooming');
-      zoomReady = false;
     });
 
     zoomContainer.addEventListener('mousemove', function(e) {
-      if (!zoomReady) return;
+      if (!zoomImageLoaded) return;
 
-      var rect = mainImage.getBoundingClientRect();
-      var x = e.clientX - rect.left;
-      var y = e.clientY - rect.top;
+      var rect = zoomContainer.getBoundingClientRect();
+      /* Mausposition als Prozent (0-100) */
+      var xPct = ((e.clientX - rect.left) / rect.width) * 100;
+      var yPct = ((e.clientY - rect.top) / rect.height) * 100;
 
-      /* Lens-Position (zentriert auf Maus) */
-      var lensX = x - lensW / 2;
-      var lensY = y - lensH / 2;
+      /* Begrenzen auf 0-100 */
+      xPct = Math.max(0, Math.min(100, xPct));
+      yPct = Math.max(0, Math.min(100, yPct));
 
-      /* Lens innerhalb des Bildes halten */
-      lensX = Math.max(0, Math.min(lensX, rect.width - lensW));
-      lensY = Math.max(0, Math.min(lensY, rect.height - lensH));
+      /* Zoom-Faktor berechnen (wie groß das Hintergrundbild relativ zum Container ist) */
+      var zoomFactor = Math.max(2, zoomNatW / rect.width);
+      /* Begrenzen auf max 4x */
+      zoomFactor = Math.min(4, zoomFactor);
 
-      zoomLens.style.left = lensX + 'px';
-      zoomLens.style.top = lensY + 'px';
+      var bgW = zoomFactor * 100;
+      var bgH = zoomFactor * 100;
 
-      /* Flyout-Bild verschieben (invertiert) */
-      var fxRatio = flyoutImg.naturalWidth / rect.width;
-      var fyRatio = flyoutImg.naturalHeight / rect.height;
+      /* CSS Custom Properties setzen für smooth rendering */
+      zoomContainer.style.setProperty('--zoom-bg-width', bgW + '%');
+      zoomContainer.style.setProperty('--zoom-bg-height', bgH + '%');
+      zoomContainer.style.setProperty('--zoom-bg-x', xPct + '%');
+      zoomContainer.style.setProperty('--zoom-bg-y', yPct + '%');
+    });
 
-      flyoutImg.style.left = -(lensX * fxRatio) + 'px';
-      flyoutImg.style.top = -(lensY * fyRatio) + 'px';
+    /* Klick öffnet Lightbox */
+    zoomContainer.addEventListener('click', function(e) {
+      e.preventDefault();
+      openLightbox(currentIndex);
+    });
+
+  } else if (zoomContainer && isMobile) {
+    /* Mobile: Tap öffnet Lightbox */
+    zoomContainer.addEventListener('click', function(e) {
+      e.preventDefault();
+      openLightbox(currentIndex);
     });
   }
 
@@ -689,23 +657,6 @@
   if (fullscreenBtn) {
     fullscreenBtn.addEventListener('click', function() {
       openLightbox(currentIndex);
-    });
-  }
-
-  /* Hauptbild-Klick: Mobile → Lightbox, Desktop → auch Lightbox */
-  if (zoomContainer) {
-    zoomContainer.addEventListener('click', function(e) {
-      if (isMobile) {
-        e.preventDefault();
-        openLightbox(currentIndex);
-      }
-    });
-    /* Desktop: Doppelklick öffnet Lightbox */
-    zoomContainer.addEventListener('dblclick', function(e) {
-      if (!isMobile) {
-        e.preventDefault();
-        openLightbox(currentIndex);
-      }
     });
   }
 
