@@ -1,7 +1,7 @@
 {config_load file="$language/lang_$language.conf" section="boxes"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="account"}
-{* MRH 2026: Login-Box mit Partnerlogin (mehrsprachig) – BS5.3 *}
+{* MRH 2026: Login-Box mit Partnerlogin + Affiliate-Navigation (mehrsprachig) – BS5.3 *}
 
 {if isset($smarty.session.customer_id)}
   <div class="toggle_headline">
@@ -117,4 +117,67 @@
     </ul>
 
   {/if}
+{/if}
+
+{* ================================================================
+   AFFILIATE-NAVIGATION: Wird angezeigt wenn Partner eingeloggt ist
+   Session-Variable: smarty.session.affiliate_id
+   ================================================================ *}
+{if isset($smarty.session.affiliate_id)}
+  <hr class="my-3" style="border-color: rgba(0,0,0,.1);">
+  <div class="toggle_headline">
+    <i class="fa-solid fa-handshake me-1"></i> {#title_accountbox_affiliate_login#}
+  </div>
+  <ul class="list-unstyled offCanvas--list">
+    <li>
+      <a href="affiliate_summary.php" title="{#title_nav_affiliate_dashboard#}">
+        <span class="icon"><i class="fa-solid fa-chart-line"></i></span><span class="title">{#title_nav_affiliate_dashboard#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_details.php" title="{#title_nav_affiliate_account#}">
+        <span class="icon"><i class="fa-solid fa-user-tie"></i></span><span class="title">{#title_nav_affiliate_account#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_payment.php" title="{#title_nav_affiliate_payment#}">
+        <span class="icon"><i class="fa-solid fa-money-bill-transfer"></i></span><span class="title">{#title_nav_affiliate_payment#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_clicks.php" title="{#title_nav_affiliate_clicks#}">
+        <span class="icon"><i class="fa-solid fa-arrow-pointer"></i></span><span class="title">{#title_nav_affiliate_clicks#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_sales.php" title="{#title_nav_affiliate_sales#}">
+        <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span><span class="title">{#title_nav_affiliate_sales#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_banners.php?type=b" title="{#title_nav_affiliate_banners#}">
+        <span class="icon"><i class="fa-solid fa-image"></i></span><span class="title">{#title_nav_affiliate_banners#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_banners.php?type=t" title="{#title_nav_affiliate_textlinks#}">
+        <span class="icon"><i class="fa-solid fa-link"></i></span><span class="title">{#title_nav_affiliate_textlinks#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_contact.php" title="{#title_nav_affiliate_contact#}">
+        <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="title">{#title_nav_affiliate_contact#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="index.php?content=902" title="{#title_nav_affiliate_faq#}">
+        <span class="icon"><i class="fa-solid fa-circle-question"></i></span><span class="title">{#title_nav_affiliate_faq#}</span>
+      </a>
+    </li>
+    <li>
+      <a href="affiliate_logout.php" title="{#title_nav_affiliate_logout#}">
+        <span class="icon"><i class="fa-solid fa-right-from-bracket text-danger"></i></span><span class="title">{#title_nav_affiliate_logout#}</span>
+      </a>
+    </li>
+  </ul>
 {/if}

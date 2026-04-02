@@ -36,6 +36,16 @@ title_accountbox_create_guest = 'Cr&eacute;er un compte d\'invit&eacute;'
 title_accountbox_password_forgotten = 'Mot de passe oubli&eacute; ?'
 title_accountbox_login_success = 'Bienvenue &agrave; tous'
 title_accountbox_affiliate_login = 'Connexion partenaire'
+title_nav_affiliate_dashboard = 'Tableau de bord partenaire'
+title_nav_affiliate_account = 'Compte partenaire'
+title_nav_affiliate_payment = 'Paiements'
+title_nav_affiliate_clicks = 'Statistiques de clics'
+title_nav_affiliate_sales = 'Ventes'
+title_nav_affiliate_banners = 'Banni&egrave;res'
+title_nav_affiliate_textlinks = 'Liens texte'
+title_nav_affiliate_contact = 'Contact'
+title_nav_affiliate_faq = 'FAQ'
+title_nav_affiliate_logout = 'D&eacute;connexion partenaire'
 
 
 [address_book_process]

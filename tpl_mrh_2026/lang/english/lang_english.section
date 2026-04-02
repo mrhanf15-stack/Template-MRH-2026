@@ -36,6 +36,16 @@ title_accountbox_create_guest = 'Create guest account'
 title_accountbox_password_forgotten = 'Forgot Password?'
 title_accountbox_login_success = 'Welcome'
 title_accountbox_affiliate_login = 'Partner Login'
+title_nav_affiliate_dashboard = 'Partner Dashboard'
+title_nav_affiliate_account = 'Partner Account'
+title_nav_affiliate_payment = 'Payments'
+title_nav_affiliate_clicks = 'Click Statistics'
+title_nav_affiliate_sales = 'Sales'
+title_nav_affiliate_banners = 'Banners'
+title_nav_affiliate_textlinks = 'Text Links'
+title_nav_affiliate_contact = 'Contact'
+title_nav_affiliate_faq = 'FAQ'
+title_nav_affiliate_logout = 'Partner Logout'
 
 
 [address_book_process]
