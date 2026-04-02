@@ -76,8 +76,114 @@
     <div class="col-12 col-lg-6">
       <div class="mrh-gallery position-lg-sticky" style="top: 5rem;">
 
-        {* ── Bildergalerie Include (Hover-Zoom, Lightbox, Thumbnails) ── *}
-        {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/product_gallery.html"}
+        {* ══════════════════════════════════════════════════════════════
+           BILDERGALERIE – Hover-Zoom, Lightbox, Thumbnails (Vanilla JS)
+           ══════════════════════════════════════════════════════════════ *}
+
+        {* ── Schema.org ImageGallery (versteckt) ── *}
+        {if $PRODUCTS_IMAGE != ''}
+          <div style="display:none;" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+            <meta itemprop="name" content="product_images">
+            <div itemprop="value" itemscope itemtype="https://schema.org/ImageGallery">
+              <meta itemprop="thumbnail" content="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
+              {if isset($more_images)}
+                {foreach item=more_images_data from=$more_images}
+                  {if $more_images_data.PRODUCTS_IMAGE != ''}
+                    <meta itemprop="thumbnail" content="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
+                  {/if}
+                {/foreach}
+              {/if}
+            </div>
+          </div>
+        {/if}
+
+        {* ── Hauptbild mit Hover-Zoom ── *}
+        {if $PRODUCTS_IMAGE != ''}
+          <div class="mrh-gallery-main mb-3" id="mrhGalleryMain">
+            <div class="mrh-zoom-container" id="mrhZoomContainer">
+              <img class="mrh-zoom-img img-fluid rounded" 
+                   id="mrhMainImage"
+                   src="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
+                   data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
+                   alt="{$PRODUCTS_NAME|onlytext}"
+                   title="{$PRODUCTS_NAME|onlytext}"
+                   itemprop="image"
+                   width="600" height="600"
+                   loading="eager" />
+              <div class="mrh-zoom-lens" id="mrhZoomLens" aria-hidden="true"></div>
+              <div class="mrh-zoom-hint" id="mrhZoomHint">
+                <span class="fa fa-search-plus"></span>
+              </div>
+            </div>
+            <div class="mrh-zoom-flyout" id="mrhZoomFlyout" aria-hidden="true">
+              <img id="mrhZoomFlyoutImg" src="" alt="" />
+            </div>
+            <button type="button" class="mrh-gallery-fullscreen-btn" id="mrhGalleryFullscreenBtn" 
+                    aria-label="{#MRH_zoomtext#|default:'Bild vergrößern'}" title="{#MRH_zoomtext#|default:'Bild vergrößern'}">
+              <span class="fa fa-expand"></span>
+            </button>
+          </div>
+        {/if}
+
+        {* ── Thumbnails ── *}
+        {if isset($more_images) && count($more_images) > 0}
+          <div class="mrh-gallery-thumbs d-flex gap-2 flex-wrap mb-2" id="mrhGalleryThumbs">
+            <button type="button" class="mrh-thumb-btn active" 
+                    data-popup="{$PRODUCTS_IMAGE|replace:'info_':'popup_'}"
+                    data-original="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
+                    data-title="{$PRODUCTS_NAME|onlytext}"
+                    aria-label="Bild 1" aria-pressed="true">
+              {if $smarty.const.PICTURESET_ACTIVE === true}
+                <img src="{$PRODUCTS_IMAGE|replace:'info_':'midi_'}" alt="{$PRODUCTS_NAME|onlytext}" 
+                     loading="lazy" width="80" height="80" />
+              {else}
+                <img src="{$PRODUCTS_IMAGE|replace:'info_':'thumbnail_'}" alt="{$PRODUCTS_NAME|onlytext}" 
+                     loading="lazy" width="80" height="80" />
+              {/if}
+            </button>
+            {assign var=zaehl value=2}
+            {foreach key=i item=more_images_data from=$more_images}
+              {if $more_images_data.PRODUCTS_IMAGE != ''}
+                <button type="button" class="mrh-thumb-btn"
+                        data-popup="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
+                        data-original="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
+                        data-title="{$PRODUCTS_NAME|onlytext}"
+                        aria-label="Bild {$zaehl}" aria-pressed="false">
+                  {if $smarty.const.PICTURESET_ACTIVE === true}
+                    <img src="{$more_images_data.PRODUCTS_IMAGE|replace:'info_':'midi_'}" alt="{$PRODUCTS_NAME|onlytext}" 
+                         loading="lazy" width="80" height="80" />
+                  {else}
+                    <img src="{$more_images_data.PRODUCTS_IMAGE|replace:'info_':'thumbnail_'}" alt="{$PRODUCTS_NAME|onlytext}" 
+                         loading="lazy" width="80" height="80" />
+                  {/if}
+                </button>
+                {assign var=zaehl value=$zaehl+1}
+              {/if}
+            {/foreach}
+          </div>
+        {/if}
+
+        {* Zoom-Hinweistext *}
+        {if $PRODUCTS_IMAGE != ''}
+          <div class="small text-secondary mt-1 mb-3">
+            <span class="fa fa-search-plus me-1"></span>{#MRH_zoomtext#|default:'Hover für Zoom, Klick für Vollbild'}
+          </div>
+        {/if}
+
+        {* ── Hersteller-Logo (unter Bild) ── *}
+        {if isset($MANUFACTURER_LINK) && $MANUFACTURER_LINK != ''}
+          {if isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''}
+            <div class="text-center mb-3">
+              <a title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">
+                <img class="img-fluid" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER|onlytext}"
+                     style="max-width:120px" loading="lazy" />
+              </a>
+            </div>
+          {/if}
+        {/if}
+
+        {* ── Social Share ── *}
+        {if $SOCIALMEDIA_BUTTON != ''}{$SOCIALMEDIA_BUTTON}{/if}
 
       </div>
     </div>
@@ -524,8 +630,6 @@
    ══════════════════════════════════════════════════════════════ *}
 {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_product.html"}
 
-{* Galerie-Modal wurde nach module/includes/product_gallery.html verschoben *}
-
 {* ── eTrusted Widget ── *}
 {if $smarty.const.MRH_ETRUSTED_SHOW == 'true'}
   <div class="mt-2 mb-2">
@@ -534,9 +638,290 @@
 {/if}
 
 {* ══════════════════════════════════════════════════════════════
+   FULLSCREEN LIGHTBOX MODAL
+   ══════════════════════════════════════════════════════════════ *}
+<div class="mrh-lightbox-backdrop" id="mrhLightboxBackdrop" aria-hidden="true"></div>
+<div class="mrh-lightbox" id="mrhLightbox" role="dialog" aria-modal="true" aria-label="Bildergalerie" aria-hidden="true" tabindex="-1">
+  <div class="mrh-lightbox__header">
+    <span class="mrh-lightbox__counter" id="mrhLightboxCounter"></span>
+    <button type="button" class="mrh-lightbox__close" id="mrhLightboxClose" aria-label="Schließen">
+      <span class="fa fa-times"></span>
+    </button>
+  </div>
+  <div class="mrh-lightbox__body" id="mrhLightboxBody">
+    <button type="button" class="mrh-lightbox__nav mrh-lightbox__prev" id="mrhLightboxPrev" aria-label="Vorheriges Bild">
+      <span class="fa fa-chevron-left"></span>
+    </button>
+    <div class="mrh-lightbox__image-wrap" id="mrhLightboxImageWrap">
+      <img id="mrhLightboxImg" src="" alt="" />
+    </div>
+    <button type="button" class="mrh-lightbox__nav mrh-lightbox__next" id="mrhLightboxNext" aria-label="Nächstes Bild">
+      <span class="fa fa-chevron-right"></span>
+    </button>
+  </div>
+</div>
+
+{* ══════════════════════════════════════════════════════════════
    STYLES – Scoped via .mrh-
    ══════════════════════════════════════════════════════════════ *}
 <style>
+/* ── Gallery Main ── */
+.mrh-gallery-main {
+  position: relative;
+}
+
+.mrh-zoom-container {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--mrh-border, #E2E8F0);
+  border-radius: var(--mrh-radius-lg, 0.75rem);
+  background: var(--mrh-bg, #F8FAFC);
+  cursor: crosshair;
+}
+
+.mrh-zoom-container img.mrh-zoom-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: opacity 0.2s ease;
+}
+
+/* Zoom-Lens */
+.mrh-zoom-lens {
+  display: none;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 2px solid var(--mrh-green, #16A34A);
+  border-radius: 4px;
+  background: rgba(22, 163, 74, 0.08);
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.15s ease;
+}
+
+.mrh-zoom-container.is-zooming .mrh-zoom-lens {
+  display: block;
+}
+
+/* Zoom-Flyout */
+.mrh-zoom-flyout {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 16px);
+  width: 400px;
+  height: 400px;
+  border: 1px solid var(--mrh-border, #E2E8F0);
+  border-radius: var(--mrh-radius-lg, 0.75rem);
+  background: #fff;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+
+.mrh-zoom-container.is-zooming ~ .mrh-zoom-flyout {
+  display: block;
+}
+
+.mrh-zoom-flyout img {
+  position: absolute;
+  max-width: none;
+  max-height: none;
+}
+
+/* Zoom-Hint Icon */
+.mrh-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  color: var(--mrh-slate, #64748B);
+  font-size: 0.875rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.mrh-zoom-container.is-zooming .mrh-zoom-hint {
+  opacity: 0;
+}
+
+/* Fullscreen Button */
+.mrh-gallery-fullscreen-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  color: var(--mrh-slate, #64748B);
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.mrh-gallery-fullscreen-btn:hover {
+  background: var(--mrh-green, #16A34A);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* ── Thumbnails ── */
+.mrh-thumb-btn {
+  width: 72px;
+  height: 72px;
+  padding: 2px;
+  border: 2px solid var(--mrh-border, #E2E8F0);
+  border-radius: var(--mrh-radius, 0.5rem);
+  background: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mrh-thumb-btn:hover {
+  border-color: var(--mrh-slate-lt, #CBD5E1);
+}
+
+.mrh-thumb-btn.active {
+  border-color: var(--mrh-green, #16A34A);
+  box-shadow: 0 0 0 1px var(--mrh-green, #16A34A);
+}
+
+.mrh-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--mrh-radius, 0.5rem) - 4px);
+}
+
+/* ── Lightbox ── */
+.mrh-lightbox-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mrh-lightbox-backdrop.is-active {
+  display: block;
+  opacity: 1;
+}
+
+.mrh-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  flex-direction: column;
+}
+
+.mrh-lightbox.is-active {
+  display: flex;
+}
+
+.mrh-lightbox__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  flex-shrink: 0;
+}
+
+.mrh-lightbox__counter {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.mrh-lightbox__close {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mrh-lightbox__close:hover {
+  background: rgba(255,255,255,0.2);
+  color: #f87171;
+}
+
+.mrh-lightbox__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem 1rem;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.mrh-lightbox__image-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+.mrh-lightbox__image-wrap img {
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
+  object-fit: contain;
+  border-radius: 4px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.mrh-lightbox__nav {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.mrh-lightbox__nav:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+
 /* Trust Bar */
 .mrh-trust-bar .fa {
   display: block;
@@ -557,6 +942,289 @@
     position: sticky !important;
   }
 }
+
+/* ── Mobile Anpassungen ── */
+@media (max-width: 991.98px) {
+  .mrh-zoom-flyout,
+  .mrh-zoom-lens,
+  .mrh-zoom-hint {
+    display: none !important;
+  }
+  .mrh-zoom-container {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .mrh-thumb-btn {
+    width: 60px;
+    height: 60px;
+  }
+  .mrh-lightbox__nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* Print */
+@media print {
+  .mrh-zoom-flyout,
+  .mrh-zoom-lens,
+  .mrh-zoom-hint,
+  .mrh-gallery-fullscreen-btn,
+  .mrh-lightbox,
+  .mrh-lightbox-backdrop {
+    display: none !important;
+  }
+}
 </style>
 
-{* Galerie-Script wurde nach module/includes/product_gallery.html verschoben *}
+{* ══════════════════════════════════════════════════════════════
+   SCRIPT – Vanilla JS Galerie (Hover-Zoom, Thumbnails, Lightbox)
+   ══════════════════════════════════════════════════════════════ *}
+<script>
+(function() {
+  'use strict';
+
+  /* ── DOM-Referenzen ── */
+  var mainImage     = document.getElementById('mrhMainImage');
+  var zoomContainer = document.getElementById('mrhZoomContainer');
+  var zoomLens      = document.getElementById('mrhZoomLens');
+  var zoomFlyout    = document.getElementById('mrhZoomFlyout');
+  var flyoutImg     = document.getElementById('mrhZoomFlyoutImg');
+  var fullscreenBtn = document.getElementById('mrhGalleryFullscreenBtn');
+  var thumbsWrap    = document.getElementById('mrhGalleryThumbs');
+
+  var lightbox      = document.getElementById('mrhLightbox');
+  var lbBackdrop    = document.getElementById('mrhLightboxBackdrop');
+  var lbClose       = document.getElementById('mrhLightboxClose');
+  var lbPrev        = document.getElementById('mrhLightboxPrev');
+  var lbNext        = document.getElementById('mrhLightboxNext');
+  var lbImg         = document.getElementById('mrhLightboxImg');
+  var lbCounter     = document.getElementById('mrhLightboxCounter');
+
+  if (!mainImage) return;
+
+  /* ── Bilder-Array aufbauen ── */
+  var images = [];
+  var currentIndex = 0;
+  var isMobile = window.matchMedia('(max-width: 991.98px)').matches;
+
+  function collectImages() {
+    images = [];
+    if (thumbsWrap) {
+      var btns = thumbsWrap.querySelectorAll('.mrh-thumb-btn');
+      btns.forEach(function(btn) {
+        images.push({
+          popup: btn.getAttribute('data-popup') || '',
+          original: btn.getAttribute('data-original') || '',
+          title: btn.getAttribute('data-title') || ''
+        });
+      });
+    }
+    if (images.length === 0) {
+      images.push({
+        popup: mainImage.src,
+        original: mainImage.getAttribute('data-zoom-src') || mainImage.src,
+        title: mainImage.alt || ''
+      });
+    }
+  }
+  collectImages();
+
+  /* ── THUMBNAIL-WECHSEL ── */
+  if (thumbsWrap) {
+    var thumbTimeout = null;
+
+    thumbsWrap.addEventListener(isMobile ? 'click' : 'mouseenter', function(e) {
+      var btn = e.target.closest('.mrh-thumb-btn');
+      if (!btn) return;
+      clearTimeout(thumbTimeout);
+      thumbTimeout = setTimeout(function() {
+        switchImage(btn);
+      }, isMobile ? 0 : 80);
+    }, true);
+
+    if (!isMobile) {
+      thumbsWrap.addEventListener('click', function(e) {
+        var btn = e.target.closest('.mrh-thumb-btn');
+        if (!btn) return;
+        clearTimeout(thumbTimeout);
+        switchImage(btn);
+      });
+    }
+  }
+
+  function switchImage(btn) {
+    var popup = btn.getAttribute('data-popup');
+    var original = btn.getAttribute('data-original');
+    if (!popup) return;
+    mainImage.src = popup;
+    mainImage.setAttribute('data-zoom-src', original || popup);
+    if (thumbsWrap) {
+      thumbsWrap.querySelectorAll('.mrh-thumb-btn').forEach(function(b, i) {
+        var isActive = (b === btn);
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        if (isActive) currentIndex = i;
+      });
+    }
+    if (flyoutImg && !isMobile) {
+      flyoutImg.src = original || popup;
+    }
+  }
+
+  /* ── HOVER-ZOOM (nur Desktop) ── */
+  if (zoomContainer && zoomLens && zoomFlyout && flyoutImg && !isMobile) {
+    var zoomRatio = 2.5;
+    var flyoutW = 400;
+    var flyoutH = 400;
+    var lensW = 150;
+    var lensH = 150;
+    var zoomReady = false;
+
+    function preloadZoomImage() {
+      var zoomSrc = mainImage.getAttribute('data-zoom-src') || mainImage.src;
+      if (flyoutImg.src !== zoomSrc) {
+        flyoutImg.src = zoomSrc;
+      }
+      flyoutImg.onload = function() {
+        zoomReady = true;
+        var imgRect = mainImage.getBoundingClientRect();
+        var natW = flyoutImg.naturalWidth;
+        var natH = flyoutImg.naturalHeight;
+        if (natW > 0 && imgRect.width > 0) {
+          zoomRatio = natW / imgRect.width;
+          lensW = Math.round(flyoutW / zoomRatio);
+          lensH = Math.round(flyoutH / zoomRatio);
+          zoomLens.style.width = lensW + 'px';
+          zoomLens.style.height = lensH + 'px';
+          flyoutImg.style.width = natW + 'px';
+          flyoutImg.style.height = natH + 'px';
+        }
+      };
+    }
+
+    zoomContainer.addEventListener('mouseenter', function() {
+      preloadZoomImage();
+      zoomContainer.classList.add('is-zooming');
+    });
+
+    zoomContainer.addEventListener('mouseleave', function() {
+      zoomContainer.classList.remove('is-zooming');
+      zoomReady = false;
+    });
+
+    zoomContainer.addEventListener('mousemove', function(e) {
+      if (!zoomReady) return;
+      var rect = mainImage.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var lensX = x - lensW / 2;
+      var lensY = y - lensH / 2;
+      lensX = Math.max(0, Math.min(lensX, rect.width - lensW));
+      lensY = Math.max(0, Math.min(lensY, rect.height - lensH));
+      zoomLens.style.left = lensX + 'px';
+      zoomLens.style.top = lensY + 'px';
+      var fxRatio = flyoutImg.naturalWidth / rect.width;
+      var fyRatio = flyoutImg.naturalHeight / rect.height;
+      flyoutImg.style.left = -(lensX * fxRatio) + 'px';
+      flyoutImg.style.top = -(lensY * fyRatio) + 'px';
+    });
+  }
+
+  /* ── FULLSCREEN LIGHTBOX ── */
+  function openLightbox(index) {
+    if (!lightbox || !lbBackdrop) return;
+    if (index < 0) index = images.length - 1;
+    if (index >= images.length) index = 0;
+    currentIndex = index;
+    var img = images[currentIndex];
+    lbImg.src = img.original || img.popup;
+    lbImg.alt = img.title;
+    if (lbCounter) {
+      lbCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+    }
+    if (lbPrev) lbPrev.style.display = images.length > 1 ? '' : 'none';
+    if (lbNext) lbNext.style.display = images.length > 1 ? '' : 'none';
+    lbBackdrop.classList.add('is-active');
+    lightbox.classList.add('is-active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lightbox.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lbBackdrop) return;
+    lbBackdrop.classList.remove('is-active');
+    lightbox.classList.remove('is-active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function navigateLightbox(dir) {
+    openLightbox(currentIndex + dir);
+  }
+
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', function() {
+      openLightbox(currentIndex);
+    });
+  }
+
+  if (zoomContainer) {
+    zoomContainer.addEventListener('click', function(e) {
+      if (isMobile) {
+        e.preventDefault();
+        openLightbox(currentIndex);
+      }
+    });
+    zoomContainer.addEventListener('dblclick', function(e) {
+      if (!isMobile) {
+        e.preventDefault();
+        openLightbox(currentIndex);
+      }
+    });
+  }
+
+  if (lbClose) lbClose.addEventListener('click', closeLightbox);
+  if (lbBackdrop) lbBackdrop.addEventListener('click', closeLightbox);
+  if (lbPrev) lbPrev.addEventListener('click', function() { navigateLightbox(-1); });
+  if (lbNext) lbNext.addEventListener('click', function() { navigateLightbox(1); });
+
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox || !lightbox.classList.contains('is-active')) return;
+    if (e.key === 'Escape') { closeLightbox(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { navigateLightbox(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { navigateLightbox(1); e.preventDefault(); }
+  });
+
+  if (lightbox) {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    lightbox.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', function(e) {
+      var diffX = e.changedTouches[0].screenX - touchStartX;
+      var diffY = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) navigateLightbox(-1);
+        else navigateLightbox(1);
+      }
+    }, { passive: true });
+  }
+
+  var resizeTimeout;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+      isMobile = window.matchMedia('(max-width: 991.98px)').matches;
+    }, 250);
+  }, { passive: true });
+
+})();
+</script>
