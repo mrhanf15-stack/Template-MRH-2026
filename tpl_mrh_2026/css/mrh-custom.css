@@ -1643,3 +1643,67 @@ table.tebals.wite tr:last-child td:last-child {
   }
 }
 
+
+/* ============================================================
+   15t MRH HERSTELLER-LOGO OVERLAY – Produktbild links oben
+   ============================================================ */
+.mrh-mfg-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 8px;
+  padding: 5px 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  max-width: 120px;
+}
+.mrh-mfg-overlay:hover {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.mrh-mfg-overlay a {
+  display: block;
+  text-decoration: none;
+}
+.mrh-mfg-overlay img {
+  display: block;
+  max-width: 100%;
+  max-height: 40px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+/* Produktbild-Container braucht position:relative fuer das Overlay */
+.pd_big_image {
+  position: relative;
+}
+@media (max-width: 767px) {
+  .mrh-mfg-overlay {
+    top: 6px;
+    left: 6px;
+    max-width: 80px;
+    padding: 3px 5px;
+  }
+  .mrh-mfg-overlay img {
+    max-height: 28px;
+  }
+}
+
+/* ============================================================
+   15u MRH HERSTELLER-ZEILE – Tabelle fix
+   ============================================================ */
+.tebals.wite tr[itemprop="brand"] td.zentriert {
+  text-align: left;
+}
+.tebals.wite tr[itemprop="brand"] .Uthumbnail {
+  color: var(--mrh-tbl-value, #1e293b);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.tebals.wite tr[itemprop="brand"] .Uthumbnail:hover {
+  color: var(--tpl-main-color, #4a8c2a);
+  text-decoration: underline;
+}
