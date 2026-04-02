@@ -1,15 +1,19 @@
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_details_ok"}
-{* MRH 2026: Affiliate Details OK – BS5.3 *}
-<div class="mrh-affiliate-details-ok">
-  <div class="card mb-4">
-    <div class="card-body">
-      <div class="alert alert-success mb-3">
-        <span class="fa fa-check-circle me-1" aria-hidden="true"></span>{#text_information#}
-      </div>
-      <p class="text-body-secondary">{#text_details_saved#}</p>
+{* MRH 2026: Affiliate Details Ok – BS5.3 *}
+
+<div class="card">
+    <div class="card-header">
+        <h4><span class="fas fa-check-circle"></span> {#heading_title#}</h4>
     </div>
-  </div>
-  <div class="text-end">
-    <a href="{$LINK_SUMMARY}" class="btn btn-primary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_continue#}</a>
-  </div>
+    <div class="card-body">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Erfolg!</h4>
+            <p>Deine Daten wurden erfolgreich aktualisiert. Du kannst nun mit den neuen Informationen fortfahren.</p>
+            <hr>
+            <p class="mb-0">Bei Fragen oder Problemen, kontaktiere uns bitte.</p>
+        </div>
+        <div class="text-end mt-3">
+            <a href="{$LINK_SUMMARY}" class="btn btn-primary"><span class="fas fa-arrow-left"></span> Zurück zur Übersicht</a>
+        </div>
+    </div>
 </div>

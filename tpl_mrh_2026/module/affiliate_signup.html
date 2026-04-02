@@ -1,19 +1,53 @@
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_signup"}
-{* MRH 2026: Affiliate Registrierung – BS5.3 *}
-<div class="mrh-affiliate-signup">
-  <h1 class="mrh-page-title">{#heading_title#}</h1>
-  <p class="text-body-secondary mb-4">{#text_information#}</p>
-  {$FORM_ACTION}
-  {$HIDDEN_ACTION}
-  {$main_content}
-  <div class="text-end mt-3 mb-3">
-    {$BUTTON_SUBMIT}
-  </div>
-  {$FORM_END}
-  <div class="card mt-4 border-info">
+{* MRH 2026: Affiliate Signup – BS5.3 *}
+<h1 class="card p-2 bg-h">{#heading_title#}</h1>
+
+{* ================================================================ *}
+{* REGISTRIERUNGS-INFO                                              *}
+{* ================================================================ *}
+<div class="card mb-4 border-success">
     <div class="card-body">
-      <h2 class="h6"><span class="fa fa-rss text-warning me-2" aria-hidden="true"></span>{#text_signup_feed_title#}</h2>
-      <p class="mb-0 small">{#text_signup_feed_desc#}</p>
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3><span class="fas fa-user-plus"></span> {#text_signup_welcome#}</h3>
+                <p>{#text_signup_welcome_desc#}</p>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-body-tertiary">
+                    <div class="card-body text-center">
+                        <h5><span class="fas fa-gift"></span> {#text_signup_benefits_title#}</h5>
+                        <ul class="list-unstyled text-start mb-0">
+                            <li><span class="fas fa-check text-success"></span> {#text_signup_benefit1#}</li>
+                            <li><span class="fas fa-check text-success"></span> {#text_signup_benefit2#}</li>
+                            <li><span class="fas fa-check text-success"></span> {#text_signup_benefit3#}</li>
+                            <li><span class="fas fa-check text-success"></span> {#text_signup_benefit4#}</li>
+                            <li><span class="fas fa-check text-success"></span> {#text_signup_benefit5#}</li>
+                            <li><span class="fas fa-check text-success"></span> {#text_signup_benefit6#}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+
+{* ================================================================ *}
+{* REGISTRIERUNGSFORMULAR                                           *}
+{* ================================================================ *}
+{$FORM_ACTION}
+{$HIDDEN_ACTION}
+{$main_content}
+<div class="text-end mt-3 mb-3">
+    {$BUTTON_SUBMIT}
+</div>
+{$FORM_END}
+
+{* ================================================================ *}
+{* FEED-HINWEIS NACH REGISTRIERUNG                                  *}
+{* ================================================================ *}
+<div class="card mt-4 border-info">
+    <div class="card-body">
+        <h5><span class="fas fa-rss text-warning"></span> {#text_signup_feed_title#}</h5>
+        <p class="mb-0">{#text_signup_feed_desc#}</p>
+    </div>
 </div>

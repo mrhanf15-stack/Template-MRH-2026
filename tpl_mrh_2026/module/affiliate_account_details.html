@@ -1,106 +1,208 @@
+{config_load file="$language/lang_$language.conf" section="create_account"}
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_account_details"}
-{* MRH 2026: Affiliate Kontodetails – BS5.3 *}
-<div class="mrh-affiliate-account">
-  <h1 class="mrh-page-title">{#heading_title#}</h1>
-  {$FORM_ACTION}
-  {$HIDDEN_ACTION}
-  {* Persönliche Daten *}
-  <div class="card mb-4">
-    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-user me-2" aria-hidden="true"></span>{#category_personal#}</h2></div>
-    <div class="card-body">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label">{#entry_firstname#}</label>
-          {$INPUT_FIRSTNAME|replace:'class="':'class="form-control '}
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{#entry_lastname#}</label>
-          {$INPUT_LASTNAME|replace:'class="':'class="form-control '}
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{#entry_email_address#}</label>
-          {$INPUT_EMAIL|replace:'class="':'class="form-control '}
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{#entry_telephone#}</label>
-          {$INPUT_TELEPHONE|replace:'class="':'class="form-control '}
-        </div>
-      </div>
-    </div>
-  </div>
-  {* Firmenadresse *}
-  <div class="card mb-4">
-    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-building me-2" aria-hidden="true"></span>{#category_company#}</h2></div>
-    <div class="card-body">
-      <div class="row g-3">
-        {if isset($INPUT_COMPANY)}
-          <div class="col-md-6">
-            <label class="form-label">{#entry_company#}</label>
-            {$INPUT_COMPANY|replace:'class="':'class="form-control '}
-          </div>
-        {/if}
+{* MRH 2026: Affiliate Account Details – BS5.3, Inline CSS ausgelagert in affiliate.css *}
+<link rel="stylesheet" href="{$tpl_path}css/affiliate.css?v=20260402">
+
+<div class="affiliate-account">
+    <div class="row mb-3">
         <div class="col-12">
-          <label class="form-label">{#entry_street_address#}</label>
-          {$INPUT_STREET|replace:'class="':'class="form-control '}
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title"><span class="fas fa-info-circle me-2"></span>{#heading_account_info#}</h1>
+                </div>
+                <div class="card-body">
+                    <p>{#text_account_info_desc#}</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">{#entry_postcode#}</label>
-          {$INPUT_POSTCODE|replace:'class="':'class="form-control '}
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">{#entry_city#}</label>
-          {$INPUT_CITY|replace:'class="':'class="form-control '}
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">{#entry_country#}</label>
-          {$INPUT_COUNTRY|replace:'<select':'<select class="form-select"'}
-        </div>
-        {if isset($INPUT_STATE)}
-          <div class="col-md-6">
-            <label class="form-label">{#entry_state#}</label>
-            {$INPUT_STATE|replace:'<select':'<select class="form-select"'|replace:'class="':'class="form-control '}
-          </div>
-        {/if}
-      </div>
     </div>
-  </div>
-  {* Website *}
-  <div class="card mb-4">
-    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-globe me-2" aria-hidden="true"></span>{#category_website#}</h2></div>
-    <div class="card-body">
-      <div class="row g-3">
-        <div class="col-12">
-          <label class="form-label">{#entry_homepage#}</label>
-          {$INPUT_HOMEPAGE|replace:'class="':'class="form-control '}
-        </div>
-        {if isset($INPUT_DESCRIPTION)}
-          <div class="col-12">
-            <label class="form-label">{#entry_description#}</label>
-            {$INPUT_DESCRIPTION|replace:'class="':'class="form-control '}
-          </div>
-        {/if}
-      </div>
-    </div>
-  </div>
-  {* Passwort *}
-  <div class="card mb-4">
-    <div class="card-header"><h2 class="h6 mb-0"><span class="fa fa-lock me-2" aria-hidden="true"></span>{#category_password#}</h2></div>
-    <div class="card-body">
-      <div class="row g-3">
+
+    <div class="row g-3">
         <div class="col-md-6">
-          <label class="form-label">{#entry_password#}</label>
-          {$INPUT_PASSWORD|replace:'class="':'class="form-control '}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title"><span class="fas fa-user me-2"></span>{#category_personal#}</h4>
+                </div>
+                <div class="card-body">
+                    {if $ACCOUNT_GENDER == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_gender#}</label>
+                            <div>{$gender_male}{$gender_female}</div>
+                        </div>
+                    {/if}
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_first_name#} <span class="text-danger">*</span></label>
+                        {$firstname_content}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_lastname#} <span class="text-danger">*</span></label>
+                        {$lastname_content}
+                    </div>
+                    {if $ACCOUNT_DOB == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_date_of_birth#} <span class="text-danger">*</span></label>
+                            {$dob_content}
+                        </div>
+                    {/if}
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_email_address#} <span class="text-danger">*</span></label>
+                        {$email_content}
+                    </div>
+                </div>
+            </div>
+
+            {if $ACCOUNT_COMPANY == 'true'}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="card-title"><span class="fas fa-building me-2"></span>{#category_company#}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_company#}</label>
+                            {$company_content}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_company_taxid#}</label>
+                            {$company_taxid_content}
+                        </div>
+                    </div>
+                </div>
+            {/if}
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title"><span class="fas fa-money-bill-wave me-2"></span>{#category_payment_details#}</h4>
+                </div>
+                <div class="card-body">
+                    {if $AFFILIATE_USE_CHECK == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_payment_check#}</label>
+                            {$payment_check_content}
+                        </div>
+                    {/if}
+                    {if $AFFILIATE_USE_PAYPAL == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_payment_paypal#}</label>
+                            {$payment_paypal_content}
+                        </div>
+                    {/if}
+                    {if $AFFILIATE_USE_BANK == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_payment_bank_name#}</label>
+                            {$payment_bank_name_content}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_payment_bank_account_name#}</label>
+                            {$payment_bank_account_name_content}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_payment_bank_account_number#}</label>
+                            {$payment_bank_account_number_content}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_affiliate_payment_bank_swift_code#}</label>
+                            {$payment_bank_swift_code_content}
+                        </div>
+                    {/if}
+                </div>
+            </div>
         </div>
+
         <div class="col-md-6">
-          <label class="form-label">{#entry_password_confirmation#}</label>
-          {$INPUT_PASSWORD_CONFIRM|replace:'class="':'class="form-control '}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title"><span class="fas fa-map-marker-alt me-2"></span>{#category_address#}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_street_address#} <span class="text-danger">*</span></label>
+                        {$street_address_content}
+                    </div>
+                    {if $ACCOUNT_SUBURB == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_suburb#}</label>
+                            {$suburb_content}
+                        </div>
+                    {/if}
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_post_code#} <span class="text-danger">*</span></label>
+                        {$postcode_content}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_city#} <span class="text-danger">*</span></label>
+                        {$city_content}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_country#} <span class="text-danger">*</span></label>
+                        {$country_id_content}
+                    </div>
+                    {if $ACCOUNT_STATE == 'true'}
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_state#}</label>
+                            {$state_content}
+                        </div>
+                    {/if}
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title"><span class="fas fa-phone me-2"></span>{#category_contact#}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_telephone_number#} <span class="text-danger">*</span></label>
+                        {$telephone_content}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_fax_number#}</label>
+                        {$fax_content}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{#entry_affiliate_homepage#} <span class="text-danger">*</span></label>
+                        {$homepage_content}
+                    </div>
+                </div>
+            </div>
+
+            {if $PASSWORD_READONLY == 'false'}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="card-title"><span class="fas fa-key me-2"></span>{#category_password#}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-body-secondary small">{#text_password_hint#}</p>
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_password#} <span class="text-danger">*</span></label>
+                            {$password_content}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{#entry_password_confirmation#} <span class="text-danger">*</span></label>
+                            {$password_confirmation_content}
+                        </div>
+                    </div>
+                </div>
+            {/if}
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <div class="form-check">
+                            {$AGB_CHECKBOX}
+                            <label class="form-check-label" for="a_agb">{#text_agb_accept_before#} {$AGB_LINK} {#text_agb_accept_after#}</label>
+                        </div>
+                    </div>
+                    {if $PRIVACY_CHECKBOX}
+                        <div class="mb-0">
+                            <div class="form-check">
+                                {$PRIVACY_CHECKBOX}
+                                <label class="form-check-label" for="privacy">{#text_privacy_accept_before#} {$PRIVACY_LINK} {#text_privacy_accept_after#}</label>
+                            </div>
+                        </div>
+                    {/if}
+                </div>
+            </div>
+
         </div>
-      </div>
     </div>
-  </div>
-  <div class="d-flex justify-content-between">
-    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
-    {$BUTTON_SUBMIT}
-  </div>
-  </form>
 </div>

@@ -1,44 +1,165 @@
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_banners"}
-{* MRH 2026: Affiliate Werbemittel – BS5.3 *}
-<div class="mrh-affiliate-banners">
-  <h1 class="mrh-page-title">{#heading_title#}</h1>
-  <p class="text-body-secondary mb-4">{#text_information#}</p>
-  {if isset($BANNERS) && count($BANNERS) > 0}
-    {foreach name=groups item=group from=$BANNERS}
-      <div class="card mb-4">
-        <div class="card-header">
-          <h2 class="h6 mb-0"><span class="fa fa-image me-2" aria-hidden="true"></span>{$group.GROUP_NAME}</h2>
+{* MRH 2026: Affiliate Banners & Produkt-Feed – BS5.3, Vanilla JS *}
+<link rel="stylesheet" href="{$tpl_path}css/affiliate.css?v=20260402">
+<h1 class="card p-2 bg-h">{#heading_title#}</h1>
+
+{* ================================================================ *}
+{* BANNER & LINKS                                                   *}
+{* ================================================================ *}
+<div class="card mb-4">
+    <div class="card-body">
+        <p>{#text_information#}</p>
+        <div class="text-center mb-3">
+            <h5>{#text_affiliate_individual_banner#}</h5>
+            <p class="small">{#text_affiliate_individual_banner_info#}</p>
+            {$FORM_ACTION}
+            <div class="d-inline-flex align-items-center">
+                <label for="banner_id" class="me-2 mb-0 fw-bold small">ID:</label>
+                {$INPUT_BANNER_ID}&nbsp;&nbsp;{$BUTTON_SUBMIT}
+            </div>
+            </form>
         </div>
-        <div class="card-body">
-          <div class="row g-3">
-            {foreach name=banners item=banner from=$group.ITEMS}
-              <div class="col-md-6 col-lg-4">
-                <div class="card h-100">
-                  <div class="card-body text-center">
-                    <div class="mb-2 p-2 bg-body-tertiary rounded">
-                      {$banner.PREVIEW}
-                    </div>
-                    <p class="small text-body-secondary mb-1">{$banner.SIZE}</p>
-                  </div>
-                  <div class="card-footer">
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="form-control form-control-sm" value='{$banner.CODE}' readonly onclick="this.select()">
-                      <button class="btn btn-outline-primary btn-sm" type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.value)">
-                        <span class="fa fa-copy" aria-hidden="true"></span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {/foreach}
-          </div>
+        {if $TEXTAREA_AFFILIATE_BANNER1 neq ''}
+        <div class="text-center mt-3">
+            <div class="mb-2">{$link}</div>
+            <p class="small">{#text_affiliate_info#}</p>
+            <div class="table-responsive">{$TEXTAREA_AFFILIATE_BANNER1}</div>
         </div>
-      </div>
-    {/foreach}
-  {else}
-    <div class="alert alert-info"><span class="fa fa-info-circle me-1" aria-hidden="true"></span>{#text_no_banners#}</div>
-  {/if}
-  <div class="mt-3">
-    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
-  </div>
+        {/if}
+    </div>
 </div>
+{if $banner_table_content neq ''}
+<div class="table-responsive">
+    {$banner_table_content}
+</div>
+{/if}
+
+{* ================================================================ *}
+{* PRODUKT-FEED BEREICH                                             *}
+{* ================================================================ *}
+{if isset($AFFILIATE_API_KEY) && $AFFILIATE_API_KEY neq ''}
+<div class="card mt-4 border-warning">
+    <div class="card-header bg-warning text-dark">
+        <h4 class="mb-0"><span class="fas fa-rss me-2"></span>{#text_feed_title#}</h4>
+    </div>
+    <div class="card-body">
+        <p>{#text_feed_description#}</p>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-6 mb-2">
+                <div class="card h-100 border-success">
+                    <div class="card-body">
+                        <h5 class="text-center"><span class="far fa-file-alt text-success me-1"></span>{#text_feed_csv#}</h5>
+                        <p class="small">{#text_feed_csv_description#}</p>
+                        <p class="small"><strong>{#text_feed_compatible#}:</strong> {#text_feed_csv_platforms#}</p>
+                        <div class="text-center">
+                            <a href="{$FEED_CSV_URL}" class="btn btn-success btn-sm" target="_blank">
+                                <span class="fas fa-download me-1"></span>{#text_feed_download_csv#}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-2">
+                <div class="card h-100 border-primary">
+                    <div class="card-body">
+                        <h5 class="text-center"><span class="fas fa-code text-primary me-1"></span>{#text_feed_xml#}</h5>
+                        <p class="small">{#text_feed_xml_description#}</p>
+                        <p class="small"><strong>{#text_feed_compatible#}:</strong> {#text_feed_xml_platforms#}</p>
+                        <div class="text-center">
+                            <a href="{$FEED_XML_URL}" class="btn btn-primary btn-sm" target="_blank">
+                                <span class="fas fa-download me-1"></span>{#text_feed_download_xml#}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {* FEED-INHALT *}
+        <div class="card bg-body-tertiary mb-3">
+            <div class="card-body">
+                <h5><span class="fas fa-list me-1"></span>{#text_feed_content_title#}</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled mb-0">
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field1#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field2#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field3#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field4#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field5#}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled mb-0">
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field6#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field7#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field8#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field9#}</li>
+                            <li><span class="fas fa-check text-success me-1"></span>{#text_feed_field10#}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {* API-ZUGANG *}
+        <div class="card border-dark">
+            <div class="card-body">
+                <h5><span class="fas fa-key me-1"></span>{#text_feed_api_title#}</h5>
+                <p class="small">{#text_feed_api_description#}</p>
+                <div class="mb-2">
+                    <label class="small fw-bold">{#text_feed_api_key#}:</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" value="{$AFFILIATE_API_KEY}" id="apiKeyField" readonly>
+                        <button class="btn btn-outline-secondary" type="button" data-clipboard-target="apiKeyField">
+                            <span class="fas fa-clipboard me-1"></span>{#text_feed_copy#}
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="small fw-bold">{#text_feed_csv_url#}:</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" value="{$FEED_CSV_URL_API}" id="csvUrlField" readonly>
+                        <button class="btn btn-outline-secondary" type="button" data-clipboard-target="csvUrlField">
+                            <span class="fas fa-clipboard"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="small fw-bold">{#text_feed_xml_url#}:</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" value="{$FEED_XML_URL_API}" id="xmlUrlField" readonly>
+                        <button class="btn btn-outline-secondary" type="button" data-clipboard-target="xmlUrlField">
+                            <span class="fas fa-clipboard"></span>
+                        </button>
+                    </div>
+                </div>
+                <p class="small text-body-secondary mb-0"><span class="fas fa-sync me-1"></span>{#text_feed_update_note#}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/if}
+
+{* Vanilla JS: Clipboard API (ersetzt deprecated document.execCommand) *}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-clipboard-target]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var targetId = this.getAttribute('data-clipboard-target');
+            var field = document.getElementById(targetId);
+            if (field && navigator.clipboard) {
+                navigator.clipboard.writeText(field.value).then(function() {
+                    var origHTML = btn.innerHTML;
+                    btn.innerHTML = '<span class="fas fa-check me-1"></span>{#text_feed_copy_success#}';
+                    setTimeout(function() { btn.innerHTML = origHTML; }, 2000);
+                });
+            } else if (field) {
+                field.select();
+                document.execCommand('copy');
+            }
+        });
+    });
+});
+</script>

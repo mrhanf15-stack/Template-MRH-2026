@@ -1,33 +1,46 @@
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_clicks"}
-{* MRH 2026: Affiliate Klicks – BS5.3 *}
-<div class="mrh-affiliate-clicks">
-  <h1 class="mrh-page-title">{#heading_title#}</h1>
-  {if isset($CLICKS) && count($CLICKS) > 0}
-    <div class="table-responsive">
-      <table class="table table-sm table-hover">
-        <thead>
-          <tr>
-            <th>{#table_heading_date#}</th>
-            <th>{#table_heading_browser#}</th>
-            <th>{#table_heading_ip#}</th>
-            <th>{#table_heading_referrer#}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {foreach name=aussen item=click from=$CLICKS}
-            <tr>
-              <td class="small">{$click.DATE}</td>
-              <td class="small">{$click.BROWSER}</td>
-              <td class="small">{$click.IP}</td>
-              <td class="small text-truncate" style="max-width:200px">{$click.REFERRER}</td>
-            </tr>
-          {/foreach}
-        </tbody>
-      </table>
+{* MRH 2026: Affiliate Clicks – BS5.3 *}
+
+<div class="card mb-3">
+    <div class="card-header bg-h-main text-white">
+        <h1 class="h3 mb-0"><span class="fas fa-mouse-pointer"></span> {#heading_title#}</h1>
     </div>
-    {if isset($PAGINATION)}{$PAGINATION}{/if}
-  {else}
-    <div class="alert alert-info"><span class="fa fa-info-circle me-1" aria-hidden="true"></span>{#text_no_clicks#}</div>
-  {/if}
-  <div class="mt-3"><a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a></div>
+    <div class="card-body">
+        <p class="card-text">Hier siehst du eine detaillierte Übersicht aller Klicks auf deine Affiliate-Links. Jeder Klick auf ein Produkt, der über deine Webseite generiert wurde, wird hier mit Datum, dem geklickten Produkt und der Herkunftsseite (Referrer) aufgelistet. Diese Daten helfen dir zu verstehen, welche Produkte für dein Publikum am interessantesten sind.</p>
+        <p><strong>{#text_affiliate_header#}</strong> {$affiliate_clickthroughs_split_number}</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">{#table_heading_date#}</th>
+                        <th scope="col">{#table_heading_clicked_product#}</th>
+                        <th scope="col">{#table_heading_referred#}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {if $ct_array != ''}
+                        {foreach item=ct from=$ct_array}
+                            <tr>
+                                <td>{$ct.date}</td>
+                                <td>{$ct.products_id} - {$ct.products_name}</td>
+                                <td>{$ct.client_referer}</td>
+                            </tr>
+                        {/foreach}
+                    {else}
+                        <tr>
+                            <td colspan="3" class="text-center">{#text_no_clicks#}</td>
+                        </tr>
+                    {/if}
+                </tbody>
+            </table>
+        </div>
+
+        {if $PAGINATION}
+            <div class="d-flex justify-content-center mt-3">
+                {$PAGINATION}
+            </div>
+        {/if}
+
+    </div>
 </div>

@@ -1,22 +1,30 @@
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_logout"}
-{* MRH 2026: Affiliate Abmeldung – BS5.3 *}
-<div class="mrh-affiliate-logout">
-  <div class="card mb-4">
-    <div class="card-header"><h1 class="h6 mb-0"><span class="fa fa-sign-out-alt me-2" aria-hidden="true"></span>{#heading_title#}</h1></div>
-    <div class="card-body">
-      {if $info == 0}
-        <div class="alert alert-success">
-          <h2 class="alert-heading h6">{#text_logout_success_title#}</h2>
-          <p>{#text_information#}</p>
-        </div>
-      {elseif $info == 1}
-        <div class="alert alert-danger">{#text_information_error_1#}</div>
-      {elseif $info == 2}
-        <div class="alert alert-danger">{#text_information_error_2#}</div>
-      {/if}
-      <div class="text-end mt-3">
-        <a href="{$LINK_DEFAULT_RAW}" class="btn btn-primary"><span class="fa fa-arrow-right me-1" aria-hidden="true"></span>{#button_continue#}</a>
-      </div>
+{* MRH 2026: Affiliate Logout – BS5.3 *}
+
+<div class="card mb-3">
+    <div class="card-header bg-h text-white">
+        <h1 class="h5 mb-0"><span class="fas fa-sign-out-alt"></span> {#heading_title#}</h1>
     </div>
-  </div>
+    <div class="card-body">
+        {if $info == 0}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Erfolgreich abgemeldet!</h4>
+                <p>{#text_information#}</p>
+                <hr>
+                <p class="mb-0">Du wurdest sicher vom Partnerprogramm abgemeldet. Wir freuen uns auf deinen nächsten Besuch.</p>
+            </div>
+        {elseif $info == 1}
+            <div class="alert alert-danger" role="alert">
+                {#text_information_error_1#}
+            </div>
+        {elseif $info == 2}
+            <div class="alert alert-danger" role="alert">
+                {#text_information_error_2#}
+            </div>
+        {/if}
+
+        <div class="text-end mt-3">
+            <a href="{$LINK_DEFAULT_RAW}" class="btn btn-primary"> <span class="fas fa-arrow-right"></span> Weiter</a>
+        </div>
+    </div>
 </div>

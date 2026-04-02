@@ -1,23 +1,46 @@
 {config_load file="$language/affiliate_lang_$language.conf" section="affiliate_contact"}
-{* MRH 2026: Affiliate Kontakt – BS5.3 *}
-<div class="mrh-affiliate-contact">
-  <h1 class="mrh-page-title">{#heading_title#}</h1>
-  {$FORM_ACTION}
-  <div class="card mb-4">
-    <div class="card-body">
-      <div class="mb-3">
-        <label class="form-label">{#entry_subject#}</label>
-        {$INPUT_SUBJECT|replace:'class="':'class="form-control '}
-      </div>
-      <div class="mb-3">
-        <label class="form-label">{#entry_message#}</label>
-        {$INPUT_MESSAGE|replace:'class="':'class="form-control '|replace:'<textarea':'<textarea class="form-control" rows="6"'}
-      </div>
+{* MRH 2026: Affiliate Contact – BS5.3 *}
+<link rel="stylesheet" href="{$tpl_path}css/affiliate.css?v=20260402">
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h1 class="mb-0"><span class="fas fa-envelope me-2"></span>{#heading_title#}</h1>
     </div>
-  </div>
-  <div class="d-flex justify-content-between">
-    <a href="{$LINK_SUMMARY}" class="btn btn-outline-secondary"><span class="fa fa-arrow-left me-1" aria-hidden="true"></span>{#button_back#}</a>
-    {$BUTTON_SUBMIT}
-  </div>
-  </form>
+    <div class="card-body">
+        {if $SUMMARY_LINK neq ''}
+            <div class="alert alert-success" role="alert">
+                <span class="fas fa-check-circle me-2"></span>{#text_success#}
+            </div>
+            <div class="text-end mt-3">
+                {$SUMMARY_LINK}
+            </div>
+        {else}
+            <p class="card-text">Hast du Fragen zu unserem Partnerprogramm oder benötigst du Unterstützung? Fülle einfach das Formular aus, um uns eine Nachricht zu senden. Wir helfen dir gerne weiter.</p>
+            <hr>
+            {$FORM_ACTION}
+                <div class="mb-3 row">
+                    <label class="col-md-3 form-label">{#entry_name#}</label>
+                    <div class="col-md-9">
+                        {$INPUT_NAME|replace:'<input':'<input class="form-control"'}
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-md-3 form-label">{#entry_email#}</label>
+                    <div class="col-md-9">
+                        {$INPUT_EMAIL|replace:'<input':'<input class="form-control"'}
+                        {if $error == 'true'}
+                            <small class="form-text text-danger">{#entry_email_address_check_error#}</small>
+                        {/if}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>{#entry_enquiry#}</label>
+                    {$TEXTAREA_ENQUIRY|replace:'<textarea':'<textarea class="form-control" rows="5"'}
+                </div>
+                <div class="mb-3 text-end mt-4">
+                    {$BUTTON_SUBMIT|replace:'type="image"':'type="submit" class="btn btn-primary"'|replace:'value="submit"':''}
+                </div>
+            </form>
+        {/if}
+    </div>
 </div>
