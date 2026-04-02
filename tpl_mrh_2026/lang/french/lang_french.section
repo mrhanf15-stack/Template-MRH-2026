@@ -35,6 +35,7 @@ title_accountbox_create = 'Cr&eacute;er un compte client'
 title_accountbox_create_guest = 'Cr&eacute;er un compte d\'invit&eacute;'
 title_accountbox_password_forgotten = 'Mot de passe oubli&eacute; ?'
 title_accountbox_login_success = 'Bienvenue &agrave; tous'
+title_accountbox_affiliate_login = 'Connexion partenaire'
 
 
 [address_book_process]

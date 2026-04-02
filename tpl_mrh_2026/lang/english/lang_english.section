@@ -35,6 +35,7 @@ title_accountbox_create = 'Create customer account'
 title_accountbox_create_guest = 'Create guest account'
 title_accountbox_password_forgotten = 'Forgot Password?'
 title_accountbox_login_success = 'Welcome'
+title_accountbox_affiliate_login = 'Partner Login'
 
 
 [address_book_process]

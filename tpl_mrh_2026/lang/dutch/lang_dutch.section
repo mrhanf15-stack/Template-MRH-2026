@@ -35,6 +35,7 @@ title_accountbox_create = 'Klantaccount aanmaken'
 title_accountbox_create_guest = 'Gastenaccount aanmaken'
 title_accountbox_password_forgotten = 'Wachtwoord vergeten?'
 title_accountbox_login_success = 'Een warm welkom'
+title_accountbox_affiliate_login = 'Partner inloggen'
 
 
 [address_book_process]
