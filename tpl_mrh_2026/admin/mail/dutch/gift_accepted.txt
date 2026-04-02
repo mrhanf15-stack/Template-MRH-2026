@@ -1,0 +1,9 @@
+
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+
+
+
+
+Geachte heer Geachte mevrouw Hallo , U heeft onlangs een tegoedbon besteld in onze online shop, die om veiligheidsredenen niet direct geactiveerd is. Dit tegoed is nu beschikbaar voor u. U kunt uw tegoedbon reserveren en per e-mail versturen. {$AMMOUNT} De voucher die u heeft besteld heeft een waarde van .
+
+[SIGNATUR]

@@ -1,0 +1,30 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">Er is een account voor je aangemaakt</font>     </td>
+</tr>
+<tr> 
+<td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if}&nbsp;{$NAME}</b> <br /><br /> {if $COMMENTS} <br /><br /> {$COMMENTS}&nbsp;{/if} <br /><br /><br />
+        <br />G<b>eachte heer Geachte mevrouw Hallo ,</b> Er is een account voor u aangemaakt, u kunt inloggen op onze shop met de volgende gegevens. Reacties: Uw inloggegevens voor onze shop:</font>    <table width="100%"  border="0" bgcolor="f1f1f1" cellpadding="5">
+  <tr>
+            <td><font size="2" face="Tahoma, Verdana, sans-serif"><b>E-mail</b>: {$EMAIL}</font></td>
+          </tr>
+  <tr>
+            <td><font size="2" face="Tahoma, Verdana, sans-serif"><b>Uw wachtwoord</b>: {$PASSWORD}</font></td>
+          </tr>
+        </table>
+
+</td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>
+
+

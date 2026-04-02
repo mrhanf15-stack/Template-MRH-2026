@@ -1,0 +1,26 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Klantaccount succesvol aangemaakt</font>   </td>
+</tr>
+<tr> 
+<td>
+      <br />
+     <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if}&nbsp;{$NAME}</b><br />
+      <br /><br /><br />
+      <br /><br />
+      <br />G<b>eachte heer Geachte mevrouw Hallo ,</b> U heeft zojuist met succes uw klantenaccount aangemaakt. Als geregistreerde klant heeft u de volgende voordelen in onze winkel:<b>Winkelmandje voor</b><b>klanten</b> - Elk artikel blijft geregistreerd totdat u naar de kassa gaat of de producten uit het winkelmandje verwijdert.<b>Adresboek</b> - We kunnen de producten nu naar het door u geselecteerde adres sturen.<br />
+      <br /><br />
+      <br /><br />
+      <br />De perfecte manier om een verjaardagscadeau te versturen.<b>Eerdere bestellingen</b> - Je kunt je eerdere bestellingen op elk gewenst moment bekijken.<b>Productbeoordelingen</b> - Deel je mening over onze producten met andere klanten.<u>Let op:</u> Dit e-mailadres is aan ons verstrekt door een klant. <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a><br /> {if $SEND_GIFT == true} <br /> <b>{$GIFT_AMMOUNT}</b><br />
+      <br /> <b>{$GIFT_CODE}</b> Als je niet geregistreerd bent, stuur dan een e-mail naar: Als klein welkomstgeschenk sturen we je een waardebon voor: Je persoonlijke waardeboncode is . <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a><br /> {/if}&nbsp;{if $SEND_COUPON == true} <br />U kunt deze tegoedbon inwisselen bij de kassa tijdens het bestelproces. Om de tegoedbon in te wisselen, klikt u op . Wij sturen u een tegoedbon als een klein welkomstgeschenk.<br />
+     <b>{$COUPON_DESC}</b><br /> {$COUPON_CODE}<br /> {/if} <br /> <a href="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</a>Couponbeschrijving: Voer je persoonlijke code in tijdens het afrekenproces. Als je vragen hebt over onze klantenservice, neem dan contact op met:</font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

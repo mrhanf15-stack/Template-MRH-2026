@@ -1,0 +1,42 @@
+{config_load file="lang_`$language`.custom"}
+
+<div class="box3 fixedservice">
+	<div class="box3_header">{#folgeuns#}</div>
+	<div class="box3_line"></div>
+	{if $tpl_cfg_social_links.facebook}
+	<a href="{$tpl_cfg_social_links.facebook}" target="_blank" title="{$store_name} {#social_on#} Facebook"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} Facebook" src="{$tpl_path}img/icon_facebook.webp"></a>
+	{/if}
+	{if $tpl_cfg_social_links.twitter}
+	<a href="{$tpl_cfg_social_links.twitter}" target="_blank" title="{$store_name} {#social_on#} X"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} X" src="{$tpl_path}img/icon_x.webp"></a>
+	{/if}
+	{if $tpl_cfg_social_links.instagram}
+	<a href="{$tpl_cfg_social_links.instagram}" target="_blank" title="{$store_name} {#social_on#} Instagram"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} Instagram" src="{$tpl_path}img/icon_instagram.webp"></a>
+	{/if}
+	{if $tpl_cfg_social_links.pinterest}
+	<a href="{$tpl_cfg_social_links.pinterest}" target="_blank" title="{$store_name} {#social_on#} Pinterest"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} Pinterest" src="{$tpl_path}img/icon_pinterest.webp"></a>
+	{/if}
+	{if $tpl_cfg_social_links.linkedin}
+	<a href="{$tpl_cfg_social_links.linkedin}" target="_blank" title="{$store_name} {#social_on#} LinkedIn"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} LinkedIn" src="{$tpl_path}img/icon_linkedin.webp"></a>
+	{/if}
+</div>
+
+
+<div class="box3 stickysocial hidden-xs">
+		<a href="{$smarty.const.FILENAME_CONTENT|xtc_href_link:'coID=7'}" class="contact-btn" title="{#kontakt#}">{#kontakt#}</a>
+		{if $tpl_cfg_social_links.facebook}
+		<a href="{$tpl_cfg_social_links.facebook}" target="_blank" title="{$store_name} {#social_on#} Facebook"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} Facebook" src="{$tpl_path}img/icon_facebook.webp"></a>
+		{/if}
+		{if $tpl_cfg_social_links.twitter}
+		<a href="{$tpl_cfg_social_links.twitter}" target="_blank" title="{$store_name} {#social_on#} X"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} X" src="{$tpl_path}img/icon_x.webp"></a>
+		{/if}
+		{if $tpl_cfg_social_links.instagram}
+		<a href="{$tpl_cfg_social_links.instagram}" target="_blank" title="{$store_name} {#social_on#} Instagram"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} Instagram" src="{$tpl_path}img/icon_instagram.webp"></a>
+		{/if}
+		{if $tpl_cfg_social_links.pinterest}
+		<a href="{$tpl_cfg_social_links.pinterest}" target="_blank" title="{$store_name} {#social_on#} Pinterest"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} Pinterest" src="{$tpl_path}img/icon_pinterest.webp"></a>
+		{/if}
+		{if $tpl_cfg_social_links.linkedin}
+		<a href="{$tpl_cfg_social_links.linkedin}" target="_blank" title="{$store_name} {#social_on#} LinkedIn"><img height="42" width="42" loading="lazy" alt="{$store_name} {#social_on#} LinkedIn" src="{$tpl_path}img/icon_linkedin.webp"></a>
+		{/if}
+</div>
+

@@ -1,0 +1,12 @@
+
+{$MESSAGE}
+ Waarde van de tegoedbon Uw tegoedboncode is: Om uw tegoedbon in te wisselen, klikt u op de volgende link - Als u, tegen de verwachting in, problemen hebt met het inwisselen van uw tegoedbon, ga dan naar onze website en voer de tegoedboncode handmatig in. 
+ {$AMMOUNT}
+
+ {$GIFT_ID}
+
+ {$GIFT_LINK}
+
+ {$WEBSITE}
+
+[SIGNATUR]

@@ -1,0 +1,19 @@
+{
+    "tpl_cfg_payment_logos": [
+        "vorkasse",
+        "kreditkarten",
+        "applepay",
+        "googlepay",
+        "lastschrift",
+        "rechnung"
+    ],
+    "tpl_cfg_shipping_logos": [
+        "hermes",
+        "dhl",
+        "dpd",
+        "ups",
+        "gls",
+        "fedex"
+    ],
+    "submit-logosettings": "Logos speichern"
+}

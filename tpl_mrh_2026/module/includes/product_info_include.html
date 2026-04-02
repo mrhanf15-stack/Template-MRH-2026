@@ -1,0 +1,52 @@
+<div class="listingbox lb_inner p-3 d-flex flex-column justify-content-between">
+  <div class="lb_inner_wrap_image_title pt-3">
+  <div class="lb_image">
+    {if $module_data.PRODUCTS_IMAGE != ''}
+      <a href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}"><img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" /></a>
+    {else}
+      &nbsp;
+    {/if}
+    </div>
+    <div class="lb_title"><strong class="h3"><a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">{$module_data.PRODUCTS_NAME}</a></strong></div>
+    {if $module_data.PRODUCTS_SHORT_DESCRIPTION}<div class="lb_desc">{$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:70:"...":true}</div>{/if}
+    <div class="lb_shipping">{if $module_data.PRODUCTS_SHIPPING_NAME}{#text_shippingtime#} {if $module_data.PRODUCTS_SHIPPING_IMAGE}<span class="lb_shipping_image"><img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME|onlytext}" /></span>{/if}{$module_data.PRODUCTS_SHIPPING_NAME_LINK}{else}&nbsp;{/if}</div> {if isset($module_data.PRODUCTS_REVIEWS_COUNT)}
+      <div class="lb_rating_icons{if $module_data.PRODUCTS_REVIEWS_COUNT < 1} no_reviews{/if}">
+        <span class="lb_rating_image"><img src="{$tpl_path}img/stars_{$module_data.PRODUCTS_REVIEWS_AVERAGE}.png" alt="Rating: {$module_data.PRODUCTS_REVIEWS_AVERAGE} of 5 stars" /></span>
+        <span class="lb_rating_count">({$module_data.PRODUCTS_REVIEWS_COUNT})</span>
+      </div>
+    {/if}
+  </div>
+  <div class="lb_inner_wrap_prices">
+    <div class="lb_price">
+      {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+        {include file="module/includes/price_box.html"}
+      {/foreach}
+      {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+        {if $module_data.PRODUCTS_VPE}<div class="lb_vpe">{$module_data.PRODUCTS_VPE}</div>{/if}
+      {/if}
+    </div>
+    
+    {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+    <div class="lb_tax">{$module_data.PRODUCTS_TAX_INFO}</div>
+    <div class="lb_tax lb_shipping_prices">{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+         
+          <div class="d-flex lb-buttons-wrap justify-content-between">
+
+            {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+                  {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+                  <a class="btn btn-secondary" aria-label="{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$module_data.PRODUCTS_ID`"}">
+                    <i class="icon-heart" aria-hidden="true"></i>
+                    <span class="sr-only">{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
+                  </a>
+              {/if}
+  
+              <a class="btn btn-primary" aria-label="{#details#} - {#view_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="{$module_data.PRODUCTS_LINK}">
+                <span>{#details#}</span>
+                <i class="icon-eye" aria-hidden="true"></i>
+              </a>
+             
+            </div>
+
+    {/if}
+    </div>
+  </div>

@@ -1,0 +1,17 @@
+
+ {$AMMOUNT}
+----------------------------------------------------------------------------------------
+
+ {$FROM_NAME}
+
+
+{$MESSAGE}
+
+ {$GIFT_CODE}---------------------------------------------------------------------------------------- Gefeliciteerd, je hebt een tegoedbon ontvangen via ! Deze tegoedbon is je toegestuurd door , met het bericht: Je persoonlijke tegoedboncode is .
+
+ {$GIFT_LINK}
+
+
+U kunt deze tegoedbon tijdens het bestelproces inwisselen. Om de tegoedbon in te wisselen, klikt u op Als u problemen hebt met het inwisselen van de tegoedbon via de bovenstaande link, kunt u het bedrag tijdens het bestelproces inwisselen.
+
+[SIGNATUR]

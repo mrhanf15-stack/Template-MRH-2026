@@ -1,0 +1,35 @@
+<div id="blog-rss" class="container-fluid">
+	<div class="container">
+		
+			<div class="col-xs-12">
+				<header class="rss--header">
+					<h2>Neues aus dem Blog</h2>
+				</header>
+				<section class="rss--content">
+					<div class="row">
+						{foreach item="item" from=$feed}
+							<div class="col-xs-12 col-md-4">
+								<article class="content--article">
+									{if $item->image}
+										<figure class="article--image">
+											<img src="{$item->image}">
+										</figure>
+									{/if}
+
+									<div class="article--content">
+										<h5><a href="{$item->link}">{$item->title}</a></h5>
+										<span class="content--date">am {$item->pubDate} <!-- in {$item->category}--></span>
+										{$item->description}
+									</div>
+								</article>
+							</div>
+						{/foreach}
+					</div>
+				</section>
+				<footer class="rss--footer">
+					<a href="https://www.fietz-medien.de/blog/" class="btn btn-primary">Mehr in unserem Blog <i class="icon-arrow-right"></i></a>
+				</footer>
+			</div>
+		
+	</div>
+</div>

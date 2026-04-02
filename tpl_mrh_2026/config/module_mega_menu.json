@@ -1,0 +1,111 @@
+{
+    "categories": [],
+    "max_items_per_column": 5,
+    "show_promo": true,
+    "_info": "Konfiguration wird über das Admin-Panel (Erweiterte Konfiguration → Mega-Menü Manager) verwaltet.",
+    "columns": {
+        "581210": {
+            "enabled": 1,
+            "columns": [
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": [
+                        581868,
+                        58100
+                    ]
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                }
+            ]
+        },
+        "581964": {
+            "enabled": 1,
+            "columns": [
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                }
+            ]
+        },
+        "195": {
+            "enabled": 1,
+            "columns": [
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                }
+            ]
+        },
+        "581287": {
+            "enabled": 1,
+            "columns": [
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                }
+            ]
+        },
+        "581813": {
+            "enabled": 1,
+            "columns": [
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                },
+                {
+                    "title": "",
+                    "icon": "",
+                    "items": []
+                }
+            ]
+        }
+    }
+}

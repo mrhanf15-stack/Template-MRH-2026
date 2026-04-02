@@ -1,0 +1,73 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+
+<div class="product-carousel owl-carousel owl-theme">
+  {foreach name=aussen item=box_data from=$box_content}
+  <div class="listingbox lb_inner p-3 d-flex flex-column justify-content-between"> 
+      <div class="lb_inner_wrap_image_title pt-3">
+        <div class="lb_image 
+        {if isset($box_data.ADDITIONAL_IMAGE)} has-more-images {/if}
+        ">
+        <a aria-label="{#view_product#} {$box_data.PRODUCTS_NAME|onlytext}" href="{$box_data.PRODUCTS_LINK}">
+        {if $box_data.PRODUCTS_IMAGE != ''}
+        <img alt="{$box_data.PRODUCTS_NAME|onlytext}" height="180" width="180" loading="lazy" src="{$box_data.PRODUCTS_IMAGE}" />
+          {else}
+          &nbsp;
+        {/if}
+
+        {if isset($box_data.ADDITIONAL_IMAGE)}
+        <div class="lb_second_image">
+          <img alt="{$box_data.PRODUCTS_NAME|onlytext}" height="180" width="180" loading="lazy" src="{$thumb_directory}{$box_data.ADDITIONAL_IMAGE}">
+        </div>
+        {/if}
+
+        </a>
+        </div>
+      <div class="lb_title"><strong class="h3"><a aria-label="{$box_data.PRODUCTS_NAME|onlytext} - {#view_product#}" href="{$box_data.PRODUCTS_LINK}">{$box_data.PRODUCTS_NAME}</a></strong></div>
+      {if $box_data.PRODUCTS_SHORT_DESCRIPTION}<div class="lb_desc">{$box_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:140:"...":true}</div>{/if}
+      {if $box_data.PRODUCTS_SHIPPING_NAME}
+      <div class="lb_shipping">{#lieferzeit#}: {if $box_data.PRODUCTS_SHIPPING_IMAGE}<span class="lb_shipping_image"><img alt="{$box_data.PRODUCTS_NAME|onlytext}" loading="lazy" src="{$box_data.PRODUCTS_SHIPPING_IMAGE}"  /></span>{/if}
+        {$box_data.PRODUCTS_SHIPPING_NAME_LINK}
+      </div>
+      {else}
+      {/if}
+      </div>
+      <div class="lb_inner_wrap_prices">
+        <div class="lb_price">
+          {foreach name=inner item=price_data from=$box_data.PRODUCTS_PRICE_ARRAY}
+            {include file="module/includes/price_box.html"}
+          {/foreach}
+          {if $box_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+            {if $box_data.PRODUCTS_VPE}<div class="lb_vpe">{$box_data.PRODUCTS_VPE}</div>{/if}
+          {/if}
+        </div>
+        {if $box_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+          <div class="lb_tax">{$box_data.PRODUCTS_TAX_INFO}</div>
+          <div class="lb_tax lb_shipping_prices">{$box_data.PRODUCTS_SHIPPING_LINK}</div>
+         <div class="d-flex lb-buttons-wrap justify-content-between">
+
+          {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+                {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+                <a class="btn btn-secondary" aria-label="{#wishlist_product#} {$box_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$box_data.PRODUCTS_ID`"}">
+                  <i class="icon-heart" aria-hidden="true"></i>
+                  <span class="sr-only">{#wishlist_product#} {$box_data.PRODUCTS_NAME|onlytext}</span>
+                </a>
+            {/if}
+
+            <a aria-label="{#details#} - {#view_product#} {$box_data.PRODUCTS_NAME|onlytext}" class="btn btn-primary" href="{$box_data.PRODUCTS_LINK}">
+              <span>{#details#}</span>
+              <i class="icon-eye" aria-hidden="true"></i>
+            </a>
+           
+          </div>
+        {/if}
+      </div>
+     
+    <div class="badges-top">
+      {if $box_data.PRODUCTS_STARTPAGE == 1}<span>TOP</span>{/if}
+    </div>
+  </div>
+  {/foreach}
+</div>
+
+{$box_CONTENT}

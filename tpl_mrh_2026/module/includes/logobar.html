@@ -1,66 +1,120 @@
-{* MRH 2026 – Logobar (Header: Logo, Suche, Icons) *}
-<div class="row align-items-center py-2">
+<script type="application/ld+json">
+{literal}
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "{/literal}{$index}{literal}",
+  "logo": "{/literal}{$tpl_path}{$smarty.const.BS4_SHOP_LOGO}{literal}"
+}
+{/literal}
+</script>
 
-  {* Hamburger (nur Mobile) *}
-  <div class="col-auto d-lg-none">
-    <button class="btn btn-link text-dark p-0" type="button"
-            data-bs-toggle="offcanvas" data-bs-target="#mrh-offcanvas"
-            aria-controls="mrh-offcanvas" aria-label="{#MRH_menu#}">
-      <span class="fa fa-bars fa-lg"></span>
-    </button>
-  </div>
-
-  {* Logo *}
-  <div class="col-auto">
-    <a href="{$smarty.const.DIR_WS_BASE}" title="{$smarty.const.STORE_NAME}" class="mrh-logo">
-      <img src="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO}"
-           alt="{$smarty.const.STORE_NAME}" class="mrh-logo-img" width="200" height="60" loading="eager" fetchpriority="high">
+{if $smarty.const.BS4_SEARCHFIELD_PERMANENT != 'true'}
+<div id="logobar" class="row text-center text-md-left mb-3">
+	<a class="nav-logo col-12 col-md-4" {if !isset($home) || $home == false}href="{$index}"{/if} title="{#link_index#} &bull; {$store_name}">
+    <img src="{$tpl_path}{$smarty.const.BS4_SHOP_LOGO}" class="img-fluid" alt="{$store_name}" title="{$store_name}" width="300" height="171" />
     </a>
-  </div>
-
-  {* Suchfeld (Desktop) *}
-  <div class="col d-none d-lg-block">
-    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/searchbar.html"}
-  </div>
-
-  {* Icon-Leiste *}
-  <div class="col-auto">
-    <div class="d-flex align-items-center gap-3">
-      {* Suche (Mobile) *}
-      <button class="btn btn-link text-dark p-0 d-lg-none" type="button"
-              id="mrh-search-toggle" aria-label="{#MRH_search#}">
-        <span class="fa fa-search fa-lg"></span>
-      </button>
-
-      {* Konto *}
-      <a href="{xtc_href_link('account.php')}" class="mrh-icon-link d-none d-md-inline-flex"
-         title="{#MRH_my_account#}">
-        <span class="fa fa-user fa-lg"></span>
-        {if $smarty.const.MRH_SHOW_ICON_WITH_NAMES == 'true'}
-          <span class="small d-none d-xl-inline ms-1">{#MRH_my_account#}</span>
+	<ul class="nav col-12 col-md-8 mt-3 justify-content-end">
+		<li class="nav-item home">
+			<a class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_index#}" {if !isset($home) || $home == false}href="{$index}"{/if}>
+				<span class="fa fa-home fa-lg"></span>
+				{if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_index#}</span>{/if}
+			</a>
+		</li>
+		{if isset($box_LANGUAGES) && $box_LANGUAGES != ''}{$box_LANGUAGES}{/if}
+<!-- Account Dropdown mit optimierter Bootstrap 4 Struktur und FontAwesome 4 Icons -->
+<li class="text-center nav-item dropdown mx-1">
+    <a id="account-dd" href="#" class="nav-link text-center {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_account#}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+        {if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_account#}</span>{/if}
+    </a>
+    <div class="dropdown-menu dropdown-menu-right shadow-sm border-0 toggle_account" aria-labelledby="account-dd">
+        {if isset($account)}
+        <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'account') !== false && strpos($smarty.server.PHP_SELF, 'create_account') === false} active{/if}" href="{$account}">
+            <i class="fa fa-user-circle fa-fw mr-2" aria-hidden="true"></i>{#link_account#}
+        </a>
         {/if}
-      </a>
-
-      {* Merkzettel *}
-      <a href="{xtc_href_link('wishlist.php')}" class="mrh-icon-link d-none d-md-inline-flex"
-         title="{#MRH_wishlist#}" id="mrh-wishlist-icon">
-        <span class="fa fa-heart fa-lg"></span>
-        <span class="mrh-badge" id="mrh-wishlist-count" style="display:none">0</span>
-      </a>
-
-      {* Warenkorb *}
-      <a href="{xtc_href_link('shopping_cart.php')}" class="mrh-icon-link position-relative"
-         title="{#MRH_cart#}" id="mrh-cart-icon">
-        <span class="fa fa-shopping-cart fa-lg"></span>
-        <span class="mrh-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
-              id="mrh-cart-count">{$cart_count|default:'0'}</span>
-      </a>
+        {if isset($smarty.session.customer_id)}
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'logoff') !== false} active{/if}" href="{$logoff}">
+                <i class="fa fa-power-off fa-fw mr-2" aria-hidden="true"></i>{#link_logoff#}
+            </a>
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'checkout') !== false} active{/if}" href="{$checkout}">
+                <i class="fa fa-shopping-cart fa-fw mr-2" aria-hidden="true"></i>{#link_checkout#}
+            </a>
+        {else}
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'create_account') !== false} active{/if}" href="{$create_account}">
+                <i class="fa fa-user-plus fa-fw mr-2" aria-hidden="true"></i>{#new_customer#}
+            </a>
+            <a class="dropdown-item py-2 {if strpos($smarty.server.PHP_SELF, 'login') !== false} active{/if}" href="{$login}">
+                <i class="fa fa-sign-in fa-fw mr-2" aria-hidden="true"></i>{#link_login#}
+            </a>
+        {/if}
     </div>
-  </div>
+</li>
 
-</div>
+{if isset($smarty.session.customer_id)}
+<li class="text-center nav-item mx-1">
+    <a class="nav-link text-center {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_logoff#}" href="{$logoff}">
+        <i class="fa fa-power-off fa-lg" aria-hidden="true"></i>
+        {if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_logoff#}</span>{/if}
+    </a>
+</li>
+{/if}
 
-{* Mobile Suchfeld (ausklappbar) *}
-<div id="mrh-mobile-search" class="d-lg-none collapse">
-  {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/searchbar.html"}
+		{if isset($box_WISHLIST)}{$box_WISHLIST}{/if}
+		{if isset($box_CART)}{$box_CART}{/if}
+		{if isset($box_SEARCH)}{$box_SEARCH}{/if}
+	</ul>
 </div>
+{else}
+<div id="logobar" class="row text-center text-md-left mb-3">
+	<a class="nav-logo col-12 col-md-4" {if !isset($home) || $home == false}href="{$index}"{/if} title="{#link_index#} &bull; {$store_name}">
+    <img src="{$tpl_path}{$smarty.const.BS4_SHOP_LOGO}" class="img-fluid" alt="{$store_name}" title="{$store_name}" width="300" height="171" />
+    </a>
+	<div class="col-12 col-md-8">
+		<div class="row justify-content-end w-100">
+			{if !empty($box_SHIPPING_COUNTRY_2)}<div class="nav-item w-25 mt-2">{$box_SHIPPING_COUNTRY_2}</div>{/if}
+			{if isset($box_SEARCH)}{$box_SEARCH}{/if}
+			<ul class="nav col-12 justify-content-end mt-2">
+				<li class="nav-item home">
+					<a class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_index#}" {if !isset($home) || $home == false}href="{$index}"{/if}>
+						<span class="fa fa-home fa-lg"></span>
+						{if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_index#}</span>{/if}
+					</a>
+				</li>
+				{if isset($box_LANGUAGES) && $box_LANGUAGES != ''}{$box_LANGUAGES}{/if}
+		<!-- Account Dropdown mit optimierter Bootstrap 4 Struktur und FontAwesome 4 Icons -->
+<li class="text-center nav-item account dropdown">
+    <a id="account-dd" href="#" class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_account#}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+        {if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_account#}</span>{/if}
+    </a>
+    <div class="dropdown-menu dropdown-menu-right shadow-sm toggle_account" aria-labelledby="account-dd">
+        {if isset($account)}<a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'account') !== false && strpos($smarty.server.PHP_SELF, 'create_account') !== false} active{/if}" href="{$account}"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_account#}</a>{/if}
+        {if isset($smarty.session.customer_id)}
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'logoff') !== false} active{/if}" href="{$logoff}"><i class="fa fa-power-off fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_logoff#}</a>
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'checkout') !== false} active{/if}" href="{$checkout}"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_checkout#}</a>
+        {else}
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'login') !== false} active{/if}" href="{$login}"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#link_login#}</a>
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'create_account') !== false} active{/if}" href="{$create_account}"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#new_customer#}</a>
+            <a class="dropdown-item py-2{if strpos($smarty.server.PHP_SELF, 'create_guest_account') !== false} active{/if}" href="{$smarty.const.FILENAME_CREATE_GUEST_ACCOUNT|xtc_href_link}"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>{#none_customer#}</a>
+            
+        {/if}
+    </div>
+</li>
+
+				{if isset($smarty.session.customer_id)}
+					<li class="text-center nav-item">
+						<a class="text-center nav-link {$smarty.const.BS4_LOGOBAR_TEXT}" title="{#link_logoff#}" href="{$logoff}">
+							<span class="fa fa-sign-out-alt fa-lg fa-fw"></span>
+							{if $smarty.const.BS4_SHOW_ICON_WITH_NAMES != 'false'}<span class="d-none d-lg-block small">{#link_logoff#}</span>{/if}
+						</a>
+					</li>
+				{/if}
+				{if isset($box_WISHLIST)}{$box_WISHLIST}{/if}
+				{if isset($box_CART)}{$box_CART}{/if}
+			</ul>
+		</div>
+	</div>
+</div>
+{/if}

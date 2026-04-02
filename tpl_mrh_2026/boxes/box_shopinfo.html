@@ -1,0 +1,9 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+<div class="box3">
+    <div class="box3_header">{#kontakt#}</div>     
+    <div class="box3_line"></div> 
+    <p>{$smarty.const.STORE_NAME_ADDRESS|replace:"\n":"<br/>"}
+    <!--<a class="footerlogo" href="{$index}"><img src="{$tpl_path}img/logo.png" class="img-responsive" id="brandimg" alt="{$store_name}" /></a>--> </p>
+
+  </div>

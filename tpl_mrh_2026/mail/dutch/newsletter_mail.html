@@ -1,0 +1,26 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+     <font face="Tahoma, Verdana, sans-serif">Registratie nieuwsbrief</font>   </td>
+</tr>
+<tr> 
+<td>
+      <br />
+     <font size="2" face="Tahoma, Verdana, sans-serif"><b></b><br />
+<br />{if isset($LINK)}<br />
+      <br />B<b>edankt voor je aanmelding voor onze nieuwsbrief.</b> Je ontvangt deze e-mail omdat je onze nieuwsbrief wilt ontvangen. Klik op de activeringslink om je e-mailadres te activeren voor het ontvangen van de nieuwsbrief.<br />
+      <br />
+     <b></b><br /> <a href="{$LINK}">{$LINK}</a><br />
+      <br /><br />
+      <br />U <b>w activeringslink:</b> Als u zich niet hebt ingeschreven voor onze nieuwsbrief of de nieuwsbrief niet wilt ontvangen, kunt u de activeringslink gewoon negeren. U kunt uw toestemming om onze nieuwsbrief te ontvangen op elk gewenst moment intrekken.<br /> {/if}&nbsp;{if $SEND_GIFT == true} <br /> <b>{$GIFT_AMMOUNT}</b><br />
+      <br /> <b>{$GIFT_CODE}</b> De nieuwsbrief wordt verzonden in overeenstemming met ons privacybeleid. Als een klein geschenk sturen wij u een voucher voor: Uw persoonlijke voucher code is . <a href="{$GIFT_LINK}">[Gutschein Einl&ouml;sen]</a><br /> {/if}&nbsp;{if $SEND_COUPON == true} <br />U kunt deze tegoedbon inwisselen bij de kassa tijdens het bestelproces. Om de tegoedbon in te wisselen, klikt u op . Wij sturen u een tegoedbon als een klein geschenk.<br />
+     <b>{$COUPON_DESC}</b><br /> {$COUPON_CODE}<br /> {/if} <br />Couponbeschrijving: Voer uw persoonlijke code in tijdens het afrekenproces. We wensen u veel plezier met onze ONLINE aanbieding!</font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>

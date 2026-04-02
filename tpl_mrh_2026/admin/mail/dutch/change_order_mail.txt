@@ -1,0 +1,23 @@
+
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+
+ {if $ORDER_NR} {$ORDER_NR}{/if} {if $ORDER_DATE} {$ORDER_DATE}{/if} Geachte heer Geachte mevrouw Hallo , De status van uw bestelling nr. van is gewijzigd.
+
+{if $ORDER_LINK}
+{$ORDER_LINK} {/if}
+
+{if $NOTIFY_COMMENTS}
+{$NOTIFY_COMMENTS}{/if}
+
+ {$ORDER_STATUS}
+
+{if $PARCEL_COUNT > 0}
+ {$PARCEL_COUNT} Link naar de bestelling: Opmerkingen over uw bestelling: Nieuwe status: De zending bestaat uit pakket(ten).
+
+{foreach name=aussen item=tracking_data from=$PARCEL_ARRAY}
+{$tracking_data.tracking_link}
+{/foreach}{/if}
+
+U kunt de afleverstatus controleren door op het (de) pakketnummer(s) hieronder te klikken: Als u vragen hebt over uw bestelling, kunt u deze e-mail beantwoorden.
+
+[SIGNATUR]

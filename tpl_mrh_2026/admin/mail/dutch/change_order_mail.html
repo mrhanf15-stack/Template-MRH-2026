@@ -1,0 +1,20 @@
+<div style="width:700px;margin: 0px auto;">
+<table width="700" border="0" align="center" cellpadding="5" cellspacing="0">
+<tr> 
+    <td align="center" style="padding: 10px 0px;"><img src="{$logo_path}logo.gif" /></td>
+</tr>
+<tr> 
+    <td style="font-size:14px;text-transform:uppercase;padding:10px 5px;border-top: 1px dotted #999;border-bottom: 1px dotted #999;">
+       <font face="Tahoma, Verdana, sans-serif">De status van uw bestelling is gewijzigd</font>     </td>
+</tr>
+<tr> 
+<td>
+        <br />
+       <font size="2" face="Tahoma, Verdana, sans-serif"><b>{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if}&nbsp;{$NAME}</b> <br /><br /> {if $ORDER_NR} {$ORDER_NR}&nbsp;{/if}&nbsp;{if $ORDER_DATE} {$ORDER_DATE}&nbsp;{/if} {if $ORDER_LINK} <br /><br /> <a href="{$ORDER_LINK}">hier klicken</a> {/if}&nbsp;{if $NOTIFY_COMMENTS} <br /><br /><br /> {$NOTIFY_COMMENTS}&nbsp;{/if} <br /><br /> <b>{$ORDER_STATUS}</b> {if $PARCEL_COUNT > 0} <br /><br /> {$PARCEL_COUNT} G<b>eachte heer Geachte mevrouw Hallo ,</b> De status van uw gedateerde bestelling is gewijzigd. Link naar bestelling: Opmerkingen over uw bestelling: Nieuwe status: De zending bestaat uit pakket(ten).<br />
+         <br /> {foreach name=aussen item=tracking_data from=$PARCEL_ARRAY} <a target="_blank" href="{$tracking_data.tracking_link}">{$tracking_data.parcel_id}</a><br /> {/foreach}&nbsp;{/if} <br /><br />U kunt de afleverstatus controleren door op het (de) pakketnummer(s) hieronder te klikken: Als u vragen heeft over uw bestelling, kunt u deze e-mail beantwoorden.</font></td>
+</tr>
+</table>
+
+[SIGNATUR]
+</div>
+

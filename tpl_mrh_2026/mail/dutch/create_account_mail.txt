@@ -1,0 +1,33 @@
+
+{if $GENDER == 'm'}{elseif $GENDER == 'f'}{else}{/if} {$NAME}
+
+
+
+
+
+
+Geachte heer Geachte mevrouw Hallo , U heeft zojuist met succes uw klantenaccount aangemaakt. Als geregistreerde klant heeft u de volgende voordelen in onze winkel: -Klantenmandje - Elk artikel blijft geregistreerd totdat u naar de kassa gaat of de producten uit het mandje verwijdert. -Gegevensboek - We kunnen de producten nu naar het door u geselecteerde adres sturen.
+
+
+
+De perfecte manier om een verjaardagscadeau te versturen. -Eerdere bestellingen - U kunt uw eerdere bestellingen op elk gewenst moment bekijken. -Opmerkingen over producten - Deel uw mening over onze producten met andere klanten. Let op: Dit e-mailadres is ons gegeven door een klant. Als je nog niet geregistreerd bent, stuur dan een e-mail naar : {$content.MAIL_REPLY_ADDRESS}
+
+{if $SEND_GIFT == true}
+ {$GIFT_AMMOUNT}
+
+ {$GIFT_CODE} Als klein welkomstgeschenk sturen wij u een waardebon voor: Uw persoonlijke waardeboncode is .
+
+ {$GIFT_LINK}
+{/if}
+
+{if $SEND_COUPON == true}
+U kunt deze tegoedbon inwisselen bij de kassa tijdens het bestelproces. Om de tegoedbon in te wisselen, gebruikt u de volgende link . Wij sturen u een tegoedbon als een klein welkomstgeschenk.
+
+ {$COUPON_DESC}
+ 
+ {$COUPON_CODE}
+{/if}
+
+Couponbeschrijving: Voer je persoonlijke code in tijdens het afrekenen. Als je vragen hebt over onze klantenservice, neem dan contact met ons op: {$content.MAIL_REPLY_ADDRESS}
+
+[SIGNATUR]

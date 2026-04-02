@@ -1,0 +1,882 @@
+{
+    "categories": [
+        {
+            "parent_id": 195,
+            "parent_names": {
+                "de": "Growshop",
+                "en": "Growshop",
+                "fr": "Growshop",
+                "es": "Growshop"
+            },
+            "columns": [
+                {
+                    "titles": {
+                        "de": "Grow Grundausstattung",
+                        "en": "Grow Basics",
+                        "fr": "Équipement de Base",
+                        "es": "Equipamiento Básico"
+                    },
+                    "icon": "fa-cogs",
+                    "items": [
+                        {
+                            "category_id": 581322,
+                            "labels": {
+                                "de": "Beleuchtungstechnik",
+                                "en": "Lighting technology",
+                                "fr": "Technique d'éclairage",
+                                "es": "Iluminación"
+                            },
+                            "cpath": "195_581322",
+                            "urls": {
+                                "de": "\/growshop\/beleuchtungstechnik\/",
+                                "en": "\/en\/growshop\/lighting-technology\/",
+                                "fr": "\/fr\/growshop\/technique-declairage\/",
+                                "es": "\/es\/growshop\/iluminacion\/"
+                            },
+                            "url": "\/growshop\/beleuchtungstechnik\/"
+                        },
+                        {
+                            "category_id": 581961,
+                            "labels": {
+                                "de": "Growbox Zubehör",
+                                "en": "Growbox accessories",
+                                "fr": "Accessoires pour boîte de culture",
+                                "es": "Accesorios Growbox"
+                            },
+                            "cpath": "195_581961",
+                            "urls": {
+                                "de": "\/growshop\/growbox-zubehoer\/",
+                                "en": "\/en\/growshop\/growbox-accessories\/",
+                                "fr": "\/fr\/growshop\/accessoires-pour-boite-de-culture\/",
+                                "es": "\/es\/growshop\/accesorios-growbox\/"
+                            },
+                            "url": "\/growshop\/growbox-zubehoer\/"
+                        },
+                        {
+                            "category_id": 581201,
+                            "labels": {
+                                "de": "Growboxen & Growzelte",
+                                "en": "Grow boxes & Grow tents",
+                                "fr": "Boîtes de culture & tentes de culture",
+                                "es": "Armarios y tiendas de cultivo"
+                            },
+                            "cpath": "195_581201",
+                            "urls": {
+                                "de": "\/growshop\/growboxen-growzelte\/",
+                                "en": "\/en\/growshop\/grow-boxes-grow-tents\/",
+                                "fr": "\/fr\/growshop\/boites-de-culture-tentes-de-culture\/",
+                                "es": "\/es\/growshop\/armarios-y-tiendas-de-cultivo\/"
+                            },
+                            "url": "\/growshop\/growboxen-growzelte\/"
+                        },
+                        {
+                            "category_id": 581186,
+                            "labels": {
+                                "de": "Komplett-Sets",
+                                "en": "Complete sets",
+                                "fr": "Sets complets",
+                                "es": "Juegos completos"
+                            },
+                            "cpath": "195_581186",
+                            "urls": {
+                                "de": "\/growshop\/komplett-sets\/",
+                                "en": "\/en\/growshop\/complete-sets\/",
+                                "fr": "\/fr\/growshop\/sets-complets\/",
+                                "es": "\/es\/growshop\/juegos-completos\/"
+                            },
+                            "url": "\/growshop\/komplett-sets\/"
+                        },
+                        {
+                            "category_id": 581185,
+                            "labels": {
+                                "de": "Töpfe und Behälter",
+                                "en": "Pots and containers",
+                                "fr": "Pots et conteneurs",
+                                "es": "Macetas y contenedores"
+                            },
+                            "cpath": "195_581185",
+                            "urls": {
+                                "de": "\/growshop\/toepfe-und-behaelter\/",
+                                "en": "\/en\/growshop\/pots-and-containers\/",
+                                "fr": "\/fr\/growshop\/pots-et-conteneurs\/",
+                                "es": "\/es\/growshop\/macetas-y-contenedores\/"
+                            },
+                            "url": "\/growshop\/toepfe-und-behaelter\/"
+                        }
+                    ]
+                },
+                {
+                    "titles": {
+                        "de": "Nährstoffe & Pflege",
+                        "en": "Nutrients & Care",
+                        "fr": "Nutriments & Soins",
+                        "es": "Nutrientes & Cuidado"
+                    },
+                    "icon": "fa-tint",
+                    "items": [
+                        {
+                            "category_id": 581959,
+                            "labels": {
+                                "de": "Anzucht & Propagation",
+                                "en": "Cultivation & Propagation",
+                                "fr": "Culture & Propagation",
+                                "es": "Cultivo y propagación"
+                            },
+                            "cpath": "195_581959",
+                            "urls": {
+                                "de": "\/growshop\/anzucht-propagation\/",
+                                "en": "\/en\/growshop\/cultivation-propagation\/",
+                                "fr": "\/fr\/growshop\/culture-propagation\/",
+                                "es": "\/es\/growshop\/cultivo-y-propagacion\/"
+                            },
+                            "url": "\/growshop\/anzucht-propagation\/"
+                        },
+                        {
+                            "category_id": 581200,
+                            "labels": {
+                                "de": "Schädlingsbekämpfung",
+                                "en": "Pest control",
+                                "fr": "Lutte contre les nuisibles",
+                                "es": "Control de plagas"
+                            },
+                            "cpath": "195_581200",
+                            "urls": {
+                                "de": "\/growshop\/schaedlingsbekaempfung\/",
+                                "en": "\/en\/growshop\/pest-control\/",
+                                "fr": "\/fr\/growshop\/lutte-contre-les-nuisibles\/",
+                                "es": "\/es\/growshop\/control-de-plagas\/"
+                            },
+                            "url": "\/growshop\/schaedlingsbekaempfung\/"
+                        },
+                        {
+                            "category_id": 581202,
+                            "labels": {
+                                "de": "Erden & Substrate",
+                                "en": "Soils & Substrates",
+                                "fr": "Terreaux &amp; substrats",
+                                "es": "Suelos y sustratos"
+                            },
+                            "cpath": "195_581202",
+                            "urls": {
+                                "de": "\/growshop\/erden-substrate\/",
+                                "en": "\/en\/growshop\/soils-substrates\/",
+                                "fr": "\/fr\/growshop\/terreaux-substrats\/",
+                                "es": "\/es\/growshop\/suelos-y-sustratos\/"
+                            },
+                            "url": "\/growshop\/erden-substrate\/"
+                        },
+                        {
+                            "category_id": 581817,
+                            "labels": {
+                                "de": "Bewässerung",
+                                "en": "Irrigation",
+                                "fr": "Irrigation",
+                                "es": "Riego"
+                            },
+                            "cpath": "195_581817",
+                            "urls": {
+                                "de": "\/growshop\/bewaesserung\/",
+                                "en": "\/en\/growshop\/irrigation\/",
+                                "fr": "\/fr\/growshop\/irrigation\/",
+                                "es": "\/es\/growshop\/riego\/"
+                            },
+                            "url": "\/growshop\/bewaesserung\/"
+                        },
+                        {
+                            "category_id": 581203,
+                            "labels": {
+                                "de": "Dünger",
+                                "en": "Fertilizer",
+                                "fr": "Engrais",
+                                "es": "Abono"
+                            },
+                            "cpath": "195_581203",
+                            "urls": {
+                                "de": "\/growshop\/duenger\/",
+                                "en": "\/en\/growshop\/fertilizer\/",
+                                "fr": "\/fr\/growshop\/engrais\/",
+                                "es": "\/es\/growshop\/abono\/"
+                            },
+                            "url": "\/growshop\/duenger\/"
+                        }
+                    ]
+                },
+                {
+                    "titles": {
+                        "de": "Zubehör & Ernte",
+                        "en": "Accessories & Harvest",
+                        "fr": "Accessoires & Récolte",
+                        "es": "Accesorios & Cosecha"
+                    },
+                    "icon": "fa-wrench",
+                    "items": [
+                        {
+                            "category_id": 581779,
+                            "labels": {
+                                "de": "Ernte u. Verarbeitung",
+                                "en": "Harvesting and processing",
+                                "fr": "Récolte et traitement",
+                                "es": "Recolección y transformación"
+                            },
+                            "cpath": "195_581779",
+                            "urls": {
+                                "de": "\/growshop\/ernte-u-verarbeitung\/",
+                                "en": "\/en\/growshop\/harvesting-and-processing\/",
+                                "fr": "\/fr\/growshop\/recolte-et-traitement\/",
+                                "es": "\/es\/growshop\/recoleccion-y-transformacion\/"
+                            },
+                            "url": "\/growshop\/ernte-u-verarbeitung\/"
+                        },
+                        {
+                            "category_id": 581187,
+                            "labels": {
+                                "de": "Lüftung - Klima",
+                                "en": "Ventilation - Air conditioning",
+                                "fr": "Ventilation - Climatisation",
+                                "es": "Ventilación - Aire acondicionado"
+                            },
+                            "cpath": "195_581187",
+                            "urls": {
+                                "de": "\/growshop\/lueftung-klima\/",
+                                "en": "\/en\/growshop\/ventilation-air-conditioning\/",
+                                "fr": "\/fr\/growshop\/ventilation-climatisation\/",
+                                "es": "\/es\/growshop\/ventilacion-aire-acondicionado\/"
+                            },
+                            "url": "\/growshop\/lueftung-klima\/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parent_id": 581210,
+            "parent_names": {
+                "de": "Samen Shop",
+                "en": "Seed Shop",
+                "fr": "Boutique de graines",
+                "es": "Tienda de semillas"
+            },
+            "columns": [
+                {
+                    "titles": {
+                        "de": "Cannabis Samen kaufen",
+                        "en": "Buy Cannabis Seeds",
+                        "fr": "Acheter des Graines",
+                        "es": "Comprar Semillas"
+                    },
+                    "icon": "fa-solid fa-seedling",
+                    "items": [
+                        {
+                            "category_id": 58000,
+                            "labels": {
+                                "de": "Autoflowering Samen",
+                                "en": "Autoflowering seeds",
+                                "fr": "Graines d'autofloraison",
+                                "es": "Semillas autoflorecientes"
+                            },
+                            "cpath": "581210_58000",
+                            "urls": {
+                                "de": "\/samen-shop\/autoflowering-samen\/",
+                                "en": "\/en\/seed-shop\/autoflowering-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/graines-dautofloraison\/",
+                                "es": "\/es\/tienda-de-semillas\/semillas-autoflorecientes\/"
+                            },
+                            "url": "\/samen-shop\/autoflowering-samen\/"
+                        },
+                        {
+                            "category_id": 581346,
+                            "labels": {
+                                "de": "Feminisierte Samen",
+                                "en": "Feminized seeds",
+                                "fr": "Graines féminisées",
+                                "es": "Semillas feminizadas"
+                            },
+                            "cpath": "581210_581346",
+                            "urls": {
+                                "de": "\/samen-shop\/feminisierte-samen\/",
+                                "en": "\/en\/seed-shop\/feminized-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/graines-feminisees\/",
+                                "es": "\/es\/tienda-de-semillas\/semillas-feminizadas\/"
+                            },
+                            "url": "\/samen-shop\/feminisierte-samen\/"
+                        },
+                        {
+                            "category_id": 581868,
+                            "labels": {
+                                "de": "F1 Cannabis Sorten",
+                                "en": "F1 cannabis varieties",
+                                "fr": "Variétés de cannabis F1",
+                                "es": "Variedades F1 de cannabis"
+                            },
+                            "cpath": "581210_581889_581868",
+                            "urls": {
+                                "de": "\/samen-shop\/sortenvielfalt\/f1-cannabis-sorten\/",
+                                "en": "\/en\/seed-shop\/variety-diversity\/f1-cannabis-varieties\/",
+                                "fr": "\/fr\/boutique-de-graines\/diversite-des-varietes\/varietes-de-cannabis-f1\/",
+                                "es": "\/es\/tienda-de-semillas\/diversidad-de-variedades\/variedades-f1-de-cannabis\/"
+                            },
+                            "url": "\/samen-shop\/sortenvielfalt\/f1-cannabis-sorten\/"
+                        },
+                        {
+                            "category_id": 581002,
+                            "labels": {
+                                "de": "Reguläre Samen",
+                                "en": "Regular seeds",
+                                "fr": "Graines régulières",
+                                "es": "Semillas regulares"
+                            },
+                            "cpath": "581210_581002",
+                            "urls": {
+                                "de": "\/samen-shop\/regulaere-samen\/",
+                                "en": "\/en\/seed-shop\/regular-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/graines-regulieres\/",
+                                "es": "\/es\/tienda-de-semillas\/semillas-regulares\/"
+                            },
+                            "url": "\/samen-shop\/regulaere-samen\/"
+                        },
+                        {
+                            "category_id": 581291,
+                            "labels": {
+                                "de": "CBD-Reiche Cannabis Sorten",
+                                "en": "CBD-rich cannabis strains",
+                                "fr": "Variétés de cannabis riches en CBD",
+                                "es": "Variedades de cannabis ricas en CBD"
+                            },
+                            "cpath": "581210_581889_581291",
+                            "urls": {
+                                "de": "\/samen-shop\/sortenvielfalt\/cbd-reiche-cannabis-sorten\/",
+                                "en": "\/en\/seed-shop\/variety-diversity\/cbd-rich-cannabis-strains\/",
+                                "fr": "\/fr\/boutique-de-graines\/diversite-des-varietes\/varietes-de-cannabis-riches-en-cbd\/",
+                                "es": "\/es\/tienda-de-semillas\/diversidad-de-variedades\/variedades-de-cannabis-ricas-en-cbd\/"
+                            },
+                            "url": "\/samen-shop\/sortenvielfalt\/cbd-reiche-cannabis-sorten\/"
+                        }
+                    ]
+                },
+                {
+                    "titles": {
+                        "de": "Beliebte Auswahl",
+                        "en": "Popular Selection",
+                        "fr": "Sélection Populaire",
+                        "es": "Selección Popular"
+                    },
+                    "icon": "fa-solid fa-gem",
+                    "items": [
+                        {
+                            "category_id": 581866,
+                            "labels": {
+                                "de": "Anfänger Samen",
+                                "en": "Beginner seeds",
+                                "fr": "Graines de débutant",
+                                "es": "Semillas para principiantes"
+                            },
+                            "cpath": "581210_581890_581866",
+                            "urls": {
+                                "de": "\/samen-shop\/favoriten\/anfaenger-samen\/",
+                                "en": "\/en\/seed-shop\/favorites\/beginner-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/favoris\/graines-de-debutant\/",
+                                "es": "\/es\/tienda-de-semillas\/favoritos\/semillas-para-principiantes\/"
+                            },
+                            "url": "\/samen-shop\/favoriten\/anfaenger-samen\/"
+                        },
+                        {
+                            "category_id": 581882,
+                            "labels": {
+                                "de": "Top-Seller",
+                                "en": "Top seller",
+                                "fr": "Top-seller",
+                                "es": "Los más vendidos"
+                            },
+                            "cpath": "581210_581890_581882",
+                            "urls": {
+                                "de": "\/samen-shop\/favoriten\/top-seller\/",
+                                "en": "\/en\/seed-shop\/favorites\/top-seller\/",
+                                "fr": "\/fr\/boutique-de-graines\/favoris\/top-seller\/",
+                                "es": "\/es\/tienda-de-semillas\/favoritos\/los-mas-vendidos\/"
+                            },
+                            "url": "\/samen-shop\/favoriten\/top-seller\/"
+                        },
+                        {
+                            "category_id": 581829,
+                            "labels": {
+                                "de": "USA Genetik",
+                                "en": "USA Genetics",
+                                "fr": "États-Unis Génétique",
+                                "es": "Genética USA"
+                            },
+                            "cpath": "581210_581933_581829",
+                            "urls": {
+                                "de": "\/samen-shop\/weitere-kategorien\/usa-genetik\/",
+                                "en": "\/en\/seed-shop\/other-categories\/usa-genetics\/",
+                                "fr": "\/fr\/boutique-de-graines\/autres-categories\/etats-unis-genetique\/",
+                                "es": "\/es\/tienda-de-semillas\/otras-categorias\/genetica-usa\/"
+                            },
+                            "url": "\/samen-shop\/weitere-kategorien\/usa-genetik\/"
+                        },
+                        {
+                            "category_id": 581290,
+                            "labels": {
+                                "de": "THC-Reiche Sorten",
+                                "en": "THC-rich strains",
+                                "fr": "Variétés riches en THC",
+                                "es": "Variedades ricas en THC"
+                            },
+                            "cpath": "581210_581889_581290",
+                            "urls": {
+                                "de": "\/samen-shop\/sortenvielfalt\/thc-reiche-sorten\/",
+                                "en": "\/en\/seed-shop\/variety-diversity\/thc-rich-strains\/",
+                                "fr": "\/fr\/boutique-de-graines\/diversite-des-varietes\/varietes-riches-en-thc\/",
+                                "es": "\/es\/tienda-de-semillas\/diversidad-de-variedades\/variedades-ricas-en-thc\/"
+                            },
+                            "url": "\/samen-shop\/sortenvielfalt\/thc-reiche-sorten\/"
+                        },
+                        {
+                            "category_id": 581883,
+                            "labels": {
+                                "de": "Klassiker",
+                                "en": "Classics",
+                                "fr": "Classique",
+                                "es": "Clásicos"
+                            },
+                            "cpath": "581210_581890_581883",
+                            "urls": {
+                                "de": "\/samen-shop\/favoriten\/klassiker\/",
+                                "en": "\/en\/seed-shop\/favorites\/classics\/",
+                                "fr": "\/fr\/boutique-de-graines\/favoris\/classique\/",
+                                "es": "\/es\/tienda-de-semillas\/favoritos\/clasicos\/"
+                            },
+                            "url": "\/samen-shop\/favoriten\/klassiker\/"
+                        }
+                    ]
+                },
+                {
+                    "titles": {
+                        "de": "Anbau & Spezial",
+                        "en": "Growing & Special",
+                        "fr": "Culture & Spécial",
+                        "es": "Cultivo & Especial"
+                    },
+                    "icon": "fa-solid fa-hand-holding-seedling",
+                    "items": [
+                        {
+                            "category_id": 581894,
+                            "labels": {
+                                "de": "Reine Indoor Samen",
+                                "en": "Pure indoor seeds",
+                                "fr": "Graines pures d'intérieur",
+                                "es": "Semillas puras de interior"
+                            },
+                            "cpath": "581210_581933_581894",
+                            "urls": {
+                                "de": "\/samen-shop\/weitere-kategorien\/reine-indoor-samen\/",
+                                "en": "\/en\/seed-shop\/other-categories\/pure-indoor-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/autres-categories\/graines-pures-dinterieur\/",
+                                "es": "\/es\/tienda-de-semillas\/otras-categorias\/semillas-puras-de-interior\/"
+                            },
+                            "url": "\/samen-shop\/weitere-kategorien\/reine-indoor-samen\/"
+                        },
+                        {
+                            "category_id": 581895,
+                            "labels": {
+                                "de": "Reine Outdoor Samen",
+                                "en": "Pure outdoor seeds",
+                                "fr": "Graines pures d'extérieur",
+                                "es": "Semillas puras de exterior"
+                            },
+                            "cpath": "581210_581933_581895",
+                            "urls": {
+                                "de": "\/samen-shop\/weitere-kategorien\/reine-outdoor-samen\/",
+                                "en": "\/en\/seed-shop\/other-categories\/pure-outdoor-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/autres-categories\/graines-pures-dexterieur\/",
+                                "es": "\/es\/tienda-de-semillas\/otras-categorias\/semillas-puras-de-exterior\/"
+                            },
+                            "url": "\/samen-shop\/weitere-kategorien\/reine-outdoor-samen\/"
+                        },
+                        {
+                            "category_id": 581867,
+                            "labels": {
+                                "de": "Fast Flowering Samen",
+                                "en": "Fast Flowering seeds",
+                                "fr": "Graines de Fast Flowering",
+                                "es": "Semillas de floración rápida"
+                            },
+                            "cpath": "581210_581889_581867",
+                            "urls": {
+                                "de": "\/samen-shop\/sortenvielfalt\/fast-flowering-samen\/",
+                                "en": "\/en\/seed-shop\/variety-diversity\/fast-flowering-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/diversite-des-varietes\/graines-de-fast-flowering\/",
+                                "es": "\/es\/tienda-de-semillas\/diversidad-de-variedades\/semillas-de-floracion-rapida\/"
+                            },
+                            "url": "\/samen-shop\/sortenvielfalt\/fast-flowering-samen\/"
+                        },
+                        {
+                            "category_id": 58002,
+                            "labels": {
+                                "de": "Medizinische Samen",
+                                "en": "Medicinal seeds",
+                                "fr": "Graines médicinales",
+                                "es": "Semillas medicinales"
+                            },
+                            "cpath": "581210_581933_58002",
+                            "urls": {
+                                "de": "\/samen-shop\/weitere-kategorien\/medizinische-samen\/",
+                                "en": "\/en\/seed-shop\/other-categories\/medicinal-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/autres-categories\/graines-medicinales\/",
+                                "es": "\/es\/tienda-de-semillas\/otras-categorias\/semillas-medicinales\/"
+                            },
+                            "url": "\/samen-shop\/weitere-kategorien\/medizinische-samen\/"
+                        },
+                        {
+                            "category_id": 581858,
+                            "labels": {
+                                "de": "Bulk Samen",
+                                "en": "Bulk seeds",
+                                "fr": "Graines en vrac",
+                                "es": "Semillas a granel"
+                            },
+                            "cpath": "581210_581933_581858",
+                            "urls": {
+                                "de": "\/samen-shop\/weitere-kategorien\/bulk-samen\/",
+                                "en": "\/en\/seed-shop\/other-categories\/bulk-seeds\/",
+                                "fr": "\/fr\/boutique-de-graines\/autres-categories\/graines-en-vrac\/",
+                                "es": "\/es\/tienda-de-semillas\/otras-categorias\/semillas-a-granel\/"
+                            },
+                            "url": "\/samen-shop\/weitere-kategorien\/bulk-samen\/"
+                        }
+                    ]
+                },
+                {
+                    "titles": {
+                        "de": "",
+                        "en": "",
+                        "fr": "",
+                        "es": ""
+                    },
+                    "icon": "fa-folder-o",
+                    "items": []
+                },
+                {
+                    "titles": {
+                        "de": "",
+                        "en": "",
+                        "fr": "",
+                        "es": ""
+                    },
+                    "icon": "fa-folder-o",
+                    "items": []
+                }
+            ],
+            "promo": {
+                "type": "special",
+                "products": [
+                    {
+                        "id": 9176,
+                        "name": "Critical Bilbo 100 BULK",
+                        "image": "bulk-critical-bilbo-100-samen-9176-0.jpg",
+                        "old_price": 0,
+                        "new_price": 84.1052,
+                        "discount": 0
+                    },
+                    {
+                        "id": 8526,
+                        "name": "Beanz 4 Locoz",
+                        "image": "beanz-4-locoz---phenomenom-genetics-8526-0.jpg",
+                        "old_price": 0,
+                        "new_price": 39.7117,
+                        "discount": 0
+                    },
+                    {
+                        "id": 9231,
+                        "name": "Lemon Skunk Fast 100 BULK",
+                        "image": "bulk-lemon-skunk-fast-100-samen-9231-0.jpg",
+                        "old_price": 0,
+                        "new_price": 74.7197,
+                        "discount": 0
+                    }
+                ],
+                "max_items": 3
+            }
+        },
+        {
+            "parent_id": 581287,
+            "parent_names": {
+                "de": "Headshop",
+                "en": "Headshop",
+                "fr": "Headshop",
+                "es": "Headshop"
+            },
+            "columns": [
+                {
+                    "titles": {
+                        "de": "Rauchen & Dampfen",
+                        "en": "Smoking & Vaping",
+                        "fr": "Fumer & Vapoter",
+                        "es": "Fumar & Vapear"
+                    },
+                    "icon": "fa-cloud",
+                    "items": [
+                        {
+                            "category_id": 581280,
+                            "labels": {
+                                "de": "Terpene Shop",
+                                "en": "Terpene Shop",
+                                "fr": "Boutique de terpènes",
+                                "es": "Tienda Terpene"
+                            },
+                            "cpath": "581287_581280",
+                            "urls": {
+                                "de": "\/headshop\/terpene-shop\/",
+                                "en": "\/en\/headshop\/terpene-shop\/",
+                                "fr": "\/fr\/headshop\/boutique-de-terpenes\/",
+                                "es": "\/es\/headshop\/tienda-terpene\/"
+                            },
+                            "url": "\/headshop\/terpene-shop\/"
+                        },
+                        {
+                            "category_id": 581314,
+                            "labels": {
+                                "de": "Bongs",
+                                "en": "Bongs",
+                                "fr": "Bongs",
+                                "es": "Bongs"
+                            },
+                            "cpath": "581287_581314",
+                            "urls": {
+                                "de": "\/headshop\/bongs\/",
+                                "en": "\/en\/headshop\/bongs\/",
+                                "fr": "\/fr\/headshop\/bongs\/",
+                                "es": "\/es\/headshop\/bongs\/"
+                            },
+                            "url": "\/headshop\/bongs\/"
+                        },
+                        {
+                            "category_id": 581818,
+                            "labels": {
+                                "de": "Pfeifen",
+                                "en": "Pipes",
+                                "fr": "Sifflets",
+                                "es": "Tuberías"
+                            },
+                            "cpath": "581287_581818",
+                            "urls": {
+                                "de": "\/headshop\/pfeifen\/",
+                                "en": "\/en\/headshop\/pipes\/",
+                                "fr": "\/fr\/headshop\/sifflets\/",
+                                "es": "\/es\/headshop\/tuberias\/"
+                            },
+                            "url": "\/headshop\/pfeifen\/"
+                        },
+                        {
+                            "category_id": 581173,
+                            "labels": {
+                                "de": "Verdampfer - Vaporizer",
+                                "en": "Vaporizer - Vaporizer",
+                                "fr": "Vaporisateur - Vaporizer",
+                                "es": "Vaporizador - Vaporizador"
+                            },
+                            "cpath": "581287_581173",
+                            "urls": {
+                                "de": "\/headshop\/verdampfer-vaporizer\/",
+                                "en": "\/en\/headshop\/vaporizer-vaporizer\/",
+                                "fr": "\/fr\/headshop\/vaporisateur-vaporizer\/",
+                                "es": "\/es\/headshop\/vaporizador-vaporizador\/"
+                            },
+                            "url": "\/headshop\/verdampfer-vaporizer\/"
+                        },
+                        {
+                            "category_id": 210,
+                            "labels": {
+                                "de": "Waagen",
+                                "en": "Scales",
+                                "fr": "Balances",
+                                "es": "Escalas"
+                            },
+                            "cpath": "581287_210",
+                            "urls": {
+                                "de": "\/headshop\/waagen\/",
+                                "en": "\/en\/headshop\/scales\/",
+                                "fr": "\/fr\/headshop\/balances\/",
+                                "es": "\/es\/headshop\/escalas\/"
+                            },
+                            "url": "\/headshop\/waagen\/"
+                        }
+                    ]
+                },
+                {
+                    "titles": {
+                        "de": "Zubehör & Tools",
+                        "en": "Accessories & Tools",
+                        "fr": "Accessoires & Outils",
+                        "es": "Accesorios & Herramientas"
+                    },
+                    "icon": "fa-wrench",
+                    "items": [
+                        {
+                            "category_id": 211,
+                            "labels": {
+                                "de": "Zubehör",
+                                "en": "Accessories",
+                                "fr": "Accessoires",
+                                "es": "Accesorios"
+                            },
+                            "cpath": "581287_211",
+                            "urls": {
+                                "de": "\/headshop\/zubehoer\/",
+                                "en": "\/en\/headshop\/accessories\/",
+                                "fr": "\/fr\/headshop\/accessoires\/",
+                                "es": "\/es\/headshop\/accesorios\/"
+                            },
+                            "url": "\/headshop\/zubehoer\/"
+                        },
+                        {
+                            "category_id": 581822,
+                            "labels": {
+                                "de": "Bücher & Multimedia",
+                                "en": "Books &amp; Multimedia",
+                                "fr": "Livres &amp; Multimédia",
+                                "es": "Libros y multimedia"
+                            },
+                            "cpath": "581287_581822",
+                            "urls": {
+                                "de": "\/headshop\/buecher-multimedia\/",
+                                "en": "\/en\/headshop\/books-multimedia\/",
+                                "fr": "\/fr\/headshop\/livres-multimedia\/",
+                                "es": "\/es\/headshop\/libros-y-multimedia\/"
+                            },
+                            "url": "\/headshop\/buecher-multimedia\/"
+                        },
+                        {
+                            "category_id": 209,
+                            "labels": {
+                                "de": "Grinder",
+                                "en": "Grinder",
+                                "fr": "Broyeur",
+                                "es": "Amoladora"
+                            },
+                            "cpath": "581287_209",
+                            "urls": {
+                                "de": "\/headshop\/grinder\/",
+                                "en": "\/en\/headshop\/grinder\/",
+                                "fr": "\/fr\/headshop\/broyeur\/",
+                                "es": "\/es\/headshop\/amoladora\/"
+                            },
+                            "url": "\/headshop\/grinder\/"
+                        },
+                        {
+                            "category_id": 581842,
+                            "labels": {
+                                "de": "Mischtabletts",
+                                "en": "Mixing trays",
+                                "fr": "Plateaux de mélange",
+                                "es": "Bandejas mezcladoras"
+                            },
+                            "cpath": "581287_581842",
+                            "urls": {
+                                "de": "\/headshop\/mischtabletts\/",
+                                "en": "\/en\/headshop\/mixing-trays\/",
+                                "fr": "\/fr\/headshop\/plateaux-de-melange\/",
+                                "es": "\/es\/headshop\/bandejas-mezcladoras\/"
+                            },
+                            "url": "\/headshop\/mischtabletts\/"
+                        },
+                        {
+                            "category_id": 581812,
+                            "labels": {
+                                "de": "Verarbeitung & Extraktion",
+                                "en": "Processing &amp; extraction",
+                                "fr": "Traitement &amp; extraction",
+                                "es": "Procesado y extracción"
+                            },
+                            "cpath": "581287_581812",
+                            "urls": {
+                                "de": "\/headshop\/verarbeitung-extraktion\/",
+                                "en": "\/en\/headshop\/processing-extraction\/",
+                                "fr": "\/fr\/headshop\/traitement-extraction\/",
+                                "es": "\/es\/headshop\/procesado-y-extraccion\/"
+                            },
+                            "url": "\/headshop\/verarbeitung-extraktion\/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parent_id": 581964,
+            "parent_names": {
+                "de": "Cannabispflanzen",
+                "en": "Cannabis plants",
+                "fr": "Plantes de cannabis",
+                "es": "Plantas de cannabis"
+            },
+            "columns": [
+                {
+                    "titles": {
+                        "de": "Pflanzen kaufen",
+                        "en": "Buy Plants",
+                        "fr": "Acheter des Plantes",
+                        "es": "Comprar Plantas"
+                    },
+                    "icon": "fa-pagelines",
+                    "items": []
+                }
+            ],
+            "promo": {
+                "type": "new",
+                "products": [],
+                "max_items": 3
+            }
+        }
+    ],
+    "navlinks": [
+        {
+            "url": "specials.php",
+            "name": "MRH_NAV_ANGEBOTE",
+            "icon": "fa-tag",
+            "is_active": 1
+        },
+        {
+            "url": "products_new.php",
+            "name": "MRH_NAV_NEUE_ARTIKEL",
+            "icon": "fa-star",
+            "is_active": 1
+        },
+        {
+            "url": "shop.php?do=CreateManufacturersList",
+            "name": "MRH_NAV_MARKEN",
+            "icon": "fa-building",
+            "is_active": 1
+        },
+        {
+            "url": "blog.php",
+            "name": "MRH_NAV_BLOG",
+            "icon": "fa-solid fa-newspaper",
+            "is_active": 1
+        },
+        {
+            "url": "seedfinder.php",
+            "name": "MRH_NAV_SEEDFINDER",
+            "icon": "fa-solid fa-seedling",
+            "is_active": 1
+        }
+    ],
+    "mobile_promos": [
+        {
+            "promo_type": "banner",
+            "promo_position": "bottom",
+            "banner": {
+                "id": 348,
+                "title": "MRH_MENUE_SAMENSHO",
+                "image": "diskret-hanfsamen-bestellen.png",
+                "url": "",
+                "html_text": ""
+            }
+        }
+    ],
+    "mobile_icons": {
+        "195": "fa-solid fa-sun",
+        "581210": "fa-solid fa-seedling",
+        "581287": "fa-solid fa-bong",
+        "581813": "fa-solid fa-stars",
+        "581964": "fa-solid fa-cannabis"
+    }
+}

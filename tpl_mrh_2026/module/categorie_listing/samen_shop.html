@@ -1,0 +1,325 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{$products_name|escape:'html'}",
+  "description": "{if $products_description_short}{$products_description_short|strip_tags|truncate:300|escape:'html'}{else}{$products_name|escape:'html'} - Hochwertige Cannabis Samen von {$smarty.const.STORE_NAME}. Premium Qualität mit über 90% Keimgarantie für den legalen Anbau in Deutschland seit April 2024.{/if}",
+  "image": [
+    {if $products_image}
+    "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$products_image.image_name}"
+    {if $products_images}
+    {foreach from=$products_images item=image}
+    ,"{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$image.image_name}"
+    {/foreach}
+    {/if}
+    {else}
+    "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}images/product_images/info_images/no_picture.gif"
+    {/if}
+  ],
+  "sku": "{if $products_model}{$products_model|escape:'html'}{else}MH-{$products_id}{/if}",
+  "mpn": "MH-{$products_id}",
+  {if $products_ean}
+  "gtin": "{$products_ean}",
+  {/if}
+  "brand": {
+    "@type": "Brand",
+    "name": "{$smarty.const.STORE_NAME}",
+    "logo": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}images/logos/mr-hanf-logo.png",
+    "url": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}"
+  },
+  "manufacturer": {
+    "@type": "Organization",
+    "name": "{$smarty.const.STORE_NAME}",
+    "url": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}",
+    "logo": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}images/logos/mr-hanf-logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "{if $smarty.const.STORE_OWNER_PHONE}{$smarty.const.STORE_OWNER_PHONE}{else}+43 512 312 411{/if}",
+      "contactType": "customer service",
+      "availableLanguage": ["German", "English", "Spain", "France"],
+      "areaServed": "DE"
+    }
+  },
+  {if $products_price.plain}
+  "offers": {
+    "@type": "Offer",
+    "url": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$smarty.server.REQUEST_URI}",
+    "priceCurrency": "{$smarty.const.DEFAULT_CURRENCY}",
+    "price": "{$products_price.plain}",
+    "priceValidUntil": "{$smarty.now|date_format:'Y-m-d'|date:'Y-m-d':'+6 months'}",
+    "availability": "{if $products_quantity > 0}https://schema.org/InStock{elseif $products_quantity == 0}https://schema.org/OutOfStock{else}https://schema.org/PreOrder{/if}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@type": "Organization",
+      "name": "{$smarty.const.STORE_NAME}",
+      "url": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}",
+      "logo": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}images/logos/mr-hanf-logo.png"
+    },
+    {if $products_shipping_time || $products_shipping_name}
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "{if $products_shipping_cost}0{else}4.90{/if}",
+        "currency": "{$smarty.const.DEFAULT_CURRENCY}"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 3,
+          "unitCode": "DAY"
+        }
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": ["DE", "AT", "CH"]
+      }
+    },
+    {/if}
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "DE",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    "warranty": {
+      "@type": "WarrantyPromise",
+      "durationOfWarranty": {
+        "@type": "QuantitativeValue",
+        "value": 90,
+        "unitCode": "DAY"
+      },
+      "warrantyScope": "{#keimgarantie#}"
+    }
+  },
+  {/if}
+  {if $products_average_rating && $products_reviews_count}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{$products_average_rating}",
+    "reviewCount": "{$products_reviews_count}",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  {/if}
+  {if $reviews}
+  "review": [
+    {foreach from=$reviews item=review name=reviews}
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "{$review.rating}",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "{$review.customers_name|escape:'html'}"
+      },
+      "reviewBody": "{$review.reviews_text|strip_tags|escape:'html'}",
+      "datePublished": "{$review.date_added|date_format:'%Y-%m-%d'}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{$smarty.const.STORE_NAME}"
+      }
+    }{if !$smarty.foreach.reviews.last},{/if}
+    {/foreach}
+  ],
+  {/if}
+  "category": "{if $category_name}{$category_name|escape:'html'}{else}{#cannabissamen#}{/if}",
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Produkttyp",
+      "value": "{#cannabissamen#}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Samenart",
+      "value": "{if $products_name|strpos:'{#autoflowering#}' !== false || $products_name|strpos:'Auto' !== false}{#autoflowering#}{elseif $products_name|strpos:'{#feminisiert#}' !== false || $products_name|strpos:'Fem' !== false || $products_name|strpos:'feminized' !== false}{#feminisiert#}{else}{#regular#}{/if}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "{#anbaueignung#}",
+      "value": "{#io#}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "{#rechtliches#}",
+      "value": "{#legal_2024#}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "{#keimgarantie#}",
+      "value": "{#keimgarantie2#}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "{#erfahrungslevel#}",
+      "value": "{if $products_name|strpos:'Auto' !== false}{#erfahrungslevel#}{else}{#erfahrungslevel2#}{/if}"
+    },
+    {if $products_weight}
+    {
+      "@type": "PropertyValue",
+      "name": "{#Gewicht#}",
+      "value": "{$products_weight} g"
+    },
+    {/if}
+    {if $products_vpe}
+    {
+      "@type": "PropertyValue",
+      "name": "{#vpe#}",
+      "value": "{$products_vpe}"
+    },
+    {/if}
+    {if $products_date_available}
+    {
+      "@type": "PropertyValue",
+      "name": "{#vfr#}",
+      "value": "{$products_date_available|date_format:'%Y-%m-%d'}"
+    },
+    {/if}
+    {
+      "@type": "PropertyValue",
+      "name": "{#Versandklasse#}",
+      "value": "{#Diskret#}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "{#Lagerung#}",
+      "value": "{#trocken#}"
+    }
+  ],
+  {if $also_purchased_products || $cross_sell_products}
+  "isRelatedTo": [
+    {if $also_purchased_products}
+    {foreach from=$also_purchased_products item=related_product name=related}
+    {
+      "@type": "Product",
+      "name": "{$related_product.products_name|escape:'html'}",
+      "url": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$related_product.products_link}",
+      "image": "{if $related_product.products_image}{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$related_product.products_image}{/if}"
+    }{if !$smarty.foreach.related.last || $cross_sell_products},{/if}
+    {/foreach}
+    {/if}
+    {if $cross_sell_products}
+    {foreach from=$cross_sell_products item=cross_product name=cross}
+    {
+      "@type": "Product",
+      "name": "{$cross_product.products_name|escape:'html'}",
+      "url": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$cross_product.products_link}",
+      "image": "{if $cross_product.products_image}{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$cross_product.products_image}{/if}"
+    }{if !$smarty.foreach.cross.last},{/if}
+    {/foreach}
+    {/if}
+  ],
+  {/if}
+  "potentialAction": [
+  {
+  "@type": "BuyAction",
+  "target": {
+    "@type": "EntryPoint",
+    "urlTemplate": "{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$smarty.server.REQUEST_URI}",
+    "actionPlatform": [
+      "http://schema.org/DesktopWebPlatform",
+      "http://schema.org/MobileWebPlatform"
+    ]
+  },
+  "object": {
+    "@type": "Product",
+    "name": "{$products_name|escape:'html'}",
+    "offers": {
+      "@type": "Offer",
+      "price": "{$products_price.plain}",
+      "priceCurrency": "{$smarty.const.DEFAULT_CURRENCY}",
+      "availability": "{if $products_quantity > 0}https://schema.org/InStock{else}https://schema.org/OutOfStock{/if}"
+    }
+  }
+}
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "{#Enthusiasten#}",
+    "geographicArea": {
+      "@type": "Country",
+      "name": "{#Country#}"
+    }
+  },
+  {if $products_date_added}
+  "datePublished": "{$products_date_added|date_format:'%Y-%m-%d'}",
+  {/if}
+  {if $products_last_modified}
+  "dateModified": "{$products_last_modified|date_format:'%Y-%m-%d'}",
+  {/if}
+  "inProductGroupWithID": "{#cannabissamen#}-{if $products_name|strpos:'{#autoflowering2#}' !== false}{#autoflowering#} $products_name|strpos:'Fem' !== false}{#feminisiert#}{else}{#regular#}{/if}"
+}
+</script>{config_load file="$language/lang_$language.conf" section="categorie_listing"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="categorie_listing"}
+<div class="cat-listing mb-2 clearfix">
+	{if isset($SLIDER)}
+		{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/slider.html"}
+	{/if}
+	{if isset($CATEGORIES_HEADING_TITLE) && $CATEGORIES_HEADING_TITLE != ''}
+	  <h1 class="card p-2 bg-h">{$CATEGORIES_HEADING_TITLE}</h1>
+	{else}
+	  <h1 class="card p-2 bg-h">{$CATEGORIES_NAME}</h1>
+	{/if}
+	{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+    {if
+      !empty($CATEGORIES_DESCRIPTION)
+      || !empty($CATEGORIES_SHORT_DESCRIPTION)
+      || !empty($CATEGORIES_IMAGE)
+      || !empty($CATEGORIES_IMAGE_MOBILE)
+    }
+	<div class="cat_description mb-2">
+		{if isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != ''}
+		<div {if !empty($CATEGORIES_DESCRIPTION) || !empty($CATEGORIES_SHORT_DESCRIPTION)}class="col-sm-4"{/if}>
+			{if isset($CATEGORIES_IMAGE_MOBILE) && $CATEGORIES_IMAGE_MOBILE != ''}
+				<picture>
+					<source media="(max-width:600px)" srcset="data:,1w" data-srcset="{$CATEGORIES_IMAGE_MOBILE}" width="{$smarty.const.CATEGORIES_IMAGE_MOBILE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_MOBILE_HEIGHT}">
+					<source srcset="data:,1w" data-srcset="{$CATEGORIES_IMAGE}" width="{$smarty.const.CATEGORIES_IMAGE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_HEIGHT}">
+					<img class="lazyload img-fluid float-left p-2 mb-2 mr-4" src="data:," data-src="{$CATEGORIES_IMAGE}" alt="{#samen_shop#}" title="{$CATEGORIES_HEADING_TITLE|onlytext}" width="{$smarty.const.CATEGORIES_IMAGE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_HEIGHT}" />
+				</picture>
+			{else}
+				<img class="lazyload img-fluid float-left p-2 mb-2 mr-4" src="data:," data-src="{$CATEGORIES_IMAGE}" alt="{#samen_shop#}" title="{$CATEGORIES_HEADING_TITLE|onlytext}" width="{$smarty.const.CATEGORIES_IMAGE_WIDTH}" height="{$smarty.const.CATEGORIES_IMAGE_HEIGHT}" />
+			{/if}
+		</div>
+		{/if}
+		{if !empty($CATEGORIES_SHORT_DESCRIPTION)}{$CATEGORIES_SHORT_DESCRIPTION}{elseif !empty($CATEGORIES_DESCRIPTION)}{$CATEGORIES_DESCRIPTION}{/if}
+	</div>
+	{/if}
+</div>
+
+{if isset($CATEGORIES_LISTING)}{$CATEGORIES_LISTING}{/if}
+
+<div class="mb-3"> {1003236|contentAnywhere|inserttags}</div>
+
+{* //BOF - Kategorieerweiterungen (Zweites Kategoriebild) - fivebytes 08.02.2020 *}
+{if empty($smarty.get.page) || $smarty.get.page < 2}
+  {if (isset( $CATEGORIES_IMAGE_2 ) && $CATEGORIES_IMAGE_2 != '')}
+    <img class="lazyload cat_image img-fluid float-right mt-3 mr-4" src="data:," data-src="{$CATEGORIES_IMAGE_2}" title="{$CATEGORIES_IMAGE_2|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+  {/if}
+  {if isset($MODULE_new_products)}{$MODULE_new_products}{/if}
+  {if !empty($CATEGORIES_SHORT_DESCRIPTION) && !empty($CATEGORIES_DESCRIPTION)}
+    <div class="cat_description mb-2">
+      <p>{$CATEGORIES_DESCRIPTION}</p>
+    </div>
+  {elseif !empty($CATEGORIES_DESCRIPTION_2)}
+  <div class="cat_description mb-2">
+    <p>{$CATEGORIES_DESCRIPTION_2}</p>
+  </div>
+  {/if}
+{/if}
+{* //EOF - Kategorieerweiterungen (Zweiter Beschreibungstext) - fivebytes *}

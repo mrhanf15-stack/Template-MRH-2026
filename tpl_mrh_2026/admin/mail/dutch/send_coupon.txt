@@ -1,0 +1,10 @@
+{$MESSAGE}
+
+U kunt de coupon inwisselen wanneer u uw bestelling plaatst.
+
+ {$COUPON_ID}
+
+
+ {$WEBSITE} Om dit te doen, voert u uw couponcode in het veld voucher/couponcode in. Uw couponcode is: Bewaar uw couponcode op een veilige plaats zodat u de volgende keer dat u ons bezoekt op .
+
+[SIGNATUR]

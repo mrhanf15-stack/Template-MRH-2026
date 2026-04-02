@@ -1,0 +1,17 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+
+<div id="customers-notice-overlay" style="display: none;"></div>
+<div id="customers-notice-modal" style="display: none; margin: 20px&nbsp;">
+  <div id="customers-notice-content">
+     
+    <div>
+      
+      {$description}
+ 
+      
+    </div>
+  </div>
+  <a href="#" id="customers-notice-close">X</a>
+</div>
