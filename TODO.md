@@ -1,6 +1,6 @@
 # MRH 2026 Template – TODO
 
-> **Projektstand: 31. März 2026**
+> **Projektstand: 2. April 2026**
 > Repository: `mrhanf15-stack/Template-MRH-2026`
 
 ---
@@ -195,10 +195,28 @@
 
 ---
 
-## 15. Dokumentation
+## 15. Live-Template Sync (2. April 2026)
+
+- [x] Live-Template ZIP heruntergeladen und analysiert (2.088 Dateien)
+- [x] Datei-für-Datei Vergleich mit Repo (1.331 gemeinsame, 757 nur Live, 119 nur Repo)
+- [x] 212 kritische Dateien synchronisiert (tpl_parts, config, boxes, module, webfonts, fonts, unitegallery, admin, smarty)
+- [x] Smarty-Variablen-Kompatibilität geprüft (product_info_v1.html identisch)
+- [x] Versionsvergleich dokumentiert (BS 5.2.3→5.3.0, jQuery 3.6.0→3.7.1)
+- [x] LIVE_SYNC_REPORT.md erstellt
+- [x] Änderungen auf GitHub gepusht
+- [ ] Bootstrap 5.2.3 → 5.3.0 auf Live deployen
+- [ ] jQuery 3.6.0 → 3.7.1 auf Live deployen
+- [ ] Mobile Navigation (navigation_mobile.html + menu_offcanvas.html) auf Live deployen
+- [ ] index.html mit box_NEWSLETTER und Mobile-Nav-Includes auf Live deployen
+- [ ] tpl_mrh_2026_live.zip vom Webroot entfernen
+
+---
+
+## 16. Dokumentation
 
 - [x] CHANGELOG.md erstellt
 - [x] TODO.md erstellt
+- [x] LIVE_SYNC_REPORT.md erstellt
 - [ ] README.md für Template-Installation
 - [ ] Deploy-Anleitung für Server-Team
 - [ ] CSS-Architektur Dokumentation (Sektionen-Übersicht)
@@ -215,3 +233,10 @@
 **Bekannte Probleme:**
 - `404: Not Found` erscheint oben auf der Seite (favicon.ico oder anderes Asset fehlt)
 - Trusted Shops Badge überlappt Bottom Bar auf Mobile (z-index prüfen)
+
+**Live-Template Sync (2. April 2026):**
+- Live nutzt `inserttags` Modifier in index.html, Repo nicht (beabsichtigt)
+- Live nutzt `contentAnywhere` (ID 1003206) für Newsletter, Repo nutzt `box_NEWSLETTER`
+- Live hat Bootstrap 5.2.3, Repo hat 5.3.0 (Repo ist neuer)
+- Live hat jQuery 3.6.0, Repo hat 3.7.1 (Repo ist neuer)
+- 545 Dateien bewusst nicht synchronisiert (Bilder, alte CSS/JS, Backups)
