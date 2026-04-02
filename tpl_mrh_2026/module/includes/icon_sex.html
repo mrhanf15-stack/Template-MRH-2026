@@ -2,6 +2,7 @@
    icon_sex.html – Dynamischer Geschlechts-/Typ-Badge
    Liest den Text direkt aus der Tabellenzelle (tr.fem/tr.reg)
    und erzeugt einen Badge oberhalb der Produktdaten-Tabelle.
+   Badge erscheint IMMER (auch wenn .picto.templatestyle sichtbar).
    ============================================================ *}
 
 <script>
@@ -28,14 +29,7 @@
 
     if (!dataTable) return;
 
-    /* ── Autoflowering-Picto prüfen ── */
-    var picto = document.querySelector('.picto.templatestyle');
-    var pictoHasOff = picto && picto.classList.contains('off');
-    var pictoHasAuto = picto && !pictoHasOff && picto.querySelector('.shortfongc, .fa-tachometer');
-
-    /* Wenn bereits ein sichtbarer Autoflowering-Badge existiert, nichts tun */
-    if (pictoHasAuto) return;
-
+    /* ── Typ ermitteln ── */
     var type = null;
     var label = '';
     var icon = '';
