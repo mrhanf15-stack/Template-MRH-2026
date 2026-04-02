@@ -1558,3 +1558,46 @@ table.tebals.wite tr:last-child td:last-child {
    Sprache. Dieses CSS ist sprachneutral und funktioniert mit
    DE, EN, FR, ES ohne Änderung. */
 
+
+/* ── 15o: Konsistenter Abstand Preis → Tabelle ── */
+/* Wenn kein Picto-Badge vorhanden ist (.off), bleibt der Abstand
+   zwischen Preisbox und Tabelle gleich wie mit Badge.
+   Der Container .pd_infobox bekommt einen festen margin-top. */
+.pd_infobox {
+  margin-top: 0.75rem;
+}
+/* Wenn Badge sichtbar ist, hat .picto.templatestyle bereits margin-bottom.
+   Wenn Badge .off ist (display:none), sorgt .pd_infobox margin-top für Abstand. */
+
+/* ── 15p: Art.Nr. / Lieferzeit Tabelle (list_shortdescription) ── */
+/* Die zweite .tebals.wite Tabelle mit Art.Nr., Lieferzeit, Hersteller
+   bekommt den gleichen Modern-Clean-Stil wie die Produktdaten-Tabelle.
+   Zusätzlich: dezenterer Stil, da es Meta-Infos sind. */
+.pd_summarybox + .pd_infobox table.tebals.wite,
+.pd_infobox > .bg-custom.teabls > #usa > table.tebals.wite {
+  /* Erbt alle Stile von 15c-15l automatisch */
+}
+
+/* Art.Nr./Lieferzeit-Zeilen: etwas dezenter */
+.pd_infobox table.tebals.wite td .fw-bold,
+.pd_infobox table.tebals.wite td span.fw-bold {
+  font-weight: 600 !important;
+  color: var(--mrh-tbl-label);
+}
+
+/* ── 15q: Legende (Ampel-Anzeige) Abstand ── */
+.legend.mb-2 {
+  margin-top: 0.75rem;
+}
+
+/* ── 15r: Short Description innerhalb der Tabelle ── */
+/* Die Kurzbeschreibung (.bg-custom.teabls.mb-2.mt-2) innerhalb von #usa
+   soll sich nahtlos einfügen */
+#usa > .bg-custom.teabls.mb-2.mt-2 {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0.5rem !important;
+}
+
