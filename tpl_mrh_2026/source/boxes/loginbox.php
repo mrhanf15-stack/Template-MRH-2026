@@ -30,9 +30,25 @@ if (!isset($_SESSION['customer_id'])) {
     $box_smarty->assign('BUTTON', xtc_image_submit('button_login_small.gif', IMAGE_BUTTON_LOGIN));
     $box_smarty->assign('LINK_LOST_PASSWORD', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, '', 'SSL'));
     $box_smarty->assign('FORM_END', '</form>');
-
-	$box_smarty->caching = 0;
-	$box_loginbox = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_login.html');
-	$smarty->assign('box_LOGIN', $box_loginbox);
+    // MRH 2026: Affiliate-Login Link (SEO-URL über xtc_href_link)
+    $box_smarty->assign('LINK_AFFILIATE', xtc_href_link(FILENAME_AFFILIATE, '', 'SSL'));
 }
+
+// MRH 2026: Affiliate-Navigation Links wenn Partner eingeloggt
+if (isset($_SESSION['affiliate_id'])) {
+  $box_smarty->assign('LINK_AFFILIATE_SUMMARY', xtc_href_link(FILENAME_AFFILIATE_SUMMARY, '', 'SSL'));
+  $box_smarty->assign('LINK_AFFILIATE_DETAILS', xtc_href_link(FILENAME_AFFILIATE_DETAILS, '', 'SSL'));
+  $box_smarty->assign('LINK_AFFILIATE_PAYMENT', xtc_href_link(FILENAME_AFFILIATE_PAYMENT, '', 'SSL'));
+  $box_smarty->assign('LINK_AFFILIATE_CLICKS', xtc_href_link(FILENAME_AFFILIATE_CLICKS, '', 'SSL'));
+  $box_smarty->assign('LINK_AFFILIATE_SALES', xtc_href_link(FILENAME_AFFILIATE_SALES, '', 'SSL'));
+  $box_smarty->assign('LINK_AFFILIATE_BANNERS', xtc_href_link(FILENAME_AFFILIATE_BANNERS, 'type=b'));
+  $box_smarty->assign('LINK_AFFILIATE_TEXTLINKS', xtc_href_link(FILENAME_AFFILIATE_BANNERS, 'type=t'));
+  $box_smarty->assign('LINK_AFFILIATE_CONTACT', xtc_href_link(FILENAME_AFFILIATE_CONTACT));
+  $box_smarty->assign('LINK_AFFILIATE_FAQ', xtc_href_link(FILENAME_CONTENT, 'coID=902'));
+  $box_smarty->assign('LINK_AFFILIATE_LOGOUT', xtc_href_link(FILENAME_AFFILIATE_LOGOUT));
+}
+
+$box_smarty->caching = 0;
+$box_loginbox = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_login.html');
+$smarty->assign('box_LOGIN', $box_loginbox);
 ?>

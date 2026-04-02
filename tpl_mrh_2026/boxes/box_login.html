@@ -106,22 +106,24 @@
       </li>
     </ul>
 
-    {* --- Partnerlogin mit Abstand (mehrsprachig) --- *}
-    <hr class="my-3" style="border-color: rgba(0,0,0,.1);">
-    <ul class="list-unstyled offCanvas--list">
-      <li>
-        <a href="affiliate.php" title="{#title_accountbox_affiliate_login#}">
-          <span class="icon"><i class="fa-solid fa-handshake"></i></span><span class="title">{#title_accountbox_affiliate_login#}</span>
-        </a>
-      </li>
-    </ul>
+    {* --- Partnerlogin mit Abstand (SEO-URL über PHP, mehrsprachig) --- *}
+    {if isset($LINK_AFFILIATE) && $LINK_AFFILIATE != ''}
+      <hr class="my-3" style="border-color: rgba(0,0,0,.1);">
+      <ul class="list-unstyled offCanvas--list">
+        <li>
+          <a href="{$LINK_AFFILIATE}" title="{#title_accountbox_affiliate_login#}">
+            <span class="icon"><i class="fa-solid fa-handshake"></i></span><span class="title">{#title_accountbox_affiliate_login#}</span>
+          </a>
+        </li>
+      </ul>
+    {/if}
 
   {/if}
 {/if}
 
 {* ================================================================
    AFFILIATE-NAVIGATION: Wird angezeigt wenn Partner eingeloggt ist
-   Session-Variable: smarty.session.affiliate_id
+   Alle Links über xtc_href_link() in login.php → SEO-URLs
    ================================================================ *}
 {if isset($smarty.session.affiliate_id)}
   <hr class="my-3" style="border-color: rgba(0,0,0,.1);">
@@ -129,55 +131,75 @@
     <i class="fa-solid fa-handshake me-1"></i> {#title_accountbox_affiliate_login#}
   </div>
   <ul class="list-unstyled offCanvas--list">
-    <li>
-      <a href="affiliate_summary.php" title="{#title_nav_affiliate_dashboard#}">
-        <span class="icon"><i class="fa-solid fa-chart-line"></i></span><span class="title">{#title_nav_affiliate_dashboard#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_details.php" title="{#title_nav_affiliate_account#}">
-        <span class="icon"><i class="fa-solid fa-user-tie"></i></span><span class="title">{#title_nav_affiliate_account#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_payment.php" title="{#title_nav_affiliate_payment#}">
-        <span class="icon"><i class="fa-solid fa-money-bill-transfer"></i></span><span class="title">{#title_nav_affiliate_payment#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_clicks.php" title="{#title_nav_affiliate_clicks#}">
-        <span class="icon"><i class="fa-solid fa-arrow-pointer"></i></span><span class="title">{#title_nav_affiliate_clicks#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_sales.php" title="{#title_nav_affiliate_sales#}">
-        <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span><span class="title">{#title_nav_affiliate_sales#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_banners.php?type=b" title="{#title_nav_affiliate_banners#}">
-        <span class="icon"><i class="fa-solid fa-image"></i></span><span class="title">{#title_nav_affiliate_banners#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_banners.php?type=t" title="{#title_nav_affiliate_textlinks#}">
-        <span class="icon"><i class="fa-solid fa-link"></i></span><span class="title">{#title_nav_affiliate_textlinks#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_contact.php" title="{#title_nav_affiliate_contact#}">
-        <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="title">{#title_nav_affiliate_contact#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="index.php?content=902" title="{#title_nav_affiliate_faq#}">
-        <span class="icon"><i class="fa-solid fa-circle-question"></i></span><span class="title">{#title_nav_affiliate_faq#}</span>
-      </a>
-    </li>
-    <li>
-      <a href="affiliate_logout.php" title="{#title_nav_affiliate_logout#}">
-        <span class="icon"><i class="fa-solid fa-right-from-bracket text-danger"></i></span><span class="title">{#title_nav_affiliate_logout#}</span>
-      </a>
-    </li>
+    {if isset($LINK_AFFILIATE_SUMMARY)}
+      <li>
+        <a href="{$LINK_AFFILIATE_SUMMARY}" title="{#title_nav_affiliate_dashboard#}">
+          <span class="icon"><i class="fa-solid fa-chart-line"></i></span><span class="title">{#title_nav_affiliate_dashboard#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_DETAILS)}
+      <li>
+        <a href="{$LINK_AFFILIATE_DETAILS}" title="{#title_nav_affiliate_account#}">
+          <span class="icon"><i class="fa-solid fa-user-tie"></i></span><span class="title">{#title_nav_affiliate_account#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_PAYMENT)}
+      <li>
+        <a href="{$LINK_AFFILIATE_PAYMENT}" title="{#title_nav_affiliate_payment#}">
+          <span class="icon"><i class="fa-solid fa-money-bill-transfer"></i></span><span class="title">{#title_nav_affiliate_payment#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_CLICKS)}
+      <li>
+        <a href="{$LINK_AFFILIATE_CLICKS}" title="{#title_nav_affiliate_clicks#}">
+          <span class="icon"><i class="fa-solid fa-arrow-pointer"></i></span><span class="title">{#title_nav_affiliate_clicks#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_SALES)}
+      <li>
+        <a href="{$LINK_AFFILIATE_SALES}" title="{#title_nav_affiliate_sales#}">
+          <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span><span class="title">{#title_nav_affiliate_sales#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_BANNERS)}
+      <li>
+        <a href="{$LINK_AFFILIATE_BANNERS}" title="{#title_nav_affiliate_banners#}">
+          <span class="icon"><i class="fa-solid fa-image"></i></span><span class="title">{#title_nav_affiliate_banners#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_TEXTLINKS)}
+      <li>
+        <a href="{$LINK_AFFILIATE_TEXTLINKS}" title="{#title_nav_affiliate_textlinks#}">
+          <span class="icon"><i class="fa-solid fa-link"></i></span><span class="title">{#title_nav_affiliate_textlinks#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_CONTACT)}
+      <li>
+        <a href="{$LINK_AFFILIATE_CONTACT}" title="{#title_nav_affiliate_contact#}">
+          <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="title">{#title_nav_affiliate_contact#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_FAQ)}
+      <li>
+        <a href="{$LINK_AFFILIATE_FAQ}" title="{#title_nav_affiliate_faq#}">
+          <span class="icon"><i class="fa-solid fa-circle-question"></i></span><span class="title">{#title_nav_affiliate_faq#}</span>
+        </a>
+      </li>
+    {/if}
+    {if isset($LINK_AFFILIATE_LOGOUT)}
+      <li>
+        <a href="{$LINK_AFFILIATE_LOGOUT}" title="{#title_nav_affiliate_logout#}">
+          <span class="icon"><i class="fa-solid fa-right-from-bracket text-danger"></i></span><span class="title">{#title_nav_affiliate_logout#}</span>
+        </a>
+      </li>
+    {/if}
   </ul>
 {/if}
