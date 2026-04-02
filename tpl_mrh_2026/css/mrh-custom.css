@@ -1291,3 +1291,270 @@ body.mrh-no-scroll {
 /* Sticky Header Farben */
 .demo-farbe.tpl-sticky-bg       { background-color: var(--tpl-sticky-bg) !important; }
 .demo-farbe.tpl-sticky-text     { background-color: var(--tpl-sticky-text) !important; }
+
+/* ============================================================
+   15 PRODUKTDATEN-TABELLE (.tebals.wite) – Modern Clean
+   Stand: 2026-04-02 | Variante A + Badge-Stil B
+   Farben: fem=Pink, reg=Blau, aut=Grün
+   4 Sprachen: DE, EN, FR, ES
+   ============================================================ */
+
+/* ── 15a: CSS-Variablen für Tabelle ── */
+:root {
+  --mrh-tbl-fem: #ec4899;
+  --mrh-tbl-fem-bg: rgba(236, 72, 153, 0.06);
+  --mrh-tbl-reg: #3b82f6;
+  --mrh-tbl-reg-bg: rgba(59, 130, 246, 0.06);
+  --mrh-tbl-aut: #22c55e;
+  --mrh-tbl-aut-bg: rgba(34, 197, 94, 0.06);
+  --mrh-tbl-cbd: #7c3aed;
+  --mrh-tbl-cbd-bg: rgba(124, 58, 237, 0.04);
+  --mrh-tbl-border: #e2e8f0;
+  --mrh-tbl-zebra: #f8fafc;
+  --mrh-tbl-label: #475569;
+  --mrh-tbl-value: #1e293b;
+  --mrh-tbl-radius: 10px;
+}
+
+/* ── 15b: Picto-Badge (Autoflowering / Feminisiert / Regulär) ── */
+.picto.templatestyle {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--tpl-font-text), sans-serif;
+  padding: 8px 16px;
+  border-radius: var(--mrh-tbl-radius);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  /* Default: Autoflowering Grün */
+  background: var(--mrh-tbl-aut-bg);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: #15803d;
+}
+.picto.templatestyle .fa,
+.picto.templatestyle .shortfongc {
+  font-size: 1rem;
+}
+/* Ausgeblendet: .off Klasse */
+.picto.templatestyle.off {
+  display: none !important;
+}
+
+/* ── 15c: Tabelle – Basis ── */
+.bg-custom.teabls.table-striped {
+  background: transparent !important;
+  border: none !important;
+}
+table.tebals.wite {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.88rem;
+  font-family: var(--tpl-font-text), sans-serif;
+  background: #fff;
+  border: 1px solid var(--mrh-tbl-border);
+  border-radius: var(--mrh-tbl-radius);
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ── 15d: Zeilen ── */
+table.tebals.wite tr {
+  border-bottom: 1px solid var(--mrh-tbl-border);
+  transition: background-color 0.15s ease;
+}
+table.tebals.wite tr:last-child {
+  border-bottom: none;
+}
+/* Zebra-Streifen */
+table.tebals.wite tr:nth-child(even) {
+  background-color: var(--mrh-tbl-zebra);
+}
+/* Hover-Effekt */
+table.tebals.wite tr:hover {
+  background-color: rgba(45, 122, 58, 0.04);
+}
+
+/* ── 15e: Zellen ── */
+table.tebals.wite td {
+  padding: 10px 14px;
+  vertical-align: middle;
+  border: none !important;
+  line-height: 1.5;
+}
+/* Label-Spalte (erste 2 colspan) */
+table.tebals.wite td:first-child {
+  font-weight: 600;
+  color: var(--mrh-tbl-label);
+  width: 44%;
+  position: relative;
+}
+table.tebals.wite td:first-child span.font-weight-bold {
+  font-weight: 600 !important;
+}
+/* Wert-Spalte */
+table.tebals.wite td:last-child {
+  color: var(--mrh-tbl-value);
+  font-weight: 400;
+}
+
+/* ── 15f: Geschlecht-Zeilen – Farbige Akzent-Linie links ── */
+
+/* Feminisiert */
+table.tebals.wite tr.fem td:first-child {
+  padding-left: 22px;
+}
+table.tebals.wite tr.fem td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  min-height: 18px;
+  background: var(--mrh-tbl-fem);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Regulär */
+table.tebals.wite tr.reg td:first-child {
+  padding-left: 22px;
+}
+table.tebals.wite tr.reg td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  min-height: 18px;
+  background: var(--mrh-tbl-reg);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Autoflowering */
+table.tebals.wite tr.aut td:first-child {
+  padding-left: 22px;
+}
+table.tebals.wite tr.aut td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  min-height: 18px;
+  background: var(--mrh-tbl-aut);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── 15g: Cannabinoid-Zeilen (cbd_w) – Lila Akzent ── */
+table.tebals.wite tr.cbd_w td:first-child {
+  padding-left: 22px;
+}
+table.tebals.wite tr.cbd_w td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  min-height: 18px;
+  background: var(--mrh-tbl-cbd);
+  border-radius: 0 2px 2px 0;
+}
+table.tebals.wite tr.cbd_w td:last-child {
+  font-weight: 600;
+  color: var(--mrh-tbl-cbd);
+}
+
+/* ── 15h: Geschmack & Aroma – Kursiv ── */
+table.tebals.wite tr.g_aroma td:last-child {
+  font-style: italic;
+  color: #475569;
+}
+
+/* ── 15i: Effekt / Wirkung – Dezenter Stil ── */
+table.tebals.wite tr.effekt td:last-child,
+table.tebals.wite tr.wirkung td:last-child {
+  font-style: italic;
+  color: #475569;
+}
+
+/* ── 15j: .off Klasse – Zeilen ausblenden ── */
+table.tebals.wite tr.off,
+.off {
+  display: none !important;
+}
+
+/* ── 15k: Badge für Foto-Sorten (fem/reg ohne Autoflowering) ── */
+/* Da .picto.templatestyle.off bei Foto-Sorten ausgeblendet ist,
+   erzeugen wir den Badge-Effekt über die erste Zeile der Tabelle.
+   Die tr.fem und tr.reg Zeilen bekommen einen visuellen Badge-Stil
+   in der Wert-Spalte. */
+table.tebals.wite tr.fem td:last-child {
+  font-weight: 700;
+  color: var(--mrh-tbl-fem);
+}
+table.tebals.wite tr.reg td:last-child {
+  font-weight: 700;
+  color: var(--mrh-tbl-reg);
+}
+table.tebals.wite tr.aut td:last-child {
+  font-weight: 700;
+  color: var(--mrh-tbl-aut);
+}
+
+/* ── 15l: Erste Zeile – Abgerundete Ecken oben ── */
+table.tebals.wite tr:first-child td:first-child {
+  border-top-left-radius: var(--mrh-tbl-radius);
+}
+table.tebals.wite tr:first-child td:last-child {
+  border-top-right-radius: var(--mrh-tbl-radius);
+}
+table.tebals.wite tr:last-child td:first-child {
+  border-bottom-left-radius: var(--mrh-tbl-radius);
+}
+table.tebals.wite tr:last-child td:last-child {
+  border-bottom-right-radius: var(--mrh-tbl-radius);
+}
+
+/* ── 15m: Responsive – Mobile ── */
+@media (max-width: 767px) {
+  table.tebals.wite {
+    font-size: 0.82rem;
+  }
+  table.tebals.wite td {
+    padding: 8px 10px;
+  }
+  table.tebals.wite td:first-child {
+    width: 42%;
+  }
+  .picto.templatestyle {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+}
+@media (max-width: 480px) {
+  table.tebals.wite {
+    font-size: 0.78rem;
+  }
+  table.tebals.wite td {
+    padding: 7px 8px;
+  }
+  table.tebals.wite td:first-child {
+    width: 40%;
+  }
+}
+
+/* ── 15n: Mehrsprachige Labels (content-basiert, falls nötig) ── */
+/* Die Labels kommen aus dem DAB und sind bereits in der jeweiligen
+   Sprache. Dieses CSS ist sprachneutral und funktioniert mit
+   DE, EN, FR, ES ohne Änderung. */
+
