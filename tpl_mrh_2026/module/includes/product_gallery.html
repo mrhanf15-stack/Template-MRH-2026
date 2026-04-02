@@ -5,7 +5,7 @@
   
   Features:
   - Inner-Zoom (Desktop): Zoom direkt im Bildcontainer (EasyZoom-Stil)
-  - Thumbnail-Wechsel per Hover (Desktop) / Tap (Mobile)
+  - Thumbnail-Wechsel per Klick (Desktop + Mobile)
   - Fullscreen-Lightbox mit Prev/Next, Keyboard, Touch-Swipe
   - Schema.org ImageGallery Microdata
   - Responsive: Mobile-first, Touch-optimiert
@@ -22,7 +22,7 @@
   - $MANUFACTURER_IMAGE, $MANUFACTURER_LINK, $MANUFACTURER
   - $SOCIALMEDIA_BUTTON
   
-  Stand: 2026-04-02 | v3 – Inner-Zoom, popup_images statt original_images (403 Fix)
+  Stand: 2026-04-02 | v4 – Thumbnails nur per Klick, popup_images (403 Fix)
 *}
 
 {* ── Schema.org ImageGallery (versteckt) ── *}
@@ -483,28 +483,12 @@
      THUMBNAIL-WECHSEL
      ══════════════════════════════════════════════════════════ */
   if (thumbsWrap) {
-    var thumbTimeout = null;
-
-    thumbsWrap.addEventListener(isMobile ? 'click' : 'mouseenter', function(e) {
+    /* Thumbnail-Wechsel NUR per Klick (Desktop + Mobile) */
+    thumbsWrap.addEventListener('click', function(e) {
       var btn = e.target.closest('.mrh-thumb-btn');
       if (!btn) return;
-
-      /* Debounce für schnelles Hovern */
-      clearTimeout(thumbTimeout);
-      thumbTimeout = setTimeout(function() {
-        switchImage(btn);
-      }, isMobile ? 0 : 80);
-    }, true);
-
-    /* Auf Desktop auch Click */
-    if (!isMobile) {
-      thumbsWrap.addEventListener('click', function(e) {
-        var btn = e.target.closest('.mrh-thumb-btn');
-        if (!btn) return;
-        clearTimeout(thumbTimeout);
-        switchImage(btn);
-      });
-    }
+      switchImage(btn);
+    });
   }
 
   function switchImage(btn) {
