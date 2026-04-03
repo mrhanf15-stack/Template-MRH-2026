@@ -1,403 +1,62 @@
-{*
-  shipping_tooltip.html – Lagerstatus-Legende + Info-Modal
-  =========================================================
-  Vanilla JS – kein jQuery, kein Bootstrap Modal
-  Einbindung: {include file="module/includes/shipping_tooltip.html"}
-  
-  Benötigte Sprachkonstanten (lang/<sprache>/lang_shipping.conf):
-    shipping_lager          = Auf Lager
-    shipping_lagerson       = Nachbestellzeit
-    shipping_lagers         = Ausverkauft
-    shipping_ils            = Informationen zum Lagerstatus
-    availability_in_stock_title        = Auf Lager
-    availability_in_stock_description  = Der Artikel ist ...
-    availability_reordered_title       = Bestellbereit / Nachbestellt
-    availability_reordered_description = Der Artikel wird ...
-    availability_sold_out_title        = Ausverkauft
-    availability_sold_out_description  = Der Artikel ist derzeit ...
-  
-  Abhängigkeiten: Font Awesome 4 (bereits im Template geladen)
-  Stand: 2026-04-01 | Autor: MRH Dev
-*}
-
-{* ============================================================
-   LEGENDE – 3 Status-Dots + Labels + Info-Icon
-   ============================================================ *}
-<div class="shipping-legend mb-2">
-  <div class="d-flex align-items-center" style="gap: 1rem; flex-wrap: wrap;">
-
-    {* Auf Lager *}
-    <div class="d-flex align-items-center" style="gap: 6px;">
-      <span class="shipping-dot shipping-dot--instock" aria-hidden="true"></span>
-      <small class="text-dark" style="font-size: 12px;">{#shipping_lager#}</small>
-    </div>
-
-    {* Nachbestellzeit *}
-    <div class="d-flex align-items-center" style="gap: 6px;">
-      <span class="shipping-dot shipping-dot--reorder" aria-hidden="true"></span>
-      <small class="text-dark" style="font-size: 12px;">{#shipping_lagerson#}</small>
-    </div>
-
-    {* Ausverkauft *}
-    <div class="d-flex align-items-center" style="gap: 6px;">
-      <span class="shipping-dot shipping-dot--soldout" aria-hidden="true"></span>
-      <small class="text-dark" style="font-size: 12px;">{#shipping_lagers#}</small>
-    </div>
-
-    {* Info-Icon – öffnet Modal *}
-    <span class="fa fa-info-circle shipping-info-trigger"
-          id="shippingInfoTrigger"
-          tabindex="0"
-          role="button"
-          aria-label="{#shipping_ils#}"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-          aria-controls="shippingInfoModal"
-          style="font-size: 22px; cursor: pointer; color: #6b7280; transition: color 0.2s;">
+{* ── Legende: Auf Lager / Bestellbereit / Ausverkauft ── *}
+<div class="mrh-stock-legend-wrapper mb-2 mt-2" style="position:relative">
+  <div class="mrh-stock-legend d-flex align-items-center">
+    <span class="mrh-stock-legend-item">
+      <span class="mrh-stock-dot mrh-stock-dot--green"></span>
+      {#shipping_lager#}
     </span>
-
-  </div>
-</div>
-
-{* ============================================================
-   MODAL – Vanilla JS, kein Bootstrap, kein jQuery
-   ============================================================ *}
-<div class="shipping-modal-backdrop" id="shippingModalBackdrop" aria-hidden="true"></div>
-
-<div class="shipping-modal" 
-     id="shippingInfoModal" 
-     role="dialog" 
-     aria-modal="true" 
-     aria-labelledby="shippingModalTitle"
-     aria-hidden="true">
-  
-  <div class="shipping-modal__content">
-    
-    {* Header *}
-    <div class="shipping-modal__header">
-      <h5 class="shipping-modal__title" id="shippingModalTitle">
-        <span class="fa fa-info-circle" style="color: #16a34a; margin-right: 8px;" aria-hidden="true"></span>
-        {#shipping_ils#}
-      </h5>
-      <button class="shipping-modal__close" 
-              id="shippingModalClose"
-              type="button" 
-              aria-label="Schließen">
-        <span class="fa fa-times" aria-hidden="true"></span>
+    <span class="mrh-stock-legend-item">
+      <span class="mrh-stock-dot mrh-stock-dot--orange"></span>
+      {#shipping_lagerson#}
+    </span>
+    <span class="mrh-stock-legend-item">
+      <span class="mrh-stock-dot mrh-stock-dot--red"></span>
+      {#shipping_lagers#}
+    </span>
+    <div class="mrh-stock-item mrh-stock-item--info ms-auto">
+      <button type="button"
+              class="mrh-legend-info-btn mrh-stock-info-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#stockInfoModal"
+              aria-label="Info"
+              title="{#availability_in_stock_title#}">
+        <span class="fa fa-info"></span>
       </button>
     </div>
-
-    {* Body *}
-    <div class="shipping-modal__body">
-
-      {* Auf Lager *}
-      <div class="shipping-modal__item">
-        <div class="d-flex align-items-center" style="gap: 8px; margin-bottom: 4px;">
-          <span class="shipping-dot shipping-dot--instock" aria-hidden="true"></span>
-          <strong>{#availability_in_stock_title#}:</strong>
-        </div>
-        <p class="shipping-modal__desc">{#availability_in_stock_description#}</p>
-      </div>
-
-      {* Bestellbereit / Nachbestellt *}
-      <div class="shipping-modal__item">
-        <div class="d-flex align-items-center" style="gap: 8px; margin-bottom: 4px;">
-          <span class="shipping-dot shipping-dot--reorder" aria-hidden="true"></span>
-          <strong>{#availability_reordered_title#}:</strong>
-        </div>
-        <p class="shipping-modal__desc">{#availability_reordered_description#}</p>
-      </div>
-
-      {* Ausverkauft *}
-      <div class="shipping-modal__item">
-        <div class="d-flex align-items-center" style="gap: 8px; margin-bottom: 4px;">
-          <span class="shipping-dot shipping-dot--soldout" aria-hidden="true"></span>
-          <strong>{#availability_sold_out_title#}:</strong>
-        </div>
-        <p class="shipping-modal__desc">{#availability_sold_out_description#}</p>
-      </div>
-
-    </div>
-
-    {* Footer *}
-    <div class="shipping-modal__footer">
-      <button class="shipping-modal__btn" id="shippingModalOk" type="button">Verstanden</button>
-    </div>
-
-  </div>
+  </div> 
 </div>
 
-{* ============================================================
-   STYLES – Scoped via .shipping- Prefix
-   ============================================================ *}
-<style>
-/* --- Dots --- */
-.shipping-dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.shipping-dot--instock  { background-color: rgba(135, 165, 22, 0.6); }
-.shipping-dot--reorder  { background-color: rgba(237, 173, 68, 0.6); }
-.shipping-dot--soldout  { background-color: rgba(220, 53, 69, 0.6); }
-
-/* --- Trigger Hover --- */
-.shipping-info-trigger:hover,
-.shipping-info-trigger:focus {
-  color: #15803d !important;
-  outline: none;
-}
-.shipping-info-trigger:focus-visible {
-  outline: 2px solid #16a34a;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* --- Backdrop --- */
-.shipping-modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1050;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.shipping-modal-backdrop.is-active {
-  display: block;
-  opacity: 1;
-}
-
-/* --- Modal --- */
-.shipping-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1051;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-.shipping-modal.is-active {
-  display: flex;
-}
-
-/* --- Modal Content --- */
-.shipping-modal__content {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  width: 100%;
-  max-width: 420px;
-  overflow: hidden;
-  transform: translateY(20px);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.shipping-modal.is-active .shipping-modal__content {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* --- Header --- */
-.shipping-modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid #f3f4f6;
-}
-.shipping-modal__title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #111827;
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-
-/* --- Close Button --- */
-.shipping-modal__close {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  color: #9ca3af;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-.shipping-modal__close:hover {
-  background: #f3f4f6;
-  color: #374151;
-}
-.shipping-modal__close:focus-visible {
-  outline: 2px solid #16a34a;
-  outline-offset: 2px;
-}
-
-/* --- Body --- */
-.shipping-modal__body {
-  padding: 20px;
-}
-.shipping-modal__item {
-  margin-bottom: 16px;
-}
-.shipping-modal__item:last-child {
-  margin-bottom: 0;
-}
-.shipping-modal__item strong {
-  font-size: 14px;
-  color: #111827;
-}
-.shipping-modal__desc {
-  font-size: 13px;
-  color: #6b7280;
-  line-height: 1.5;
-  margin: 0;
-  padding-left: 20px;
-}
-
-/* --- Footer --- */
-.shipping-modal__footer {
-  padding: 12px 20px;
-  background: #f9fafb;
-  border-top: 1px solid #f3f4f6;
-}
-.shipping-modal__btn {
-  display: block;
-  width: 100%;
-  padding: 10px 0;
-  background: #15803d;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.shipping-modal__btn:hover {
-  background: #166534;
-}
-.shipping-modal__btn:focus-visible {
-  outline: 2px solid #16a34a;
-  outline-offset: 2px;
-}
-
-/* --- Mobile Responsive --- */
-@media (max-width: 480px) {
-  .shipping-modal__content {
-    max-width: 100%;
-    border-radius: 16px 16px 0 0;
-  }
-  .shipping-modal {
-    align-items: flex-end;
-  }
-}
-</style>
-
-{* ============================================================
-   SCRIPT – Vanilla JS, kein jQuery, kein Bootstrap
-   ============================================================ *}
-<script>
-(function() {
-  'use strict';
-
-  var trigger  = document.getElementById('shippingInfoTrigger');
-  var modal    = document.getElementById('shippingInfoModal');
-  var backdrop = document.getElementById('shippingModalBackdrop');
-  var closeBtn = document.getElementById('shippingModalClose');
-  var okBtn    = document.getElementById('shippingModalOk');
-
-  if (!trigger || !modal || !backdrop) return;
-
-  function openModal() {
-    backdrop.classList.add('is-active');
-    modal.classList.add('is-active');
-    modal.setAttribute('aria-hidden', 'false');
-    backdrop.setAttribute('aria-hidden', 'false');
-    trigger.setAttribute('aria-expanded', 'true');
-    // Focus auf Close-Button setzen
-    if (closeBtn) closeBtn.focus();
-    // Body-Scroll sperren
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    backdrop.classList.remove('is-active');
-    modal.classList.remove('is-active');
-    modal.setAttribute('aria-hidden', 'true');
-    backdrop.setAttribute('aria-hidden', 'true');
-    trigger.setAttribute('aria-expanded', 'false');
-    // Body-Scroll freigeben
-    document.body.style.overflow = '';
-    // Focus zurück auf Trigger
-    trigger.focus();
-  }
-
-  // Trigger: Click + Keyboard
-  trigger.addEventListener('click', function(e) {
-    e.preventDefault();
-    openModal();
-  });
-  trigger.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openModal();
-    }
-  });
-
-  // Close: X-Button
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeModal);
-  }
-
-  // Close: Verstanden-Button
-  if (okBtn) {
-    okBtn.addEventListener('click', closeModal);
-  }
-
-  // Close: Backdrop-Click
-  backdrop.addEventListener('click', closeModal);
-
-  // Close: Escape-Taste
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.classList.contains('is-active')) {
-      closeModal();
-    }
-  });
-
-  // Focus-Trap: Tab innerhalb des Modals halten
-  modal.addEventListener('keydown', function(e) {
-    if (e.key !== 'Tab') return;
-    
-    var focusable = modal.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    if (focusable.length === 0) return;
-
-    var first = focusable[0];
-    var last  = focusable[focusable.length - 1];
-
-    if (e.shiftKey) {
-      if (document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      }
-    } else {
-      if (document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-  });
-
-})();
-</script>
+{* ── Modal: Lagerverfügbarkeit Info ── *}
+<div class="modal fade" id="stockInfoModal" tabindex="-1" aria-labelledby="stockInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="stockInfoModalLabel">{#shipping_ils#}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mrh-stock-tooltip-item mb-3">
+          <div class="mrh-stock-tooltip-title fw-bold">
+            <span class="mrh-stock-dot mrh-stock-dot--green"></span>
+            {#availability_in_stock_title#}
+          </div>
+          <div class="mrh-stock-tooltip-desc">{#availability_in_stock_description#}</div>
+        </div>
+        <div class="mrh-stock-tooltip-item mb-3">
+          <div class="mrh-stock-tooltip-title fw-bold">
+            <span class="mrh-stock-dot mrh-stock-dot--orange"></span>
+            {#availability_reordered_title#}
+          </div>
+          <div class="mrh-stock-tooltip-desc">{#availability_reordered_description#}</div>
+        </div>
+        <div class="mrh-stock-tooltip-item">
+          <div class="mrh-stock-tooltip-title fw-bold">
+            <span class="mrh-stock-dot mrh-stock-dot--red"></span>
+            {#availability_sold_out_title#}
+          </div>
+          <div class="mrh-stock-tooltip-desc">{#availability_sold_out_description#}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
