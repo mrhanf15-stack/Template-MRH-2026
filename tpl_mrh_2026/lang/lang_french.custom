@@ -489,3 +489,8 @@ product_compare_button = 'Comparer'
 TEXT_BLOG_SEARCH_HEADING ='Résultat du blog'
 
 MRH_shop_offline_title = "Maintenance"
+
+# Badge-System (icon_sex.html)
+badge_feminisiert = 'Féminisée'
+badge_regulaer = 'Régulière'
+badge_photoperiodisch = 'Photopériodique'
