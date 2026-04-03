@@ -1,4 +1,5 @@
-{* icon_sex.html – Badge-System v7.1 *}
+{* icon_sex.html – Badge-System v7.2 *}
+{* Sprachen aus lang_german.custom: badge_feminisiert, badge_regulaer, badge_photoperiodisch *}
 {* Badges neben DB-Picto-Icons, auch wenn Picto "off" ist *}
 
 {literal}
@@ -19,9 +20,9 @@
   'use strict';
 
   var LANG = {ldelim}
-    feminisiert:     '{$badge_feminisiert|default:"Feminisiert"}',
-    regulaer:        '{$badge_regulaer|default:"Regulär"}',
-    photoperiodisch: '{$badge_photoperiodisch|default:"Photoperiodisch"}'
+    feminisiert:     '{#badge_feminisiert#}',
+    regulaer:        '{#badge_regulaer#}',
+    photoperiodisch: '{#badge_photoperiodisch#}'
   {rdelim};
 
   var MALE_SVG = '{$tpl_path}/img/badges/male.svg';
