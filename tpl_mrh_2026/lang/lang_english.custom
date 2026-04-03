@@ -492,3 +492,6 @@ MRH_shop_offline_title = "Maintenance"
 badge_feminisiert = 'Feminized'
 badge_regulaer = 'Regular'
 badge_photoperiodisch = 'Photoperiod'
+
+# Action Buttons
+btn_wishlist = 'Wishlist'

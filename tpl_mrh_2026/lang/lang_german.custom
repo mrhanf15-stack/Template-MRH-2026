@@ -526,3 +526,6 @@ product_compare_button ='Vergleichen'
 
 # Offline-Seite
 MRH_shop_offline_title = "Wartungsarbeiten"
+
+# Aktions-Buttons
+btn_wishlist = 'Merkzettel'

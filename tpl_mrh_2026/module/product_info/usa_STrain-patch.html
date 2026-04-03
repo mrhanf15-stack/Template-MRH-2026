@@ -201,10 +201,12 @@
 
       {* ── Aktions-Buttons (einheitlich als btn btn-outline-secondary btn-sm) ── *}
       <div class="mrh-pi-actions d-flex flex-wrap gap-2 mb-3">
-        {* Wunschliste *}
+        {* Merkzettel *}
         {if isset($ADD_CART_BUTTON_WISHLIST) && $ADD_CART_BUTTON_WISHLIST != ''}
           <div class="mrh-action-btn">
-            <span class="fa-regular fa-heart me-1"></span>{$ADD_CART_BUTTON_WISHLIST|replace:'class="wishlist_submit_link"':'class="btn btn-outline-secondary btn-sm wishlist_submit_link"'|replace:'type="image"':'type="image" class="btn btn-outline-secondary btn-sm"'}
+            <button type="submit" name="wishlist" class="btn btn-outline-secondary btn-sm">
+              <span class="fa-regular fa-heart me-1"></span>{#btn_wishlist#}
+            </button>
           </div>
         {/if}
         {* Vergleichen *}
@@ -236,31 +238,7 @@
         {/if}
       </div>
 
-      {* ── Express Checkout ── *}
-      {if isset($EXPRESS_LINK) && isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
-        <div class="dropdown mb-3">
-          <a href="#" role="button" id="dropdownMenuLink"
-             class="btn btn-sm dropdown-toggle"
-             style="background-color: #002868; color: #fff; border-color: #002868;"
-             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="fa fa-info-circle me-1"></span> {#checkout_express_infotext#}
-          </a>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-            {$EXPRESS_LINK|replace:'class="':'class="dropdown-item '|replace:'</a>':'&nbsp;&nbsp;<span class="fa fa-info-circle"></span></a>'}
-            <a class="dropdown-item" href="{$ACTIVATE_EXPRESS_LINK}">{#checkout_express_activate#}</a>
-          </div>
-        </div>
-      {else}
-        {if isset($EXPRESS_LINK)}<div class="mb-3">{$EXPRESS_LINK}</div>{/if}
-        {if isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
-          <div class="mb-3">
-            <a class="btn btn-sm" href="{$ACTIVATE_EXPRESS_LINK}"
-               style="background-color: #002868; color: #fff;">
-              <span class="fa fa-bolt me-1"></span> {#checkout_express_activate#}
-            </a>
-          </div>
-        {/if}
-      {/if}
+      {* ── Express Checkout (entfernt: wird bereits über $ADD_CART_BUTTON_EXPRESS angezeigt) ── *}
  
   {* ── BOC – QUALITY CONTROL ── *}
       {include file="module/includes/quality_control.html"}

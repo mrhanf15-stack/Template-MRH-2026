@@ -495,3 +495,6 @@ MRH_shop_offline_title = "Mantenimiento"
 badge_feminisiert = 'Feminizada'
 badge_regulaer = 'Regular'
 badge_photoperiodisch = 'Fotoperiódica'
+
+# Botones de acción
+btn_wishlist = 'Lista de deseos'
