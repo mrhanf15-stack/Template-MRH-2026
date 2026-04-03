@@ -203,6 +203,161 @@ compare_max = "Maximal 4 Produkte vergleichbar"
 
 ---
 
+## 3a. Anpassungsmodul (Farb-Konfigurator)
+
+### 3a.1 Funktionsweise
+
+Das Template verfuegt ueber ein **Admin-Anpassungsmodul** (Farb-Konfigurator), das die Farben des gesamten Shops steuert. Die Farben werden in `config/colors.json` gespeichert und ueber `smarty/mrh_color_vars.php` als CSS Custom Properties im `<head>` ausgegeben.
+
+**Dateien:**
+
+| Datei | Zweck |
+|---|---|
+| `config/colors.json` | Gespeicherte Farben (wird vom Admin ueber das Formular beschrieben) |
+| `config/default_colors.json` | Standard-Farben (Fallback bei Reset) |
+| `source/boxes/templateconfig.php` | PHP-Handler: Liest/Schreibt `colors.json`, rendert das Admin-Formular |
+| `smarty/mrh_color_vars.php` | Liest `colors.json` → gibt `<style id="mrh-color-vars">` mit `:root { --tpl-* }` aus |
+| `css/general.css.php` | Liest ebenfalls `colors.json` fuer die CSS-Generierung |
+
+### 3a.2 Verfuegbare Farb-Variablen aus dem Konfigurator
+
+Diese Variablen werden vom Konfigurator gesetzt und stehen als CSS Custom Properties zur Verfuegung:
+
+| JSON-Key | CSS-Variable | Alias-Variable | Beschreibung |
+|---|---|---|---|
+| `tpl-main-color` | `--tpl-main-color` | `--mrh-primary` | Primaerfarbe |
+| `tpl-main-color-2` | `--tpl-main-color-2` | `--mrh-primary-dark` | Sekundaerfarbe |
+| `tpl-secondary-color` | `--tpl-secondary-color` | `--mrh-primary-light` | Dritte Farbe |
+| `tpl-bg-color` | `--tpl-bg-color` | – | Hintergrundfarbe 1 |
+| `tpl-bg-color-2` | `--tpl-bg-color-2` | – | Hintergrundfarbe 2 |
+| `tpl-bg-productbox` | `--tpl-bg-productbox` | – | Produktboxen Hintergrund |
+| `tpl-bg-footer` | `--tpl-bg-footer` | `--mrh-bg-footer` | Footer Hintergrund |
+| `tpl-text-standard` | `--tpl-text-standard` | – | Standard Schriftfarbe |
+| `tpl-text-headings` | `--tpl-text-headings` | – | Ueberschriften Schriftfarbe |
+| `tpl-text-button` | `--tpl-text-button` | – | Schriftfarbe in Buttons & Badges |
+| `tpl-text-footer` | `--tpl-text-footer` | `--mrh-text-footer` | Schriftfarbe Footer |
+| `tpl-text-footer-headings` | `--tpl-text-footer-headings` | – | Ueberschriften im Footer |
+| `tpl-menu-bg` | `--tpl-menu-bg` | `--mrh-menu-bg` | Menue Hintergrund |
+| `tpl-menu-hover` | `--tpl-menu-hover` | `--mrh-menu-hover` | Menue Hover Hintergrund |
+| `tpl-menu-text` | `--tpl-menu-text` | `--mrh-menu-text` | Menue Textfarbe |
+| `tpl-menu-active` | `--tpl-menu-active` | `--mrh-menu-active` | Menue Aktiv/Hover Textfarbe |
+| `tpl-topbar-bg` | `--tpl-topbar-bg` | `--mrh-topbar-bg` | Topbar Hintergrund |
+| `tpl-topbar-text` | `--tpl-topbar-text` | `--mrh-topbar-text` | Topbar Textfarbe |
+| `tpl-sticky-bg` | `--tpl-sticky-bg` | `--mrh-sticky-bg` | Sticky Header Hintergrund |
+| `tpl-sticky-text` | `--tpl-sticky-text` | `--mrh-sticky-text` | Sticky Header Textfarbe |
+
+### 3a.3 KRITISCHE REGEL: Farben aus dem Konfigurator verwenden
+
+> **PFLICHT:** Alle Module MUESSEN die CSS-Variablen aus dem Farb-Konfigurator verwenden. Hardcoded Farbwerte sind **NUR als Fallback** in `var()` erlaubt.
+
+**Richtig:**
+```css
+.sf-card-header {
+    background: var(--tpl-main-color, #5db233);
+    color: var(--tpl-text-button, #ffffff);
+}
+```
+
+**Falsch:**
+```css
+.sf-card-header {
+    background: #5db233;  /* VERBOTEN: hardcoded ohne var() */
+    color: white;
+}
+```
+
+**Modul-eigene Variablen** duerfen definiert werden, muessen aber auf die Konfigurator-Variablen zurueckfallen:
+
+```css
+:root {
+    --sf-primary: var(--mrh-primary, var(--tpl-main-color, #5db233));
+}
+```
+
+### 3a.4 Konfigurator-Kompatibilitaet bei neuen Modulen
+
+Bei der Integration neuer Module sicherstellen:
+
+- [ ] Keine CSS-Regel ueberschreibt die `:root`-Variablen des Konfigurators
+- [ ] Keine `!important` auf Farben die vom Konfigurator gesteuert werden
+- [ ] Modul-CSS wird NACH `mrh_color_vars.php` geladen (nicht davor)
+- [ ] Testen: Farbe im Konfigurator aendern → Modul uebernimmt die neue Farbe
+
+---
+
+## 3b. Sprachdateien und Texte – Keine Hardcoded Texte
+
+### 3b.1 KRITISCHE REGEL: Alle Texte in Sprachdateien
+
+> **PFLICHT:** Es duerfen **KEINE Texte direkt in HTML/Smarty-Templates hardcodiert** werden. Alle sichtbaren Texte (Buttons, Labels, Titel, Beschreibungen, Tooltips, Platzhalter, Fehlermeldungen) MUESSEN ueber Smarty-Config-Variablen `{#variablenname#}` aus den Sprachdateien geladen werden.
+
+### 3b.2 Vier Sprachen erforderlich
+
+Der Shop unterstuetzt **vier Sprachen**. Jede Sprachvariable MUSS in allen vier Sprachen definiert werden:
+
+| Sprache | Conf-Datei |
+|---|---|
+| Deutsch | `lang/german/lang_german.conf` |
+| Englisch | `lang/english/lang_english.conf` |
+| Franzoesisch | `lang/french/lang_french.conf` |
+| Spanisch | `lang/spanish/lang_spanish.conf` |
+
+**Zusaetzlich** muss fuer jede Sprache eine `.custom`-Datei existieren (kann leer sein):
+- `lang/german/lang_german.custom`
+- `lang/english/lang_english.custom`
+- `lang/french/lang_french.custom`
+- `lang/spanish/lang_spanish.custom`
+
+### 3b.3 Beispiel: Neues Modul mit Texten
+
+**Im Smarty-Template:**
+```smarty
+{config_load file="$language/lang_$language.conf" section="meinmodul"}
+<h2>{#modul_title#}</h2>
+<p>{#modul_beschreibung#}</p>
+<button>{#modul_button_text#}</button>
+```
+
+**In `lang_german.conf`:**
+```ini
+[meinmodul]
+modul_title = "Mein Modul"
+modul_beschreibung = "Beschreibung auf Deutsch"
+modul_button_text = "Jetzt starten"
+```
+
+**In `lang_english.conf`:**
+```ini
+[meinmodul]
+modul_title = "My Module"
+modul_beschreibung = "Description in English"
+modul_button_text = "Start now"
+```
+
+**In `lang_french.conf`:**
+```ini
+[meinmodul]
+modul_title = "Mon Module"
+modul_beschreibung = "Description en français"
+modul_button_text = "Commencer"
+```
+
+**In `lang_spanish.conf`:**
+```ini
+[meinmodul]
+modul_title = "Mi Módulo"
+modul_beschreibung = "Descripción en español"
+modul_button_text = "Empezar ahora"
+```
+
+### 3b.4 Verboten
+
+- Keine deutschen Texte direkt im HTML: `<h2>Produktvergleich</h2>` → **VERBOTEN**
+- Keine Texte in JavaScript hardcoded: `alert('Fehler')` → **VERBOTEN**, stattdessen `data-*` Attribute mit Smarty-Variablen fuellen
+- Keine Texte nur in einer Sprache definieren → **ALLE VIER Sprachen PFLICHT**
+
+---
+
 ## 4. Checkliste: Modul-Integration
 
 Bei jeder Modul-Uebernahme ins tpl_mrh_2026 diese Punkte pruefen:
@@ -214,14 +369,16 @@ Bei jeder Modul-Uebernahme ins tpl_mrh_2026 diese Punkte pruefen:
 - [ ] Welche Smarty-Variablen werden im Template erwartet?
 - [ ] Sind die PHP-Array-Keys in UPPERCASE?
 - [ ] Welche Lang-Variablen (`{#...#}`) werden benoetigt?
-- [ ] Existieren die Lang-Variablen in `lang_german.conf`?
-- [ ] Existiert die `.custom`-Datei (auch wenn leer)?
+- [ ] Existieren die Lang-Variablen in ALLEN VIER Sprachen (DE, EN, FR, ES)?
+- [ ] Existiert die `.custom`-Datei fuer alle vier Sprachen (auch wenn leer)?
+- [ ] Sind KEINE Texte direkt im Template hardcodiert?
 
 ### 4.2 CSS-Integration
 
 - [ ] CSS-Datei im `css/`-Verzeichnis abgelegt
 - [ ] Dateiname folgt der Namenskonvention (`modulname.css` oder `modulname_komponente.css`)
-- [ ] Farben verwenden `var(--tpl-*)` oder `var(--mrh-*)` wo moeglich
+- [ ] Farben verwenden `var(--tpl-*)` oder `var(--mrh-*)` aus dem Farb-Konfigurator
+- [ ] Keine hardcoded Farben ohne `var()`-Fallback
 - [ ] Schriften verwenden `var(--tpl-font-heading)` und `var(--tpl-font-text)`
 - [ ] Keine `!important`-Deklarationen ausser bei zwingender Notwendigkeit
 - [ ] CSS wird im richtigen Smarty-Template per `<link>` eingebunden
@@ -244,6 +401,8 @@ Bei jeder Modul-Uebernahme ins tpl_mrh_2026 diese Punkte pruefen:
 - [ ] Seite im Browser getestet (Desktop + Mobile)
 - [ ] Keine weisse Seite / kein Smarty-Crash
 - [ ] Alle Texte werden angezeigt (keine leeren `{#...#}`)
+- [ ] Farbe im Konfigurator geaendert → Modul uebernimmt neue Farbe korrekt
+- [ ] Alle vier Sprachen getestet (DE, EN, FR, ES)
 
 ---
 
@@ -335,6 +494,8 @@ templates/tpl_mrh_2026/
 | Modul-Komponenten-CSS | `css/modulname_teil.css` | `<link>` im Sub-Template |
 | Neue Sprachvariable (DE) | `lang/german/lang_german.conf` | `[section]` Block hinzufuegen |
 | Neue Sprachvariable (EN) | `lang/english/lang_english.conf` | `[section]` Block hinzufuegen |
+| Neue Sprachvariable (FR) | `lang/french/lang_french.conf` | `[section]` Block hinzufuegen |
+| Neue Sprachvariable (ES) | `lang/spanish/lang_spanish.conf` | `[section]` Block hinzufuegen |
 | Neues Smarty-Template | `module/modulname.html` | PHP: `$smarty->fetch(CURRENT_TEMPLATE.'/module/...')` |
 | Neues Sub-Template | `module/modulname_teil.html` | `{include file="..."}` im Haupt-Template |
 | Neues JavaScript | `javascript/modulname.js` | `<script>` im Smarty-Template |
@@ -342,4 +503,4 @@ templates/tpl_mrh_2026/
 
 ---
 
-*Bot-Anweisung erstellt am 03.04.2026 - Aktualisieren bei jeder strukturellen Aenderung am Template.*
+*Bot-Anweisung erstellt am 03.04.2026 - Aktualisiert am 03.04.2026 (Farb-Konfigurator-Regeln, 4-Sprachen-Pflicht, Hardcoded-Text-Verbot hinzugefuegt)*
