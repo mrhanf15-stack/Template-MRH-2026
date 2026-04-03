@@ -1,73 +1,122 @@
-{* ============================================================
-   icon_sex.html – Dynamischer Geschlechts-/Typ-Badge
-   Liest den Text direkt aus der Tabellenzelle (tr.fem/tr.reg)
-   und erzeugt einen Badge oberhalb der Produktdaten-Tabelle.
-   Badge erscheint IMMER (auch wenn .picto.templatestyle sichtbar).
-   ============================================================ *}
+{* icon_sex.html – Badge-System v7.0 *}
+{* Badges neben DB-Picto-Icons, auch wenn Picto "off" ist *}
+
+{literal}
+<style>
+.mrh-badge-bar{display:inline-flex;flex-wrap:wrap;gap:.4rem;vertical-align:middle;margin-left:.4rem}
+.mrh-type-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:50rem;font-size:.8rem;font-weight:600;line-height:1.3;white-space:nowrap;color:#fff}
+.mrh-badge-fem{background:#fc5b96!important}
+.mrh-badge-reg{background:#2ea2f0!important}
+.mrh-badge-photo{background:#6c757d!important}
+.mrh-type-badge .fa{font-size:.9em}
+.mrh-type-badge img.mrh-badge-icon{height:.9em;width:auto;vertical-align:-.1em;filter:brightness(0) invert(1)}
+.picto.templatestyle{display:inline-flex!important;align-items:center!important;flex-wrap:wrap!important;gap:.4rem!important}
+</style>
+{/literal}
 
 <script>
-(function() {
+(function() {ldelim}
   'use strict';
 
-  function createSexBadge() {
-    /* ── Produktdaten-Tabelle finden: diejenige mit tr.fem / tr.reg ── */
-    var tables = document.querySelectorAll('table.tebals.wite');
-    var dataTable = null;
-    var femRow = null;
-    var regRow = null;
+  var LANG = {ldelim}
+    feminisiert:     '{$badge_feminisiert|default:"Feminisiert"}',
+    regulaer:        '{$badge_regulaer|default:"Regulär"}',
+    photoperiodisch: '{$badge_photoperiodisch|default:"Photoperiodisch"}'
+  {rdelim};
 
-    for (var i = 0; i < tables.length; i++) {
-      var f = tables[i].querySelector('tr.fem');
-      var r = tables[i].querySelector('tr.reg');
-      if (f || r) {
-        dataTable = tables[i];
-        femRow = f;
-        regRow = r;
-        break;
-      }
-    }
+  var MALE_SVG = '{$tpl_path}/img/badges/male.svg';
 
-    if (!dataTable) return;
+  if (document.querySelector('.mrh-badge-bar')) return;
 
-    /* ── Typ ermitteln ── */
-    var type = null;
-    var label = '';
-    var icon = '';
-    var colorClass = '';
+  function createBadges() {ldelim}
+    if (document.querySelector('.mrh-badge-bar')) return;
 
-    if (femRow) {
-      type = 'fem';
-      var lastTd = femRow.querySelector('td:last-child');
-      label = lastTd ? lastTd.textContent.trim() : 'Feminisiert';
-      icon = 'fa-venus';
-      colorClass = 'mrh-badge-fem';
-    } else if (regRow) {
-      type = 'reg';
-      var lastTd = regRow.querySelector('td:last-child');
-      label = lastTd ? lastTd.textContent.trim() : 'Regulär';
-      icon = 'fa-mars';
-      colorClass = 'mrh-badge-reg';
-    }
+    var table = document.querySelector('table.tebals.wite');
+    if (!table) return;
 
-    if (!type) return;
+    var firstRow = table.querySelector('tr');
+    if (!firstRow) return;
 
-    /* ── Badge-Element erstellen ── */
-    var badge = document.createElement('div');
-    badge.className = 'mrh-sex-badge ' + colorClass;
-    badge.innerHTML = '<span class="fa fa-fw ' + icon + '"></span> ' + label;
+    var rowClass = (firstRow.className || '').trim().toLowerCase();
 
-    /* ── Badge vor der Tabelle einfügen ── */
-    var container = dataTable.closest('.bg-custom.teabls') || dataTable.parentElement;
-    if (container) {
-      container.insertBefore(badge, dataTable);
-    }
-  }
+    var isAuto = (rowClass === 'aut');
+    var isFem  = (rowClass === 'fem');
+    var isReg  = (rowClass === 'reg');
 
-  /* DOM Ready */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', createSexBadge);
-  } else {
-    createSexBadge();
-  }
-})();
+    if (isAuto) {ldelim}
+      var tds = firstRow.querySelectorAll('td');
+      if (tds.length >= 2) {ldelim}
+        var gText = (tds[1].textContent || '').trim().toLowerCase();
+        if (gText.indexOf('femin') !== -1) {ldelim}
+          isFem = true;
+        {rdelim} else if (gText.indexOf('regul') !== -1) {ldelim}
+          isReg = true;
+        {rdelim}
+      {rdelim}
+    {rdelim}
+
+    if (!isAuto && !isFem && !isReg) return;
+
+    /* ── Badge-Container ── */
+    var container = document.createElement('span');
+    container.className = 'mrh-badge-bar';
+
+    /* ── Geschlecht-Badge ── */
+    if (isFem) {ldelim}
+      var femBadge = document.createElement('span');
+      femBadge.className = 'mrh-type-badge mrh-badge-fem';
+      femBadge.innerHTML = '<span class="fa fa-fw fa-venus"></span> ' + LANG.feminisiert;
+      femBadge.title = LANG.feminisiert;
+      container.appendChild(femBadge);
+    {rdelim} else if (isReg) {ldelim}
+      var regBadge = document.createElement('span');
+      regBadge.className = 'mrh-type-badge mrh-badge-reg';
+      regBadge.innerHTML = '<img class="mrh-badge-icon" src="' + MALE_SVG + '" alt="' + LANG.regulaer + '"> ' + LANG.regulaer;
+      regBadge.title = LANG.regulaer;
+      container.appendChild(regBadge);
+    {rdelim}
+
+    /* ── Photoperiodisch-Badge (nur bei nicht-Auto) ── */
+    if (!isAuto) {ldelim}
+      var photoBadge = document.createElement('span');
+      photoBadge.className = 'mrh-type-badge mrh-badge-photo';
+      photoBadge.innerHTML = LANG.photoperiodisch;
+      photoBadge.title = LANG.photoperiodisch;
+      container.appendChild(photoBadge);
+    {rdelim}
+
+    /* ── Einfügen ── */
+    var picto = document.querySelector('.picto.templatestyle');
+    if (picto) {ldelim}
+      /* "HIERDASICON" Text entfernen */
+      picto.childNodes.forEach(function(n) {ldelim}
+        if (n.nodeType === 3 && n.textContent.indexOf('HIERDASICON') !== -1) {ldelim}
+          n.textContent = '';
+        {rdelim}
+      {rdelim});
+
+      /* Wenn Picto "off" ist: off-Klasse entfernen damit Container sichtbar wird */
+      if (picto.classList.contains('off')) {ldelim}
+        picto.classList.remove('off');
+      {rdelim}
+
+      picto.appendChild(container);
+    {rdelim} else {ldelim}
+      /* Kein Picto vorhanden: neuen Container vor der Tabelle erstellen */
+      var tableParent = table.closest('.bg-custom.teabls') || table.parentElement;
+      if (tableParent) {ldelim}
+        var wrapper = document.createElement('div');
+        wrapper.className = 'picto templatestyle';
+        wrapper.appendChild(container);
+        tableParent.insertBefore(wrapper, table);
+      {rdelim}
+    {rdelim}
+  {rdelim}
+
+  if (document.readyState === 'loading') {ldelim}
+    document.addEventListener('DOMContentLoaded', createBadges);
+  {rdelim} else {ldelim}
+    createBadges();
+  {rdelim}
+{rdelim})();
 </script>
