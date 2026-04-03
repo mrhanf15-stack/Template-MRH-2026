@@ -31,36 +31,12 @@
   {$FORM_ACTION}
 
   {* ── USA-Banner / Akzentleiste ── *}
-  <div class="mrh-usa-banner mb-3">
+  <!--<div class="mrh-usa-banner mb-3">
     <div class="d-flex align-items-center gap-2 py-2 px-3 rounded"
          style="background: linear-gradient(135deg, #002868 0%, #002868 33%, #fff 33%, #fff 66%, #BF0A30 66%, #BF0A30 100%); min-height: 6px;">
     </div>
-  </div>
+  </div>-->
 
-  {* ── 1. BREADCRUMB ── *}
-  {if isset($BREADCRUMB)}
-    <nav aria-label="Breadcrumb" class="mb-3">
-      <ol class="breadcrumb small" itemscope itemtype="https://schema.org/BreadcrumbList">
-        {foreach name=bc item=bc_item from=$BREADCRUMB}
-          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}"
-              itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            {if !$smarty.foreach.bc.last}
-              <a href="{$bc_item.HREF}" itemprop="item">
-                <span itemprop="name">{$bc_item.NAME}</span>
-              </a>
-            {else}
-              <span itemprop="name">{$bc_item.NAME}</span>
-            {/if}
-            <meta itemprop="position" content="{$smarty.foreach.bc.iteration}">
-          </li>
-        {/foreach}
-      </ol>
-    </nav>
-  {/if}
-
-  {* ══════════════════════════════════════════════════════════════
-     2. ZWEI-SPALTEN-LAYOUT
-     ══════════════════════════════════════════════════════════════ *}
   <div id="product_details" class="row g-4">
 
     {* ── LINKE SPALTE: Bildergalerie ── *}
@@ -91,7 +67,7 @@
       {/if}
 
       {* Produktname – USA-Akzent *}
-      <h1 class="h3 mb-3" itemprop="name" style="border-left: 4px solid #BF0A30; padding-left: 0.75rem;">
+      <h1 class="h3 mb-2" itemprop="name" style="border-left: 4px solid #BF0A30; padding-left: 0.75rem;">
         {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}
       </h1>
 
@@ -124,12 +100,8 @@
       {/if}
 
       {* ── Picto-Leiste ── *}
-      {if isset($PRODUCTS_PICTO_ICONS) && $PRODUCTS_PICTO_ICONS != ''}
-        <div class="mrh-picto-bar mb-3">{$PRODUCTS_PICTO_ICONS}</div>
-      {/if}
-
-      {* ── BOC – QUALITY CONTROL ── *}
-      {include file="module/includes/quality_control.html"}
+      {* ── Typ-Badges (Geschlecht + Auto/Photo) ── *}
+      {include file="module/includes/icon_sex.html"}
 
       {* ── Short Description (USA-spezifisch) ── *}
       {include file="module/includes/usa_list_shortdescription.html"}
@@ -273,52 +245,27 @@
           </div>
         {/if}
       {/if}
-
-      {* ── Artikelnummer / EAN / Meta ── *}
-      <div class="mrh-pi-meta small text-muted mb-3">
-        {if $PRODUCTS_MODEL != ''}
-          <div><strong>{#model#}:</strong> <span itemprop="sku">{$PRODUCTS_MODEL}</span></div>
-        {/if}
-        {if isset($PRODUCTS_EAN) && $PRODUCTS_EAN != ''}
-          <div><strong>EAN:</strong> <span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></div>
-        {/if}
-        {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
-          <div><strong>{#products_manufacturer_model#}:</strong> <span itemprop="mpn">{$PRODUCTS_MANUFACTURERS_MODEL}</span></div>
-        {/if}
-        {if $PRODUCTS_ADDED != ''}
-          <div class="text-secondary">{$PRODUCTS_ADDED}</div>
-        {/if}
-      </div>
-
-      {* ── Lieferzeit ── *}
-      {if $SHIPPING_NAME}
-        <div class="mrh-pi-shipping small mb-3">
-          <span class="fa fa-truck me-1" style="color: #002868;"></span>
-          <strong>{#text_shippingtime#}</strong>
-          {if isset($SHIPPING_IMAGE) && $SHIPPING_IMAGE != ''}
-            <img class="ms-1" src="{$SHIPPING_IMAGE}" alt="{$SHIPPING_NAME}" style="height:16px" />
-          {/if}
-          {$SHIPPING_NAME_LINK}
-        </div>
-      {/if}
+ 
+  {* ── BOC – QUALITY CONTROL ── *}
+      {include file="module/includes/quality_control.html"}
 
       {* ── Trust-Icons (USA-Farbschema) ── *}
       <div class="mrh-trust-bar d-flex justify-content-between text-center flex-wrap mb-3 py-3 border-top border-bottom"
            style="border-color: #002868 !important;">
         <div class="p-2 flex-fill">
-          <span class="fa fa-shield-halved fa-2x mb-2 d-block" style="color: #002868;"></span>
+          <span class="fa fa-shield-halved fa-2x mb-2 d-block"></span>
           <small>{#p_info1#}</small>
         </div>
         <div class="p-2 flex-fill">
-          <span class="fa fa-credit-card fa-2x mb-2 d-block" style="color: #BF0A30;"></span>
+          <span class="fa fa-credit-card fa-2x mb-2 d-block"></span>
           <small>{#p_info2#}</small>
         </div>
         <div class="p-2 flex-fill">
-          <span class="fa fa-truck-fast fa-2x mb-2 d-block" style="color: #002868;"></span>
+          <span class="fa fa-truck-fast fa-2x mb-2 d-block"></span>
           <small>{#p_info3#}</small>
         </div>
         <div class="p-2 flex-fill">
-          <span class="fa fa-location-dot fa-2x mb-2 d-block" style="color: #BF0A30;"></span>
+          <span class="fa fa-location-dot fa-2x mb-2 d-block"></span>
           <small>{#p_info4#}</small>
         </div>
       </div>
@@ -438,63 +385,15 @@
   {$PRODUCT_NAVIGATOR}
 
   {* ── USA-Abschlussleiste ── *}
-  <div class="mt-3 mb-2">
+  <!--<div class="mt-3 mb-2">
     <div class="d-flex align-items-center gap-2 py-2 px-3 rounded"
          style="background: linear-gradient(135deg, #002868 0%, #002868 33%, #fff 33%, #fff 66%, #BF0A30 66%, #BF0A30 100%); min-height: 6px;">
     </div>
-  </div>
+  </div>-->
 
 </article>
 
 {* ── Schema.org JSON-LD ── *}
 {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_product.html"}
-
-{* ── eTrusted Widget ── *}
-{if $smarty.const.MRH_ETRUSTED_SHOW == 'true'}
-  <div class="mt-2 mb-2">
-    <etrusted-widget data-etrusted-widget-id="wdg-9b0f30e0-f8b5-4012-9b01-99983d899434"></etrusted-widget>
-  </div>
-{/if}
-
-{* ══════════════════════════════════════════════════════════════
-   USA STRAIN – SCOPED STYLES
-   ══════════════════════════════════════════════════════════════ *}
-<style>
-/* ── USA Strain Theme ── */
-.mrh-usa-strain .mrh-pi-buy .btn-primary,
-.mrh-usa-strain .mrh-pi-buy .btn-success {
-  background-color: #002868 !important;
-  border-color: #002868 !important;
-  color: #fff !important;
-}
-.mrh-usa-strain .mrh-pi-buy .btn-primary:hover,
-.mrh-usa-strain .mrh-pi-buy .btn-success:hover {
-  background-color: #001a4a !important;
-  border-color: #001a4a !important;
-}
-
-.mrh-usa-strain .accordion-button:not(.collapsed) {
-  background-color: rgba(0, 40, 104, 0.05);
-  color: #002868;
-}
-.mrh-usa-strain .accordion-button:focus {
-  box-shadow: 0 0 0 0.25rem rgba(0, 40, 104, 0.25);
-}
-
-.mrh-usa-strain .breadcrumb-item a {
-  color: #002868;
-}
-
-.mrh-usa-strain .mrh-pi-meta strong {
-  color: #002868;
-}
-
-/* USA Badge Animation */
-.mrh-usa-strain .badge {
-  animation: usaPulse 3s ease-in-out infinite;
-}
-@keyframes usaPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.85; }
-}
-</style>
+ 
+ 

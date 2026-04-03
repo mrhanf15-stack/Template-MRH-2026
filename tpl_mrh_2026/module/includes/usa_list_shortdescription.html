@@ -1,5 +1,5 @@
 <div class="pd_summarybox" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <div class="card bg-custom text-right p-2 mb-2">
+    <div class="card bg-custom text-right p-2">
       <meta itemprop="url" content="{$PRODUCTS_LINK}"/>
       <meta itemprop="priceCurrency" content="{$smarty.session.currency}"/>
      {if isset($PRODUCTS_EXPIRES_C) && $PRODUCTS_EXPIRES_C}
@@ -44,8 +44,8 @@
      {if isset($MANUFACTURER) && $MANUFACTURER !=''}
    <tr itemprop="brand" itemscope itemtype="https://schema.org/Brand">
   <meta itemprop="name" content="{$MANUFACTURER}" />
-  <td><span class="fw-bold">{#manufacturer#}</span></td>
-  <td class="zentriert"><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a></td>
+  <!--<td><span class="fw-bold">{#manufacturer#}</span></td>
+  <td class="zentriert"><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a></td>-->
 </tr>
       {/if}{if $PRODUCTS_MODEL !=''}
       <tr>
@@ -100,10 +100,4 @@
     {/if}
 </div>
 {/if} </div>
-{if isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''}
-<div class="mrh-mfg-overlay">
-  <a title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">
-    <img src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER|onlytext}" />
-  </a>
-</div>
-{/if}
+{* Hersteller-Logo jetzt als Overlay im Hauptbild (product_gallery.html) *}
