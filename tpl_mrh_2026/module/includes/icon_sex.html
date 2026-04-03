@@ -1,4 +1,4 @@
-{* icon_sex.html – Badge-System v7.0 *}
+{* icon_sex.html – Badge-System v7.1 *}
 {* Badges neben DB-Picto-Icons, auch wenn Picto "off" ist *}
 
 {literal}
@@ -65,7 +65,7 @@
     if (isFem) {ldelim}
       var femBadge = document.createElement('span');
       femBadge.className = 'mrh-type-badge mrh-badge-fem';
-      femBadge.innerHTML = '<span class="fa fa-fw fa-venus"></span> ' + LANG.feminisiert;
+      femBadge.innerHTML = '<span class="fa fa-fw fa-venus"></span>';
       femBadge.title = LANG.feminisiert;
       container.appendChild(femBadge);
     {rdelim} else if (isReg) {ldelim}
