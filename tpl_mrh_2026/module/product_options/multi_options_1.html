@@ -1,148 +1,142 @@
 {if $options != ''}
 {config_load file="$language/lang_$language.conf" section="product_info"}
 {config_load file="lang_`$language`.custom"}
-{config_load file="lang_`$language`.section" section="product_info"} 
-<div id="optionen{$smarty.get.products_id|intval}"> 
-	<div class="productoptions list-group list-group-flush">
- {foreach name=outer item=options_data from=$options}
-	  <div class="options_row_selection list-group-item p-2">
-	    <!--<div class="options_name">{$options_data.NAME}</div>-->
-	      {foreach key=key_data name=key_data item=item_data from=$options_data.DATA}
-	      <div class="options_selection form-check mt-2 mb-2">
-          <span class="small clearfix">	
-       {if $item_data.STOCK > 0 || $item_data.ID == '0'}
-  <input class="form-check-input" data-attrdata="{$item_data.JSON_ATTRDATA}" type="radio" name="id[{$options_data.ID}]" id="rdb_{$item_data.JSON_ATTRDATA}" value="{$item_data.ID}"{if $item_data.CHECKED == '1'} checked="checked"{/if}/>
-<label id="rdb_{$item_data.JSON_ATTRDATA}" class="p-2 form-check-label w-100 border-bottom d-flex justify-content-between align-items-center" for="rdb_{$item_data.JSON_ATTRDATA}">
-  <div class="align-top-2px">
-    {$item_data.TEXT}
-    {if $item_data.STOCK}
-      {if $item_data.STOCK<99}
-        <div class="stock-ampel-container">
-          <span class="stock-ampel stock-ampel-green"></span>
-          <span class="stock-ampel stock-ampel-green"></span>
-          <span class="stock-ampel stock-ampel-green"></span>
-        </div>
-      {else}
-        <div class="stock-ampel-container">
-          <span class="stock-ampel stock-ampel-orange"></span>
-          <span class="stock-ampel stock-ampel-orange"></span>
-          <span class="stock-ampel stock-ampel-orange"></span>
-        </div>
-      {/if}
-    {/if}
-  </div>
-  <div class="ms-auto text-end align-top-2px">
-    {if $item_data.PRICE && $options|count == 1}
-      {if $item_data.OLD_PRICE}
-        <div class="d-block d-sm-none text-danger fixhigh"><del>{$item_data.OLD_PRICE}</del></div>
-        <span class="d-none d-sm-inline text-danger fixhigh"><del>{$item_data.OLD_PRICE}</del></span>&nbsp;
-      {/if}
-      <span class="options_selection_price fixhigh">{$item_data.PRICE}</span>
-    {elseif $item_data.FULL_PRICE}
-      <span class="options_selection_price fixhigh">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</span>
-    {/if}
-  </div>
-</label>
-{else}
-<input class="form-check-input align-top-2px" data-attrdata="{$item_data.JSON_ATTRDATA}" type="radio" name="id[{$options_data.ID}]" id="rdb_{$item_data.JSON_ATTRDATA}" value="{$item_data.ID}"{if $item_data.CHECKED == '1'} checked="checked"{/if} disabled/>
-<label id="rdb_{$item_data.JSON_ATTRDATA}" class="p-2 form-check-label w-100 border-bottom d-flex justify-content-between align-items-center" for="rdb_{$item_data.JSON_ATTRDATA}">
-  <div class="align-top-2px">
-    <del style="color:#A3A3A3">{$item_data.TEXT}</del>
-    <div class="stock-ampel-container">
-      <span class="stock-ampel stock-ampel-red"></span>
-      <span class="stock-ampel stock-ampel-red"></span>
-      <span class="stock-ampel stock-ampel-red"></span>
+{config_load file="lang_`$language`.section" section="product_info"}
+<div id="optionen{$smarty.get.products_id|intval}" class="mrh-option-group" role="radiogroup" aria-label="Deine Auswahl">
+  <div class="mrh-option-list">
+    {foreach name=outer item=options_data from=$options}
+    <div class="mrh-option-items">
+      {* ── Erster Durchlauf: Finde bevorzugte Option (Lagernd < 99) ── *}
+      {assign var="first_available_found" value=false}
+      {assign var="lagernd_option_found" value=false}
+      {assign var="lagernd_option_id" value=0}
+      {assign var="first_available_option_id" value=0}
+      {foreach key=key_data name=key_data item=item_data from=$options_data.DATA}
+        {if $item_data.ID != '0' && $item_data.STOCK > 0}
+          {if !$first_available_found}
+            {assign var="first_available_option_id" value=$item_data.ID}
+            {assign var="first_available_found" value=true}
+          {/if}
+          {if $item_data.STOCK < 99 && !$lagernd_option_found}
+            {assign var="lagernd_option_id" value=$item_data.ID}
+            {assign var="lagernd_option_found" value=true}
+          {/if}
+        {/if}
+      {/foreach}
+
+      {* ── Zweiter Durchlauf: Optionen anzeigen ── *}
+      {foreach key=key_data name=key_data item=item_data from=$options_data.DATA}
+        {if $item_data.ID != '0'}
+          {* ── Bestimme ob diese Option vorausgewaehlt wird ── *}
+          {assign var="is_preselected" value=false}
+          {if ($lagernd_option_found && $item_data.ID == $lagernd_option_id) || (!$lagernd_option_found && $first_available_found && $item_data.ID == $first_available_option_id)}
+            {assign var="is_preselected" value=true}
+          {/if}
+
+          {* ── Bestimme Stock-Status ── *}
+          {if $item_data.STOCK > 0 && $item_data.STOCK < 99}
+            {assign var="stock_color" value="green"}
+            {assign var="stock_text_val" value="{#shipping_lager#}"}
+          {elseif $item_data.STOCK >= 99}
+            {assign var="stock_color" value="orange"}
+            {assign var="stock_text_val" value="{#shipping_lagerson#}"}
+          {else}
+            {assign var="stock_color" value="red"}
+            {assign var="stock_text_val" value="{#shipping_lagers#}"}
+          {/if}
+
+          {* ── Option-Item ── *}
+          {if $item_data.STOCK > 0 || $item_data.ID == '0'}
+            <div class="mrh-option-item{if $is_preselected} mrh-option-active{/if}"
+                 tabindex="0"
+                 role="radio"
+                 aria-checked="{if $is_preselected}true{else}false{/if}"
+                 aria-label="{$item_data.TEXT}"
+                 onclick="mrhSelectOption(this)"
+                 onkeydown="if(event.key===' '||event.key==='Enter'){ldelim}event.preventDefault();this.click();{rdelim}">
+              <div class="mrh-option-control">
+                <input type="radio"
+                       class="mrh-option-radio"
+                       id="rdb_{$item_data.ID}"
+                       name="id[{$options_data.ID}]"
+                       value="{$item_data.ID}"
+                       data-attrdata="{$item_data.JSON_ATTRDATA}"
+                       data-price="{$item_data.FULL_PRICE}"
+                       data-prefix="{$item_data.PREFIX}"
+                       data-stock="{$item_data.STOCK}"
+                       {if $item_data.OLD_PRICE}data-oldprice="{$item_data.OLD_PRICE}"{/if}
+                       {if $is_preselected} checked="checked"{/if}>
+                <div class="mrh-option-content">
+                  <div class="mrh-option-info">
+                    <span class="mrh-option-text">{$item_data.TEXT}</span>
+                    <div class="mrh-stock-label">
+                      <span class="mrh-stock-dot mrh-stock-dot--{$stock_color}"></span>
+                      <span class="mrh-stock-text mrh-stock-text--{$stock_color}">{$stock_text_val}</span>
+                    </div>
+                  </div>
+                  <div class="mrh-option-price">
+                    {if $item_data.PRICE && $options|count == 1}
+                      {if $item_data.OLD_PRICE}
+                        <div class="mrh-old-price"><del>{$item_data.OLD_PRICE}</del></div>
+                      {/if}
+                      <div class="mrh-current-price">{$item_data.PRICE}</div>
+                    {elseif $item_data.FULL_PRICE}
+                      <div class="mrh-current-price">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</div>
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {* ── Nicht verfuegbare Option (STOCK <= 0) ── *}
+          {else}
+            <div class="mrh-option-item mrh-option-unavailable"
+                 tabindex="-1"
+                 role="presentation"
+                 aria-disabled="true"
+                 aria-label="{$item_data.TEXT} - {#shipping_lagers#}">
+              <div class="mrh-option-control">
+                <div class="mrh-radio-placeholder"></div>
+                <div class="mrh-option-content">
+                  <div class="mrh-option-info">
+                    <span class="mrh-option-text mrh-text-muted">{$item_data.TEXT}</span>
+                    <div class="mrh-stock-label">
+                      <span class="mrh-stock-dot mrh-stock-dot--red"></span>
+                      <span class="mrh-stock-text mrh-stock-text--red">{#shipping_lagers#}</span>
+                    </div>
+                  </div>
+                  <div class="mrh-option-price">
+                    {if $item_data.PRICE && $options|count == 1}
+                      <div class="mrh-current-price mrh-text-muted">{$item_data.PRICE}</div>
+                    {elseif $item_data.FULL_PRICE}
+                      <div class="mrh-current-price mrh-text-muted">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</div>
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {/if}
+        {/if}
+      {/foreach}
     </div>
+    {/foreach}
   </div>
-  <div class="ms-auto text-end align-top-2px">
-    {if $item_data.PRICE && $options|count == 1}
-      {if $item_data.OLD_PRICE}
-        <div class="d-block d-sm-none text-danger fixhigh mb-2"><del>{$item_data.OLD_PRICE}</del></div>
-        <span class="d-none d-sm-inline text-danger fixhigh"><del>{$item_data.OLD_PRICE}</del></span>&nbsp;
-      {/if}
-      <span class="options_selection_price fixhigh">{$item_data.PRICE}</span>
-    {elseif $item_data.FULL_PRICE}
-      <span class="options_selection_price fixhigh">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</span>
+
+  {* ── Preis-Zusammenfassung ── *}
+  {if $smarty.const.MRH_ATTR_PRICE_UPDATER == 'true' && isset($smarty.get.products_id)}
+    {if $smarty.session.customers_status.customers_status_show_price != 0}
+      <div class="mrh-price-summary">
+        <div class="mrh-price-summary-inner">
+          <div class="mrh-price-summary-label">
+            <span class="mrh-price-summary-title">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_A}</span>
+            <span class="mrh-price-summary-subtitle">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_B}</span>
+          </div>
+          <div class="mrh-price-summary-value">
+            <span class="cuPrice" aria-live="polite"></span>
+            <span class="cuVpePrice" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
     {/if}
-  </div>
-</label>
-{/if}
-              
-		   </span>
-	      </div>
-	      {/foreach}
-	  </div>
-	  {/foreach}
-	</div>
-	{if $smarty.const.MRH_ATTR_PRICE_UPDATER == 'true' && isset($smarty.get.products_id)}
-		{if $smarty.session.customers_status.customers_status_show_price != 0}
-			<div class="calculatePriceUpdater p-2 m-0">
-			  <span class="small"><span class="fw-bold">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_A}</span></span><br />
-			  <span>{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_B}</span>
-			  <span class="cuPrice"></span><br />
-			  <span class="cuVpePrice small"></span>
-			</div>
-		{/if}
-		<script type="text/javascript">
-		var attributePriceUpdater;
-		function PriceUpdaterReady() {
-			attributePriceUpdater = {
-		    calculate: function (This) {
-		      var summe = 0,
-		          attrvpevalue = 0,
-		          symbolLeft = '',
-		          symbolRight = '',
-		          data = This.data('attrdata'),
-		          el = $('div[id^="optionen' + data.pid + '"] select').length ? ' option:selected' : ' input:checked';
-		      $.each($('div[id^="optionen' + data.pid + '"]' + el), function () {
-		        if (!$(this).parents('div[id^="optionen' + data.pid + '"] [id^="pmatrix_v"]').attr('style')) {
-		          data = $(this).data('attrdata');
-		          if (data.aprice != 0) {
-		            if (data.prefix == '-') {
-		              summe -= data.aprice;
-		            } else if (data.prefix == '+') {
-		              summe += data.aprice;
-		            } else if (data.prefix == '=') {
-		              summe += data.aprice - data.gprice;
-		            }
-		            attrvpevalue += data.attrvpevalue;
-		          }
-		        }
-		      });
-		      var newPrice = (Math.round((summe + data.gprice) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
-		      var oldPrice = (Math.round((summe + data.oprice) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
-		      if (data.vpevalue !== false) {
-		        var newVpePrice = (Math.round((summe + data.gprice) / (data.vpevalue + attrvpevalue) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
-		      }
-		      if (data.cleft) {
-		        symbolLeft = data.cleft + '&nbsp;';
-		      }
-		      if (data.cright) {
-		        symbolRight = '&nbsp;' + data.cright;
-		      }
-		        $('div[id^="optionen' + data.pid + '"] .calculatePriceUpdater span.cuPrice').html('&nbsp;' + symbolLeft + newPrice + symbolRight);
-		        if (data.vpevalue !== false) {
-		          $('div[id^="optionen' + data.pid + '"] .calculatePriceUpdater span.cuVpePrice').html(symbolLeft + newVpePrice + symbolRight + data.protext + data.vpetext);
-		        }
-            },
-		    calculateAll: function () {
-		      $.each($('div[id^="optionen"] input[type=radio]:checked, div[id^="optionen"] input[type=checkbox], div[id^="optionen"] option'), function () {
-		        attributePriceUpdater.calculate($(this));
-		      });
-		    }
-		  };
-		  $(document).ready(function () {
-		    attributePriceUpdater.calculateAll();
-		    $(".calculatePriceUpdater").show();
-		    $('div[id^="optionen"] select').on('change click', function () {
-		      attributePriceUpdater.calculate($('option', this));
-		    });
-		    $('div[id^="optionen"] input').on('change click', function () {
-		      attributePriceUpdater.calculate($(this));
-		    });
-		  });
-		}
-		</script>
-	{/if}
+  {/if}
 </div>
 {/if}
