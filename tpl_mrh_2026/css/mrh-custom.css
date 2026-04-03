@@ -2020,3 +2020,77 @@ table.tebals.wite tr:last-child td:last-child {
     font-size: 0.75rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Aktions-Buttons (Wunschliste, Vergleichen, Drucken, etc.)
+   Einheitliches Design für alle Produktseiten-Aktionen
+   ═══════════════════════════════════════════════════════════ */
+
+.mrh-pi-actions {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--tpl-borders-color, #e2e8f0);
+}
+
+/* Einheitlicher Button-Style für alle Aktionen */
+.mrh-pi-actions .btn-outline-secondary {
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.75rem;
+  border-color: var(--tpl-borders-color, #e2e8f0);
+  color: var(--tpl-text-standard, #0f172a);
+  background: transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.mrh-pi-actions .btn-outline-secondary:hover {
+  background: var(--tpl-bg-color-2, #f0fdf4);
+  border-color: var(--tpl-main-color, #4a8c2a);
+  color: var(--tpl-main-color, #4a8c2a);
+}
+
+/* Wunschliste: Input-Submit als Button stylen */
+.mrh-action-btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mrh-action-btn .wishlist_submit_link,
+.mrh-action-btn input[type="image"] {
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--tpl-borders-color, #e2e8f0);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  color: var(--tpl-text-standard, #0f172a);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mrh-action-btn .wishlist_submit_link:hover,
+.mrh-action-btn input[type="image"]:hover {
+  background: var(--tpl-bg-color-2, #f0fdf4);
+  border-color: var(--tpl-main-color, #4a8c2a);
+  color: var(--tpl-main-color, #4a8c2a);
+}
+
+/* Links innerhalb der Aktions-Buttons einheitlich */
+.mrh-pi-actions a.btn {
+  text-decoration: none;
+}
+
+/* Responsive: Buttons auf Mobile volle Breite */
+@media (max-width: 575.98px) {
+  .mrh-pi-actions {
+    flex-direction: column;
+  }
+  .mrh-pi-actions .btn,
+  .mrh-pi-actions .mrh-action-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .mrh-pi-actions .mrh-action-btn .wishlist_submit_link,
+  .mrh-pi-actions .mrh-action-btn input[type="image"] {
+    width: 100%;
+  }
+}

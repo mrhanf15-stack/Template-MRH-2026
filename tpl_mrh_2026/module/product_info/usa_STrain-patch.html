@@ -199,25 +199,41 @@
         <div class="alert alert-warning">{$PRODUCTS_DATE_AVAILABLE}</div>
       {/if}
 
-      {* ── Aktions-Buttons ── *}
+      {* ── Aktions-Buttons (einheitlich als btn btn-outline-secondary btn-sm) ── *}
       <div class="mrh-pi-actions d-flex flex-wrap gap-2 mb-3">
+        {* Wunschliste *}
         {if isset($ADD_CART_BUTTON_WISHLIST) && $ADD_CART_BUTTON_WISHLIST != ''}
-          <span class="small"><span class="fa fa-heart me-1" style="color:#BF0A30;"></span>{$ADD_CART_BUTTON_WISHLIST}</span>
+          <div class="mrh-action-btn">
+            <span class="fa-regular fa-heart me-1"></span>{$ADD_CART_BUTTON_WISHLIST|replace:'class="wishlist_submit_link"':'class="btn btn-outline-secondary btn-sm wishlist_submit_link"'|replace:'type="image"':'type="image" class="btn btn-outline-secondary btn-sm"'}
+          </div>
         {/if}
+        {* Vergleichen *}
         {if $smarty.const.MODULE_PRODUCT_COMPARE_STATUS == 'true'}
           <button type="button" class="btn btn-outline-secondary btn-sm"
                   data-product-id="{$PRODUCTS_ID}"
                   onclick="event.preventDefault(); window.ProductCompare && window.ProductCompare.toggle('{$PRODUCTS_ID}', this);">
-            <span class="fa fa-balance-scale me-1"></span>
+            <span class="fa-solid fa-scale-balanced me-1"></span>
             <span>{#product_compare_button#}</span>
           </button>
         {/if}
-        {if isset($PRODUCTS_PRINT_LAYER)}<span class="small">{$PRODUCTS_PRINT_LAYER}</span>{/if}
-        {if $smarty.session.customers_status.customers_status_write_reviews == 1}
-          {if isset($PRODUCTS_WRITE_REVIEW)}<span class="small">{$PRODUCTS_WRITE_REVIEW}</span>{/if}
+        {* Artikeldatenblatt drucken *}
+        {if isset($PRODUCTS_PRINT_LAYER)}
+          <span>{$PRODUCTS_PRINT_LAYER|replace:'class="iframe"':'class="btn btn-outline-secondary btn-sm iframe"'}</span>
         {/if}
-        {if isset($PRODUCTS_CHEAPLY)}<span class="small">{$PRODUCTS_CHEAPLY}</span>{/if}
-        {if isset($PRODUCT_INQUIRY)}<span class="small">{$PRODUCT_INQUIRY}</span>{/if}
+        {* Rezension schreiben *}
+        {if $smarty.session.customers_status.customers_status_write_reviews == 1}
+          {if isset($PRODUCTS_WRITE_REVIEW)}
+            <span>{$PRODUCTS_WRITE_REVIEW|replace:'<a ':'<a class="btn btn-outline-secondary btn-sm" '}</span>
+          {/if}
+        {/if}
+        {* Preisanfrage *}
+        {if isset($PRODUCTS_CHEAPLY)}
+          <span>{$PRODUCTS_CHEAPLY|replace:'<a ':'<a class="btn btn-outline-secondary btn-sm" '}</span>
+        {/if}
+        {* Produktanfrage *}
+        {if isset($PRODUCT_INQUIRY)}
+          <span>{$PRODUCT_INQUIRY|replace:'<a ':'<a class="btn btn-outline-secondary btn-sm" '}</span>
+        {/if}
       </div>
 
       {* ── Express Checkout ── *}
