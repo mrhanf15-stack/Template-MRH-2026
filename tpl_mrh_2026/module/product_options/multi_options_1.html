@@ -154,7 +154,7 @@
   </div>
 
   {* Preisberechnung - Price Updater *}
-  {if $smarty.const.MRH_ATTR_PRICE_UPDATER == 'true' && isset($smarty.get.products_id)}
+  {if isset($smarty.get.products_id)}
     {if $smarty.session.customers_status.customers_status_show_price != 0}
       <div class="price-summary card mt-3 border-primary">
         <div class="card-body py-2 px-3">
