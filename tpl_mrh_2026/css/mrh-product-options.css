@@ -1,8 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    MRH 2026 – Product Options CSS
    ═══════════════════════════════════════════════════════════════════════════
-   Version:  6.1.0
+   Version:  6.2.0
    Datum:    2026-04-03
+   Änderung: Redundante Stock-Legende Klassen entfernt (jetzt in mrh-custom.css als mrh-stock-*)
    Targets Bootstrap classes used in multi_options_1.html
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -154,59 +155,6 @@
   outline-offset: -2px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   Stock-Legende
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.stock-legend-wrapper {
-  position: relative;
-}
-
-.stock-legend {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  background-color: #f8f9fa;
-  font-size: 0.8125rem;
-}
-
-.stock-legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: #495057;
-  font-size: 0.8125rem;
-  white-space: nowrap;
-}
-
-/* ── Info-Button (runder Kreis mit i) ── */
-.stock-info-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid #6c757d;
-  background: transparent;
-  color: #6c757d;
-  font-size: 0.75rem;
-  font-style: normal;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  padding: 0;
-  line-height: 1;
-}
-
-.stock-info-icon:hover {
-  border-color: #1a3a5c;
-  color: #1a3a5c;
-  background-color: #e9ecef;
-}
-
 /* ── Responsive ── */
 @media (max-width: 575.98px) {
   .product-options-container .option-item {
@@ -225,10 +173,5 @@
 
   .product-options-container .current-price {
     font-size: 0.875rem;
-  }
-
-  .stock-legend {
-    flex-wrap: wrap;
-    gap: 0.5rem;
   }
 }
