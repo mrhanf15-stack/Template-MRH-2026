@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    MRH 2026 – Product Options CSS
    ═══════════════════════════════════════════════════════════════════════════
-   Version:  6.0.0
+   Version:  6.1.0
    Datum:    2026-04-03
    Targets Bootstrap classes used in multi_options_1.html
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -105,6 +105,7 @@
 .product-options-container .stock-indicator {
   display: inline-block;
   flex-shrink: 0;
+  margin-right: 0.35rem;
 }
 
 /* ── Stock Text ── */

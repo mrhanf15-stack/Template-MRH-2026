@@ -13,7 +13,7 @@
         {* Optionsgruppen-Header (wenn mehrere Optionsgruppen vorhanden) *}
         {if $options|count > 1}
           <div class="card-header py-2 px-3 bg-light border-bottom">
-            <h6 id="option-group-heading-{$options_data.ID}" class="mb-0 font-weight-bold text-dark">{$options_data.NAME}</h6>
+            <h6 id="option-group-heading-{$options_data.ID}" class="mb-0 fw-bold text-dark">{$options_data.NAME}</h6>
           </div>
         {/if}
 
@@ -47,7 +47,7 @@
               {if $item_data.ID != '0'} {* Ueberspringe alle Optionen mit ID 0 (typischerweise "Bitte waehlen") *}
 
                 {* Einzelne Option *}
-                <div class="option-item px-3 py-2 border-left-0 border-right-0 {if !$smarty.foreach.key_data.last}border-bottom{else}border-bottom-0{/if} {if $item_data.STOCK > 0 || $item_data.ID == '0'}option-available{else}option-unavailable{/if}"
+                <div class="option-item px-3 py-2 border-start-0 border-end-0 {if !$smarty.foreach.key_data.last}border-bottom{else}border-bottom-0{/if} {if $item_data.STOCK > 0 || $item_data.ID == '0'}option-available{else}option-unavailable{/if}"
                      {if $item_data.STOCK > 0 || $item_data.ID == '0'}
                      tabindex="0"
                      role="radio"
@@ -65,7 +65,7 @@
                       <div class="option-control d-flex align-items-center w-100">
                         <input
                           type="radio"
-                          class="option-radio-input mr-2"
+                          class="option-radio-input me-2"
                           id="rdb_{$item_data.ID}"
                           name="id[{$options_data.ID}]"
                           value="{$item_data.ID}"
@@ -77,18 +77,18 @@
                         >
                         <div class="option-content d-flex justify-content-between align-items-center w-100">
                           <div class="option-info">
-                            <span class="option-text font-weight-normal">{$item_data.TEXT}</span>
+                            <span class="option-text fw-normal">{$item_data.TEXT}</span>
                             {* Lagerbestand-Anzeige *}
                             {if $item_data.STOCK}
                               <div class="stock-status mt-1">
                                 {if $item_data.STOCK < 99}
                                   <div class="d-flex align-items-center">
-                                    <div class="stock-indicator bg-success rounded-circle mr-1" style="width:10px;height:10px;" aria-hidden="true"></div>
+                                    <div class="stock-indicator bg-success rounded-circle me-1" style="width:10px;height:10px;" aria-hidden="true"></div>
                                     <small class="text-success">{#shipping_lager#}</small>
                                   </div>
                                 {else}
                                   <div class="d-flex align-items-center">
-                                    <div class="stock-indicator bg-warning rounded-circle mr-1" style="width:10px;height:10px;" aria-hidden="true"></div>
+                                    <div class="stock-indicator bg-warning rounded-circle me-1" style="width:10px;height:10px;" aria-hidden="true"></div>
                                     <small class="ship_text_warning">{#shipping_lagerson#}</small>
                                   </div>
                                 {/if}
@@ -97,16 +97,16 @@
                           </div>
 
                           {* Preisanzeige *}
-                          <div class="option-price text-right ml-auto">
+                          <div class="option-price text-end ms-auto">
                             {if $item_data.PRICE && $options|count == 1}
                               {if $item_data.OLD_PRICE}
                                 <div class="old-price">
                                   <small class="text-danger"><del>{$item_data.OLD_PRICE}</del></small>
                                 </div>
                               {/if}
-                              <div class="current-price font-weight-bold">{$item_data.PRICE}</div>
+                              <div class="current-price fw-bold">{$item_data.PRICE}</div>
                             {elseif $item_data.FULL_PRICE}
-                              <div class="current-price font-weight-bold">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</div>
+                              <div class="current-price fw-bold">{$item_data.PREFIX}&nbsp;{$item_data.FULL_PRICE}</div>
                             {/if}
                           </div>
                         </div>
@@ -115,20 +115,20 @@
                     {else}
                       <div class="option-control d-flex align-items-center w-100">
                         {* Platzhalter anstelle des Radio-Buttons mit gleicher Breite *}
-                        <div class="radio-placeholder mr-2" style="width: 16px; height: 16px;"></div>
+                        <div class="radio-placeholder me-2" style="width: 16px; height: 16px;"></div>
                         <div class="option-content d-flex justify-content-between align-items-center w-100">
                           <div class="option-info">
                             <span class="option-text text-muted">{$item_data.TEXT}</span>
                             <div class="stock-status mt-1">
                               <div class="d-flex align-items-center">
-                                <div class="stock-indicator bg-danger rounded-circle mr-1" style="width:10px;height:10px;" aria-hidden="true"></div>
+                                <div class="stock-indicator bg-danger rounded-circle me-1" style="width:10px;height:10px;" aria-hidden="true"></div>
                                 <small class="text-danger">{#shipping_lagers#}</small>
                               </div>
                             </div>
                           </div>
 
                           {* Preisanzeige (ausgegraut) *}
-                          <div class="option-price text-right ml-auto">
+                          <div class="option-price text-end ms-auto">
                             {if $item_data.PRICE && $options|count == 1}
                               {if $item_data.OLD_PRICE}
                                 <div class="old-price">
