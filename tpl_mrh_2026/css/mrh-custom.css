@@ -1740,7 +1740,8 @@ table.tebals.wite tr:last-child td:last-child {
   box-shadow: 0 0 0 2px rgba(135, 165, 22, 0.15);
 }
 
-.mrh-stock-dot--yellow {
+.mrh-stock-dot--yellow,
+.mrh-stock-dot--orange {
   background-color: rgba(237, 173, 68, 0.7);
   box-shadow: 0 0 0 2px rgba(237, 173, 68, 0.15);
 }
@@ -1758,15 +1759,29 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 .mrh-stock-info-icon {
-  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mrh-text-muted, #6c757d);
+  background: transparent;
   color: var(--mrh-text-muted, #6c757d);
+  font-size: 0.75rem;
+  font-style: normal;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.15s ease;
+  padding: 0;
+  line-height: 1;
+  text-decoration: none;
 }
 
 .mrh-stock-info-icon:hover,
 .mrh-stock-info-icon:focus {
+  border-color: var(--mrh-primary, #2d6a4f);
   color: var(--mrh-primary, #2d6a4f);
+  background-color: #e9ecef;
   outline: none;
 }
 
@@ -1901,4 +1916,107 @@ table.tebals.wite tr:last-child td:last-child {
 
 /* Regulär-Badge SVG bleibt weiß auf blauem Hintergrund */
   filter: brightness(0) invert(1);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MRH LAGERAMPEL – Legende (shiping_tooltip.html)
+   Gemäß Bot-Anweisung: CSS in mrh-custom.css da global geladen
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Legende Wrapper ── */
+.mrh-stock-legend-wrapper {
+  position: relative;
+}
+
+/* ── Legende Container (Card-Umrandung) ── */
+.mrh-stock-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--tpl-borders-color, #e2e8f0);
+  border-radius: 4px;
+  background-color: var(--tpl-bg-color, #ffffff);
+  font-size: 0.8125rem;
+}
+
+/* ── Einzelnes Legend-Item ── */
+.mrh-stock-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--tpl-text-standard, #0f172a);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+/* ── Legend Info-Button (runder Kreis) ── */
+.mrh-legend-info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mrh-text-muted, #6c757d);
+  background: transparent;
+  color: var(--mrh-text-muted, #6c757d);
+  font-size: 0.75rem;
+  font-style: normal;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.mrh-legend-info-btn:hover,
+.mrh-legend-info-btn:focus {
+  border-color: var(--mrh-primary, #2d6a4f);
+  color: var(--mrh-primary, #2d6a4f);
+  background-color: #e9ecef;
+  outline: none;
+}
+
+/* ── Tooltip/Modal Items (Bootstrap Modal Content) ── */
+.mrh-stock-tooltip-item {
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--tpl-borders-color, #e2e8f0);
+}
+
+.mrh-stock-tooltip-item:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.mrh-stock-tooltip-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--tpl-text-standard, #0f172a);
+}
+
+.mrh-stock-tooltip-desc {
+  font-size: 0.82rem;
+  color: var(--mrh-text-muted, #6c757d);
+  line-height: 1.5;
+  margin-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+/* ── Responsive Legende ── */
+@media (max-width: 575.98px) {
+  .mrh-stock-legend {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .mrh-stock-legend-item {
+    font-size: 0.75rem;
+  }
 }
