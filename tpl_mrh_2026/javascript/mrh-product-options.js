@@ -1,13 +1,15 @@
 /**
- * MRH Product Options v3.0
+ * MRH Product Options v3.1
  * Vanilla JS – Preis-Updater fuer Produkt-Optionen
- * 
+ *
  * Features:
- * - Aktualisiert Preis oben (Summarybox) + Preis-Zusammenfassung
+ * - Aktualisiert BEIDE Preis-Anzeigen:
+ *   1) pd_price[0] = Preis-Card oben rechts (oberhalb Optionen)
+ *   2) pd_price[1] / #pd_puprice = "Jetzt nur ab" Box (unterhalb Optionen, ueber Warenkorb)
  * - Fallback: Baut JSON aus data-price/data-prefix wenn data-attrdata leer
  * - Stock-Status Anzeige (gruen/orange/rot)
  * - Kein jQuery erforderlich
- * 
+ *
  * Aktualisiert: 2026-04-03
  */
 (function () {
@@ -15,20 +17,12 @@
 
   /* ── Hilfsfunktionen ── */
 
-  /**
-   * Formatiert eine Zahl als Preis-String (Komma als Dezimaltrenner)
-   */
   function formatPrice(value) {
     return (Math.round(value * 100) / 100).toFixed(2).replace('.', ',');
   }
 
-  /**
-   * Parst einen Preis-String zurueck in eine Zahl
-   * z.B. "34,01 EUR" → 34.01, "&nbsp;12,87 EUR" → 12.87
-   */
   function parsePrice(str) {
     if (!str) return 0;
-    // Entferne HTML-Entities, Waehrung, Leerzeichen
     var cleaned = str
       .replace(/&nbsp;/g, '')
       .replace(/\u00A0/g, '')
@@ -37,20 +31,15 @@
       .replace(/\$/g, '')
       .replace(/[^\d,.\-]/g, '')
       .trim();
-    // Komma als Dezimaltrenner
     cleaned = cleaned.replace(',', '.');
     return parseFloat(cleaned) || 0;
   }
 
-  /**
-   * Extrahiert die Waehrung aus einem Preis-String
-   */
   function extractCurrency(str) {
     if (!str) return { left: '', right: 'EUR' };
     var match = str.match(/(EUR|CHF|\$|USD)/i);
     if (match) {
       var currency = match[1].toUpperCase();
-      // Pruefen ob Waehrung links oder rechts steht
       var idx = str.indexOf(match[0]);
       var priceIdx = str.search(/\d/);
       if (idx < priceIdx) {
@@ -61,9 +50,6 @@
     return { left: '', right: 'EUR' };
   }
 
-  /**
-   * Baut den formatierten Preis-String mit Waehrungssymbol
-   */
   function buildPriceHtml(symbolLeft, priceStr, symbolRight) {
     var parts = [];
     if (symbolLeft) parts.push(symbolLeft + '\u00A0');
@@ -81,10 +67,11 @@
     var firstPrice = 0;
     var currency = { left: '', right: 'EUR' };
 
-    // Erste Option finden um Basispreis zu ermitteln
     radios.forEach(function (radio) {
       if (firstPrice === 0) {
-        var priceEl = radio.closest('.mrh-option-control').querySelector('.mrh-current-price');
+        var priceEl = radio.closest('.mrh-option-control')
+          ? radio.closest('.mrh-option-control').querySelector('.mrh-current-price')
+          : null;
         if (priceEl) {
           firstPrice = parsePrice(priceEl.textContent);
           currency = extractCurrency(priceEl.textContent);
@@ -92,13 +79,13 @@
       }
     });
 
-    // Fuer jede Option attrdata setzen
     radios.forEach(function (radio) {
       var existing = radio.getAttribute('data-attrdata');
-      if (existing && existing.trim() !== '') return; // Bereits vorhanden
+      if (existing && existing.trim() !== '') return;
 
-      var priceEl = radio.closest('.mrh-option-control').querySelector('.mrh-current-price');
-      var oldPriceEl = radio.closest('.mrh-option-control').querySelector('.mrh-old-price del');
+      var control = radio.closest('.mrh-option-control');
+      var priceEl = control ? control.querySelector('.mrh-current-price') : null;
+      var oldPriceEl = control ? control.querySelector('.mrh-old-price del') : null;
       var currentPrice = priceEl ? parsePrice(priceEl.textContent) : 0;
       var oldPrice = oldPriceEl ? parsePrice(oldPriceEl.textContent) : 0;
 
@@ -128,17 +115,15 @@
   /* ── Haupt-Logik ── */
 
   /**
-   * Berechnet den aktuellen Preis basierend auf den gewaehlten Optionen
+   * Berechnet den aktuellen Preis und aktualisiert ALLE Preis-Anzeigen
    */
   function calculatePrice(optionsContainer) {
-    var pid = optionsContainer.id.replace('optionen', '');
     var checkedInputs = optionsContainer.querySelectorAll('input[type="radio"]:checked, select option:checked');
     var summe = 0;
     var attrvpevalue = 0;
     var data = null;
 
     checkedInputs.forEach(function (input) {
-      // Pruefen ob das Element in einer versteckten pmatrix-Zeile liegt
       var pmatrixParent = input.closest('[id^="pmatrix_v"]');
       if (pmatrixParent && pmatrixParent.style && pmatrixParent.style.display === 'none') {
         return;
@@ -177,6 +162,7 @@
 
     var newPrice = formatPrice(summe + gprice);
     var oldPrice = formatPrice(summe + oprice);
+    var hasOldPrice = oprice !== gprice && oprice > 0;
 
     // VPE-Preis berechnen
     var newVpePrice = '';
@@ -186,10 +172,74 @@
       newVpePrice = formatPrice((summe + gprice) / vpeBase);
     }
 
-    // 1. Preis-Zusammenfassung aktualisieren (unterhalb der Optionen)
+    var priceHtml = buildPriceHtml(symbolLeft, newPrice, symbolRight);
+    var oldPriceHtml = buildPriceHtml(symbolLeft, oldPrice, symbolRight);
+
+    // ═══════════════════════════════════════════════════════════════
+    // ALLE pd_price Elemente aktualisieren
+    // ═══════════════════════════════════════════════════════════════
+    var allPdPrice = document.querySelectorAll('.pd_price');
+
+    allPdPrice.forEach(function (pdPrice) {
+      var newPriceEl = pdPrice.querySelector('.new_price');
+      var oldPriceEl = pdPrice.querySelector('.old_price');
+      var standardPriceEl = pdPrice.querySelector('.standard_price');
+      var specialPriceEl = pdPrice.querySelector('.special_price');
+
+      if (hasOldPrice) {
+        // Sonderangebot: new_price + old_price anzeigen
+        if (newPriceEl) {
+          // small_price (Label "Jetzt nur ab") beibehalten
+          var smallPrice = newPriceEl.querySelector('.small_price');
+          var labelHtml = smallPrice ? smallPrice.outerHTML : '';
+          newPriceEl.innerHTML = labelHtml + '\n                  ' + priceHtml + '\n                ';
+        }
+        if (oldPriceEl) {
+          var oldSmallPrice = oldPriceEl.querySelector('.small_price');
+          var oldLabelHtml = oldSmallPrice ? oldSmallPrice.outerHTML : '';
+          oldPriceEl.innerHTML = oldLabelHtml + '\n                  <del>' + oldPriceHtml + '</del>\n                ';
+        }
+        // standard_price verstecken wenn vorhanden
+        if (standardPriceEl) {
+          standardPriceEl.style.display = 'none';
+        }
+        // special_price sichtbar machen
+        if (specialPriceEl) {
+          specialPriceEl.style.display = '';
+        }
+      } else {
+        // Kein Sonderangebot: standard_price oder new_price aktualisieren
+        if (standardPriceEl) {
+          var stdSmallPrice = standardPriceEl.querySelector('.small_price');
+          var stdLabelHtml = stdSmallPrice ? stdSmallPrice.outerHTML : '';
+          standardPriceEl.innerHTML = stdLabelHtml + '\n                  ' + priceHtml + '\n                ';
+          standardPriceEl.style.display = '';
+        } else if (newPriceEl) {
+          var npSmallPrice = newPriceEl.querySelector('.small_price');
+          var npLabelHtml = npSmallPrice ? npSmallPrice.outerHTML : '';
+          newPriceEl.innerHTML = npLabelHtml + '\n                  ' + priceHtml + '\n                ';
+        }
+        // old_price verstecken
+        if (oldPriceEl) {
+          oldPriceEl.style.display = 'none';
+        }
+      }
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // VPE-Preis aktualisieren (falls vorhanden)
+    // ═══════════════════════════════════════════════════════════════
+    var vpeEl = document.querySelector('.pd_vpe');
+    if (vpeEl && newVpePrice && data.vpevalue !== false) {
+      vpeEl.innerHTML = buildPriceHtml(symbolLeft, newVpePrice, symbolRight) + (data.protext || '') + (data.vpetext || '');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Preis-Zusammenfassung innerhalb der Optionen (cuPrice/cuVpePrice)
+    // ═══════════════════════════════════════════════════════════════
     var cuPrice = optionsContainer.querySelector('.cuPrice');
     if (cuPrice) {
-      cuPrice.innerHTML = buildPriceHtml(symbolLeft, newPrice, symbolRight);
+      cuPrice.innerHTML = priceHtml;
     }
 
     var cuVpePrice = optionsContainer.querySelector('.cuVpePrice');
@@ -199,34 +249,6 @@
       } else {
         cuVpePrice.innerHTML = '';
       }
-    }
-
-    // 2. Preis oben in der Summarybox aktualisieren
-    var summaryStandard = document.querySelector('.pd_summarybox .pd_price .standard_price');
-    var summaryNew = document.querySelector('.pd_summarybox .pd_price .new_price');
-    var summaryOld = document.querySelector('.pd_summarybox .pd_price .old_price');
-    var summaryVpe = document.querySelector('.pd_summarybox .pd_vpe');
-
-    // Auch den pd_price direkt aktualisieren (fuer .at Layout)
-    var pdPrice = document.querySelector('#pd_puprice .standard_price');
-    if (pdPrice) {
-      // Behalte den "ab" Text bei, ersetze nur den Preis
-      var smallPrice = pdPrice.querySelector('.small_price');
-      var abText = smallPrice ? smallPrice.outerHTML : '';
-      pdPrice.innerHTML = abText + buildPriceHtml(symbolLeft, newPrice, symbolRight);
-    }
-
-    if (summaryStandard && !pdPrice) {
-      summaryStandard.innerHTML = buildPriceHtml(symbolLeft, newPrice, symbolRight);
-    }
-    if (summaryNew) {
-      summaryNew.innerHTML = (data.onlytext || '') + buildPriceHtml(symbolLeft, newPrice, symbolRight);
-    }
-    if (summaryOld && oprice !== gprice) {
-      summaryOld.innerHTML = (data.insteadtext || '') + buildPriceHtml(symbolLeft, oldPrice, symbolRight);
-    }
-    if (summaryVpe && newVpePrice && data.vpevalue !== false) {
-      summaryVpe.innerHTML = buildPriceHtml(symbolLeft, newVpePrice, symbolRight) + (data.protext || '') + (data.vpetext || '');
     }
   }
 
@@ -322,14 +344,6 @@
     });
   }
 
-  /**
-   * Initialisiert die Stock-Legende Info-Modal
-   */
-  function initStockLegend() {
-    // Bootstrap Modal wird automatisch ueber data-bs-toggle initialisiert
-    // Keine zusaetzliche JS-Initialisierung noetig
-  }
-
   /* ── Globale Funktion fuer Smarty-Kompatibilitaet ── */
   window.PriceUpdaterReady = function () {
     initOptions();
@@ -339,10 +353,8 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initOptions();
-      initStockLegend();
     });
   } else {
     initOptions();
-    initStockLegend();
   }
 })();
