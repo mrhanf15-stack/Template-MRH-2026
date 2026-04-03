@@ -153,19 +153,19 @@
     {/foreach}
   </div>
 
-  {* Preisberechnung - Price Updater *}
+  {* ═══ Preis-Updater v4.0 ═══ *}
+  {* Liest Preise direkt aus dem HTML - benoetigt KEIN data-attrdata *}
   {if isset($smarty.get.products_id)}
     {if $smarty.session.customers_status.customers_status_show_price != 0}
-      <div class="price-summary card mt-3 border-primary">
+      <div class="price-summary card mt-3 border-primary" style="display:none;">
         <div class="card-body py-2 px-3">
           <div class="d-flex justify-content-between align-items-center">
             <div class="price-summary-info">
-              <span class="font-weight-bold">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_A}</span>
-              <div class="small text-muted">{$smarty.const.TEXT_ATTRIBUTE_PRICE_UPDATER_B}</div>
+              <span class="font-weight-bold">In dieser Ausfuehrung:</span>
+              <div class="small text-muted">Preis/Artikel</div>
             </div>
             <div class="price-summary-value">
               <span class="cuPrice font-weight-bold text-dark h5 mb-0" aria-live="polite"></span>
-              <div class="cuVpePrice small text-muted" aria-live="polite"></div>
             </div>
           </div>
         </div>
@@ -173,132 +173,124 @@
     {/if}
 
     <script type="text/javascript">
-    var attributePriceUpdater;
-    function PriceUpdaterReady() {
-      attributePriceUpdater = {
-        calculate: function (This) {
-          var summe = 0,
-              attrvpevalue = 0,
-              symbolLeft = '',
-              symbolRight = '',
-              data = This.data('attrdata'),
-              el = $('div[id^="optionen' + data.pid + '"] select').length ? ' option:selected' : ' input:checked';
-          $.each($('div[id^="optionen' + data.pid + '"]' + el), function () {
-            if (!$(this).parents('div[id^="optionen' + data.pid + '"] [id^="pmatrix_v"]').attr('style')) {
-              data = $(this).data('attrdata');
-              if (data.aprice != 0) {
-                if (data.prefix == '-') {
-                  summe -= data.aprice;
-                } else if (data.prefix == '+') {
-                  summe += data.aprice;
-                } else if (data.prefix == '=') {
-                  summe += data.aprice - data.gprice;
-                }
-                attrvpevalue += data.attrvpevalue;
-              }
-            }
-          });
-          var newPrice = (Math.round((summe + data.gprice) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
-          var oldPrice = (Math.round((summe + data.oprice) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
-          if (data.vpevalue !== false) {
-            var newVpePrice = (Math.round((summe + data.gprice) / (data.vpevalue + attrvpevalue) * 100) / 100).toFixed(2).toString().replace(/[.]/, ',');
-          }
-          if (data.cleft) {
-            symbolLeft = data.cleft + '&nbsp;';
-          }
-          if (data.cright) {
-            symbolRight = '&nbsp;' + data.cright;
-          }
-          /* Preis-Zusammenfassung (cuPrice) */
-          $('div[id^="optionen' + data.pid + '"] .cuPrice').html(symbolLeft + newPrice + symbolRight);
-          if (data.vpevalue !== false) {
-            $('div[id^="optionen' + data.pid + '"] .cuVpePrice').html(symbolLeft + newVpePrice + symbolRight + data.protext + data.vpetext);
-          }
+    /* MRH Price Updater v4.0 - Liest Preise direkt aus dem HTML */
+    (function($) {
+      if (typeof $ === 'undefined') return;
 
-          /* ═══ BEIDE pd_price Elemente aktualisieren (oben + unten) ═══ */
-          var hasOldPrice = data.oprice && data.oprice !== data.gprice && data.oprice > 0;
+      function parsePrice(text) {
+        if (!text) return 0;
+        var cleaned = text.replace(/[^0-9,\.]/g, '').replace(',', '.');
+        return parseFloat(cleaned) || 0;
+      }
 
-          $('.pd_price').each(function() {
-            var $pd = $(this);
-            var $newPriceEl = $pd.find('.new_price');
-            var $oldPriceEl = $pd.find('.old_price');
-            var $standardPriceEl = $pd.find('.standard_price');
-            var $specialPriceEl = $pd.find('.special_price');
+      function formatPrice(num) {
+        return num.toFixed(2).replace('.', ',');
+      }
 
-            if (hasOldPrice) {
-              /* Sonderangebot: new_price + old_price anzeigen */
-              if ($newPriceEl.length) {
-                var $smallPrice = $newPriceEl.find('.small_price');
-                var labelHtml = $smallPrice.length ? $smallPrice[0].outerHTML : '';
-                $newPriceEl.html(labelHtml + ' ' + symbolLeft + newPrice + symbolRight);
-              }
-              if ($oldPriceEl.length) {
-                var $oldSmallPrice = $oldPriceEl.find('.small_price');
-                var oldLabelHtml = $oldSmallPrice.length ? $oldSmallPrice[0].outerHTML : '';
-                $oldPriceEl.html(oldLabelHtml + ' <del>' + symbolLeft + oldPrice + symbolRight + '</del>');
-              }
-              if ($standardPriceEl.length) $standardPriceEl.hide();
-              if ($specialPriceEl.length) $specialPriceEl.show();
-            } else {
-              /* Kein Sonderangebot */
-              if ($standardPriceEl.length) {
-                var $stdSmallPrice = $standardPriceEl.find('.small_price');
-                var stdLabelHtml = $stdSmallPrice.length ? $stdSmallPrice[0].outerHTML : '';
-                $standardPriceEl.html(stdLabelHtml + ' ' + symbolLeft + newPrice + symbolRight).show();
-              } else if ($newPriceEl.length) {
-                var $npSmallPrice = $newPriceEl.find('.small_price');
-                var npLabelHtml = $npSmallPrice.length ? $npSmallPrice[0].outerHTML : '';
-                $newPriceEl.html(npLabelHtml + ' ' + symbolLeft + newPrice + symbolRight);
-              }
-              if ($oldPriceEl.length) $oldPriceEl.hide();
-            }
-          });
-        },
-        calculateAll: function () {
-          $.each($('div[id^="optionen"] input[type=radio]:checked, div[id^="optionen"] input[type=checkbox], div[id^="optionen"] option'), function () {
-            attributePriceUpdater.calculate($(this));
-          });
+      function updatePrices(radioEl) {
+        var $item = $(radioEl).closest('.option-item');
+        var $priceDiv = $item.find('.option-price');
+        var $currentPrice = $priceDiv.find('.current-price');
+        var $oldPrice = $priceDiv.find('.old-price');
+
+        /* Preis aus der gewaehlten Option lesen */
+        var newPriceText = $currentPrice.text().trim();
+        var newPrice = parsePrice(newPriceText);
+        /* Waehrung extrahieren (z.B. "EUR") */
+        var currency = newPriceText.replace(/[0-9,\.\s\u00a0]/g, '').trim() || 'EUR';
+
+        var oldPrice = 0;
+        var hasOldPrice = $oldPrice.length > 0 && $oldPrice.find('del').length > 0;
+        if (hasOldPrice) {
+          oldPrice = parsePrice($oldPrice.text());
         }
-      };
+
+        if (newPrice <= 0) return;
+
+        var formattedNew = formatPrice(newPrice) + ' ' + currency;
+        var formattedOld = hasOldPrice ? formatPrice(oldPrice) + ' ' + currency : '';
+
+        /* cuPrice Zusammenfassung aktualisieren */
+        $('div[id^="optionen"] .cuPrice').html(formattedNew);
+        $('.price-summary').show();
+
+        /* BEIDE pd_price Elemente aktualisieren (oben + unten) */
+        $('.pd_price').each(function() {
+          var $pd = $(this);
+          var $newPriceEl = $pd.find('.new_price');
+          var $oldPriceEl = $pd.find('.old_price');
+          var $standardPriceEl = $pd.find('.standard_price');
+          var $specialPriceEl = $pd.find('.special_price');
+          var $savePriceEl = $pd.find('.save_price');
+
+          if (hasOldPrice && oldPrice > 0) {
+            /* === Sonderangebot === */
+            if ($newPriceEl.length) {
+              var $sp = $newPriceEl.find('.small_price');
+              var lbl = $sp.length ? $sp[0].outerHTML : '';
+              $newPriceEl.html(lbl + ' ' + formattedNew);
+            }
+            if ($oldPriceEl.length) {
+              var $osp = $oldPriceEl.find('.small_price');
+              var olbl = $osp.length ? $osp[0].outerHTML : '';
+              $oldPriceEl.html(olbl + ' <del>' + formattedOld + '</del>').show();
+            }
+            /* Rabatt-Prozent berechnen */
+            if (oldPrice > 0 && $savePriceEl.length) {
+              var pct = Math.round((1 - newPrice / oldPrice) * 100);
+              $savePriceEl.text(pct + '%').show();
+            }
+            if ($standardPriceEl.length) $standardPriceEl.hide();
+            if ($specialPriceEl.length) $specialPriceEl.show();
+          } else {
+            /* === Kein Sonderangebot === */
+            if ($standardPriceEl.length) {
+              var $ssp = $standardPriceEl.find('.small_price');
+              var slbl = $ssp.length ? $ssp[0].outerHTML : '';
+              $standardPriceEl.html(slbl + ' ' + formattedNew).show();
+            } else if ($newPriceEl.length) {
+              var $nsp = $newPriceEl.find('.small_price');
+              var nlbl = $nsp.length ? $nsp[0].outerHTML : '';
+              $newPriceEl.html(nlbl + ' ' + formattedNew);
+            }
+            if ($oldPriceEl.length) $oldPriceEl.hide();
+            if ($savePriceEl.length) $savePriceEl.hide();
+          }
+        });
+      }
 
       $(document).ready(function () {
-        /* Preisberechnung und Zusammenfassung anzeigen */
-        attributePriceUpdater.calculateAll();
-        $(".price-summary").show();
+        /* Initial: Preise fuer vorausgewaehlte Option setzen */
+        var $checked = $('div[id^="optionen"] input[type=radio]:checked');
+        if ($checked.length) {
+          updatePrices($checked[0]);
+          $checked.closest('.option-item').addClass('active');
+        }
 
-        /* Event-Handler fuer Aenderungen */
-        $('div[id^="optionen"] select').on('change', function () {
-          attributePriceUpdater.calculate($('option:selected', this));
-        });
-
+        /* Event-Handler fuer Radio-Aenderungen */
         $('div[id^="optionen"] input').on('change', function () {
-          attributePriceUpdater.calculate($(this));
+          updatePrices(this);
 
           /* Visuelles Feedback bei Auswahl */
           $(this).closest('.option-group').find('.option-item').removeClass('active');
           $(this).closest('.option-item').addClass('active');
 
-          /* Aktualisiere ARIA-Attribute fuer Barrierefreiheit */
+          /* ARIA-Attribute aktualisieren */
           $(this).closest('.option-group').find('.option-item').attr('aria-checked', 'false');
           $(this).closest('.option-item').attr('aria-checked', 'true');
         });
 
         /* Klick-Handler fuer das gesamte option-item div */
         $('.option-item.option-available').on('click', function(e) {
+          if ($(e.target).is('input[type=radio]')) return;
           var radioInput = $(this).find('input[type=radio]');
           radioInput.prop('checked', true);
           radioInput.trigger('change');
-          if ($(e.target).is('input[type=radio]')) {
-            return;
-          }
         });
 
         /* Touch-Unterstuetzung */
         $('.option-item.option-available').css('cursor', 'pointer');
         $('.option-item.option-unavailable').css('cursor', 'default');
-
-        /* Initial aktive Elemente markieren */
-        $('.option-radio-input:checked').closest('.option-item').addClass('active');
 
         /* Fokus-Handling fuer Tastaturnavigation */
         $('.option-item').on('focus', function() {
@@ -307,13 +299,12 @@
           $(this).removeClass('focus-visible');
         });
 
-        /* CSS fuer Fokus-Stil */
         $('<style>\
           .option-item.focus-visible { outline: 2px solid #007bff; outline-offset: -2px; }\
           .option-item.option-unavailable { pointer-events: none; }\
         </style>').appendTo('head');
       });
-    }
+    })(jQuery);
     </script>
   {/if}
 </div>
