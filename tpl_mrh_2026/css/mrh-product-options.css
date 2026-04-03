@@ -1,27 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    MRH 2026 – Product Options CSS
    ═══════════════════════════════════════════════════════════════════════════
-   Version:  5.0.0
+   Version:  6.0.0
    Datum:    2026-04-03
+   Targets Bootstrap classes used in multi_options_1.html
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Wrapper ── */
-.mrh-options-wrapper {
-  margin: 1rem 0;
-}
-
-/* ── Option-Liste ── */
-.mrh-option-items {
+/* ── Option Container ── */
+.product-options-container .option-group {
   border: 1px solid #dee2e6;
   border-radius: 4px;
   overflow: hidden;
 }
 
 /* ── Einzelne Option ── */
-.mrh-option-item {
+.product-options-container .option-item {
   display: flex;
-  align-items: center;
-  padding: 0.625rem 0.875rem;
+  align-items: stretch;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #eee;
   cursor: pointer;
   transition: background-color 0.15s ease;
@@ -29,61 +25,62 @@
   line-height: 1.4;
 }
 
-.mrh-option-item:last-child {
+.product-options-container .option-item:last-child {
   border-bottom: none;
 }
 
-.mrh-option-item:hover {
+.product-options-container .option-item:hover {
   background-color: #f8f9fa;
 }
 
 /* ── Active State ── */
-.mrh-option-active,
-.mrh-option-item.is-active {
+.product-options-container .option-item.active {
   background-color: #f0f7e8;
   border-left: 3px solid #6d902c;
-  padding-left: calc(0.875rem - 3px);
+  padding-left: calc(1rem - 3px);
 }
 
-.mrh-option-active:hover,
-.mrh-option-item.is-active:hover {
+.product-options-container .option-item.active:hover {
   background-color: #e8f2dc;
 }
 
 /* ── Unavailable ── */
-.mrh-option-unavailable {
+.product-options-container .option-item.option-unavailable {
   opacity: 0.55;
   cursor: default;
   pointer-events: none;
 }
 
+/* ── Form Check Reset ── */
+.product-options-container .form-check {
+  padding-left: 0;
+  margin-bottom: 0;
+  width: 100%;
+}
+
 /* ── Control (Radio + Content) ── */
-.mrh-option-control {
+.product-options-container .option-control {
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
-/* ── Radio Input ── */
-.mrh-option-radio {
+/* ── Radio Input – groesser und am linken Rand ── */
+.product-options-container .option-radio-input {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
   margin: 0;
   cursor: pointer;
   accent-color: #6d902c;
-}
-
-/* ── Radio Placeholder (fuer unavailable) ── */
-.mrh-radio-placeholder {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  -webkit-appearance: auto;
+  appearance: auto;
 }
 
 /* ── Content (Info + Price) ── */
-.mrh-option-content {
+.product-options-container .option-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,150 +89,79 @@
 }
 
 /* ── Info (Text + Stock) ── */
-.mrh-option-info {
+.product-options-container .option-info {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-.mrh-option-text {
+.product-options-container .option-text {
   font-size: 0.9375rem;
   font-weight: 400;
   color: #212529;
 }
 
-.mrh-text-muted {
-  color: #999 !important;
-}
-
-/* ── Stock Label (Dot + Text inline) ── */
-.mrh-stock-label {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.125rem;
-}
-
-.mrh-stock-dot {
+/* ── Stock Indicator Dots ── */
+.product-options-container .stock-indicator {
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
   flex-shrink: 0;
 }
 
-.mrh-stock-dot--green {
-  background-color: #6d902c;
-}
-
-.mrh-stock-dot--orange {
-  background-color: #e8a317;
-}
-
-.mrh-stock-dot--red {
-  background-color: #dc3545;
-}
-
-.mrh-stock-text {
+/* ── Stock Text ── */
+.product-options-container .ship_text_warning {
   font-size: 0.75rem;
   font-weight: 500;
-  line-height: 1;
-}
-
-.mrh-stock-text--green {
-  color: #6d902c;
-}
-
-.mrh-stock-text--orange {
   color: #c48a10;
 }
 
-.mrh-stock-text--red {
-  color: #dc3545;
+.product-options-container .stock-status .text-success {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.product-options-container .stock-status .text-danger {
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 /* ── Preisanzeige ── */
-.mrh-option-price {
+.product-options-container .option-price {
   text-align: right;
   flex-shrink: 0;
   margin-left: 1rem;
   white-space: nowrap;
 }
 
-.mrh-current-price {
+.product-options-container .current-price {
   font-size: 0.9375rem;
   font-weight: 700;
   color: #212529;
 }
 
-.mrh-old-price {
+.product-options-container .old-price {
   font-size: 0.75rem;
-  color: #dc3545;
   line-height: 1.2;
 }
 
-.mrh-old-price del {
+.product-options-container .old-price del {
   text-decoration: line-through;
 }
 
-/* ── Price Summary Box ── */
-.mrh-price-summary {
-  display: none;
-  margin-top: 0.75rem;
-  border: 2px solid #1a3a5c;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.mrh-price-summary-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.625rem 1rem;
-  background-color: #f8f9fa;
-}
-
-.mrh-price-summary-label {
-  display: flex;
-  flex-direction: column;
-}
-
-.mrh-price-summary-title {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: #212529;
-}
-
-.mrh-price-summary-subtitle {
-  font-size: 0.8125rem;
-  color: #6c757d;
-}
-
-.mrh-price-summary-value {
-  text-align: right;
-}
-
-.mrh-price-summary-value .cuPrice {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #212529;
-}
-
-.mrh-price-summary-value .cuVpePrice {
-  display: block;
-  font-size: 0.75rem;
-  color: #6c757d;
+/* ── Focus Visible ── */
+.product-options-container .option-item.focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Stock-Legende
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.mrh-stock-legend-wrapper {
+.stock-legend-wrapper {
   position: relative;
 }
 
-.mrh-stock-legend {
+.stock-legend {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -246,7 +172,7 @@
   font-size: 0.8125rem;
 }
 
-.mrh-stock-legend-item {
+.stock-legend-item {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -256,7 +182,7 @@
 }
 
 /* ── Info-Button (runder Kreis mit i) ── */
-.mrh-stock-info-icon {
+.stock-info-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -274,7 +200,7 @@
   line-height: 1;
 }
 
-.mrh-stock-info-icon:hover {
+.stock-info-icon:hover {
   border-color: #1a3a5c;
   color: #1a3a5c;
   background-color: #e9ecef;
@@ -282,23 +208,25 @@
 
 /* ── Responsive ── */
 @media (max-width: 575.98px) {
-  .mrh-option-item {
-    padding: 0.5rem 0.625rem;
+  .product-options-container .option-item {
+    padding: 0.5rem 0.75rem;
   }
 
-  .mrh-option-text {
+  .product-options-container .option-radio-input {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+  }
+
+  .product-options-container .option-text {
     font-size: 0.875rem;
   }
 
-  .mrh-current-price {
+  .product-options-container .current-price {
     font-size: 0.875rem;
   }
 
-  .mrh-price-summary-value .cuPrice {
-    font-size: 1.25rem;
-  }
-
-  .mrh-stock-legend {
+  .stock-legend {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
