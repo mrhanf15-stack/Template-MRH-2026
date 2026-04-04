@@ -12,23 +12,23 @@
 			{$box_CATEGORIES}
 		</div>
 
-		{* Statische Nav-Items – Texte aus PHP-Konstanten (MRH Dashboard → Sprachdatei-Editor)
-		   FIX 04.04.2026: {#nav_angebote#} → {$smarty.const.MRH_NAV_ANGEBOTE}
-		   URLs + Icons synchronisiert mit megamenu_config.json navlinks *}
-		<a href="specials.php" class="mrh-nav-item" data-nav="angebote">
-			<i class="fa-solid fa-tag"></i> <span>{$smarty.const.MRH_NAV_ANGEBOTE}</span>
+		{* Statische Nav-Items – Texte aus Smarty Config-Variablen (lang_{sprache}.conf [navigation])
+		   SEO-URLs statt hardcoded PHP-URLs (vermeidet 301-Redirects)
+		   Icons synchronisiert mit megamenu_config.json navlinks (Dashboard) *}
+		<a href="/angebote" class="mrh-nav-item" data-nav="angebote">
+			<i class="fa-solid fa-tag"></i> <span>{#nav_angebote#}</span>
 		</a>
-		<a href="products_new.php" class="mrh-nav-item" data-nav="neue-artikel">
-			<i class="fa-solid fa-star"></i> <span>{$smarty.const.MRH_NAV_NEUE_ARTIKEL}</span>
+		<a href="/neue-artikel" class="mrh-nav-item" data-nav="neue-artikel">
+			<i class="fa-solid fa-star"></i> <span>{#nav_neue_artikel#}</span>
 		</a>
-		<a href="shop.php?do=CreateManufacturersList" class="mrh-nav-item" data-nav="marken">
-			<i class="fa-solid fa-building"></i> <span>{$smarty.const.MRH_NAV_MARKEN}</span>
+		<a href="/Marken/" class="mrh-nav-item" data-nav="marken">
+			<i class="fa-solid fa-building"></i> <span>{#nav_marken#}</span>
 		</a>
-		<a href="blog.php" class="mrh-nav-item" data-nav="blog">
-			<i class="fa-solid fa-newspaper"></i> <span>{$smarty.const.MRH_NAV_BLOG}</span>
+		<a href="/blog/" class="mrh-nav-item" data-nav="blog">
+			<i class="fa-solid fa-newspaper"></i> <span>{#nav_blog#}</span>
 		</a>
-		<a href="seedfinder.php" class="mrh-nav-item" data-nav="seedfinder">
-			<i class="fa-solid fa-seedling"></i> <span>{$smarty.const.MRH_NAV_SEEDFINDER}</span>
+		<a href="/seedfinder" class="mrh-nav-item" data-nav="seedfinder">
+			<i class="fa-solid fa-seedling"></i> <span>{#nav_seedfinder#}</span>
 		</a>
 	</div>
 
