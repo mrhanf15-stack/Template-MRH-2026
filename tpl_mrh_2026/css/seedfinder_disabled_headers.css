@@ -1,0 +1,36 @@
+/**
+ * Seedfinder v6.8.0 - Disabled Accordion Headers CSS
+ * Graue Accordion-Header aus wenn keine Filter verfügbar sind
+ * Datum: 04. April 2026
+ * Fix: Hardcoded Farben → CSS Custom Properties (var())
+ */
+
+/* Ausgegrauter Accordion-Header */
+.accordion-filter-header.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bs-light, #f8f9fa) !important;
+    color: var(--bs-secondary, #6c757d) !important;
+}
+
+/* Hover-Effekt deaktivieren */
+.accordion-filter-header.disabled:hover {
+    background-color: var(--bs-light, #f8f9fa) !important;
+    color: var(--bs-secondary, #6c757d) !important;
+}
+
+/* Icon ausgrauen */
+.accordion-filter-header.disabled i,
+.accordion-filter-header.disabled .fa,
+.accordion-filter-header.disabled .fas,
+.accordion-filter-header.disabled .far,
+.accordion-filter-header.disabled .fa-solid,
+.accordion-filter-header.disabled .fa-regular {
+    color: var(--bs-secondary, #6c757d) !important;
+}
+
+/* Badge ausgrauen */
+.accordion-filter-header.disabled .badge {
+    background-color: var(--bs-gray-300, #dee2e6) !important;
+    color: var(--bs-secondary, #6c757d) !important;
+}
