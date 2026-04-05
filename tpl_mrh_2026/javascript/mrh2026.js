@@ -193,27 +193,41 @@ const MRH_MegaMenu = {
 /* === LAZY LOAD IMAGES (native + fallback) === */
 const MRH_LazyLoad = {
   init() {
-    /* Nutze native loading="lazy" – kein externes Script noetig */
-    /* Fuer aeltere Browser: IntersectionObserver als Fallback */
-    if ('loading' in HTMLImageElement.prototype) return;
-
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    if (!images.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
+    /* Bilder mit class="lazyload" und data-src (lazysizes-Pattern) */
+    const lazyImages = document.querySelectorAll('img.lazyload[data-src]');
+    if (lazyImages.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
             img.src = img.dataset.src;
             img.removeAttribute('data-src');
+            img.classList.remove('lazyload');
+            img.classList.add('lazyloaded');
+            observer.unobserve(img);
           }
-          observer.unobserve(img);
-        }
-      });
-    }, { rootMargin: '200px' });
+        });
+      }, { rootMargin: '200px' });
+      lazyImages.forEach(img => observer.observe(img));
+    }
 
-    images.forEach(img => observer.observe(img));
+    /* Fallback fuer native loading="lazy" in aelteren Browsern */
+    if (!('loading' in HTMLImageElement.prototype)) {
+      const nativeImages = document.querySelectorAll('img[loading="lazy"][data-src]');
+      if (nativeImages.length) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+              obs.unobserve(img);
+            }
+          });
+        }, { rootMargin: '200px' });
+        nativeImages.forEach(img => obs.observe(img));
+      }
+    }
   }
 };
 
