@@ -1,0 +1,188 @@
+{*
+ * Seedfinder Filter - Accordion Version
+ * Version: v6.3.0-bs5 ACCORDION
+ * Datum: 09. Februar 2026 | BS5-Migration: 05. April 2026
+ * Autor: Mr. Hanf / Manus AI
+ * 
+ * BS5.3 Migration:
+ * - data-toggle → data-bs-toggle
+ * - data-target → data-bs-target
+ * - data-parent → data-bs-parent
+ * - mr-* / ml-* → me-* / ms-*
+ * - badge-primary → bg-primary
+ * - badge-light → bg-light text-dark
+ * - btn-block → w-100
+ * - text-left → text-start
+ * - float-right → float-end
+ * - fa → fa-solid (Font Awesome 6)
+ * 
+ * Desktop: Sticky Top Bar mit Accordion
+ * Mobile: Bottom Sheet mit Accordion
+ *}
+
+{if isset($FILTERS) && $FILTERS|@count > 0}
+
+{* ========================================
+   DESKTOP: Sticky Filter-Bar
+   ======================================== *}
+<div class="seedfinder-filter-bar d-none d-lg-block" id="filter-bar-desktop">
+    <div class="container-fluid">
+        <div class="filter-bar-header">
+            <h5 class="filter-bar-title">
+                <span class="fa-solid fa-filter me-2"></span>Filter
+                <span class="badge bg-primary ms-2" id="active-filter-count">0</span>
+            </h5>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="reset-filters-desktop">
+                <span class="fa-solid fa-arrow-rotate-left me-1"></span>Zurücksetzen
+            </button>
+        </div>
+        
+        {* Accordion-Gruppen horizontal *}
+        <div class="filter-accordion-grid">
+            {foreach $FILTERS as $filter}
+            <div class="filter-accordion-item">
+                <button 
+                    class="filter-accordion-header" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#filter-collapse-desktop-{$filter.OPTIONS_ID}"
+                    aria-expanded="false"
+                >
+                    <span class="filter-name">{$filter.OPTIONS_NAME}</span>
+                    <span class="filter-count badge bg-light text-dark">{$filter.VALUES|@count}</span>
+                    <span class="fa-solid fa-chevron-down ms-auto"></span>
+                </button>
+                
+                <div class="collapse filter-accordion-body" id="filter-collapse-desktop-{$filter.OPTIONS_ID}">
+                    <div class="filter-values-scroll">
+                        {foreach $filter.VALUES as $value}
+                        <div class="form-check">
+                            <input 
+                                type="checkbox" 
+                                class="form-check-input filter-checkbox" 
+                                id="filter-desktop-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" 
+                                name="filter[{$filter.OPTIONS_ID}][]" 
+                                value="{$value.VALUES_ID}"
+                                data-filter-id="{$filter.OPTIONS_ID}"
+                                data-value-id="{$value.VALUES_ID}"
+                                {if $value.ACTIVE}checked{/if}
+                            >
+                            <label class="form-check-label" for="filter-desktop-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                {$value.VALUES_NAME} <span class="filter-value-count">({$value.COUNT})</span>
+                            </label>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+</div>
+
+{* ========================================
+   MOBILE: Floating Action Button
+   ======================================== *}
+<div class="d-lg-none">
+    <button 
+        type="button" 
+        class="btn btn-primary seedfinder-filter-fab" 
+        id="filter-fab-mobile"
+        aria-label="Filter anzeigen"
+    >
+        <span class="fa-solid fa-filter"></span>
+        <span class="badge bg-light text-dark ms-2" id="active-filter-count-mobile">0</span>
+    </button>
+</div>
+
+{* ========================================
+   MOBILE: Bottom Sheet
+   ======================================== *}
+<div class="seedfinder-bottom-sheet" id="filter-bottom-sheet">
+    {* Overlay *}
+    <div class="bottom-sheet-overlay"></div>
+    
+    {* Sheet Content *}
+    <div class="bottom-sheet-content">
+        {* Handle (Swipe-Indikator) *}
+        <div class="bottom-sheet-handle"></div>
+        
+        {* Header *}
+        <div class="bottom-sheet-header">
+            <h5 class="bottom-sheet-title">
+                <span class="fa-solid fa-filter me-2"></span>Filter
+                <span class="badge bg-primary ms-2" id="active-filter-count-sheet">0</span>
+            </h5>
+            <button type="button" class="btn-close-sheet" id="close-bottom-sheet">
+                <span class="fa-solid fa-xmark"></span>
+            </button>
+        </div>
+        
+        {* Accordion-Gruppen vertikal *}
+        <div class="bottom-sheet-body">
+            <div class="accordion" id="filter-accordion-mobile">
+                {foreach $FILTERS as $filter}
+                <div class="card">
+                    <div class="card-header" id="heading-mobile-{$filter.OPTIONS_ID}">
+                        <button 
+                            class="btn btn-link w-100 text-start" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#collapse-mobile-{$filter.OPTIONS_ID}"
+                            aria-expanded="false"
+                        >
+                            <span class="filter-name">{$filter.OPTIONS_NAME}</span>
+                            <span class="filter-count badge bg-light text-dark ms-2">{$filter.VALUES|@count}</span>
+                            <span class="fa-solid fa-chevron-down float-end"></span>
+                        </button>
+                    </div>
+                    
+                    <div 
+                        id="collapse-mobile-{$filter.OPTIONS_ID}" 
+                        class="collapse" 
+                        data-bs-parent="#filter-accordion-mobile"
+                    >
+                        <div class="card-body">
+                            {foreach $filter.VALUES as $value}
+                            <div class="form-check">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input filter-checkbox" 
+                                    id="filter-mobile-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" 
+                                    name="filter[{$filter.OPTIONS_ID}][]" 
+                                    value="{$value.VALUES_ID}"
+                                    data-filter-id="{$filter.OPTIONS_ID}"
+                                    data-value-id="{$value.VALUES_ID}"
+                                    {if $value.ACTIVE}checked{/if}
+                                >
+                                <label class="form-check-label" for="filter-mobile-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                    {$value.VALUES_NAME} <span class="filter-value-count">({$value.COUNT})</span>
+                                </label>
+                            </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+        </div>
+        
+        {* Footer *}
+        <div class="bottom-sheet-footer">
+            <button type="button" class="btn btn-outline-secondary w-100" id="reset-filters-mobile">
+                <span class="fa-solid fa-arrow-rotate-left me-2"></span>Filter zurücksetzen
+            </button>
+            <button type="button" class="btn btn-primary w-100" id="apply-filters-mobile">
+                <span class="fa-solid fa-check me-2"></span>Filter anwenden
+            </button>
+        </div>
+    </div>
+</div>
+
+{* CSS automatisch einbinden *}
+<link rel="stylesheet" href="{$tpl_path}css/seedfinder_accordion.css">
+
+{* JavaScript automatisch einbinden *}
+<script src="{$tpl_path}javascript/seedfinder_accordion.js"></script>
+
+{/if}
