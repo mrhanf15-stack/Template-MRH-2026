@@ -1,1144 +1,382 @@
 /**
- * Seedfinder Custom Styles v32.4.3
- * v32.4.3: Fix height:80px auf .d-flex die Option-Layout bricht + konsolidierte Fixes
- * v32.4.2: Radio + Text auf einer Zeile, Stock-Status kompakt
- * v32.4.0: Farben + Einrücken Fix
- * v32.3.0: Echte Shop-Optionen (Dropdowns) + Warenkorb-Button Styling
- * v32.2.0: Product Cards 1:1 wie Vergleichsseite (compare-* Klassen)
- * v9.0.0: Pagination, Kategorie-Kacheln, Vergleichen-Button
+ * Seedfinder CSS - tpl_mrh_2026 (BS5.3 + CSS-Variablen)
+ * Version: 32.0.0-bs5
+ * Datum: 2026-04-02
+ * 
+ * Migration von bootstrap4 Version:
+ * - Hardcoded Farben → CSS-Variablen (--tpl-*, --mrh-*)
+ * - BS4-spezifische Klassen → BS5.3 kompatibel
+ * - Modernes Design mit Glassmorphism-Akzenten
  */
 
-/* ========================================================================
-   KATEGORIE-KACHELN (Stage 1)
-   ======================================================================== */
+/* ========================================
+   CSS-VARIABLEN (Fallbacks)
+   ======================================== */
+:root {
+    --sf-primary: var(--mrh-primary, var(--tpl-primary, #5db233));
+    --sf-primary-dark: var(--mrh-primary-dark, var(--tpl-primary-dark, #4a8c2a));
+    --sf-success: var(--bs-success, #28a745);
+    --sf-info: var(--bs-info, #17a2b8);
+    --sf-danger: var(--bs-danger, #dc3545);
+    --sf-warning: var(--bs-warning, #ffc107);
+    --sf-dark: var(--bs-dark, #343a40);
+    --sf-light: var(--bs-light, #f8f9fa);
+    --sf-border: var(--bs-border-color, #dee2e6);
+    --sf-text: var(--bs-body-color, #212529);
+    --sf-text-muted: var(--bs-secondary-color, #6c757d);
+    --sf-card-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --sf-card-hover-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    --sf-transition: all 0.25s ease;
+}
 
-/* Kategorie-Kacheln Hover-Effekt */
-#seedfinder_module .seedfinder-card .card {
-    transition: all 0.3s ease;
-    cursor: pointer;
+/* ========================================
+   SEEDFINDER MODULE WRAPPER
+   ======================================== */
+#seedfinder_module {
+    padding-bottom: 30px;
 }
-#seedfinder_module .seedfinder-card .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+
+#seedfinder_module h1 {
+    font-weight: 700;
+    margin-bottom: 1rem;
 }
-#seedfinder_module .seedfinder-card .card:hover .seedfinder-btn {
-    transform: scale(1.05);
+
+/* ========================================
+   STUFE 1: KATEGORIE-KARTEN
+   ======================================== */
+.seedfinder-card {
+    display: block;
+    border: 2px solid var(--sf-border);
+    border-radius: 12px;
+    background: #fff;
+    transition: var(--sf-transition);
+    overflow: hidden;
+    position: relative;
 }
-/* Card Styling */
-#seedfinder_module .card {
-    border-radius: 8px;
+
+.seedfinder-card:hover {
+    border-color: var(--sf-primary);
+    box-shadow: var(--sf-card-hover-shadow);
+    transform: translateY(-4px);
+}
+
+.seedfinder-icon-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: var(--sf-light);
+    transition: var(--sf-transition);
+}
+
+.seedfinder-card:hover .seedfinder-icon-container {
+    transform: scale(1.1);
+}
+
+.seedfinder-category-icon {
+    font-size: 2.2rem;
+    color: var(--sf-primary);
+    transition: var(--sf-transition);
+}
+
+.seedfinder-badge {
+    top: 10px;
+    right: 10px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    padding: 4px 10px;
+}
+
+.seedfinder-category-btn {
+    background: var(--sf-primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    transition: var(--sf-transition);
+}
+
+.seedfinder-category-btn:hover {
+    background: var(--sf-primary-dark);
+    color: #fff;
+}
+
+/* ========================================
+   INFO-KARTE
+   ======================================== */
+.seedfinder-info-card {
+    border-left: 4px solid var(--sf-primary) !important;
+    background: #f8fff5;
+}
+
+.seedfinder-info-card .fa-circle-info {
+    color: var(--sf-primary);
+}
+
+/* ========================================
+   BENEFIT ICONS
+   ======================================== */
+.seedfinder-benefit-icon {
+    font-size: 2.5rem;
+    color: var(--sf-primary);
+}
+
+/* ========================================
+   HERSTELLER LOGOS
+   ======================================== */
+.seedfinder-manufacturer-logo {
+    max-height: 60px;
+    object-fit: contain;
+}
+
+/* ========================================
+   STUFE 2: PRODUKT-KARTEN (Vergleichsseiten-Design)
+   ======================================== */
+.listingbox .card {
+    border: 1px solid var(--sf-border);
+    border-radius: 10px;
+    transition: var(--sf-transition);
     overflow: hidden;
 }
-/* Button Styling */
-#seedfinder_module .seedfinder-btn {
-    transition: all 0.3s ease;
-}
-/* Form Styling */
-#seedfinder_module .form-check-input:checked {
-    background-color: #839A4F;
-    border-color: #839A4F;
-}
-#seedfinder_module .form-control:focus {
-    border-color: #839A4F;
-    box-shadow: 0 0 0 0.2rem rgba(131, 154, 79, 0.25);
-}
-/* Badge Styling */
-#seedfinder_module .badge {
-    font-weight: 600;
-}
- 
-/* Back to Top Button */
-#seedfinder_module .clearfix .btn {
-    transition: all 0.3s ease;
-}
-#seedfinder_module .clearfix .btn:hover {
-    transform: translateY(-2px);
-}
-/* Responsive Anpassungen - Kategorie-Kacheln */
-@media (max-width: 768px) {
-    #seedfinder_module h2.h1 {
-        font-size: 1.75rem;
-    }
-    
-    /* NUR Kategorie-Kacheln Icon-Container (Stage 1) - WICHTIG: .seedfinder-card begrenzt Scope */
-    #seedfinder_module .seedfinder-card .card-body .d-flex {
-        height: 80px !important;
-    }
-    
-    #seedfinder_module .seedfinder-card .card-body .fa-solid {
-        font-size: 3rem !important;
-    }
-}
-/* Smooth Scroll */
-html {
-    scroll-behavior: smooth;
+
+.listingbox .card:hover {
+    box-shadow: var(--sf-card-hover-shadow);
+    border-color: var(--sf-primary);
 }
 
-/* ========================================================================
-   PAGINATION STYLES - v6.7.4
-   Zweck: Anzahl links, Seitenzahlen rechts (Shop-Standard Layout)
-   ======================================================================== */
-
-/* Seedfinder Pagination Container */
-#seedfinder_module .seedfinder-pagination-bar {
+/* Produktbild-Box (fixe Höhe wie Vergleichsseite) */
+.compare-img-box {
+    height: 220px;
     display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-    padding: 0.5rem 0 !important;
-    overflow: hidden !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
 }
 
-/* Anzahl-Anzeige (links) */
-#seedfinder_module .seedfinder-pagination-count {
-    margin: 0 !important;
-    padding: 0.5rem 0 !important;
-    order: 1 !important;
+.compare-product-img {
+    max-height: 200px;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-/* Seitenzahlen (rechts) */
-#seedfinder_module .seedfinder-pagination-links {
-    margin: 0 !important;
-    order: 2 !important;
+.listingbox .card:hover .compare-product-img {
+    transform: scale(1.05);
 }
 
-#seedfinder_module .seedfinder-pagination-links .pagination {
-    margin-bottom: 0 !important;
+/* Produktname */
+.lb_title a {
+    color: var(--sf-text);
+    transition: color 0.2s ease;
 }
 
-/* Responsive: Mobile */
-@media (max-width: 575px) {
-    #seedfinder_module .seedfinder-pagination-bar {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-    }
-    
-    #seedfinder_module .seedfinder-pagination-count {
-        margin-bottom: 0.5rem !important;
-        order: 1 !important;
-    }
-    
-    #seedfinder_module .seedfinder-pagination-links {
-        order: 2 !important;
-    }
+.lb_title a:hover {
+    color: var(--sf-primary);
 }
 
-/* ========================================================================
-   PRODUCT CARDS - VERGLEICHSSEITEN-DESIGN v32.3.0
-   1:1 Klassen von product_compare.css uebernommen (compare-*)
-   v32.3.0: Echte Shop-Optionen Styling
-   ======================================================================== */
-
-/* === Product Cards - Hover-Effekt === */
-#seedfinder_module .listingbox .card {
-    position: relative;
-    transition: box-shadow 0.2s ease, transform 0.15s ease;
-    border: 1px solid rgba(0,0,0,.125);
-}
-
-#seedfinder_module .listingbox .card:hover {
-    box-shadow: 0 4px 15px rgba(0,0,0,.12);
-    transform: translateY(-2px);
-}
-
-/* === Product Image - FORCED Fixed Height with position absolute (wie Vergleichsseite) === */
-#seedfinder_module .compare-img-box {
-    position: relative !important;
-    height: 220px !important;
-    min-height: 220px !important;
-    max-height: 220px !important;
-    overflow: hidden !important;
-    display: block !important;
-    flex: 0 0 220px !important;
-    padding: 0 !important;
-}
-
-#seedfinder_module .compare-img-box img.compare-product-img {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important;
-    max-height: none !important;
-    object-fit: cover !important;
-    object-position: center !important;
-}
-
-/* === Product Title Area - Fixed Height for Alignment === */
-#seedfinder_module .card-body.pt-0.pb-1:not(.compare-desc-box) {
-    min-height: 55px;
-    flex-shrink: 0;
-}
-
-#seedfinder_module .lb_title {
-    font-size: 1.45rem;
+.seedfinder-product-name {
     line-height: 1.3;
 }
 
-#seedfinder_module .lb_title a {
-    color: #6c757d !important;
-}
-
-#seedfinder_module .lb_title a:hover {
-    color: #839A4F !important;
-}
-
-/* === Short Description - Fixed Height with Scroll (wie Vergleichsseite) === */
-#seedfinder_module .compare-desc-box {
-    height: 550px;
+/* Short Description Tabelle */
+.compare-desc-box {
+    max-height: 180px;
     overflow-y: auto;
-    flex-shrink: 0;
 }
 
-#seedfinder_module .compare-desc-box .lr_desc {
-    position: relative;
-    max-height: none;
-    padding-top: 28px;
-}
-
-/* === Picto Icon - Absolute so it does not push table down === */
-#seedfinder_module .compare-desc-box .lr_desc .picto.templatestyle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 24px;
-    line-height: 24px;
-    z-index: 2;
-}
-
-/* === When picto has class .off (hidden icon) keep same spacing === */
-#seedfinder_module .compare-desc-box .lr_desc .picto.templatestyle.off {
-    visibility: hidden;
-}
-
-/* === Card Footer - Options/Price/Buttons at Bottom (wie Vergleichsseite) === */
-#seedfinder_module .compare-footer {
-    border-top: 1px solid rgba(0,0,0,.08);
-    padding: 0.75rem 1.25rem;
-}
-
-/* === HIDE Legend (stock color dots) inside options === */
-#seedfinder_module .legend {
-    display: none !important;
-}
-
-/* ========================================================================
-   ECHTE SHOP-OPTIONEN STYLING v32.3.0
-   Dropdowns und Warenkorb-Buttons innerhalb der Seedfinder-Cards
-   ======================================================================== */
-
-/* === Optionen-Container (cf = clearfix) === */
-#seedfinder_module .compare-footer .cf,
-#seedfinder_module .compare-footer .sf-options-box {
-    margin-bottom: 8px;
-    display: block !important;
-}
-
-/* === Shop-Optionen Radio-Buttons sichtbar machen === */
-#seedfinder_module .compare-footer .product-options-container,
-#seedfinder_module .compare-footer .product-options-wrapper,
-#seedfinder_module .compare-footer .option-group,
-#seedfinder_module .compare-footer .option-item {
-    display: block !important;
-    visibility: visible !important;
-}
-
-#seedfinder_module .compare-footer .option-item {
-    padding: 6px 10px !important;
-    border-bottom: 1px solid #eee;
-}
-
-#seedfinder_module .compare-footer .option-item:last-child {
-    border-bottom: none;
-}
-
-#seedfinder_module .compare-footer .option-text {
+.compare-desc-box .teabls table {
     font-size: 0.85rem;
-}
-
-#seedfinder_module .compare-footer .option-price .current-price {
-    font-size: 0.9rem;
-}
-
-#seedfinder_module .compare-footer .stock-indicator {
-    display: inline-block;
-}
-
-/* === Select-Dropdowns fuer Optionen === */
-#seedfinder_module .compare-footer select,
-#seedfinder_module .compare-footer .form-control {
-    font-size: 0.85rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: 1px solid #dee2e6;
     width: 100%;
-    margin-bottom: 4px;
 }
 
-#seedfinder_module .compare-footer select:focus,
-#seedfinder_module .compare-footer .form-control:focus {
-    border-color: #839A4F;
-    box-shadow: 0 0 0 0.15rem rgba(131, 154, 79, 0.25);
+.compare-desc-box .teabls table td {
+    padding: 3px 6px;
+    border-bottom: 1px solid var(--sf-border);
 }
 
-/* === Optionen-Labels === */
-#seedfinder_module .compare-footer .options_label,
-#seedfinder_module .compare-footer label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #495057;
-    margin-bottom: 2px;
-    display: block;
+/* Footer (Preis + Buttons) */
+.compare-footer {
+    border-top: 1px solid var(--sf-border);
+    padding: 12px 15px;
 }
 
-/* === Qty-Input (Mengenfeld) === */
-#seedfinder_module .compare-footer .listingDropDown {
-    width: 60px !important;
-    display: inline-block !important;
-    text-align: center;
-    font-size: 0.85rem;
-    padding: 4px 6px;
-    margin-right: 4px;
-}
-
-/* === Warenkorb-Button Styling === */
-#seedfinder_module .compare-footer .button_cart,
-#seedfinder_module .compare-footer [name="cart_button"],
-#seedfinder_module .compare-footer input[type="image"][src*="cart"],
-#seedfinder_module .compare-footer .btn-cart {
-    transition: all 0.2s ease;
-}
-
-/* === Shipping-Info === */
-#seedfinder_module .compare-footer .lb_shipping {
-    color: #6c757d;
-}
-
-#seedfinder_module .compare-footer .lb_shipping a {
-    color: #839A4F !important;
-}
-
-/* === Preis-Box innerhalb Seedfinder === */
-#seedfinder_module .compare-footer .productOldPrice {
-    text-decoration: line-through;
-    color: #999;
+/* Attribute/Optionen Liste */
+.attribute-text-list {
     font-size: 0.85rem;
 }
 
-#seedfinder_module .compare-footer .productNewPrice,
-#seedfinder_module .compare-footer .productSpecialPrice {
-    color: #dc3545;
-    font-weight: 700;
-}
-
-#seedfinder_module .compare-footer .productPrice {
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
-/* === VPE (Grundpreis) === */
-#seedfinder_module .compare-footer .lb_vpe {
-    font-size: 0.75rem;
-}
-
-/* === Tax-Info === */
-#seedfinder_module .compare-footer .lb_tax {
-    font-size: 0.75rem;
-}
-
-#seedfinder_module .compare-footer .lb_tax a {
-    color: #6c757d !important;
-}
-
-/* ========================================================================
-   ALTE ATTRIBUTE TEXT-LISTE (beibehalten als Fallback)
-   ======================================================================== */
-
-#seedfinder_module .attribute-text-list {
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 4px 8px;
-}
-
-#seedfinder_module .attribute-text-item {
+.attribute-text-item {
     padding: 4px 0;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 0.85rem;
+    border-bottom: 1px dotted var(--sf-border);
 }
 
-#seedfinder_module .attribute-text-item:last-child {
+.attribute-text-item:last-child {
     border-bottom: none;
 }
 
-#seedfinder_module .attribute-value {
+.attribute-value {
+    color: var(--sf-text);
     font-weight: 500;
 }
 
-#seedfinder_module .attribute-price {
+.attribute-price {
+    color: var(--sf-primary);
     font-weight: 600;
-    color: #333;
 }
 
-/* === Spezialpreis-Badge (Ribbon) - diagonal wie Vergleichsseite === */
-#seedfinder_module .sf-special-badge {
+/* Preis-Anzeige */
+.sf-price-prefix {
+    font-size: 0.85rem;
+}
+
+.sf-price-main {
+    font-size: 1.15rem;
+}
+
+.sf-price-badge {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}
+
+/* Spezialpreis-Ribbon */
+.ribbon {
     position: absolute;
-    top: 18px;
-    left: -35px;
-    padding: 4px 40px;
+    top: 15px;
+    left: -5px;
+    padding: 4px 12px;
     font-size: 0.75rem;
-    font-weight: 700;
-    z-index: 5;
-    border-radius: 0;
-    transform: rotate(-45deg);
-    transform-origin: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    font-weight: 600;
+    z-index: 2;
+    border-radius: 0 4px 4px 0;
 }
 
-#seedfinder_module .sf-special-badge-triangle {
-    display: none;
+.sf-special-badge-triangle {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 0 0;
+    border-color: #a71d2a transparent transparent transparent;
 }
 
-/* === Rabatt-Prozent Badge - rund wie Vergleichsseite === */
-#seedfinder_module .special_percent {
+/* Spezialpreis Prozent-Badge */
+.special_percent {
     position: absolute;
     top: 10px;
     right: 10px;
-    z-index: 5;
-    padding: 0;
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
-    text-align: center;
     font-size: 0.85rem;
     font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    z-index: 2;
+}
+
+/* Vergleichen-Button */
+.btn-compare {
+    background: var(--sf-primary);
+    color: #fff;
+    border: 1px solid var(--sf-primary);
+    transition: var(--sf-transition);
+}
+
+.btn-compare:hover {
+    background: var(--sf-primary-dark);
+    border-color: var(--sf-primary-dark);
+    color: #fff;
+}
+
+.btn-compare.active {
+    background: var(--sf-success);
+    border-color: var(--sf-success);
+    color: #fff;
+}
+
+/* ========================================
+   FLOATING FILTER BUTTON (Mobile)
+   ======================================== */
+.floating-filter-btn {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-}
-
-/* === Preis-Styling (Fallback fuer eigene Preis-Anzeige) === */
-#seedfinder_module .sf-price-prefix {
-    font-size: 0.85rem;
-}
-
-#seedfinder_module .sf-price-main {
-    font-size: 1.2rem;
-}
-
-#seedfinder_module .sf-price-badge {
-    font-size: 0.85rem;
-    padding: 6px 12px;
-}
-
-/* === Vergleichen-Button === */
-#seedfinder_module .btn-compare {
-    background: transparent;
-    border: 1px solid #6c757d;
-    color: #6c757d !important;
-    padding: 4px 10px;
-    font-size: 0.85rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
+    background: var(--sf-primary);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    display: flex;
     align-items: center;
-    gap: 4px;
-}
-#seedfinder_module .btn-compare:hover {
-    background: #28a745;
-    border-color: #28a745;
-    color: #fff !important;
-}
-#seedfinder_module .btn-compare.active {
-    background: #28a745;
-    border-color: #28a745;
-    color: #fff !important;
-}
-#seedfinder_module .btn-compare.active:hover {
-    background: #dc3545;
-    border-color: #dc3545;
-}
-#seedfinder_module .btn-compare .fa {
-    font-size: 0.9rem;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: var(--sf-transition);
 }
 
-/* ========================================================================
-   RESPONSIVE - PRODUCT CARDS
-   ======================================================================== */
+.floating-filter-btn:hover {
+    background: var(--sf-primary-dark);
+    transform: scale(1.1);
+}
 
+/* ========================================
+   ACTIVE FILTERS CARD
+   ======================================== */
+#active-filters-card .card {
+    border-radius: 10px;
+}
+
+/* ========================================
+   GOLD STAR (Top Hersteller)
+   ======================================== */
+.gold {
+    color: #ffc107;
+}
+
+/* ========================================
+   STEUER-INFO
+   ======================================== */
+.lb_tax {
+    font-size: 0.75rem;
+    color: var(--sf-text-muted);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 @media (max-width: 767px) {
-    #seedfinder_module .listingbox {
-        flex: 0 0 100%;
-        max-width: 100%;
+    .compare-img-box {
+        height: 180px;
     }
-    #seedfinder_module .compare-img-box {
-        height: 180px !important;
-        min-height: 180px !important;
-        max-height: 180px !important;
-        flex: 0 0 180px !important;
+    
+    .compare-desc-box {
+        max-height: 150px;
     }
-    #seedfinder_module .compare-desc-box {
-        height: auto;
-        max-height: 300px;
+    
+    .seedfinder-icon-container {
+        width: 60px;
+        height: 60px;
     }
-    #seedfinder_module .btn-compare {
-        font-size: 0.75rem;
-        padding: 3px 8px;
+    
+    .seedfinder-category-icon {
+        font-size: 1.8rem;
     }
-    #seedfinder_module .compare-footer > form > .d-flex {
+    
+    .seedfinder-benefit-icon {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .listingbox .card-footer .d-flex {
         flex-direction: column;
         gap: 8px;
     }
-    #seedfinder_module .compare-footer > form > .d-flex > div {
+    
+    .listingbox .card-footer .d-flex > div {
         width: 100%;
-        text-align: center;
-    }
-    /* Optionen-Dropdowns auf Mobile volle Breite */
-    #seedfinder_module .compare-footer select,
-    #seedfinder_module .compare-footer .form-control {
-        font-size: 0.8rem;
-    }
-    #seedfinder_module .compare-footer .listingDropDown {
-        width: 50px !important;
-    }
-}
-
-@media (min-width: 992px) {
-    #seedfinder_module .compare-img-box {
-        height: 250px !important;
-        min-height: 250px !important;
-        max-height: 250px !important;
-        flex: 0 0 250px !important;
-    }
-}
-
-/* =========================================================================
-   v32.4.0: Seedfinder Options - Farben + Einrücken Fix
-   ========================================================================= */
-
-/* Bestellbereit (orange/gelb) - Ampelfarbe */
-#seedfinder_module .compare-footer .ship_text_warning {
-    color: rgba(237, 173, 68, 0.85) !important;
-    font-size: 0.75rem;
-}
-
-/* Auf Lager (gruen) */
-#seedfinder_module .compare-footer .text-success {
-    color: #87a516 !important;
-}
-
-/* Ausverkauft (rot) */
-#seedfinder_module .compare-footer .text-danger,
-#seedfinder_module .compare-footer .ship_text_danger {
-    color: #dc3545 !important;
-}
-
-/* Stock-Indicator Punkte: Farben korrekt */
-#seedfinder_module .compare-footer .stock-indicator.bg-success {
-    background-color: #87a516 !important;
-}
-#seedfinder_module .compare-footer .stock-indicator.bg-warnings {
-    background-color: rgba(237, 173, 68, 0.6) !important;
-}
-#seedfinder_module .compare-footer .stock-indicator.bg-danger {
-    background-color: #dc3545 !important;
-}
-
-/* Option-Items: leichtes Einruecken */
-#seedfinder_module .compare-footer .option-item {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-}
-
-/* =========================================================================
-   v32.4.3: Seedfinder Options - Konsolidierter Layout Fix
-   Behebt: 
-   - height:80px von .card-body .d-flex ueberschrieb Option-Container
-   - Radio-Button war vertikal versetzt wegen align-items:center
-   - stock-status blaehte Container auf 80px auf
-   ========================================================================= */
-
-/* Option-Control: Radio und Content auf einer Zeile, KEINE feste Hoehe */
-#seedfinder_module .sf-options-box .card-body .option-control,
-#seedfinder_module .compare-footer .option-control {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    align-items: flex-start !important;
-    height: auto !important;
-    gap: 8px;
-}
-
-/* Radio-Input: oben ausrichten */
-#seedfinder_module .sf-options-box .card-body .option-radio-input,
-#seedfinder_module .compare-footer .option-radio-input {
-    flex: 0 0 auto !important;
-    margin-top: 2px !important;
-    align-self: flex-start !important;
-}
-
-/* Radio-Placeholder (nicht ausgewaehlte Optionen): gleiche Ausrichtung */
-#seedfinder_module .sf-options-box .card-body .radio-placeholder,
-#seedfinder_module .compare-footer .radio-placeholder {
-    flex: 0 0 auto !important;
-    margin-top: 2px !important;
-    align-self: flex-start !important;
-}
-
-/* Option-Content: Text+Preis nebeneinander, wrap fuer Stock-Status */
-#seedfinder_module .sf-options-box .card-body .option-content,
-#seedfinder_module .compare-footer .option-content {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
-    align-items: flex-start !important;
-    width: 100% !important;
-    height: auto !important;
-}
-
-/* Option-Info: flexibel, nicht aufblaehen */
-#seedfinder_module .sf-options-box .card-body .option-info,
-#seedfinder_module .compare-footer .option-info {
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-    overflow: visible !important;
-}
-
-/* Option-Price: oben ausrichten, rechts */
-#seedfinder_module .sf-options-box .card-body .option-price,
-#seedfinder_module .compare-footer .option-price {
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
-    text-align: right !important;
-    margin-left: auto !important;
-    align-self: flex-start !important;
-}
-
-/* Stock-Status: kompakt halten, nicht aufblaehen */
-#seedfinder_module .sf-options-box .card-body .stock-status,
-#seedfinder_module .compare-footer .stock-status {
-    height: auto !important;
-    max-height: 24px !important;
-    overflow: hidden !important;
-}
-
-/* Stock-Status innerer Flex: Hoehe begrenzen */
-#seedfinder_module .sf-options-box .card-body .stock-status .d-flex,
-#seedfinder_module .compare-footer .stock-status .d-flex {
-    height: auto !important;
-    max-height: 22px !important;
-}
-
-/* Form-Check: kein extra Padding/Margin */
-#seedfinder_module .sf-options-box .card-body .form-check,
-#seedfinder_module .compare-footer .form-check {
-    padding-left: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-/* Buttons-Reihe: rechts ausgerichtet, wrap bei Platzmangel */
-#seedfinder_module .sf-product-form .d-flex.justify-content-between.align-items-center.flex-wrap.mt-2,
-#seedfinder_module .compare-footer .d-flex.justify-content-between.align-items-center.flex-wrap.mt-2 {
-    flex-wrap: wrap !important;
-    justify-content: flex-end !important;
-    gap: 4px !important;
-}
-
-/* Innere Button-Gruppen: kompakt, nicht umbrechen */
-#seedfinder_module .sf-product-form .d-flex.justify-content-between.align-items-center.flex-wrap.mt-2 > .d-flex,
-#seedfinder_module .compare-footer .d-flex.justify-content-between.align-items-center.flex-wrap.mt-2 > .d-flex {
-    flex: 0 0 auto !important;
-    width: auto !important;
-}
-
-/* Mobile-spezifisch */
-@media (max-width: 767.98px) {
-    /* Option-Control: KEINE feste Hoehe auf Mobile */
-    #seedfinder_module .sf-options-box .card-body .option-control,
-    #seedfinder_module .compare-footer .option-control {
-        align-items: flex-start !important;
-        height: auto !important;
-    }
-    
-    #seedfinder_module .sf-options-box .card-body .option-content,
-    #seedfinder_module .compare-footer .option-content {
-        height: auto !important;
-    }
-    
-    #seedfinder_module .sf-options-box .card-body .stock-status,
-    #seedfinder_module .compare-footer .stock-status {
-        max-height: 24px !important;
-    }
-    
-    #seedfinder_module .sf-options-box .card-body .stock-status .d-flex,
-    #seedfinder_module .compare-footer .stock-status .d-flex {
-        height: auto !important;
-        max-height: 22px !important;
-    }
-}
-/* Seedfinder Mobile Accordion Fix */
-.sf-accordion-body { display: none; padding: 0.75rem 1rem; border-top: 1px solid #dee2e6; background-color: #fff; }
-.sf-accordion-body.show { display: block; }
-.sf-sub-accordion-body { display: none; padding: 0.5rem 0.75rem; border-top: 1px solid #e9ecef; background-color: #fff; }
-.sf-sub-accordion-body.show { display: block; }
-.sf-accordion-header { display: flex; align-items: center; padding: 0.75rem 1rem; background-color: #f8f9fa; cursor: pointer; user-select: none; }
-.sf-accordion-header:hover { background-color: #e9ecef; }
-.sf-accordion-header.active { background-color: #e2e6ea; }
-.sf-accordion-icon { margin-right: 0.5rem; width: 1.5rem; text-align: center; color: #495057; }
-.sf-accordion-title { flex: 1; font-weight: 600; font-size: 0.95rem; color: #212529; }
-.sf-accordion-badge { margin-left: 0.5rem; margin-right: 0.5rem; }
-.sf-accordion-chevron { margin-left: auto; color: #6c757d; }
-.sf-accordion-item { border: 1px solid #dee2e6; border-radius: 0.375rem; margin-bottom: 0.5rem; overflow: hidden; }
-.sf-sub-accordion-item { border: 1px solid #e9ecef; border-radius: 0.25rem; margin-bottom: 0.375rem; overflow: hidden; }
-.sf-sub-accordion-header { display: flex; align-items: center; padding: 0.5rem 0.75rem; background-color: #f1f3f5; cursor: pointer; user-select: none; font-size: 0.9rem; }
-.sf-sub-accordion-header:hover { background-color: #e2e6ea; }
-.sf-sub-accordion-chevron { margin-left: auto; color: #6c757d; }
-
-/* ============================================
- * Seedfinder Mobile Accordion Fix
- * Accordion bodies standardmäßig geschlossen
- * ============================================ */
-.sf-accordion-item { border: 1px solid #dee2e6; border-radius: 0.375rem; margin-bottom: 0.5rem; overflow: hidden; }
-.sf-accordion-header { display: flex; align-items: center; padding: 0.75rem 1rem; background-color: #f8f9fa; cursor: pointer; user-select: none; -webkit-user-select: none; transition: background-color 0.2s ease; }
-.sf-accordion-header:hover { background-color: #e9ecef; }
-.sf-accordion-header.active { background-color: #e2e6ea; }
-.sf-accordion-icon { margin-right: 0.5rem; width: 1.5rem; text-align: center; color: #495057; }
-.sf-accordion-title { flex: 1; font-weight: 600; font-size: 0.95rem; color: #212529; }
-.sf-accordion-badge { margin-left: 0.5rem; margin-right: 0.5rem; }
-.sf-accordion-chevron { margin-left: auto; color: #6c757d; }
-.sf-accordion-body { display: none; padding: 0.75rem 1rem; border-top: 1px solid #dee2e6; background-color: #fff; }
-.sf-accordion-body.show { display: block; }
-.sf-sub-accordion-item { border: 1px solid #e9ecef; border-radius: 0.25rem; margin-bottom: 0.375rem; overflow: hidden; }
-.sf-sub-accordion-header { display: flex; align-items: center; padding: 0.5rem 0.75rem; background-color: #f1f3f5; cursor: pointer; user-select: none; -webkit-user-select: none; font-size: 0.9rem; transition: background-color 0.2s ease; }
-.sf-sub-accordion-header:hover { background-color: #e2e6ea; }
-.sf-sub-accordion-chevron { margin-left: auto; color: #6c757d; }
-.sf-sub-accordion-body { display: none; padding: 0.5rem 0.75rem; border-top: 1px solid #e9ecef; background-color: #fff; }
-.sf-sub-accordion-body.show { display: block; }
-
-/* ========================================================================
-   ACCORDION FILTER CSS - v6.4.0 (aus mr-hanf-seedfinder Repo übernommen)
-   Drei-spaltige Accordion-Filter + Ausgrauen-Funktion + Active Filter Card
-   Datum: 09. Februar 2026 | Übernommen: 05. April 2026
-   ======================================================================== */
-
-/* ========================================
-   Accordion-Filter Grid (drei-spaltig)
-   ======================================== */
-
-.accordion-filters-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin: 0;
-}
-
-/* Responsive: 2 Spalten auf Tablet */
-@media (max-width: 991px) {
-    .accordion-filters-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Responsive: 1 Spalte auf Mobile */
-@media (max-width: 767px) {
-    .accordion-filters-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ========================================
-   Accordion-Filter Item
-   ======================================== */
-
-.accordion-filter-item {
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-    transition: box-shadow 0.2s ease;
-}
-
-.accordion-filter-item:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* ========================================
-   Accordion-Filter Header (Button)
-   ======================================== */
-
-.accordion-filter-header {
-    width: 100%;
-    padding: 12px 15px;
-    background: #f8f9fa;
-    border: none;
-    border-bottom: 1px solid #dee2e6;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #333;
-    transition: all 0.2s ease;
-    text-align: left;
-}
-
-.accordion-filter-header:hover {
-    background: #e9ecef;
-}
-
-.accordion-filter-header:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
-}
-
-.accordion-filter-header[aria-expanded="true"] {
-    background: #28a745;
-    color: #fff;
-    border-bottom-color: #28a745;
-}
-
-.accordion-filter-header[aria-expanded="true"] .fa-chevron-down {
-    transform: rotate(180deg);
-}
-
-.accordion-filter-header .fa-chevron-down {
-    transition: transform 0.2s ease;
-    font-size: 0.85rem;
-}
-
-.accordion-filter-header .filter-name {
-    flex: 1;
-    margin-right: 10px;
-}
-
-.accordion-filter-header .badge {
-    font-size: 0.75rem;
-    padding: 3px 8px;
-}
-
-/* ========================================
-   Accordion-Filter Body (Collapse)
-   ======================================== */
-
-.accordion-filter-body {
-    border-top: none;
-}
-
-.filter-values-container {
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 10px 15px;
-}
-
-/* Custom Scrollbar */
-.filter-values-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.filter-values-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-}
-
-.filter-values-container::-webkit-scrollbar-thumb {
-    background: #28a745;
-    border-radius: 3px;
-}
-
-.filter-values-container::-webkit-scrollbar-thumb:hover {
-    background: #218838;
-}
-
-/* ========================================
-   Filter Value Item (Checkbox)
-   ======================================== */
-
-.filter-value-item {
-    margin-bottom: 8px;
-    padding: 6px 0;
-    transition: all 0.2s ease;
-}
-
-.filter-value-item:last-child {
-    margin-bottom: 0;
-}
-
-.filter-value-item .form-check-label {
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.filter-value-item .form-check-input {
-    cursor: pointer;
-    margin-top: 0.25rem;
-}
-
-.filter-value-item .filter-count {
-    color: #6c757d;
-    font-size: 0.85rem;
-    margin-left: auto;
-    padding-left: 8px;
-}
-
-/* Hover-Effekt */
-.filter-value-item:hover {
-    background: #f8f9fa;
-    border-radius: 4px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-/* ========================================
-   Ausgrauen-Funktion (Disabled Filter)
-   ======================================== */
-
-.filter-value-item.filter-disabled {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-.filter-value-item.filter-disabled .form-check-label {
-    color: #999;
-    text-decoration: line-through;
-    cursor: not-allowed;
-}
-
-.filter-value-item.filter-disabled .form-check-input {
-    cursor: not-allowed;
-}
-
-.filter-value-item.filter-disabled .filter-count {
-    color: #ccc;
-}
-
-/* Alternative: Nur durchgestrichen (ohne opacity) */
-.filter-value-item.filter-disabled.strikethrough-only {
-    opacity: 1;
-}
-
-.filter-value-item.filter-disabled.strikethrough-only .form-check-label {
-    text-decoration: line-through;
-    color: #6c757d;
-}
-
-/* ========================================
-   Active Filter Count Badge
-   ======================================== */
-
-#active-filter-count {
-    font-size: 0.85rem;
-    padding: 4px 10px;
-    background: #fff;
-    color: #28a745;
-    font-weight: 700;
-}
-
-/* ========================================
-   Reset Button
-   ======================================== */
-
-#reset-all-filters {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    border-color: rgba(255,255,255,0.5);
-    transition: all 0.2s ease;
-}
-
-#reset-all-filters:hover {
-    background: rgba(255,255,255,0.2);
-    border-color: #fff;
-}
-
-/* ========================================
-   Loading State
-   ======================================== */
-
-#products-container.loading {
-    opacity: 0.5;
-    pointer-events: none;
-    position: relative;
-}
-
-#products-container.loading::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #28a745;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* ========================================
-   Product Card Hover (Accordion-Kontext)
-   ======================================== */
-
-.product-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* ========================================
-   Pagination Styling (Accordion-Kontext)
-   ======================================== */
-
-.pagination-wrapper {
-    display: flex;
-    justify-content: center;
-}
-
-.pagination-wrapper .pagination {
-    margin: 0;
-}
-
-/* ========================================
-   Responsive Adjustments (Accordion)
-   ======================================== */
-
-@media (max-width: 767px) {
-    .accordion-filter-header {
-        font-size: 0.9rem;
-        padding: 10px 12px;
-    }
-    
-    .filter-values-container {
-        max-height: 250px;
-        padding: 8px 12px;
-    }
-    
-    .filter-value-item .form-check-label {
-        font-size: 0.85rem;
-    }
-}
-
-/* ========================================
-   Print Styles (Accordion)
-   ======================================== */
-
-@media print {
-    .accordion-filters-grid,
-    #reset-all-filters,
-    .card-header {
-        display: none;
-    }
-}
-
-/* ========================================
-   Accessibility (Accordion)
-   ======================================== */
-
-.filter-checkbox:focus + .form-check-label {
-    outline: 2px solid #28a745;
-    outline-offset: 2px;
-}
-
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
-    .filter-value-item.filter-disabled {
-        opacity: 0.7;
-    }
-    
-    .filter-value-item.filter-disabled .form-check-label {
-        color: #666;
-        font-weight: 700;
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    .accordion-filter-header,
-    .accordion-filter-header .fa-chevron-down,
-    .filter-value-item,
-    .product-card {
-        transition: none;
-    }
-    
-    #products-container.loading::after {
-        animation: none;
-    }
-}
-
-/* ========================================
-   Aktive Filter Card
-   ======================================== */
-
-#active-filters-card {
-    animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#active-filters-list {
-    gap: 10px;
-}
-
-.active-filter-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-}
-
-.active-filter-badge:hover {
-    background: #e9ecef;
-    border-color: #adb5bd;
-}
-
-.active-filter-badge input[type="checkbox"] {
-    margin-right: 8px;
-    cursor: pointer;
-}
-
-.active-filter-badge label {
-    margin: 0;
-    cursor: pointer;
-    user-select: none;
-}
-
-.active-filter-badge.removing {
-    animation: fadeOut 0.3s ease-out forwards;
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: scale(0.8);
+        display: flex;
+        justify-content: center;
     }
 }

@@ -1,333 +1,441 @@
 /**
- * Seedfinder v6.7.0-bs5 - Accordion Filter JavaScript + Auto-Expand + Checkbox-Sort
- * Accordion-Logik + Aktive Filter Card + Auto-Expand + Checkbox-Sortierung
- * 
- * BS5.3 Migration (2026-04-05):
- * - data-target → data-bs-target
- * - data-toggle → data-bs-toggle
- * - Alle anderen Attribute bleiben (data-filter-id, data-value-id etc.)
- * 
- * Features:
- * - Checkboxen sortieren: checked > enabled > disabled
- * - Disabled Checkboxen ausblenden (außer checked)
- * - KEINE Card-Hide-Logik!
- * AJAX wird von seedfinder_ajax.js übernommen
- * Datum: 10. Februar 2026 | BS5-Migration: 05. April 2026
+ * Seedfinder Custom Accordion - v7.0.1
+ * Datum: 10. Februar 2026
  * Autor: Mr. Hanf / Manus AI
+ * 
+ * NEU in v7.0.1:
+ * - Custom Accordion: Nur EINE Card geöffnet (nicht Bootstrap Default)
+ * - Z-Index Overlap: Geöffnete Card überlappt andere
+ * - Alle Cards beim Start geschlossen
+ * - Sync zwischen Desktop und Mobile
  */
 
 (function() {
     'use strict';
-    
-    // ========================================
-    // DOM Ready
-    // ========================================
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Seedfinder Accordion v6.7.0-bs5 initialized (mit Checkbox-Sort)');
+
+    // Verhindere doppelte Initialisierung
+    if (window.SeedfindAccordionInitialized) {
+        console.log('⚠️ SeedfindAccordion bereits initialisiert - überspringe');
+        return;
+    }
+    window.SeedfindAccordionInitialized = true;
+
+    // Warte bis jQuery verfügbar ist
+    function waitForJQuery(callback) {
+        if (typeof jQuery !== 'undefined') {
+            console.log('✅ jQuery verfügbar (Accordion)');
+            callback(jQuery);
+        } else {
+            console.log('⏳ Warte auf jQuery (Accordion)...');
+            setTimeout(function() {
+                waitForJQuery(callback);
+            }, 50);
+        }
+    }
+
+    // Warte bis DOM und jQuery geladen sind
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            waitForJQuery(initAccordion);
+        });
+    } else {
+        waitForJQuery(initAccordion);
+    }
+
+    function initAccordion($) {
+        const SeedfindAccordion = {
         
-        initAccordion();
-        initActiveFiltersCard();
-        initResetButton();
-        updateFilterCount();
-        
-        // Auto-Expand + Checkbox-Sort nach kurzer Verzögerung
-        setTimeout(function() {
-            autoExpandAvailableAccordions();
-            sortCheckboxes(); // Sortierung beim initialen Laden
-        }, 500);
-    });
-    
-    // ========================================
-    // Accordion Initialisierung
-    // ========================================
-    
-    function initAccordion() {
-        const accordionHeaders = document.querySelectorAll('.accordion-filter-header');
-        
-        accordionHeaders.forEach(header => {
-            // Einfacher Klick: Schließen
-            header.addEventListener('click', function() {
-                // BS5.3: data-bs-target statt data-target
-                const target = this.getAttribute('data-bs-target') || this.getAttribute('data-target');
-                const collapse = document.querySelector(target);
+        /**
+         * Initialisierung
+         */
+        init: function() {
+            console.log('✅ SeedfindAccordion v7.0.1 initialisiert');
+            
+            // Custom Accordion Behavior
+            this.bindCustomAccordion();
+            
+            // Mobile Bottom Sheet
+            this.bindBottomSheet();
+            
+            // Alle Accordions beim Start schließen
+            this.closeAllAccordions();
+        },
+
+        /**
+         * Custom Accordion Behavior binden
+         * Regel: Nur EINE Card geöffnet, mit z-index Overlap
+         */
+        bindCustomAccordion: function() {
+            const self = this;
+            
+            console.log('🔗 bindCustomAccordion() aufgerufen');
+            
+            // Desktop Accordion Headers
+            const desktopHeaders = $('#filter-accordion-desktop .accordion-filter-header');
+            console.log('📊 Desktop Accordion Headers gefunden:', desktopHeaders.length);
+            
+            desktopHeaders.on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                if (!collapse) return;
+                const $header = $(this);
+                const targetId = $header.data('target');
+                const $target = $(targetId);
+                const isExpanded = $header.attr('aria-expanded') === 'true';
                 
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                console.log('🎯 Desktop Accordion geklickt:', targetId);
                 
-                // Nur schließen wenn geöffnet
                 if (isExpanded) {
-                    this.setAttribute('aria-expanded', 'false');
-                    collapse.classList.remove('show');
+                    // Schließen wenn bereits geöffnet
+                    self.closeAccordionCard($header, $target);
+                } else {
+                    // Alle anderen schließen
+                    self.closeAllDesktopAccordions();
+                    
+                    // Diese öffnen mit z-index Overlap
+                    self.openAccordionCard($header, $target);
                 }
             });
             
-            // Doppelklick: Öffnen
-            header.addEventListener('dblclick', function() {
-                // BS5.3: data-bs-target statt data-target
-                const target = this.getAttribute('data-bs-target') || this.getAttribute('data-target');
-                const collapse = document.querySelector(target);
+            // Mobile Accordion Headers
+            $('#filter-accordion-mobile .btn-link').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                if (!collapse) return;
+                const $header = $(this);
+                const targetId = $header.data('target');
+                const $target = $(targetId);
+                const isExpanded = $header.attr('aria-expanded') === 'true';
                 
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                console.log('🎯 Mobile Accordion geklickt:', targetId);
                 
-                // Nur öffnen wenn geschlossen
-                if (!isExpanded) {
-                    this.setAttribute('aria-expanded', 'true');
-                    collapse.classList.add('show');
+                if (isExpanded) {
+                    // Schließen wenn bereits geöffnet
+                    self.closeAccordionCard($header, $target);
+                } else {
+                    // Alle anderen schließen
+                    self.closeAllMobileAccordions();
+                    
+                    // Diese öffnen
+                    self.openAccordionCard($header, $target);
                 }
             });
-        });
-    }
-    
-    // ========================================
-    // Reset-Button Initialisierung
-    // ========================================
-    
-    function initResetButton() {
-        const resetButton = document.getElementById('reset-all-filters');
-        
-        if (resetButton) {
-            resetButton.addEventListener('click', function() {
-                // Alle Checkboxen deaktivieren
-                const checkboxes = document.querySelectorAll('.filter-checkbox:checked');
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = false;
-                });
-                
-                // Aktive Filter Card aktualisieren
-                updateActiveFiltersCard();
-                updateFilterCount();
-                
-                // AJAX-Update triggern (wird von seedfinder_ajax.js übernommen)
-                const firstCheckbox = document.querySelector('.filter-checkbox');
-                if (firstCheckbox) {
-                    firstCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-            });
-        }
-    }
-    
-    // ========================================
-    // Filter-Counter aktualisieren
-    // ========================================
-    
-    function updateFilterCount() {
-        const activeFilterCount = document.getElementById('active-filter-count');
-        
-        if (activeFilterCount) {
-            const count = document.querySelectorAll('.filter-checkbox:checked').length;
-            activeFilterCount.textContent = count;
-        }
-    }
-    
-    // ========================================
-    // Aktive Filter Card Initialisierung
-    // ========================================
-    
-    function initActiveFiltersCard() {
-        // Initial aktualisieren
-        updateActiveFiltersCard();
-        
-        // Bei jeder Filter-Änderung aktualisieren
-        document.addEventListener('change', function(e) {
-            if (e.target.classList.contains('filter-checkbox')) {
-                updateActiveFiltersCard();
-                updateFilterCount();
+        },
+
+        /**
+         * Accordion Card öffnen mit z-index Overlap
+         */
+        openAccordionCard: function($header, $target) {
+            console.log('📂 Öffne Accordion Card');
+            
+            // Header State
+            $header.attr('aria-expanded', 'true');
+            $header.addClass('active');
+            
+            // Chevron drehen
+            $header.find('.fa-chevron-down')
+                .removeClass('fa-chevron-down')
+                .addClass('fa-chevron-up');
+            
+            // Target öffnen
+            $target.addClass('show');
+            
+            // ⭐ Z-Index Overlap für Desktop
+            const $item = $header.closest('.filter-accordion-item');
+            if ($item.length) {
+                $item.css('z-index', 1000);
             }
-        });
+            
+            // Mobile Card Highlight
+            const $card = $header.closest('.card');
+            if ($card.length) {
+                $card.addClass('active');
+            }
+        },
+
+        /**
+         * Accordion Card schließen
+         */
+        closeAccordionCard: function($header, $target) {
+            console.log('📁 Schließe Accordion Card');
+            
+            // Header State
+            $header.attr('aria-expanded', 'false');
+            $header.removeClass('active');
+            
+            // Chevron zurückdrehen
+            $header.find('.fa-chevron-up')
+                .removeClass('fa-chevron-up')
+                .addClass('fa-chevron-down');
+            
+            // Target schließen
+            $target.removeClass('show');
+            
+            // Z-Index zurücksetzen
+            const $item = $header.closest('.filter-accordion-item');
+            if ($item.length) {
+                $item.css('z-index', '');
+            }
+            
+            // Mobile Card Highlight entfernen
+            const $card = $header.closest('.card');
+            if ($card.length) {
+                $card.removeClass('active');
+            }
+        },
+
+        /**
+         * Alle Desktop Accordions schließen
+         */
+        closeAllDesktopAccordions: function() {
+            const self = this;
+            
+            $('#filter-accordion-desktop .filter-accordion-header').each(function() {
+                const $header = $(this);
+                const targetId = $header.data('target');
+                const $target = $(targetId);
+                
+                if ($header.attr('aria-expanded') === 'true') {
+                    self.closeAccordionCard($header, $target);
+                }
+            });
+        },
+
+        /**
+         * Alle Mobile Accordions schließen
+         */
+        closeAllMobileAccordions: function() {
+            const self = this;
+            
+            $('#filter-accordion-mobile .btn-link').each(function() {
+                const $header = $(this);
+                const targetId = $header.data('target');
+                const $target = $(targetId);
+                
+                if ($header.attr('aria-expanded') === 'true') {
+                    self.closeAccordionCard($header, $target);
+                }
+            });
+        },
+
+        /**
+         * Alle Accordions beim Start schließen
+         */
+        closeAllAccordions: function() {
+            console.log('📁 Schließe alle Accordions beim Start');
+            
+            // Desktop
+            $('#filter-accordion-desktop .collapse').removeClass('show');
+            $('#filter-accordion-desktop .filter-accordion-header').attr('aria-expanded', 'false');
+            
+            // Mobile
+            $('#filter-accordion-mobile .collapse').removeClass('show');
+            $('#filter-accordion-mobile .btn-link').attr('aria-expanded', 'false');
+        },
+
+        /**
+         * Mobile Bottom Sheet binden
+         */
+        bindBottomSheet: function() {
+            const $sheet = $('#filter-bottom-sheet');
+            const $fab = $('#filter-fab-mobile');
+            const $closeBtn = $('#close-bottom-sheet');
+            const $overlay = $('.bottom-sheet-overlay');
+            
+            // FAB öffnet Bottom Sheet
+            $fab.on('click', function() {
+                console.log('📱 Öffne Bottom Sheet');
+                $sheet.addClass('active');
+                $('body').addClass('bottom-sheet-open');
+            });
+            
+            // Close Button schließt Bottom Sheet
+            $closeBtn.on('click', function() {
+                console.log('📱 Schließe Bottom Sheet');
+                $sheet.removeClass('active');
+                $('body').removeClass('bottom-sheet-open');
+            });
+            
+            // Overlay schließt Bottom Sheet
+            $overlay.on('click', function() {
+                console.log('📱 Schließe Bottom Sheet (Overlay)');
+                $sheet.removeClass('active');
+                $('body').removeClass('bottom-sheet-open');
+            });
+            
+            // Swipe Down zum Schließen (Touch Events)
+            this.bindSwipeDown($sheet);
+        },
+
+        /**
+         * Swipe Down zum Schließen des Bottom Sheets
+         */
+        bindSwipeDown: function($sheet) {
+            const $content = $sheet.find('.bottom-sheet-content');
+            let startY = 0;
+            let currentY = 0;
+            let isDragging = false;
+            
+            $content.on('touchstart', function(e) {
+                startY = e.touches[0].clientY;
+                isDragging = true;
+            });
+            
+            $content.on('touchmove', function(e) {
+                if (!isDragging) return;
+                
+                currentY = e.touches[0].clientY;
+                const deltaY = currentY - startY;
+                
+                // Nur nach unten ziehen erlauben
+                if (deltaY > 0) {
+                    $content.css('transform', `translateY(${deltaY}px)`);
+                }
+            });
+            
+            $content.on('touchend', function() {
+                if (!isDragging) return;
+                
+                const deltaY = currentY - startY;
+                
+                // Wenn mehr als 100px nach unten gezogen, schließen
+                if (deltaY > 100) {
+                    console.log('📱 Schließe Bottom Sheet (Swipe)');
+                    $sheet.removeClass('active');
+                    $('body').removeClass('bottom-sheet-open');
+                }
+                
+                // Transform zurücksetzen
+                $content.css('transform', '');
+                isDragging = false;
+            });
+        }
+    };
+
+    // Initialisierung
+    SeedfindAccordion.init();
     }
+
+})();
+
+
+/**
+ * ⭐ NEU v7.0.1: Checkbox-Sortierung
+ * Sortiert Checkboxen: Checked → Enabled → Disabled
+ * Blendet disabled Checkboxen aus (außer checked)
+ */
+function sortCheckboxes() {
+    console.log('='.repeat(60));
+    console.log('✅ Checkbox-Sort v7.0.1: Sortiere und blende disabled Items aus');
+    console.log('='.repeat(60));
     
-    // ========================================
-    // Aktive Filter Card aktualisieren
-    // ========================================
+    let totalContainers = 0;
+    let totalItems = 0;
     
-    function updateActiveFiltersCard() {
-        const activeFiltersCard = document.getElementById('active-filters-card');
-        const activeFiltersList = document.getElementById('active-filters-list');
+    // Container für Desktop und Mobile
+    const desktopContainers = document.querySelectorAll('.filter-values-container');
+    const mobileContainers = document.querySelectorAll('#filter-accordion-mobile .card-body');
+    
+    console.log(`\n📊 Container gefunden:`);
+    console.log(`  - Desktop (.filter-values-container): ${desktopContainers.length}`);
+    console.log(`  - Mobile (#filter-accordion-mobile .card-body): ${mobileContainers.length}`);
+    console.log(`  - GESAMT: ${desktopContainers.length + mobileContainers.length}\n`);
+    
+    // Kombiniere beide Arrays
+    const allContainers = [...desktopContainers, ...mobileContainers];
+    
+    allContainers.forEach((container, containerIndex) => {
+        const checkboxItems = container.querySelectorAll('.form-check');
         
-        if (!activeFiltersCard || !activeFiltersList) return;
+        console.log(`\n${'─'.repeat(60)}`);
+        console.log(`Container ${containerIndex}: ${checkboxItems.length} Checkboxen gefunden`);
         
-        // Alle aktiven Checkboxen finden
-        const activeCheckboxes = document.querySelectorAll('.filter-checkbox:checked');
-        
-        if (activeCheckboxes.length === 0) {
-            // Keine aktiven Filter → Card ausblenden
-            activeFiltersCard.style.display = 'none';
+        if (checkboxItems.length === 0) {
+            console.warn(`  ⚠️ Container ${containerIndex}: Keine Checkboxen gefunden!`);
             return;
         }
         
-        // Card einblenden
-        activeFiltersCard.style.display = '';
+        // Konvertiere zu Array für Sortierung
+        const itemsArray = Array.from(checkboxItems);
         
-        // Liste leeren
-        activeFiltersList.innerHTML = '';
-        
-        // Aktive Filter als Badges hinzufügen
-        activeCheckboxes.forEach(checkbox => {
-            const label = document.querySelector(`label[for="${checkbox.id}"]`);
-            if (!label) return;
+        // Debug: VOR Sortierung
+        console.log(`\n  📋 VOR Sortierung:`);
+        itemsArray.forEach((item, idx) => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const label = item.querySelector('label');
+            const text = label ? label.textContent.trim() : 'NO LABEL';
+            const checked = checkbox ? checkbox.checked : false;
+            const disabled = checkbox ? checkbox.disabled : false;
             
-            const filterName = label.textContent.trim();
-            const filterId = checkbox.getAttribute('data-filter-id');
-            const valueId = checkbox.getAttribute('data-value-id');
-            
-            // Badge erstellen
-            const badge = document.createElement('div');
-            badge.className = 'active-filter-badge';
-            badge.innerHTML = `
-                <input 
-                    type="checkbox" 
-                    checked 
-                    data-filter-id="${filterId}" 
-                    data-value-id="${valueId}"
-                    id="active-filter-${filterId}-${valueId}"
-                >
-                <label for="active-filter-${filterId}-${valueId}">
-                    ${filterName}
-                </label>
-            `;
-            
-            // Event-Listener für Checkbox
-            const badgeCheckbox = badge.querySelector('input[type="checkbox"]');
-            badgeCheckbox.addEventListener('change', function() {
-                if (!this.checked) {
-                    // Badge entfernen mit Animation
-                    badge.classList.add('removing');
-                    setTimeout(() => {
-                        badge.remove();
-                        
-                        // Original-Checkbox abwählen
-                        const originalCheckbox = document.getElementById(`filter_${filterId}_${valueId}`);
-                        if (originalCheckbox) {
-                            originalCheckbox.checked = false;
-                            originalCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
-                        }
-                        
-                        // Card aktualisieren
-                        updateActiveFiltersCard();
-                    }, 300);
-                }
-            });
-            
-            activeFiltersList.appendChild(badge);
+            const status = checked ? '✓' : (disabled ? 'DIS' : '○');
+            console.log(`    [${idx}] ${status} - ${text}`);
         });
-    }
-    
-    // ========================================
-    // Auto-Expand: Accordions mit verfügbaren Filtern öffnen
-    // ========================================
-    
-    function autoExpandAvailableAccordions() {
-        const accordionHeaders = document.querySelectorAll('.accordion-filter-header');
         
-        accordionHeaders.forEach(header => {
-            // BS5.3: data-bs-target statt data-target
-            const target = header.getAttribute('data-bs-target') || header.getAttribute('data-target');
-            const collapse = document.querySelector(target);
+        // ⭐ SORTIERUNG
+        itemsArray.sort((a, b) => {
+            const checkboxA = a.querySelector('input[type="checkbox"]');
+            const checkboxB = b.querySelector('input[type="checkbox"]');
             
-            if (!collapse) return;
+            const checkedA = checkboxA ? checkboxA.checked : false;
+            const checkedB = checkboxB ? checkboxB.checked : false;
+            const disabledA = checkboxA ? checkboxA.disabled : false;
+            const disabledB = checkboxB ? checkboxB.disabled : false;
             
-            // Prüfe ob dieses Accordion verfügbare Filter hat
-            const availableFilters = collapse.querySelectorAll('.filter-checkbox:not(:disabled)');
-            const hasAvailableFilters = availableFilters.length > 0;
+            // Priorität 1: Checked zuerst
+            if (checkedA && !checkedB) return -1;
+            if (!checkedA && checkedB) return 1;
             
-            // v6.6.6 NO-HIDE: NUR Auto-Expand, KEINE Card-Hide-Logik!
-            if (hasAvailableFilters) {
-                // Verfügbare Filter vorhanden → Accordion öffnen
-                header.setAttribute('aria-expanded', 'true');
-                collapse.classList.add('show');
-            } else {
-                // Keine verfügbaren Filter → Accordion schließen (aber Card BLEIBT sichtbar!)
-                header.setAttribute('aria-expanded', 'false');
-                collapse.classList.remove('show');
-            }
+            // Priorität 2: Enabled vor Disabled
+            if (!disabledA && disabledB) return -1;
+            if (disabledA && !disabledB) return 1;
+            
+            // Gleiche Priorität: Original-Reihenfolge beibehalten
+            return 0;
         });
-    }
-    
-    // ========================================
-    // Checkbox-Sortierung
-    // ========================================
-    
-    function sortCheckboxes() {
-        console.log('Checkbox-Sort: Sortiere und blende disabled Items aus');
         
-        let totalContainers = 0;
-        let totalItems = 0;
+        // Debug: NACH Sortierung
+        console.log(`\n  📋 NACH Sortierung:`);
+        itemsArray.forEach((item, idx) => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const label = item.querySelector('label');
+            const text = label ? label.textContent.trim() : 'NO LABEL';
+            const checked = checkbox ? checkbox.checked : false;
+            const disabled = checkbox ? checkbox.disabled : false;
+            
+            const status = checked ? '✓' : (disabled ? 'DIS' : '○');
+            console.log(`    [${idx}] ${status} - ${text}`);
+        });
         
-        document.querySelectorAll('.filter-accordion-body').forEach((container, containerIndex) => {
-            totalContainers++;
-            const scrollContainer = container.querySelector('.filter-values-scroll');
-            if (!scrollContainer) {
-                console.warn(`Container ${containerIndex}: Kein .filter-values-scroll gefunden!`);
-                return;
-            }
-            
-            // Alle Checkbox-Items sammeln
-            const checkboxItems = Array.from(scrollContainer.querySelectorAll('.form-check'));
-            totalItems += checkboxItems.length;
-            
-            console.log(`Container ${containerIndex}: ${checkboxItems.length} Checkboxen gefunden`);
-            
-            // VOR Sortierung: Status loggen
-            checkboxItems.forEach((item, i) => {
-                const checkbox = item.querySelector('.filter-checkbox');
-                const label = item.querySelector('label');
-                if (checkbox && label) {
-                    console.log(`  [${i}] VOR: ${checkbox.checked ? '✓' : '○'} ${checkbox.disabled ? 'DIS' : 'EN'} - ${label.textContent.trim().substring(0, 30)}`);
-                }
-            });
-            
-            // Sortieren nach Priorität
-            checkboxItems.sort((a, b) => {
-                const checkboxA = a.querySelector('.filter-checkbox');
-                const checkboxB = b.querySelector('.filter-checkbox');
-                
-                if (!checkboxA || !checkboxB) return 0;
-                
-                // Priorität 1: Checked (ausgewählt) → ganz oben
-                if (checkboxA.checked && !checkboxB.checked) return -1;
-                if (!checkboxA.checked && checkboxB.checked) return 1;
-                
-                // Priorität 2: Enabled (wählbar) → Mitte
-                if (!checkboxA.disabled && checkboxB.disabled) return -1;
-                if (checkboxA.disabled && !checkboxB.disabled) return 1;
-                
-                // Gleiche Priorität: Original-Reihenfolge beibehalten
-                return 0;
-            });
-            
-            // DOM neu anordnen
-            checkboxItems.forEach((item, i) => {
-                scrollContainer.appendChild(item);
-                const checkbox = item.querySelector('.filter-checkbox');
-                const label = item.querySelector('label');
-                if (checkbox && label) {
-                    console.log(`  [${i}] NACH: ${checkbox.checked ? '✓' : '○'} ${checkbox.disabled ? 'DIS' : 'EN'} - ${label.textContent.trim().substring(0, 30)}`);
-                }
-            });
+        // ⭐ DOM NEU AUFBAUEN
+        // Leere Container
+        container.innerHTML = '';
+        
+        // Füge sortierte Items hinzu
+        itemsArray.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const disabled = checkbox ? checkbox.disabled : false;
+            const checked = checkbox ? checkbox.checked : false;
             
             // Disabled Items ausblenden (außer checked)
-            checkboxItems.forEach(item => {
-                const checkbox = item.querySelector('.filter-checkbox');
-                if (checkbox && checkbox.disabled && !checkbox.checked) {
-                    item.style.display = 'none';
-                } else {
-                    item.style.display = '';
-                }
-            });
+            if (disabled && !checked) {
+                item.style.display = 'none';
+            } else {
+                item.style.display = '';
+            }
+            
+            container.appendChild(item);
         });
         
-        console.log(`Checkbox-Sort abgeschlossen: ${totalContainers} Container, ${totalItems} Items sortiert`);
-    }
+        totalContainers++;
+        totalItems += checkboxItems.length;
+    });
     
-    // ========================================
-    // Global verfügbar machen
-    // ========================================
-    
-    window.seedfinderAutoExpand = autoExpandAvailableAccordions;
-    window.seedfinderSortCheckboxes = sortCheckboxes;
-    
-})();
+    console.log(`\n${'='.repeat(60)}`);
+    console.log(`✅ Checkbox-Sort abgeschlossen:`);
+    console.log(`   - ${totalContainers} Container verarbeitet`);
+    console.log(`   - ${totalItems} Items sortiert`);
+    console.log(`${'='.repeat(60)}\n`);
+}
+
+// Global exportieren
+window.seedfinderSortCheckboxes = sortCheckboxes;
