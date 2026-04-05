@@ -2,10 +2,8 @@
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="seedfinder"}
 
-{* CSS: Einzeldateien statt veralteter combined.min.css (Fix 04.04.2026) *}
-<link rel="stylesheet" href="{$tpl_path}css/seedfinder.css">
-<link rel="stylesheet" href="{$tpl_path}css/seedfinder_modal.css">
-<link rel="stylesheet" href="{$tpl_path}css/seedfinder_disabled_headers.css">
+<link rel="stylesheet" href="{$tpl_path}css/b4.css">
+<link rel="stylesheet" href="{$tpl_path}/css/seedfinder-combined.min.css">
 <script src="{$tpl_path}javascript/seedfinder_colors.js" defer></script>
 <script src="{$tpl_path}javascript/seedfinder-cards.js" defer></script>
 
@@ -23,12 +21,12 @@
 
 {if $STAGE == 1}
     <h1>{#title#}</h1>
-
-
-
+    
+   
+    
     {if $STAGE == 1}{1003279|contentAnywhere|inserttags}{/if}
-
-
+    
+    
     <!-- ============================================================ -->
     <!-- ANFÄNGER/PROFI FINDER CARDS (NUR FÜR ADMINS - IN ENTWICKLUNG) -->
     <!-- ============================================================ -->
@@ -37,41 +35,41 @@
     {if $STAGE == 1}
     {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_beginner-wizard-modal-with-results.html"}
     {/if}
-
-
+    
+    
     <div class="row">
         {foreach name=categories item=category from=$CATEGORIES}
-
+        
         <div class="col-14 col-sm-6 mb-4">
             <a href="{$category.LINK}" class="seedfinder-card text-decoration-none" title="{$category.NAME}">
                 <div class="h-100">
                     <div class="text-center p-3 position-relative">
-
+                        
                         <div class="d-flex align-items-center justify-content-center mb-3 seedfinder-icon-container">
                             <span class="fa-solid {$category.ICON} seedfinder-category-icon" data-color="{$category.COLOR}"></span>
                         </div>
-
+                        
                         {if $category.PRODUCTS_COUNT > 0}
                         <span class="badge bg-dark position-absolute seedfinder-badge">
                             {$category.PRODUCTS_COUNT} {#products_label#}
                         </span>
                         {/if}
-
+                        
                         <h5 class="card-title fw-bold mb-2 text-dark">
                             {$category.NAME}
                         </h5>
-
+                        
                         <p class="card-text text-muted small mb-3">{$category.DESCRIPTION}</p>
-
+                        
                         <span class="btn btn-sm w-100 seedfinder-category-btn" data-color="{$category.COLOR}">
                             {#select_category#} <span class="fa-solid fa-arrow-right ms-1"></span>
                         </span>
-
+                        
                     </div>
                 </div>
             </a>
         </div>
-
+        
         {/foreach}
     </div>
 
@@ -124,7 +122,7 @@
             </h3>
         </div>
     </div>
-
+    
     <div class="row">
         {foreach from=$MANUFACTURERS item=manufacturer}
         <div class="col-14 col-md-6 col-lg-3 mb-4">
@@ -174,23 +172,23 @@
     {* ========================================== *}
     <div class="mb-4">
         <div class="col-14">
-
+            
             <div class="text-center">
                 <h2 class="h1 mb-2">{$CATEGORY_NAME}</h2>
-
-
+                              
+               
             </div>
         </div>
     </div>
-
+    
     {if $FILTERS && count($FILTERS) > 0}
         {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_filters_accordion.html"}
     {/if}
-
+    
     <button type="button" class="floating-filter-btn d-md-none open-filters-btn" id="floating-filter-btn" title="{#filter_open_button#}">
         <span class="fa-solid fa-filter"></span>
     </button>
-
+    
     <div class="row mb-3 d-none" id="active-filters-card">
         <div class="col-14">
             <div class="card shadow-sm border-primary">
@@ -201,20 +199,20 @@
                     </h5>
                 </div>
                 <div class="card-body p-3">
-                    <div id="active-filters-container"></div>
+                    <div id="active-filters-list" class="d-flex flex-wrap"></div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <div id="products-container">
         {if isset($PAGINATION) && $PAGINATION != ''}
             {$PAGINATION}
         {/if}
-
+        
         <div class="row" id="products-grid">
             {if $PRODUCTS && count($PRODUCTS) > 0}
-                {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_product_cards.html"}
+                {include file="module/seedfinder_product_cards.html"}
             {else}
                 <div class="col-14">
                     <div class="alert alert-info text-center">
@@ -225,39 +223,39 @@
                 </div>
             {/if}
         </div>
-
+        
         {if isset($PAGINATION) && $PAGINATION != ''}
             {$PAGINATION}
         {/if}
     </div>
-
+    
     <script>
     (function() {
         'use strict';
-
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Floating Filter Button Handler
             var floatingBtn = document.getElementById('floating-filter-btn');
             var modalBtn = document.getElementById('open-filter-modal');
-
+            
             if (floatingBtn && modalBtn) {
                 floatingBtn.addEventListener('click', function() {
                     modalBtn.click();
                 });
             }
-
+            
             // Auto-Open Filter Modal wenn URL Parameter open_filters=1
             var urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('open_filters') === '1') {
                 console.log('URL Parameter open_filters=1 erkannt');
                 console.log('Oeffne Filter-Modal automatisch...');
-
+                
                 // Warte kurz damit Seite vollstaendig geladen ist
                 setTimeout(function() {
                     if (modalBtn) {
                         console.log('Filter-Modal Button gefunden, klicke...');
                         modalBtn.click();
-
+                        
                         // FIX: Entferne NUR open_filters Parameter, behalte stage und category!
                         var newParams = new URLSearchParams(window.location.search);
                         newParams.delete('open_filters');
@@ -275,5 +273,5 @@
 
 {if $STAGE == 1}{1003280|contentAnywhere|inserttags}{/if}
 {if $STAGE == 2}{1003281|contentAnywhere|inserttags}{/if}
-
+ 
 </div>

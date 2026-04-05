@@ -1,33 +1,24 @@
 /**
- * Seedfinder Modal JS v8.1.1 - Auto-Count-Update beim Seitenladen
+ * Seedfinder Modal JS v7.1.1 - Performance-Optimierung + Sub-Accordions
  * 
- * v8.1.1 - 04. Mar 2026:
- * - FIX: Beim Seitenladen mit aktiven Filtern sofort Batch-Update ausfuehren
- *   Haupt-Filter Counts werden jetzt korrekt angezeigt nach Modal "Filter anwenden"
- *
- * v8.1.0 - 03. Mar 2026:
- * - FIX: Alle URLs dynamisch ueber SEEDFINDER_BASE_URL / SEEDFINDER_PHP_URL
- * - Fremdsprachen (en, es, fr, tr) funktionieren jetzt korrekt
- * - getSeedfinderBaseUrl() / getSeedfinderPhpUrl() Hilfsfunktionen
- *
- * v8.0.0 - 02. Mar 2026:
- * - PERFORMANCE: 3 AJAX-Requests -> 1 Batch-Request (ajax=batch_update)
- *   Spart 2 HTTP-Roundtrips pro Filter-Change (besonders auf Mobile spuerbar)
- * - PERFORMANCE: Batch-Response enthaelt filter_counts + category_counts + product_count
- * - Alle v7.3.0 Features beibehalten (Mobile-Fix, Sub-Accordion, etc.)
- *
- * v7.3.0 - 01. Mar 2026:
- * - FIX: Mobile Checkboxen in ALLEN Funktionen beruecksichtigt
- * - NEU: getAllCheckedFilters() - Zentrale deduplizierte Filter-Sammlung
- *
- * v7.2.0 - 27. Feb 2026:
- * - NEU: updateCategoryCounts() + applyCategoryCountUpdates()
+ * v7.1.1 - 27. Feb 2026:
+ * - FIX: Badge-Sichtbarkeit - transform:scale(1) hinzugefügt (badgeFadeIn Animation Fix)
+ * - FIX: Badge-Reset mit transform:scale(0) und opacity:0 bei count=0
  *
  * v7.1.0 - 27. Feb 2026:
- * - NEU: transformToSubAccordions() + Sub-Accordion Highlights
+ * - NEU: transformToSubAccordions() - Filter-Gruppen als Sub-Accordions auf Mobile
+ * - NEU: updateSubAccordionHighlights() - Markiert Sub-Accordions mit aktiven Filtern
+ * - NEU: Sub-Accordion Click-Handler (Toggle open/close)
+ * - NEU: Mobile-Badge-Selector (data-category-badge="XXX-mobile")
+ * - Alle bestehenden v7.0.0 Features beibehalten
  *
  * v7.0.0 - 27. Feb 2026:
- * - Debouncing + Request-Cancellation + Production-Ready
+ * - ALLE console.log/warn/error entfernt (Production-Ready)
+ * - Debouncing für updateFilterCounts() (300ms) - verhindert Mehrfach-Requests
+ * - Request-Cancellation: Vorheriger AJAX-Request wird abgebrochen
+ * - Code-Cleanup: Leere Blöcke und unnötige Kommentare entfernt
+ *
+ * Basiert auf v6.10.1
  */
 (function($) {
     'use strict';
@@ -37,41 +28,9 @@
     let isUpdating = false;
     let isMobileView = false;
     
-    // v8.0: Ein einziger XHR + Timer fuer den Batch-Request
-    let currentBatchXHR = null;
-    let batchUpdateTimer = null;
-    
-    /**
-     * v8.1.0: Dynamische Base-URL fuer SEO-Links (Seitennavigation)
-     * Gibt z.B. /seedfinder, /en/seedfinder, /fr/chercheur-de-graines zurueck
-     */
-    function getSeedfinderBaseUrl() {
-        if (typeof SEEDFINDER_BASE_URL !== 'undefined' && SEEDFINDER_BASE_URL) {
-            return SEEDFINDER_BASE_URL;
-        }
-        var path = window.location.pathname;
-        if (path.length > 1 && path.endsWith('/')) {
-            path = path.slice(0, -1);
-        }
-        if (path.match(/(seedfinder|seed-finder|chercheur-de-graines|buscador-de-semillas)$/i)) {
-            return path;
-        }
-        var langMatch = path.match(/^\/(en|es|fr|tr)(\/|$)/);
-        if (langMatch) {
-            return '/' + langMatch[1] + '/seedfinder';
-        }
-        return '/seedfinder';
-    }
-    
-    /**
-     * v8.1.0: Direkte PHP-URL fuer AJAX-Requests
-     */
-    function getSeedfinderPhpUrl() {
-        if (typeof SEEDFINDER_PHP_URL !== 'undefined' && SEEDFINDER_PHP_URL) {
-            return SEEDFINDER_PHP_URL;
-        }
-        return 'seedfinder.php';
-    }
+    // v7.0: Request-Cancellation und Debounce
+    let currentCountXHR = null;
+    let countUpdateTimer = null;
     
     // Initialisierung
     $(document).ready(function() {
@@ -99,15 +58,6 @@
         updateActiveFilterBadges();
         toggleResetButtons();
         updateCategoryFilterBadges();
-        
-        // v8.1.1: Beim Seitenladen mit aktiven Filtern sofort Counts aktualisieren
-        // Damit nach "Filter anwenden" im Modal die Haupt-Filter korrekte Counts zeigen
-        var searchStr = window.location.search;
-        if (searchStr.indexOf('filter') !== -1 || searchStr.indexOf('filter%5B') !== -1) {
-            setTimeout(function() {
-                executeBatchUpdate();
-            }, 200);
-        }
     }
     
     /**
@@ -127,6 +77,7 @@
     
     /**
      * Handhabt den responsiven Layout-Wechsel
+     * Verschiebt Filter-Inhalte zwischen Desktop-Tabs und Mobile-Accordion
      */
     function handleResponsiveLayout() {
         const wasMobile = isMobileView;
@@ -142,20 +93,24 @@
                 const $target = $('#accordion-body-' + cat);
                 
                 if ($source.length && $target.length && $target.children().length === 0) {
+                    // v7.1.0: Klone den Inhalt und transformiere zu Sub-Accordions
                     var $clonedContent = $source.clone();
                     var $transformed = transformToSubAccordions($clonedContent, cat);
                     $target.html($transformed.html());
                     
-                    $source.find('.modal-filter-checkbox:checked, .filter-checkbox:checked').each(function() {
+                    // Synchronisiere Checkbox-States vom Original
+                    $source.find('.modal-filter-checkbox:checked').each(function() {
                         const filterId = $(this).data('filter-id');
                         const valueId = $(this).data('value-id');
-                        $target.find('[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]')
+                        $target.find('.modal-filter-checkbox[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]')
                                .prop('checked', true);
                     });
                 }
             });
             
             $('#filter-categories-desktop').addClass('d-none d-md-block');
+            
+            // v7.1.0: Markiere Sub-Accordions mit aktiven Filtern
             updateSubAccordionHighlights();
         } else {
             $('#filter-categories-desktop').removeClass('d-none d-md-block');
@@ -165,10 +120,10 @@
                 const $desktop = $('#category-' + cat);
                 
                 if ($accordion.length && $desktop.length) {
-                    $accordion.find('.modal-filter-checkbox:checked, .filter-checkbox:checked').each(function() {
+                    $accordion.find('.modal-filter-checkbox:checked').each(function() {
                         const filterId = $(this).data('filter-id');
                         const valueId = $(this).data('value-id');
-                        $desktop.find('[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]')
+                        $desktop.find('.modal-filter-checkbox[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]')
                                 .prop('checked', true);
                     });
                 }
@@ -193,6 +148,7 @@
     
     /**
      * v7.1.0: Transformiert Filter-Gruppen zu Sub-Accordions
+     * Jede <h5> + .filter-options wird zu einem Sub-Accordion-Item
      */
     function transformToSubAccordions($content, categoryId) {
         var $row = $content.find('.row').first();
@@ -201,6 +157,7 @@
         var $subAccordionContainer = $('<div class="sf-sub-accordion-container"></div>');
         var subIndex = 0;
         
+        // Iteriere über alle col-Elemente (Filter-Gruppen)
         $row.find('.col-12').each(function() {
             var $col = $(this);
             var $heading = $col.find('h5').first();
@@ -211,13 +168,16 @@
             var headingText = $heading.text().trim();
             var subAccordionId = categoryId + '-sub-' + subIndex;
             
+            // Erstelle Sub-Accordion-Item
             var $subItem = $('<div class="sf-sub-accordion-item"></div>');
             
-            var $subHeader = $('<div class="sf-sub-accordion-header" data-toggle-sub-accordion="' + subAccordionId + '">' +
+            // Sub-Accordion-Header
+            var $subHeader = $('<div class="sf-sub-accordion-header" data-bs-toggle-sub-accordion="' + subAccordionId + '">' +
                 '<span class="sf-sub-accordion-title">' + headingText + '</span>' +
                 '<span class="sf-sub-accordion-chevron"><i class="fa fa-chevron-down"></i></span>' +
                 '</div>');
             
+            // Sub-Accordion-Body
             var $subBody = $('<div class="sf-sub-accordion-body" id="sub-accordion-' + subAccordionId + '"></div>');
             $subBody.html($filterOptions.html());
             
@@ -227,6 +187,7 @@
             subIndex++;
         });
         
+        // Ersetze die .row mit dem Sub-Accordion-Container
         if (subIndex > 0) {
             $row.replaceWith($subAccordionContainer);
         }
@@ -235,7 +196,7 @@
     }
     
     /**
-     * Pruefe ob Modal automatisch geoeffnet werden soll
+     * Prüfe ob Modal automatisch geöffnet werden soll
      */
     function checkAndOpenModal() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -252,13 +213,13 @@
     }
     
     function setupEventListeners() {
-        // Modal oeffnen
+        // Modal öffnen
         $('.open-filters-btn').on('click', function() {
             syncMainFiltersToModal();
             $('#seedfinder-filter-modal').modal('show');
         });
         
-        // Badges nach Modal-Oeffnung aktualisieren
+        // Badges nach Modal-Öffnung aktualisieren
         $('#seedfinder-filter-modal').on('shown.bs.modal', function() {
             if (isMobileView) {
                 handleResponsiveLayout();
@@ -273,12 +234,21 @@
             if (newCategoryId && newCategoryId !== currentCategoryId) {
                 showCategoryLoadingOverlay();
                 
-                const activeFilters = getAllCheckedFilters();
+                const activeFilters = {};
+                $('.filter-checkbox:checked').each(function() {
+                    const filterId = $(this).data('filter-id');
+                    const valueId = $(this).data('value-id');
+                    
+                    if (!activeFilters[filterId]) {
+                        activeFilters[filterId] = [];
+                    }
+                    activeFilters[filterId].push(valueId);
+                });
                 
                 const urlParams = new URLSearchParams(window.location.search);
                 const stage = urlParams.get('stage') || '3';
                 
-                let newUrl = getSeedfinderBaseUrl() + '?stage=' + stage + '&category=' + newCategoryId;
+                let newUrl = window.location.pathname + '?stage=' + stage + '&category=' + newCategoryId;
                 
                 for (const filterId in activeFilters) {
                     for (const valueId of activeFilters[filterId]) {
@@ -318,6 +288,7 @@
                 $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
                 $(this).removeClass('active');
             } else {
+                // Alle anderen schließen
                 $('.sf-accordion-item').not($item).each(function() {
                     var $otherBody = $(this).find('.sf-accordion-body');
                     var $otherHeader = $(this).find('.sf-accordion-header');
@@ -366,42 +337,29 @@
             }
         });
         
-        // Haupt-Filter: Checkbox-Aenderung
+        // Haupt-Filter: Checkbox-Änderung
         $(document).on('change', '.main-filter-checkbox', function() {
             if (!isUpdating) {
                 syncFilters($(this));
                 updateActiveFilterBadges();
-                debouncedBatchUpdate();
+                // v7.0: Debounced statt sofortigem AJAX-Call
+                debouncedCountUpdate();
                 toggleResetButtons();
                 updateCategoryFilterBadges();
                 updateSubAccordionHighlights();
             }
         });
         
-        // Modal-Filter: Checkbox-Aenderung (Desktop + Mobile)
+        // Modal-Filter: Checkbox-Änderung
         $(document).on('change', '.modal-filter-checkbox', function() {
             if (!isUpdating) {
                 syncFilters($(this));
                 updateActiveFilterBadges();
-                debouncedBatchUpdate();
+                // v7.0: Debounced statt sofortigem AJAX-Call
+                debouncedCountUpdate();
                 toggleResetButtons();
                 updateCategoryFilterBadges();
                 updateSubAccordionHighlights();
-            }
-        });
-        
-        // Filter-Checkbox: Aenderung (Fallback fuer geklonte Elemente)
-        $(document).on('change', '.filter-checkbox', function() {
-            // Nur feuern wenn NICHT schon als modal-filter-checkbox behandelt
-            if (!$(this).hasClass('modal-filter-checkbox') && !$(this).hasClass('main-filter-checkbox')) {
-                if (!isUpdating) {
-                    syncFilters($(this));
-                    updateActiveFilterBadges();
-                    debouncedBatchUpdate();
-                    toggleResetButtons();
-                    updateCategoryFilterBadges();
-                    updateSubAccordionHighlights();
-                }
             }
         });
         
@@ -415,13 +373,13 @@
             applyFilters();
         });
         
-        // Haupt-Filter zuruecksetzen
+        // Haupt-Filter zurücksetzen
         $('#reset-main-filters').on('click', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const category = urlParams.get('category');
             const stage = urlParams.get('stage');
             
-            let newUrl = getSeedfinderBaseUrl();
+            let newUrl = window.location.pathname;
             if (stage && category) {
                 newUrl += '?stage=' + stage + '&category=' + category + '&filters_reset=1';
             }
@@ -429,13 +387,13 @@
             window.location.href = newUrl;
         });
         
-        // Modal-Filter zuruecksetzen
+        // Modal-Filter zurücksetzen
         $('#reset-modal-filters').on('click', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const category = urlParams.get('category');
             const stage = urlParams.get('stage');
             
-            let newUrl = getSeedfinderBaseUrl();
+            let newUrl = window.location.pathname;
             if (stage && category) {
                 newUrl += '?stage=' + stage + '&category=' + category + '&filters_reset=1';
             }
@@ -445,21 +403,175 @@
     }
     
     /**
-     * v7.3: Zentrale Funktion - Sammelt ALLE aktiven Filter dedupliziert
+     * v7.0: Debounced Count-Update
+     * Wartet 300ms nach dem letzten Checkbox-Change
      */
-    function getAllCheckedFilters() {
-        const activeFilters = {};
-        const seen = {};
+    function debouncedCountUpdate() {
+        if (countUpdateTimer) {
+            clearTimeout(countUpdateTimer);
+        }
+        countUpdateTimer = setTimeout(function() {
+            updateFilterCounts();
+        }, 300);
+    }
+    
+    /**
+     * Loading-Overlay für Kategorie-Wechsel
+     */
+    function showCategoryLoadingOverlay() {
+        let loadingText = $('#trans-loading-category-filters').text();
         
-        $('.filter-checkbox:checked, .modal-filter-checkbox:checked, .main-filter-checkbox:checked').each(function() {
+        if (!loadingText || loadingText.trim() === '') {
+            loadingText = 'Lade Filter f&uuml;r neue Kategorie...';
+        }
+        
+        const $overlay = $('<div class="seedfinder-loading-overlay">' +
+            '<div class="seedfinder-loading-content">' +
+                '<i class="fa fa-spinner fa-spin fa-4x text-primary mb-3"></i>' +
+                '<h4 class="text-dark">' + loadingText + '</h4>' +
+            '</div>' +
+        '</div>');
+        
+        $('#seedfinder-filter-modal .modal-content').append($overlay);
+        
+        setTimeout(function() {
+            $overlay.addClass('active');
+        }, 10);
+    }
+    
+    /**
+     * Reset-Buttons ein-/ausblenden
+     */
+    function toggleResetButtons() {
+        const hasActiveFilters = $('.filter-checkbox:checked').length > 0;
+        if (hasActiveFilters) {
+            $('#reset-filters-btn').show();
+        } else {
+            $('#reset-filters-btn').hide();
+        }
+    }
+    
+    /**
+     * Category Filter Badges aktualisieren (DOM-basiert)
+     * v7.1.0: Aktualisiert auch Mobile-Badges (data-category-badge="XXX-mobile")
+     */
+    function updateCategoryFilterBadges() {
+        const categories = ['main', 'genetics', 'cultivation', 'taste', 'advanced'];
+        
+        categories.forEach(function(cat) {
+            const $container = $('#category-' + cat);
+            const $accordionBody = $('#accordion-body-' + cat);
+            // v7.1.0: Auch Mobile-Badges selektieren
+            const $badge = $('[data-category-badge="' + cat + '"], [data-category-badge="' + cat + '-mobile"]');
+            
+            // Deduplizierung
+            const uniqueFilters = {};
+            const $allCheckboxes = $container.find('.filter-checkbox:checked').add($accordionBody.find('.filter-checkbox:checked'));
+            $allCheckboxes.each(function() {
+                const key = $(this).data('filter-id') + '_' + $(this).data('value-id');
+                uniqueFilters[key] = true;
+            });
+            const count = Object.keys(uniqueFilters).length;
+            
+            if ($badge.length) {
+                if (count > 0) {
+                    // v7.1.1 FIX: animation:none + transform:scale(1) + opacity:1
+                    // Ohne transform:scale(1) bleibt das Badge bei 0x0px
+                    // weil die CSS-Animation badgeFadeIn von scale(0.5) startet
+                    $badge.css('animation', 'none');
+                    $badge[0] && ($badge[0].offsetHeight); // Force reflow
+                    $badge.text(count).css({
+                        'display': 'inline-block',
+                        'opacity': '1',
+                        'transform': 'scale(1)'
+                    });
+                } else {
+                    $badge.css('animation', 'none');
+                    $badge.text('0').css({
+                        'display': 'none',
+                        'opacity': '0',
+                        'transform': 'scale(0)'
+                    });
+                }
+            }
+        });
+    }
+    
+    /**
+     * v7.1.0: Sub-Accordion-Highlights aktualisieren
+     * Markiert Sub-Accordions die aktive Filter enthalten
+     */
+    function updateSubAccordionHighlights() {
+        $('.sf-sub-accordion-item').each(function() {
+            var $subItem = $(this);
+            var $subBody = $subItem.find('.sf-sub-accordion-body');
+            var $subHeader = $subItem.find('.sf-sub-accordion-header');
+            
+            var hasActiveFilters = $subBody.find('.filter-checkbox:checked, .modal-filter-checkbox:checked').length > 0;
+            
+            if (hasActiveFilters) {
+                $subHeader.addClass('has-active-filters');
+            } else {
+                $subHeader.removeClass('has-active-filters');
+            }
+        });
+    }
+    
+    /**
+     * Wechselt zwischen Filter-Kategorien im Modal (Desktop)
+     */
+    function switchFilterCategory(category) {
+        $('.filter-category-content').hide();
+        $('#category-' + category).fadeIn(300);
+    }
+    
+    /**
+     * Synchronisiert Filter zwischen Haupt-Seite und Modal
+     */
+    function syncFilters($checkbox) {
+        const filterId = $checkbox.data('filter-id');
+        const valueId = $checkbox.data('value-id');
+        const isChecked = $checkbox.is(':checked');
+        
+        const selector = `input[data-filter-id="${filterId}"][data-value-id="${valueId}"]`;
+        const $targets = $(selector).not($checkbox);
+        
+        $targets.prop('checked', isChecked);
+    }
+    
+    /**
+     * Synchronisiert Haupt-Filter mit Modal-Filtern beim Öffnen
+     */
+    function syncMainFiltersToModal() {
+        $('.main-filter-checkbox').each(function() {
+            const $mainCheckbox = $(this);
+            const filterId = $mainCheckbox.data('filter-id');
+            const valueId = $mainCheckbox.data('value-id');
+            const isChecked = $mainCheckbox.is(':checked');
+            
+            const $modalCheckbox = $(`.modal-filter-checkbox[data-filter-id="${filterId}"][data-value-id="${valueId}"]`);
+            $modalCheckbox.prop('checked', isChecked);
+        });
+    }
+    
+    /**
+     * Aktualisiert Filter-Counts via AJAX
+     * v7.0: Mit Request-Cancellation und Debouncing
+     */
+    function updateFilterCounts() {
+        if (isUpdating) return;
+        
+        isUpdating = true;
+        
+        // v7.0: Vorherigen Request abbrechen
+        if (currentCountXHR && currentCountXHR.readyState !== 4) {
+            currentCountXHR.abort();
+        }
+        
+        const activeFilters = {};
+        $('.filter-checkbox:checked').each(function() {
             const filterId = $(this).data('filter-id');
             const valueId = $(this).data('value-id');
-            
-            if (!filterId || !valueId) return;
-            
-            const key = filterId + '_' + valueId;
-            if (seen[key]) return;
-            seen[key] = true;
             
             if (!activeFilters[filterId]) {
                 activeFilters[filterId] = [];
@@ -467,68 +579,22 @@
             activeFilters[filterId].push(valueId);
         });
         
-        return activeFilters;
-    }
-    
-    /**
-     * v8.0: Debounced Batch-Update (ersetzt separate debouncedCountUpdate + debouncedCatCountUpdate)
-     * Ein einziger Timer fuer alles - 300ms Debounce
-     */
-    function debouncedBatchUpdate() {
-        if (batchUpdateTimer) {
-            clearTimeout(batchUpdateTimer);
-        }
-        batchUpdateTimer = setTimeout(function() {
-            executeBatchUpdate();
-        }, 300);
-    }
-    
-    /**
-     * v8.0: BATCH-UPDATE - Ein einziger AJAX-Request fuer alles
-     * Ersetzt: updateFilterCounts() + updateCategoryCounts() + get_product_count
-     * Spart 2 HTTP-Roundtrips pro Filter-Change
-     */
-    function executeBatchUpdate() {
-        if (isUpdating) return;
-        
-        isUpdating = true;
-        
-        // Vorherigen Request abbrechen
-        if (currentBatchXHR && currentBatchXHR.readyState !== 4) {
-            currentBatchXHR.abort();
-        }
-        
-        const activeFilters = getAllCheckedFilters();
-        
-        currentBatchXHR = $.ajax({
-            url: getSeedfinderPhpUrl(),
+        currentCountXHR = $.ajax({
+            url: 'seedfinder.php',
             method: 'GET',
             data: {
-                ajax: 'batch_update',
+                ajax: 'update_counts',
                 category: currentCategoryId,
                 filter: activeFilters
             },
             dataType: 'json',
-            timeout: 15000,
             success: function(response) {
-                if (response && response.success) {
-                    // 1. Filter-Counts aktualisieren
-                    if (response.data) {
-                        applyCountUpdates(response.data);
-                    }
-                    
-                    // 2. Kategorie-Counts aktualisieren
-                    if (response.category_counts) {
-                        applyCategoryCountUpdates(response.category_counts);
-                    }
-                    
-                    // 3. Produkt-Count aktualisieren
-                    if (typeof response.product_count !== 'undefined') {
-                        updateProductCountDisplay(response.product_count);
-                    }
+                if (response.success) {
+                    applyCountUpdates(response.data);
                 }
             },
             error: function(xhr, status, error) {
+                // Abgebrochene Requests ignorieren
                 if (status === 'abort') return;
             },
             complete: function() {
@@ -538,25 +604,14 @@
     }
     
     /**
-     * v8.0: Aktualisiert die Produkt-Count-Anzeige
-     */
-    function updateProductCountDisplay(count) {
-        var $countDisplay = $('#product-count-display, .product-count-display, .seedfinder-product-count');
-        if ($countDisplay.length) {
-            $countDisplay.text(count + ' Produkte gefunden');
-        }
-    }
-    
-    /**
      * Wendet aktualisierte Counts auf alle Filter an
-     * v7.3: Aktualisiert ALLE Checkboxen (Desktop + Modal + Mobile)
      */
     function applyCountUpdates(data) {
         if (!data) {
             return;
         }
         
-        $('.filter-checkbox, .modal-filter-checkbox').each(function() {
+        $('.filter-checkbox').each(function() {
             const $checkbox = $(this);
             const filterId = $checkbox.data('filter-id');
             const valueId = $checkbox.data('value-id');
@@ -597,168 +652,8 @@
         sortFilterOptions();
         updateCategoryFilterBadges();
         updateActiveFilterBadges();
+        // v7.1.0: Sub-Accordion-Highlights nach Count-Update aktualisieren
         updateSubAccordionHighlights();
-    }
-    
-    /**
-     * v7.2: Wendet Kategorie-Counts auf das Dropdown an
-     */
-    function applyCategoryCountUpdates(counts) {
-        var $select = $('#modal-category-selector');
-        if (!$select.length) return;
-        
-        $select.find('option').each(function() {
-            var $option = $(this);
-            var catId = $option.val();
-            var isSelected = $option.is(':selected');
-            
-            if (counts[catId]) {
-                var count = counts[catId].count;
-                var baseName = $option.text().replace(/\s*\(\d+\)\s*$/, '').trim();
-                $option.text(baseName + ' (' + count + ')');
-                
-                if (count === 0 && !isSelected) {
-                    $option.prop('disabled', true);
-                    $option.css('color', '#999');
-                } else {
-                    $option.prop('disabled', false);
-                    $option.css('color', '');
-                }
-            }
-        });
-    }
-    
-    /**
-     * Loading-Overlay fuer Kategorie-Wechsel
-     */
-    function showCategoryLoadingOverlay() {
-        let loadingText = $('#trans-loading-category-filters').text();
-        
-        if (!loadingText || loadingText.trim() === '') {
-            loadingText = 'Lade Filter f&uuml;r neue Kategorie...';
-        }
-        
-        const $overlay = $('<div class="seedfinder-loading-overlay">' +
-            '<div class="seedfinder-loading-content">' +
-                '<i class="fa fa-spinner fa-spin fa-4x text-primary mb-3"></i>' +
-                '<h4 class="text-dark">' + loadingText + '</h4>' +
-            '</div>' +
-        '</div>');
-        
-        $('#seedfinder-filter-modal .modal-content').append($overlay);
-        
-        setTimeout(function() {
-            $overlay.addClass('active');
-        }, 10);
-    }
-    
-    /**
-     * Reset-Buttons ein-/ausblenden
-     */
-    function toggleResetButtons() {
-        const hasActiveFilters = $('.filter-checkbox:checked, .modal-filter-checkbox:checked, .main-filter-checkbox:checked').length > 0;
-        if (hasActiveFilters) {
-            $('#reset-filters-btn').show();
-        } else {
-            $('#reset-filters-btn').hide();
-        }
-    }
-    
-    /**
-     * Category Filter Badges aktualisieren
-     */
-    function updateCategoryFilterBadges() {
-        const categories = ['main', 'genetics', 'cultivation', 'taste', 'advanced'];
-        
-        categories.forEach(function(cat) {
-            const $container = $('#category-' + cat);
-            const $accordionBody = $('#accordion-body-' + cat);
-            const $badge = $('[data-category-badge="' + cat + '"], [data-category-badge="' + cat + '-mobile"]');
-            
-            const uniqueFilters = {};
-            const $allCheckboxes = $container.find('.filter-checkbox:checked, .modal-filter-checkbox:checked')
-                .add($accordionBody.find('.filter-checkbox:checked, .modal-filter-checkbox:checked'));
-            $allCheckboxes.each(function() {
-                const key = $(this).data('filter-id') + '_' + $(this).data('value-id');
-                uniqueFilters[key] = true;
-            });
-            const count = Object.keys(uniqueFilters).length;
-            
-            if ($badge.length) {
-                if (count > 0) {
-                    $badge.css('animation', 'none');
-                    $badge[0] && ($badge[0].offsetHeight);
-                    $badge.text(count).css({
-                        'display': 'inline-block',
-                        'opacity': '1',
-                        'transform': 'scale(1)'
-                    });
-                } else {
-                    $badge.css('animation', 'none');
-                    $badge.text('0').css({
-                        'display': 'none',
-                        'opacity': '0',
-                        'transform': 'scale(0)'
-                    });
-                }
-            }
-        });
-    }
-    
-    /**
-     * v7.1.0: Sub-Accordion-Highlights aktualisieren
-     */
-    function updateSubAccordionHighlights() {
-        $('.sf-sub-accordion-item').each(function() {
-            var $subItem = $(this);
-            var $subBody = $subItem.find('.sf-sub-accordion-body');
-            var $subHeader = $subItem.find('.sf-sub-accordion-header');
-            
-            var hasActiveFilters = $subBody.find('.filter-checkbox:checked, .modal-filter-checkbox:checked').length > 0;
-            
-            if (hasActiveFilters) {
-                $subHeader.addClass('has-active-filters');
-            } else {
-                $subHeader.removeClass('has-active-filters');
-            }
-        });
-    }
-    
-    /**
-     * Wechselt zwischen Filter-Kategorien im Modal (Desktop)
-     */
-    function switchFilterCategory(category) {
-        $('.filter-category-content').hide();
-        $('#category-' + category).fadeIn(300);
-    }
-    
-    /**
-     * Synchronisiert Filter zwischen Haupt-Seite, Modal und Mobile
-     */
-    function syncFilters($checkbox) {
-        const filterId = $checkbox.data('filter-id');
-        const valueId = $checkbox.data('value-id');
-        const isChecked = $checkbox.is(':checked');
-        
-        const $targets = $('input[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]').not($checkbox);
-        
-        $targets.prop('checked', isChecked);
-    }
-    
-    /**
-     * Synchronisiert Haupt-Filter mit Modal-Filtern beim Oeffnen
-     */
-    function syncMainFiltersToModal() {
-        $('.main-filter-checkbox').each(function() {
-            const $mainCheckbox = $(this);
-            const filterId = $mainCheckbox.data('filter-id');
-            const valueId = $mainCheckbox.data('value-id');
-            const isChecked = $mainCheckbox.is(':checked');
-            
-            $('input[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]')
-                .not($mainCheckbox)
-                .prop('checked', isChecked);
-        });
     }
     
     /**
@@ -814,7 +709,7 @@
      * Wendet Styles auf alle Filter an (nach Sortierung)
      */
     function reapplyFilterStyles() {
-        $('.filter-checkbox, .modal-filter-checkbox').each(function() {
+        $('.filter-checkbox').each(function() {
             const $checkbox = $(this);
             const $control = $checkbox.closest('.custom-control');
             
@@ -843,14 +738,14 @@
     }
     
     /**
-     * Aktualisiert die "Deine ausgewaehlten Kriterien"-Card
+     * Aktualisiert die "Deine ausgewählten Kriterien"-Card
      */
     function updateActiveFilterBadges() {
         const $container = $('#active-filters-list');
         const $card = $('#active-filters-card');
         
         const activeFiltersMap = {};
-        $('.filter-checkbox:checked, .modal-filter-checkbox:checked, .main-filter-checkbox:checked').each(function() {
+        $('.filter-checkbox:checked').each(function() {
             const filterName = $(this).data('filter-name');
             const valueName = $(this).data('value-name');
             const filterId = String($(this).data('filter-id'));
@@ -888,21 +783,30 @@
     }
     
     /**
-     * Wendet alle ausgewaehlten Filter an (Seite neu laden)
+     * Wendet alle ausgewählten Filter an (Seite neu laden)
      */
     function applyFilters() {
         const urlParams = new URLSearchParams(window.location.search);
         const stage = urlParams.get('stage');
         const category = currentCategoryId;
         
-        const activeFilters = getAllCheckedFilters();
+        const activeFilters = {};
+        $('.filter-checkbox:checked').each(function() {
+            const filterId = $(this).data('filter-id');
+            const valueId = $(this).data('value-id');
+            
+            if (!activeFilters[filterId]) {
+                activeFilters[filterId] = [];
+            }
+            activeFilters[filterId].push(valueId);
+        });
         
         const manufacturers = [];
         $('.manufacturer-checkbox:checked').each(function() {
             manufacturers.push($(this).val());
         });
         
-        let newUrl = getSeedfinderBaseUrl() + '?stage=2&category=' + category;
+        let newUrl = window.location.pathname + '?stage=2&category=' + category;
         
         for (const filterId in activeFilters) {
             for (const valueId of activeFilters[filterId]) {
@@ -917,12 +821,12 @@
         window.location.href = newUrl + '#products-container';
     }
     
-    // Event Delegation fuer Badge-Entfernung
+    // Event Delegation für Badge-Entfernung
     $(document).on('click', '.remove-filter-badge', function() {
         const filterId = $(this).data('filter-id');
         const valueId = $(this).data('value-id');
         
-        $('input[data-filter-id="' + filterId + '"][data-value-id="' + valueId + '"]').prop('checked', false).first().trigger('change');
+        $(`.filter-checkbox[data-filter-id="${filterId}"][data-value-id="${valueId}"]`).prop('checked', false).trigger('change');
     });
     
 })(jQuery);

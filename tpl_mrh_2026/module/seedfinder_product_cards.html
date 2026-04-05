@@ -1,12 +1,8 @@
-{*
+{* 
  * Seedfinder Product Cards Template - Vergleichsseiten-Design
- * Version: 32.3.0-bs5 (tpl_mrh_2026)
- * Datum: 2026-04-04
- *
- * FIX 04.04.2026:
- * - Zeile 82: Smarty 3 Syntax → Smarty 2 ({foreach from=... item=...})
- * - Attribute Sub-Keys: lowercase beibehalten (kommen direkt aus PHP)
- *
+ * Version: 32.2.0-bs5 (tpl_mrh_2026)
+ * Datum: 2026-04-02
+ * 
  * BS5.3 + FA7 Pro Migration:
  * - mr-* → me-*, ml-* → ms-*
  * - text-right → text-end
@@ -19,13 +15,13 @@
     {foreach from=$PRODUCTS item=product}
                 <div class="col-md-6 mb-4 listingbox" itemscope itemtype="https://schema.org/Product">
                     <div class="card h-100 d-flex flex-column">
-
+                        
                         {* Hidden Schema.org Properties *}
                         {if $product.PRODUCTS_MODEL}
                         <meta itemprop="sku" content="{$product.PRODUCTS_MODEL|escape:'html'}">
                         {/if}
                         <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
-
+                        
                         {* Spezialpreis-Badge *}
                         {if $product.PRODUCTS_SPECIAL_PRICE && $product.PRODUCTS_SPECIAL_PRICE > 0}
                         <div class="ribbon bg-danger text-white shadow-sm sf-special-badge">
@@ -33,21 +29,21 @@
                             <div class="sf-special-badge-triangle"></div>
                         </div>
                         {/if}
-
+                        
                         {* Rabatt-Prozent Badge *}
                         {if $product.PRODUCTS_PRICE_SAVE_PERCENT && $product.PRODUCTS_PRICE_SAVE_PERCENT > 0}
                         <span class="special_percent bg-danger shadow text-white">
                             {$product.PRODUCTS_PRICE_SAVE_PERCENT}%
                         </span>
                         {/if}
-
+                        
                         {* Produktbild - Fixed Height, Object-Fit Cover (wie Vergleichsseite) *}
                         {if $product.PRODUCTS_IMAGE}
                         <a href="{$product.PRODUCTS_LINK}" class="card-body text-center lb_image compare-img-box">
                             <img class="compare-product-img img-fluid lazyloaded" itemprop="image" src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}">
                         </a>
                         {/if}
-
+                        
                         {* Produktname und Hersteller (wie Vergleichsseite) *}
                         <div class="card-body pt-0 pb-1">
                             <h2 class="lb_title lead text-secondary mb-1">
@@ -61,7 +57,7 @@
                                 </footer>
                             {/if}
                         </div>
-
+                        
                         {* Short Description als Tabelle (wie Vergleichsseite: Kreuzung, Sorte, Blütezeit etc.) *}
                         {if $product.PRODUCTS_SHORT_DESCRIPTION}
                         <div class="card-body pt-0 pb-1 compare-desc-box">
@@ -72,18 +68,18 @@
                             <div class="lr_desc teabls table-striped" itemprop="description">{$product.PRODUCTS_DESCRIPTION}</div>
                         </div>
                         {/if}
-
+                        
                         {* Options, Preis, Buttons - Card-Footer am unteren Rand (wie Vergleichsseite) *}
                         <div class="card-footer bg-body mt-auto compare-footer" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                             <meta itemprop="priceCurrency" content="EUR">
                             <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
                             <link itemprop="availability" href="{if $product.TOTAL_STOCK_AVAILABLE}https://schema.org/InStock{else}https://schema.org/OutOfStock{/if}">
-
+                            
                             {* Attribute/Optionen (1 Samen, 3 Samen etc. mit Preisen) *}
                             {if $product.HAS_ATTRIBUTES && $product.ATTRIBUTES|@count > 0}
                             <div class="mb-2">
                                 <div class="attribute-text-list">
-                                    {foreach from=$product.ATTRIBUTES item=attr}
+                                    {foreach $product.ATTRIBUTES as $attr}
                                     <div class="attribute-text-item mb-1 d-flex justify-content-between align-items-start">
                                         <span class="attribute-value">{$attr.value_name}</span>
                                         <div class="text-end">
@@ -104,7 +100,7 @@
                                 </div>
                             </div>
                             {/if}
-
+                            
                             {* Preis-Anzeige *}
                             <div class="text-end mt-2 mb-2">
                                 {if $product.HAS_PRICE_FROM}
@@ -123,7 +119,7 @@
                                 {/if}
                                 <div class="lb_tax text-secondary small mb-1">{#tax_info#}</div>
                             </div>
-
+                            
                             {* Buttons: Warenkorb + Merkzettel + Details + Vergleichen (wie Vergleichsseite) *}
                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                 <div>
@@ -145,9 +141,9 @@
                                     </button>
                                 </div>
                             </div>
-
+                            
                         </div>
-
+                        
                     </div>
                 </div>
     {/foreach}
