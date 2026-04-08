@@ -2188,3 +2188,109 @@ table.tebals.wite tr:last-child td:last-child {
     width: calc(25% - 0.75rem) !important;
   }
 }
+
+/* ============================================================
+   GLOBALES BUTTON-FARBSYSTEM (Konfigurator-gesteuert)
+   Alle Listing-Buttons nutzen CSS Custom Properties.
+   Farben werden ueber den Admin-Konfigurator gesteuert.
+   Stand: 2026-04-08
+   ============================================================ */
+
+/* --- Details-Button (Auge-Icon) --- */
+/* Ueberschreibt: btn-outline-success, btn-primary (Details) */
+.mrh-product-list-actions .btn-outline-success,
+.mrh-product-card .btn-outline-success,
+.lb-buttons-wrap .btn-primary,
+.btn-details {
+  background-color: var(--tpl-btn-details-bg, #ffffff) !important;
+  color: var(--tpl-btn-details-text, #198754) !important;
+  border-color: var(--tpl-btn-details-text, #198754) !important;
+  transition: all 0.2s ease;
+}
+.mrh-product-list-actions .btn-outline-success:hover,
+.mrh-product-card .btn-outline-success:hover,
+.lb-buttons-wrap .btn-primary:hover,
+.btn-details:hover {
+  background-color: var(--tpl-btn-details-hover, #198754) !important;
+  color: #ffffff !important;
+  border-color: var(--tpl-btn-details-hover, #198754) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* --- Merkzettel-Button (Herz-Icon) --- */
+/* Ueberschreibt: btn-secondary (Wishlist) in allen Templates */
+.lb-buttons-wrap .btn-secondary,
+.quick-buttons a:has(.icon-heart),
+.mrh-product-card .btn-wishlist,
+.btn-wishlist,
+a[aria-label*="Merkzettel"].btn-secondary,
+a[aria-label*="wishlist"].btn-secondary {
+  background-color: var(--tpl-btn-wishlist-bg, #6c757d) !important;
+  color: var(--tpl-btn-wishlist-text, #ffffff) !important;
+  border-color: var(--tpl-btn-wishlist-bg, #6c757d) !important;
+  transition: all 0.2s ease;
+}
+.lb-buttons-wrap .btn-secondary:hover,
+.quick-buttons a:has(.icon-heart):hover,
+.mrh-product-card .btn-wishlist:hover,
+.btn-wishlist:hover,
+a[aria-label*="Merkzettel"].btn-secondary:hover,
+a[aria-label*="wishlist"].btn-secondary:hover {
+  background-color: var(--tpl-btn-wishlist-hover, #565e64) !important;
+  color: var(--tpl-btn-wishlist-text, #ffffff) !important;
+  border-color: var(--tpl-btn-wishlist-hover, #565e64) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* --- Vergleich-Button (Waage-Icon) --- */
+/* Ueberschreibt: btn-outline-secondary, btn-compare */
+.btn-compare,
+.mrh-product-card .btn-compare,
+.btn-outline-secondary.btn-compare {
+  background-color: var(--tpl-btn-compare-bg, #6c757d) !important;
+  color: var(--tpl-btn-compare-text, #ffffff) !important;
+  border-color: var(--tpl-btn-compare-bg, #6c757d) !important;
+  transition: all 0.2s ease;
+}
+.btn-compare:hover,
+.mrh-product-card .btn-compare:hover,
+.btn-outline-secondary.btn-compare:hover {
+  background-color: var(--tpl-btn-compare-hover, #565e64) !important;
+  color: var(--tpl-btn-compare-text, #ffffff) !important;
+  border-color: var(--tpl-btn-compare-hover, #565e64) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* --- Warenkorb-Button (Cart-Icon) --- */
+/* Nutzt die bestehenden tpl-btn-primary-* Variablen */
+.mrh-product-list-actions .btn-success,
+.mrh-product-card .btn-success,
+.btn-cart {
+  background-color: var(--tpl-btn-primary-bg, #6cc342) !important;
+  color: var(--tpl-btn-primary-text, #ffffff) !important;
+  border-color: var(--tpl-btn-primary-bg, #6cc342) !important;
+  transition: all 0.2s ease;
+}
+.mrh-product-list-actions .btn-success:hover,
+.mrh-product-card .btn-success:hover,
+.btn-cart:hover {
+  background-color: var(--tpl-btn-primary-hover, #368610) !important;
+  color: var(--tpl-btn-primary-text, #ffffff) !important;
+  border-color: var(--tpl-btn-primary-hover, #368610) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* --- Demo-Farbe Vorschau fuer neue Button-Variablen --- */
+.demo-farbe.tpl-btn-details-bg { background-color: var(--tpl-btn-details-bg) !important; }
+.demo-farbe.tpl-btn-details-text { background-color: var(--tpl-btn-details-text) !important; }
+.demo-farbe.tpl-btn-details-hover { background-color: var(--tpl-btn-details-hover) !important; }
+.demo-farbe.tpl-btn-wishlist-bg { background-color: var(--tpl-btn-wishlist-bg) !important; }
+.demo-farbe.tpl-btn-wishlist-text { background-color: var(--tpl-btn-wishlist-text) !important; }
+.demo-farbe.tpl-btn-wishlist-hover { background-color: var(--tpl-btn-wishlist-hover) !important; }
+.demo-farbe.tpl-btn-compare-bg { background-color: var(--tpl-btn-compare-bg) !important; }
+.demo-farbe.tpl-btn-compare-text { background-color: var(--tpl-btn-compare-text) !important; }
+.demo-farbe.tpl-btn-compare-hover { background-color: var(--tpl-btn-compare-hover) !important; }

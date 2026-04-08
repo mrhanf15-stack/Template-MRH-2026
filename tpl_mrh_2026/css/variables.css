@@ -63,4 +63,19 @@
     --tpl-btn-express-bg: #17a2b8;
     --tpl-btn-express-text: #ffffff;
     --tpl-btn-express-hover: #138496;
+
+    /* Details-Button (Auge-Icon, Produktlisting) */
+    --tpl-btn-details-bg: #ffffff;
+    --tpl-btn-details-text: #198754;
+    --tpl-btn-details-hover: #198754;
+
+    /* Merkzettel-Button (Herz-Icon) */
+    --tpl-btn-wishlist-bg: #6c757d;
+    --tpl-btn-wishlist-text: #ffffff;
+    --tpl-btn-wishlist-hover: #565e64;
+
+    /* Vergleich-Button (Waage-Icon) */
+    --tpl-btn-compare-bg: #6c757d;
+    --tpl-btn-compare-text: #ffffff;
+    --tpl-btn-compare-hover: #565e64;
 }
