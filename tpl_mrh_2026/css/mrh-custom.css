@@ -2094,3 +2094,39 @@ table.tebals.wite tr:last-child td:last-child {
     width: 100%;
   }
 }
+
+
+/* ============================================================
+   UNTERKATEGORIEN – 4-spaltiges Layout (Mobile First)
+   Überschreibt template.css .subcatlist { width: 48% }
+   ============================================================ */
+
+/* Container: Flexbox mit Gap statt justify-content: space-between */
+.subcats.cf {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  justify-content: flex-start !important;
+}
+
+/* Items: Mobile = 2-spaltig (Default) */
+.subcatlist {
+  float: none !important;
+  width: calc(50% - 0.5rem) !important;
+  margin: 0 !important;
+  flex-shrink: 0;
+}
+
+/* Tablet (≥576px): 3-spaltig */
+@media (min-width: 576px) {
+  .subcatlist {
+    width: calc(33.333% - 0.667rem) !important;
+  }
+}
+
+/* Desktop (≥992px): 4-spaltig */
+@media (min-width: 992px) {
+  .subcatlist {
+    width: calc(25% - 0.75rem) !important;
+  }
+}
