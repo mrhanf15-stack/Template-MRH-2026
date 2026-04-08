@@ -59,6 +59,7 @@
 .mrh-pagination {
   margin: 1rem 0;
   font-family: var(--mrh-pg-font);
+  clear: both;  /* Fix: Unter gefloateten Elementen (filter_bar, the-subcats) positionieren */
 }
 
 
