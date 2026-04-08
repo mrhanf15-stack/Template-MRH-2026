@@ -839,9 +839,9 @@ body:not(.using-keyboard) *:focus {
 .btn-primary,
 .btn-cart,
 .cssbutton {
-  background-color: var(--tpl-main-color) !important;
-  border-color: var(--tpl-main-color) !important;
-  color: var(--tpl-text-button) !important;
+  background-color: var(--tpl-btn-primary-bg) !important;
+  border-color: var(--tpl-btn-primary-bg) !important;
+  color: var(--tpl-btn-primary-text) !important;
   font-family: var(--tpl-font-heading), sans-serif;
   font-weight: 600;
   border-radius: 6px;
@@ -850,10 +850,47 @@ body:not(.using-keyboard) *:focus {
 .btn-primary:hover,
 .btn-cart:hover,
 .cssbutton:hover {
-  background-color: var(--mrh-shipping-bar-text) !important;
-  border-color: var(--mrh-shipping-bar-text) !important;
+  background-color: var(--tpl-btn-primary-hover) !important;
+  border-color: var(--tpl-btn-primary-hover) !important;
+  color: var(--tpl-btn-primary-text) !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(74, 140, 42, 0.25);
+}
+.btn-secondary {
+  background-color: var(--tpl-btn-secondary-bg) !important;
+  border-color: var(--tpl-btn-secondary-bg) !important;
+  color: var(--tpl-btn-secondary-text) !important;
+}
+.btn-secondary:hover {
+  background-color: var(--tpl-btn-secondary-hover) !important;
+  border-color: var(--tpl-btn-secondary-hover) !important;
+}
+.btn-outline-primary {
+  background-color: transparent !important;
+  border-color: var(--tpl-btn-outline-border) !important;
+  color: var(--tpl-btn-outline-text) !important;
+}
+.btn-outline-primary:hover {
+  background-color: var(--tpl-btn-outline-hover) !important;
+  color: #fff !important;
+}
+.btn-info {
+  background-color: var(--tpl-btn-info-bg) !important;
+  border-color: var(--tpl-btn-info-bg) !important;
+  color: var(--tpl-btn-info-text) !important;
+}
+.btn-info:hover {
+  background-color: var(--tpl-btn-info-hover) !important;
+  border-color: var(--tpl-btn-info-hover) !important;
+}
+.btn-express {
+  background-color: var(--tpl-btn-express-bg) !important;
+  border-color: var(--tpl-btn-express-bg) !important;
+  color: var(--tpl-btn-express-text) !important;
+}
+.btn-express:hover {
+  background-color: var(--tpl-btn-express-hover) !important;
+  border-color: var(--tpl-btn-express-hover) !important;
 }
 
 /* Product Cards */
