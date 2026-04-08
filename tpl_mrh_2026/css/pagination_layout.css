@@ -1,44 +1,294 @@
 /**
- * Pagination Layout CSS
- * Version: v6.6.2
- * Datum: 09. Februar 2026
- * 
- * Layout: Seitenzahlen links, Anzahl-Anzeige rechts
+ * MRH 2026 – Pagination Component
+ * Template: tpl_mrh_2026
+ * Version: 2.0.0
+ * Datum: 08. April 2026
+ *
+ * Design: Mobile First | Bootstrap 5.3 | SEO 2026 | Accessibility
+ * Methodik: BEM (Block__Element--Modifier)
+ * Kein jQuery – reines CSS + optionales Vanilla JS
+ *
+ * Farbvariablen werden aus dem Template-Konfigurator geladen.
+ * Fallback-Werte sind hier definiert.
  */
 
-/* Pagination Wrapper */
-.pagination-wrapper {
-    margin: 1rem 0;
+/* ═══════════════════════════════════════════════════
+   CSS Custom Properties (Fallbacks)
+   ═══════════════════════════════════════════════════ */
+:root {
+  --mrh-pg-font:        inherit;
+  --mrh-pg-font-size:   0.8125rem;       /* 13px */
+  --mrh-pg-font-weight: 500;
+  --mrh-pg-radius:      0.375rem;        /* 6px */
+  --mrh-pg-gap:         0.25rem;         /* 4px zwischen Items */
+  --mrh-pg-size:        2.25rem;         /* 36px Touch-Target */
+  --mrh-pg-size-sm:     2rem;            /* 32px Mobile */
+  --mrh-pg-transition:  150ms ease;
+
+  /* Farben – Neutral */
+  --mrh-pg-bg:          transparent;
+  --mrh-pg-text:        #374151;         /* gray-700 */
+  --mrh-pg-border:      #d1d5db;         /* gray-300 */
+
+  /* Farben – Hover */
+  --mrh-pg-hover-bg:    #f0fdf4;         /* green-50 */
+  --mrh-pg-hover-text:  #166534;         /* green-800 */
+  --mrh-pg-hover-border:#86efac;         /* green-300 */
+
+  /* Farben – Aktiv (aktuelle Seite) */
+  --mrh-pg-active-bg:   #16a34a;         /* green-600 / Brand */
+  --mrh-pg-active-text: #ffffff;
+  --mrh-pg-active-border:#16a34a;
+
+  /* Farben – Deaktiviert */
+  --mrh-pg-disabled-bg:   transparent;
+  --mrh-pg-disabled-text: #9ca3af;       /* gray-400 */
+  --mrh-pg-disabled-border:#e5e7eb;      /* gray-200 */
+
+  /* Farben – Counter */
+  --mrh-pg-count-text:  #6b7280;         /* gray-500 */
+
+  /* Fokus */
+  --mrh-pg-focus-ring:  rgba(22, 163, 74, 0.35);  /* green-600/35% */
 }
 
-/* Flex Container für Pagination */
-.pagination-wrapper .d-flex {
-    gap: 1rem;
+
+/* ═══════════════════════════════════════════════════
+   Block: .mrh-pagination
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination {
+  margin: 1rem 0;
+  font-family: var(--mrh-pg-font);
 }
 
-/* Pagination Links (LINKS) */
-.pagination-links {
-    flex: 0 0 auto;
+
+/* ═══════════════════════════════════════════════════
+   Element: __bar (Flex-Container)
+   Mobile: Vertikal gestapelt, zentriert
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
 }
 
-/* Pagination Count (RECHTS) */
-.pagination-count {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    line-height: 2.5rem; /* Vertikale Zentrierung mit Pagination-Buttons */
+
+/* ═══════════════════════════════════════════════════
+   Element: __count (Ergebnis-Anzeige)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__count {
+  font-size: var(--mrh-pg-font-size);
+  color: var(--mrh-pg-count-text);
+  white-space: nowrap;
+  line-height: 1.5;
+  order: -1;  /* Counter immer oben auf Mobile */
 }
 
-/* Responsive: Auf kleinen Bildschirmen untereinander */
-@media (max-width: 576px) {
-    .pagination-wrapper .d-flex {
-        flex-direction: column;
-        align-items: flex-start !important;
-        gap: 0.5rem;
-    }
-    
-    .pagination-count {
-        order: -1; /* Count oben auf Mobile */
-        line-height: normal;
-        margin-bottom: 0.5rem;
-    }
+
+/* ═══════════════════════════════════════════════════
+   Element: __nav + __list
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__nav {
+  display: flex;
+  align-items: center;
+}
+
+.mrh-pagination__list {
+  display: flex;
+  align-items: center;
+  gap: var(--mrh-pg-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Element: __item
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__item {
+  display: flex;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Element: __link (Basis-Stil für alle Links/Spans)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--mrh-pg-size-sm);
+  height: var(--mrh-pg-size-sm);
+  padding: 0 0.5rem;
+  font-size: var(--mrh-pg-font-size);
+  font-weight: var(--mrh-pg-font-weight);
+  line-height: 1;
+  color: var(--mrh-pg-text);
+  background: var(--mrh-pg-bg);
+  border: 1px solid var(--mrh-pg-border);
+  border-radius: var(--mrh-pg-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color var(--mrh-pg-transition),
+    background-color var(--mrh-pg-transition),
+    border-color var(--mrh-pg-transition),
+    box-shadow var(--mrh-pg-transition);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Hover */
+a.mrh-pagination__link:hover {
+  color: var(--mrh-pg-hover-text);
+  background-color: var(--mrh-pg-hover-bg);
+  border-color: var(--mrh-pg-hover-border);
+  text-decoration: none;
+}
+
+/* Fokus (Tastatur) */
+a.mrh-pagination__link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--mrh-pg-focus-ring);
+  z-index: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Modifier: --current (aktive Seite)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__link--current {
+  color: var(--mrh-pg-active-text);
+  background-color: var(--mrh-pg-active-bg);
+  border-color: var(--mrh-pg-active-border);
+  cursor: default;
+  pointer-events: none;
+  font-weight: 700;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Modifier: --disabled (Prev/Next deaktiviert)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__link--disabled {
+  color: var(--mrh-pg-disabled-text);
+  background-color: var(--mrh-pg-disabled-bg);
+  border-color: var(--mrh-pg-disabled-border);
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Modifier: --ellipsis (...)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__item--ellipsis .mrh-pagination__link {
+  border-color: transparent;
+  background: transparent;
+  min-width: 1.5rem;
+  padding: 0 0.125rem;
+}
+
+.mrh-pagination__item--ellipsis a.mrh-pagination__link:hover {
+  color: var(--mrh-pg-hover-text);
+  background-color: var(--mrh-pg-hover-bg);
+  border-color: var(--mrh-pg-hover-border);
+}
+
+.mrh-pagination__dots {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Element: __icon (SVG Chevrons)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Prev/Next spezifisch
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination__item--prev .mrh-pagination__link,
+.mrh-pagination__item--next .mrh-pagination__link {
+  min-width: var(--mrh-pg-size-sm);
+  padding: 0 0.375rem;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE: Tablet (≥576px)
+   ═══════════════════════════════════════════════════ */
+@media (min-width: 576px) {
+  .mrh-pagination__bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mrh-pagination__count {
+    order: 0;  /* Links */
+  }
+
+  /* Nav rechts */
+  .mrh-pagination__nav {
+    margin-left: auto;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE: Desktop (≥768px)
+   ═══════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .mrh-pagination__link {
+    min-width: var(--mrh-pg-size);
+    height: var(--mrh-pg-size);
+    font-size: 0.875rem;                 /* 14px */
+  }
+
+  .mrh-pagination__item--prev .mrh-pagination__link,
+  .mrh-pagination__item--next .mrh-pagination__link {
+    min-width: var(--mrh-pg-size);
+    padding: 0 0.5rem;
+  }
+
+  .mrh-pagination__count {
+    font-size: 0.875rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE: Large Desktop (≥1200px)
+   ═══════════════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  .mrh-pagination__link {
+    min-width: 2.5rem;                   /* 40px */
+    height: 2.5rem;
+  }
+
+  .mrh-pagination__item--prev .mrh-pagination__link,
+  .mrh-pagination__item--next .mrh-pagination__link {
+    min-width: 2.5rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   Print: Pagination ausblenden
+   ═══════════════════════════════════════════════════ */
+@media print {
+  .mrh-pagination {
+    display: none !important;
+  }
 }

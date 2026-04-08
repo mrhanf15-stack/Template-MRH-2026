@@ -1,45 +1,128 @@
-{* MRH 2026: Pagination – BS5.3 *}
-<div class="mrh-pagination-bar d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
-  {if isset($DISPLAY_COUNT)}
-    <div class="mrh-pagination-count small text-body-secondary">{$DISPLAY_COUNT}</div>
-  {/if}
-  {if isset($DISPLAY_LINKS)}
-    <nav aria-label="Seitennavigation">
-      <ul class="pagination pagination-sm mb-0">
-        {if isset($DISPLAY_LINKS.previous_data)}
-          <li class="page-item">
-            <a class="page-link" href="{$DISPLAY_LINKS.previous_data.LINK}" title="{$DISPLAY_LINKS.previous_data.TITLE}" aria-label="{$DISPLAY_LINKS.previous_data.TITLE}">
-              <span class="fa fa-chevron-left" aria-hidden="true"></span>
-            </a>
-          </li>
-        {/if}
-        {if isset($DISPLAY_LINKS.previouspages_data)}
-          <li class="page-item">
-            <a class="page-link" href="{$DISPLAY_LINKS.previouspages_data.LINK}" title="{$DISPLAY_LINKS.previouspages_data.TITLE}">{$DISPLAY_LINKS.previouspages_data.TEXT}</a>
-          </li>
-        {/if}
-        {if isset($DISPLAY_LINKS.pages_data)}
-          {foreach key="keys" name="outer" item="pages" from=$DISPLAY_LINKS.pages_data}
-            {if $pages.CURRENT == 1}
-              <li class="page-item active" aria-current="page"><span class="page-link">{$pages.TEXT}</span></li>
-            {else}
-              <li class="page-item"><a class="page-link" href="{$pages.LINK}" title="{$pages.TITLE}">{$pages.TEXT}</a></li>
-            {/if}
-          {/foreach}
-        {/if}
-        {if isset($DISPLAY_LINKS.nextpages_data)}
-          <li class="page-item">
-            <a class="page-link" href="{$DISPLAY_LINKS.nextpages_data.LINK}" title="{$DISPLAY_LINKS.nextpages_data.TITLE}">{$DISPLAY_LINKS.nextpages_data.TEXT}</a>
-          </li>
-        {/if}
-        {if isset($DISPLAY_LINKS.next_data)}
-          <li class="page-item">
-            <a class="page-link" href="{$DISPLAY_LINKS.next_data.LINK}" title="{$DISPLAY_LINKS.next_data.TITLE}" aria-label="{$DISPLAY_LINKS.next_data.TITLE}">
-              <span class="fa fa-chevron-right" aria-hidden="true"></span>
-            </a>
-          </li>
-        {/if}
-      </ul>
-    </nav>
-  {/if}
+{*
+  MRH 2026 – Pagination Component
+  Template: tpl_mrh_2026
+  Version: 2.0.0
+  Datum: 08. April 2026
+  
+  Bootstrap 5.3 | Mobile First | SEO 2026 | Accessibility
+  
+  Smarty-Variablen (von splitPageResults):
+    $DISPLAY_COUNT              – "Zeige X bis Y (von insgesamt Z Artikeln)"
+    $DISPLAY_LINKS              – Array mit Pagination-Daten
+      .previous_data            – Vorherige Seite {LINK, TITLE, TEXT, PAGE}
+      .previouspages_data       – Vorheriges Fenster "..." {LINK, TITLE, TEXT, PAGE}
+      .pages_data[]             – Seitenzahlen {LINK, TITLE, TEXT, PAGE, CURRENT}
+      .nextpages_data           – Nächstes Fenster "..." {LINK, TITLE, TEXT, PAGE}
+      .next_data                – Nächste Seite {LINK, TITLE, TEXT, PAGE}
+*}
+
+{if isset($DISPLAY_LINKS) || isset($DISPLAY_COUNT)}
+<div class="mrh-pagination" role="navigation" aria-label="Seitennavigation">
+
+  {* ── Obere Zeile: Counter + Seitenzahlen ── *}
+  <div class="mrh-pagination__bar">
+
+    {* Ergebnis-Counter *}
+    {if isset($DISPLAY_COUNT)}
+      <div class="mrh-pagination__count">
+        {$DISPLAY_COUNT}
+      </div>
+    {/if}
+
+    {* Seitennavigation *}
+    {if isset($DISPLAY_LINKS)}
+      <nav class="mrh-pagination__nav" aria-label="Seiten">
+        <ul class="mrh-pagination__list">
+
+          {* ◀ Zurück *}
+          {if isset($DISPLAY_LINKS.previous_data)}
+            <li class="mrh-pagination__item mrh-pagination__item--prev">
+              <a class="mrh-pagination__link"
+                 href="{$DISPLAY_LINKS.previous_data.LINK}"
+                 title="{$DISPLAY_LINKS.previous_data.TITLE}"
+                 aria-label="{$DISPLAY_LINKS.previous_data.TITLE}"
+                 rel="prev">
+                <svg class="mrh-pagination__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+          {else}
+            <li class="mrh-pagination__item mrh-pagination__item--prev mrh-pagination__item--disabled" aria-hidden="true">
+              <span class="mrh-pagination__link mrh-pagination__link--disabled">
+                <svg class="mrh-pagination__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </li>
+          {/if}
+
+          {* ... Vorherige Seiten-Gruppe *}
+          {if isset($DISPLAY_LINKS.previouspages_data)}
+            <li class="mrh-pagination__item mrh-pagination__item--ellipsis">
+              <a class="mrh-pagination__link"
+                 href="{$DISPLAY_LINKS.previouspages_data.LINK}"
+                 title="{$DISPLAY_LINKS.previouspages_data.TITLE}">
+                <span class="mrh-pagination__dots" aria-hidden="true">&hellip;</span>
+              </a>
+            </li>
+          {/if}
+
+          {* Seitenzahlen *}
+          {if isset($DISPLAY_LINKS.pages_data)}
+            {foreach key="keys" name="outer" item="pages" from=$DISPLAY_LINKS.pages_data}
+              {if $pages.CURRENT == 1}
+                <li class="mrh-pagination__item mrh-pagination__item--active" aria-current="page">
+                  <span class="mrh-pagination__link mrh-pagination__link--current">{$pages.TEXT}</span>
+                </li>
+              {else}
+                <li class="mrh-pagination__item">
+                  <a class="mrh-pagination__link"
+                     href="{$pages.LINK}"
+                     title="{$pages.TITLE}">{$pages.TEXT}</a>
+                </li>
+              {/if}
+            {/foreach}
+          {/if}
+
+          {* ... Nächste Seiten-Gruppe *}
+          {if isset($DISPLAY_LINKS.nextpages_data)}
+            <li class="mrh-pagination__item mrh-pagination__item--ellipsis">
+              <a class="mrh-pagination__link"
+                 href="{$DISPLAY_LINKS.nextpages_data.LINK}"
+                 title="{$DISPLAY_LINKS.nextpages_data.TITLE}">
+                <span class="mrh-pagination__dots" aria-hidden="true">&hellip;</span>
+              </a>
+            </li>
+          {/if}
+
+          {* ▶ Weiter *}
+          {if isset($DISPLAY_LINKS.next_data)}
+            <li class="mrh-pagination__item mrh-pagination__item--next">
+              <a class="mrh-pagination__link"
+                 href="{$DISPLAY_LINKS.next_data.LINK}"
+                 title="{$DISPLAY_LINKS.next_data.TITLE}"
+                 aria-label="{$DISPLAY_LINKS.next_data.TITLE}"
+                 rel="next">
+                <svg class="mrh-pagination__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+          {else}
+            <li class="mrh-pagination__item mrh-pagination__item--next mrh-pagination__item--disabled" aria-hidden="true">
+              <span class="mrh-pagination__link mrh-pagination__link--disabled">
+                <svg class="mrh-pagination__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </li>
+          {/if}
+
+        </ul>
+      </nav>
+    {/if}
+
+  </div>
 </div>
+{/if}
