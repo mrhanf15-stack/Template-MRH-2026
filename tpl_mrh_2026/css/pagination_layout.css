@@ -330,3 +330,13 @@ a.mrh-pagination__link:focus-visible {
     display: none !important;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════
+   Cleanup: IAS (Infinite Ajax Scroll) Spinner ausblenden
+   Das Plugin wurde entfernt, aber als Fallback blenden
+   wir den Spinner-Container sicherheitshalber aus.
+   ═══════════════════════════════════════════════════ */
+.ias_spinner {
+  display: none !important;
+}
