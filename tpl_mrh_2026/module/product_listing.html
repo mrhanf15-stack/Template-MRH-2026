@@ -48,6 +48,13 @@
     {/if}
   </div>
 
+  {* Obere Pagination (kompakt, vor Produkt-Grid) *}
+  {if isset($PAGINATION) && $PAGINATION != ''}
+    <div class="mrh-pagination--top">
+      {$PAGINATION}
+    </div>
+  {/if}
+
   {* Produkt-Grid *}
   {if isset($module_content) && count($module_content) > 0}
     <div class="row g-3" itemscope itemtype="https://schema.org/ItemList">

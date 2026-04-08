@@ -285,6 +285,43 @@ a.mrh-pagination__link:focus-visible {
 
 
 /* ═══════════════════════════════════════════════════
+   Modifier: --top (Obere Pagination, kompakter)
+   ═══════════════════════════════════════════════════ */
+.mrh-pagination--top {
+  margin-bottom: 1rem;
+}
+
+.mrh-pagination--top .mrh-pagination {
+  margin: 0;
+}
+
+.mrh-pagination--top .mrh-pagination__bar {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mrh-pagination--top .mrh-pagination__count {
+  order: 0;
+}
+
+.mrh-pagination--top .mrh-pagination__nav {
+  margin-left: auto;
+}
+
+/* Auf Mobile: Obere Pagination nur Counter zeigen, Nav verstecken */
+@media (max-width: 575.98px) {
+  .mrh-pagination--top .mrh-pagination__nav {
+    display: none;
+  }
+  .mrh-pagination--top .mrh-pagination__count {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
    Print: Pagination ausblenden
    ═══════════════════════════════════════════════════ */
 @media print {
