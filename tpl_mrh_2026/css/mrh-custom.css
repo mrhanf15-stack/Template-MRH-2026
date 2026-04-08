@@ -887,10 +887,15 @@ body:not(.using-keyboard) *:focus {
   background-color: var(--tpl-btn-express-bg) !important;
   border-color: var(--tpl-btn-express-bg) !important;
   color: var(--tpl-btn-express-text) !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 .btn-express:hover {
   background-color: var(--tpl-btn-express-hover) !important;
   border-color: var(--tpl-btn-express-hover) !important;
+  color: var(--tpl-btn-express-text) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.25);
 }
 
 /* Product Cards */
@@ -1328,6 +1333,22 @@ body.mrh-no-scroll {
 /* Sticky Header Farben */
 .demo-farbe.tpl-sticky-bg       { background-color: var(--tpl-sticky-bg) !important; }
 .demo-farbe.tpl-sticky-text     { background-color: var(--tpl-sticky-text) !important; }
+/* Button-Farben (Phase 0.1) */
+.demo-farbe.tpl-btn-primary-bg      { background-color: var(--tpl-btn-primary-bg) !important; }
+.demo-farbe.tpl-btn-primary-text    { background-color: var(--tpl-btn-primary-text) !important; }
+.demo-farbe.tpl-btn-primary-hover   { background-color: var(--tpl-btn-primary-hover) !important; }
+.demo-farbe.tpl-btn-secondary-bg    { background-color: var(--tpl-btn-secondary-bg) !important; }
+.demo-farbe.tpl-btn-secondary-text  { background-color: var(--tpl-btn-secondary-text) !important; }
+.demo-farbe.tpl-btn-secondary-hover { background-color: var(--tpl-btn-secondary-hover) !important; }
+.demo-farbe.tpl-btn-outline-border  { background-color: var(--tpl-btn-outline-border) !important; }
+.demo-farbe.tpl-btn-outline-text    { background-color: var(--tpl-btn-outline-text) !important; }
+.demo-farbe.tpl-btn-outline-hover   { background-color: var(--tpl-btn-outline-hover) !important; }
+.demo-farbe.tpl-btn-info-bg         { background-color: var(--tpl-btn-info-bg) !important; }
+.demo-farbe.tpl-btn-info-text       { background-color: var(--tpl-btn-info-text) !important; }
+.demo-farbe.tpl-btn-info-hover      { background-color: var(--tpl-btn-info-hover) !important; }
+.demo-farbe.tpl-btn-express-bg      { background-color: var(--tpl-btn-express-bg) !important; }
+.demo-farbe.tpl-btn-express-text    { background-color: var(--tpl-btn-express-text) !important; }
+.demo-farbe.tpl-btn-express-hover   { background-color: var(--tpl-btn-express-hover) !important; }
 
 /* ============================================================
    15 PRODUKTDATEN-TABELLE (.tebals.wite) – Modern Clean
