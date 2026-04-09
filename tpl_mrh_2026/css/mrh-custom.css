@@ -2176,10 +2176,17 @@ table.tebals.wite tr:last-child td:last-child {
   }
 }
 
-/* Desktop (≥992px): 4-spaltig */
-@media (min-width: 992px) {
+/* Tablet-Large (≥768px): 4-spaltig */
+@media (min-width: 768px) {
   .subcatlist {
     width: calc(25% - 0.75rem) !important;
+  }
+}
+
+/* Desktop (≥992px): 5-spaltig */
+@media (min-width: 992px) {
+  .subcatlist {
+    width: calc(20% - 0.8rem) !important;
   }
 }
 
@@ -2591,8 +2598,7 @@ table.tebals.wite tr:last-child td:last-child {
   font-size: 0.95rem;
   color: var(--tpl-text-standard);
   line-height: 1.5;
-  max-height: 4.5em;
-  overflow: hidden;
+  /* Dynamisch: kein Abschneiden, volle Hoehe */
 }
 
 /* Mobile: Bild ueber H1, zentriert */
