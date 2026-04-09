@@ -207,7 +207,7 @@ compare_max = "Maximal 4 Produkte vergleichbar"
 
 ### 3a.1 Funktionsweise
 
-Das Template verfuegt ueber ein **Admin-Anpassungsmodul** (Farb-Konfigurator), das die Farben des gesamten Shops steuert. Die Farben werden in `config/colors.json` gespeichert und ueber `smarty/mrh_color_vars.php` als CSS Custom Properties im `<head>` ausgegeben.
+Das Template verfuegt ueber ein **Admin-Anpassungsmodul** (Farb-Konfigurator), das die Farben des gesamten Shops steuert. Die Farben werden in `config/colors.json` gespeichert und ueber `css/general.css.php` als inline `<style id="mrh-color-vars">:root{...}</style>` im `<head>` ausgegeben. `general.css.php` ist die **Single Source of Truth** fuer alle Farb-Variablen.
 
 **Dateien:**
 
@@ -216,8 +216,8 @@ Das Template verfuegt ueber ein **Admin-Anpassungsmodul** (Farb-Konfigurator), d
 | `config/colors.json` | Gespeicherte Farben (wird vom Admin ueber das Formular beschrieben) |
 | `config/default_colors.json` | Standard-Farben (Fallback bei Reset) |
 | `source/boxes/templateconfig.php` | PHP-Handler: Liest/Schreibt `colors.json`, rendert das Admin-Formular |
-| `smarty/mrh_color_vars.php` | Liest `colors.json` → gibt `<style id="mrh-color-vars">` mit `:root { --tpl-* }` aus |
-| `css/general.css.php` | Liest ebenfalls `colors.json` fuer die CSS-Generierung |
+| `css/general.css.php` | **Single Source of Truth:** Liest `colors.json`, hat `$defaults`-Array als Fallback, gibt inline `<style id="mrh-color-vars">:root{--tpl-*}` aus und generiert `--mrh-*` Alias-Variablen |
+| `css/mrh-custom.css` | Enthaelt die `mrh-btn-*` Klassen die auf die CSS Custom Properties zugreifen |
 
 ### 3a.2 Verfuegbare Farb-Variablen aus dem Konfigurator
 
@@ -245,6 +245,43 @@ Diese Variablen werden vom Konfigurator gesetzt und stehen als CSS Custom Proper
 | `tpl-topbar-text` | `--tpl-topbar-text` | `--mrh-topbar-text` | Topbar Textfarbe |
 | `tpl-sticky-bg` | `--tpl-sticky-bg` | `--mrh-sticky-bg` | Sticky Header Hintergrund |
 | `tpl-sticky-text` | `--tpl-sticky-text` | `--mrh-sticky-text` | Sticky Header Textfarbe |
+| `tpl-btn-primary-bg` | `--tpl-btn-primary-bg` | – | Primary-Button Hintergrund (Warenkorb, Suche) |
+| `tpl-btn-primary-text` | `--tpl-btn-primary-text` | – | Primary-Button Textfarbe |
+| `tpl-btn-primary-hover` | `--tpl-btn-primary-hover` | – | Primary-Button Hover |
+| `tpl-btn-secondary-bg` | `--tpl-btn-secondary-bg` | – | Secondary-Button Hintergrund |
+| `tpl-btn-secondary-text` | `--tpl-btn-secondary-text` | – | Secondary-Button Textfarbe |
+| `tpl-btn-secondary-hover` | `--tpl-btn-secondary-hover` | – | Secondary-Button Hover |
+| `tpl-btn-express-bg` | `--tpl-btn-express-bg` | – | Express-Checkout Hintergrund |
+| `tpl-btn-express-text` | `--tpl-btn-express-text` | – | Express-Checkout Textfarbe |
+| `tpl-btn-express-hover` | `--tpl-btn-express-hover` | – | Express-Checkout Hover |
+| `tpl-btn-details-bg` | `--tpl-btn-details-bg` | – | Details-Button Hintergrund |
+| `tpl-btn-details-text` | `--tpl-btn-details-text` | – | Details-Button Textfarbe |
+| `tpl-btn-details-hover` | `--tpl-btn-details-hover` | – | Details-Button Hover |
+| `tpl-btn-wishlist-bg` | `--tpl-btn-wishlist-bg` | – | Merkzettel-Button Hintergrund |
+| `tpl-btn-wishlist-text` | `--tpl-btn-wishlist-text` | – | Merkzettel-Button Textfarbe |
+| `tpl-btn-wishlist-hover` | `--tpl-btn-wishlist-hover` | – | Merkzettel-Button Hover |
+| `tpl-btn-compare-bg` | `--tpl-btn-compare-bg` | – | Vergleich-Button Hintergrund |
+| `tpl-btn-compare-text` | `--tpl-btn-compare-text` | – | Vergleich-Button Textfarbe |
+| `tpl-btn-compare-hover` | `--tpl-btn-compare-hover` | – | Vergleich-Button Hover |
+
+### 3a.2b Button-Klassen-System (mrh-btn-*)
+
+Alle Buttons im Template verwenden das einheitliche `mrh-btn-*` System. Bootstrap-Farbklassen (`btn-success`, `btn-primary` etc.) sind **nicht mehr erlaubt** in kundenrelevanten Dateien.
+
+| CSS-Klasse | Funktion | Variablen |
+|---|---|---|
+| `mrh-btn-primary` | Warenkorb, Suche, Formulare | `--tpl-btn-primary-bg/text/hover` |
+| `mrh-btn-details` | Details-Button im Listing | `--tpl-btn-details-bg/text/hover` |
+| `mrh-btn-wishlist` | Merkzettel-Button | `--tpl-btn-wishlist-bg/text/hover` |
+| `mrh-btn-compare` | Vergleich-Button | `--tpl-btn-compare-bg/text/hover` |
+| `mrh-btn-express` | Express-Checkout | `--tpl-btn-express-bg/text/hover` |
+| `mrh-btn-outline` | Links, Blog, Reviews | `--tpl-btn-primary-bg` (Outline-Stil) |
+
+**Verwendung in HTML:**
+```html
+<a class="btn btn-sm mrh-btn-details" href="...">Details</a>
+<a class="btn btn-sm mrh-btn-wishlist" href="..."><i class="fa-regular fa-heart"></i></a>
+```
 
 ### 3a.3 KRITISCHE REGEL: Farben aus dem Konfigurator verwenden
 
@@ -280,7 +317,7 @@ Bei der Integration neuer Module sicherstellen:
 
 - [ ] Keine CSS-Regel ueberschreibt die `:root`-Variablen des Konfigurators
 - [ ] Keine `!important` auf Farben die vom Konfigurator gesteuert werden
-- [ ] Modul-CSS wird NACH `mrh_color_vars.php` geladen (nicht davor)
+- [ ] Modul-CSS wird NACH `general.css.php` geladen (nicht davor) – die Lade-Reihenfolge ist im `$css_array` in `general.css.php` definiert
 - [ ] Testen: Farbe im Konfigurator aendern → Modul uebernimmt die neue Farbe
 
 ---
