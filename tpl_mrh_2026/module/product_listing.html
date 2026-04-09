@@ -5,39 +5,60 @@
 
 {* ============================================================
    MRH 2026 – Phase 1: Kategorie-Header (Bild links, H1 + Desc rechts)
-   Desktop: Flexbox nebeneinander | Mobile: Bild ueber H1
+   + Page-2-Regel: Bild/Beschreibung/Subcats nur auf Seite 1
+   + CATEGORIES_IMAGE_2 / CATEGORIES_DESCRIPTION_2 (fivebytes)
    Stand: 2026-04-09
    ============================================================ *}
-{if isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != ''}
-  <div class="mrh-cat-header">
-    <div class="mrh-cat-image">
-      <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
-    </div>
-    <div class="mrh-cat-info">
-      <h1>{$LIST_TITLE}</h1>
-      {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
-        <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
+
+{* === H1 immer anzeigen (auch auf Seite 2+) === *}
+{if !empty($LIST_TITLE)}
+  <h1>{$LIST_TITLE}</h1>
+{/if}
+
+{* === Kategorie-Header + Beschreibung nur auf Seite 1 === *}
+{if empty($smarty.get.page) || $smarty.get.page < 2}
+
+  {if !empty($CATEGORIES_IMAGE) || !empty($CATEGORIES_SHORT_DESCRIPTION)}
+    <div class="mrh-cat-header">
+      {if !empty($CATEGORIES_IMAGE)}
+        <div class="mrh-cat-image">
+          <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
+        </div>
+      {/if}
+      {* //BOF - Zweites Kategoriebild (fivebytes) *}
+      {if !empty($CATEGORIES_IMAGE_2)}
+        <div class="mrh-cat-image">
+          <img src="{$CATEGORIES_IMAGE_2}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
+        </div>
+      {/if}
+      {* //EOF - Zweites Kategoriebild *}
+      {if !empty($CATEGORIES_SHORT_DESCRIPTION)}
+        <div class="mrh-cat-info">
+          <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
+        </div>
+      {elseif !empty($CATEGORIES_DESCRIPTION)}
+        <div class="mrh-cat-info">
+          <div class="mrh-cat-short-desc">{$CATEGORIES_DESCRIPTION}</div>
+        </div>
       {/if}
     </div>
-  </div>
-{else}
-  <h1>{$LIST_TITLE}</h1>
-  {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
-    <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
   {/if}
-{/if}
 
-{* Unterkategorien *}
-{if isset($CATEGORIES_LISTING) && $CATEGORIES_LISTING|count_characters > 1}
-<div class="the-subcats">
-	{$CATEGORIES_LISTING}
-</div>
-{/if}
+  {* Unterkategorien (nur Seite 1) *}
+  {if isset($CATEGORIES_LISTING) && $CATEGORIES_LISTING|count_characters > 1}
+    <div class="the-subcats">
+      {$CATEGORIES_LISTING}
+    </div>
+  {/if}
 
-{* Filter-Leiste *}
+{/if}
+{* === Ende Page-1-Only Block === *}
+
+{* Filter-Leiste (immer anzeigen) *}
 {$LISTING_FILTER}
 
-{* Hersteller-Header (Phase 5 – wird spaeter umgebaut) *}
+{* Hersteller-Header (nur Seite 1, Phase 5 – wird spaeter umgebaut) *}
+{if empty($smarty.get.page) || $smarty.get.page < 2}
 {if (isset($MANUFACTURER_DESCRIPTION) && $MANUFACTURER_DESCRIPTION != '')
     || (isset($MANUFACTURER_SHORT_DESCRIPTION) && $MANUFACTURER_SHORT_DESCRIPTION != '')
     || (isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != '')
@@ -51,7 +72,8 @@
 <div class="manu_description cf">
   {if $MANUFACTURER_IMAGE}<img class="manu_image{if !$MANUFACTURER_DESCRIPTION && !$MANUFACTURER_SHORT_DESCRIPTION} mi_nomargin{/if}" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER_NAME|onlytext}" />{/if}
   {if $MANUFACTURER_SHORT_DESCRIPTION}{$MANUFACTURER_SHORT_DESCRIPTION}{else if $MANUFACTURER_DESCRIPTION}{$MANUFACTURER_DESCRIPTION}{/if}
-</div>  
+</div>
+{/if}
 {/if}
 
 {* Obere Pagination *}
@@ -65,13 +87,18 @@
 {* Untere Pagination *}
 {$PAGINATION}
 
-{* SEO-Beschreibung unterhalb des Listings (Phase 6) *}
-{if (isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != '')
-     || (isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != '')}
-  {if isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
-  <div class="cat_description cf">
-    <span class="h1">{$LIST_TITLE}</span>
-    {$CATEGORIES_DESCRIPTION}
-  </div>
+{* === SEO-Langbeschreibung unterhalb des Listings (nur Seite 1) === *}
+{if empty($smarty.get.page) || $smarty.get.page < 2}
+  {if !empty($CATEGORIES_SHORT_DESCRIPTION) && !empty($CATEGORIES_DESCRIPTION)}
+    <div class="cat_description cf">
+      <span class="h1">{$LIST_TITLE}</span>
+      {$CATEGORIES_DESCRIPTION}
+    </div>
+  {elseif !empty($CATEGORIES_DESCRIPTION_2)}
+    {* //BOF - Zweiter Beschreibungstext (fivebytes) *}
+    <div class="cat_description cf">
+      {$CATEGORIES_DESCRIPTION_2}
+    </div>
+    {* //EOF - Zweiter Beschreibungstext *}
   {/if}
 {/if}
