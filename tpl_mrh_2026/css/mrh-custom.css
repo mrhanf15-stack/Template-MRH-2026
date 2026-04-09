@@ -2502,3 +2502,43 @@ table.tebals.wite tr:last-child td:last-child {
     font-size: 1rem;
   }
 }
+
+/* ============================================================
+   FIX: template.css .lb-buttons-wrap a ueberschreibt mrh-btn-*
+   template.css Zeile 2596 setzt !important auf background/color/border.
+   Wir muessen mit !important + hoeherer Spezifitaet zuruecksetzen.
+   Stand: 2026-04-09
+   ============================================================ */
+.lb-buttons-wrap a.btn.mrh-btn-details {
+  background-color: var(--tpl-btn-details-bg, #17a2b8) !important;
+  color: var(--tpl-btn-details-text, #ffffff) !important;
+  border-color: var(--tpl-btn-details-bg, #17a2b8) !important;
+}
+.lb-buttons-wrap a.btn.mrh-btn-details:hover,
+.lb-buttons-wrap a.btn.mrh-btn-details:focus {
+  background-color: var(--tpl-btn-details-hover, #138496) !important;
+  color: var(--tpl-btn-details-text, #ffffff) !important;
+  border-color: var(--tpl-btn-details-hover, #138496) !important;
+}
+.lb-buttons-wrap a.btn.mrh-btn-wishlist {
+  background-color: var(--tpl-btn-wishlist-bg, #ffffff) !important;
+  color: var(--tpl-btn-wishlist-text, #334155) !important;
+  border-color: var(--tpl-btn-wishlist-bg, #ffffff) !important;
+}
+.lb-buttons-wrap a.btn.mrh-btn-wishlist:hover,
+.lb-buttons-wrap a.btn.mrh-btn-wishlist:focus {
+  background-color: var(--tpl-btn-wishlist-hover, #dc3545) !important;
+  color: #ffffff !important;
+  border-color: var(--tpl-btn-wishlist-hover, #dc3545) !important;
+}
+.lb-buttons-wrap a.btn.mrh-btn-compare {
+  background-color: var(--tpl-btn-compare-bg, #ffffff) !important;
+  color: var(--tpl-btn-compare-text, #334155) !important;
+  border-color: var(--tpl-btn-compare-bg, #ffffff) !important;
+}
+.lb-buttons-wrap a.btn.mrh-btn-compare:hover,
+.lb-buttons-wrap a.btn.mrh-btn-compare:focus {
+  background-color: var(--tpl-btn-compare-hover, #17a2b8) !important;
+  color: #ffffff !important;
+  border-color: var(--tpl-btn-compare-hover, #17a2b8) !important;
+}
