@@ -2378,13 +2378,15 @@ table.tebals.wite tr:last-child td:last-child {
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-/* Fix: Äußeren Schatten/Border von .listingbox entfernen,
+/* Fix: Äußeren Schatten/Border/Padding von .listingbox entfernen,
    da .mrh-row-card bereits eigenen Schatten hat → sonst doppelt */
 .listingbox.listinglist {
   box-shadow: none !important;
   border: none !important;
-  border-radius: 0;
-  background: transparent;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .listingbox.listinglist:hover {
   box-shadow: none !important;
@@ -2394,6 +2396,11 @@ table.tebals.wite tr:last-child td:last-child {
 /* --- Einzelne Row-Card --- */
 .listinglist .lr_inner {
   height: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 .listinglist .mrh-row-card {
   display: flex;
