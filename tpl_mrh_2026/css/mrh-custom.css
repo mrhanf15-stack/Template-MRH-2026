@@ -4,18 +4,12 @@
    ============================================================ */
 
 /* ============================================================
-   00 MRH DESIGN-VARIABLEN – Überschreiben der Template-Defaults
+   00 MRH DESIGN-VARIABLEN
+   ============================================================
+   ENTFERNT: :root Farb-Block wurde entfernt.
+   Alle Farben kommen jetzt aus general.css.php (Single Source of Truth).
+   Schriftarten werden in variables.css definiert.
    ============================================================ */
-:root {
-  --tpl-main-color: #2d7a3a;
-  --tpl-main-color-2: #236b2f;
-  --tpl-secondary-color: #236b2f;
-  --mrh-primary: #2d7a3a;
-  --mrh-primary-dark: #236b2f;
-  --mrh-primary-light: #4a8c2a;
-  --tpl-font-heading: 'Montserrat', sans-serif;
-  --tpl-font-text: 'Open Sans', sans-serif;
-}
 
 /* ---- Admin Spacer ausblenden (nur für eingeloggte Admins relevant) ---- */
 .adminspacer {

@@ -1,81 +1,15 @@
+/* ============================================================
+   MRH 2026 Design System – Nicht-Farb-Variablen
+   ============================================================
+   WICHTIG: Alle Farb-Variablen (--tpl-*, --mrh-*) werden
+   ausschliesslich von general.css.php als inline <style> gesetzt.
+   Das ist die SINGLE SOURCE OF TRUTH fuer alle Farben.
+   Diese Datei enthaelt NUR Schriften und Rahmen.
+   ============================================================ */
 :root {
-    /* MRH 2026 Design System - Mr. Hanf Corporate Identity
-       Die --tpl-* Variablen werden dynamisch von general.css.php
-       aus config/colors.json gesetzt. Hier nur Fallback-Werte. */
-    --tpl-main-color: #4a8c2a;
-    --tpl-main-color-2: #1e1e1e;
-    --tpl-secondary-color: #3a7020;
-    --tpl-bg-color: #ffffff;
-    --tpl-bg-color-2: #f0fdf4;
-    --tpl-bg-productbox: #ffffff;
-    --tpl-bg-footer: #0f172a;
-    --tpl-text-standard: #0f172a;
-    --tpl-text-headings: #0f172a;
-    --tpl-text-button: #ffffff;
-    --tpl-text-footer: #94a3b8;
-    --tpl-text-footer-headings: #ffffff;
-    --tpl-borders-color: #e2e8f0;
+    /* Schriftarten */
     --tpl-font-heading: 'Plus Jakarta Sans', sans-serif;
     --tpl-font-text: 'Inter', sans-serif;
-
-    /* MRH 2026 Erweiterte Variablen
-       Diese --mrh-* Variablen verweisen auf die --tpl-* Konfigurator-Variablen,
-       damit Farbänderungen im Konfigurator sofort wirksam werden. */
-
-    /* Topbar: nutzt --tpl-topbar-bg / --tpl-topbar-text aus Konfigurator */
-    --mrh-topbar-bg: var(--tpl-topbar-bg, #1e293b);
-    --mrh-topbar-text: var(--tpl-topbar-text, #e2e8f0);
-
-    /* Menü-Navigation: nutzt --tpl-menu-* aus Konfigurator */
-    --mrh-menu-bg: var(--tpl-menu-bg, #16a34a);
-    --mrh-menu-text: var(--tpl-menu-text, #ffffff);
-    --mrh-menu-hover: var(--tpl-menu-hover, #38701e);
-    --mrh-menu-active: var(--tpl-menu-active, #ffffff);
-
-    /* Sticky Header: nutzt --tpl-sticky-* aus Konfigurator */
-    --mrh-sticky-bg: var(--tpl-sticky-bg, #ffffff);
-    --mrh-sticky-text: var(--tpl-sticky-text, #334155);
-
-    /* Sonstige MRH-Variablen (nicht im Konfigurator) */
-    --mrh-green-light: #f0fdf4;
-    --mrh-green-accent: #22c55e;
-    --mrh-shipping-bar-bg: var(--tpl-bg-color-2, #f0fdf4);
-    --mrh-shipping-bar-text: var(--tpl-secondary-color, #3a7020);
-    --mrh-header-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    --mrh-nav-bg: var(--tpl-bg-color, #ffffff);
-    --mrh-nav-hover: var(--tpl-bg-color-2, #f0fdf4);
-    --mrh-badge-bg: var(--tpl-main-color, #4a8c2a);
-    --mrh-badge-text: var(--tpl-text-button, #ffffff);
-
-    /* Button-Variablen (vom Konfigurator gesteuert) */
-    --tpl-btn-primary-bg: #6cc342;
-    --tpl-btn-primary-text: #ffffff;
-    --tpl-btn-primary-hover: #368610;
-    --tpl-btn-secondary-bg: #6c757d;
-    --tpl-btn-secondary-text: #ffffff;
-    --tpl-btn-secondary-hover: #565e64;
-    --tpl-btn-outline-border: #4a8c2a;
-    --tpl-btn-outline-text: #4a8c2a;
-    --tpl-btn-outline-hover: #4a8c2a;
-    --tpl-btn-info-bg: #17a2b8;
-    --tpl-btn-info-text: #ffffff;
-    --tpl-btn-info-hover: #138496;
-    --tpl-btn-express-bg: #17a2b8;
-    --tpl-btn-express-text: #ffffff;
-    --tpl-btn-express-hover: #138496;
-
-    /* Details-Button (Auge-Icon, Produktlisting) */
-    --tpl-btn-details-bg: #ffffff;
-    --tpl-btn-details-text: #198754;
-    --tpl-btn-details-hover: #198754;
-
-    /* Merkzettel-Button (Herz-Icon) */
-    --tpl-btn-wishlist-bg: #6c757d;
-    --tpl-btn-wishlist-text: #ffffff;
-    --tpl-btn-wishlist-hover: #565e64;
-
-    /* Vergleich-Button (Waage-Icon) */
-    --tpl-btn-compare-bg: #6c757d;
-    --tpl-btn-compare-text: #ffffff;
-    --tpl-btn-compare-hover: #565e64;
+    /* Rahmen */
+    --tpl-borders-color: #e2e8f0;
 }

@@ -1,17 +1,22 @@
 <?php
 /* =====================================================================
-   MRH 2026 Template – CSS Custom Properties aus colors.json
+   DEPRECATED seit 09.04.2026
+   =====================================================================
+   Diese Datei wird NICHT MEHR VERWENDET.
 
-   Wird in index.html eingebunden via:
+   Alle CSS Custom Properties (--tpl-*, --mrh-*) werden jetzt
+   ausschliesslich von general.css.php als inline <style> gesetzt.
+   general.css.php ist die SINGLE SOURCE OF TRUTH.
+
+   Diese Datei bleibt nur als Referenz erhalten.
+   Sie wird in KEINEM Template eingebunden.
+   =====================================================================
+   Alte Einbindung (NICHT VERWENDEN):
    {include file="`$smarty.const.CURRENT_TEMPLATE`/smarty/mrh_color_vars.php"}
-
-   Gibt ein <style>-Tag mit den konfigurierten Farben als CSS Custom Properties aus.
-   Wird im <head> geladen, damit alle CSS-Dateien die Variablen nutzen können.
-
-   HINWEIS: Liest die `tpl-` Keys aus colors.json (Original RevPlus Format).
-   Die CSS-Variablen werden sowohl als --tpl-* als auch als --mrh-* ausgegeben
-   für Abwärtskompatibilität mit mrh-custom.css.
    ===================================================================== */
+
+// DEPRECATED: Code deaktiviert. Siehe general.css.php fuer die aktive Implementierung.
+return;
 
 $json_file = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/config/colors.json';
 
