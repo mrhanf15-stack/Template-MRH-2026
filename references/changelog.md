@@ -1,5 +1,11 @@
 # MRH 2026 Template – Changelog
 
+## 2026-04-09 – mrh_color_vars.php geloescht
+
+| Datei | Aenderung |
+|-------|----------|
+| `smarty/mrh_color_vars.php` | Komplett geloescht. War nie eingebunden, seit Konsolidierung DEPRECATED. Alle Farb-Variablen kommen aus general.css.php. |
+
 ## 2026-04-09 – Konsolidierung: Single Source of Truth fuer CSS-Variablen
 
 **Betroffene Dateien:**
