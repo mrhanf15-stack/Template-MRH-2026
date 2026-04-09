@@ -7,7 +7,8 @@
   {* ══════════════════════════════════════════════════ *}
 
   {foreach name=aussen item=module_data from=$module_content}
-    <div class="listingbox lb_inner p-3 d-flex flex-column justify-content-between">
+    <div class="listingbox">
+      <div class="lb_inner p-3">
       <div class="lb_inner_wrap_image_title pt-3">
         {* Produktbild *}
         <div class="lb_image">
@@ -97,6 +98,7 @@
             {/if}
           </div>
         {/if}
+      </div>
       </div>
     </div>
   {/foreach}

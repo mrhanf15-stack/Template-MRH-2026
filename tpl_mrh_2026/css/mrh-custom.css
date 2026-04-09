@@ -2190,84 +2190,134 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 /* ============================================================
+   PRODUKTLISTING GRID (5-spaltig)
+   Ueberschreibt das float-Layout aus template.css
+   Stand: 2026-04-09
+   ============================================================ */
+
+/* --- Listing-Container: CSS Grid 5 Spalten --- */
+.listingcontainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.listingcontainer .listingbox {
+  float: none;
+  width: auto;
+  margin: 0;
+}
+.listingcontainer .listingbox .lb_inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.listingcontainer .listingbox:hover .lb_inner {
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+/* Responsive: 4 Spalten ab 1200px, 3 ab 992px, 2 ab 576px, 1 darunter */
+@media (max-width: 1400px) {
+  .listingcontainer { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 992px) {
+  .listingcontainer { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 576px) {
+  .listingcontainer { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* ============================================================
    GLOBALES BUTTON-FARBSYSTEM (Konfigurator-gesteuert)
    Alle Listing-Buttons nutzen CSS Custom Properties.
    Farben werden ueber den Admin-Konfigurator gesteuert.
-   Stand: 2026-04-08
+   KEIN !important – Spezifitaet ueber eigene mrh-btn-* Klassen.
+   Stand: 2026-04-09
    ============================================================ */
 
 /* --- Details-Button --- */
-/* Eigene Klasse: .mrh-btn-details (in product_listing_include.html) */
-.mrh-btn-details {
-  background-color: var(--tpl-btn-details-bg, #ffffff) !important;
-  color: var(--tpl-btn-details-text, #198754) !important;
-  border: 1px solid var(--tpl-btn-details-text, #198754) !important;
+.listingcontainer .mrh-btn-details,
+a.mrh-btn-details {
+  background-color: var(--tpl-btn-details-bg, #ffffff);
+  color: var(--tpl-btn-details-text, #198754);
+  border: 1px solid var(--tpl-btn-details-text, #198754);
   transition: all 0.2s ease;
 }
-.mrh-btn-details:hover,
-.mrh-btn-details:focus {
-  background-color: var(--tpl-btn-details-hover, #198754) !important;
-  color: var(--tpl-btn-details-text, #ffffff) !important;
-  border-color: var(--tpl-btn-details-hover, #198754) !important;
+.listingcontainer .mrh-btn-details:hover,
+.listingcontainer .mrh-btn-details:focus,
+a.mrh-btn-details:hover,
+a.mrh-btn-details:focus {
+  background-color: var(--tpl-btn-details-hover, #198754);
+  color: var(--tpl-btn-details-text, #ffffff);
+  border-color: var(--tpl-btn-details-hover, #198754);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* --- Merkzettel-Button (Herz-Icon) --- */
-/* Eigene Klasse: .mrh-btn-wishlist (in product_listing_include.html) */
-.mrh-btn-wishlist {
-  background-color: var(--tpl-btn-wishlist-bg, #6c757d) !important;
-  color: var(--tpl-btn-wishlist-text, #ffffff) !important;
-  border: 1px solid var(--tpl-btn-wishlist-bg, #6c757d) !important;
+.listingcontainer .mrh-btn-wishlist,
+a.mrh-btn-wishlist {
+  background-color: var(--tpl-btn-wishlist-bg, #6c757d);
+  color: var(--tpl-btn-wishlist-text, #ffffff);
+  border: 1px solid var(--tpl-btn-wishlist-bg, #6c757d);
   transition: all 0.2s ease;
 }
-.mrh-btn-wishlist:hover,
-.mrh-btn-wishlist:focus {
-  background-color: var(--tpl-btn-wishlist-hover, #565e64) !important;
-  color: var(--tpl-btn-wishlist-text, #ffffff) !important;
-  border-color: var(--tpl-btn-wishlist-hover, #565e64) !important;
+.listingcontainer .mrh-btn-wishlist:hover,
+.listingcontainer .mrh-btn-wishlist:focus,
+a.mrh-btn-wishlist:hover,
+a.mrh-btn-wishlist:focus {
+  background-color: var(--tpl-btn-wishlist-hover, #565e64);
+  color: var(--tpl-btn-wishlist-text, #ffffff);
+  border-color: var(--tpl-btn-wishlist-hover, #565e64);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* --- Vergleich-Button (Auge/Waage-Icon) --- */
-/* Eigene Klasse: .mrh-btn-compare (in product_listing_include.html) */
-.mrh-btn-compare {
-  background-color: var(--tpl-btn-compare-bg, #6c757d) !important;
-  color: var(--tpl-btn-compare-text, #ffffff) !important;
-  border: 1px solid var(--tpl-btn-compare-bg, #6c757d) !important;
+.listingcontainer .mrh-btn-compare,
+a.mrh-btn-compare {
+  background-color: var(--tpl-btn-compare-bg, #6c757d);
+  color: var(--tpl-btn-compare-text, #ffffff);
+  border: 1px solid var(--tpl-btn-compare-bg, #6c757d);
   transition: all 0.2s ease;
 }
-.mrh-btn-compare:hover,
-.mrh-btn-compare:focus {
-  background-color: var(--tpl-btn-compare-hover, #565e64) !important;
-  color: var(--tpl-btn-compare-text, #ffffff) !important;
-  border-color: var(--tpl-btn-compare-hover, #565e64) !important;
+.listingcontainer .mrh-btn-compare:hover,
+.listingcontainer .mrh-btn-compare:focus,
+a.mrh-btn-compare:hover,
+a.mrh-btn-compare:focus {
+  background-color: var(--tpl-btn-compare-hover, #565e64);
+  color: var(--tpl-btn-compare-text, #ffffff);
+  border-color: var(--tpl-btn-compare-hover, #565e64);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* --- Warenkorb-Button (Cart-Icon) --- */
 /* Nutzt die bestehenden tpl-btn-primary-* Variablen */
-.mrh-product-list-actions .btn-success,
-.mrh-product-card .btn-success,
-.btn-cart {
-  background-color: var(--tpl-btn-primary-bg, #6cc342) !important;
-  color: var(--tpl-btn-primary-text, #ffffff) !important;
-  border-color: var(--tpl-btn-primary-bg, #6cc342) !important;
+.listingcontainer .btn-cart,
+a.btn-cart {
+  background-color: var(--tpl-btn-primary-bg, #6cc342);
+  color: var(--tpl-btn-primary-text, #ffffff);
+  border-color: var(--tpl-btn-primary-bg, #6cc342);
   transition: all 0.2s ease;
 }
-.mrh-product-list-actions .btn-success:hover,
-.mrh-product-card .btn-success:hover,
-.btn-cart:hover {
-  background-color: var(--tpl-btn-primary-hover, #368610) !important;
-  color: var(--tpl-btn-primary-text, #ffffff) !important;
-  border-color: var(--tpl-btn-primary-hover, #368610) !important;
+.listingcontainer .btn-cart:hover,
+.listingcontainer .btn-cart:focus,
+a.btn-cart:hover,
+a.btn-cart:focus {
+  background-color: var(--tpl-btn-primary-hover, #368610);
+  color: var(--tpl-btn-primary-text, #ffffff);
+  border-color: var(--tpl-btn-primary-hover, #368610);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* --- Demo-Farbe Vorschau fuer neue Button-Variablen --- */
+/* --- Demo-Farbe Vorschau (Konfigurator-Admin) --- */
+/* !important nur hier noetig weil Admin-Panel eigene Styles hat */
 .demo-farbe.tpl-btn-details-bg { background-color: var(--tpl-btn-details-bg) !important; }
 .demo-farbe.tpl-btn-details-text { background-color: var(--tpl-btn-details-text) !important; }
 .demo-farbe.tpl-btn-details-hover { background-color: var(--tpl-btn-details-hover) !important; }
