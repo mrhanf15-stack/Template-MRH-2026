@@ -1,45 +1,213 @@
-{* MRH 2026: Wiederverwendbare Produktkarte – BS5.3 *}
-<div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
-  <a href="{$module_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$module_data.PRODUCTS_NAME|onlytext}">
-    {* Flags: Sonderangebot, Top, Neu *}
-    {if $smarty.const.MRH_FLAG_SPECIAL_SHOW == 'true' && isset($module_data.PRODUCTS_PRICE_SAVE_PERCENT) && $module_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
-      <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-special">{#MRH_special#}</span></div>
-    {elseif $smarty.const.MRH_FLAG_TOP_SHOW == 'true' && isset($module_data.PRODUCTS_STARTPAGE) && $module_data.PRODUCTS_STARTPAGE == '1'}
-      <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-top">{#MRH_top#}</span></div>
-    {elseif $smarty.const.MRH_FLAG_NEW_SHOW == 'true' && isset($module_data.PRODUCTS_OLDNEW) && $module_data.PRODUCTS_OLDNEW == '1'}
-      <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-new">{#MRH_new#}</span></div>
-    {/if}
-    {if $module_data.PRODUCTS_IMAGE != ''}
-      <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" itemprop="image" loading="lazy" width="300" height="300">
-    {/if}
-  </a>
-  <div class="mrh-product-card-body">
-    {* Hersteller *}
-    {if isset($module_data.MANUFACTURER) && $module_data.MANUFACTURER != ''}
-      <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-        <span itemprop="name">{$module_data.MANUFACTURER}</span>
+{* MRH 2026 – product_listing_include.html – BS 5.3.0 *}
+{* Umgebaut von RevPlus BS4 auf BS5.3 mit mrh-btn-* Klassen fuer globale Farbsteuerung *}
+
+{if (!isset($STARTPAGE) && $smarty.const.PRODUCT_LIST_BOX == 'true') || ($STARTPAGE == 'true' && $smarty.const.PRODUCT_LIST_BOX_STARTPAGE == 'true')}
+  {* ══════════════════════════════════════════════════ *}
+  {* BOXANSICHT (Kachel / Grid)                        *}
+  {* ══════════════════════════════════════════════════ *}
+
+  {foreach name=aussen item=module_data from=$module_content}
+    <div class="listingbox lb_inner p-3 d-flex flex-column justify-content-between">
+      <div class="lb_inner_wrap_image_title pt-3">
+        {* Produktbild *}
+        <div class="lb_image">
+          {if $module_data.PRODUCTS_IMAGE != ''}
+            <a href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+              <img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" />
+            </a>
+          {else}
+            &nbsp;
+          {/if}
+        </div>
+        {* Produktname *}
+        <div class="lb_title">
+          <strong class="h3">
+            <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">
+              {$module_data.PRODUCTS_NAME}
+            </a>
+          </strong>
+        </div>
+        {* Kurzbeschreibung *}
+        {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
+          <div class="lb_desc">{$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:70:"...":true}</div>
+        {/if}
+        {* Lieferzeit *}
+        <div class="lb_shipping">
+          {if $module_data.PRODUCTS_SHIPPING_NAME}
+            {#text_shippingtime#}
+            {if $module_data.PRODUCTS_SHIPPING_IMAGE}
+              <span class="lb_shipping_image">
+                <img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME|onlytext}" />
+              </span>
+            {/if}
+            {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
+          {else}
+            &nbsp;
+          {/if}
+        </div>
+        {* Bewertungen *}
+        {if isset($module_data.PRODUCTS_REVIEWS_COUNT)}
+          <div class="lb_rating_icons{if $module_data.PRODUCTS_REVIEWS_COUNT < 1} no_reviews{/if}">
+            <span class="lb_rating_image">
+              <img src="{$tpl_path}img/stars_{$module_data.PRODUCTS_REVIEWS_AVERAGE}.png" alt="Rating: {$module_data.PRODUCTS_REVIEWS_AVERAGE} of 5 stars" />
+            </span>
+            <span class="lb_rating_count">({$module_data.PRODUCTS_REVIEWS_COUNT})</span>
+          </div>
+        {/if}
       </div>
-    {/if}
-    {* Produktname *}
-    <h3 class="mrh-product-card-title">
-      <a href="{$module_data.PRODUCTS_LINK}" itemprop="name">{$module_data.PRODUCTS_NAME}</a>
-    </h3>
-    {* Preis – Zentrale price_box verwenden *}
-    <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-      <meta itemprop="priceCurrency" content="EUR">
-      {if isset($module_data.PRODUCTS_PRICE_ARRAY) && count($module_data.PRODUCTS_PRICE_ARRAY) > 0}
-        {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
-          {include file="module/includes/price_box.html"}
-        {/foreach}
-      {else}
-        <span class="mrh-price-current fw-bold" itemprop="price">{$module_data.PRODUCTS_PRICE}</span>
-      {/if}
-      {* VPE (Grundpreis) *}
-      {if isset($module_data.PRODUCTS_VPE) && $module_data.PRODUCTS_VPE != ''}
-        <div class="small text-body-secondary">{$module_data.PRODUCTS_VPE}</div>
-      {/if}
-      {* Steuer + Versandkosten-Link *}
-      <div class="small text-body-secondary">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+
+      {* Preis + Buttons *}
+      <div class="lb_inner_wrap_prices">
+        <div class="lb_price">
+          {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+            {include file="module/includes/price_box.html"}
+          {/foreach}
+          {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+            {if $module_data.PRODUCTS_VPE}
+              <div class="lb_vpe">{$module_data.PRODUCTS_VPE}</div>
+            {/if}
+          {/if}
+        </div>
+
+        {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+          <div class="lb_tax">
+            {$module_data.PRODUCTS_TAX_INFO}
+          </div>
+          <div class="lb_tax lb_shipping_prices">
+            {$module_data.PRODUCTS_SHIPPING_LINK}
+          </div>
+          {* ── Buttons: Merkzettel | Details | Vergleich ── *}
+          <div class="d-flex lb-buttons-wrap justify-content-between align-items-center gap-1 mt-2">
+            {* Merkzettel-Button *}
+            {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+              {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+              <a class="btn btn-sm mrh-btn-wishlist" aria-label="{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$module_data.PRODUCTS_ID`"}">
+                <i class="fa-regular fa-heart" aria-hidden="true"></i>
+              </a>
+            {/if}
+            {* Details-Button *}
+            <a class="btn btn-sm mrh-btn-details flex-grow-1" aria-label="{#details#} - {#view_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="{$module_data.PRODUCTS_LINK}">
+              <span>{#details#}</span>
+            </a>
+            {* Vergleich-Button *}
+            {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
+              <a class="btn btn-sm mrh-btn-compare" aria-label="{#compare_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="javascript:void(0);" onclick="addToCompare('{$module_data.PRODUCTS_ID}');">
+                <i class="fa-regular fa-eye" aria-hidden="true"></i>
+              </a>
+            {/if}
+          </div>
+        {/if}
+      </div>
     </div>
-  </div>
-</div>
+  {/foreach}
+
+{else}
+  {* ══════════════════════════════════════════════════ *}
+  {* ROWANSICHT (Liste)                                *}
+  {* ══════════════════════════════════════════════════ *}
+
+  {foreach name=aussen item=module_data from=$module_content}
+    <div class="listingbox lr_inner p-3 d-flex flex-wrap justify-content-between align-items-center flex-row listinglist w-100">
+      {* Bild *}
+      <div class="col-2 lr_image text-center">
+        {if $module_data.PRODUCTS_IMAGE != ''}
+          <a href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+            <img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" />
+          </a>
+        {else}
+          &nbsp;
+        {/if}
+      </div>
+      {* Info *}
+      <div class="col-7">
+        <div class="lr_title">
+          <strong class="h3">
+            <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">
+              {$module_data.PRODUCTS_NAME}
+            </a>
+          </strong>
+        </div>
+        {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
+          <div class="lr_desc">
+            {$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags}
+          </div>
+        {/if}
+        <div class="lr_shipping">
+          {if $module_data.PRODUCTS_SHIPPING_NAME}
+            {#text_shippingtime#}
+            {if $module_data.PRODUCTS_SHIPPING_IMAGE}
+              <span class="lr_shipping_image">
+                <img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME|onlytext}" />
+              </span>
+            {/if}
+            {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
+          {else}
+            &nbsp;
+          {/if}
+        </div>
+      </div>
+      {* Preis + Buttons *}
+      <div class="col-3">
+        <div class="lr_price">
+          {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+            {include file="module/includes/price_box.html"}
+          {/foreach}
+          {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+            {if $module_data.PRODUCTS_VPE}
+              <div class="lr_vpe">{$module_data.PRODUCTS_VPE}</div>
+            {/if}
+          {/if}
+        </div>
+        {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+          <div class="lr_tax">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+          {* ── Quick-Buttons (Reihenansicht) ── *}
+          <div class="quick-buttons d-flex gap-2 mt-2">
+            {* Details *}
+            <a class="btn btn-sm mrh-btn-details" href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+              <i class="fa-regular fa-eye" aria-hidden="true"></i>
+              <span class="visually-hidden">{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
+            </a>
+            {* Merkzettel *}
+            {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+              {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+              <a class="btn btn-sm mrh-btn-wishlist" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$module_data.PRODUCTS_ID`"}" aria-label="{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                <span class="visually-hidden">{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
+              </a>
+            {/if}
+            {* Vergleich *}
+            {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
+              <a class="btn btn-sm mrh-btn-compare" href="javascript:void(0);" onclick="addToCompare('{$module_data.PRODUCTS_ID}');" aria-label="{#compare_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                <i class="fa-solid fa-balance-scale" aria-hidden="true"></i>
+                <span class="visually-hidden">{#compare_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
+              </a>
+            {/if}
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/foreach}
+{/if}
+
+{* ── Schema.org: ItemList ── *}
+<script type="application/ld+json">
+  {literal}
+  {
+    "@context":"http://schema.org",
+    "@type":"ItemList",
+    "itemListElement":[
+  {/literal}
+    {foreach name=aussen item=module_data from=$module_content}
+      {literal}
+      {
+          "@type":"ListItem",
+          "position": {/literal}{counter}{literal},
+          "name": "{/literal}{$module_data.PRODUCTS_NAME|onlytext}{literal}",
+          "url":"{/literal}{$module_data.PRODUCTS_LINK}{literal}"
+        }{/literal}{if not $smarty.foreach.aussen.last},{/if}
+    {/foreach}
+    {literal}
+    ]
+  }
+  {/literal}
+</script>

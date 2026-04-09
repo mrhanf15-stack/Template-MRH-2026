@@ -2196,47 +2196,33 @@ table.tebals.wite tr:last-child td:last-child {
    Stand: 2026-04-08
    ============================================================ */
 
-/* --- Details-Button (Auge-Icon) --- */
-/* Ueberschreibt: btn-outline-success, btn-primary (Details) */
-.mrh-product-list-actions .btn-outline-success,
-.mrh-product-card .btn-outline-success,
-.lb-buttons-wrap .btn-primary,
-.btn-details {
+/* --- Details-Button --- */
+/* Eigene Klasse: .mrh-btn-details (in product_listing_include.html) */
+.mrh-btn-details {
   background-color: var(--tpl-btn-details-bg, #ffffff) !important;
   color: var(--tpl-btn-details-text, #198754) !important;
-  border-color: var(--tpl-btn-details-text, #198754) !important;
+  border: 1px solid var(--tpl-btn-details-text, #198754) !important;
   transition: all 0.2s ease;
 }
-.mrh-product-list-actions .btn-outline-success:hover,
-.mrh-product-card .btn-outline-success:hover,
-.lb-buttons-wrap .btn-primary:hover,
-.btn-details:hover {
+.mrh-btn-details:hover,
+.mrh-btn-details:focus {
   background-color: var(--tpl-btn-details-hover, #198754) !important;
-  color: #ffffff !important;
+  color: var(--tpl-btn-details-text, #ffffff) !important;
   border-color: var(--tpl-btn-details-hover, #198754) !important;
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* --- Merkzettel-Button (Herz-Icon) --- */
-/* Ueberschreibt: btn-secondary (Wishlist) in allen Templates */
-.lb-buttons-wrap .btn-secondary,
-.quick-buttons a:has(.icon-heart),
-.mrh-product-card .btn-wishlist,
-.btn-wishlist,
-a[aria-label*="Merkzettel"].btn-secondary,
-a[aria-label*="wishlist"].btn-secondary {
+/* Eigene Klasse: .mrh-btn-wishlist (in product_listing_include.html) */
+.mrh-btn-wishlist {
   background-color: var(--tpl-btn-wishlist-bg, #6c757d) !important;
   color: var(--tpl-btn-wishlist-text, #ffffff) !important;
-  border-color: var(--tpl-btn-wishlist-bg, #6c757d) !important;
+  border: 1px solid var(--tpl-btn-wishlist-bg, #6c757d) !important;
   transition: all 0.2s ease;
 }
-.lb-buttons-wrap .btn-secondary:hover,
-.quick-buttons a:has(.icon-heart):hover,
-.mrh-product-card .btn-wishlist:hover,
-.btn-wishlist:hover,
-a[aria-label*="Merkzettel"].btn-secondary:hover,
-a[aria-label*="wishlist"].btn-secondary:hover {
+.mrh-btn-wishlist:hover,
+.mrh-btn-wishlist:focus {
   background-color: var(--tpl-btn-wishlist-hover, #565e64) !important;
   color: var(--tpl-btn-wishlist-text, #ffffff) !important;
   border-color: var(--tpl-btn-wishlist-hover, #565e64) !important;
@@ -2244,19 +2230,16 @@ a[aria-label*="wishlist"].btn-secondary:hover {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* --- Vergleich-Button (Waage-Icon) --- */
-/* Ueberschreibt: btn-outline-secondary, btn-compare */
-.btn-compare,
-.mrh-product-card .btn-compare,
-.btn-outline-secondary.btn-compare {
+/* --- Vergleich-Button (Auge/Waage-Icon) --- */
+/* Eigene Klasse: .mrh-btn-compare (in product_listing_include.html) */
+.mrh-btn-compare {
   background-color: var(--tpl-btn-compare-bg, #6c757d) !important;
   color: var(--tpl-btn-compare-text, #ffffff) !important;
-  border-color: var(--tpl-btn-compare-bg, #6c757d) !important;
+  border: 1px solid var(--tpl-btn-compare-bg, #6c757d) !important;
   transition: all 0.2s ease;
 }
-.btn-compare:hover,
-.mrh-product-card .btn-compare:hover,
-.btn-outline-secondary.btn-compare:hover {
+.mrh-btn-compare:hover,
+.mrh-btn-compare:focus {
   background-color: var(--tpl-btn-compare-hover, #565e64) !important;
   color: var(--tpl-btn-compare-text, #ffffff) !important;
   border-color: var(--tpl-btn-compare-hover, #565e64) !important;
