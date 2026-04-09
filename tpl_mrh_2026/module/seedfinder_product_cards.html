@@ -1,7 +1,10 @@
 {* 
  * Seedfinder Product Cards Template - Vergleichsseiten-Design
- * Version: 32.2.0-bs5 (tpl_mrh_2026)
- * Datum: 2026-04-02
+ * Version: 32.3.0-bs5 (tpl_mrh_2026)
+ * Datum: 2026-04-09
+ *
+ * v32.3.0: 4-spaltig Desktop / 2-spaltig Tablet / 1-spaltig Mobil
+ *          Kompakteres Card-Layout fuer Grid-Ansicht
  * 
  * BS5.3 + FA7 Pro Migration:
  * - mr-* → me-*, ml-* → ms-*
@@ -13,7 +16,7 @@
  * - Alle Icons in <span> Tags
  *}
     {foreach from=$PRODUCTS item=product}
-                <div class="col-md-6 mb-4 listingbox" itemscope itemtype="https://schema.org/Product">
+                <div class="col-lg-3 col-md-6 col-12 mb-4 listingbox" itemscope itemtype="https://schema.org/Product">
                     <div class="card h-100 d-flex flex-column">
                         
                         {* Hidden Schema.org Properties *}
