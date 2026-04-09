@@ -26,6 +26,74 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================================
+   00b LINK-RESET (Bootstrap 5 Override)
+   Bootstrap 5 setzt a { text-decoration: underline } als Standard.
+   Wir entfernen das global und setzen Unterstreichung nur gezielt.
+   ============================================================ */
+
+/* Globaler Reset: keine Unterstreichung */
+a {
+  text-decoration: none;
+}
+
+/* Hover: dezente Unterstreichung nur bei Fliesstext-Links */
+a:hover {
+  text-decoration: none;
+}
+
+/* Gezielt unterstreichen: Lieferzeit, Versandkosten, Fliesstext-Links */
+.cat_description a,
+.cat_short_description a,
+.mrh-cat-short-desc a,
+.manu_description a,
+.product-description a,
+.content-body a,
+.blog-content a,
+.faq-answer a,
+.faq_list a:not(.faq-button),
+#content a:not(.btn):not([class*="mrh-"]):not([class*="badge"]):not([class*="nav"]) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Lieferzeit + Versandkosten im Listing */
+.shipping_info a,
+.delivery-info a,
+a[href*="popup_content"],
+a[href*="shipping"] {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* NIEMALS unterstreichen: Navigation, Buttons, Karten, Bilder, Icons */
+#logobar a,
+.navbar a,
+.nav a,
+.nav-link,
+.breadcrumb a,
+.the-subcats a,
+.subcategory a,
+.product_listing a,
+.listingcontainer a,
+.mrh-pi-actions a,
+.mrh-cat-header a,
+.mrh-cat-image a,
+.trust-badges a,
+.btn,
+a.btn,
+.pagination a,
+.footer a,
+#footer a,
+.box a,
+.sidebar a,
+#toggle_settings,
+#toggle_account,
+[role="button"],
+a[role="button"] {
+  text-decoration: none !important;
+}
+
+/* ============================================================
    01 TOPBAR – Trust-Elemente
    ============================================================ */
 #mrh-topbar {
