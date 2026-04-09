@@ -2620,6 +2620,63 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 /* ============================================================
+   Phase 1: Trust-Badges (.trust-badges)
+   Kleine Pill-Badges unterhalb der Kurzbeschreibung
+   Stand: 2026-04-09
+   ============================================================ */
+
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.trust-badges .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--tpl-font-text), sans-serif;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--tpl-main-color), var(--tpl-secondary-color, #3a6b24));
+  color: #fff;
+  border: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trust-badges .badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(74, 140, 42, 0.3);
+}
+
+/* Variante: badge-secondary (Standard Bootstrap) */
+.trust-badges .badge-secondary {
+  background: linear-gradient(135deg, var(--tpl-main-color), var(--tpl-secondary-color, #3a6b24));
+  color: #fff;
+}
+
+/* Variante: badge-pill (Bootstrap) – bereits rund durch border-radius: 999px */
+.trust-badges .badge-pill {
+  border-radius: 999px;
+}
+
+/* Mobile: etwas kleiner */
+@media (max-width: 767px) {
+  .trust-badges {
+    justify-content: center;
+  }
+  .trust-badges .badge {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+}
+
+/* ============================================================
    CONTENT-CSS (aus BS4-Template uebernommen)
    Wird in Kategorie-Beschreibungen und Blog-Artikeln verwendet.
    Bereinigt: Duplikate entfernt, nur neueste Version behalten.
