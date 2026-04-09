@@ -1,28 +1,43 @@
 {config_load file="$language/lang_$language.conf" section="categorie_listing"}
-
-{* === Kategorie-Überschrift === *}
-{if $CATEGORIES_HEADING_TITLE}
-  <h1 class="mb-3">{$CATEGORIES_HEADING_TITLE}</h1>
-{else}
-  <h1 class="mb-3">{$CATEGORIES_NAME}</h1>
-{/if}
+{config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="categorie_listing"}
 
 {* === Fehlermeldung === *}
 {if $error_message}
   <div class="alert alert-danger">{$error_message}</div>
 {/if}
 
-{* === Kategorie-Bild + Kurzbeschreibung === *}
-<div class="clearfix mb-3">
-  {if $CATEGORIES_IMAGE}
-    <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" class="float-start me-3 mb-2 img-fluid rounded" style="max-width:280px;" />
+{* ============================================================
+   MRH 2026 – Phase 1: Kategorie-Header (Bild links, H1 + Desc rechts)
+   Desktop: Flexbox nebeneinander | Mobile: Bild ueber H1
+   Stand: 2026-04-09
+   ============================================================ *}
+{if isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != ''}
+  <div class="mrh-cat-header">
+    <div class="mrh-cat-image">
+      <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
+    </div>
+    <div class="mrh-cat-info">
+      {if isset($CATEGORIES_HEADING_TITLE) && $CATEGORIES_HEADING_TITLE != ''}
+        <h1>{$CATEGORIES_HEADING_TITLE}</h1>
+      {else}
+        <h1>{$CATEGORIES_NAME}</h1>
+      {/if}
+      {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
+        <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
+      {/if}
+    </div>
+  </div>
+{else}
+  {if isset($CATEGORIES_HEADING_TITLE) && $CATEGORIES_HEADING_TITLE != ''}
+    <h1>{$CATEGORIES_HEADING_TITLE}</h1>
+  {else}
+    <h1>{$CATEGORIES_NAME}</h1>
   {/if}
   {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
-    <div>{$CATEGORIES_SHORT_DESCRIPTION}</div>
-  {elseif isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
-    <div>{$CATEGORIES_DESCRIPTION}</div>
+    <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
   {/if}
-</div>
+{/if}
 
 {* === Unterkategorien-Listing === *}
 {if isset($CATEGORIES_LISTING)}{$CATEGORIES_LISTING}{/if}
@@ -30,7 +45,9 @@
 {* === Neue Produkte === *}
 {if isset($MODULE_new_products)}{$MODULE_new_products}{/if}
 
-{* === Langbeschreibung (wenn Kurzbeschreibung vorhanden) === *}
-{if $CATEGORIES_SHORT_DESCRIPTION && $CATEGORIES_DESCRIPTION}
-  <div class="mt-4">{$CATEGORIES_DESCRIPTION}</div>
+{* === Langbeschreibung (unterhalb, wenn Kurzbeschreibung vorhanden war) === *}
+{if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != '' && isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
+  <div class="cat_description cf mt-4">{$CATEGORIES_DESCRIPTION}</div>
+{elseif (!isset($CATEGORIES_SHORT_DESCRIPTION) || $CATEGORIES_SHORT_DESCRIPTION == '') && isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
+  <div class="cat_description cf mt-4">{$CATEGORIES_DESCRIPTION}</div>
 {/if}
