@@ -2327,3 +2327,146 @@ a.btn-cart:focus {
 .demo-farbe.tpl-btn-compare-bg { background-color: var(--tpl-btn-compare-bg) !important; }
 .demo-farbe.tpl-btn-compare-text { background-color: var(--tpl-btn-compare-text) !important; }
 .demo-farbe.tpl-btn-compare-hover { background-color: var(--tpl-btn-compare-hover) !important; }
+
+/* ============================================================
+   ROWANSICHT (Listenansicht) – 2-spaltig Desktop, 1-spaltig Mobil
+   Buttons in der Card, keine schwebenden Elemente.
+   Stand: 2026-04-09
+   ============================================================ */
+
+/* --- Grid: 2 Spalten Desktop --- */
+.listingcontainer:has(.listinglist) {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* --- Einzelne Row-Card --- */
+.listinglist .lr_inner {
+  height: 100%;
+}
+.listinglist .mrh-row-card {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding: 16px;
+  background: var(--tpl-bg-productbox, #ffffff);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  height: 100%;
+}
+.listinglist:hover .mrh-row-card {
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+/* --- Bild (links, feste Breite) --- */
+.mrh-row-image {
+  flex: 0 0 160px;
+  max-width: 160px;
+  align-self: flex-start;
+}
+.mrh-row-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+/* --- Content (rechts, flexibel) --- */
+.mrh-row-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.mrh-row-content .lr_title .h3 {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.3;
+}
+.mrh-row-content .lr_title a {
+  color: var(--tpl-text-headings, #334155);
+  text-decoration: none;
+}
+.mrh-row-content .lr_title a:hover {
+  color: var(--tpl-main-color, #5db233);
+}
+.mrh-row-content .lr_desc {
+  font-size: 0.85rem;
+  color: var(--tpl-text-standard, #64748b);
+  line-height: 1.5;
+}
+.mrh-row-content .lr_shipping {
+  font-size: 0.8rem;
+  color: var(--tpl-text-standard, #64748b);
+}
+.mrh-row-content .lr_shipping_image img {
+  height: 14px;
+  width: auto;
+  vertical-align: middle;
+}
+.mrh-row-content .lr_rating {
+  font-size: 0.8rem;
+}
+.mrh-row-content .lr_rating img {
+  height: 14px;
+  width: auto;
+  vertical-align: middle;
+}
+.mrh-row-content .lr_price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--tpl-text-headings, #334155);
+}
+.mrh-row-content .lr_vpe {
+  font-size: 0.75rem;
+  color: var(--tpl-text-standard, #64748b);
+}
+.mrh-row-content .lr_tax {
+  font-size: 0.75rem;
+  color: var(--tpl-text-standard, #64748b);
+}
+
+/* --- Buttons (in der Card, nicht schwebend) --- */
+.mrh-row-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  align-items: center;
+}
+.mrh-row-buttons .mrh-btn-details {
+  text-align: center;
+}
+.mrh-row-buttons .mrh-btn-wishlist,
+.mrh-row-buttons .mrh-btn-compare {
+  flex: 0 0 auto;
+}
+
+/* --- Responsive: 1-spaltig auf Mobil --- */
+@media (max-width: 992px) {
+  .listingcontainer:has(.listinglist) {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 576px) {
+  .listingcontainer:has(.listinglist) {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .mrh-row-image {
+    flex: 0 0 100px;
+    max-width: 100px;
+  }
+  .mrh-row-content .lr_title .h3 {
+    font-size: 0.9rem;
+  }
+  .mrh-row-content .lr_desc {
+    display: none;
+  }
+  .mrh-row-content .lr_price {
+    font-size: 1rem;
+  }
+}

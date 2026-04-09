@@ -105,87 +105,95 @@
 
 {else}
   {* ══════════════════════════════════════════════════ *}
-  {* ROWANSICHT (Liste)                                *}
+  {* ROWANSICHT (Liste) – 2-spaltig, 1-spaltig Mobil   *}
+  {* Buttons in Card, mehr Infos, keine schwebenden    *}
   {* ══════════════════════════════════════════════════ *}
 
   {foreach name=aussen item=module_data from=$module_content}
-    <div class="listingbox lr_inner p-3 d-flex flex-wrap justify-content-between align-items-center flex-row listinglist w-100">
-      {* Bild *}
-      <div class="col-2 lr_image text-center">
-        {if $module_data.PRODUCTS_IMAGE != ''}
-          <a href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
-            <img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" />
-          </a>
-        {else}
-          &nbsp;
-        {/if}
-      </div>
-      {* Info *}
-      <div class="col-7">
-        <div class="lr_title">
-          <strong class="h3">
-            <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">
-              {$module_data.PRODUCTS_NAME}
-            </a>
-          </strong>
-        </div>
-        {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
-          <div class="lr_desc">
-            {$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags}
-          </div>
-        {/if}
-        <div class="lr_shipping">
-          {if $module_data.PRODUCTS_SHIPPING_NAME}
-            {#text_shippingtime#}
-            {if $module_data.PRODUCTS_SHIPPING_IMAGE}
-              <span class="lr_shipping_image">
-                <img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME|onlytext}" />
-              </span>
-            {/if}
-            {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
-          {else}
-            &nbsp;
-          {/if}
-        </div>
-      </div>
-      {* Preis + Buttons *}
-      <div class="col-3">
-        <div class="lr_price">
-          {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
-            {include file="module/includes/price_box.html"}
-          {/foreach}
-          {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-            {if $module_data.PRODUCTS_VPE}
-              <div class="lr_vpe">{$module_data.PRODUCTS_VPE}</div>
-            {/if}
-          {/if}
-        </div>
-        {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-          <div class="lr_tax">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
-          {* ── Quick-Buttons (Reihenansicht) ── *}
-          <div class="quick-buttons d-flex gap-2 mt-2">
-            {* Details *}
-            <a class="btn btn-sm mrh-btn-details" href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
-              <i class="fa-regular fa-eye" aria-hidden="true"></i>
-              <span class="visually-hidden">{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
-            </a>
-            {* Merkzettel *}
-            {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
-              {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
-              <a class="btn btn-sm mrh-btn-wishlist" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$module_data.PRODUCTS_ID`"}" aria-label="{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}">
-                <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                <span class="visually-hidden">{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
-              </a>
-            {/if}
-            {* Vergleich *}
-            {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
-              <a class="btn btn-sm mrh-btn-compare" href="javascript:void(0);" onclick="addToCompare('{$module_data.PRODUCTS_ID}');" aria-label="{#compare_product#} {$module_data.PRODUCTS_NAME|onlytext}">
-                <i class="fa-solid fa-balance-scale" aria-hidden="true"></i>
-                <span class="visually-hidden">{#compare_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
+    <div class="listingbox listinglist">
+      <div class="lr_inner">
+        <div class="mrh-row-card">
+          {* ── Bild (links) ── *}
+          <div class="mrh-row-image">
+            {if $module_data.PRODUCTS_IMAGE != ''}
+              <a href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                <img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" />
               </a>
             {/if}
           </div>
-        {/if}
+          {* ── Info + Preis + Buttons (rechts) ── *}
+          <div class="mrh-row-content">
+            {* Produktname *}
+            <div class="lr_title">
+              <strong class="h3">
+                <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">
+                  {$module_data.PRODUCTS_NAME}
+                </a>
+              </strong>
+            </div>
+            {* Kurzbeschreibung (mehr Text als in Boxansicht) *}
+            {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
+              <div class="lr_desc">
+                {$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:200:"...":true}
+              </div>
+            {/if}
+            {* Lieferzeit *}
+            <div class="lr_shipping">
+              {if $module_data.PRODUCTS_SHIPPING_NAME}
+                {#text_shippingtime#}
+                {if $module_data.PRODUCTS_SHIPPING_IMAGE}
+                  <span class="lr_shipping_image">
+                    <img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME|onlytext}" />
+                  </span>
+                {/if}
+                {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
+              {/if}
+            </div>
+            {* Bewertungen *}
+            {if isset($module_data.PRODUCTS_REVIEWS_COUNT)}
+              <div class="lr_rating{if $module_data.PRODUCTS_REVIEWS_COUNT < 1} no_reviews{/if}">
+                <span class="lr_rating_image">
+                  <img src="{$tpl_path}img/stars_{$module_data.PRODUCTS_REVIEWS_AVERAGE}.png" alt="Rating: {$module_data.PRODUCTS_REVIEWS_AVERAGE} of 5 stars" />
+                </span>
+                <span class="lr_rating_count">({$module_data.PRODUCTS_REVIEWS_COUNT})</span>
+              </div>
+            {/if}
+            {* Preis *}
+            <div class="lr_price">
+              {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+                {include file="module/includes/price_box.html"}
+              {/foreach}
+              {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+                {if $module_data.PRODUCTS_VPE}
+                  <div class="lr_vpe">{$module_data.PRODUCTS_VPE}</div>
+                {/if}
+              {/if}
+            </div>
+            {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+              <div class="lr_tax">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+              {* ── Buttons (in der Card, nicht schwebend) ── *}
+              <div class="mrh-row-buttons">
+                {* Merkzettel *}
+                {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+                  {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+                  <a class="btn btn-sm mrh-btn-wishlist" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$module_data.PRODUCTS_ID`"}" aria-label="{#wishlist_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                    <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                  </a>
+                {/if}
+                {* Details *}
+                <a class="btn btn-sm mrh-btn-details flex-grow-1" href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                  <span>{#details#}</span>
+                </a>
+                {* Vergleich *}
+                {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
+                  <a class="btn btn-sm mrh-btn-compare" href="javascript:void(0);" onclick="addToCompare('{$module_data.PRODUCTS_ID}');" aria-label="{#compare_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                    <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                  </a>
+                {/if}
+              </div>
+            {/if}
+          </div>
+        </div>
       </div>
     </div>
   {/foreach}
