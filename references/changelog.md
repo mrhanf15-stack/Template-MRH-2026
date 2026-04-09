@@ -1,5 +1,14 @@
 # MRH 2026 Template – Changelog
 
+## 2026-04-09 – Phase 3: Filter-System (Modal + Grundfilter-Leiste)
+
+| Datei | Aenderung |
+|-------|----------|
+| `module/listing_filter.html` | Komplett umgebaut: Neue Grundfilter-Leiste (.mrh-filter-bar) mit Filter-Button, Hersteller-Dropdown, Sortierung, Artikel pro Seite, Ansicht-Toggle. Aktive Filter-Tags als Chips. |
+| `module/seedfinder_filters_accordion.html` | v8.0.0: Desktop 3-spaltige Card → BS5 Modal (#mrhFilterModal). Mobile Bottom Sheet → BS5 Offcanvas (#mrhFilterOffcanvas). Alle DOM-Hooks fuer seedfinder_ajax.js beibehalten. |
+| `javascript/seedfinder_accordion.js` | v8.0.0: jQuery komplett entfernt → Vanilla JS. BS5 Modal/Offcanvas API. Checkbox-Sortierung beibehalten. |
+| `css/mrh-custom.css` | Phase 3 CSS appended: .mrh-filter-bar (Grundfilter-Leiste), #mrhFilterModal (Desktop Modal), #mrhFilterOffcanvas (Mobile Offcanvas), .mrh-filter-grid, .mrh-filter-section, Filter-Buttons. |
+
 ## 2026-04-09 – Phase 1: Kategorie-Header + template.css Bereinigung
 
 | Datei | Aenderung |

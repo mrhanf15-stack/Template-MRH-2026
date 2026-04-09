@@ -4965,3 +4965,441 @@ a.iframe:hover {
 .no-gutters { --bs-gutter-x: 0; --bs-gutter-y: 0; }
 .form-group { margin-bottom: 1rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* ============================================================
+   Phase 3: Grundfilter-Leiste (.mrh-filter-bar)
+   Immer sichtbar über dem Produktlisting.
+   Stand: 2026-04-09
+   ============================================================ */
+
+/* --- Hauptcontainer --- */
+.mrh-filter-bar {
+  background: var(--tpl-bg-body, #fff);
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: var(--tpl-border-radius, 8px);
+  padding: 10px 16px;
+  margin-bottom: 16px;
+}
+
+/* --- Innere Flex-Leiste --- */
+.mrh-filter-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+/* --- Links: Filter-Button --- */
+.mrh-filter-bar-left {
+  flex: 0 0 auto;
+}
+
+.mrh-btn-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tpl-text-standard, #333);
+  background: var(--tpl-bg-body, #fff);
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: var(--tpl-border-radius, 6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.mrh-btn-filter:hover {
+  background: var(--tpl-btn-primary-bg, #0d9488);
+  color: var(--tpl-btn-primary-text, #fff);
+  border-color: var(--tpl-btn-primary-bg, #0d9488);
+}
+.mrh-btn-filter .badge {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  min-width: 18px;
+}
+
+/* --- Mitte: Dropdowns --- */
+.mrh-filter-bar-center {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mrh-filter-bar-item {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+/* Dropdowns im Filter-Bar: einheitliches Styling */
+.mrh-filter-bar-item select,
+.mrh-filter-bar-item .form-select,
+.mrh-filter-bar-item .form-control {
+  font-size: 0.85rem;
+  padding: 5px 28px 5px 10px;
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: var(--tpl-border-radius, 6px);
+  background-color: var(--tpl-bg-body, #fff);
+  color: var(--tpl-text-standard, #333);
+  height: auto;
+  min-height: 34px;
+  max-width: 200px;
+  cursor: pointer;
+}
+.mrh-filter-bar-item select:focus,
+.mrh-filter-bar-item .form-select:focus {
+  border-color: var(--tpl-btn-primary-bg, #0d9488);
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.15);
+  outline: none;
+}
+
+/* --- Rechts: Ansicht-Toggle --- */
+.mrh-filter-bar-right {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.mrh-view-toggle {
+  display: inline-flex;
+  gap: 2px;
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: var(--tpl-border-radius, 6px);
+  overflow: hidden;
+}
+
+.mrh-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 34px;
+  color: var(--tpl-text-standard, #666);
+  background: var(--tpl-bg-body, #fff);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+.mrh-view-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--tpl-text-standard, #333);
+  text-decoration: none;
+}
+.mrh-view-btn.active {
+  background: var(--tpl-btn-primary-bg, #0d9488);
+  color: var(--tpl-btn-primary-text, #fff);
+}
+.mrh-view-btn.active:hover {
+  opacity: 0.9;
+}
+
+/* --- Filter-Tags (aktive Filter als Chips) --- */
+.mrh-filter-tags {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--tpl-border-color, #dee2e6);
+}
+.mrh-filter-tags-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.mrh-filter-tag-item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.mrh-filter-tag-item a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--tpl-bg-body, #f0f0f0);
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: 50rem;
+  color: var(--tpl-text-standard, #333);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+.mrh-filter-tag-item a:hover {
+  background: var(--tpl-btn-primary-bg, #0d9488);
+  color: var(--tpl-btn-primary-text, #fff);
+  border-color: var(--tpl-btn-primary-bg, #0d9488);
+}
+.mrh-filter-reset {
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 50rem;
+}
+
+/* --- Seedfinder Active Chips (dynamisch) --- */
+.mrh-seedfinder-chips {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--tpl-border-color, #dee2e6);
+}
+.chips-horizontal-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--tpl-btn-primary-bg, #0d9488);
+  color: var(--tpl-btn-primary-text, #fff);
+  border-radius: 50rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.filter-chip .remove-chip {
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+.filter-chip .remove-chip:hover {
+  opacity: 1;
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 767px) {
+  .mrh-filter-bar {
+    padding: 8px 12px;
+  }
+  .mrh-filter-bar-inner {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mrh-filter-bar-left {
+    order: 1;
+  }
+  .mrh-filter-bar-right {
+    order: 2;
+    margin-left: auto;
+  }
+  .mrh-filter-bar-center {
+    order: 3;
+    flex: 1 0 100%;
+    gap: 6px;
+  }
+  .mrh-filter-bar-item select,
+  .mrh-filter-bar-item .form-select {
+    max-width: 100%;
+    font-size: 0.8rem;
+  }
+  .mrh-filter-manufacturer {
+    flex: 1;
+  }
+  .mrh-filter-sort {
+    flex: 1;
+  }
+}
+
+@media (max-width: 575px) {
+  .mrh-btn-filter {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+  }
+  .mrh-view-btn {
+    width: 32px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ============================================================
+   Phase 3: Filter-Modal (Desktop ≥992px) + Offcanvas (Mobile <992px)
+   ============================================================ */
+
+/* --- Gemeinsame Styles für Filter-Content --- */
+.mrh-filter-section {
+  margin-bottom: 16px;
+}
+.mrh-filter-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--tpl-text-headings, #334155);
+  font-family: var(--tpl-font-heading, sans-serif);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--tpl-border-color, #dee2e6);
+}
+
+/* Filter-Checkboxen Styling */
+.mrh-filter-section .form-check {
+  padding: 3px 0 3px 24px;
+  margin-bottom: 2px;
+}
+.mrh-filter-section .form-check-input {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+.mrh-filter-section .form-check-input:checked {
+  background-color: var(--tpl-btn-primary-bg, #0d9488);
+  border-color: var(--tpl-btn-primary-bg, #0d9488);
+}
+.mrh-filter-section .form-check-label {
+  font-size: 0.85rem;
+  color: var(--tpl-text-standard, #333);
+  cursor: pointer;
+  line-height: 1.4;
+}
+.mrh-filter-section .filter-count,
+.mrh-filter-section .filter-value-count {
+  font-size: 0.75rem;
+  color: #999;
+  margin-left: 2px;
+}
+.mrh-filter-section .filter-disabled {
+  opacity: 0.4;
+}
+.mrh-filter-section .filter-disabled .form-check-label {
+  text-decoration: line-through;
+}
+
+/* --- Desktop: Bootstrap 5 Modal --- */
+@media (min-width: 992px) {
+  #mrhFilterModal .modal-dialog {
+    max-width: 800px;
+    margin: 1.75rem auto;
+  }
+  #mrhFilterModal .modal-content {
+    border: 1px solid var(--tpl-border-color, #dee2e6);
+    border-radius: var(--tpl-border-radius, 8px);
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    background: var(--tpl-bg-body, #fff);
+  }
+  #mrhFilterModal .modal-header {
+    background: var(--tpl-btn-primary-bg, #0d9488);
+    color: var(--tpl-btn-primary-text, #fff);
+    padding: 12px 20px;
+    border-bottom: none;
+  }
+  #mrhFilterModal .modal-title {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--tpl-font-heading, sans-serif);
+  }
+  #mrhFilterModal .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+  }
+  #mrhFilterModal .btn-close:hover {
+    opacity: 1;
+  }
+  #mrhFilterModal .modal-body {
+    padding: 20px;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+  #mrhFilterModal .modal-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--tpl-border-color, #dee2e6);
+    background: var(--tpl-bg-body, #f8f9fa);
+    gap: 8px;
+  }
+  /* z-index über Backdrop (template.css setzt Backdrop auf 50000) */
+  #mrhFilterModal {
+    z-index: 50001 !important;
+  }
+
+  /* Filter-Grid: 3 Spalten im Modal */
+  .mrh-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 24px;
+  }
+}
+
+/* --- Mobile: Bootstrap 5 Offcanvas --- */
+@media (max-width: 991px) {
+  #mrhFilterOffcanvas {
+    z-index: 50001 !important;
+  }
+  #mrhFilterOffcanvas .offcanvas-header {
+    background: var(--tpl-btn-primary-bg, #0d9488);
+    color: var(--tpl-btn-primary-text, #fff);
+    padding: 12px 16px;
+  }
+  #mrhFilterOffcanvas .offcanvas-title {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--tpl-font-heading, sans-serif);
+  }
+  #mrhFilterOffcanvas .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+  }
+  #mrhFilterOffcanvas .offcanvas-body {
+    padding: 16px;
+    overflow-y: auto;
+  }
+  #mrhFilterOffcanvas .offcanvas-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--tpl-border-color, #dee2e6);
+    background: var(--tpl-bg-body, #f8f9fa);
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Filter-Grid: 1 Spalte im Offcanvas */
+  .mrh-filter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Offcanvas Backdrop */
+  .offcanvas-backdrop {
+    z-index: 50000 !important;
+  }
+}
+
+/* --- Filter-Buttons (Suchen / Zurücksetzen) --- */
+.mrh-filter-btn-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tpl-btn-primary-text, #fff);
+  background: var(--tpl-btn-primary-bg, #0d9488);
+  border: none;
+  border-radius: var(--tpl-border-radius, 6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mrh-filter-btn-search:hover {
+  opacity: 0.9;
+}
+.mrh-filter-btn-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--tpl-text-standard, #333);
+  background: transparent;
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: var(--tpl-border-radius, 6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mrh-filter-btn-reset:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

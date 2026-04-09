@@ -1,13 +1,15 @@
 /**
- * Seedfinder Custom Accordion - v7.0.1
- * Datum: 10. Februar 2026
+ * Seedfinder Filter Controller - v8.0.0
+ * Datum: 09. April 2026
  * Autor: Mr. Hanf / Manus AI
  * 
- * NEU in v7.0.1:
- * - Custom Accordion: Nur EINE Card geöffnet (nicht Bootstrap Default)
- * - Z-Index Overlap: Geöffnete Card überlappt andere
- * - Alle Cards beim Start geschlossen
- * - Sync zwischen Desktop und Mobile
+ * Phase 3 Umbau:
+ * - Desktop (≥992px): BS5 Modal (#mrhFilterModal)
+ * - Mobile (<992px): BS5 Offcanvas (#mrhFilterOffcanvas)
+ * - Grundfilter-Leiste: Button #mrh-open-filters öffnet Modal/Offcanvas
+ * - Kein jQuery mehr → Vanilla JS + Bootstrap 5 API
+ * - Alle DOM-Hooks für seedfinder_ajax.js bleiben erhalten
+ * - Checkbox-Sortierung beibehalten
  */
 
 (function() {
@@ -15,406 +17,258 @@
 
     // Verhindere doppelte Initialisierung
     if (window.SeedfindAccordionInitialized) {
-        console.log('⚠️ SeedfindAccordion bereits initialisiert - überspringe');
+        console.log('⚠️ SeedfindFilterController bereits initialisiert - überspringe');
         return;
     }
     window.SeedfindAccordionInitialized = true;
 
-    // Warte bis jQuery verfügbar ist
-    function waitForJQuery(callback) {
-        if (typeof jQuery !== 'undefined') {
-            console.log('✅ jQuery verfügbar (Accordion)');
-            callback(jQuery);
-        } else {
-            console.log('⏳ Warte auf jQuery (Accordion)...');
-            setTimeout(function() {
-                waitForJQuery(callback);
-            }, 50);
-        }
-    }
-
-    // Warte bis DOM und jQuery geladen sind
+    // Warte bis DOM geladen ist
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            waitForJQuery(initAccordion);
-        });
+        document.addEventListener('DOMContentLoaded', initFilterController);
     } else {
-        waitForJQuery(initAccordion);
+        initFilterController();
     }
 
-    function initAccordion($) {
-        const SeedfindAccordion = {
-        
-        /**
-         * Initialisierung
-         */
-        init: function() {
-            console.log('✅ SeedfindAccordion v7.0.1 initialisiert');
-            
-            // Custom Accordion Behavior
-            this.bindCustomAccordion();
-            
-            // Mobile Bottom Sheet
-            this.bindBottomSheet();
-            
-            // Alle Accordions beim Start schließen
-            this.closeAllAccordions();
-        },
+    function initFilterController() {
+        console.log('✅ SeedfindFilterController v8.0.0 initialisiert');
+
+        // Elemente
+        var openBtn = document.getElementById('mrh-open-filters');
+        var modalEl = document.getElementById('mrhFilterModal');
+        var offcanvasEl = document.getElementById('mrhFilterOffcanvas');
+
+        // Bootstrap 5 Instanzen (lazy init)
+        var bsModal = null;
+        var bsOffcanvas = null;
+
+        // Breakpoint-Check: Desktop ≥992px
+        function isDesktop() {
+            return window.innerWidth >= 992;
+        }
 
         /**
-         * Custom Accordion Behavior binden
-         * Regel: Nur EINE Card geöffnet, mit z-index Overlap
+         * Filter-Button in Grundfilter-Leiste: Öffnet Modal (Desktop) oder Offcanvas (Mobile)
          */
-        bindCustomAccordion: function() {
-            const self = this;
-            
-            console.log('🔗 bindCustomAccordion() aufgerufen');
-            
-            // Desktop Accordion Headers
-            const desktopHeaders = $('#filter-accordion-desktop .accordion-filter-header');
-            console.log('📊 Desktop Accordion Headers gefunden:', desktopHeaders.length);
-            
-            desktopHeaders.on('click', function(e) {
+        if (openBtn) {
+            openBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                e.stopPropagation();
-                
-                const $header = $(this);
-                const targetId = $header.data('target');
-                const $target = $(targetId);
-                const isExpanded = $header.attr('aria-expanded') === 'true';
-                
-                console.log('🎯 Desktop Accordion geklickt:', targetId);
-                
-                if (isExpanded) {
-                    // Schließen wenn bereits geöffnet
-                    self.closeAccordionCard($header, $target);
-                } else {
-                    // Alle anderen schließen
-                    self.closeAllDesktopAccordions();
-                    
-                    // Diese öffnen mit z-index Overlap
-                    self.openAccordionCard($header, $target);
+                console.log('🎯 Filter-Button geklickt, isDesktop:', isDesktop());
+
+                if (isDesktop() && modalEl) {
+                    // Desktop: Bootstrap 5 Modal öffnen
+                    if (!bsModal) {
+                        bsModal = new bootstrap.Modal(modalEl, {
+                            backdrop: true,
+                            keyboard: true,
+                            focus: true
+                        });
+                    }
+                    bsModal.show();
+                    console.log('📂 Desktop Modal geöffnet');
+                } else if (offcanvasEl) {
+                    // Mobile: Bootstrap 5 Offcanvas öffnen
+                    if (!bsOffcanvas) {
+                        bsOffcanvas = new bootstrap.Offcanvas(offcanvasEl, {
+                            backdrop: true,
+                            keyboard: true,
+                            scroll: false
+                        });
+                    }
+                    bsOffcanvas.show();
+                    console.log('📱 Mobile Offcanvas geöffnet');
                 }
-            });
-            
-            // Mobile Accordion Headers
-            $('#filter-accordion-mobile .btn-link').on('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const $header = $(this);
-                const targetId = $header.data('target');
-                const $target = $(targetId);
-                const isExpanded = $header.attr('aria-expanded') === 'true';
-                
-                console.log('🎯 Mobile Accordion geklickt:', targetId);
-                
-                if (isExpanded) {
-                    // Schließen wenn bereits geöffnet
-                    self.closeAccordionCard($header, $target);
-                } else {
-                    // Alle anderen schließen
-                    self.closeAllMobileAccordions();
-                    
-                    // Diese öffnen
-                    self.openAccordionCard($header, $target);
-                }
-            });
-        },
-
-        /**
-         * Accordion Card öffnen mit z-index Overlap
-         */
-        openAccordionCard: function($header, $target) {
-            console.log('📂 Öffne Accordion Card');
-            
-            // Header State
-            $header.attr('aria-expanded', 'true');
-            $header.addClass('active');
-            
-            // Chevron drehen
-            $header.find('.fa-chevron-down')
-                .removeClass('fa-chevron-down')
-                .addClass('fa-chevron-up');
-            
-            // Target öffnen
-            $target.addClass('show');
-            
-            // ⭐ Z-Index Overlap für Desktop
-            const $item = $header.closest('.filter-accordion-item');
-            if ($item.length) {
-                $item.css('z-index', 1000);
-            }
-            
-            // Mobile Card Highlight
-            const $card = $header.closest('.card');
-            if ($card.length) {
-                $card.addClass('active');
-            }
-        },
-
-        /**
-         * Accordion Card schließen
-         */
-        closeAccordionCard: function($header, $target) {
-            console.log('📁 Schließe Accordion Card');
-            
-            // Header State
-            $header.attr('aria-expanded', 'false');
-            $header.removeClass('active');
-            
-            // Chevron zurückdrehen
-            $header.find('.fa-chevron-up')
-                .removeClass('fa-chevron-up')
-                .addClass('fa-chevron-down');
-            
-            // Target schließen
-            $target.removeClass('show');
-            
-            // Z-Index zurücksetzen
-            const $item = $header.closest('.filter-accordion-item');
-            if ($item.length) {
-                $item.css('z-index', '');
-            }
-            
-            // Mobile Card Highlight entfernen
-            const $card = $header.closest('.card');
-            if ($card.length) {
-                $card.removeClass('active');
-            }
-        },
-
-        /**
-         * Alle Desktop Accordions schließen
-         */
-        closeAllDesktopAccordions: function() {
-            const self = this;
-            
-            $('#filter-accordion-desktop .filter-accordion-header').each(function() {
-                const $header = $(this);
-                const targetId = $header.data('target');
-                const $target = $(targetId);
-                
-                if ($header.attr('aria-expanded') === 'true') {
-                    self.closeAccordionCard($header, $target);
-                }
-            });
-        },
-
-        /**
-         * Alle Mobile Accordions schließen
-         */
-        closeAllMobileAccordions: function() {
-            const self = this;
-            
-            $('#filter-accordion-mobile .btn-link').each(function() {
-                const $header = $(this);
-                const targetId = $header.data('target');
-                const $target = $(targetId);
-                
-                if ($header.attr('aria-expanded') === 'true') {
-                    self.closeAccordionCard($header, $target);
-                }
-            });
-        },
-
-        /**
-         * Alle Accordions beim Start schließen
-         */
-        closeAllAccordions: function() {
-            console.log('📁 Schließe alle Accordions beim Start');
-            
-            // Desktop
-            $('#filter-accordion-desktop .collapse').removeClass('show');
-            $('#filter-accordion-desktop .filter-accordion-header').attr('aria-expanded', 'false');
-            
-            // Mobile
-            $('#filter-accordion-mobile .collapse').removeClass('show');
-            $('#filter-accordion-mobile .btn-link').attr('aria-expanded', 'false');
-        },
-
-        /**
-         * Mobile Bottom Sheet binden
-         */
-        bindBottomSheet: function() {
-            const $sheet = $('#filter-bottom-sheet');
-            const $fab = $('#filter-fab-mobile');
-            const $closeBtn = $('#close-bottom-sheet');
-            const $overlay = $('.bottom-sheet-overlay');
-            
-            // FAB öffnet Bottom Sheet
-            $fab.on('click', function() {
-                console.log('📱 Öffne Bottom Sheet');
-                $sheet.addClass('active');
-                $('body').addClass('bottom-sheet-open');
-            });
-            
-            // Close Button schließt Bottom Sheet
-            $closeBtn.on('click', function() {
-                console.log('📱 Schließe Bottom Sheet');
-                $sheet.removeClass('active');
-                $('body').removeClass('bottom-sheet-open');
-            });
-            
-            // Overlay schließt Bottom Sheet
-            $overlay.on('click', function() {
-                console.log('📱 Schließe Bottom Sheet (Overlay)');
-                $sheet.removeClass('active');
-                $('body').removeClass('bottom-sheet-open');
-            });
-            
-            // Swipe Down zum Schließen (Touch Events)
-            this.bindSwipeDown($sheet);
-        },
-
-        /**
-         * Swipe Down zum Schließen des Bottom Sheets
-         */
-        bindSwipeDown: function($sheet) {
-            const $content = $sheet.find('.bottom-sheet-content');
-            let startY = 0;
-            let currentY = 0;
-            let isDragging = false;
-            
-            $content.on('touchstart', function(e) {
-                startY = e.touches[0].clientY;
-                isDragging = true;
-            });
-            
-            $content.on('touchmove', function(e) {
-                if (!isDragging) return;
-                
-                currentY = e.touches[0].clientY;
-                const deltaY = currentY - startY;
-                
-                // Nur nach unten ziehen erlauben
-                if (deltaY > 0) {
-                    $content.css('transform', `translateY(${deltaY}px)`);
-                }
-            });
-            
-            $content.on('touchend', function() {
-                if (!isDragging) return;
-                
-                const deltaY = currentY - startY;
-                
-                // Wenn mehr als 100px nach unten gezogen, schließen
-                if (deltaY > 100) {
-                    console.log('📱 Schließe Bottom Sheet (Swipe)');
-                    $sheet.removeClass('active');
-                    $('body').removeClass('bottom-sheet-open');
-                }
-                
-                // Transform zurücksetzen
-                $content.css('transform', '');
-                isDragging = false;
             });
         }
-    };
 
-    // Initialisierung
-    SeedfindAccordion.init();
+        /**
+         * Sync: Wenn Modal/Offcanvas geschlossen wird, Filter-Count aktualisieren
+         */
+        if (modalEl) {
+            modalEl.addEventListener('hidden.bs.modal', function() {
+                console.log('📁 Desktop Modal geschlossen');
+                syncFilterCounts();
+            });
+        }
+        if (offcanvasEl) {
+            offcanvasEl.addEventListener('hidden.bs.offcanvas', function() {
+                console.log('📁 Mobile Offcanvas geschlossen');
+                syncFilterCounts();
+            });
+        }
+
+        /**
+         * Suchen-Buttons: Modal/Offcanvas schließen nach Klick
+         * (seedfinder_ajax.js handled die eigentliche Suche)
+         */
+        var searchDesktop = document.getElementById('search-filters-desktop');
+        var searchMobile = document.getElementById('search-filters-mobile');
+
+        if (searchDesktop) {
+            searchDesktop.addEventListener('click', function() {
+                console.log('🔍 Desktop Suchen geklickt');
+                if (bsModal) {
+                    // Kurze Verzögerung damit seedfinder_ajax.js die Checkboxen lesen kann
+                    setTimeout(function() {
+                        bsModal.hide();
+                    }, 100);
+                }
+            });
+        }
+        if (searchMobile) {
+            searchMobile.addEventListener('click', function() {
+                console.log('🔍 Mobile Suchen geklickt');
+                if (bsOffcanvas) {
+                    setTimeout(function() {
+                        bsOffcanvas.hide();
+                    }, 100);
+                }
+            });
+        }
+
+        /**
+         * Reset-Buttons: Modal/Offcanvas schließen nach Reset
+         * (seedfinder_ajax.js handled den eigentlichen Reset)
+         */
+        var resetDesktop = document.getElementById('reset-filters-desktop');
+        var resetMobile = document.getElementById('reset-filters-mobile');
+
+        if (resetDesktop) {
+            resetDesktop.addEventListener('click', function() {
+                console.log('🔄 Desktop Reset geklickt');
+                if (bsModal) {
+                    setTimeout(function() {
+                        bsModal.hide();
+                    }, 200);
+                }
+            });
+        }
+        if (resetMobile) {
+            resetMobile.addEventListener('click', function() {
+                console.log('🔄 Mobile Reset geklickt');
+                if (bsOffcanvas) {
+                    setTimeout(function() {
+                        bsOffcanvas.hide();
+                    }, 200);
+                }
+            });
+        }
+
+        /**
+         * Active Filter Count synchronisieren
+         * Aktualisiert alle Badge-Elemente mit der Anzahl aktiver Filter
+         */
+        function syncFilterCounts() {
+            var count = document.querySelectorAll('.filter-checkbox:checked').length;
+            
+            var badges = [
+                document.getElementById('active-filter-count'),
+                document.getElementById('active-filter-count-modal'),
+                document.getElementById('active-filter-count-mobile')
+            ];
+
+            badges.forEach(function(badge) {
+                if (badge) {
+                    badge.textContent = count;
+                    badge.style.display = count > 0 ? '' : 'none';
+                }
+            });
+
+            console.log('📊 Filter Count sync:', count);
+        }
+
+        /**
+         * Mobile Accordion: Chevron-Rotation bei Collapse Toggle
+         */
+        var mobileAccordion = document.getElementById('filter-accordion-mobile');
+        if (mobileAccordion) {
+            var collapseEls = mobileAccordion.querySelectorAll('.collapse');
+            collapseEls.forEach(function(collapseEl) {
+                collapseEl.addEventListener('show.bs.collapse', function() {
+                    var btn = mobileAccordion.querySelector('[data-bs-target="#' + collapseEl.id + '"]');
+                    if (btn) {
+                        var chevron = btn.querySelector('.fa-chevron-down, .fa-chevron-up');
+                        if (chevron) {
+                            chevron.classList.remove('fa-chevron-down');
+                            chevron.classList.add('fa-chevron-up');
+                        }
+                    }
+                });
+                collapseEl.addEventListener('hide.bs.collapse', function() {
+                    var btn = mobileAccordion.querySelector('[data-bs-target="#' + collapseEl.id + '"]');
+                    if (btn) {
+                        var chevron = btn.querySelector('.fa-chevron-down, .fa-chevron-up');
+                        if (chevron) {
+                            chevron.classList.remove('fa-chevron-up');
+                            chevron.classList.add('fa-chevron-down');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initial sync
+        syncFilterCounts();
+
+        console.log('✅ SeedfindFilterController v8.0.0 bereit');
     }
 
 })();
 
 
 /**
- * ⭐ NEU v7.0.1: Checkbox-Sortierung
+ * Checkbox-Sortierung v8.0.0
  * Sortiert Checkboxen: Checked → Enabled → Disabled
  * Blendet disabled Checkboxen aus (außer checked)
  */
 function sortCheckboxes() {
-    console.log('='.repeat(60));
-    console.log('✅ Checkbox-Sort v7.0.1: Sortiere und blende disabled Items aus');
-    console.log('='.repeat(60));
+    console.log('✅ Checkbox-Sort v8.0.0: Sortiere und blende disabled Items aus');
     
-    let totalContainers = 0;
-    let totalItems = 0;
+    var totalContainers = 0;
+    var totalItems = 0;
     
-    // Container für Desktop und Mobile
-    const desktopContainers = document.querySelectorAll('.filter-values-container');
-    const mobileContainers = document.querySelectorAll('#filter-accordion-mobile .card-body');
+    // Container für Desktop (Modal) und Mobile (Offcanvas)
+    var desktopContainers = document.querySelectorAll('#filter-accordion-desktop .filter-values-container');
+    var mobileContainers = document.querySelectorAll('#filter-accordion-mobile .card-body');
     
-    console.log(`\n📊 Container gefunden:`);
-    console.log(`  - Desktop (.filter-values-container): ${desktopContainers.length}`);
-    console.log(`  - Mobile (#filter-accordion-mobile .card-body): ${mobileContainers.length}`);
-    console.log(`  - GESAMT: ${desktopContainers.length + mobileContainers.length}\n`);
+    console.log('Desktop containers:', desktopContainers.length, '| Mobile containers:', mobileContainers.length);
     
     // Kombiniere beide Arrays
-    const allContainers = [...desktopContainers, ...mobileContainers];
+    var allContainers = [];
+    desktopContainers.forEach(function(c) { allContainers.push(c); });
+    mobileContainers.forEach(function(c) { allContainers.push(c); });
     
-    allContainers.forEach((container, containerIndex) => {
-        const checkboxItems = container.querySelectorAll('.form-check');
+    allContainers.forEach(function(container) {
+        var checkboxItems = container.querySelectorAll('.form-check');
         
-        console.log(`\n${'─'.repeat(60)}`);
-        console.log(`Container ${containerIndex}: ${checkboxItems.length} Checkboxen gefunden`);
-        
-        if (checkboxItems.length === 0) {
-            console.warn(`  ⚠️ Container ${containerIndex}: Keine Checkboxen gefunden!`);
-            return;
-        }
+        if (checkboxItems.length === 0) return;
         
         // Konvertiere zu Array für Sortierung
-        const itemsArray = Array.from(checkboxItems);
+        var itemsArray = Array.from(checkboxItems);
         
-        // Debug: VOR Sortierung
-        console.log(`\n  📋 VOR Sortierung:`);
-        itemsArray.forEach((item, idx) => {
-            const checkbox = item.querySelector('input[type="checkbox"]');
-            const label = item.querySelector('label');
-            const text = label ? label.textContent.trim() : 'NO LABEL';
-            const checked = checkbox ? checkbox.checked : false;
-            const disabled = checkbox ? checkbox.disabled : false;
+        // Sortierung: Checked → Enabled → Disabled
+        itemsArray.sort(function(a, b) {
+            var checkboxA = a.querySelector('input[type="checkbox"]');
+            var checkboxB = b.querySelector('input[type="checkbox"]');
             
-            const status = checked ? '✓' : (disabled ? 'DIS' : '○');
-            console.log(`    [${idx}] ${status} - ${text}`);
-        });
-        
-        // ⭐ SORTIERUNG
-        itemsArray.sort((a, b) => {
-            const checkboxA = a.querySelector('input[type="checkbox"]');
-            const checkboxB = b.querySelector('input[type="checkbox"]');
+            var checkedA = checkboxA ? checkboxA.checked : false;
+            var checkedB = checkboxB ? checkboxB.checked : false;
+            var disabledA = checkboxA ? checkboxA.disabled : false;
+            var disabledB = checkboxB ? checkboxB.disabled : false;
             
-            const checkedA = checkboxA ? checkboxA.checked : false;
-            const checkedB = checkboxB ? checkboxB.checked : false;
-            const disabledA = checkboxA ? checkboxA.disabled : false;
-            const disabledB = checkboxB ? checkboxB.disabled : false;
-            
-            // Priorität 1: Checked zuerst
             if (checkedA && !checkedB) return -1;
             if (!checkedA && checkedB) return 1;
-            
-            // Priorität 2: Enabled vor Disabled
             if (!disabledA && disabledB) return -1;
             if (disabledA && !disabledB) return 1;
-            
-            // Gleiche Priorität: Original-Reihenfolge beibehalten
             return 0;
         });
         
-        // Debug: NACH Sortierung
-        console.log(`\n  📋 NACH Sortierung:`);
-        itemsArray.forEach((item, idx) => {
-            const checkbox = item.querySelector('input[type="checkbox"]');
-            const label = item.querySelector('label');
-            const text = label ? label.textContent.trim() : 'NO LABEL';
-            const checked = checkbox ? checkbox.checked : false;
-            const disabled = checkbox ? checkbox.disabled : false;
-            
-            const status = checked ? '✓' : (disabled ? 'DIS' : '○');
-            console.log(`    [${idx}] ${status} - ${text}`);
-        });
-        
-        // ⭐ DOM NEU AUFBAUEN
-        // Leere Container
+        // DOM neu aufbauen
         container.innerHTML = '';
         
-        // Füge sortierte Items hinzu
-        itemsArray.forEach(item => {
-            const checkbox = item.querySelector('input[type="checkbox"]');
-            const disabled = checkbox ? checkbox.disabled : false;
-            const checked = checkbox ? checkbox.checked : false;
+        itemsArray.forEach(function(item) {
+            var checkbox = item.querySelector('input[type="checkbox"]');
+            var disabled = checkbox ? checkbox.disabled : false;
+            var checked = checkbox ? checkbox.checked : false;
             
             // Disabled Items ausblenden (außer checked)
             if (disabled && !checked) {
@@ -430,11 +284,7 @@ function sortCheckboxes() {
         totalItems += checkboxItems.length;
     });
     
-    console.log(`\n${'='.repeat(60)}`);
-    console.log(`✅ Checkbox-Sort abgeschlossen:`);
-    console.log(`   - ${totalContainers} Container verarbeitet`);
-    console.log(`   - ${totalItems} Items sortiert`);
-    console.log(`${'='.repeat(60)}\n`);
+    console.log('✅ Checkbox-Sort: ' + totalContainers + ' Container, ' + totalItems + ' Items');
 }
 
 // Global exportieren

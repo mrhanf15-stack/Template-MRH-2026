@@ -1,42 +1,80 @@
-{config_load file="$language/lang_$language.conf" section="listing_filter"}
+{config_load file="$language/lang_$language.conf" section="filter"}
 {config_load file="lang_`$language`.custom"}
-{config_load file="lang_`$language`.section" section="listing_filter"}
-{* MRH 2026: Listing-Filter – BS5.3 *}
-{if isset($FILTER_CONTENT) || isset($SORT_BY) || isset($LISTING_COUNT)}
-  <div class="mrh-listing-filter card mb-3">
-    <div class="card-body py-2">
-      <div class="row g-2 align-items-center">
-        {* Sortierung *}
-        {if isset($SORT_BY)}
-          <div class="col-auto">
-            <label class="form-label small mb-0 me-1">{#text_sort_by#}</label>
-          </div>
-          <div class="col-auto">
-            {$SORT_BY|replace:'<select':'<select class="form-select form-select-sm"'}
-          </div>
-        {/if}
-        {* Anzahl pro Seite *}
-        {if isset($LISTING_COUNT)}
-          <div class="col-auto">
-            <label class="form-label small mb-0 me-1">{#text_per_page#}</label>
-          </div>
-          <div class="col-auto">
-            {$LISTING_COUNT|replace:'<select':'<select class="form-select form-select-sm"'}
-          </div>
-        {/if}
-        {* Ansicht *}
-        {if isset($LISTING_VIEW)}
-          <div class="col-auto ms-auto">
-            {$LISTING_VIEW}
-          </div>
-        {/if}
-      </div>
-      {* Erweiterte Filter *}
-      {if isset($FILTER_CONTENT) && $FILTER_CONTENT != ''}
-        <div class="mt-2 pt-2 border-top">
-          {$FILTER_CONTENT}
+{config_load file="lang_`$language`.section" section="filter"}
+{* ============================================================
+   MRH 2026 – Phase 3: Grundfilter-Leiste (immer sichtbar)
+   BS5.3 + FA7 Pro + CSS-Variablen
+   Stand: 2026-04-09
+   ============================================================ *}
+
+<div class="mrh-filter-bar">
+  <div class="mrh-filter-bar-inner">
+
+    {* === Links: Filter-Button (öffnet Modal/Offcanvas) === *}
+    <div class="mrh-filter-bar-left">
+      <button type="button" class="btn mrh-btn-filter" id="mrh-open-filters" aria-label="Filter öffnen">
+        <span class="fa-solid fa-sliders me-1"></span>
+        <span class="d-none d-sm-inline">Filter</span>
+        <span class="badge bg-light text-dark ms-1" id="active-filter-count" style="display:none;">0</span>
+      </button>
+    </div>
+
+    {* === Mitte: Hersteller + Sortierung + Artikel pro Seite === *}
+    <div class="mrh-filter-bar-center">
+      {* Hersteller-Dropdown (nur wenn keine Filter-Tags aktiv) *}
+      {if count($FILTER_TAG) < 1 && $FILTER_MANUFACTURER != ''}
+        <div class="mrh-filter-bar-item mrh-filter-manufacturer">
+          {$FILTER_MANUFACTURER}
         </div>
       {/if}
+
+      {* Sortierung *}
+      <div class="mrh-filter-bar-item mrh-filter-sort">
+        {$FILTER_SORT}
+      </div>
+
+      {* Artikel pro Seite *}
+      <div class="mrh-filter-bar-item mrh-filter-perpage d-none d-md-block">
+        {$FILTER_SET}
+      </div>
+    </div>
+
+    {* === Rechts: Ansicht-Toggle (Kachel/Liste) === *}
+    <div class="mrh-filter-bar-right">
+      <div class="mrh-view-toggle">
+        <a rel="nofollow" class="mrh-view-btn{if $smarty.const.PRODUCT_LIST_BOX == 'true'} active{/if}" href="{$LINK_DISPLAY_BOX}" title="Kachelansicht" aria-label="Kachelansicht">
+          <span class="fa-solid fa-grid-2"></span>
+        </a>
+        <a rel="nofollow" class="mrh-view-btn{if $smarty.const.PRODUCT_LIST_BOX != 'true'} active{/if}" href="{$LINK_DISPLAY_LIST}" title="Listenansicht" aria-label="Listenansicht">
+          <span class="fa-solid fa-list"></span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  {* === Aktive Filter-Tags (Chips) === *}
+  {if count($FILTER_TAG) > 0}
+    <div class="mrh-filter-tags">
+      <div class="mrh-filter-tags-inner">
+        {if $FILTER_MANUFACTURER != ''}
+          <div class="mrh-filter-tag-item">{$FILTER_MANUFACTURER}</div>
+        {/if}
+        {foreach name=aussen item=filter from=$FILTER_TAG}
+          <div class="mrh-filter-tag-item">{$filter}</div>
+        {/foreach}
+        <a rel="nofollow" class="btn btn-sm btn-outline-secondary mrh-filter-reset" href="{$LINK_FILTER_RESET}" title="Filter zurücksetzen">
+          <span class="fa-solid fa-xmark me-1"></span>Zurücksetzen
+        </a>
+      </div>
+    </div>
+  {/if}
+
+  {* === Seedfinder Active Chips (dynamisch via JS) === *}
+  <div class="mrh-seedfinder-chips" id="active-filters-card" style="display: none;">
+    <div id="active-filters-list" class="chips-horizontal-scroll">
+      {* Wird dynamisch per JavaScript gefüllt *}
     </div>
   </div>
-{/if}
+
+</div>
