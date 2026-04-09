@@ -4784,11 +4784,39 @@ button.faq-button:not(.collapsed)::after {
 
 /* Modal-Body: Padding für AJAX-Content */
 #mrhPopupModal .modal-body {
-  padding: 20px 24px;
+  padding: 24px 28px;
   background: var(--tpl-bg-body, #fff);
+  overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   max-height: calc(85vh - 56px);
+}
+
+/* Alle Child-Elemente im Modal-Body begrenzen */
+#mrhPopupModal .modal-body > * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Sections/Container: negative Margins neutralisieren */
+#mrhPopupModal .modal-body section,
+#mrhPopupModal .modal-body .container,
+#mrhPopupModal .modal-body .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+}
+
+/* Rows: negative Margins begrenzen */
+#mrhPopupModal .modal-body .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+#mrhPopupModal .modal-body [class*="col-"] {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 /* Content-Styling innerhalb des Modals */
