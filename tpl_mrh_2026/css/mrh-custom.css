@@ -4730,8 +4730,9 @@ button.faq-button:not(.collapsed)::after {
    Stand: 2026-04-09 v2
    ============================================================ */
 
-/* Modal-Backdrop: etwas dunkler für besseren Kontrast */
-#mrhIframeModal.modal { z-index: 1060; }
+/* z-index Fix: template.css setzt .modal-backdrop auf 50000
+   → Modal muss darüber liegen */
+#mrhIframeModal.modal { z-index: 50001; }
 
 /* Modal-Dialog: oben positioniert, max-width begrenzt */
 #mrhIframeModal .modal-dialog {
