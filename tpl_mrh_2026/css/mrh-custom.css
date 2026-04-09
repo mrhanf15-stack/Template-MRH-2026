@@ -2240,14 +2240,16 @@ table.tebals.wite tr:last-child td:last-child {
    ============================================================ */
 
 /* --- Details-Button --- */
-.mrh-btn-details {
+/* .btn.mrh-btn-* = Spezifitaet 0-2-0, gleich wie Bootstrap .btn.btn-sm */
+/* Unser CSS kommt nach Bootstrap, daher gewinnt es bei Gleichstand */
+.btn.mrh-btn-details {
   background-color: var(--tpl-btn-details-bg, #ffffff);
   color: var(--tpl-btn-details-text, #198754);
   border: 1px solid var(--tpl-btn-details-text, #198754);
   transition: all 0.2s ease;
 }
-.mrh-btn-details:hover,
-.mrh-btn-details:focus {
+.btn.mrh-btn-details:hover,
+.btn.mrh-btn-details:focus {
   background-color: var(--tpl-btn-details-hover, #198754);
   color: var(--tpl-btn-details-text, #ffffff);
   border-color: var(--tpl-btn-details-hover, #198754);
@@ -2256,14 +2258,14 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 /* --- Merkzettel-Button (Herz-Icon) --- */
-.mrh-btn-wishlist {
+.btn.mrh-btn-wishlist {
   background-color: var(--tpl-btn-wishlist-bg, #6c757d);
   color: var(--tpl-btn-wishlist-text, #ffffff);
   border: 1px solid var(--tpl-btn-wishlist-bg, #6c757d);
   transition: all 0.2s ease;
 }
-.mrh-btn-wishlist:hover,
-.mrh-btn-wishlist:focus {
+.btn.mrh-btn-wishlist:hover,
+.btn.mrh-btn-wishlist:focus {
   background-color: var(--tpl-btn-wishlist-hover, #565e64);
   color: var(--tpl-btn-wishlist-text, #ffffff);
   border-color: var(--tpl-btn-wishlist-hover, #565e64);
@@ -2272,14 +2274,14 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 /* --- Vergleich-Button (Auge/Waage-Icon) --- */
-.mrh-btn-compare {
+.btn.mrh-btn-compare {
   background-color: var(--tpl-btn-compare-bg, #6c757d);
   color: var(--tpl-btn-compare-text, #ffffff);
   border: 1px solid var(--tpl-btn-compare-bg, #6c757d);
   transition: all 0.2s ease;
 }
-.mrh-btn-compare:hover,
-.mrh-btn-compare:focus {
+.btn.mrh-btn-compare:hover,
+.btn.mrh-btn-compare:focus {
   background-color: var(--tpl-btn-compare-hover, #565e64);
   color: var(--tpl-btn-compare-text, #ffffff);
   border-color: var(--tpl-btn-compare-hover, #565e64);
