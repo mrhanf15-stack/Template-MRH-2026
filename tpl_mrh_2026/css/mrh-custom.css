@@ -4723,3 +4723,74 @@ button.faq-button:not(.collapsed)::after {
   .comparison-table { font-size: 0.9em; }
   .strain-features { justify-content: center; }
 }
+
+/* ============================================================
+   MRH iframe-Modal Design (Bootstrap 5)
+   Für Lieferzeit, Versandkosten etc.
+   ============================================================ */
+
+/* Modal-Dialog: zentriert, max-width begrenzt */
+#mrhIframeModal .modal-dialog {
+  max-width: 680px;
+  margin: 1.75rem auto;
+}
+
+/* Modal-Content: Template-Farben, abgerundete Ecken */
+#mrhIframeModal .modal-content {
+  border: 1px solid var(--tpl-border-color, #dee2e6);
+  border-radius: var(--tpl-border-radius, 8px);
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  background: var(--tpl-bg-body, #fff);
+  font-family: var(--tpl-font-text, sans-serif);
+  color: var(--tpl-text-standard, #333);
+}
+
+/* Modal-Header: Template-Farben */
+#mrhIframeModal .modal-header {
+  background: var(--tpl-bg-body, #f8f9fa);
+  border-bottom: 1px solid var(--tpl-border-color, #dee2e6);
+  padding: 10px 16px;
+  min-height: auto;
+}
+
+#mrhIframeModal .modal-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--tpl-text-headings, #334155);
+  font-family: var(--tpl-font-heading, sans-serif);
+}
+
+/* Close-Button */
+#mrhIframeModal .btn-close {
+  padding: 8px;
+  opacity: 0.5;
+}
+#mrhIframeModal .btn-close:hover {
+  opacity: 1;
+}
+
+/* Modal-Body: kein Padding, iframe füllt komplett */
+#mrhIframeModal .modal-body {
+  padding: 0;
+  background: var(--tpl-bg-body, #fff);
+}
+
+/* iframe: volle Breite, keine Ränder */
+#mrhIframeModal iframe {
+  width: 100%;
+  min-height: 450px;
+  border: none;
+  display: block;
+}
+
+/* Mobile: Modal fast fullscreen */
+@media (max-width: 767px) {
+  #mrhIframeModal .modal-dialog {
+    max-width: 95%;
+    margin: 0.5rem auto;
+  }
+  #mrhIframeModal iframe {
+    min-height: 350px;
+  }
+}
