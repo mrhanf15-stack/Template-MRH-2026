@@ -2441,10 +2441,27 @@ table.tebals.wite tr:last-child td:last-child {
   font-size: 0.8rem;
   color: var(--tpl-text-standard, #64748b);
 }
+.mrh-row-content .lr_shipping_image {
+  display: none;
+}
 .mrh-row-content .lr_shipping_image img {
   height: 14px;
   width: auto;
   vertical-align: middle;
+}
+
+/* --- Lieferzeit + Versandkosten Links: unterstrichen --- */
+.lb_shipping a,
+.lb_shipping_prices a,
+.lr_shipping a {
+  text-decoration: underline;
+  color: inherit;
+}
+.lb_shipping a:hover,
+.lb_shipping_prices a:hover,
+.lr_shipping a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
 }
 .mrh-row-content .lr_rating {
   font-size: 0.8rem;
