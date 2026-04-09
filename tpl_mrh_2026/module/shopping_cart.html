@@ -24,7 +24,7 @@
     {if $CONTINUE_LINK}<a href="{$CONTINUE_LINK}" class="btn btn-outline-secondary">{#text_continue_shopping#}</a>{/if}
     <div class="ms-auto">{$BUTTON_CHECKOUT}</div>
     {if isset($ACTIVATE_EXPRESS_LINK)}
-      <a href="{$ACTIVATE_EXPRESS_LINK}" class="btn btn-outline-primary">{#checkout_express_activate#}</a>
+      <a href="{$ACTIVATE_EXPRESS_LINK}" class="btn mrh-btn-express">{#checkout_express_activate#}</a>
     {/if}
     {if isset($MODULE_gift_cart)}
       <a id="gift_link" href="#gift_coupon" class="btn btn-outline-secondary"><span class="fa fa-gift me-1" aria-hidden="true"></span> {#text_gift_coupon#}</a>

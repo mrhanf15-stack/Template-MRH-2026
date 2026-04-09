@@ -110,10 +110,19 @@
                   {/if}
                 </div>
               </div>
+              {* ── Buttons: Merkzettel | Details | Vergleich (mrh-btn-* System) ── *}
               <div class="mrh-product-list-actions d-flex flex-column gap-2 flex-shrink-0">
-                <a href="{$product_data.PRODUCTS_LINK}" class="btn btn-sm btn-outline-success"><span class="fa fa-eye"></span> {#MRH_details#}</a>
-                {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-                  <a href="{$product_data.PRODUCTS_BUY_LINK}" class="btn btn-sm btn-success"><span class="fa fa-cart-plus"></span></a>
+                {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+                  {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+                  <a class="btn btn-sm mrh-btn-wishlist" aria-label="{#wishlist_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$product_data.PRODUCTS_ID`"}">
+                    <span class="fa fa-heart-o" aria-hidden="true"></span>
+                  </a>
+                {/if}
+                <a href="{$product_data.PRODUCTS_LINK}" class="btn btn-sm mrh-btn-details flex-grow-1"><span class="fa fa-eye"></span> {#MRH_details#}</a>
+                {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
+                  <a class="btn btn-sm mrh-btn-compare" aria-label="{#compare_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="javascript:void(0);" onclick="addToCompare('{$product_data.PRODUCTS_ID}');">
+                    <span class="fa fa-eye" aria-hidden="true"></span>
+                  </a>
                 {/if}
               </div>
             </div>
@@ -171,6 +180,25 @@
                     <div class="small text-muted">{$product_data.PRODUCTS_TAX_INFO}{$product_data.PRODUCTS_SHIPPING_LINK}</div>
                   {/if}
                 </div>
+                {* ── Buttons: Merkzettel | Details | Vergleich (mrh-btn-* System) ── *}
+                {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+                  <div class="d-flex justify-content-between align-items-center gap-1 mt-2">
+                    {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
+                      {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+                      <a class="btn btn-sm mrh-btn-wishlist" aria-label="{#wishlist_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$product_data.PRODUCTS_ID`"}">
+                        <span class="fa fa-heart-o" aria-hidden="true"></span>
+                      </a>
+                    {/if}
+                    <a class="btn btn-sm mrh-btn-details flex-grow-1" aria-label="{#details#} - {#view_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="{$product_data.PRODUCTS_LINK}">
+                      <span>{#details#}</span>
+                    </a>
+                    {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
+                      <a class="btn btn-sm mrh-btn-compare" aria-label="{#compare_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="javascript:void(0);" onclick="addToCompare('{$product_data.PRODUCTS_ID}');">
+                        <span class="fa fa-eye" aria-hidden="true"></span>
+                      </a>
+                    {/if}
+                  </div>
+                {/if}
               </div>
             </div>
           {/if}

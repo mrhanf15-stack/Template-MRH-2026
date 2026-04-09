@@ -370,7 +370,7 @@
       <div class="row">
         {if $smarty.const.MODULE_PRODUCT_COMPARE_STATUS == 'true'}
           <div class="col-sm-6 mb-2">
-            <button type="button" class="btn btn-compare btn-info btn-xs btn-block"
+            <button type="button" class="btn mrh-btn-compare btn-xs btn-block"
                     data-product-id="{$PRODUCTS_ID}"
                     onclick="event.preventDefault(); window.ProductCompare && window.ProductCompare.toggle('{$PRODUCTS_ID}', this);">
               <span class="fa fa-balance-scale me-1"></span>
@@ -404,7 +404,7 @@
         {if isset($EXPRESS_LINK) && isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
           <div class="dropdown col-sm-6 mb-2">
             <a href="#" role="button" id="dropdownMenuLink"
-               class="btn btn-info btn-sm dropdown-toggle"
+               class="btn mrh-btn-express btn-sm dropdown-toggle"
                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="fa fa-info-circle me-1"></span> {#checkout_express_infotext#}
             </a>
@@ -421,7 +421,7 @@
           {/if}
           {if isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
             <div class="col-sm-6 mb-2">
-              <a class="btn btn-info btn-sm" href="{$ACTIVATE_EXPRESS_LINK}">
+              <a class="btn mrh-btn-express btn-sm" href="{$ACTIVATE_EXPRESS_LINK}">
                 <span class="fa fa-bolt me-1"></span> {#checkout_express_activate#}
               </a>
             </div>

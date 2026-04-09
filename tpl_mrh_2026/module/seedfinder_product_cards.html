@@ -124,19 +124,19 @@
                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                 <div>
                                     {if $product.TOTAL_STOCK_AVAILABLE}
-                                    <a href="{$product.PRODUCTS_LINK}" class="btn btn-sm btn-outline-success me-1" title="{#cart_button_title#}">
+                                    <a href="{$product.PRODUCTS_LINK}" class="btn btn-sm mrh-btn-primary me-1" title="{#cart_button_title#}">
                                         <span class="fa-solid fa-cart-shopping"></span>
                                     </a>
                                     {/if}
-                                    <a href="{$product.PRODUCTS_LINK}#wishlist" class="btn btn-sm btn-outline-secondary me-1" title="{#wishlist_button_title#}">
+                                    <a href="{$product.PRODUCTS_LINK}#wishlist" class="btn btn-sm mrh-btn-wishlist me-1" title="{#wishlist_button_title#}">
                                         <span class="fa-solid fa-heart"></span>
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="{$product.PRODUCTS_LINK}" class="btn btn-info btn-sm me-1">
+                                    <a href="{$product.PRODUCTS_LINK}" class="btn btn-sm mrh-btn-details me-1">
                                         <span class="fa-solid fa-eye me-1"></span>{#details_button#}
                                     </a>
-                                    <button type="button" class="btn-compare btn btn-sm" data-product-id="{$product.PRODUCTS_ID}" title="{#compare_button_title#}">
+                                    <button type="button" class="btn-compare btn btn-sm mrh-btn-compare" data-product-id="{$product.PRODUCTS_ID}" title="{#compare_button_title#}">
                                         <span class="fa-solid fa-scale-balanced me-1"></span>{#compare_button#}
                                     </button>
                                 </div>

@@ -182,7 +182,7 @@
               {$ADD_QTY|replace:'input':'input class="form-control form-control-sm text-center" id="mrh-qty"'}
             </div>
             <div class="flex-grow-1">
-              {$ADD_CART_BUTTON|replace:'btn ':'btn btn-success btn-lg w-100 '}
+              {$ADD_CART_BUTTON|replace:'btn ':'btn mrh-btn-primary btn-lg w-100 '}
             </div>
           </div>
           {if $PRODUCTS_QUANTITY > 0}
@@ -237,7 +237,7 @@
       {if isset($EXPRESS_LINK) && isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
         <div class="dropdown mb-3">
           <a href="#" role="button" id="dropdownMenuLink"
-             class="btn btn-info btn-sm dropdown-toggle"
+             class="btn mrh-btn-express btn-sm dropdown-toggle"
              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="fa fa-info-circle me-1"></span> {#checkout_express_infotext#}
           </a>
@@ -250,7 +250,7 @@
         {if isset($EXPRESS_LINK)}<div class="mb-3">{$EXPRESS_LINK}</div>{/if}
         {if isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
           <div class="mb-3">
-            <a class="btn btn-info btn-sm" href="{$ACTIVATE_EXPRESS_LINK}">
+            <a class="btn mrh-btn-express btn-sm" href="{$ACTIVATE_EXPRESS_LINK}">
               <span class="fa fa-bolt me-1"></span> {#checkout_express_activate#}
             </a>
           </div>
