@@ -8,8 +8,9 @@
  BESONDERHEIT IN DEMO: ZURUECKSETZEN DER WERTE DURCH CRONJOB (ALLE 30 MIN)
 
  GEFIXT: Speichert nur Farb-Keys (nicht ganzes $_POST mit Submit-Button)
- ERWEITERT: Sekundärfarbe (tpl-secondary-color) hinzugefügt
+ ERWEITERT: Sekundaerfarbe (tpl-secondary-color) hinzugefuegt
  ERWEITERT: Details/Wishlist/Compare Button-Variablen (2026-04-08)
+ FIX: Merge-Logik – Farben/Buttons speichern ueberschreiben sich nicht mehr (2026-04-09)
 -----------------------------------------------------------------------------------------
 */
 
@@ -41,7 +42,7 @@ if (stristr($_SERVER['SERVER_NAME'], 'modifiedtemplate.de') || (isset($_SESSION[
         $arrDefaultColors  = json_decode($jsonDefaultColors, TRUE);
 
         // ======================================================================
-        // Liste aller gültigen Farb-Keys (nur diese werden gespeichert)
+        // Liste aller gueltigen Farb-Keys (nur diese werden gespeichert)
         // ======================================================================
         $validColorKeys = [
                 'tpl-main-color',
@@ -95,25 +96,34 @@ if (stristr($_SERVER['SERVER_NAME'], 'modifiedtemplate.de') || (isset($_SESSION[
          *
          * KONFIGURATION SCHREIBEN
          *
-         * Wenn die Formulare abgeschickt wurden, werden die
-         * JSON-Dateien neu beschrieben. Das Beschreiben der Da-
-         * teien wurde nach oben geschoben, damit nach dem Spei-
-         * chern die neuen Farben korrekt ausgelesen werden und
-         * keine Alt-Farben in der Konfigurationsbox ausgegeben
-         * werden.
-         *
-         * FIX: Nur gültige Farb-Keys speichern, nicht das gesamte $_POST
+         * FIX 2026-04-09: MERGE-LOGIK
+         * Bestehende colors.json wird zuerst gelesen, dann werden NUR die Keys
+         * ueberschrieben, die tatsaechlich im POST gesendet wurden.
+         * So ueberschreiben sich "Farben speichern" und "Button-Farben speichern"
+         * nicht mehr gegenseitig.
          */
         if (isset($_POST['submit-colorsettings'])) {
-                $saveColors = [];
+                // Bestehende colors.json lesen
+                $existingColors = [];
+                if (file_exists($fileCustomColors)) {
+                        $existingJson = file_get_contents($fileCustomColors, 0);
+                        $existingColors = json_decode($existingJson, TRUE);
+                        if (!is_array($existingColors)) $existingColors = [];
+                }
+
+                // Nur Keys ueberschreiben, die tatsaechlich im POST gesendet wurden
                 foreach ($validColorKeys as $key) {
                         if (isset($_POST[$key]) && !empty(trim($_POST[$key]))) {
-                                $saveColors[$key] = trim($_POST[$key]);
-                        } elseif (isset($arrDefaultColors[$key])) {
-                                $saveColors[$key] = $arrDefaultColors[$key];
+                                // Key ist im POST → neuen Wert uebernehmen
+                                $existingColors[$key] = trim($_POST[$key]);
+                        } elseif (!isset($existingColors[$key]) && isset($arrDefaultColors[$key])) {
+                                // Key existiert weder im POST noch in der bestehenden JSON → Default setzen
+                                $existingColors[$key] = $arrDefaultColors[$key];
                         }
+                        // Wenn Key nicht im POST aber in existingColors → BEIBEHALTEN (kein Reset!)
                 }
-                $jsonCustomColors = json_encode($saveColors, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+                $jsonCustomColors = json_encode($existingColors, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
                 file_put_contents($fileCustomColors, $jsonCustomColors);
         }
 

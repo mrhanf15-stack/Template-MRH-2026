@@ -1,5 +1,17 @@
 # MRH 2026 Template – Changelog
 
+## 2026-04-09 – Fix: Konfigurator Merge-Logik (Farben + Buttons)
+
+**Bug:** Beim Klick auf "Farben speichern" wurden die Button-Farben auf Defaults zurueckgesetzt und umgekehrt.
+
+**Ursache:** Beide Formulare schreiben in dieselbe `colors.json`. Die alte Logik iterierte ueber alle 41 Keys und setzte fehlende Keys (die im anderen Formular sind) auf Defaults zurueck.
+
+**Fix:** Merge-Logik in `templateconfig.php` – bestehende `colors.json` wird zuerst gelesen, dann werden NUR die Keys ueberschrieben, die tatsaechlich im POST gesendet wurden. Alle anderen Keys bleiben erhalten.
+
+| Datei | Aenderung |
+|-------|----------|
+| `source/boxes/templateconfig.php` | Zeile 107-118: Komplettes Ueberschreiben durch Merge-Logik ersetzt. Bestehende colors.json wird gelesen, nur POST-Keys werden aktualisiert. |
+
 ## 2026-04-09 – mrh_color_vars.php geloescht
 
 | Datei | Aenderung |

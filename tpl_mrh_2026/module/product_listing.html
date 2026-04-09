@@ -1,221 +1,77 @@
-{config_load file="$language/lang_$language.conf" section="product_listing"}
+{config_load file="$language/lang_$language.conf" section="index"}
 {config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="index"}
+{if $error_message}<div class="errormessage">{$error_message}</div>{/if}
 
-{* MRH 2026: Produkt-Listing – Volle Breite, keine Sidebar, horizontale Filter *}
-<section class="mrh-product-listing mrh-cv-auto" aria-label="{#heading_product_listing#}">
-
-  {* Kategorie-Header *}
-  {if isset($CATEGORY_NAME)}
-    <div class="mrh-category-header mb-4">
-      <h1 class="h3" itemprop="name">{$CATEGORY_NAME}</h1>
-      {if isset($CATEGORY_DESCRIPTION) && $CATEGORY_DESCRIPTION != ''}
-        <div class="mrh-category-desc small text-muted" itemprop="description">{$CATEGORY_DESCRIPTION}</div>
+{* ============================================================
+   MRH 2026 – Phase 1: Kategorie-Header (Bild links, H1 + Desc rechts)
+   Desktop: Flexbox nebeneinander | Mobile: Bild ueber H1
+   Stand: 2026-04-09
+   ============================================================ *}
+{if isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != ''}
+  <div class="mrh-cat-header">
+    <div class="mrh-cat-image">
+      <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
+    </div>
+    <div class="mrh-cat-info">
+      <h1>{$LIST_TITLE}</h1>
+      {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
+        <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
       {/if}
     </div>
-  {/if}
-
-  {* Unterkategorien als Chips *}
-  {if isset($SUB_CATEGORIES)}
-    {include file="boxes/sub_categories.html"}
-  {/if}
-
-  {* Horizontale Filterleiste *}
-  <div class="mrh-filter-bar d-flex flex-wrap align-items-center gap-2 mb-4 py-2 border-bottom">
-    {* Sortierung *}
-    {if isset($SORT_SELECT)}
-      <div class="mrh-filter-sort">
-        <label for="mrh-sort-select" class="visually-hidden">{#text_sort_by#}</label>
-        {$SORT_SELECT|replace:'<select':'<select id="mrh-sort-select" class="form-select form-select-sm"'}
-      </div>
-    {/if}
-
-    {* Ansicht: Grid / Liste *}
-    <div class="mrh-filter-view ms-auto d-flex gap-1">
-      <a href="?view=grid" class="btn btn-sm btn-outline-secondary{if $VIEW_MODE == 'grid'} active{/if}" title="{#text_view_grid#}" aria-label="{#text_view_grid#}">
-        <span class="fa fa-th"></span>
-      </a>
-      <a href="?view=list" class="btn btn-sm btn-outline-secondary{if $VIEW_MODE == 'list'} active{/if}" title="{#text_view_list#}" aria-label="{#text_view_list#}">
-        <span class="fa fa-list"></span>
-      </a>
-    </div>
-
-    {* Anzahl pro Seite *}
-    {if isset($PER_PAGE_SELECT)}
-      <div class="mrh-filter-perpage">
-        <label for="mrh-perpage-select" class="visually-hidden">{#text_per_page#}</label>
-        {$PER_PAGE_SELECT|replace:'<select':'<select id="mrh-perpage-select" class="form-select form-select-sm"'}
-      </div>
-    {/if}
   </div>
-
-  {* Obere Pagination (kompakt, vor Produkt-Grid) *}
-  {if isset($PAGINATION) && $PAGINATION != ''}
-    <div class="mrh-pagination--top">
-      {$PAGINATION}
-    </div>
+{else}
+  <h1>{$LIST_TITLE}</h1>
+  {if isset($CATEGORIES_SHORT_DESCRIPTION) && $CATEGORIES_SHORT_DESCRIPTION != ''}
+    <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
   {/if}
+{/if}
 
-  {* Produkt-Grid *}
-  {if isset($module_content) && count($module_content) > 0}
-    <div class="row g-3" itemscope itemtype="https://schema.org/ItemList">
-      <meta itemprop="numberOfItems" content="{$module_content|@count}">
-      {foreach name=products item=product_data from=$module_content}
-        <div class="{if $VIEW_MODE == 'list'}col-12{else}col-6 col-md-4 col-lg-3{/if}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <meta itemprop="position" content="{$smarty.foreach.products.iteration}">
-          {if $VIEW_MODE == 'list'}
-            {* Listenansicht *}
-            <div class="mrh-product-list-item d-flex gap-3 p-3 border-bottom" itemscope itemtype="https://schema.org/Product">
-              <a href="{$product_data.PRODUCTS_LINK}" class="mrh-product-list-img flex-shrink-0" style="width:120px">
-                {if $product_data.PRODUCTS_IMAGE != ''}
-                  <img src="{$product_data.PRODUCTS_IMAGE}" alt="{$product_data.PRODUCTS_NAME|onlytext}"
-                       itemprop="image" loading="lazy" width="120" height="120">
-                {/if}
-              </a>
-              <div class="flex-grow-1">
-                {if !empty($product_data.MANUFACTURER)}
-                  <div class="small text-muted" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-                    <span itemprop="name">{$product_data.MANUFACTURER}</span>
-                  </div>
-                {/if}
-                <h3 class="h6 mb-1"><a href="{$product_data.PRODUCTS_LINK}" itemprop="name" class="text-decoration-none">{$product_data.PRODUCTS_NAME}</a></h3>
-                {* Short Description (HTML-Tabelle aus DB) *}
-                {if isset($product_data.PRODUCTS_SHORT_DESCRIPTION) && $product_data.PRODUCTS_SHORT_DESCRIPTION != ''}
-                  <div class="mrh-short-desc small mb-2">{$product_data.PRODUCTS_SHORT_DESCRIPTION}</div>
-                {/if}
-                {* Bewertung *}
-                {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
-                  <div class="mrh-rating small mb-1">
-                    {for $star=0 to 4}
-                      {if $star < $product_data.MRH_RATING_FULL}
-                        <span class="fa fa-star"></span>
-                      {elseif $star < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
-                        <span class="fa fa-star-half-o"></span>
-                      {else}
-                        <span class="fa fa-star-o"></span>
-                      {/if}
-                    {/for}
-                    <span class="text-muted">({$product_data.MRH_RATING_COUNT})</span>
-                  </div>
-                {/if}
-                {* Preis *}
-                <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="EUR">
-                  {foreach name=inner item=price_data from=$product_data.PRODUCTS_PRICE_ARRAY}
-                    {include file="module/includes/price_box.html"}
-                  {/foreach}
-                  {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-                    <link itemprop="availability" href="https://schema.org/InStock">
-                    {if $product_data.PRODUCTS_VPE}<span class="small text-muted">{$product_data.PRODUCTS_VPE}</span>{/if}
-                    <div class="small text-muted">{$product_data.PRODUCTS_TAX_INFO}{$product_data.PRODUCTS_SHIPPING_LINK}</div>
-                  {/if}
-                </div>
-              </div>
-              {* ── Buttons: Merkzettel | Details | Vergleich (mrh-btn-* System) ── *}
-              <div class="mrh-product-list-actions d-flex flex-column gap-2 flex-shrink-0">
-                {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
-                  {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
-                  <a class="btn btn-sm mrh-btn-wishlist" aria-label="{#wishlist_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$product_data.PRODUCTS_ID`"}">
-                    <span class="fa fa-heart-o" aria-hidden="true"></span>
-                  </a>
-                {/if}
-                <a href="{$product_data.PRODUCTS_LINK}" class="btn btn-sm mrh-btn-details flex-grow-1"><span class="fa fa-eye"></span> {#MRH_details#}</a>
-                {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
-                  <a class="btn btn-sm mrh-btn-compare" aria-label="{#compare_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="javascript:void(0);" onclick="addToCompare('{$product_data.PRODUCTS_ID}');">
-                    <span class="fa fa-eye" aria-hidden="true"></span>
-                  </a>
-                {/if}
-              </div>
-            </div>
-          {else}
-            {* Grid-Ansicht (Boxansicht) – Option A: Preis + Strain-Badges *}
-            <div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
-              <a href="{$product_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$product_data.PRODUCTS_NAME|onlytext}">
-                <div class="mrh-flag">
-                  {if $smarty.const.MRH_FLAG_SPECIAL_SHOW == 'true' && $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT != ''}
-                    <span class="mrh-flag-badge mrh-flag-special">{#MRH_special#}</span>
-                  {elseif $smarty.const.MRH_FLAG_TOP_SHOW == 'true' && $product_data.PRODUCTS_STARTPAGE == '1'}
-                    <span class="mrh-flag-badge mrh-flag-top">{#MRH_top#}</span>
-                  {elseif $smarty.const.MRH_FLAG_NEW_SHOW == 'true' && $product_data.PRODUCTS_OLDNEW == '1'}
-                    <span class="mrh-flag-badge mrh-flag-new">{#MRH_new#}</span>
-                  {/if}
-                </div>
-                {if $product_data.PRODUCTS_IMAGE != ''}
-                  <img src="{$product_data.PRODUCTS_IMAGE}" alt="{$product_data.PRODUCTS_NAME|onlytext}"
-                       itemprop="image" loading="lazy" width="300" height="300">
-                {/if}
-              </a>
-              <div class="mrh-product-card-body">
-                {if !empty($product_data.MANUFACTURER)}
-                  <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-                    <span itemprop="name">{$product_data.MANUFACTURER}</span>
-                  </div>
-                {/if}
-                <h3 class="mrh-product-card-title">
-                  <a href="{$product_data.PRODUCTS_LINK}" itemprop="name">{$product_data.PRODUCTS_NAME}</a>
-                </h3>
-                {* Bewertung *}
-                {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
-                  <div class="mrh-rating">
-                    {for $star=0 to 4}
-                      {if $star < $product_data.MRH_RATING_FULL}
-                        <span class="fa fa-star"></span>
-                      {elseif $star < $product_data.MRH_RATING_FULL + $product_data.MRH_RATING_HALF}
-                        <span class="fa fa-star-half-o"></span>
-                      {else}
-                        <span class="fa fa-star-o"></span>
-                      {/if}
-                    {/for}
-                    <span class="mrh-rating-count">({$product_data.MRH_RATING_COUNT})</span>
-                  </div>
-                {/if}
-                {* Preis *}
-                <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="EUR">
-                  {foreach name=inner item=price_data from=$product_data.PRODUCTS_PRICE_ARRAY}
-                    {include file="module/includes/price_box.html"}
-                  {/foreach}
-                  {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-                    <link itemprop="availability" href="https://schema.org/InStock">
-                    {if $product_data.PRODUCTS_VPE}<div class="small text-muted">{$product_data.PRODUCTS_VPE}</div>{/if}
-                    <div class="small text-muted">{$product_data.PRODUCTS_TAX_INFO}{$product_data.PRODUCTS_SHIPPING_LINK}</div>
-                  {/if}
-                </div>
-                {* ── Buttons: Merkzettel | Details | Vergleich (mrh-btn-* System) ── *}
-                {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-                  <div class="d-flex justify-content-between align-items-center gap-1 mt-2">
-                    {if defined($smarty.const.MODULE_WISHLIST_SYSTEM_STATUS) && $smarty.const.MODULE_WISHLIST_SYSTEM_STATUS == 'true'}
-                      {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
-                      <a class="btn btn-sm mrh-btn-wishlist" aria-label="{#wishlist_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=1&BUYproducts_id=`$product_data.PRODUCTS_ID`"}">
-                        <span class="fa fa-heart-o" aria-hidden="true"></span>
-                      </a>
-                    {/if}
-                    <a class="btn btn-sm mrh-btn-details flex-grow-1" aria-label="{#details#} - {#view_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="{$product_data.PRODUCTS_LINK}">
-                      <span>{#details#}</span>
-                    </a>
-                    {if $smarty.const.MODULE_PRODUCTS_COMPARE == 'true'}
-                      <a class="btn btn-sm mrh-btn-compare" aria-label="{#compare_product#} {$product_data.PRODUCTS_NAME|onlytext}" href="javascript:void(0);" onclick="addToCompare('{$product_data.PRODUCTS_ID}');">
-                        <span class="fa fa-eye" aria-hidden="true"></span>
-                      </a>
-                    {/if}
-                  </div>
-                {/if}
-              </div>
-            </div>
-          {/if}
-        </div>
-      {/foreach}
-    </div>
+{* Unterkategorien *}
+{if isset($CATEGORIES_LISTING) && $CATEGORIES_LISTING|count_characters > 1}
+<div class="the-subcats">
+	{$CATEGORIES_LISTING}
+</div>
+{/if}
 
-    {* Pagination *}
-    {if isset($PAGINATION) && $PAGINATION != ''}
-      <nav class="mrh-pagination mt-4" aria-label="{#text_pagination#}">
-        {$PAGINATION}
-      </nav>
-    {/if}
-  {else}
-    <div class="text-center py-5 text-muted">
-      <span class="fa fa-search fa-3x mb-3 d-block"></span>
-      <p>{#text_no_products#}</p>
-    </div>
+{* Filter-Leiste *}
+{$LISTING_FILTER}
+
+{* Hersteller-Header (Phase 5 – wird spaeter umgebaut) *}
+{if (isset($MANUFACTURER_DESCRIPTION) && $MANUFACTURER_DESCRIPTION != '')
+    || (isset($MANUFACTURER_SHORT_DESCRIPTION) && $MANUFACTURER_SHORT_DESCRIPTION != '')
+    || (isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != '')
+    || (isset($MANUFACTURER_NAME) && $MANUFACTURER_NAME != '')
+    || (isset($MANUFACTURER_TITLE) && $MANUFACTURER_TITLE != '')}
+{if isset($MANUFACTURER_TITLE) && $MANUFACTURER_TITLE != ''}
+  <h4>{$MANUFACTURER_TITLE}</h4>
+{else}
+  <h4>{$MANUFACTURER_NAME}</h4>
+{/if}
+<div class="manu_description cf">
+  {if $MANUFACTURER_IMAGE}<img class="manu_image{if !$MANUFACTURER_DESCRIPTION && !$MANUFACTURER_SHORT_DESCRIPTION} mi_nomargin{/if}" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER_NAME|onlytext}" />{/if}
+  {if $MANUFACTURER_SHORT_DESCRIPTION}{$MANUFACTURER_SHORT_DESCRIPTION}{else if $MANUFACTURER_DESCRIPTION}{$MANUFACTURER_DESCRIPTION}{/if}
+</div>  
+{/if}
+
+{* Obere Pagination *}
+{$PAGINATION}
+
+{* Produktlisting (rendert Grid + List via product_listing_include.html) *}
+<div class="listingcontainer cf">
+  {include file="module/includes/product_listing_include.html"}
+</div>
+
+{* Untere Pagination *}
+{$PAGINATION}
+
+{* SEO-Beschreibung unterhalb des Listings (Phase 6) *}
+{if (isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != '')
+     || (isset($CATEGORIES_IMAGE) && $CATEGORIES_IMAGE != '')}
+  {if isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
+  <div class="cat_description cf">
+    <span class="h1">{$LIST_TITLE}</span>
+    {$CATEGORIES_DESCRIPTION}
+  </div>
   {/if}
-</section>
+{/if}
