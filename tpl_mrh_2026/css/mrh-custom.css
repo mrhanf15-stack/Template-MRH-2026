@@ -7,9 +7,9 @@
    00 MRH DESIGN-VARIABLEN – Überschreiben der Template-Defaults
    ============================================================ */
 :root {
-  --tpl-main-color: #2d7a3a !important;
-  --tpl-main-color-2: #236b2f !important;
-  --tpl-secondary-color: #236b2f !important;
+  --tpl-main-color: #2d7a3a;
+  --tpl-main-color-2: #236b2f;
+  --tpl-secondary-color: #236b2f;
   --mrh-primary: #2d7a3a;
   --mrh-primary-dark: #236b2f;
   --mrh-primary-light: #4a8c2a;
