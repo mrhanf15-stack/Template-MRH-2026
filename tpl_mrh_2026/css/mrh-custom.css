@@ -2240,17 +2240,14 @@ table.tebals.wite tr:last-child td:last-child {
    ============================================================ */
 
 /* --- Details-Button --- */
-.listingcontainer .mrh-btn-details,
-a.mrh-btn-details {
+.mrh-btn-details {
   background-color: var(--tpl-btn-details-bg, #ffffff);
   color: var(--tpl-btn-details-text, #198754);
   border: 1px solid var(--tpl-btn-details-text, #198754);
   transition: all 0.2s ease;
 }
-.listingcontainer .mrh-btn-details:hover,
-.listingcontainer .mrh-btn-details:focus,
-a.mrh-btn-details:hover,
-a.mrh-btn-details:focus {
+.mrh-btn-details:hover,
+.mrh-btn-details:focus {
   background-color: var(--tpl-btn-details-hover, #198754);
   color: var(--tpl-btn-details-text, #ffffff);
   border-color: var(--tpl-btn-details-hover, #198754);
@@ -2259,17 +2256,14 @@ a.mrh-btn-details:focus {
 }
 
 /* --- Merkzettel-Button (Herz-Icon) --- */
-.listingcontainer .mrh-btn-wishlist,
-a.mrh-btn-wishlist {
+.mrh-btn-wishlist {
   background-color: var(--tpl-btn-wishlist-bg, #6c757d);
   color: var(--tpl-btn-wishlist-text, #ffffff);
   border: 1px solid var(--tpl-btn-wishlist-bg, #6c757d);
   transition: all 0.2s ease;
 }
-.listingcontainer .mrh-btn-wishlist:hover,
-.listingcontainer .mrh-btn-wishlist:focus,
-a.mrh-btn-wishlist:hover,
-a.mrh-btn-wishlist:focus {
+.mrh-btn-wishlist:hover,
+.mrh-btn-wishlist:focus {
   background-color: var(--tpl-btn-wishlist-hover, #565e64);
   color: var(--tpl-btn-wishlist-text, #ffffff);
   border-color: var(--tpl-btn-wishlist-hover, #565e64);
@@ -2278,17 +2272,14 @@ a.mrh-btn-wishlist:focus {
 }
 
 /* --- Vergleich-Button (Auge/Waage-Icon) --- */
-.listingcontainer .mrh-btn-compare,
-a.mrh-btn-compare {
+.mrh-btn-compare {
   background-color: var(--tpl-btn-compare-bg, #6c757d);
   color: var(--tpl-btn-compare-text, #ffffff);
   border: 1px solid var(--tpl-btn-compare-bg, #6c757d);
   transition: all 0.2s ease;
 }
-.listingcontainer .mrh-btn-compare:hover,
-.listingcontainer .mrh-btn-compare:focus,
-a.mrh-btn-compare:hover,
-a.mrh-btn-compare:focus {
+.mrh-btn-compare:hover,
+.mrh-btn-compare:focus {
   background-color: var(--tpl-btn-compare-hover, #565e64);
   color: var(--tpl-btn-compare-text, #ffffff);
   border-color: var(--tpl-btn-compare-hover, #565e64);
@@ -2298,17 +2289,14 @@ a.mrh-btn-compare:focus {
 
 /* --- Warenkorb-Button (Cart-Icon) --- */
 /* Nutzt die bestehenden tpl-btn-primary-* Variablen */
-.listingcontainer .btn-cart,
-a.btn-cart {
+.btn-cart {
   background-color: var(--tpl-btn-primary-bg, #6cc342);
   color: var(--tpl-btn-primary-text, #ffffff);
   border-color: var(--tpl-btn-primary-bg, #6cc342);
   transition: all 0.2s ease;
 }
-.listingcontainer .btn-cart:hover,
-.listingcontainer .btn-cart:focus,
-a.btn-cart:hover,
-a.btn-cart:focus {
+.btn-cart:hover,
+.btn-cart:focus {
   background-color: var(--tpl-btn-primary-hover, #368610);
   color: var(--tpl-btn-primary-text, #ffffff);
   border-color: var(--tpl-btn-primary-hover, #368610);
