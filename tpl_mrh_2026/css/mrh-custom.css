@@ -31,78 +31,50 @@ h1, h2, h3, h4, h5, h6,
    Wir entfernen das global und setzen Unterstreichung nur gezielt.
    ============================================================ */
 
-/* ---------------------------------------------------------------
-   Fietz Accessibility Widget Override
-   Das Widget setzt per JS inline: text-decoration: underline !important
-   Nur ein noch spezifischerer !important Override kann das ueberschreiben.
-   --------------------------------------------------------------- */
-
-/* Globaler Reset: ALLE Links ohne Unterstreichung (auch FAW-Widget) */
-a,
-a[data-faw-underline-added],
-a[data-faw-underline-added="true"],
-a[style*="underline"] {
-  text-decoration: none !important;
-  text-decoration-line: none !important;
+/* Globaler Reset: keine Unterstreichung */
+a {
+  text-decoration: none;
 }
 
+/* Hover: dezente Unterstreichung nur bei Fliesstext-Links */
 a:hover {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
-/* Gezielt unterstreichen: NUR Fliesstext-Links in Beschreibungen */
+/* Gezielt unterstreichen: Lieferzeit, Versandkosten, Fliesstext-Links */
 .cat_description a,
-.cat_description a[data-faw-underline-added],
 .cat_short_description a,
-.cat_short_description a[data-faw-underline-added],
 .mrh-cat-short-desc a,
-.mrh-cat-short-desc a[data-faw-underline-added],
 .manu_description a,
-.manu_description a[data-faw-underline-added],
 .product-description a,
-.product-description a[data-faw-underline-added],
 .content-body a,
 .blog-content a,
 .faq-answer a,
-.faq_list a:not(.faq-button) {
-  text-decoration: underline !important;
+.faq_list a:not(.faq-button),
+#content a:not(.btn):not([class*="mrh-"]):not([class*="badge"]):not([class*="nav"]) {
+  text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 /* Lieferzeit + Versandkosten im Listing */
 .shipping_info a,
-.shipping_info a[data-faw-underline-added],
 .delivery-info a,
 a[href*="popup_content"],
-a[href*="popup_content"][data-faw-underline-added] {
-  text-decoration: underline !important;
+a[href*="shipping"] {
+  text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-/* NIEMALS unterstreichen: Navigation, Buttons, Karten, Bilder, Icons, Pagination */
+/* NIEMALS unterstreichen: Navigation, Buttons, Karten, Bilder, Icons */
 #logobar a,
-#logobar a[data-faw-underline-added],
-#iconMenu a,
-#iconMenu a[data-faw-underline-added],
 .navbar a,
-.navbar a[data-faw-underline-added],
 .nav a,
-.nav a[data-faw-underline-added],
 .nav-link,
-.nav-link[data-faw-underline-added],
 .breadcrumb a,
-.breadcrumb a[data-faw-underline-added],
 .the-subcats a,
-.the-subcats a[data-faw-underline-added],
-.subcats a,
-.subcats a[data-faw-underline-added],
-.subcatlist a,
-.subcatlist a[data-faw-underline-added],
 .subcategory a,
 .product_listing a,
-.product_listing a[data-faw-underline-added],
 .listingcontainer a,
-.listingcontainer a[data-faw-underline-added],
 .mrh-pi-actions a,
 .mrh-cat-header a,
 .mrh-cat-image a,
@@ -110,27 +82,15 @@ a[href*="popup_content"][data-faw-underline-added] {
 .btn,
 a.btn,
 .pagination a,
-.pagination a[data-faw-underline-added],
-.page-link,
-.page-link[data-faw-underline-added],
 .footer a,
 #footer a,
 .box a,
 .sidebar a,
-.offcanvas a,
-.offcanvas a[data-faw-underline-added],
 #toggle_settings,
-#toggle_settings[data-faw-underline-added],
 #toggle_account,
-#toggle_account[data-faw-underline-added],
-#toggle_mobilemenu,
-#toggle_mobilemenu[data-faw-underline-added],
 [role="button"],
-[role="button"][data-faw-underline-added],
-a[role="button"],
-a[role="button"][data-faw-underline-added] {
+a[role="button"] {
   text-decoration: none !important;
-  text-decoration-line: none !important;
 }
 
 /* ============================================================
