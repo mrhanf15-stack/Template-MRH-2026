@@ -1,5 +1,13 @@
 # MRH 2026 Template – Changelog
 
+## 2026-04-09 – Phase 1: Kategorie-Header + template.css Bereinigung
+
+| Datei | Aenderung |
+|-------|----------|
+| `module/product_listing.html` | Auf Server-Stand gebracht + Phase 1 Kategorie-Header: Bild links, H1 + Kurzbeschreibung rechts (Flexbox, responsive). Fallback ohne Bild: nur H1 + Desc. |
+| `css/mrh-custom.css` | CSS-Klassen .mrh-cat-header, .mrh-cat-image, .mrh-cat-info, .mrh-cat-short-desc appended. Mobile: Bild ueber H1. |
+| `css/template.css` (Server) | .lb-buttons-wrap a !important Regel entfernt (Zeile 2596). Alte btn-primary/btn-secondary Regeln in lb-buttons-wrap entfernt (Zeile 2829-2843). |
+
 ## 2026-04-09 – Fix: Konfigurator Merge-Logik (Farben + Buttons)
 
 **Bug:** Beim Klick auf "Farben speichern" wurden die Button-Farben auf Defaults zurueckgesetzt und umgekehrt.
