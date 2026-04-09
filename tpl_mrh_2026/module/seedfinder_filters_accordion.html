@@ -1,157 +1,434 @@
 {config_load file="lang_`$language`.custom"}
 
 {*
- * Seedfinder Filter - Modal/Offcanvas Version v8.0.0 (tpl_mrh_2026)
- * Version: v8.0.0
+ * Seedfinder Filters – Modal + Haupt-Filter v9.0.0 (tpl_mrh_2026)
  * Datum: 2026-04-09
- * 
- * Phase 3 Umbau:
- * - Desktop (≥992px): BS5 Modal (#mrhFilterModal)
- * - Mobile (<992px): BS5 Offcanvas (#mrhFilterOffcanvas)
- * - Grundfilter-Leiste in listing_filter.html (separates Template)
- * - Alle DOM-Hooks für seedfinder_ajax.js beibehalten
- * - Kein jQuery mehr nötig (Vanilla JS)
+ *
+ * 1:1 Nachbau des Live-Systems (mr-hanf.de) fuer Bootstrap 5
+ * - Haupt-Filter Cards (Desktop ≥768px, immer sichtbar)
+ * - "Alle Filter" Button → oeffnet Modal (Desktop: modal-xl, Mobile: fullscreen)
+ * - Im Modal: Tab-Navigation (Desktop) / Accordion (Mobile)
+ * - 5 Kategorien: Haupt, Genetik, Anbau, Geschmack, Erweitert
+ *
+ * Smarty-Variablen (aus seedfinder.php):
+ *   $FILTERS[n].OPTIONS_ID / .OPTIONS_NAME / .VALUES[n].VALUES_ID / .VALUES_NAME / .COUNT / .ACTIVE
+ *   $MANUFACTURERS[n].values_id / .manufacturer_name / .product_count / .selected
+ *   $CATEGORIES, $TOTAL_PRODUCTS
+ *
+ * DOM-Hooks fuer seedfinder_ajax.js:
+ *   .filter-checkbox, #search-filters-desktop, #reset-filters-desktop,
+ *   #search-filters-mobile, #reset-filters-mobile, #filter-accordion-desktop,
+ *   #filter-accordion-mobile, data-filter-id, data-value-id
  *}
 
 {if isset($FILTERS) && $FILTERS|@count > 0}
 
-{* ========================================
-   DESKTOP (≥992px): Bootstrap 5 Modal
-   ======================================== *}
-<div class="modal fade d-none d-lg-block" id="mrhFilterModal" tabindex="-1" aria-labelledby="mrhFilterModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
+{* ============================================================
+   Haupt-Filter Prioritaeten
+   11=THC, 12=Genetik, 55=Ertrag, 7=Wirkung, 15=Bluetezeit,
+   8=Geschlecht, 64=Geschmack, 65=Aroma
+   ============================================================ *}
+{assign var="main_filter_ids" value=[11, 12, 55, 7, 15, 8]}
 
-      {* Modal Header *}
-      <div class="modal-header">
-        <h5 class="modal-title" id="mrhFilterModalLabel">
-          <span class="fa-solid fa-sliders me-2"></span>Erweiterte Filter
-          <span class="badge bg-light text-dark ms-2" id="active-filter-count-modal" style="display:none;">0</span>
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-      </div>
-
-      {* Modal Body: 3-spaltige Filter-Grid *}
-      <div class="modal-body">
-        <div class="mrh-filter-grid" id="filter-accordion-desktop">
-          {foreach from=$FILTERS item=filter}
-          <div class="mrh-filter-section" id="filter-section-{$filter.OPTIONS_ID}">
-            <div class="mrh-filter-section-title">{$filter.OPTIONS_NAME} <span class="badge bg-secondary ms-1" style="font-size:0.7rem;">{$filter.VALUES|@count}</span></div>
-            <div class="filter-values-container">
-              {foreach from=$filter.VALUES item=value}
-              <div class="form-check{if $value.COUNT == 0} filter-disabled{/if}">
-                <input 
-                  class="form-check-input filter-checkbox" 
-                  type="checkbox" 
-                  name="filter[{$filter.OPTIONS_ID}][]" 
-                  value="{$value.VALUES_ID}" 
-                  id="filter_{$filter.OPTIONS_ID}_{$value.VALUES_ID}"
-                  data-filter-id="{$filter.OPTIONS_ID}"
-                  data-value-id="{$value.VALUES_ID}"
-                  {if $value.ACTIVE}checked{/if}
-                  {if $value.COUNT == 0}disabled{/if}
-                >
-                <label class="form-check-label" for="filter_{$filter.OPTIONS_ID}_{$value.VALUES_ID}">
-                  {$value.VALUES_NAME}
-                  {if $value.COUNT > 0}
-                  <span class="filter-count">({$value.COUNT})</span>
-                  {/if}
-                </label>
-              </div>
-              {/foreach}
-            </div>
-          </div>
-          {/foreach}
+{* ============================================================
+   HAUPT-FILTER SECTION – nur Desktop (≥768px)
+   ============================================================ *}
+<div class="row mb-3 d-none d-md-flex">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+            <h3 class="h5 mb-0">
+                <i class="fa fa-filter text-primary me-2"></i>Schnellfilter
+            </h3>
+            {if isset($TOTAL_PRODUCTS)}
+            <span class="text-muted" id="total-products-count-desktop">{$TOTAL_PRODUCTS} Produkte gefunden</span>
+            {/if}
         </div>
-      </div>
-
-      {* Modal Footer: Suchen + Zurücksetzen *}
-      <div class="modal-footer">
-        <button type="button" class="mrh-filter-btn-reset" id="reset-filters-desktop">
-          <span class="fa-solid fa-rotate-left me-1"></span>Zurücksetzen
-        </button>
-        <button type="button" class="mrh-filter-btn-search" id="search-filters-desktop">
-          <span class="fa-solid fa-magnifying-glass me-1"></span>Suchen
-        </button>
-      </div>
-
     </div>
-  </div>
 </div>
 
-{* ========================================
-   MOBILE (<992px): Bootstrap 5 Offcanvas
-   ======================================== *}
-<div class="offcanvas offcanvas-bottom d-lg-none" tabindex="-1" id="mrhFilterOffcanvas" aria-labelledby="mrhFilterOffcanvasLabel" style="height: 85vh;">
+<div class="row mb-3 d-none d-md-flex" id="main-filters-container">
 
-  {* Offcanvas Header *}
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="mrhFilterOffcanvasLabel">
-      <span class="fa-solid fa-sliders me-2"></span>Filter
-      <span class="badge bg-light text-dark ms-2" id="active-filter-count-mobile" style="display:none;">0</span>
-    </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
-  </div>
+    {* Hersteller-Box *}
+    {if isset($MANUFACTURERS) && $MANUFACTURERS|@count > 0}
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+        <div class="card h-100 shadow-sm main-filter-card">
+            <div class="card-header bg-light py-2">
+                <h6 class="mb-0 fw-bold">Hersteller</h6>
+            </div>
+            <div class="card-body py-2 filter-options-scrollable">
+                {foreach from=$MANUFACTURERS item=mfr}
+                <div class="form-check mb-1">
+                    <input type="checkbox"
+                           class="form-check-input filter-checkbox main-filter-checkbox manufacturer-checkbox"
+                           id="main-mfr-{$mfr.values_id}"
+                           name="filter[73][]"
+                           value="{$mfr.values_id}"
+                           data-filter-id="73"
+                           data-value-id="{$mfr.values_id}"
+                           {if $mfr.selected}checked{/if}>
+                    <label class="form-check-label small" for="main-mfr-{$mfr.values_id}">
+                        {$mfr.manufacturer_name}
+                        <span class="text-muted">({$mfr.product_count})</span>
+                    </label>
+                </div>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    {/if}
 
-  {* Offcanvas Body: Accordion-Gruppen vertikal *}
-  <div class="offcanvas-body">
-    <div id="filter-accordion-mobile">
-      {foreach from=$FILTERS item=filter}
-      <div class="mrh-filter-section">
-        <button class="mrh-filter-section-title w-100 text-start bg-transparent border-0 d-flex align-items-center justify-content-between" 
-                type="button" 
-                data-bs-toggle="collapse" 
-                data-bs-target="#collapse-mobile-{$filter.OPTIONS_ID}"
-                aria-expanded="false">
-          <span>{$filter.OPTIONS_NAME} <span class="badge bg-secondary ms-1" style="font-size:0.7rem;">{$filter.VALUES|@count}</span></span>
-          <span class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></span>
+    {* Haupt-Filter Cards *}
+    {foreach from=$FILTERS item=filter}
+        {if in_array($filter.OPTIONS_ID, $main_filter_ids)}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+            <div class="card h-100 shadow-sm main-filter-card">
+                <div class="card-header bg-light py-2">
+                    <h6 class="mb-0 fw-bold">{$filter.OPTIONS_NAME}</h6>
+                </div>
+                <div class="card-body py-2 filter-options-scrollable">
+                    {foreach from=$filter.VALUES item=value}
+                    <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
+                        <input type="checkbox"
+                               class="form-check-input filter-checkbox main-filter-checkbox"
+                               id="main-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
+                               name="filter[{$filter.OPTIONS_ID}][]"
+                               value="{$value.VALUES_ID}"
+                               data-filter-id="{$filter.OPTIONS_ID}"
+                               data-value-id="{$value.VALUES_ID}"
+                               {if $value.ACTIVE}checked{/if}
+                               {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                        <label class="form-check-label small" for="main-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                            {$value.VALUES_NAME}
+                            {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
+                        </label>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+        {/if}
+    {/foreach}
+</div>
+
+{* Haupt-Filter Buttons (Desktop) *}
+<div class="row mb-3 d-none d-md-flex">
+    <div class="col-12 d-flex gap-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="reset-main-filters">
+            <i class="fa fa-undo me-1"></i>Zuruecksetzen
         </button>
-        <div class="collapse" id="collapse-mobile-{$filter.OPTIONS_ID}">
-          <div class="card-body pt-2 pb-2">
-            {foreach from=$filter.VALUES item=value}
-            <div class="form-check{if $value.COUNT == 0} filter-disabled{/if}">
-              <input 
-                type="checkbox" 
-                class="form-check-input filter-checkbox" 
-                id="filter-mobile-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" 
-                name="filter[{$filter.OPTIONS_ID}][]" 
-                value="{$value.VALUES_ID}"
-                data-filter-id="{$filter.OPTIONS_ID}"
-                data-value-id="{$value.VALUES_ID}"
-                {if $value.ACTIVE}checked{/if}
-                {if $value.COUNT == 0}disabled{/if}
-              >
-              <label class="form-check-label" for="filter-mobile-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                {$value.VALUES_NAME}
-                {if $value.COUNT > 0}
-                <span class="filter-value-count">({$value.COUNT})</span>
+        <button type="button" class="btn btn-sm btn-primary" id="apply-main-filters">
+            <i class="fa fa-check me-1"></i>Filter anwenden
+        </button>
+    </div>
+</div>
+
+{* ============================================================
+   "ALLE FILTER" BUTTON
+   ============================================================ *}
+<div class="row mb-3">
+    <div class="col-12 text-center">
+        {* Desktop *}
+        <button type="button" class="btn btn-outline-primary d-none d-md-inline-block" id="open-filter-modal">
+            <i class="fa fa-sliders me-2"></i>Alle Filter anzeigen
+        </button>
+    </div>
+</div>
+
+{* Mobile FAB *}
+<button type="button" class="seedfinder-filter-fab d-md-none" id="open-filter-modal-mobile" aria-label="Filter oeffnen">
+    <i class="fa fa-sliders"></i>
+    <span class="fab-badge" id="active-filter-count-fab" style="display: none;">0</span>
+</button>
+
+{* ============================================================
+   MODAL – Alle Filter
+   Desktop: modal-xl | Mobile: fullscreen
+   ============================================================ *}
+<div class="modal fade" id="seedfinder-filter-modal" tabindex="-1" aria-labelledby="sfFilterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
+        <div class="modal-content">
+
+            {* Modal Header *}
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title text-white" id="sfFilterModalLabel">
+                    <i class="fa fa-sliders me-2"></i>Alle Filter
+                </h5>
+
+                {* Kategorie-Dropdown *}
+                {if isset($CATEGORIES) && $CATEGORIES|@count > 0}
+                <div class="mx-auto" style="max-width: 280px;">
+                    <select class="form-select form-select-sm" id="modal-category-selector">
+                        {foreach from=$CATEGORIES item=cat}
+                            <option value="{$cat.id}"
+                                {if isset($smarty.get.category) && $smarty.get.category == $cat.id}selected{/if}
+                            >{$cat.name}{if isset($cat.count)} ({$cat.count}){/if}</option>
+                        {/foreach}
+                    </select>
+                </div>
                 {/if}
-              </label>
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schliessen"></button>
             </div>
-            {/foreach}
-          </div>
+
+            {* Modal Body *}
+            <div class="modal-body">
+
+                {* Aktive Filter Chips *}
+                <div class="mb-3" id="active-filters-card" style="display: none;">
+                    <div class="d-flex align-items-center flex-wrap gap-2" id="active-filters-list"></div>
+                </div>
+
+                {* ============================================
+                 * DESKTOP: Tab-Navigation (5 Kategorien)
+                 * ============================================ *}
+                <div class="row mb-3 d-none d-md-flex" id="filter-category-nav-desktop">
+                    <div class="col-12">
+                        <div class="btn-group w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary filter-category-btn active" data-category="main">
+                                <i class="fa fa-star me-1"></i> Haupt
+                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="main" style="display:none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="genetics">
+                                <i class="fa fa-dna me-1"></i> Genetik
+                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="genetics" style="display:none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="cultivation">
+                                <i class="fa fa-seedling me-1"></i> Anbau
+                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="cultivation" style="display:none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="taste">
+                                <i class="fa fa-leaf me-1"></i> Geschmack
+                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="taste" style="display:none;"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="advanced">
+                                <i class="fa fa-cog me-1"></i> Erweitert
+                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="advanced" style="display:none;"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {* ============================================
+                 * MOBILE: Accordion-Navigation (im Modal)
+                 * ============================================ *}
+                <div class="d-md-none" id="filter-accordion-mobile">
+
+                    {foreach from=['main' => 'Haupt', 'genetics' => 'Genetik', 'cultivation' => 'Anbau', 'taste' => 'Geschmack', 'advanced' => 'Erweitert'] key=catKey item=catLabel}
+                    <div class="sf-accordion-item" data-accordion-category="{$catKey}">
+                        <div class="sf-accordion-header" data-toggle-accordion="{$catKey}">
+                            <span class="sf-accordion-title fw-bold">{$catLabel}</span>
+                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="{$catKey}-mobile" style="display:none;"></span>
+                            <span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <div class="sf-accordion-body" id="accordion-body-{$catKey}"></div>
+                    </div>
+                    {/foreach}
+
+                </div>
+
+                {* ============================================
+                 * DESKTOP: Filter-Kategorie-Inhalte
+                 * ============================================ *}
+                <div id="filter-categories-desktop">
+
+                    {* === Kategorie: Haupt === *}
+                    <div id="category-main" class="filter-category-content">
+                        <div class="row" id="filter-accordion-desktop">
+                            {* Hersteller *}
+                            {if isset($MANUFACTURERS) && $MANUFACTURERS|@count > 0}
+                            <div class="col-12 col-md-4 mb-3">
+                                <h6 class="border-bottom pb-2 fw-bold">Hersteller</h6>
+                                <div class="filter-options manufacturer-filter-options filter-options-scrollable">
+                                    {foreach from=$MANUFACTURERS item=mfr}
+                                    <div class="form-check mb-1">
+                                        <input type="checkbox"
+                                               class="form-check-input filter-checkbox modal-filter-checkbox manufacturer-checkbox"
+                                               id="modal-filter-73-{$mfr.values_id}"
+                                               name="filter[73][]"
+                                               value="{$mfr.values_id}"
+                                               data-filter-id="73"
+                                               data-value-id="{$mfr.values_id}"
+                                               {if $mfr.selected}checked{/if}>
+                                        <label class="form-check-label small" for="modal-filter-73-{$mfr.values_id}">
+                                            {$mfr.manufacturer_name}
+                                            <span class="text-muted">({$mfr.product_count})</span>
+                                        </label>
+                                    </div>
+                                    {/foreach}
+                                </div>
+                            </div>
+                            {/if}
+                            {* Haupt-Filter *}
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.OPTIONS_ID, $main_filter_ids)}
+                                <div class="col-12 col-md-4 mb-3">
+                                    <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
+                                    <div class="filter-options filter-options-scrollable">
+                                        {foreach from=$filter.VALUES item=value}
+                                        <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
+                                            <input type="checkbox"
+                                                   class="form-check-input filter-checkbox modal-filter-checkbox"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
+                                                   name="filter[{$filter.OPTIONS_ID}][]"
+                                                   value="{$value.VALUES_ID}"
+                                                   data-filter-id="{$filter.OPTIONS_ID}"
+                                                   data-value-id="{$value.VALUES_ID}"
+                                                   {if $value.ACTIVE}checked{/if}
+                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                                {$value.VALUES_NAME}
+                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
+                                            </label>
+                                        </div>
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+
+                    {* === Kategorie: Genetik === *}
+                    {assign var="genetics_filters" value=[12, 59, 71, 72, 31, 9]}
+                    <div id="category-genetics" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.OPTIONS_ID, $genetics_filters)}
+                                <div class="col-12 col-md-4 mb-3">
+                                    <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
+                                    <div class="filter-options filter-options-scrollable">
+                                        {foreach from=$filter.VALUES item=value}
+                                        <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
+                                            <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
+                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
+                                                   {if $value.ACTIVE}checked{/if}
+                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                                {$value.VALUES_NAME}
+                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
+                                            </label>
+                                        </div>
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+
+                    {* === Kategorie: Anbau === *}
+                    {assign var="cultivation_filters" value=[15, 60, 34, 27]}
+                    <div id="category-cultivation" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.OPTIONS_ID, $cultivation_filters)}
+                                <div class="col-12 col-md-4 mb-3">
+                                    <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
+                                    <div class="filter-options filter-options-scrollable">
+                                        {foreach from=$filter.VALUES item=value}
+                                        <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
+                                            <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
+                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
+                                                   {if $value.ACTIVE}checked{/if}
+                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                                {$value.VALUES_NAME}
+                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
+                                            </label>
+                                        </div>
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+
+                    {* === Kategorie: Geschmack/Aroma === *}
+                    {assign var="taste_filters" value=[64, 65]}
+                    <div id="category-taste" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {foreach from=$FILTERS item=filter}
+                                {if in_array($filter.OPTIONS_ID, $taste_filters)}
+                                <div class="col-12 col-md-4 mb-3">
+                                    <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
+                                    <div class="filter-options filter-options-scrollable">
+                                        {foreach from=$filter.VALUES item=value}
+                                        <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
+                                            <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
+                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
+                                                   {if $value.ACTIVE}checked{/if}
+                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                                {$value.VALUES_NAME}
+                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
+                                            </label>
+                                        </div>
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+
+                    {* === Kategorie: Erweitert (alle nicht zugeordneten) === *}
+                    {assign var="known_filters" value=[11, 15, 12, 8, 10, 64, 7, 55, 65, 59, 60, 34, 71, 72, 27, 31, 9]}
+                    <div id="category-advanced" class="filter-category-content sf-filter-category-hidden">
+                        <div class="row">
+                            {foreach from=$FILTERS item=filter}
+                                {if !in_array($filter.OPTIONS_ID, $known_filters)}
+                                <div class="col-12 col-md-4 mb-3">
+                                    <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
+                                    <div class="filter-options filter-options-scrollable">
+                                        {foreach from=$filter.VALUES item=value}
+                                        <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
+                                            <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
+                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
+                                                   {if $value.ACTIVE}checked{/if}
+                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
+                                                {$value.VALUES_NAME}
+                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
+                                            </label>
+                                        </div>
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {* Modal Footer *}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" id="reset-filters-desktop">
+                    <i class="fa fa-undo me-1"></i>Zuruecksetzen
+                </button>
+                <button type="button" class="btn btn-success" id="search-filters-desktop">
+                    <i class="fa fa-search me-1"></i>Suchen
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
+            </div>
+
         </div>
-      </div>
-      {/foreach}
     </div>
-  </div>
-
-  {* Offcanvas Footer: Suchen + Zurücksetzen *}
-  <div class="offcanvas-footer">
-    <button type="button" class="mrh-filter-btn-reset flex-fill" id="reset-filters-mobile">
-      <span class="fa-solid fa-rotate-left me-1"></span>Zurücksetzen
-    </button>
-    <button type="button" class="mrh-filter-btn-search flex-fill" id="search-filters-mobile">
-      <span class="fa-solid fa-magnifying-glass me-1"></span>Suchen
-    </button>
-  </div>
-
 </div>
 
-{* CSS einbinden (seedfinder_accordion.css wird durch mrh-custom.css ersetzt) *}
+{* CSS *}
+<link rel="stylesheet" href="{$tpl_path}css/seedfinder_accordion.css">
 
-{* JavaScript einbinden *}
-<script src="{$tpl_path}javascript/seedfinder_accordion.js"></script>
-<script src="{$tpl_path}javascript/seedfinder_ajax.js"></script>
+{* JavaScript: seedfinder_modal.js + seedfinder_ajax.js werden in seedfinder.html geladen (defer) *}
 
 {/if}

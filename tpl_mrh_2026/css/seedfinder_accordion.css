@@ -1,478 +1,387 @@
 /**
- * Seedfinder Accordion Styles - tpl_mrh_2026 (BS5.3 + CSS-Variablen)
- * Version: v7.0.1-bs5
- * Datum: 2026-04-02
- * 
- * Migration:
- * - Hardcoded Farben → CSS-Variablen
- * - BS5.3 kompatibel
+ * Seedfinder Filters CSS v9.0.0 (tpl_mrh_2026 / Bootstrap 5)
+ * Datum: 2026-04-09
+ *
+ * 1. Haupt-Filter Cards (Desktop, immer sichtbar)
+ * 2. Filter-Modal (Desktop: modal-xl, Mobile: fullscreen)
+ * 3. Tab-Navigation (Desktop)
+ * 4. Accordion-Navigation (Mobile im Modal)
+ * 5. Filter-Optionen (Checkboxen, Scrollbar)
+ * 6. FAB-Button (Mobile)
+ * 7. Aktive Filter Chips
+ * 8. Responsive Anpassungen
  */
 
-/* ========================================
+/* ============================================================
    CSS-VARIABLEN (Seedfinder-spezifisch)
-   ======================================== */
+   ============================================================ */
 :root {
-    --sf-accordion-bg: var(--bs-light, #f8f9fa);
-    --sf-accordion-border: var(--bs-border-color, #dee2e6);
+    --sf-accordion-bg: var(--tpl-bg-section, var(--bs-light, #f8f9fa));
+    --sf-accordion-border: var(--tpl-border-color, var(--bs-border-color, #dee2e6));
     --sf-accordion-hover: var(--bs-gray-200, #e9ecef);
-    --sf-accordion-active: var(--mrh-primary, var(--tpl-primary, #5db233));
-    --sf-chip-bg: var(--bs-primary, #0d6efd);
+    --sf-accordion-active: var(--tpl-primary, var(--mrh-primary, #5db233));
+    --sf-chip-bg: var(--tpl-primary, var(--bs-primary, #0d6efd));
     --sf-chip-text: #fff;
     --sf-disabled-opacity: 0.4;
+    --sf-text-muted: #6c757d;
 }
 
-/* ========================================
-   3-SPALTIGE ACCORDION-GRID (Desktop)
-   ======================================== */
-.accordion-filters-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-@media (max-width: 1199px) {
-    .accordion-filters-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* ========================================
-   ACCORDION ITEM (Card)
-   Z-Index Overlap für geöffnete Cards
-   ======================================== */
-.accordion-filter-item {
-    position: relative;
-    z-index: 1;
-    transition: z-index 0s;
-}
-
-.accordion-filter-item:has(.collapse.show) {
-    z-index: 1000 !important;
-}
-
-.accordion-filter-item:has(.collapse.collapsing) {
-    z-index: 1000 !important;
-}
-
-.accordion-filter-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    padding: 12px 15px;
-    background: var(--sf-accordion-bg);
+/* ============================================================
+   1. HAUPT-FILTER CARDS (Desktop)
+   ============================================================ */
+.main-filter-card {
     border: 1px solid var(--sf-accordion-border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.95rem;
+    border-radius: var(--tpl-border-radius, 8px);
+    transition: box-shadow 0.2s ease;
+}
+.main-filter-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.main-filter-card .card-header {
+    background: var(--sf-accordion-bg);
+    border-bottom: 1px solid var(--sf-accordion-border);
+    padding: 8px 12px;
+}
+.main-filter-card .card-header h6 {
+    font-size: 0.85rem;
+    color: var(--tpl-text-headings, #334155);
+    font-family: var(--tpl-font-heading, sans-serif);
+    margin: 0;
+}
+.main-filter-card .card-body {
+    padding: 8px 12px;
+}
+
+/* ============================================================
+   2. FILTER-MODAL
+   ============================================================ */
+#seedfinder-filter-modal {
+    z-index: 50001 !important;
+}
+#seedfinder-filter-modal .modal-header {
+    background: var(--sf-accordion-active);
+    border-bottom: none;
+    padding: 12px 20px;
+}
+#seedfinder-filter-modal .modal-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: var(--tpl-font-heading, sans-serif);
+}
+#seedfinder-filter-modal .modal-body {
+    padding: 16px 20px;
+    background: var(--tpl-bg-body, #fff);
+}
+#seedfinder-filter-modal .modal-footer {
+    background: var(--sf-accordion-bg);
+    border-top: 1px solid var(--sf-accordion-border);
+    padding: 10px 20px;
+    gap: 8px;
+}
+
+/* ============================================================
+   3. TAB-NAVIGATION (Desktop)
+   ============================================================ */
+#filter-category-nav-desktop .btn-group {
+    flex-wrap: wrap;
+    gap: 4px;
+}
+#filter-category-nav-desktop .filter-category-btn {
+    font-size: 0.85rem;
     font-weight: 500;
-    color: var(--bs-body-color, #333);
-    text-align: left;
+    padding: 6px 14px;
+    border-radius: var(--tpl-border-radius, 6px) !important;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    border-color: var(--sf-accordion-active);
+    color: var(--sf-accordion-active);
 }
-
-.accordion-filter-header:hover {
-    background: var(--sf-accordion-hover);
-    border-color: var(--bs-gray-400, #adb5bd);
-}
-
-.accordion-filter-header[aria-expanded="true"] {
+#filter-category-nav-desktop .filter-category-btn:hover {
     background: var(--sf-accordion-active);
     color: #fff;
     border-color: var(--sf-accordion-active);
-    border-radius: 8px 8px 0 0;
+}
+#filter-category-nav-desktop .filter-category-btn.active {
+    background: var(--sf-accordion-active);
+    color: #fff;
+    border-color: var(--sf-accordion-active);
+}
+.category-filter-badge {
+    font-size: 0.65rem;
+    min-width: 18px;
+    padding: 2px 5px;
 }
 
-.accordion-filter-header[aria-expanded="true"] .badge {
-    background: rgba(255,255,255,0.3) !important;
-    color: #fff !important;
+/* Filter-Kategorie-Inhalte */
+.filter-category-content {
+    display: block;
+}
+.sf-filter-category-hidden {
+    display: none !important;
 }
 
-.accordion-filter-header .fa-solid {
-    transition: transform 0.2s ease;
-}
-
-.accordion-filter-header[aria-expanded="true"] .fa-chevron-down {
-    transform: rotate(180deg);
-}
-
-.filter-name {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* ========================================
-   ACCORDION BODY (Dropdown)
-   ======================================== */
-.accordion-filter-body {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 0;
-    background: #fff;
+/* ============================================================
+   4. ACCORDION-NAVIGATION (Mobile im Modal)
+   ============================================================ */
+.sf-accordion-item {
     border: 1px solid var(--sf-accordion-border);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1001 !important;
+    border-radius: var(--tpl-border-radius, 6px);
+    margin-bottom: 8px;
+    overflow: hidden;
 }
-
-.filter-values-container {
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 10px;
-    position: relative;
-    z-index: 1001 !important;
-    background: white;
-}
-
-.filter-values-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.filter-values-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.filter-values-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-}
-
-.filter-values-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-/* ========================================
-   FILTER CHECKBOXES
-   ======================================== */
-.filter-value-item {
-    padding: 5px 0;
-    margin: 0;
-}
-
-.filter-value-item .form-check-label {
+.sf-accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--sf-accordion-bg);
     cursor: pointer;
     user-select: none;
+    transition: background 0.2s ease;
+}
+.sf-accordion-header:hover {
+    background: var(--sf-accordion-hover);
+}
+.sf-accordion-item.sf-open .sf-accordion-header {
+    background: var(--sf-accordion-active);
+    color: #fff;
+}
+.sf-accordion-title {
     font-size: 0.9rem;
+    color: inherit;
+}
+.sf-accordion-badge {
+    font-size: 0.65rem;
+    background: var(--bs-danger, #dc3545);
+    color: #fff;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    padding: 0 4px;
+}
+.sf-accordion-chevron {
+    transition: transform 0.2s ease;
+    color: var(--sf-text-muted);
+    font-size: 0.8rem;
+}
+.sf-accordion-item.sf-open .sf-accordion-chevron {
+    transform: rotate(180deg);
+    color: #fff;
+}
+.sf-accordion-body {
+    display: none;
+    padding: 10px 14px;
+    background: #fff;
+}
+.sf-accordion-item.sf-open .sf-accordion-body {
+    display: block;
 }
 
-.filter-count,
-.filter-value-count {
-    color: var(--sf-text-muted, #6c757d);
-    font-size: 0.85rem;
+/* ============================================================
+   5. FILTER-OPTIONEN (Checkboxen, Scrollbar)
+   ============================================================ */
+.filter-options-scrollable {
+    max-height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #c0c0c0 transparent;
+}
+.filter-options-scrollable::-webkit-scrollbar {
+    width: 5px;
+}
+.filter-options-scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+.filter-options-scrollable::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 3px;
+}
+.filter-options-scrollable::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
 }
 
-/* Disabled Filter: Ausgegraut */
+/* Checkbox-Styling */
+.filter-checkbox {
+    cursor: pointer;
+}
+.filter-checkbox:checked {
+    background-color: var(--sf-accordion-active);
+    border-color: var(--sf-accordion-active);
+}
+.form-check-label {
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+/* Deaktivierte Filter */
 .filter-disabled {
     opacity: var(--sf-disabled-opacity) !important;
 }
-
 .filter-disabled .form-check-label {
     cursor: not-allowed !important;
     color: var(--bs-gray-400, #adb5bd) !important;
     text-decoration: line-through;
 }
-
 .filter-disabled .form-check-input {
     cursor: not-allowed !important;
     opacity: 0.3 !important;
 }
 
-.filter-disabled .form-check-input:disabled {
-    cursor: not-allowed !important;
-    opacity: 0.3 !important;
+/* Filter-Gruppen im Modal */
+#filter-categories-desktop h6 {
+    font-size: 0.85rem;
+    color: var(--tpl-text-headings, #334155);
+    font-family: var(--tpl-font-heading, sans-serif);
 }
 
-/* Disabled Accordion Header */
-.accordion-filter-header.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--sf-accordion-bg) !important;
-    color: var(--sf-text-muted, #6c757d) !important;
-}
-
-.accordion-filter-header.disabled:hover {
-    background-color: var(--sf-accordion-bg) !important;
-    color: var(--sf-text-muted, #6c757d) !important;
-}
-
-.accordion-filter-header.disabled .fa-solid {
-    color: var(--sf-text-muted, #6c757d) !important;
-}
-
-.accordion-filter-header.disabled .badge {
-    background-color: var(--sf-accordion-border) !important;
-    color: var(--sf-text-muted, #6c757d) !important;
-}
-
-/* ========================================
-   BUTTON CONTAINER (Suchen + Zurücksetzen)
-   ======================================== */
-.filter-buttons-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-}
-
-.filter-buttons-container .btn {
-    min-width: 140px;
-    font-weight: 500;
-}
-
-#search-filters-desktop {
-    font-size: 1.1rem;
-    padding: 10px 30px;
-}
-
-/* ========================================
-   CHIPS HORIZONTAL SCROLLBAR
-   "Deine Kriterien" mit horizontal scrollbar
-   ======================================== */
-.chips-horizontal-scroll {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 5px 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-}
-
-.chips-horizontal-scroll::-webkit-scrollbar {
-    height: 8px;
-}
-
-.chips-horizontal-scroll::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.chips-horizontal-scroll::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-.chips-horizontal-scroll::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-.filter-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: var(--sf-chip-bg);
-    color: var(--sf-chip-text);
-    border-radius: 20px;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.filter-chip .remove-chip {
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 5px;
-    transition: color 0.2s ease;
-}
-
-.filter-chip .remove-chip:hover {
-    color: var(--sf-warning, #ffc107);
-}
-
-/* ========================================
-   MOBILE: Floating Action Button
-   ======================================== */
+/* ============================================================
+   6. FAB-BUTTON (Mobile)
+   ============================================================ */
 .seedfinder-filter-fab {
     position: fixed;
-    bottom: 80px;
+    bottom: 20px;
     right: 20px;
-    z-index: 1000;
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-}
-
-.seedfinder-filter-fab .badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    font-size: 0.75rem;
-}
-
-/* ========================================
-   MOBILE: Bottom Sheet
-   ======================================== */
-.seedfinder-bottom-sheet {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.seedfinder-bottom-sheet.active {
-    pointer-events: auto;
-}
-
-.bottom-sheet-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.seedfinder-bottom-sheet.active .bottom-sheet-overlay {
-    opacity: 1;
-}
-
-.bottom-sheet-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    max-height: 80vh;
-    background: #fff;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.seedfinder-bottom-sheet.active .bottom-sheet-content {
-    transform: translateY(0);
-}
-
-.bottom-sheet-handle {
-    width: 40px;
-    height: 4px;
-    background: var(--sf-accordion-border);
-    border-radius: 2px;
-    margin: 10px auto;
-}
-
-.bottom-sheet-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid var(--sf-accordion-border);
-}
-
-.bottom-sheet-title {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.btn-close-sheet {
-    background: none;
+    background: var(--sf-accordion-active);
+    color: #fff;
     border: none;
-    font-size: 1.5rem;
-    color: var(--sf-text-muted, #6c757d);
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.3rem;
+    z-index: 1040;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.seedfinder-filter-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.seedfinder-filter-fab:active {
+    transform: scale(0.95);
+}
+.fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--bs-danger, #dc3545);
+    color: #fff;
+    font-size: 0.65rem;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    font-weight: 700;
 }
 
-.bottom-sheet-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 15px 20px;
-}
-
-.bottom-sheet-footer {
-    padding: 15px 20px;
-    border-top: 1px solid var(--sf-accordion-border);
-    background: var(--sf-accordion-bg);
-}
-
-.bottom-sheet-footer .btn {
-    margin-bottom: 10px;
-}
-
-.bottom-sheet-footer .btn:last-child {
-    margin-bottom: 0;
-}
-
-/* ========================================
-   MOBILE: Accordion Cards
-   ======================================== */
-#filter-accordion-mobile .card {
-    border: 1px solid var(--sf-accordion-border);
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-#filter-accordion-mobile .card.active {
-    border-color: var(--sf-accordion-active);
-}
-
-#filter-accordion-mobile .card-header {
-    padding: 0;
-    background: var(--sf-accordion-bg);
-    border-bottom: 1px solid var(--sf-accordion-border);
-}
-
-#filter-accordion-mobile .btn-link {
-    padding: 12px 15px;
-    text-decoration: none;
-    color: var(--bs-body-color, #333);
-    font-weight: 500;
-}
-
-#filter-accordion-mobile .card.active .btn-link {
-    color: var(--sf-accordion-active);
-}
-
-#filter-accordion-mobile .card-body {
-    padding: 10px 15px;
-}
-
-/* ========================================
-   BODY LOCK (Bottom Sheet geöffnet)
-   ======================================== */
-body.bottom-sheet-open {
-    overflow: hidden;
-}
-
-/* ========================================
-   RESPONSIVE
-   ======================================== */
-@media (max-width: 991px) {
-    .accordion-filters-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (min-width: 992px) {
-    .seedfinder-filter-fab,
-    .seedfinder-bottom-sheet {
+/* Desktop: FAB ausblenden */
+@media (min-width: 768px) {
+    .seedfinder-filter-fab {
         display: none !important;
     }
+}
+
+/* ============================================================
+   7. AKTIVE FILTER CHIPS
+   ============================================================ */
+#active-filters-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+#active-filters-list .badge {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: var(--sf-chip-bg);
+    color: var(--sf-chip-text);
+    transition: opacity 0.2s ease;
+}
+#active-filters-list .badge:hover {
+    opacity: 0.8;
+}
+#active-filters-list .badge .btn-close {
+    font-size: 0.55rem;
+    margin-left: 4px;
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================================
+   8. RESPONSIVE ANPASSUNGEN
+   ============================================================ */
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+    .main-filter-card .card-body {
+        padding: 6px 10px;
+    }
+    .filter-options-scrollable {
+        max-height: 180px;
+    }
+    #filter-categories-desktop .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    /* Modal fullscreen */
+    #seedfinder-filter-modal .modal-header {
+        padding: 10px 16px;
+    }
+    #seedfinder-filter-modal .modal-body {
+        padding: 12px 14px;
+    }
+    #seedfinder-filter-modal .modal-title {
+        font-size: 1rem;
+    }
+    .filter-options-scrollable {
+        max-height: 200px;
+    }
+    /* Modal Footer sticky */
+    #seedfinder-filter-modal .modal-footer {
+        position: sticky;
+        bottom: 0;
+        padding: 8px 14px;
+    }
+    #seedfinder-filter-modal .modal-footer .btn {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Klein-Mobile */
+@media (max-width: 480px) {
+    .seedfinder-filter-fab {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+        bottom: 16px;
+        right: 16px;
+    }
+    .filter-options-scrollable {
+        max-height: 160px;
+    }
+}
+
+/* ============================================================
+   9. BACKDROP FIX (template.css setzt z-index: 50000)
+   ============================================================ */
+body.modal-open .modal-backdrop.show + #seedfinder-filter-modal,
+#seedfinder-filter-modal.show {
+    z-index: 50001 !important;
 }
