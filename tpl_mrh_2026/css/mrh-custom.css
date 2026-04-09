@@ -4725,23 +4725,23 @@ button.faq-button:not(.collapsed)::after {
 }
 
 /* ============================================================
-   MRH iframe-Modal Design (Bootstrap 5)
-   Für Lieferzeit, Versandkosten etc.
-   Stand: 2026-04-09 v2
+   MRH Popup-Modal Design (Bootstrap 5, AJAX-Fetch)
+   Für Lieferzeit, Versandkosten, popup_content etc.
+   Stand: 2026-04-09 v3
    ============================================================ */
 
 /* z-index Fix: template.css setzt .modal-backdrop auf 50000
    → Modal muss darüber liegen */
-#mrhIframeModal.modal { z-index: 50001; }
+#mrhPopupModal.modal { z-index: 50001; }
 
-/* Modal-Dialog: oben positioniert, max-width begrenzt */
-#mrhIframeModal .modal-dialog {
-  max-width: 720px;
-  margin: 2rem auto;
+/* Modal-Dialog: oben positioniert, scrollbar */
+#mrhPopupModal .modal-dialog {
+  max-width: 740px;
+  margin: 1.5rem auto;
 }
 
 /* Modal-Content: Template-Farben, abgerundete Ecken, Schatten */
-#mrhIframeModal .modal-content {
+#mrhPopupModal .modal-content {
   border: 1px solid var(--tpl-border-color, #dee2e6);
   border-radius: var(--tpl-border-radius, 8px);
   overflow: hidden;
@@ -4753,16 +4753,16 @@ button.faq-button:not(.collapsed)::after {
 }
 
 /* Modal-Header: dezent, Template-Farben */
-#mrhIframeModal .modal-header {
+#mrhPopupModal .modal-header {
   background: var(--tpl-bg-body, #f8f9fa);
   border-bottom: 1px solid var(--tpl-border-color, #dee2e6);
-  padding: 8px 16px;
-  min-height: 40px;
+  padding: 10px 16px;
+  min-height: 44px;
   flex-shrink: 0;
 }
 
-#mrhIframeModal .modal-title {
-  font-size: 0.9rem;
+#mrhPopupModal .modal-title {
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--tpl-text-headings, #334155);
   font-family: var(--tpl-font-heading, sans-serif);
@@ -4773,44 +4773,54 @@ button.faq-button:not(.collapsed)::after {
 }
 
 /* Close-Button */
-#mrhIframeModal .btn-close {
+#mrhPopupModal .btn-close {
   padding: 8px;
   opacity: 0.6;
   flex-shrink: 0;
 }
-#mrhIframeModal .btn-close:hover {
+#mrhPopupModal .btn-close:hover {
   opacity: 1;
 }
 
-/* Modal-Body: kein Padding, iframe füllt komplett */
-#mrhIframeModal .modal-body {
-  padding: 0;
+/* Modal-Body: Padding für AJAX-Content */
+#mrhPopupModal .modal-body {
+  padding: 20px 24px;
   background: var(--tpl-bg-body, #fff);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  max-height: calc(85vh - 56px);
 }
 
-/* iframe: volle Breite, dynamische Höhe */
-#mrhIframeModal iframe {
+/* Content-Styling innerhalb des Modals */
+#mrhPopupModal .modal-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--tpl-border-radius, 6px);
+}
+#mrhPopupModal .modal-body h2 {
+  font-size: 1.25rem;
+  margin-top: 1.2rem;
+}
+#mrhPopupModal .modal-body h3 {
+  font-size: 1.1rem;
+}
+#mrhPopupModal .modal-body table {
   width: 100%;
-  min-height: 400px;
-  height: calc(80vh - 56px);
-  border: none;
-  display: block;
+  font-size: 0.9rem;
 }
 
 /* Mobile: Modal fast fullscreen */
 @media (max-width: 767px) {
-  #mrhIframeModal .modal-dialog {
+  #mrhPopupModal .modal-dialog {
     max-width: 96%;
     margin: 0.5rem auto;
   }
-  #mrhIframeModal .modal-content {
-    max-height: 92vh;
+  #mrhPopupModal .modal-content {
+    max-height: 94vh;
   }
-  #mrhIframeModal iframe {
-    min-height: 300px;
-    height: calc(88vh - 50px);
+  #mrhPopupModal .modal-body {
+    padding: 14px 16px;
+    max-height: calc(94vh - 50px);
   }
 }
 

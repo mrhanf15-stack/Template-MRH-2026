@@ -90,3 +90,31 @@ Nachher: 1 System – general.css.php liest colors.json und gibt ALLE Farb-Varia
 | mrh-btn-compare | Vergleich-Button | --tpl-btn-compare-bg/text/hover |
 | mrh-btn-express | Express-Checkout | --tpl-btn-express-bg/text/hover |
 | mrh-btn-outline | Links, Blog, Reviews | --tpl-btn-primary-bg (Outline-Stil) |
+
+
+---
+
+### 2026-04-09 – Popup-Modal v3: iframe → AJAX-Fetch
+
+**Problem:** Das iframe-basierte Modal hatte z-index Konflikte mit template.css (Backdrop z-index: 50000 > Modal z-index: 1060). Zusätzlich fehlten im iframe Bootstrap CSS und mrh-custom.css, sodass der Content unstyled war.
+
+**Lösung:** Kompletter Umbau von iframe auf AJAX-Fetch:
+- `mrh-iframe-modal.js` → Popup-Modal v3 mit `fetch()` statt `<iframe>`
+- Content wird per AJAX geladen und direkt ins Modal-Body eingefügt
+- Content erbt automatisch alle CSS-Styles der Hauptseite (Bootstrap, mrh-custom.css)
+- Titel wird aus der geladenen Seite extrahiert, erste `<h1>` wird entfernt (als Modal-Title angezeigt)
+- Fallback: Bei Fetch-Fehler wird Link zum Öffnen in neuem Tab angeboten
+
+**Geänderte Dateien:**
+
+| Datei | Änderung |
+|---|---|
+| `javascript/extra/mrh-iframe-modal.js` | Komplett neu: AJAX-Fetch statt iframe, Modal-ID: `mrhPopupModal` |
+| `css/mrh-custom.css` | Modal-CSS umgeschrieben: `#mrhPopupModal` statt `#mrhIframeModal`, Padding für AJAX-Content, Content-Styling (img, h2, h3, table), z-index: 50001 |
+
+**CSS-Änderungen (mrh-custom.css):**
+- `#mrhPopupModal.modal { z-index: 50001; }` – über template.css Backdrop
+- `.modal-body { padding: 20px 24px; }` – Content hat jetzt Padding (kein iframe mehr)
+- `.modal-body img { max-width: 100%; }` – Bilder responsive
+- `.modal-body h2/h3` – Schriftgrößen für Modal-Kontext angepasst
+- `a.iframe` Links: Unterstreichung beibehalten

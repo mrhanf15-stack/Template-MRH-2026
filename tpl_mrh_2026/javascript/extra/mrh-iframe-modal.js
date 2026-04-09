@@ -1,79 +1,68 @@
 /**
- * MRH 2026 – Iframe Modal (Vanilla JS + Bootstrap 5)
+ * MRH 2026 – Popup Modal (Vanilla JS + Bootstrap 5)
  * Ersetzt Fancybox/Colorbox für Links mit class="iframe"
- * Öffnet den href als iframe in einem Bootstrap 5 Modal
- * Stand: 2026-04-09 v2
+ * Lädt den Inhalt per AJAX-Fetch direkt ins Bootstrap 5 Modal
+ * (kein iframe nötig → erbt CSS der Hauptseite)
+ * Stand: 2026-04-09 v3
  */
 (function () {
   'use strict';
 
-  var MODAL_ID = 'mrhIframeModal';
+  var MODAL_ID  = 'mrhPopupModal';
+  var LOADING   = '<div class="text-center py-5"><div class="spinner-border text-secondary" role="status"><span class="visually-hidden">Laden…</span></div></div>';
 
-  /** Modal-HTML einmalig ins DOM einfügen */
-  function createModal() {
+  /* ── Modal-HTML einmalig ins DOM einfügen ─────────────────── */
+  function ensureModal() {
     if (document.getElementById(MODAL_ID)) return;
 
-    var modal = document.createElement('div');
-    modal.id = MODAL_ID;
-    modal.className = 'modal fade';
-    modal.setAttribute('tabindex', '-1');
-    modal.setAttribute('aria-hidden', 'true');
-    modal.innerHTML =
-      '<div class="modal-dialog modal-lg modal-dialog-scrollable">' +
-        '<div class="modal-content">' +
-          '<div class="modal-header">' +
-            '<h5 class="modal-title" id="' + MODAL_ID + 'Label"></h5>' +
-            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>' +
-          '</div>' +
-          '<div class="modal-body p-0">' +
-            '<iframe id="' + MODAL_ID + 'Frame" src="about:blank" ' +
-              'style="width:100%;border:none;display:block;" ' +
-              'allowfullscreen></iframe>' +
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML =
+      '<div id="' + MODAL_ID + '" class="modal fade" tabindex="-1" aria-hidden="true">' +
+        '<div class="modal-dialog modal-lg modal-dialog-scrollable">' +
+          '<div class="modal-content">' +
+            '<div class="modal-header">' +
+              '<h5 class="modal-title" id="' + MODAL_ID + 'Label"></h5>' +
+              '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>' +
+            '</div>' +
+            '<div class="modal-body" id="' + MODAL_ID + 'Body">' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>';
 
-    document.body.appendChild(modal);
+    document.body.appendChild(wrapper.firstChild);
   }
 
-  /** iframe-Höhe dynamisch anpassen (same-origin only) */
-  function adjustIframeHeight(iframe) {
-    try {
-      var doc = iframe.contentDocument || iframe.contentWindow.document;
-      if (!doc || !doc.body) return;
-      var height = doc.body.scrollHeight;
-      if (height > 100) {
-        iframe.style.height = Math.min(height + 30, window.innerHeight * 0.78) + 'px';
-      }
-    } catch (e) {
-      // Cross-Origin – CSS-Fallback-Höhe beibehalten
-    }
+  /* ── Body-Inhalt aus HTML-Dokument extrahieren ────────────── */
+  function extractBody(html) {
+    // <body …> bis </body> extrahieren
+    var match = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    if (match && match[1]) return match[1].trim();
+    // Fallback: gesamten HTML-String verwenden
+    return html;
   }
 
-  /** Modal öffnen mit URL */
-  function openModal(url, title) {
-    createModal();
+  /* ── Titel aus HTML-Dokument extrahieren ──────────────────── */
+  function extractTitle(html) {
+    var match = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    if (match && match[1]) return match[1].trim();
+    // Fallback: erste <h1> suchen
+    var h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+    if (h1 && h1[1]) return h1[1].replace(/<[^>]+>/g, '').trim();
+    return '';
+  }
 
-    var modalEl = document.getElementById(MODAL_ID);
-    var iframe  = document.getElementById(MODAL_ID + 'Frame');
-    var titleEl = document.getElementById(MODAL_ID + 'Label');
+  /* ── Modal öffnen und Inhalt per Fetch laden ──────────────── */
+  function openModal(url, linkTitle) {
+    ensureModal();
 
-    // Titel setzen
-    titleEl.textContent = title || 'Information';
+    var modalEl  = document.getElementById(MODAL_ID);
+    var bodyEl   = document.getElementById(MODAL_ID + 'Body');
+    var titleEl  = document.getElementById(MODAL_ID + 'Label');
 
-    // iframe zurücksetzen und neue URL laden
-    iframe.src = 'about:blank';
-    iframe.style.height = '';
-
-    // Kurze Verzögerung damit about:blank geladen wird bevor neue URL gesetzt wird
-    setTimeout(function () {
-      iframe.src = url;
-    }, 50);
-
-    // iframe-Höhe nach Laden anpassen
-    iframe.onload = function () {
-      adjustIframeHeight(iframe);
-    };
+    // Sofort Titel + Loader anzeigen
+    titleEl.textContent = linkTitle || 'Information';
+    bodyEl.innerHTML    = LOADING;
 
     // Bootstrap 5 Modal öffnen
     var bsModal = bootstrap.Modal.getOrCreateInstance(modalEl, {
@@ -82,16 +71,45 @@
     });
     bsModal.show();
 
-    // iframe leeren wenn Modal geschlossen wird (Speicher freigeben)
+    // Inhalt per Fetch laden
+    fetch(url, { credentials: 'same-origin' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.text();
+      })
+      .then(function (html) {
+        // Titel aus der geladenen Seite übernehmen (falls vorhanden)
+        var pageTitle = extractTitle(html);
+        if (pageTitle) {
+          titleEl.textContent = pageTitle;
+        }
+
+        // Body-Inhalt extrahieren und einfügen
+        var content = extractBody(html);
+
+        // Erste <h1> entfernen (wird schon als Modal-Title angezeigt)
+        content = content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, '');
+
+        bodyEl.innerHTML = content;
+      })
+      .catch(function (err) {
+        bodyEl.innerHTML =
+          '<div class="alert alert-warning m-3">' +
+            '<strong>Inhalt konnte nicht geladen werden.</strong><br>' +
+            '<a href="' + url + '" target="_blank" rel="noopener">Seite in neuem Tab öffnen</a>' +
+          '</div>';
+        console.warn('[MRH-Popup] Fetch-Fehler:', err);
+      });
+
+    // Body leeren wenn Modal geschlossen wird
     modalEl.addEventListener('hidden.bs.modal', function handler() {
-      iframe.src = 'about:blank';
-      iframe.style.height = '';
+      bodyEl.innerHTML = '';
       modalEl.removeEventListener('hidden.bs.modal', handler);
     });
   }
 
-  /** Click-Handler für alle a.iframe Links (Event Delegation) */
-  function initIframeLinks() {
+  /* ── Click-Handler für alle a.iframe Links ────────────────── */
+  function initPopupLinks() {
     document.addEventListener('click', function (e) {
       var link = e.target.closest('a.iframe');
       if (!link) return;
@@ -100,7 +118,9 @@
       e.stopPropagation();
 
       var url   = link.getAttribute('href');
-      var title = link.getAttribute('title') || link.textContent.trim() || 'Information';
+      var title = link.getAttribute('title')
+               || link.textContent.trim()
+               || 'Information';
 
       if (url && url !== '#') {
         openModal(url, title);
@@ -108,10 +128,10 @@
     });
   }
 
-  /** Initialisierung */
+  /* ── Initialisierung ──────────────────────────────────────── */
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initIframeLinks);
+    document.addEventListener('DOMContentLoaded', initPopupLinks);
   } else {
-    initIframeLinks();
+    initPopupLinks();
   }
 })();
