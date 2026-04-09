@@ -2633,36 +2633,18 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 .trust-badges .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.8rem;
+  display: inline-block;
+  font-size: 0.78rem;
   font-weight: 600;
   font-family: var(--tpl-font-text), sans-serif;
-  padding: 6px 14px;
+  padding: 5px 14px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--tpl-main-color), var(--tpl-secondary-color, #3a6b24));
+  background-color: #6b7c3e;
   color: #fff;
   border: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   white-space: nowrap;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.trust-badges .badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(74, 140, 42, 0.3);
-}
-
-/* Variante: badge-secondary (Standard Bootstrap) */
-.trust-badges .badge-secondary {
-  background: linear-gradient(135deg, var(--tpl-main-color), var(--tpl-secondary-color, #3a6b24));
-  color: #fff;
-}
-
-/* Variante: badge-pill (Bootstrap) – bereits rund durch border-radius: 999px */
-.trust-badges .badge-pill {
-  border-radius: 999px;
+  line-height: 1.4;
 }
 
 /* Mobile: etwas kleiner */
