@@ -1,25 +1,18 @@
 {* seedling_list_shortdescription.html – MRH 2026
-   Preis-Card oben entfernt (2026-04-10): Schema.org Offer ist im Haupt-Template
-   Nur noch: Seedling-Flag, Eigenschafts-Tabelle, Bewertungen, Short Description *}
+   Umgebaut 2026-04-10: Reihenfolge wie USA-Vorlage
+   1. Typ-Badge (icon_sex)  2. Short Description  3. Meta-Tabelle  4. Bewertungen *}
 <div class="pd_infobox">
     <div class="bg-custom teabls table-striped">
-		<div id="usa">
- <div class="us-flag-container corner">
-        <div class="seedling-flag-image"  role="img" 
-             aria-label="{$PRODUCTS_NAME|onlytext} - {#seedling#}" 
-             title="{$PRODUCTS_NAME|onlytext} - {#seedling#}"></div>
-			</div>
-		 
+		{include file="module/includes/icon_sex.html"}
+ {if !empty($PRODUCTS_SHORT_DESCRIPTION)}<div class="bg-custom teabls mb-2 mt-2 table-striped">{$PRODUCTS_SHORT_DESCRIPTION}</div>{/if}
     <table class="tebals wite">
       <tbody>
      {if isset($MANUFACTURER) && $MANUFACTURER !=''}
-      <div class="small" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-             <meta itemprop="name" content="{$MANUFACTURER}" />
-        <tr>
-          <td><span class="fw-bold">{#manufacturer#}</span></td>
-          <td class="zentriert"><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a></td>
-        </tr>
-      </div>
+   <tr itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+  <meta itemprop="name" content="{$MANUFACTURER}" />
+  <!--<td><span class="fw-bold">{#manufacturer#}</span></td>
+  <td class="zentriert"><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a></td>-->
+</tr>
       {/if}{if $PRODUCTS_MODEL !=''}
       <tr>
         <td><meta itemprop="sku" content="{$PRODUCTS_MODEL}"/><span class="fw-bold">{#model#}</span></td>
@@ -46,11 +39,13 @@
       </tr>
        {/if} 
       </tbody>
-    </table></div>	{if $PRODUCTS_URL !=''} 
-        <div class="pd_infobox"><div class="card bg-custom p-2 mb-2 table-striped tebals">
-      <div class="small">{$PRODUCTS_URL}</div></div></div>
-		 
-      {/if}{if $PRODUCTS_RATING_COUNT > 0 || $MRH_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
+    </table>
+    {if $PRODUCTS_URL !=''}
+    <div class="card bg-custom p-2 mb-2 table-striped tebals">
+      <div class="small">{$PRODUCTS_URL}</div>
+    </div>
+    {/if}
+    {if $PRODUCTS_RATING_COUNT > 0 || $MRH_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
 <div class="card p-2 mt-2">
     {if $PRODUCTS_RATING_COUNT > 1 || $MRH_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
     <div class="pd_inforow" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">{if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
@@ -71,4 +66,4 @@
     {/if}
 </div>
 {/if} </div>
-  {if !empty($PRODUCTS_SHORT_DESCRIPTION)}<div class="bg-custom teabls mb-2 mt-2 table-striped">{$PRODUCTS_SHORT_DESCRIPTION}</div>{/if}   {1003275|contentAnywhere|inserttags} 
+{* Hersteller-Logo jetzt als Overlay im Hauptbild (product_gallery.html) *}
