@@ -4,14 +4,17 @@
   Modified eCommerce 3.3.0 | Bootstrap 5.3 | Vanilla JS
   Kein jQuery, kein EasyZoom
 
-  Variante für: Growshop, Headshop, Zubehör (Nicht-Samen)
-  Basis: product_info.html (MRH 2026 Framework)
+  Variante für: Growshop / Headshop / Zubehör (keine Samen)
+  Basis: usa_STrain-patch.html (MRH 2026 Framework)
   Unterschiede:
   - Include: list_shortdescription.html (Standard)
-  - KEIN quality_control Include
-  - KEIN Vintage-Style / Flag-Image
+  - OHNE quality_control Include
+  - Box-Icon (fa-box-open) neben Hersteller in Indigo (#6366f1)
+  - Indigo-Balken links am H1
+  - KEIN Badge auf Galerie
+  - KEIN icon_sex Include (keine Samen-Typ-Badges)
 
-  Stand: 2026-04-02
+  Stand: 2026-04-10
 *}
 
 {config_load file="$language/lang_$language.conf" section="product_info"}
@@ -28,57 +31,30 @@
 <article class="mrh-product-info" itemscope itemtype="https://schema.org/Product">
   {$FORM_ACTION}
 
-  {* ── 1. BREADCRUMB ── *}
-  {if isset($BREADCRUMB)}
-    <nav aria-label="Breadcrumb" class="mb-3">
-      <ol class="breadcrumb small" itemscope itemtype="https://schema.org/BreadcrumbList">
-        {foreach name=bc item=bc_item from=$BREADCRUMB}
-          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}"
-              itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            {if !$smarty.foreach.bc.last}
-              <a href="{$bc_item.HREF}" itemprop="item">
-                <span itemprop="name">{$bc_item.NAME}</span>
-              </a>
-            {else}
-              <span itemprop="name">{$bc_item.NAME}</span>
-            {/if}
-            <meta itemprop="position" content="{$smarty.foreach.bc.iteration}">
-          </li>
-        {/foreach}
-      </ol>
-    </nav>
-  {/if}
-
-  {* ══════════════════════════════════════════════════════════════
-     2. ZWEI-SPALTEN-LAYOUT
-     ══════════════════════════════════════════════════════════════ *}
   <div id="product_details" class="row g-4">
 
-    {* ────────────────────────────────────────────────────────────
-       LINKE SPALTE: Bildergalerie (col-12 col-lg-6, sticky)
-       ──────────────────────────────────────────────────────────── *}
+    {* ── LINKE SPALTE: Bildergalerie ── *}
     <div class="col-12 col-lg-6">
       <div class="mrh-gallery position-lg-sticky" style="top: 5rem;">
         {include file="module/includes/product_gallery.html"}
       </div>
     </div>
 
-    {* ────────────────────────────────────────────────────────────
-       RECHTE SPALTE: Produktinfos (col-12 col-lg-6)
-       ──────────────────────────────────────────────────────────── *}
+    {* ── RECHTE SPALTE: Produktinfos ── *}
     <div class="col-12 col-lg-6">
 
-      {* Hersteller *}
+      {* Hersteller mit Box-Icon *}
       {if isset($MANUFACTURER) && $MANUFACTURER != ''}
         <div class="mrh-pi-manufacturer mb-2" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
           <a href="{$MANUFACTURER_LINK}" class="small text-muted text-decoration-none" itemprop="url">
+            <span class="fa fa-box-open me-1" style="color: #6366f1;"></span>
             <span itemprop="name">{$MANUFACTURER}</span>
           </a>
         </div>
       {/if}
 
-      {* Produktname *}
-      <h1 class="h3 mb-3" itemprop="name">
+      {* Produktname – Indigo-Akzent *}
+      <h1 class="h3 mb-2" itemprop="name" style="border-left: 4px solid #6366f1; padding-left: 0.75rem;">
         {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}
       </h1>
 
@@ -110,14 +86,12 @@
         </div>
       {/if}
 
-      {* ── Picto-Leiste (Auszeichnungen) ── *}
+      {* ── Picto-Leiste ── *}
       {if isset($PRODUCTS_PICTO_ICONS) && $PRODUCTS_PICTO_ICONS != ''}
-        <div class="mrh-picto-bar mb-3">
-          {$PRODUCTS_PICTO_ICONS}
-        </div>
+        <div class="mrh-picto-bar mb-3">{$PRODUCTS_PICTO_ICONS}</div>
       {/if}
 
-      {* ── Short Description ── *}
+      {* ── Short Description (Standard) ── *}
       {include file="module/includes/list_shortdescription.html"}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
@@ -130,8 +104,9 @@
         {$MODULE_product_options}
       {/if}
 
-      {* ── Preis-Box ── *}
-      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+      {* ── Preis-Box (Indigo-Akzent) ── *}
+      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer"
+           style="border: 2px solid #6366f1; border-radius: 0.5rem; padding: 1rem; background: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, rgba(255,255,255,1) 100%);">
         <meta itemprop="url" content="{$PRODUCTS_LINK}" />
         <meta itemprop="priceCurrency" content="{$smarty.session.currency}" />
         {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
@@ -214,95 +189,41 @@
 
       {* ── Aktions-Buttons ── *}
       <div class="mrh-pi-actions d-flex flex-wrap gap-2 mb-3">
+        {* Merkzettel *}
         {if isset($ADD_CART_BUTTON_WISHLIST) && $ADD_CART_BUTTON_WISHLIST != ''}
-          <span class="small"><span class="fa fa-heart me-1"></span>{$ADD_CART_BUTTON_WISHLIST}</span>
+          <div class="mrh-action-btn">
+            <button type="submit" name="wishlist" class="btn btn-outline-secondary btn-sm">
+              <span class="fa-regular fa-heart me-1"></span>{#btn_wishlist#}
+            </button>
+          </div>
         {/if}
+        {* Vergleichen *}
         {if $smarty.const.MODULE_PRODUCT_COMPARE_STATUS == 'true'}
           <button type="button" class="btn btn-outline-secondary btn-sm"
                   data-product-id="{$PRODUCTS_ID}"
                   onclick="event.preventDefault(); window.ProductCompare && window.ProductCompare.toggle('{$PRODUCTS_ID}', this);">
-            <span class="fa fa-balance-scale me-1"></span>
+            <span class="fa-solid fa-scale-balanced me-1"></span>
             <span>{#product_compare_button#}</span>
           </button>
         {/if}
-        {if isset($PRODUCTS_PRINT_LAYER)}<span class="small">{$PRODUCTS_PRINT_LAYER}</span>{/if}
+        {* Artikeldatenblatt drucken *}
+        {if isset($PRODUCTS_PRINT_LAYER)}
+          <span>{$PRODUCTS_PRINT_LAYER|replace:'class="iframe"':'class="btn btn-outline-secondary btn-sm iframe"'}</span>
+        {/if}
+        {* Rezension schreiben *}
         {if $smarty.session.customers_status.customers_status_write_reviews == 1}
-          {if isset($PRODUCTS_WRITE_REVIEW)}<span class="small">{$PRODUCTS_WRITE_REVIEW}</span>{/if}
-        {/if}
-        {if isset($PRODUCTS_CHEAPLY)}<span class="small">{$PRODUCTS_CHEAPLY}</span>{/if}
-        {if isset($PRODUCT_INQUIRY)}<span class="small">{$PRODUCT_INQUIRY}</span>{/if}
-      </div>
-
-      {* ── Express Checkout ── *}
-      {if isset($EXPRESS_LINK) && isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
-        <div class="dropdown mb-3">
-          <a href="#" role="button" id="dropdownMenuLink"
-             class="btn mrh-btn-express btn-sm dropdown-toggle"
-             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="fa fa-info-circle me-1"></span> {#checkout_express_infotext#}
-          </a>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-            {$EXPRESS_LINK|replace:'class="':'class="dropdown-item '|replace:'</a>':'&nbsp;&nbsp;<span class="fa fa-info-circle"></span></a>'}
-            <a class="dropdown-item" href="{$ACTIVATE_EXPRESS_LINK}">{#checkout_express_activate#}</a>
-          </div>
-        </div>
-      {else}
-        {if isset($EXPRESS_LINK)}<div class="mb-3">{$EXPRESS_LINK}</div>{/if}
-        {if isset($ACTIVATE_EXPRESS_LINK) && $ACTIVATE_EXPRESS_LINK}
-          <div class="mb-3">
-            <a class="btn mrh-btn-express btn-sm" href="{$ACTIVATE_EXPRESS_LINK}">
-              <span class="fa fa-bolt me-1"></span> {#checkout_express_activate#}
-            </a>
-          </div>
-        {/if}
-      {/if}
-
-      {* ── Artikelnummer / EAN / Meta ── *}
-      <div class="mrh-pi-meta small text-muted mb-3">
-        {if $PRODUCTS_MODEL != ''}
-          <div><strong>{#model#}:</strong> <span itemprop="sku">{$PRODUCTS_MODEL}</span></div>
-        {/if}
-        {if isset($PRODUCTS_EAN) && $PRODUCTS_EAN != ''}
-          <div><strong>EAN:</strong> <span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></div>
-        {/if}
-        {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
-          <div><strong>{#products_manufacturer_model#}:</strong> <span itemprop="mpn">{$PRODUCTS_MANUFACTURERS_MODEL}</span></div>
-        {/if}
-        {if $PRODUCTS_ADDED != ''}
-          <div class="text-secondary">{$PRODUCTS_ADDED}</div>
-        {/if}
-      </div>
-
-      {* ── Lieferzeit ── *}
-      {if $SHIPPING_NAME}
-        <div class="mrh-pi-shipping small mb-3">
-          <span class="fa fa-truck me-1 text-success"></span>
-          <strong>{#text_shippingtime#}</strong>
-          {if isset($SHIPPING_IMAGE) && $SHIPPING_IMAGE != ''}
-            <img class="ms-1" src="{$SHIPPING_IMAGE}" alt="{$SHIPPING_NAME}" style="height:16px" />
+          {if isset($PRODUCTS_WRITE_REVIEW)}
+            <span>{$PRODUCTS_WRITE_REVIEW|replace:'<a ':'<a class="btn btn-outline-secondary btn-sm" '}</span>
           {/if}
-          {$SHIPPING_NAME_LINK}
-        </div>
-      {/if}
-
-      {* ── Trust-Icons ── *}
-      <div class="mrh-trust-bar d-flex justify-content-between text-center flex-wrap mb-3 py-3 border-top border-bottom">
-        <div class="p-2 flex-fill">
-          <span class="fa fa-shield-halved fa-2x text-secondary mb-2 d-block"></span>
-          <small>{#p_info1#}</small>
-        </div>
-        <div class="p-2 flex-fill">
-          <span class="fa fa-credit-card fa-2x text-secondary mb-2 d-block"></span>
-          <small>{#p_info2#}</small>
-        </div>
-        <div class="p-2 flex-fill">
-          <span class="fa fa-truck-fast fa-2x text-secondary mb-2 d-block"></span>
-          <small>{#p_info3#}</small>
-        </div>
-        <div class="p-2 flex-fill">
-          <span class="fa fa-location-dot fa-2x text-secondary mb-2 d-block"></span>
-          <small>{#p_info4#}</small>
-        </div>
+        {/if}
+        {* Preisanfrage *}
+        {if isset($PRODUCTS_CHEAPLY)}
+          <span>{$PRODUCTS_CHEAPLY|replace:'<a ':'<a class="btn btn-outline-secondary btn-sm" '}</span>
+        {/if}
+        {* Produktanfrage *}
+        {if isset($PRODUCT_INQUIRY)}
+          <span>{$PRODUCT_INQUIRY|replace:'<a ':'<a class="btn btn-outline-secondary btn-sm" '}</span>
+        {/if}
       </div>
 
       {* ── ShopVote Widget ── *}
@@ -321,9 +242,6 @@
      ══════════════════════════════════════════════════════════════ *}
   {if $PRODUCTS_DESCRIPTION != ''}
     <div class="mrh-product-description mt-5 mb-4" itemprop="description">
-      <h2 class="h5 fw-bold mb-3">
-        <span class="fa fa-align-left me-2 text-secondary"></span>{#text_tab_description#}
-      </h2>
       {$PRODUCTS_DESCRIPTION}
     </div>
   {/if}
@@ -349,9 +267,7 @@
         </h2>
         <div id="reviewsCollapse" class="accordion-collapse collapse show"
              aria-labelledby="reviewsHeading" data-bs-parent="#productAccordion">
-          <div class="accordion-body">
-            {$MODULE_products_reviews}
-          </div>
+          <div class="accordion-body">{$MODULE_products_reviews}</div>
         </div>
       </div>
     {/if}
@@ -414,24 +330,13 @@
     <div class="mb-4">{$MODULE_products_category}</div>
   {/if}
 
-  {* ── Zuletzt angesehen ── *}
   {if isset($box_LAST_VIEWED)}
     <div class="mb-4">{$box_LAST_VIEWED}</div>
   {/if}
 
-  {* ── Produkt-Navigator ── *}
   {$PRODUCT_NAVIGATOR}
 
 </article>
 
-{* ══════════════════════════════════════════════════════════════
-   6. SCHEMA.ORG JSON-LD
-   ══════════════════════════════════════════════════════════════ *}
+{* ── Schema.org JSON-LD ── *}
 {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_product.html"}
-
-{* ── eTrusted Widget ── *}
-{if $smarty.const.MRH_ETRUSTED_SHOW == 'true'}
-  <div class="mt-2 mb-2">
-    <etrusted-widget data-etrusted-widget-id="wdg-9b0f30e0-f8b5-4012-9b01-99983d899434"></etrusted-widget>
-  </div>
-{/if}
