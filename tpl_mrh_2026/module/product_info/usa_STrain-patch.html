@@ -243,27 +243,6 @@
   {* ── BOC – QUALITY CONTROL ── *}
       {include file="module/includes/quality_control.html"}
 
-      {* ── Trust-Icons (USA-Farbschema) ── *}
-      <div class="mrh-trust-bar d-flex justify-content-between text-center flex-wrap mb-3 py-3 border-top border-bottom"
-           style="border-color: #002868 !important;">
-        <div class="p-2 flex-fill">
-          <span class="fa fa-shield-halved fa-2x mb-2 d-block"></span>
-          <small>{#p_info1#}</small>
-        </div>
-        <div class="p-2 flex-fill">
-          <span class="fa fa-credit-card fa-2x mb-2 d-block"></span>
-          <small>{#p_info2#}</small>
-        </div>
-        <div class="p-2 flex-fill">
-          <span class="fa fa-truck-fast fa-2x mb-2 d-block"></span>
-          <small>{#p_info3#}</small>
-        </div>
-        <div class="p-2 flex-fill">
-          <span class="fa fa-location-dot fa-2x mb-2 d-block"></span>
-          <small>{#p_info4#}</small>
-        </div>
-      </div>
-
       {* ── ShopVote Widget ── *}
       {if $smarty.const.MRH_SHOPVOTE_PRODUCT_PAGE == 'true'}
         {assign var="shopvote_type" value="product"}
@@ -280,9 +259,6 @@
      ══════════════════════════════════════════════════════════════ *}
   {if $PRODUCTS_DESCRIPTION != ''}
     <div class="mrh-product-description mt-5 mb-4" itemprop="description">
-      <h2 class="h5 fw-bold mb-3" style="color: #002868;">
-        <span class="fa fa-align-left me-2" style="color: #BF0A30;"></span>{#text_tab_description#}
-      </h2>
       {$PRODUCTS_DESCRIPTION}
     </div>
   {/if}
