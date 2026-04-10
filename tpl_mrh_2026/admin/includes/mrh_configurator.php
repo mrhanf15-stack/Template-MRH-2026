@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   MRH 2026 Template – Konfigurator Backend v2.0
+   MRH 2026 Template – Konfigurator Backend v3.0
    
    Speichert Template-Einstellungen als JSON-Dateien:
    - colors.json      → Farb-Einstellungen (inkl. Menü, Buttons)
@@ -8,7 +8,8 @@
    - logos.json        → Zahlungs- und Versandlogos
    - social.json       → Social Media Links
    
-   v2.0 (2026-04-10): Alle Button-Farben (gefüllt + outline) hinzugefügt
+   v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
+                       Kein mrh-* / tpl-* Dualismus mehr!
    
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
@@ -50,7 +51,7 @@ function mrh_write_json($file, $data) {
 }
 
 /**
- * RGB-String sanitizen (nur rgb(r,g,b) oder Hex erlaubt)
+ * RGB-String sanitizen (nur rgb(r,g,b), rgba(r,g,b,a) oder Hex erlaubt)
  */
 function mrh_sanitize_color($value) {
     $value = trim($value);
@@ -69,125 +70,132 @@ function mrh_sanitize_color($value) {
     return '';
 }
 
-// === Standard-Werte ===
+// =====================================================================
+// === Standard-Werte (ALLE tpl-* Keys) ===
+// =====================================================================
 $mrh_color_defaults = [
     // ── Grundfarben ──
-    'mrh-primary'           => 'rgb(74, 140, 42)',
-    'mrh-secondary'         => 'rgb(30, 30, 30)',
+    'tpl-main-color'           => 'rgb(74, 140, 42)',
+    'tpl-main-color-2'         => 'rgb(30, 30, 30)',
+    'tpl-secondary-color'      => 'rgb(74, 140, 42)',
 
-    // ── Menü ──
-    'mrh-menu-bg'           => 'rgb(22, 163, 74)',
-    'mrh-menu-text'         => 'rgb(255, 255, 255)',
-    'mrh-menu-hover-bg'     => 'rgba(255, 255, 255, 0.15)',
-    'mrh-menu-active-bg'    => 'rgba(255, 255, 255, 0.25)',
+    // ── Navigation / Menü ──
+    'tpl-menu-bg'              => 'rgb(22, 163, 74)',
+    'tpl-menu-text'            => 'rgb(255, 255, 255)',
+    'tpl-menu-hover'           => 'rgb(56, 112, 30)',
+    'tpl-menu-active'          => 'rgb(255, 255, 255)',
 
     // ── Topbar ──
-    'mrh-topbar-bg'         => 'rgb(30, 41, 59)',
-    'mrh-topbar-text'       => 'rgb(255, 255, 255)',
+    'tpl-topbar-bg'            => 'rgb(30, 41, 59)',
+    'tpl-topbar-text'          => 'rgb(255, 255, 255)',
 
     // ── Hintergrund ──
-    'mrh-bg-color'          => 'rgb(255, 255, 255)',
-    'mrh-bg-color-2'        => 'rgb(240, 253, 244)',
-    'mrh-bg-productbox'     => 'rgb(255, 255, 255)',
-    'mrh-bg-footer'         => 'rgb(15, 23, 42)',
+    'tpl-bg-color'             => 'rgb(255, 255, 255)',
+    'tpl-bg-color-2'           => 'rgb(240, 253, 244)',
+    'tpl-bg-productbox'        => 'rgb(255, 255, 255)',
+    'tpl-bg-footer'            => 'rgb(15, 23, 42)',
 
     // ── Schrift ──
-    'mrh-text-standard'        => 'rgb(15, 23, 42)',
-    'mrh-text-headings'        => 'rgb(15, 23, 42)',
-    'mrh-text-button'          => 'rgb(255, 255, 255)',
-    'mrh-text-footer'          => 'rgb(148, 163, 184)',
-    'mrh-text-footer-headings' => 'rgb(255, 255, 255)',
+    'tpl-text-standard'        => 'rgb(15, 23, 42)',
+    'tpl-text-headings'        => 'rgb(15, 23, 42)',
+    'tpl-text-button'          => 'rgb(255, 255, 255)',
+    'tpl-text-footer'          => 'rgb(148, 163, 184)',
+    'tpl-text-footer-headings' => 'rgb(255, 255, 255)',
 
     // ── Sticky Header ──
-    'mrh-sticky-bg'         => 'rgb(255, 255, 255)',
-    'mrh-sticky-text'       => 'rgb(51, 65, 85)',
+    'tpl-sticky-bg'            => 'rgb(255, 255, 255)',
+    'tpl-sticky-text'          => 'rgb(51, 65, 85)',
 
     // ══════════════════════════════════════════════════
     // ── Gefüllte Buttons (btn-*) ──
     // ══════════════════════════════════════════════════
-    'mrh-btn-primary-bg'    => 'rgb(74, 140, 42)',
-    'mrh-btn-primary-text'  => 'rgb(255, 255, 255)',
-    'mrh-btn-primary-hover' => 'rgb(56, 112, 30)',
+    'tpl-btn-primary-bg'       => 'rgb(74, 140, 42)',
+    'tpl-btn-primary-text'     => 'rgb(255, 255, 255)',
+    'tpl-btn-primary-hover'    => 'rgb(58, 112, 32)',
 
-    'mrh-btn-secondary-bg'    => 'rgb(108, 117, 125)',
-    'mrh-btn-secondary-text'  => 'rgb(255, 255, 255)',
-    'mrh-btn-secondary-hover' => 'rgb(86, 94, 100)',
+    'tpl-btn-secondary-bg'     => 'rgb(108, 117, 125)',
+    'tpl-btn-secondary-text'   => 'rgb(255, 255, 255)',
+    'tpl-btn-secondary-hover'  => 'rgb(86, 94, 100)',
 
-    'mrh-btn-success-bg'    => 'rgb(25, 135, 84)',
-    'mrh-btn-success-text'  => 'rgb(255, 255, 255)',
-    'mrh-btn-success-hover' => 'rgb(20, 108, 67)',
+    'tpl-btn-success-bg'       => 'rgb(25, 135, 84)',
+    'tpl-btn-success-text'     => 'rgb(255, 255, 255)',
+    'tpl-btn-success-hover'    => 'rgb(20, 108, 67)',
 
-    'mrh-btn-danger-bg'     => 'rgb(220, 53, 69)',
-    'mrh-btn-danger-text'   => 'rgb(255, 255, 255)',
-    'mrh-btn-danger-hover'  => 'rgb(176, 42, 55)',
+    'tpl-btn-danger-bg'        => 'rgb(220, 53, 69)',
+    'tpl-btn-danger-text'      => 'rgb(255, 255, 255)',
+    'tpl-btn-danger-hover'     => 'rgb(176, 42, 55)',
 
-    'mrh-btn-warning-bg'    => 'rgb(255, 193, 7)',
-    'mrh-btn-warning-text'  => 'rgb(33, 37, 41)',
-    'mrh-btn-warning-hover' => 'rgb(255, 202, 44)',
+    'tpl-btn-warning-bg'       => 'rgb(255, 193, 7)',
+    'tpl-btn-warning-text'     => 'rgb(33, 37, 41)',
+    'tpl-btn-warning-hover'    => 'rgb(255, 202, 44)',
 
-    'mrh-btn-info-bg'       => 'rgb(23, 162, 184)',
-    'mrh-btn-info-text'     => 'rgb(255, 255, 255)',
-    'mrh-btn-info-hover'    => 'rgb(19, 132, 150)',
+    'tpl-btn-info-bg'          => 'rgb(23, 162, 184)',
+    'tpl-btn-info-text'        => 'rgb(255, 255, 255)',
+    'tpl-btn-info-hover'       => 'rgb(19, 132, 150)',
 
-    'mrh-btn-light-bg'      => 'rgb(248, 249, 250)',
-    'mrh-btn-light-text'    => 'rgb(33, 37, 41)',
-    'mrh-btn-light-hover'   => 'rgb(211, 212, 213)',
+    'tpl-btn-light-bg'         => 'rgb(248, 249, 250)',
+    'tpl-btn-light-text'       => 'rgb(33, 37, 41)',
+    'tpl-btn-light-hover'      => 'rgb(211, 212, 213)',
 
-    'mrh-btn-dark-bg'       => 'rgb(33, 37, 41)',
-    'mrh-btn-dark-text'     => 'rgb(255, 255, 255)',
-    'mrh-btn-dark-hover'    => 'rgb(66, 70, 73)',
+    'tpl-btn-dark-bg'          => 'rgb(33, 37, 41)',
+    'tpl-btn-dark-text'        => 'rgb(255, 255, 255)',
+    'tpl-btn-dark-hover'       => 'rgb(66, 70, 73)',
 
     // ══════════════════════════════════════════════════
     // ── Outline Buttons (btn-outline-*) ──
     // ══════════════════════════════════════════════════
-    'mrh-btn-outline-primary-bg'    => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-primary-text'  => 'rgb(74, 140, 42)',
-    'mrh-btn-outline-primary-hover' => 'rgb(74, 140, 42)',
+    'tpl-btn-outline-border'   => 'rgb(74, 140, 42)',
+    'tpl-btn-outline-text'     => 'rgb(74, 140, 42)',
+    'tpl-btn-outline-hover'    => 'rgb(74, 140, 42)',
 
-    'mrh-btn-outline-secondary-bg'    => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-secondary-text'  => 'rgb(108, 117, 125)',
-    'mrh-btn-outline-secondary-hover' => 'rgb(108, 117, 125)',
+    'tpl-btn-outline-primary-bg'       => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-primary-text'     => 'rgb(74, 140, 42)',
+    'tpl-btn-outline-primary-hover'    => 'rgb(74, 140, 42)',
 
-    'mrh-btn-outline-success-bg'    => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-success-text'  => 'rgb(25, 135, 84)',
-    'mrh-btn-outline-success-hover' => 'rgb(25, 135, 84)',
+    'tpl-btn-outline-secondary-bg'     => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-secondary-text'   => 'rgb(108, 117, 125)',
+    'tpl-btn-outline-secondary-hover'  => 'rgb(108, 117, 125)',
 
-    'mrh-btn-outline-danger-bg'     => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-danger-text'   => 'rgb(220, 53, 69)',
-    'mrh-btn-outline-danger-hover'  => 'rgb(220, 53, 69)',
+    'tpl-btn-outline-success-bg'       => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-success-text'     => 'rgb(25, 135, 84)',
+    'tpl-btn-outline-success-hover'    => 'rgb(25, 135, 84)',
 
-    'mrh-btn-outline-warning-bg'    => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-warning-text'  => 'rgb(255, 193, 7)',
-    'mrh-btn-outline-warning-hover' => 'rgb(255, 193, 7)',
+    'tpl-btn-outline-danger-bg'        => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-danger-text'      => 'rgb(220, 53, 69)',
+    'tpl-btn-outline-danger-hover'     => 'rgb(220, 53, 69)',
 
-    'mrh-btn-outline-info-bg'       => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-info-text'     => 'rgb(23, 162, 184)',
-    'mrh-btn-outline-info-hover'    => 'rgb(23, 162, 184)',
+    'tpl-btn-outline-warning-bg'       => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-warning-text'     => 'rgb(255, 193, 7)',
+    'tpl-btn-outline-warning-hover'    => 'rgb(255, 193, 7)',
 
-    'mrh-btn-outline-light-bg'      => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-light-text'    => 'rgb(248, 249, 250)',
-    'mrh-btn-outline-light-hover'   => 'rgb(248, 249, 250)',
+    'tpl-btn-outline-info-bg'          => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-info-text'        => 'rgb(23, 162, 184)',
+    'tpl-btn-outline-info-hover'       => 'rgb(23, 162, 184)',
 
-    'mrh-btn-outline-dark-bg'       => 'rgba(0, 0, 0, 0)',
-    'mrh-btn-outline-dark-text'     => 'rgb(33, 37, 41)',
-    'mrh-btn-outline-dark-hover'    => 'rgb(33, 37, 41)',
+    'tpl-btn-outline-light-bg'         => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-light-text'       => 'rgb(248, 249, 250)',
+    'tpl-btn-outline-light-hover'      => 'rgb(248, 249, 250)',
+
+    'tpl-btn-outline-dark-bg'          => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-dark-text'        => 'rgb(33, 37, 41)',
+    'tpl-btn-outline-dark-hover'       => 'rgb(33, 37, 41)',
 
     // ── Spezial-Buttons ──
-    'mrh-btn-express-bg'    => 'rgb(23, 162, 184)',
-    'mrh-btn-express-text'  => 'rgb(255, 255, 255)',
-    'mrh-btn-express-hover' => 'rgb(200, 81, 81)',
+    'tpl-btn-express-bg'       => 'rgb(67, 200, 117)',
+    'tpl-btn-express-text'     => 'rgb(255, 255, 255)',
+    'tpl-btn-express-hover'    => 'rgb(56, 168, 99)',
 
-    'mrh-btn-details-bg'    => 'rgb(255, 255, 255)',
-    'mrh-btn-details-text'  => 'rgb(51, 65, 85)',
-    'mrh-btn-details-hover' => 'rgb(74, 140, 42)',
+    'tpl-btn-details-bg'       => 'rgb(255, 255, 255)',
+    'tpl-btn-details-text'     => 'rgb(25, 135, 84)',
+    'tpl-btn-details-hover'    => 'rgb(25, 135, 84)',
 
-    'mrh-btn-wishlist-bg'    => 'rgb(255, 255, 255)',
-    'mrh-btn-wishlist-text'  => 'rgb(51, 65, 85)',
-    'mrh-btn-wishlist-hover' => 'rgb(220, 53, 69)',
+    'tpl-btn-wishlist-bg'      => 'rgb(108, 117, 125)',
+    'tpl-btn-wishlist-text'    => 'rgb(255, 255, 255)',
+    'tpl-btn-wishlist-hover'   => 'rgb(220, 53, 69)',
 
-    'mrh-btn-compare-bg'    => 'rgb(255, 255, 255)',
-    'mrh-btn-compare-text'  => 'rgb(51, 65, 85)',
-    'mrh-btn-compare-hover' => 'rgb(23, 162, 184)',
+    'tpl-btn-compare-bg'       => 'rgb(108, 117, 125)',
+    'tpl-btn-compare-text'     => 'rgb(255, 255, 255)',
+    'tpl-btn-compare-hover'    => 'rgb(23, 162, 184)',
 ];
 
 $mrh_tpl_defaults = [
@@ -214,10 +222,119 @@ $mrh_social_defaults = [
 ];
 
 // === Daten laden ===
-$mrh_colors   = array_merge($mrh_color_defaults, mrh_read_json($json_dir . 'colors.json'));
-$mrh_tpl      = array_merge($mrh_tpl_defaults, mrh_read_json($json_dir . 'tplsettings.json'));
-$mrh_logos    = array_merge($mrh_logo_defaults, mrh_read_json($json_dir . 'logos.json'));
-$mrh_social   = array_merge($mrh_social_defaults, mrh_read_json($json_dir . 'social.json'));
+// colors.json lesen und mit Defaults mergen
+$raw_colors = mrh_read_json($json_dir . 'colors.json');
+
+// ── Migration: Alte mrh-* Keys auf tpl-* mappen ──
+// Falls colors.json noch mrh-* Keys enthält, werden sie auf tpl-* umgemappt
+$mrh_to_tpl_map = [
+    'mrh-primary'           => 'tpl-main-color',
+    'mrh-secondary'         => 'tpl-main-color-2',
+    'mrh-menu-bg'           => 'tpl-menu-bg',
+    'mrh-menu-text'         => 'tpl-menu-text',
+    'mrh-menu-hover-bg'     => 'tpl-menu-hover',
+    'mrh-menu-active-bg'    => 'tpl-menu-active',
+    'mrh-topbar-bg'         => 'tpl-topbar-bg',
+    'mrh-topbar-text'       => 'tpl-topbar-text',
+    'mrh-bg-color'          => 'tpl-bg-color',
+    'mrh-bg-color-2'        => 'tpl-bg-color-2',
+    'mrh-bg-productbox'     => 'tpl-bg-productbox',
+    'mrh-bg-footer'         => 'tpl-bg-footer',
+    'mrh-text-standard'     => 'tpl-text-standard',
+    'mrh-text-headings'     => 'tpl-text-headings',
+    'mrh-text-button'       => 'tpl-text-button',
+    'mrh-text-footer'       => 'tpl-text-footer',
+    'mrh-text-footer-headings' => 'tpl-text-footer-headings',
+    'mrh-sticky-bg'         => 'tpl-sticky-bg',
+    'mrh-sticky-text'       => 'tpl-sticky-text',
+    // Buttons: mrh-btn-* → tpl-btn-*
+    'mrh-btn-primary-bg'    => 'tpl-btn-primary-bg',
+    'mrh-btn-primary-text'  => 'tpl-btn-primary-text',
+    'mrh-btn-primary-hover' => 'tpl-btn-primary-hover',
+    'mrh-btn-secondary-bg'    => 'tpl-btn-secondary-bg',
+    'mrh-btn-secondary-text'  => 'tpl-btn-secondary-text',
+    'mrh-btn-secondary-hover' => 'tpl-btn-secondary-hover',
+    'mrh-btn-success-bg'    => 'tpl-btn-success-bg',
+    'mrh-btn-success-text'  => 'tpl-btn-success-text',
+    'mrh-btn-success-hover' => 'tpl-btn-success-hover',
+    'mrh-btn-danger-bg'     => 'tpl-btn-danger-bg',
+    'mrh-btn-danger-text'   => 'tpl-btn-danger-text',
+    'mrh-btn-danger-hover'  => 'tpl-btn-danger-hover',
+    'mrh-btn-warning-bg'    => 'tpl-btn-warning-bg',
+    'mrh-btn-warning-text'  => 'tpl-btn-warning-text',
+    'mrh-btn-warning-hover' => 'tpl-btn-warning-hover',
+    'mrh-btn-info-bg'       => 'tpl-btn-info-bg',
+    'mrh-btn-info-text'     => 'tpl-btn-info-text',
+    'mrh-btn-info-hover'    => 'tpl-btn-info-hover',
+    'mrh-btn-light-bg'      => 'tpl-btn-light-bg',
+    'mrh-btn-light-text'    => 'tpl-btn-light-text',
+    'mrh-btn-light-hover'   => 'tpl-btn-light-hover',
+    'mrh-btn-dark-bg'       => 'tpl-btn-dark-bg',
+    'mrh-btn-dark-text'     => 'tpl-btn-dark-text',
+    'mrh-btn-dark-hover'    => 'tpl-btn-dark-hover',
+    // Outline Buttons
+    'mrh-btn-outline-primary-bg'       => 'tpl-btn-outline-primary-bg',
+    'mrh-btn-outline-primary-text'     => 'tpl-btn-outline-primary-text',
+    'mrh-btn-outline-primary-hover'    => 'tpl-btn-outline-primary-hover',
+    'mrh-btn-outline-secondary-bg'     => 'tpl-btn-outline-secondary-bg',
+    'mrh-btn-outline-secondary-text'   => 'tpl-btn-outline-secondary-text',
+    'mrh-btn-outline-secondary-hover'  => 'tpl-btn-outline-secondary-hover',
+    'mrh-btn-outline-success-bg'       => 'tpl-btn-outline-success-bg',
+    'mrh-btn-outline-success-text'     => 'tpl-btn-outline-success-text',
+    'mrh-btn-outline-success-hover'    => 'tpl-btn-outline-success-hover',
+    'mrh-btn-outline-danger-bg'        => 'tpl-btn-outline-danger-bg',
+    'mrh-btn-outline-danger-text'      => 'tpl-btn-outline-danger-text',
+    'mrh-btn-outline-danger-hover'     => 'tpl-btn-outline-danger-hover',
+    'mrh-btn-outline-warning-bg'       => 'tpl-btn-outline-warning-bg',
+    'mrh-btn-outline-warning-text'     => 'tpl-btn-outline-warning-text',
+    'mrh-btn-outline-warning-hover'    => 'tpl-btn-outline-warning-hover',
+    'mrh-btn-outline-info-bg'          => 'tpl-btn-outline-info-bg',
+    'mrh-btn-outline-info-text'        => 'tpl-btn-outline-info-text',
+    'mrh-btn-outline-info-hover'       => 'tpl-btn-outline-info-hover',
+    'mrh-btn-outline-light-bg'         => 'tpl-btn-outline-light-bg',
+    'mrh-btn-outline-light-text'       => 'tpl-btn-outline-light-text',
+    'mrh-btn-outline-light-hover'      => 'tpl-btn-outline-light-hover',
+    'mrh-btn-outline-dark-bg'          => 'tpl-btn-outline-dark-bg',
+    'mrh-btn-outline-dark-text'        => 'tpl-btn-outline-dark-text',
+    'mrh-btn-outline-dark-hover'       => 'tpl-btn-outline-dark-hover',
+    // Spezial
+    'mrh-btn-express-bg'    => 'tpl-btn-express-bg',
+    'mrh-btn-express-text'  => 'tpl-btn-express-text',
+    'mrh-btn-express-hover' => 'tpl-btn-express-hover',
+    'mrh-btn-details-bg'    => 'tpl-btn-details-bg',
+    'mrh-btn-details-text'  => 'tpl-btn-details-text',
+    'mrh-btn-details-hover' => 'tpl-btn-details-hover',
+    'mrh-btn-wishlist-bg'   => 'tpl-btn-wishlist-bg',
+    'mrh-btn-wishlist-text' => 'tpl-btn-wishlist-text',
+    'mrh-btn-wishlist-hover'=> 'tpl-btn-wishlist-hover',
+    'mrh-btn-compare-bg'    => 'tpl-btn-compare-bg',
+    'mrh-btn-compare-text'  => 'tpl-btn-compare-text',
+    'mrh-btn-compare-hover' => 'tpl-btn-compare-hover',
+];
+
+// Migration: mrh-* Werte auf tpl-* übertragen (nur wenn tpl-* Key noch nicht gesetzt)
+foreach ($mrh_to_tpl_map as $old_key => $new_key) {
+    if (isset($raw_colors[$old_key]) && !isset($raw_colors[$new_key])) {
+        $raw_colors[$new_key] = $raw_colors[$old_key];
+    }
+    // Wenn mrh-* existiert UND tpl-* auch, bevorzuge mrh-* (neuerer Wert vom Konfigurator)
+    if (isset($raw_colors[$old_key]) && isset($raw_colors[$new_key])) {
+        $raw_colors[$new_key] = $raw_colors[$old_key];
+    }
+}
+
+// Nur tpl-* Keys behalten, mrh-* und submit-* entfernen
+$clean_colors = [];
+foreach ($raw_colors as $k => $v) {
+    if (strpos($k, 'tpl-') === 0) {
+        $clean_colors[$k] = $v;
+    }
+}
+
+$mrh_colors = array_merge($mrh_color_defaults, $clean_colors);
+$mrh_tpl    = array_merge($mrh_tpl_defaults, mrh_read_json($json_dir . 'tplsettings.json'));
+$mrh_logos  = array_merge($mrh_logo_defaults, mrh_read_json($json_dir . 'logos.json'));
+$mrh_social = array_merge($mrh_social_defaults, mrh_read_json($json_dir . 'social.json'));
 
 // === Formulare verarbeiten ===
 $mrh_config_message = '';
@@ -236,6 +353,14 @@ if (isset($_POST['submit-colorsettings'])) {
         $min_css = $tpl_dir . 'css/stylesheet.min.css';
         if (file_exists($min_css)) {
             @unlink($min_css);
+        }
+        // templates_c leeren für sofortige Wirkung
+        $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+        if (is_dir($tpl_c)) {
+            $files = glob($tpl_c . '*');
+            foreach ($files as $f) {
+                if (is_file($f)) @unlink($f);
+            }
         }
     } else {
         $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Speichern der Farben.</div>';

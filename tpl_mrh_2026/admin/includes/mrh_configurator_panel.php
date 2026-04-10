@@ -1,12 +1,15 @@
 <?php
 /* =====================================================================
-   MRH 2026 Template – Konfigurator Panel (reine PHP-Version)
+   MRH 2026 Template – Konfigurator Panel v3.0
    
-   Wird eingebunden via source/boxes/box_admin_extra.php
+   Wird eingebunden via source/boxes/admin.php
    Benötigt: admin/includes/mrh_configurator.php (PHP-Backend)
    
+   v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
+                       Kein mrh-* / tpl-* Dualismus mehr!
+   
    Sektionen:
-   1. Farben individualisieren (inkl. Menü + Topbar + Sticky)
+   1. Farben individualisieren (inkl. Menü + Topbar + Sticky + Buttons)
    2. Weitere Konfiguration
    3. Zahlungs- und Versandlogos
    4. Social Media Links
@@ -57,38 +60,44 @@ if (!empty($msg)) echo $msg;
               <i class="fa fa-circle-half-stroke me-1"></i> Hauptfarben
             </h6>
             <div class="row">
-              <div class="col-sm-6 mb-3">
-                <label for="mrh-primary"><strong>Prim&auml;rfarbe</strong></label>
-                <input id="mrh-primary" type="text" name="mrh-primary"
+              <div class="col-sm-4 mb-3">
+                <label for="tpl-main-color"><strong>Prim&auml;rfarbe</strong></label>
+                <input id="tpl-main-color" type="text" name="tpl-main-color"
                        class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'mrh-primary'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'mrh-primary'); ?>"></div>
+                       value="<?php echo mrh_cv($c,'tpl-main-color'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-main-color'); ?>"></div>
               </div>
-              <div class="col-sm-6 mb-3">
-                <label for="mrh-secondary"><strong>Sekund&auml;rfarbe</strong></label>
-                <input id="mrh-secondary" type="text" name="mrh-secondary"
+              <div class="col-sm-4 mb-3">
+                <label for="tpl-main-color-2"><strong>Sekund&auml;rfarbe</strong></label>
+                <input id="tpl-main-color-2" type="text" name="tpl-main-color-2"
                        class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'mrh-secondary'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'mrh-secondary'); ?>"></div>
+                       value="<?php echo mrh_cv($c,'tpl-main-color-2'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-main-color-2'); ?>"></div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <label for="tpl-secondary-color"><strong>Akzentfarbe</strong></label>
+                <input id="tpl-secondary-color" type="text" name="tpl-secondary-color"
+                       class="form-control colorpicker-element"
+                       value="<?php echo mrh_cv($c,'tpl-secondary-color'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-secondary-color'); ?>"></div>
               </div>
             </div>
           </section>
 
           <hr class="mx-3">
 
-          <!-- Men&uuml;-Farben (NEU) -->
+          <!-- Men&uuml;-Farben -->
           <section class="col-sm-12 mb-3">
             <h6 class="text-muted text-uppercase small mb-3">
               <i class="fa fa-bars me-1"></i> Hauptnavigation (Men&uuml;-Leiste)
-              <span class="badge bg-success ms-2">NEU</span>
             </h6>
             <div class="row">
 <?php
 $menu_fields = [
-    'mrh-menu-bg'        => 'Men&uuml; Hintergrund',
-    'mrh-menu-text'      => 'Men&uuml; Textfarbe',
-    'mrh-menu-hover-bg'  => 'Men&uuml; Hover',
-    'mrh-menu-active-bg' => 'Men&uuml; Aktiv',
+    'tpl-menu-bg'     => 'Men&uuml; Hintergrund',
+    'tpl-menu-text'   => 'Men&uuml; Textfarbe',
+    'tpl-menu-hover'  => 'Men&uuml; Hover',
+    'tpl-menu-active' => 'Men&uuml; Aktiv',
 ];
 foreach ($menu_fields as $key => $label) {
     echo '<div class="col-sm-3 mb-3">';
@@ -103,26 +112,25 @@ foreach ($menu_fields as $key => $label) {
 
           <hr class="mx-3">
 
-          <!-- Topbar-Farben (NEU) -->
+          <!-- Topbar-Farben -->
           <section class="col-sm-12 mb-3">
             <h6 class="text-muted text-uppercase small mb-3">
               <i class="fa fa-grip-lines me-1"></i> Topbar (Trust-Leiste)
-              <span class="badge bg-success ms-2">NEU</span>
             </h6>
             <div class="row">
               <div class="col-sm-6 mb-3">
-                <label for="mrh-topbar-bg"><strong>Topbar Hintergrund</strong></label>
-                <input id="mrh-topbar-bg" type="text" name="mrh-topbar-bg"
+                <label for="tpl-topbar-bg"><strong>Topbar Hintergrund</strong></label>
+                <input id="tpl-topbar-bg" type="text" name="tpl-topbar-bg"
                        class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'mrh-topbar-bg'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'mrh-topbar-bg'); ?>"></div>
+                       value="<?php echo mrh_cv($c,'tpl-topbar-bg'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-topbar-bg'); ?>"></div>
               </div>
               <div class="col-sm-6 mb-3">
-                <label for="mrh-topbar-text"><strong>Topbar Textfarbe</strong></label>
-                <input id="mrh-topbar-text" type="text" name="mrh-topbar-text"
+                <label for="tpl-topbar-text"><strong>Topbar Textfarbe</strong></label>
+                <input id="tpl-topbar-text" type="text" name="tpl-topbar-text"
                        class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'mrh-topbar-text'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'mrh-topbar-text'); ?>"></div>
+                       value="<?php echo mrh_cv($c,'tpl-topbar-text'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-topbar-text'); ?>"></div>
               </div>
             </div>
           </section>
@@ -136,10 +144,10 @@ foreach ($menu_fields as $key => $label) {
             </h6>
 <?php
 $bg_fields = [
-    'mrh-bg-color'      => 'Hintergrundfarbe 1',
-    'mrh-bg-color-2'    => 'Hintergrundfarbe 2',
-    'mrh-bg-productbox' => 'Produktboxen Hintergrund',
-    'mrh-bg-footer'     => 'Footer Hintergrund',
+    'tpl-bg-color'      => 'Hintergrundfarbe 1',
+    'tpl-bg-color-2'    => 'Hintergrundfarbe 2',
+    'tpl-bg-productbox' => 'Produktboxen Hintergrund',
+    'tpl-bg-footer'     => 'Footer Hintergrund',
 ];
 foreach ($bg_fields as $key => $label) {
     echo '<div class="mb-3">';
@@ -158,11 +166,11 @@ foreach ($bg_fields as $key => $label) {
             </h6>
 <?php
 $text_fields = [
-    'mrh-text-standard'        => 'Standard Schriftfarbe',
-    'mrh-text-headings'        => '&Uuml;berschriften Schriftfarbe',
-    'mrh-text-button'          => 'Schriftfarbe in Buttons &amp; Badges',
-    'mrh-text-footer'          => 'Schriftfarbe Text &amp; Links im Footer',
-    'mrh-text-footer-headings' => '&Uuml;berschriften im Footer',
+    'tpl-text-standard'        => 'Standard Schriftfarbe',
+    'tpl-text-headings'        => '&Uuml;berschriften Schriftfarbe',
+    'tpl-text-button'          => 'Schriftfarbe in Buttons &amp; Badges',
+    'tpl-text-footer'          => 'Schriftfarbe Text &amp; Links im Footer',
+    'tpl-text-footer-headings' => '&Uuml;berschriften im Footer',
 ];
 foreach ($text_fields as $key => $label) {
     echo '<div class="mb-3">';
@@ -174,27 +182,26 @@ foreach ($text_fields as $key => $label) {
 ?>
           </section>
 
-          <!-- Sticky Header (NEU) -->
+          <!-- Sticky Header -->
           <section class="col-sm-12 mb-3">
             <hr>
             <h6 class="text-muted text-uppercase small mb-3">
               <i class="fa fa-thumbtack me-1"></i> Sticky Header
-              <span class="badge bg-success ms-2">NEU</span>
             </h6>
             <div class="row">
               <div class="col-sm-6 mb-3">
-                <label for="mrh-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
-                <input id="mrh-sticky-bg" type="text" name="mrh-sticky-bg"
+                <label for="tpl-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
+                <input id="tpl-sticky-bg" type="text" name="tpl-sticky-bg"
                        class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'mrh-sticky-bg'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'mrh-sticky-bg'); ?>"></div>
+                       value="<?php echo mrh_cv($c,'tpl-sticky-bg'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-bg'); ?>"></div>
               </div>
               <div class="col-sm-6 mb-3">
-                <label for="mrh-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
-                <input id="mrh-sticky-text" type="text" name="mrh-sticky-text"
+                <label for="tpl-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
+                <input id="tpl-sticky-text" type="text" name="tpl-sticky-text"
                        class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'mrh-sticky-text'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'mrh-sticky-text'); ?>"></div>
+                       value="<?php echo mrh_cv($c,'tpl-sticky-text'); ?>">
+                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-text'); ?>"></div>
               </div>
             </div>
           </section>
@@ -206,7 +213,6 @@ foreach ($text_fields as $key => $label) {
             <hr>
             <h6 class="text-muted text-uppercase small mb-3">
               <i class="fa fa-square me-1"></i> Gef&uuml;llte Buttons
-              <span class="badge bg-info ms-2">NEU</span>
             </h6>
 <?php
 $filled_buttons = [
@@ -220,9 +226,9 @@ $filled_buttons = [
     'dark'      => ['label' => 'Dark',      'icon' => 'fa-moon'],
 ];
 foreach ($filled_buttons as $variant => $meta) {
-    $bg_key    = 'mrh-btn-' . $variant . '-bg';
-    $text_key  = 'mrh-btn-' . $variant . '-text';
-    $hover_key = 'mrh-btn-' . $variant . '-hover';
+    $bg_key    = 'tpl-btn-' . $variant . '-bg';
+    $text_key  = 'tpl-btn-' . $variant . '-text';
+    $hover_key = 'tpl-btn-' . $variant . '-hover';
     echo '<div class="row mb-2">';
     echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> btn-' . $variant . '</strong></div>';
     echo '<div class="col-sm-4 mb-2">';
@@ -252,9 +258,26 @@ foreach ($filled_buttons as $variant => $meta) {
             <hr>
             <h6 class="text-muted text-uppercase small mb-3">
               <i class="fa fa-square-o me-1"></i> Outline Buttons
-              <span class="badge bg-info ms-2">NEU</span>
             </h6>
 <?php
+// Allgemeine Outline-Felder (Legacy-Kompatibilit&auml;t)
+$outline_general = [
+    'tpl-btn-outline-border' => 'Outline Rahmenfarbe',
+    'tpl-btn-outline-text'   => 'Outline Textfarbe',
+    'tpl-btn-outline-hover'  => 'Outline Hover',
+];
+echo '<div class="row mb-3">';
+foreach ($outline_general as $key => $label) {
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $key . '"><strong>' . $label . '</strong></label>';
+    echo '<input id="' . $key . '" type="text" name="' . $key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $key) . '"></div>';
+    echo '</div>';
+}
+echo '</div>';
+echo '<hr class="my-2">';
+
+// Einzelne Outline-Varianten
 $outline_buttons = [
     'primary'   => ['label' => 'Outline Primary',   'icon' => 'fa-circle-o'],
     'secondary' => ['label' => 'Outline Secondary', 'icon' => 'fa-circle-o'],
@@ -266,9 +289,9 @@ $outline_buttons = [
     'dark'      => ['label' => 'Outline Dark',      'icon' => 'fa-moon-o'],
 ];
 foreach ($outline_buttons as $variant => $meta) {
-    $bg_key    = 'mrh-btn-outline-' . $variant . '-bg';
-    $text_key  = 'mrh-btn-outline-' . $variant . '-text';
-    $hover_key = 'mrh-btn-outline-' . $variant . '-hover';
+    $bg_key    = 'tpl-btn-outline-' . $variant . '-bg';
+    $text_key  = 'tpl-btn-outline-' . $variant . '-text';
+    $hover_key = 'tpl-btn-outline-' . $variant . '-hover';
     echo '<div class="row mb-2">';
     echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> btn-outline-' . $variant . '</strong></div>';
     echo '<div class="col-sm-4 mb-2">';
@@ -298,7 +321,6 @@ foreach ($outline_buttons as $variant => $meta) {
             <hr>
             <h6 class="text-muted text-uppercase small mb-3">
               <i class="fa fa-star me-1"></i> Spezial-Buttons
-              <span class="badge bg-info ms-2">NEU</span>
             </h6>
 <?php
 $special_buttons = [
@@ -308,9 +330,9 @@ $special_buttons = [
     'compare'  => ['label' => 'Vergleichen',    'icon' => 'fa-exchange'],
 ];
 foreach ($special_buttons as $variant => $meta) {
-    $bg_key    = 'mrh-btn-' . $variant . '-bg';
-    $text_key  = 'mrh-btn-' . $variant . '-text';
-    $hover_key = 'mrh-btn-' . $variant . '-hover';
+    $bg_key    = 'tpl-btn-' . $variant . '-bg';
+    $text_key  = 'tpl-btn-' . $variant . '-text';
+    $hover_key = 'tpl-btn-' . $variant . '-hover';
     echo '<div class="row mb-2">';
     echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> ' . $meta['label'] . '</strong></div>';
     echo '<div class="col-sm-4 mb-2">';
@@ -523,13 +545,13 @@ foreach ($shippers as $sh) {
             <p class="text-muted">Tragen Sie Ihre Social Media Links ein. Leere Felder werden nicht angezeigt.</p>
 <?php
 $socials = [
-    'facebook'  => ['label' => 'Facebook',   'icon' => 'fa-brands fa-facebook',  'placeholder' => 'https://www.facebook.com/IhrName'],
+    'facebook'  => ['label' => 'Facebook',    'icon' => 'fa-brands fa-facebook',  'placeholder' => 'https://www.facebook.com/IhrName'],
     'twitter'   => ['label' => 'X (Twitter)', 'icon' => 'fa-brands fa-x-twitter','placeholder' => 'https://x.com/IhrName'],
-    'instagram' => ['label' => 'Instagram',  'icon' => 'fa-brands fa-instagram', 'placeholder' => 'https://www.instagram.com/IhrName'],
-    'tiktok'    => ['label' => 'TikTok',     'icon' => 'fa-brands fa-tiktok',    'placeholder' => 'https://www.tiktok.com/@IhrName'],
-    'youtube'   => ['label' => 'YouTube',    'icon' => 'fa-brands fa-youtube',   'placeholder' => 'https://www.youtube.com/@IhrName'],
-    'pinterest' => ['label' => 'Pinterest',  'icon' => 'fa-brands fa-pinterest', 'placeholder' => 'https://www.pinterest.com/IhrName'],
-    'linkedin'  => ['label' => 'LinkedIn',   'icon' => 'fa-brands fa-linkedin',  'placeholder' => 'https://www.linkedin.com/company/IhrName'],
+    'instagram' => ['label' => 'Instagram',   'icon' => 'fa-brands fa-instagram', 'placeholder' => 'https://www.instagram.com/IhrName'],
+    'tiktok'    => ['label' => 'TikTok',      'icon' => 'fa-brands fa-tiktok',    'placeholder' => 'https://www.tiktok.com/@IhrName'],
+    'youtube'   => ['label' => 'YouTube',     'icon' => 'fa-brands fa-youtube',   'placeholder' => 'https://www.youtube.com/@IhrName'],
+    'pinterest' => ['label' => 'Pinterest',   'icon' => 'fa-brands fa-pinterest', 'placeholder' => 'https://www.pinterest.com/IhrName'],
+    'linkedin'  => ['label' => 'LinkedIn',    'icon' => 'fa-brands fa-linkedin',  'placeholder' => 'https://www.linkedin.com/company/IhrName'],
 ];
 foreach ($socials as $skey => $info) {
     $val = isset($s[$skey]) ? htmlspecialchars($s[$skey]) : '';
