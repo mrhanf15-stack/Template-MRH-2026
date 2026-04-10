@@ -1,5 +1,6 @@
 /* =========================================================================
-   Product Compare v4.1.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.0.0 - CSS (tpl_mrh_2026)
+   Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
    Grid wird komplett ueber Bootstrap 5.3 row/col gesteuert.
@@ -16,21 +17,21 @@
     font-weight: 600;
 }
 
-/* === Remove Button (top-right corner of each compare card) === */
+/* === Remove Button (top-right corner, round, red) === */
 .compare-remove-btn {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 8px;
+    right: 8px;
     z-index: 10;
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: rgba(220, 53, 69, 0.85);
+    background: rgba(220, 53, 69, 0.9);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 13px;
     text-decoration: none;
     transition: background 0.2s ease, transform 0.15s ease;
     line-height: 1;
@@ -43,42 +44,53 @@
     transform: scale(1.15);
 }
 
-/* === Short Description - Fixed Height, Top-Aligned, Scrollable === */
+/* === Product Image Box (landscape, object-cover, like .de) === */
+.compare-img-box {
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+}
+
+.compare-product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* === Short Description - Full Height, Scrollable on Overflow === */
 .compare-desc-box {
-    height: 280px;
+    max-height: 550px;
     overflow-y: auto;
     flex-shrink: 0;
-    width: 100%;
-    padding-top: 0;
-    padding-bottom: 0;
 }
 
 .compare-desc-box .lr_desc {
-    position: relative;
     max-height: none;
-    padding-top: 0;
-    margin-top: 0;
 }
 
-/* === Card Body above desc-box: reduce bottom padding === */
-.compare-card .card-body.pb-1 + .compare-desc-box,
-.compare-card .card-body + .compare-desc-box {
-    padding-top: 0;
+/* === Card Footer (pushed to bottom via mt-auto) === */
+.compare-footer {
+    border-top: 1px solid rgba(0,0,0,0.08);
 }
 
-/* === Card Uniform Structure === */
-.compare-card {
-    overflow: hidden;
-}
-
-/* === Buttons Row - Uniform alignment === */
-.compare-card .compare-btn-row {
+/* === Buttons Row - Flex, Qty + Cart + Wishlist + Details (rechts) === */
+.compare-btn-row {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 4px;
     margin-top: 8px;
 }
-.compare-card .compare-btn-row .btn-details-right {
+
+/* Qty Input/Select - compact width */
+.compare-qty {
+    width: 55px;
+    flex-shrink: 0;
+}
+
+/* Details Button always pushed to the right */
+.compare-btn-row .mrh-btn-details {
     margin-left: auto;
 }
 
@@ -282,10 +294,18 @@
 }
 
 /* === Responsive === */
+@media (max-width: 991px) {
+    .compare-img-box {
+        min-height: 150px;
+    }
+}
+
 @media (max-width: 767px) {
     .compare-desc-box {
-        height: auto;
-        max-height: 300px;
+        max-height: 350px;
+    }
+    .compare-img-box {
+        min-height: 120px;
     }
 }
 
@@ -320,5 +340,11 @@
     .btn-compare {
         font-size: 0.75rem;
         padding: 3px 8px;
+    }
+    .compare-btn-row {
+        flex-wrap: wrap;
+    }
+    .compare-qty {
+        width: 48px;
     }
 }
