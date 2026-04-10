@@ -98,10 +98,62 @@ $defaults = [
     'tpl-btn-secondary-bg'     => 'rgb(108, 117, 125)',
     'tpl-btn-secondary-text'   => 'rgb(255, 255, 255)',
     'tpl-btn-secondary-hover'  => 'rgb(86, 94, 100)',
-    // Button: Outline
+    // Button: Success
+    'tpl-btn-success-bg'       => 'rgb(25, 135, 84)',
+    'tpl-btn-success-text'     => 'rgb(255, 255, 255)',
+    'tpl-btn-success-hover'    => 'rgb(20, 108, 67)',
+    // Button: Danger
+    'tpl-btn-danger-bg'        => 'rgb(220, 53, 69)',
+    'tpl-btn-danger-text'      => 'rgb(255, 255, 255)',
+    'tpl-btn-danger-hover'     => 'rgb(176, 42, 55)',
+    // Button: Warning
+    'tpl-btn-warning-bg'       => 'rgb(255, 193, 7)',
+    'tpl-btn-warning-text'     => 'rgb(33, 37, 41)',
+    'tpl-btn-warning-hover'    => 'rgb(255, 202, 44)',
+    // Button: Light
+    'tpl-btn-light-bg'         => 'rgb(248, 249, 250)',
+    'tpl-btn-light-text'       => 'rgb(33, 37, 41)',
+    'tpl-btn-light-hover'      => 'rgb(211, 212, 213)',
+    // Button: Dark
+    'tpl-btn-dark-bg'          => 'rgb(33, 37, 41)',
+    'tpl-btn-dark-text'        => 'rgb(255, 255, 255)',
+    'tpl-btn-dark-hover'       => 'rgb(66, 70, 73)',
+    // Button: Outline (Legacy – einzelner generischer Outline)
     'tpl-btn-outline-border'   => 'rgb(74, 140, 42)',
     'tpl-btn-outline-text'     => 'rgb(74, 140, 42)',
     'tpl-btn-outline-hover'    => 'rgb(74, 140, 42)',
+    // Outline Primary
+    'tpl-btn-outline-primary-bg'    => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-primary-text'  => 'rgb(74, 140, 42)',
+    'tpl-btn-outline-primary-hover' => 'rgb(74, 140, 42)',
+    // Outline Secondary
+    'tpl-btn-outline-secondary-bg'    => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-secondary-text'  => 'rgb(108, 117, 125)',
+    'tpl-btn-outline-secondary-hover' => 'rgb(108, 117, 125)',
+    // Outline Success
+    'tpl-btn-outline-success-bg'    => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-success-text'  => 'rgb(25, 135, 84)',
+    'tpl-btn-outline-success-hover' => 'rgb(25, 135, 84)',
+    // Outline Danger
+    'tpl-btn-outline-danger-bg'     => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-danger-text'   => 'rgb(220, 53, 69)',
+    'tpl-btn-outline-danger-hover'  => 'rgb(220, 53, 69)',
+    // Outline Warning
+    'tpl-btn-outline-warning-bg'    => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-warning-text'  => 'rgb(255, 193, 7)',
+    'tpl-btn-outline-warning-hover' => 'rgb(255, 193, 7)',
+    // Outline Info
+    'tpl-btn-outline-info-bg'       => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-info-text'     => 'rgb(23, 162, 184)',
+    'tpl-btn-outline-info-hover'    => 'rgb(23, 162, 184)',
+    // Outline Light
+    'tpl-btn-outline-light-bg'      => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-light-text'    => 'rgb(248, 249, 250)',
+    'tpl-btn-outline-light-hover'   => 'rgb(248, 249, 250)',
+    // Outline Dark
+    'tpl-btn-outline-dark-bg'       => 'rgba(0, 0, 0, 0)',
+    'tpl-btn-outline-dark-text'     => 'rgb(33, 37, 41)',
+    'tpl-btn-outline-dark-hover'    => 'rgb(33, 37, 41)',
     // Button: Info
     'tpl-btn-info-bg'          => 'rgb(23, 162, 184)',
     'tpl-btn-info-text'        => 'rgb(255, 255, 255)',
@@ -194,6 +246,32 @@ if (empty($json_a)) {
   echo '--mrh-badge-text:' . htmlspecialchars($json_a['tpl-text-button'] ?? 'rgb(255,255,255)') . ';';
 ?>
 }
+/* ═══ Button-Overrides: CSS-Variablen → Bootstrap-Buttons ═══ */
+<?php
+$btn_variants = ['primary','secondary','success','danger','warning','info','light','dark'];
+foreach ($btn_variants as $v) {
+    $bg   = '--tpl-btn-'.$v.'-bg';
+    $text = '--tpl-btn-'.$v.'-text';
+    $hov  = '--tpl-btn-'.$v.'-hover';
+    echo '.btn-'.$v.'{background-color:var('.$bg.') !important;color:var('.$text.') !important;border-color:var('.$bg.') !important;}';
+    echo '.btn-'.$v.':hover,.btn-'.$v.':focus,.btn-'.$v.':active{background-color:var('.$hov.') !important;border-color:var('.$hov.') !important;}';
+    // Outline
+    $obg   = '--tpl-btn-outline-'.$v.'-bg';
+    $otext = '--tpl-btn-outline-'.$v.'-text';
+    $ohov  = '--tpl-btn-outline-'.$v.'-hover';
+    echo '.btn-outline-'.$v.'{background-color:var('.$obg.') !important;color:var('.$otext.') !important;border-color:var('.$otext.') !important;}';
+    echo '.btn-outline-'.$v.':hover,.btn-outline-'.$v.':focus,.btn-outline-'.$v.':active{background-color:var('.$ohov.') !important;color:#fff !important;border-color:var('.$ohov.') !important;}';
+}
+// Spezial-Buttons
+$special = ['express','details','wishlist','compare'];
+foreach ($special as $s) {
+    $bg   = '--tpl-btn-'.$s.'-bg';
+    $text = '--tpl-btn-'.$s.'-text';
+    $hov  = '--tpl-btn-'.$s.'-hover';
+    echo '.btn-'.$s.'{background-color:var('.$bg.');color:var('.$text.');border-color:var('.$bg.');}';
+    echo '.btn-'.$s.':hover,.btn-'.$s.':focus{background-color:var('.$hov.');border-color:var('.$hov.');}';
+}
+?>
 </style>
 <style>
   @font-face {

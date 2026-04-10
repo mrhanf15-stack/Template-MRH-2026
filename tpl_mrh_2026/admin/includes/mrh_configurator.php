@@ -1,12 +1,14 @@
 <?php
 /* =====================================================================
-   MRH 2026 Template – Konfigurator Backend
+   MRH 2026 Template – Konfigurator Backend v2.0
    
    Speichert Template-Einstellungen als JSON-Dateien:
-   - colors.json      → Farb-Einstellungen (inkl. Menü-Farben)
+   - colors.json      → Farb-Einstellungen (inkl. Menü, Buttons)
    - tplsettings.json → Allgemeine Konfiguration
    - logos.json        → Zahlungs- und Versandlogos
    - social.json       → Social Media Links
+   
+   v2.0 (2026-04-10): Alle Button-Farben (gefüllt + outline) hinzugefügt
    
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
@@ -61,7 +63,7 @@ function mrh_sanitize_color($value) {
         return $value;
     }
     // rgba(r, g, b, a) Format
-    if (preg_match('/^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*[\d.]+\s*\)$/', $value)) {
+    if (preg_match('/^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*[\d.]+\s*,\s*[\d.]+\s*\)$/', $value)) {
         return $value;
     }
     return '';
@@ -69,32 +71,123 @@ function mrh_sanitize_color($value) {
 
 // === Standard-Werte ===
 $mrh_color_defaults = [
-    // Bestehende Farben (portiert von RevPlus)
+    // ── Grundfarben ──
     'mrh-primary'           => 'rgb(74, 140, 42)',
     'mrh-secondary'         => 'rgb(30, 30, 30)',
+
+    // ── Menü ──
+    'mrh-menu-bg'           => 'rgb(22, 163, 74)',
+    'mrh-menu-text'         => 'rgb(255, 255, 255)',
+    'mrh-menu-hover-bg'     => 'rgba(255, 255, 255, 0.15)',
+    'mrh-menu-active-bg'    => 'rgba(255, 255, 255, 0.25)',
+
+    // ── Topbar ──
+    'mrh-topbar-bg'         => 'rgb(30, 41, 59)',
+    'mrh-topbar-text'       => 'rgb(255, 255, 255)',
+
+    // ── Hintergrund ──
     'mrh-bg-color'          => 'rgb(255, 255, 255)',
     'mrh-bg-color-2'        => 'rgb(240, 253, 244)',
     'mrh-bg-productbox'     => 'rgb(255, 255, 255)',
     'mrh-bg-footer'         => 'rgb(15, 23, 42)',
-    'mrh-text-standard'     => 'rgb(15, 23, 42)',
-    'mrh-text-headings'     => 'rgb(15, 23, 42)',
-    'mrh-text-button'       => 'rgb(255, 255, 255)',
-    'mrh-text-footer'       => 'rgb(148, 163, 184)',
+
+    // ── Schrift ──
+    'mrh-text-standard'        => 'rgb(15, 23, 42)',
+    'mrh-text-headings'        => 'rgb(15, 23, 42)',
+    'mrh-text-button'          => 'rgb(255, 255, 255)',
+    'mrh-text-footer'          => 'rgb(148, 163, 184)',
     'mrh-text-footer-headings' => 'rgb(255, 255, 255)',
-    
-    // NEU: Menü-Farben
-    'mrh-menu-bg'           => 'rgb(22, 163, 74)',   // --mrh-green-600
-    'mrh-menu-text'         => 'rgb(255, 255, 255)',
-    'mrh-menu-hover-bg'     => 'rgba(255, 255, 255, 0.15)',
-    'mrh-menu-active-bg'    => 'rgba(255, 255, 255, 0.25)',
-    
-    // NEU: Topbar-Farben
-    'mrh-topbar-bg'         => 'rgb(30, 41, 59)',     // slate-800
-    'mrh-topbar-text'       => 'rgb(255, 255, 255)',
-    
-    // NEU: Sticky Header
+
+    // ── Sticky Header ──
     'mrh-sticky-bg'         => 'rgb(255, 255, 255)',
     'mrh-sticky-text'       => 'rgb(51, 65, 85)',
+
+    // ══════════════════════════════════════════════════
+    // ── Gefüllte Buttons (btn-*) ──
+    // ══════════════════════════════════════════════════
+    'mrh-btn-primary-bg'    => 'rgb(74, 140, 42)',
+    'mrh-btn-primary-text'  => 'rgb(255, 255, 255)',
+    'mrh-btn-primary-hover' => 'rgb(56, 112, 30)',
+
+    'mrh-btn-secondary-bg'    => 'rgb(108, 117, 125)',
+    'mrh-btn-secondary-text'  => 'rgb(255, 255, 255)',
+    'mrh-btn-secondary-hover' => 'rgb(86, 94, 100)',
+
+    'mrh-btn-success-bg'    => 'rgb(25, 135, 84)',
+    'mrh-btn-success-text'  => 'rgb(255, 255, 255)',
+    'mrh-btn-success-hover' => 'rgb(20, 108, 67)',
+
+    'mrh-btn-danger-bg'     => 'rgb(220, 53, 69)',
+    'mrh-btn-danger-text'   => 'rgb(255, 255, 255)',
+    'mrh-btn-danger-hover'  => 'rgb(176, 42, 55)',
+
+    'mrh-btn-warning-bg'    => 'rgb(255, 193, 7)',
+    'mrh-btn-warning-text'  => 'rgb(33, 37, 41)',
+    'mrh-btn-warning-hover' => 'rgb(255, 202, 44)',
+
+    'mrh-btn-info-bg'       => 'rgb(23, 162, 184)',
+    'mrh-btn-info-text'     => 'rgb(255, 255, 255)',
+    'mrh-btn-info-hover'    => 'rgb(19, 132, 150)',
+
+    'mrh-btn-light-bg'      => 'rgb(248, 249, 250)',
+    'mrh-btn-light-text'    => 'rgb(33, 37, 41)',
+    'mrh-btn-light-hover'   => 'rgb(211, 212, 213)',
+
+    'mrh-btn-dark-bg'       => 'rgb(33, 37, 41)',
+    'mrh-btn-dark-text'     => 'rgb(255, 255, 255)',
+    'mrh-btn-dark-hover'    => 'rgb(66, 70, 73)',
+
+    // ══════════════════════════════════════════════════
+    // ── Outline Buttons (btn-outline-*) ──
+    // ══════════════════════════════════════════════════
+    'mrh-btn-outline-primary-bg'    => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-primary-text'  => 'rgb(74, 140, 42)',
+    'mrh-btn-outline-primary-hover' => 'rgb(74, 140, 42)',
+
+    'mrh-btn-outline-secondary-bg'    => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-secondary-text'  => 'rgb(108, 117, 125)',
+    'mrh-btn-outline-secondary-hover' => 'rgb(108, 117, 125)',
+
+    'mrh-btn-outline-success-bg'    => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-success-text'  => 'rgb(25, 135, 84)',
+    'mrh-btn-outline-success-hover' => 'rgb(25, 135, 84)',
+
+    'mrh-btn-outline-danger-bg'     => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-danger-text'   => 'rgb(220, 53, 69)',
+    'mrh-btn-outline-danger-hover'  => 'rgb(220, 53, 69)',
+
+    'mrh-btn-outline-warning-bg'    => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-warning-text'  => 'rgb(255, 193, 7)',
+    'mrh-btn-outline-warning-hover' => 'rgb(255, 193, 7)',
+
+    'mrh-btn-outline-info-bg'       => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-info-text'     => 'rgb(23, 162, 184)',
+    'mrh-btn-outline-info-hover'    => 'rgb(23, 162, 184)',
+
+    'mrh-btn-outline-light-bg'      => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-light-text'    => 'rgb(248, 249, 250)',
+    'mrh-btn-outline-light-hover'   => 'rgb(248, 249, 250)',
+
+    'mrh-btn-outline-dark-bg'       => 'rgba(0, 0, 0, 0)',
+    'mrh-btn-outline-dark-text'     => 'rgb(33, 37, 41)',
+    'mrh-btn-outline-dark-hover'    => 'rgb(33, 37, 41)',
+
+    // ── Spezial-Buttons ──
+    'mrh-btn-express-bg'    => 'rgb(23, 162, 184)',
+    'mrh-btn-express-text'  => 'rgb(255, 255, 255)',
+    'mrh-btn-express-hover' => 'rgb(200, 81, 81)',
+
+    'mrh-btn-details-bg'    => 'rgb(255, 255, 255)',
+    'mrh-btn-details-text'  => 'rgb(51, 65, 85)',
+    'mrh-btn-details-hover' => 'rgb(74, 140, 42)',
+
+    'mrh-btn-wishlist-bg'    => 'rgb(255, 255, 255)',
+    'mrh-btn-wishlist-text'  => 'rgb(51, 65, 85)',
+    'mrh-btn-wishlist-hover' => 'rgb(220, 53, 69)',
+
+    'mrh-btn-compare-bg'    => 'rgb(255, 255, 255)',
+    'mrh-btn-compare-text'  => 'rgb(51, 65, 85)',
+    'mrh-btn-compare-hover' => 'rgb(23, 162, 184)',
 ];
 
 $mrh_tpl_defaults = [

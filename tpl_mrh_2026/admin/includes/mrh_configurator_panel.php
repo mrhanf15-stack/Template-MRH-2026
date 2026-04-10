@@ -199,6 +199,140 @@ foreach ($text_fields as $key => $label) {
             </div>
           </section>
 
+          <!-- ══════════════════════════════════════════════════ -->
+          <!-- Gef&uuml;llte Buttons (btn-*) -->
+          <!-- ══════════════════════════════════════════════════ -->
+          <section class="col-sm-12 mb-3">
+            <hr>
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-square me-1"></i> Gef&uuml;llte Buttons
+              <span class="badge bg-info ms-2">NEU</span>
+            </h6>
+<?php
+$filled_buttons = [
+    'primary'   => ['label' => 'Primary',   'icon' => 'fa-circle'],
+    'secondary' => ['label' => 'Secondary', 'icon' => 'fa-circle'],
+    'success'   => ['label' => 'Success',   'icon' => 'fa-check-circle'],
+    'danger'    => ['label' => 'Danger',    'icon' => 'fa-exclamation-circle'],
+    'warning'   => ['label' => 'Warning',   'icon' => 'fa-exclamation-triangle'],
+    'info'      => ['label' => 'Info',      'icon' => 'fa-info-circle'],
+    'light'     => ['label' => 'Light',     'icon' => 'fa-sun'],
+    'dark'      => ['label' => 'Dark',      'icon' => 'fa-moon'],
+];
+foreach ($filled_buttons as $variant => $meta) {
+    $bg_key    = 'mrh-btn-' . $variant . '-bg';
+    $text_key  = 'mrh-btn-' . $variant . '-text';
+    $hover_key = 'mrh-btn-' . $variant . '-hover';
+    echo '<div class="row mb-2">';
+    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> btn-' . $variant . '</strong></div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $bg_key . '">Hintergrund</label>';
+    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $text_key . '">Textfarbe</label>';
+    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $hover_key . '">Hover Hintergrund</label>';
+    echo '<input id="' . $hover_key . '" type="text" name="' . $hover_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $hover_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $hover_key) . '"></div>';
+    echo '</div>';
+    echo '</div>';
+}
+?>
+          </section>
+
+          <!-- ══════════════════════════════════════════════════ -->
+          <!-- Outline Buttons (btn-outline-*) -->
+          <!-- ══════════════════════════════════════════════════ -->
+          <section class="col-sm-12 mb-3">
+            <hr>
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-square-o me-1"></i> Outline Buttons
+              <span class="badge bg-info ms-2">NEU</span>
+            </h6>
+<?php
+$outline_buttons = [
+    'primary'   => ['label' => 'Outline Primary',   'icon' => 'fa-circle-o'],
+    'secondary' => ['label' => 'Outline Secondary', 'icon' => 'fa-circle-o'],
+    'success'   => ['label' => 'Outline Success',   'icon' => 'fa-check-circle-o'],
+    'danger'    => ['label' => 'Outline Danger',    'icon' => 'fa-exclamation-circle'],
+    'warning'   => ['label' => 'Outline Warning',   'icon' => 'fa-exclamation-triangle'],
+    'info'      => ['label' => 'Outline Info',      'icon' => 'fa-info-circle'],
+    'light'     => ['label' => 'Outline Light',     'icon' => 'fa-sun-o'],
+    'dark'      => ['label' => 'Outline Dark',      'icon' => 'fa-moon-o'],
+];
+foreach ($outline_buttons as $variant => $meta) {
+    $bg_key    = 'mrh-btn-outline-' . $variant . '-bg';
+    $text_key  = 'mrh-btn-outline-' . $variant . '-text';
+    $hover_key = 'mrh-btn-outline-' . $variant . '-hover';
+    echo '<div class="row mb-2">';
+    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> btn-outline-' . $variant . '</strong></div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $bg_key . '">Hintergrund</label>';
+    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $text_key . '">Textfarbe</label>';
+    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $hover_key . '">Hover Hintergrund</label>';
+    echo '<input id="' . $hover_key . '" type="text" name="' . $hover_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $hover_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $hover_key) . '"></div>';
+    echo '</div>';
+    echo '</div>';
+}
+?>
+          </section>
+
+          <!-- ══════════════════════════════════════════════════ -->
+          <!-- Spezial-Buttons (Express, Details, Wishlist, Compare) -->
+          <!-- ══════════════════════════════════════════════════ -->
+          <section class="col-sm-12 mb-3">
+            <hr>
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-star me-1"></i> Spezial-Buttons
+              <span class="badge bg-info ms-2">NEU</span>
+            </h6>
+<?php
+$special_buttons = [
+    'express'  => ['label' => 'Express Kaufen', 'icon' => 'fa-bolt'],
+    'details'  => ['label' => 'Details',        'icon' => 'fa-eye'],
+    'wishlist' => ['label' => 'Merkzettel',     'icon' => 'fa-heart'],
+    'compare'  => ['label' => 'Vergleichen',    'icon' => 'fa-exchange'],
+];
+foreach ($special_buttons as $variant => $meta) {
+    $bg_key    = 'mrh-btn-' . $variant . '-bg';
+    $text_key  = 'mrh-btn-' . $variant . '-text';
+    $hover_key = 'mrh-btn-' . $variant . '-hover';
+    echo '<div class="row mb-2">';
+    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> ' . $meta['label'] . '</strong></div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $bg_key . '">Hintergrund</label>';
+    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $text_key . '">Textfarbe</label>';
+    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-4 mb-2">';
+    echo '<label for="' . $hover_key . '">Hover Hintergrund</label>';
+    echo '<input id="' . $hover_key . '" type="text" name="' . $hover_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $hover_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $hover_key) . '"></div>';
+    echo '</div>';
+    echo '</div>';
+}
+?>
+          </section>
+
           <section class="col-sm-12">
             <input type="submit" name="submit-colorsettings" id="submit-colorsettings"
                    class="btn btn-success btn-lg w-100" value="Farben speichern">
