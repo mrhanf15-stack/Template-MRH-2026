@@ -257,8 +257,33 @@ if (file_exists($mrh_panel_file)) {
     </div>
     ' . $mrh_panel_html . '
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/css/bootstrap-colorpicker.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/js/bootstrap-colorpicker.min.js"></script>
+<style>
+/* Colorpicker-Wrapper: Text-Input + nativer Color-Input nebeneinander */
+#mrh-admin-configurator .mrh-color-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+#mrh-admin-configurator .mrh-color-wrap input[type="text"] {
+    flex: 1;
+}
+#mrh-admin-configurator .mrh-color-wrap input[type="color"] {
+    width: 42px;
+    height: 38px;
+    padding: 2px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    background: none;
+}
+#mrh-admin-configurator .demo-farbe {
+    width: 100%;
+    height: 8px;
+    border-radius: 3px;
+    margin-top: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+</style>
 <script>
 function mrhToggleConfigurator(){
     var p=document.getElementById("mrh-admin-configurator");
@@ -271,25 +296,74 @@ function mrhToggleConfigurator(){
         o.classList.add("open");
     }
 }
-// Colorpicker + Live-Preview fuer alle Farbfelder
+// Vanilla JS Colorpicker + Live-Preview (kein jQuery noetig!)
 (function(){
-    if(typeof jQuery==="undefined") return;
-    $(function(){
-        // Alle Colorpicker initialisieren
-        $("#mrh-admin-configurator .colorpicker-element").each(function(){
-            $(this).colorpicker();
+    function rgbToHex(rgb) {
+        if (!rgb || rgb.indexOf("rgb") === -1) return rgb || "#ffffff";
+        var parts = rgb.match(/\d+/g);
+        if (!parts || parts.length < 3) return "#ffffff";
+        return "#" + parts.slice(0,3).map(function(x){ return parseInt(x).toString(16).padStart(2,"0"); }).join("");
+    }
+    function hexToRgb(hex) {
+        hex = hex.replace("#","");
+        if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        var r = parseInt(hex.substring(0,2),16);
+        var g = parseInt(hex.substring(2,4),16);
+        var b = parseInt(hex.substring(4,6),16);
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+    function initColorpickers() {
+        var panel = document.getElementById("mrh-admin-configurator");
+        if (!panel) return;
+        var inputs = panel.querySelectorAll(".colorpicker-element");
+        inputs.forEach(function(textInput) {
+            if (textInput.dataset.cpInit) return;
+            textInput.dataset.cpInit = "1";
+            // Wrapper erstellen
+            var wrap = document.createElement("div");
+            wrap.className = "mrh-color-wrap";
+            textInput.parentNode.insertBefore(wrap, textInput);
+            wrap.appendChild(textInput);
+            // Nativer Color-Input
+            var colorInput = document.createElement("input");
+            colorInput.type = "color";
+            colorInput.value = rgbToHex(textInput.value);
+            colorInput.title = "Farbe waehlen";
+            wrap.appendChild(colorInput);
+            // Demo-Farbe finden
+            var demo = wrap.parentNode.querySelector(".demo-farbe");
+            // Sync: Color-Input -> Text-Input + Live-Preview
+            colorInput.addEventListener("input", function() {
+                var rgbVal = hexToRgb(colorInput.value);
+                textInput.value = rgbVal;
+                if (demo) demo.style.background = rgbVal;
+                // Live CSS-Variable setzen
+                var name = textInput.getAttribute("name");
+                if (name) document.documentElement.style.setProperty("--" + name, rgbVal);
+            });
+            // Sync: Text-Input -> Color-Input + Live-Preview
+            textInput.addEventListener("input", function() {
+                colorInput.value = rgbToHex(textInput.value);
+                if (demo) demo.style.background = textInput.value;
+                var name = textInput.getAttribute("name");
+                if (name) document.documentElement.style.setProperty("--" + name, textInput.value);
+            });
+            // Initial: Demo-Farbe setzen
+            if (demo && textInput.value) demo.style.background = textInput.value;
         });
-        // Live-Preview: Jede Farbänderung sofort als CSS-Variable setzen
-        $("#mrh-admin-configurator .colorpicker-element").on("colorpickerChange", function(e){
-            var name = $(this).attr("name");
-            if(!name) return;
-            var val = e.color ? e.color.toString() : $(this).val();
-            // CSS-Variable setzen (mrh-* und tpl-* Mapping)
-            document.documentElement.style.setProperty("--" + name, val);
-            // Farbvorschau-Kästchen aktualisieren
-            $(this).next(".demo-farbe").css("background", val);
-        });
-    });
+    }
+    // Init beim Laden und beim Oeffnen des Panels
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initColorpickers);
+    } else {
+        initColorpickers();
+    }
+    // Re-Init wenn Panel geoeffnet wird (fuer lazy-loaded Inhalte)
+    var origToggle = window.mrhToggleConfigurator;
+    window.mrhToggleConfigurator = function() {
+        origToggle();
+        setTimeout(initColorpickers, 100);
+    };
 })();
 </script>';
 }

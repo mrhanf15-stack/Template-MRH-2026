@@ -213,23 +213,58 @@ if (empty($json_a)) {
     if (is_array($value) || strpos($key, 'submit') !== false) continue;
     echo '--'. htmlspecialchars($key) . ':' . htmlspecialchars($value) . ';';
   }
-  // --- Alias-Variablen --mrh-* fuer Abwaertskompatibilitaet ---
-  $aliases = [
-      'tpl-main-color'      => 'mrh-primary',
-      'tpl-main-color-2'    => 'mrh-primary-dark',
-      'tpl-secondary-color' => 'mrh-primary-light',
-      'tpl-topbar-bg'       => 'mrh-topbar-bg',
-      'tpl-topbar-text'     => 'mrh-topbar-text',
-      'tpl-sticky-bg'       => 'mrh-sticky-bg',
-      'tpl-sticky-text'     => 'mrh-sticky-text',
-      'tpl-bg-footer'       => 'mrh-bg-footer',
-      'tpl-text-footer'     => 'mrh-text-footer',
-      'tpl-menu-bg'         => 'mrh-menu-bg',
-      'tpl-menu-text'       => 'mrh-menu-text',
-      'tpl-menu-hover'      => 'mrh-menu-hover',
-      'tpl-menu-active'     => 'mrh-menu-active',
+  // --- Bidirektionales Mapping: mrh-* <-> tpl-* ---
+  // Wenn mrh-* Keys in colors.json vorhanden sind (vom MRH-Konfigurator),
+  // werden sie als --tpl-* Aliase ausgegeben, damit die CSS-Override-Regeln funktionieren.
+  // Wenn tpl-* Keys vorhanden sind (vom alten REVplus-Konfigurator),
+  // werden sie als --mrh-* Aliase ausgegeben.
+  $mrh_to_tpl = [
+      // Grundfarben
+      'mrh-primary'              => 'tpl-main-color',
+      'mrh-secondary'            => 'tpl-main-color-2',
+      'mrh-bg-color'             => 'tpl-bg-color',
+      'mrh-bg-color-2'           => 'tpl-bg-color-2',
+      'mrh-bg-productbox'        => 'tpl-bg-productbox',
+      'mrh-bg-footer'            => 'tpl-bg-footer',
+      'mrh-text-standard'        => 'tpl-text-standard',
+      'mrh-text-headings'        => 'tpl-text-headings',
+      'mrh-text-button'          => 'tpl-text-button',
+      'mrh-text-footer'          => 'tpl-text-footer',
+      'mrh-text-footer-headings' => 'tpl-text-footer-headings',
+      'mrh-menu-bg'              => 'tpl-menu-bg',
+      'mrh-menu-text'            => 'tpl-menu-text',
+      'mrh-menu-hover-bg'        => 'tpl-menu-hover',
+      'mrh-menu-active-bg'       => 'tpl-menu-active',
+      'mrh-topbar-bg'            => 'tpl-topbar-bg',
+      'mrh-topbar-text'          => 'tpl-topbar-text',
+      'mrh-sticky-bg'            => 'tpl-sticky-bg',
+      'mrh-sticky-text'          => 'tpl-sticky-text',
   ];
-  foreach ($aliases as $tpl_key => $mrh_key) {
+  // Button-Mappings: mrh-btn-* -> tpl-btn-*
+  $btn_types = ['primary','secondary','success','danger','warning','info','light','dark'];
+  $btn_props = ['bg','text','hover'];
+  foreach ($btn_types as $bt) {
+      foreach ($btn_props as $bp) {
+          $mrh_to_tpl['mrh-btn-'.$bt.'-'.$bp] = 'tpl-btn-'.$bt.'-'.$bp;
+          $mrh_to_tpl['mrh-btn-outline-'.$bt.'-'.$bp] = 'tpl-btn-outline-'.$bt.'-'.$bp;
+      }
+  }
+  // Spezial-Buttons
+  foreach (['express','details','wishlist','compare'] as $sp) {
+      foreach ($btn_props as $bp) {
+          $mrh_to_tpl['mrh-btn-'.$sp.'-'.$bp] = 'tpl-btn-'.$sp.'-'.$bp;
+      }
+  }
+  // mrh-* -> tpl-* Aliase ausgeben (MRH-Konfigurator -> CSS-Regeln)
+  foreach ($mrh_to_tpl as $mrh_key => $tpl_key) {
+      if (isset($json_a[$mrh_key]) && !empty($json_a[$mrh_key])) {
+          // tpl-* Alias fuer CSS-Override-Regeln
+          echo '--' . htmlspecialchars($tpl_key) . ':' . htmlspecialchars($json_a[$mrh_key]) . ';';
+      }
+  }
+  // tpl-* -> mrh-* Aliase ausgeben (Abwaertskompatibilitaet)
+  $tpl_to_mrh = array_flip($mrh_to_tpl);
+  foreach ($tpl_to_mrh as $tpl_key => $mrh_key) {
       if (isset($json_a[$tpl_key]) && !empty($json_a[$tpl_key])) {
           echo '--' . htmlspecialchars($mrh_key) . ':' . htmlspecialchars($json_a[$tpl_key]) . ';';
       }
