@@ -5,7 +5,7 @@
    Wird eingebunden via source/boxes/admin.php
    Benötigt: admin/includes/mrh_configurator.php (PHP-Backend)
    
-   v4.0 (2026-04-10): Komplett-Umbau auf 7-Tab-Layout
+   v4.0 (2026-04-10): Komplett-Umbau auf 8-Tab-Layout
      1. Allgemein    – Grundfarben, Hintergrund, Schrift, Footer, Topbar
      2. Navigation   – Menü, Sticky Header
      3. Buttons      – Gefüllt, Outline, Spezial
@@ -13,6 +13,7 @@
      5. Komponenten  – bg-*, border-*, alert-*, card, form, table
      6. Einstellungen – Infinite Scroll, Barrierefrei, Logos, Social
      7. Custom CSS   – Textarea mit Live-Preview
+     8. Presets      – Farb-Presets laden, Backup/Restore, Reset
    
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
    ===================================================================== */
@@ -29,6 +30,8 @@ $t = isset($GLOBALS['mrh_tpl'])    ? $GLOBALS['mrh_tpl']    : [];
 $l = isset($GLOBALS['mrh_logos'])   ? $GLOBALS['mrh_logos']  : [];
 $s = isset($GLOBALS['mrh_social'])  ? $GLOBALS['mrh_social'] : [];
 $msg = isset($GLOBALS['mrh_config_message']) ? $GLOBALS['mrh_config_message'] : '';
+$presets = isset($GLOBALS['mrh_presets']) ? $GLOBALS['mrh_presets'] : [];
+$backups = isset($GLOBALS['mrh_backups']) ? $GLOBALS['mrh_backups'] : [];
 
 // Hilfsfunktion: Farbwert sicher ausgeben
 function mrh_cv($colors, $key) {
@@ -63,6 +66,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="komponenten"><i class="fa fa-puzzle-piece me-1"></i>Komponenten</div>
     <div class="mrh-tab" data-tab="einstellungen"><i class="fa fa-cog me-1"></i>Einstellungen</div>
     <div class="mrh-tab" data-tab="customcss"><i class="fa fa-code me-1"></i>Custom CSS</div>
+    <div class="mrh-tab" data-tab="presets"><i class="fa fa-magic me-1"></i>Presets</div>
 </div>
 
 <!-- ================================================================== -->
@@ -608,6 +612,87 @@ foreach ($socials as $skey => $info) {
         <input type="submit" name="submit-customcss" class="btn btn-success btn-lg w-100" value="Custom CSS speichern">
     </div>
 </form>
+</div>
+
+<!-- ================================================================== -->
+<!-- TAB 8: PRESETS & BACKUP/RESTORE -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-presets">
+
+    <!-- Preset laden -->
+    <div class="mrh-sh mx-2"><i class="fa fa-paint-brush me-1"></i> Farb-Preset laden</div>
+    <p class="text-muted small mx-2 mb-3">Lade ein vorkonfiguriertes Farbschema. Alle aktuellen Farben werden ueberschrieben.</p>
+    <form method="post" action="" class="mx-2 mb-4">
+        <div class="row align-items-end">
+            <div class="col-sm-8 mb-2">
+                <select name="preset_name" class="form-select">
+                    <option value="">-- Preset auswaehlen --</option>
+                    <?php foreach ($presets as $p): ?>
+                    <option value="<?php echo htmlspecialchars($p['file']); ?>">
+                        <?php echo htmlspecialchars($p['name']); ?>
+                        <?php if (!empty($p['description'])): ?> &ndash; <?php echo htmlspecialchars($p['description']); ?><?php endif; ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-sm-4 mb-2">
+                <button type="submit" name="submit-load-preset" class="btn btn-success w-100">
+                    <i class="fa fa-download me-1"></i> Preset laden
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <hr class="mx-2">
+
+    <!-- Backup erstellen -->
+    <div class="mrh-sh mx-2"><i class="fa fa-save me-1"></i> Backup erstellen</div>
+    <p class="text-muted small mx-2 mb-3">Speichert die aktuellen Farben als Backup mit Zeitstempel.</p>
+    <form method="post" action="" class="mx-2 mb-4">
+        <button type="submit" name="submit-backup" class="btn btn-primary">
+            <i class="fa fa-plus-circle me-1"></i> Aktuelles Farbschema als Backup speichern
+        </button>
+    </form>
+
+    <hr class="mx-2">
+
+    <!-- Backup wiederherstellen -->
+    <div class="mrh-sh mx-2"><i class="fa fa-undo me-1"></i> Backup wiederherstellen</div>
+    <?php if (count($backups) > 0): ?>
+    <form method="post" action="" class="mx-2 mb-4">
+        <div class="row align-items-end">
+            <div class="col-sm-8 mb-2">
+                <select name="backup_file" class="form-select">
+                    <option value="">-- Backup auswaehlen --</option>
+                    <?php foreach ($backups as $b): ?>
+                    <option value="<?php echo htmlspecialchars($b['file']); ?>">
+                        <?php echo htmlspecialchars($b['name']); ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-sm-4 mb-2">
+                <button type="submit" name="submit-restore" class="btn btn-warning w-100">
+                    <i class="fa fa-undo me-1"></i> Wiederherstellen
+                </button>
+            </div>
+        </div>
+    </form>
+    <?php else: ?>
+    <p class="text-muted small mx-2">Noch keine Backups vorhanden. Erstelle zuerst ein Backup.</p>
+    <?php endif; ?>
+
+    <hr class="mx-2">
+
+    <!-- Auf Standard zuruecksetzen -->
+    <div class="mrh-sh mx-2"><i class="fa fa-exclamation-triangle me-1"></i> Auf Standard zuruecksetzen</div>
+    <p class="text-muted small mx-2 mb-3">Setzt alle Farben auf die Standardwerte zurueck. <strong>Erstelle vorher ein Backup!</strong></p>
+    <form method="post" action="" class="mx-2" onsubmit="return confirm('Alle Farben auf Standard zuruecksetzen? Erstelle vorher ein Backup!');">
+        <button type="submit" name="submit-reset-defaults" class="btn btn-outline-danger">
+            <i class="fa fa-exclamation-triangle me-1"></i> Auf Standard zuruecksetzen
+        </button>
+    </form>
+
 </div>
 
 </div><!-- /#mrh-configurator-v4 -->

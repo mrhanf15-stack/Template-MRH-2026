@@ -10,6 +10,7 @@
    
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
                        Kein mrh-* / tpl-* Dualismus mehr!
+   v3.1 (2026-04-10): Preset/Backup/Restore-System hinzugefuegt
    
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
@@ -22,11 +23,13 @@ if (!defined('_VALID_XTC') && !defined('DIR_FS_CATALOG')) {
 // === Pfade ===
 $tpl_dir = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/';
 $json_dir = $tpl_dir . 'config/';
+$presets_dir = $json_dir . 'presets/';
+$backups_dir = $json_dir . 'backups/';
 
-// Sicherstellen, dass config-Verzeichnis existiert
-if (!is_dir($json_dir)) {
-    mkdir($json_dir, 0755, true);
-}
+// Sicherstellen, dass Verzeichnisse existieren
+if (!is_dir($json_dir))    { @mkdir($json_dir, 0755, true); }
+if (!is_dir($presets_dir)) { @mkdir($presets_dir, 0755, true); }
+if (!is_dir($backups_dir)) { @mkdir($backups_dir, 0755, true); }
 
 // === Hilfsfunktionen ===
 
@@ -588,6 +591,145 @@ if (isset($_POST['submit-customcss'])) {
 $custom_css_file = $json_dir . 'custom.css';
 $mrh_custom_css = file_exists($custom_css_file) ? file_get_contents($custom_css_file) : '';
 
+// =====================================================================
+// === 6. Preset laden ===
+// =====================================================================
+if (isset($_POST['submit-load-preset']) && !empty($_POST['preset_name'])) {
+    $preset_file = $presets_dir . basename($_POST['preset_name']) . '.json';
+    if (file_exists($preset_file)) {
+        $preset_data = json_decode(file_get_contents($preset_file), true);
+        if (isset($preset_data['colors']) && is_array($preset_data['colors'])) {
+            // Nur gueltige tpl-* Keys uebernehmen, Rest aus Defaults
+            $save_colors = $mrh_color_defaults;
+            foreach ($preset_data['colors'] as $key => $val) {
+                if (strpos($key, 'tpl-') === 0 && isset($mrh_color_defaults[$key])) {
+                    $sanitized = mrh_sanitize_color($val);
+                    if (!empty($sanitized)) {
+                        $save_colors[$key] = $sanitized;
+                    }
+                }
+            }
+            if (mrh_write_json($json_dir . 'colors.json', $save_colors)) {
+                $mrh_colors = $save_colors;
+                $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-check-circle me-1"></i> Preset "' . htmlspecialchars($preset_data['preset_name'] ?? basename($_POST['preset_name'])) . '" erfolgreich geladen!</div>';
+                // Cache leeren
+                $min_css = $tpl_dir . 'css/stylesheet.min.css';
+                if (file_exists($min_css)) @unlink($min_css);
+                $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+                if (is_dir($tpl_c)) { foreach (glob($tpl_c . '*') as $f) { if (is_file($f)) @unlink($f); } }
+            } else {
+                $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Laden des Presets.</div>';
+            }
+        }
+    } else {
+        $mrh_config_message = '<div class="alert alert-warning mx-3">Preset-Datei nicht gefunden.</div>';
+    }
+}
+
+// =====================================================================
+// === 7. Backup erstellen ===
+// =====================================================================
+if (isset($_POST['submit-backup'])) {
+    $colors_file = $json_dir . 'colors.json';
+    if (file_exists($colors_file)) {
+        $backup_name = 'backup_' . date('Y-m-d_H-i-s') . '.json';
+        $current_colors = mrh_read_json($colors_file);
+        $backup_data = [
+            'backup_name' => 'Backup vom ' . date('d.m.Y H:i'),
+            'backup_date' => date('c'),
+            'backup_version' => 'v3.1',
+            'colors' => $current_colors,
+        ];
+        if (mrh_write_json($backups_dir . $backup_name, $backup_data)) {
+            $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-save me-1"></i> Backup "' . $backup_name . '" erfolgreich erstellt!</div>';
+        } else {
+            $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Erstellen des Backups.</div>';
+        }
+    } else {
+        $mrh_config_message = '<div class="alert alert-warning mx-3">Keine colors.json vorhanden – nichts zu sichern.</div>';
+    }
+}
+
+// =====================================================================
+// === 8. Backup wiederherstellen ===
+// =====================================================================
+if (isset($_POST['submit-restore']) && !empty($_POST['backup_file'])) {
+    $backup_file = $backups_dir . basename($_POST['backup_file']);
+    if (file_exists($backup_file)) {
+        $backup_data = json_decode(file_get_contents($backup_file), true);
+        if (isset($backup_data['colors']) && is_array($backup_data['colors'])) {
+            $save_colors = $mrh_color_defaults;
+            foreach ($backup_data['colors'] as $key => $val) {
+                if (strpos($key, 'tpl-') === 0 && isset($mrh_color_defaults[$key])) {
+                    $sanitized = mrh_sanitize_color($val);
+                    if (!empty($sanitized)) {
+                        $save_colors[$key] = $sanitized;
+                    }
+                }
+            }
+            if (mrh_write_json($json_dir . 'colors.json', $save_colors)) {
+                $mrh_colors = $save_colors;
+                $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-undo me-1"></i> Backup "' . htmlspecialchars($backup_data['backup_name'] ?? basename($_POST['backup_file'])) . '" erfolgreich wiederhergestellt!</div>';
+                // Cache leeren
+                $min_css = $tpl_dir . 'css/stylesheet.min.css';
+                if (file_exists($min_css)) @unlink($min_css);
+                $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+                if (is_dir($tpl_c)) { foreach (glob($tpl_c . '*') as $f) { if (is_file($f)) @unlink($f); } }
+            } else {
+                $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Wiederherstellen.</div>';
+            }
+        }
+    } else {
+        $mrh_config_message = '<div class="alert alert-warning mx-3">Backup-Datei nicht gefunden.</div>';
+    }
+}
+
+// =====================================================================
+// === 9. Auf Standard zuruecksetzen ===
+// =====================================================================
+if (isset($_POST['submit-reset-defaults'])) {
+    if (mrh_write_json($json_dir . 'colors.json', $mrh_color_defaults)) {
+        $mrh_colors = $mrh_color_defaults;
+        $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-refresh me-1"></i> Alle Farben auf Standard zurueckgesetzt!</div>';
+        // Cache leeren
+        $min_css = $tpl_dir . 'css/stylesheet.min.css';
+        if (file_exists($min_css)) @unlink($min_css);
+        $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+        if (is_dir($tpl_c)) { foreach (glob($tpl_c . '*') as $f) { if (is_file($f)) @unlink($f); } }
+    } else {
+        $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Zuruecksetzen.</div>';
+    }
+}
+
+// =====================================================================
+// === Presets und Backups fuer Panel bereitstellen ===
+// =====================================================================
+$available_presets = [];
+if (is_dir($presets_dir)) {
+    foreach (glob($presets_dir . '*.json') as $pf) {
+        $pd = json_decode(file_get_contents($pf), true);
+        $available_presets[] = [
+            'file' => basename($pf, '.json'),
+            'name' => isset($pd['preset_name']) ? $pd['preset_name'] : basename($pf, '.json'),
+            'description' => isset($pd['preset_description']) ? $pd['preset_description'] : '',
+        ];
+    }
+}
+
+$available_backups = [];
+if (is_dir($backups_dir)) {
+    $backup_files = glob($backups_dir . 'backup_*.json');
+    rsort($backup_files); // Neueste zuerst
+    foreach ($backup_files as $bf) {
+        $bd = json_decode(file_get_contents($bf), true);
+        $available_backups[] = [
+            'file' => basename($bf),
+            'name' => isset($bd['backup_name']) ? $bd['backup_name'] : basename($bf),
+            'date' => isset($bd['backup_date']) ? $bd['backup_date'] : '',
+        ];
+    }
+}
+
 // === Globals setzen ===
 $GLOBALS['mrh_colors']  = $mrh_colors;
 $GLOBALS['mrh_tpl']     = $mrh_tpl;
@@ -595,3 +737,5 @@ $GLOBALS['mrh_logos']   = $mrh_logos;
 $GLOBALS['mrh_social']  = $mrh_social;
 $GLOBALS['mrh_custom_css'] = $mrh_custom_css;
 $GLOBALS['mrh_config_message'] = $mrh_config_message;
+$GLOBALS['mrh_presets'] = $available_presets;
+$GLOBALS['mrh_backups'] = $available_backups;

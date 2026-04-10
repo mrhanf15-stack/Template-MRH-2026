@@ -1,18 +1,928 @@
-{*
- * ============================================================
- * box_templateconfig.html – DEAKTIVIERT seit 2026-04-10
- * ============================================================
- *
- * Der REVplus/Smarty-Konfigurator ("Anpassen"-Button) wurde
- * deaktiviert und durch den MRH-Konfigurator ersetzt.
- *
- * Neuer Konfigurator:
- *   - source/boxes/admin.php (Panel-Wrapper + Colorpicker)
- *   - admin/includes/mrh_configurator.php (Backend-Logik)
- *   - admin/includes/mrh_configurator_panel.php (UI)
- *
- * Alle Farb-Keys (mrh-*) werden in config/colors.json gespeichert
- * und ueber css/general.css.php als CSS-Variablen ausgegeben.
- *
- * Bei Fragen: GitHub mrhanf15-stack/Template-MRH-2026
- *}
+{config_load file="$language/lang_$language.conf" section="boxes"}
+{config_load file="lang_`$language`.custom"}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/css/bootstrap-colorpicker.css" rel="stylesheet">
+
+<section class="jumbotron templateconfigs" role="region" aria-labelledby="template-config-title">
+        <button class="toggle-templateconfigs" type="button" role="button" aria-expanded="false" aria-controls="accordion" id="template-config-title">Anpassen</button>
+
+        <div id="accordion" class="accordion accordion-flush" role="region" aria-labelledby="template-config-title">
+
+                <!-- ===== SEKTION 0: PRESETS & BACKUP/RESTORE ===== -->
+                <section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="headingPresets">
+                        <header class="card-header bg-success text-white" id="headingPresets" role="banner">
+                                <strong class="h5 mb-0"><i class="fa fa-magic me-2"></i>Farb-Presets & Backup</strong>
+                        </header>
+                        <div id="collapsePresets" class="accordion-collapse" aria-labelledby="headingPresets" data-parent="#accordion">
+                                <div class="card-body">
+
+                                        <!-- Preset laden -->
+                                        <h6 class="text-muted text-uppercase small mb-2"><i class="fa fa-paint-brush me-1"></i> Preset laden</h6>
+                                        <p class="text-muted small mb-3">Lade ein vorkonfiguriertes Farbschema. Alle aktuellen Farben werden ueberschrieben.</p>
+                                        <form method="post" action="" class="mb-4">
+                                                <div class="row align-items-end">
+                                                        <div class="col-sm-8">
+                                                                <select name="preset_name" class="form-control">
+                                                                        <option value="">-- Preset auswaehlen --</option>
+                                                                        {if isset($tpl_cfg_presets)}
+                                                                        {foreach from=$tpl_cfg_presets item=preset}
+                                                                        <option value="{$preset.file}">{$preset.name} &ndash; {$preset.description}</option>
+                                                                        {/foreach}
+                                                                        {/if}
+                                                                </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                                <button type="submit" name="submit-load-preset" class="btn btn-success btn-block w-100"><i class="fa fa-download me-1"></i> Preset laden</button>
+                                                        </div>
+                                                </div>
+                                        </form>
+
+                                        <hr>
+
+                                        <!-- Backup erstellen -->
+                                        <h6 class="text-muted text-uppercase small mb-2"><i class="fa fa-save me-1"></i> Backup erstellen</h6>
+                                        <p class="text-muted small mb-3">Speichert die aktuellen Farben als Backup. Backups werden mit Zeitstempel gespeichert.</p>
+                                        <form method="post" action="" class="mb-4">
+                                                <button type="submit" name="submit-backup" class="btn btn-primary"><i class="fa fa-plus-circle me-1"></i> Aktuelles Farbschema als Backup speichern</button>
+                                        </form>
+
+                                        <hr>
+
+                                        <!-- Backup wiederherstellen -->
+                                        <h6 class="text-muted text-uppercase small mb-2"><i class="fa fa-undo me-1"></i> Backup wiederherstellen</h6>
+                                        {if isset($tpl_cfg_backups) && count($tpl_cfg_backups) > 0}
+                                        <form method="post" action="" class="mb-4">
+                                                <div class="row align-items-end">
+                                                        <div class="col-sm-8">
+                                                                <select name="backup_file" class="form-control">
+                                                                        <option value="">-- Backup auswaehlen --</option>
+                                                                        {foreach from=$tpl_cfg_backups item=backup}
+                                                                        <option value="{$backup.file}">{$backup.name}</option>
+                                                                        {/foreach}
+                                                                </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                                <button type="submit" name="submit-restore" class="btn btn-warning btn-block w-100"><i class="fa fa-undo me-1"></i> Wiederherstellen</button>
+                                                        </div>
+                                                </div>
+                                        </form>
+                                        {else}
+                                        <p class="text-muted small">Noch keine Backups vorhanden. Erstelle zuerst ein Backup.</p>
+                                        {/if}
+
+                                        <hr>
+
+                                        <!-- Auf Standard zuruecksetzen -->
+                                        <h6 class="text-muted text-uppercase small mb-2"><i class="fa fa-refresh me-1"></i> Auf Standard zuruecksetzen</h6>
+                                        <p class="text-muted small mb-3">Setzt alle Farben auf die Standardwerte aus <code>default_colors.json</code> zurueck.</p>
+                                        <form method="post" action="" onsubmit="return confirm('Alle Farben auf Standard zuruecksetzen? Erstelle vorher ein Backup!');">
+                                                <button type="submit" name="submit-reset-defaults" class="btn btn-outline-danger"><i class="fa fa-exclamation-triangle me-1"></i> Auf Standard zuruecksetzen</button>
+                                        </form>
+
+                                </div>
+                        </div>
+                </section>
+
+                <section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="headingOne">
+                        <header class="card-header" id="headingOne" role="banner">
+                                <strong class="h5 mb-0">Farben individualisieren</strong>
+                        </header>
+
+                        <div id="collapseOne" class="accordion-collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                        <form id="colorsettings" class="row" method="post" action="" role="form">
+                                                <section class="col-sm-12" role="region" aria-label="Farbauswahl">
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <label for="color-primary"><strong>Primärfarbe</strong></label>
+                                                                        <input id="color-primary" type="text" name="tpl-main-color" class="form-control" value="{$tpl_cfg_colors['tpl-main-color']}" /><div class="demo-farbe tpl-main-color"></div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <label for="color-secondary"><strong>Sekundärfarbe</strong></label>
+                                                                        <input id="color-secondary" type="text" name="tpl-main-color-2" class="form-control" value="{$tpl_cfg_colors['tpl-main-color-2']}" /><div class="demo-farbe tpl-main-color-2"></div>
+                                                                </div>
+                                                        </div>
+
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Hintergrundfarben">
+                                                        <label for="color-bglight1"><strong>Hintergrundefarbe 1</strong></label><br>
+                                                        <input id="color-bglight1" type="text" name="tpl-bg-color" class="form-control" value="{$tpl_cfg_colors['tpl-bg-color']}" /><div class="demo-farbe tpl-bg-color"></div><br>
+                                                        <label for="color-bglight2"><strong>Hintergrundfarbe 2</strong></label><br>
+                                                        <input id="color-bglight2" type="text" name="tpl-bg-color-2" class="form-control" value="{$tpl_cfg_colors['tpl-bg-color-2']}" /><div class="demo-farbe tpl-bg-color-2"></div><br>
+                                                        <label for="color-bgproductbox"><strong>Produktboxen Hintergrund</strong></label>
+                                                        <input id="color-bgproductbox" type="text" name="tpl-bg-productbox" class="form-control" value="{$tpl_cfg_colors['tpl-bg-productbox']}" /><div class="demo-farbe tpl-bg-productbox"></div><br>
+                                                        <label for="tpl-bg-footer"><strong>Footer Hintergrund</strong></label>
+                                                        <input id="tpl-bg-footer" type="text" name="tpl-bg-footer" class="form-control" value="{$tpl_cfg_colors['tpl-bg-footer']}" /><div class="demo-farbe tpl-bg-footer"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Schriftfarben">
+                                                        <label for="tpl-text-standard"><strong>Standard Schriftfarbe</strong></label>
+                                                        <input id="tpl-text-standard" type="text" name="tpl-text-standard" class="form-control" value="{$tpl_cfg_colors['tpl-text-standard']}" /><div class="demo-farbe tpl-text-standard"></div><br>
+                                                        <label for="tpl-text-headings"><strong>Überschriften Schriftfarbe</strong></label>
+                                                        <input id="tpl-text-headings" type="text" name="tpl-text-headings" class="form-control" value="{$tpl_cfg_colors['tpl-text-headings']}" /><div class="demo-farbe tpl-text-headings"></div><br>
+                                                        <label for="tpl-text-button"><strong>Schriftfarbe in Buttons &amp; Badges</strong></label>
+                                                        <input id="tpl-text-button" type="text" name="tpl-text-button" class="form-control" value="{$tpl_cfg_colors['tpl-text-button']}" /><div class="demo-farbe tpl-text-button"></div><br>
+                                                        <label for="tpl-text-footer"><strong>Schriftfarbe Text &amp; Links im Footer </strong></label>
+                                                        <input id="tpl-text-footer" type="text" name="tpl-text-footer" class="form-control" value="{$tpl_cfg_colors['tpl-text-footer']}" /><div class="demo-farbe tpl-text-footer"></div><br>
+                                                        <label for="tpl-text-footer-headings"><strong>Überschriften im Footer </strong></label>
+                                                        <input id="tpl-text-footer-headings" type="text" name="tpl-text-footer-headings" class="form-control" value="{$tpl_cfg_colors['tpl-text-footer-headings']}" /><div class="demo-farbe tpl-text-footer-headings"></div>
+                                                </section>
+
+                                                <section class="col-sm-12" role="region" aria-label="Trennlinie Menü">
+                                                        <hr>
+                                                        <strong class="h6 mb-2"><i class="fa fa-bars me-1"></i> Hauptnavigation (Menü-Leiste)</strong>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Menü Hintergrund">
+                                                        <label for="tpl-menu-bg"><strong>Menü Hintergrund</strong></label>
+                                                        <input id="tpl-menu-bg" type="text" name="tpl-menu-bg" class="form-control" value="{$tpl_cfg_colors['tpl-menu-bg']}" /><div class="demo-farbe tpl-menu-bg"></div><br>
+                                                        <label for="tpl-menu-hover"><strong>Menü Hover Hintergrund</strong></label>
+                                                        <input id="tpl-menu-hover" type="text" name="tpl-menu-hover" class="form-control" value="{$tpl_cfg_colors['tpl-menu-hover']}" /><div class="demo-farbe tpl-menu-hover"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Menü Textfarben">
+                                                        <label for="tpl-menu-text"><strong>Menü Textfarbe</strong></label>
+                                                        <input id="tpl-menu-text" type="text" name="tpl-menu-text" class="form-control" value="{$tpl_cfg_colors['tpl-menu-text']}" /><div class="demo-farbe tpl-menu-text"></div><br>
+                                                        <label for="tpl-menu-active"><strong>Menü Aktiv/Hover Textfarbe</strong></label>
+                                                        <input id="tpl-menu-active" type="text" name="tpl-menu-active" class="form-control" value="{$tpl_cfg_colors['tpl-menu-active']}" /><div class="demo-farbe tpl-menu-active"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-12" role="region" aria-label="Trennlinie Topbar">
+                                                        <hr>
+                                                        <strong class="h6 mb-2"><i class="fa fa-info-circle me-1"></i> Topbar (Trust-Leiste oben)</strong>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Topbar Hintergrund">
+                                                        <label for="tpl-topbar-bg"><strong>Topbar Hintergrund</strong></label>
+                                                        <input id="tpl-topbar-bg" type="text" name="tpl-topbar-bg" class="form-control" value="{$tpl_cfg_colors['tpl-topbar-bg']}" /><div class="demo-farbe tpl-topbar-bg"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Topbar Textfarbe">
+                                                        <label for="tpl-topbar-text"><strong>Topbar Textfarbe</strong></label>
+                                                        <input id="tpl-topbar-text" type="text" name="tpl-topbar-text" class="form-control" value="{$tpl_cfg_colors['tpl-topbar-text']}" /><div class="demo-farbe tpl-topbar-text"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-12" role="region" aria-label="Trennlinie Sticky">
+                                                        <hr>
+                                                        <strong class="h6 mb-2"><i class="fa fa-thumb-tack me-1"></i> Sticky Header</strong>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Sticky Header Hintergrund">
+                                                        <label for="tpl-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
+                                                        <input id="tpl-sticky-bg" type="text" name="tpl-sticky-bg" class="form-control" value="{$tpl_cfg_colors['tpl-sticky-bg']}" /><div class="demo-farbe tpl-sticky-bg"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Sticky Header Textfarbe">
+                                                        <label for="tpl-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
+                                                        <input id="tpl-sticky-text" type="text" name="tpl-sticky-text" class="form-control" value="{$tpl_cfg_colors['tpl-sticky-text']}" /><div class="demo-farbe tpl-sticky-text"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-12" role="region" aria-label="Farbauswahl">
+                                                        <br><input type="submit" name="submit-colorsettings" id="submit-colorsettings" class="btn btn-success btn-lg btn-block" value="Farben speichern">
+                                                </section>
+                                        </form>
+                                </div>
+                        </div>
+                </section>
+
+                <section class="card mb-4 mx-3" role="region" aria-labelledby="headingTwo">
+                        <header class="card-header" id="headingTwo" role="banner">
+                                <strong class="h5 mb-0">Weitere Konfiguration</strong>
+                        </header>
+
+                        <div id="collapseTwo" class="accordion-collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                        <form id="tplsettings" class="row" method="post" action="">
+                                                <section class="col-sm-6" role="region" aria-label="SSL-Konfiguration">
+                                                        <fieldset>
+                                                                <legend><strong>Ist ein SSL-Zertifikat (https) aktiv?</strong></legend>
+                                                                <div class="radioswitch">
+                                                                        <input name="tpl_cfg_ssl" type="radio" value="off" id="ssl-off" {if $tpl_cfg_ssl== off}checked{/if}>
+                                                                        <label for="ssl-off">Kein SSL</label>
+
+                                                                        <input name="tpl_cfg_ssl" type="radio" value="on" id="ssl-on"  {if $tpl_cfg_ssl == on}checked{/if}>
+                                                                        <label for="ssl-on" class="right">SSL aktiv</label>
+
+                                                                        <span aria-hidden="true"  {if $tpl_cfg_ssl == on}class="right"{/if}></span>
+                                                                </div>
+                                                        </fieldset>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="TrustedShops-Konfiguration">
+                                                        <fieldset>
+                                                                <legend><strong>TrustedShops Siegel im Header?</strong></legend>
+
+                                                                <div class="radioswitch">
+                                                                        <input name="tpl_cfg_ts" type="radio" value="off" id="ts-off" {if $tpl_cfg_ts== off}checked{/if}>
+                                                                        <label for="ts-off">Aus</label>
+
+                                                                        <input name="tpl_cfg_ts" type="radio" value="on" id="ts-on"  {if $tpl_cfg_ts == on}checked{/if}>
+                                                                        <label for="ts-on" class="right">An</label>
+
+                                                                        <span aria-hidden="true"  {if $tpl_cfg_ts == on}class="right"{/if}></span>
+                                                                </div>
+                                                        </fieldset>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Menü-Konfiguration">
+                                                        <fieldset>
+                                                                <legend><strong>Menü horizontal oder vertikal?</strong></legend>
+                                                                <div class="radioswitch">
+                                                                        <input name="tpl_cfg_menu" type="radio" value="horizontal" id="horizontal" {if $tpl_cfg_menu== horizontal}checked{/if}>
+                                                                        <label for="horizontal">Horizontal</label>
+
+                                                                        <input name="tpl_cfg_menu" type="radio" value="vertikal" id="vertikal"  {if $tpl_cfg_menu == vertikal}checked{/if}>
+                                                                        <label for="vertikal" class="right">Vertikal</label>
+
+                                                                        <span aria-hidden="true"  {if $tpl_cfg_menu == vertikal}class="right"{/if}></span>
+                                                                </div>
+                                                        </fieldset>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Menü-Beschreibung">
+                                                        <strong>Bei aktiviertem vertikalen Menü entsteht auf Unterseiten eine Sidebar, in der das Vertikalmenü, Banner sowie einige Boxen zur Verfügung stehen.</strong>
+                                                </section>
+                                                <section class="col-sm-6" role="region" aria-label="Infinite Scroll-Konfiguration">
+                                                        <fieldset>
+                                                                <legend><strong>Infinite Scroll (Auf Kategorie- und Suchergebnisseiten)?</strong></legend>
+                                                                <div class="radioswitch">
+                                                                        <input name="tpl_cfg_infinitescroll" type="radio" value="off" id="infinitescroll-off" {if $tpl_cfg_infinitescroll== off}checked{/if}>
+                                                                        <label for="infinitescroll-off">Aus</label>
+
+                                                                        <input name="tpl_cfg_infinitescroll" type="radio" value="on" id="infinitescroll-on"  {if $tpl_cfg_infinitescroll == on}checked{/if}>
+                                                                        <label for="infinitescroll-on" class="right">An</label>
+
+                                                                        <span aria-hidden="true"  {if $tpl_cfg_infinitescroll == on}class="right"{/if}></span>
+                                                                </div>
+                                                        </fieldset>
+                                                </section>
+
+                                                <section class="col-sm-6" role="region" aria-label="Barrierefrei-Tool-Konfiguration">
+                                                        <fieldset>
+                                                                <legend><strong>Barrierefrei-Tool (untenlinks)</strong></legend>
+                                                                <div class="radioswitch">
+                                                                        <input name="tpl_cfg_barrierefreiTool" type="radio" value="off" id="barrierefreiTool-off" {if $tpl_cfg_barrierefreiTool == "off"}checked{/if}>
+                                                                        <label for="barrierefreiTool-off">Aus</label>
+
+                                                                        <input name="tpl_cfg_barrierefreiTool" type="radio" value="on" id="barrierefreiTool-on"  {if $tpl_cfg_barrierefreiTool == "on"}checked{/if}>
+                                                                        <label for="barrierefreiTool-on" class="right">An</label>
+
+                                                                        <span aria-hidden="true"  {if $tpl_cfg_barrierefreiTool == "on"}class="right"{/if}></span>
+                                                                </div>
+                                                        </fieldset>
+                                                </section>
+
+
+
+                                                <section class="col-sm-12" role="region" aria-label="Konfiguration">
+                                                        <input type="submit" name="submit-tplsettings" id="submit-tplsettings" class="btn btn-success btn-lg btn-block" value="Konfiguration speichern">
+                                                </section>
+                                        </form>
+                                </div>
+                        </div>
+                </section>
+
+                <section class="card mb-4 mx-3" role="region" aria-labelledby="headingThree">
+                        <header class="card-header" id="headingThree" role="banner">
+                                <strong class="h5 mb-0">Zahlungs- und Versandlogos konfigurieren</strong>
+                        </header>
+
+                        <div id="collapseThree" class="accordion-collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body">
+                                        <form id="logosettings" class="row" method="post" action="">
+                                                <section class="col-sm-12 mb-4" role="region" aria-label="Zahlungslogos">
+                                                        <strong>Zahlungslogos</strong>
+                                                        <div class="row mb-2">
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="vorkasse" id="payment_vorkasse" {if $tpl_cfg_payment_logos && in_array('vorkasse', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_vorkasse">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_vorkasse.webp" alt="Vorkasse"> Vorkasse
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="paypal" id="payment_paypal" {if $tpl_cfg_payment_logos && in_array('paypal', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_paypal">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_paypal.webp" alt="Paypal"> Paypal
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="kreditkarten" id="payment_kreditkarten" {if $tpl_cfg_payment_logos && in_array('kreditkarten', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_kreditkarten">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_kreditkarten.webp" alt="Kreditkarten"> Kreditkarten
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="applepay" id="payment_applepay" {if $tpl_cfg_payment_logos && in_array('applepay', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_applepay">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_applepay.webp" alt="Apple Pay"> Apple Pay
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row mb-2">
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="googlepay" id="payment_googlepay" {if $tpl_cfg_payment_logos && in_array('googlepay', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_googlepay">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_googlepay.webp" alt="Google Pay"> Google Pay
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="amazon" id="payment_amazon" {if $tpl_cfg_payment_logos && in_array('amazon', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_amazon">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_amazon.webp" alt="Amazon Pay"> Amazon Pay
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="klarna" id="payment_klarna" {if $tpl_cfg_payment_logos && in_array('klarna', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_klarna">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_klarna.webp" alt="Klarna"> Klarna
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="lastschrift" id="payment_lastschrift" {if $tpl_cfg_payment_logos && in_array('lastschrift', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_lastschrift">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_lastschrift.webp" alt="Lastschrift"> Lastschrift
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_payment_logos[]" value="rechnung" id="payment_rechnung" {if $tpl_cfg_payment_logos && in_array('rechnung', $tpl_cfg_payment_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="payment_rechnung">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/payment/zahlungsarten_rechnung.webp" alt="Rechnung"> Rechnung
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </section>
+
+                                                <section class="col-sm-12 mb-4" role="region" aria-label="Versandlogos">
+                                                        <strong>Versandlogos</strong>
+                                                        <div class="row mb-2">
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="hermes" id="shipping_hermes" {if $tpl_cfg_shipping_logos && in_array('hermes', $tpl_cfg_shipping_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="shipping_hermes">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/shipping/hermes.webp" alt="Hermes"> Hermes
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="dhl" id="shipping_dhl" {if $tpl_cfg_shipping_logos && in_array('dhl', $tpl_cfg_shipping_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="shipping_dhl">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/shipping/dhl.webp" alt="DHL"> DHL
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="dpd" id="shipping_dpd" {if $tpl_cfg_shipping_logos && in_array('dpd', $tpl_cfg_shipping_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="shipping_dpd">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/shipping/dpd.webp" alt="DPD"> DPD
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="ups" id="shipping_ups" {if $tpl_cfg_shipping_logos && in_array('ups', $tpl_cfg_shipping_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="shipping_ups">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/shipping/ups.webp" alt="UPS"> UPS
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="gls" id="shipping_gls" {if $tpl_cfg_shipping_logos && in_array('gls', $tpl_cfg_shipping_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="shipping_gls">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/shipping/gls.webp" alt="GLS"> GLS
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                        <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" name="tpl_cfg_shipping_logos[]" value="fedex" id="shipping_fedex" {if $tpl_cfg_shipping_logos && in_array('fedex', $tpl_cfg_shipping_logos)}checked{/if}>
+                                                                                <label class="form-check-label" for="shipping_fedex">
+                                                                                        <img height="52" width="52" src="{$tpl_path}img/shipping/fedex.webp" alt="FedEx"> FedEx
+                                                                                </label>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </section>
+
+                                                <section class="col-sm-12" role="region" aria-label="Logos speichern">
+                                                        <input type="submit" name="submit-logosettings" id="submit-logosettings" class="btn btn-success btn-lg btn-block" value="Logos speichern">
+                                                </section>
+                                        </form>
+                                </div>
+                        </div>
+                </section>
+
+                <section class="card mb-4 mx-3" role="region" aria-labelledby="headingFour">
+                        <header class="card-header" id="headingFour" role="banner">
+                                <strong class="h5 mb-0"><i class="fa fa-share-alt me-2"></i>Social Media Links</strong>
+                        </header>
+
+                        <div id="collapseFour" class="accordion-collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                                <div class="card-body">
+                                        <form id="socialsettings" class="row" method="post" action="">
+                                                <section class="col-sm-12" role="region" aria-label="Social Media Links">
+                                                        <div class="row mb-3">
+                                                                <div class="col-sm-6">
+                                                                        <label for="facebook"><strong>Facebook</strong></label>
+                                                                        <input type="url" class="form-control" id="facebook" name="facebook" value="{$tpl_cfg_social_links.facebook}" placeholder="https://www.facebook.com/IhrName">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <label for="instagram"><strong>Instagram</strong></label>
+                                                                        <input type="url" class="form-control" id="instagram" name="instagram" value="{$tpl_cfg_social_links.instagram}" placeholder="https://www.instagram.com/IhrName">
+                                                                </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                                <div class="col-sm-6">
+                                                                        <label for="twitter"><strong>X (Twitter)</strong></label>
+                                                                        <input type="url" class="form-control" id="twitter" name="twitter" value="{$tpl_cfg_social_links.twitter}" placeholder="https://x.com/IhrName">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <label for="youtube"><strong>YouTube</strong></label>
+                                                                        <input type="url" class="form-control" id="youtube" name="youtube" value="{$tpl_cfg_social_links.youtube}" placeholder="https://www.youtube.com/@IhrName">
+                                                                </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                                <div class="col-sm-6">
+                                                                        <label for="tiktok"><strong>TikTok</strong></label>
+                                                                        <input type="url" class="form-control" id="tiktok" name="tiktok" value="{$tpl_cfg_social_links.tiktok}" placeholder="https://www.tiktok.com/@IhrName">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <label for="pinterest"><strong>Pinterest</strong></label>
+                                                                        <input type="url" class="form-control" id="pinterest" name="pinterest" value="{$tpl_cfg_social_links.pinterest}" placeholder="https://www.pinterest.com/IhrName">
+                                                                </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                                <div class="col-sm-12">
+                                                                        <label for="linkedin"><strong>LinkedIn</strong></label>
+                                                                        <input type="url" class="form-control" id="linkedin" name="linkedin" value="{$tpl_cfg_social_links.linkedin}" placeholder="https://www.linkedin.com/company/IhrName">
+                                                                </div>
+                                                        </div>
+                                                </section>
+
+                                                <section class="col-sm-12" role="region" aria-label="Social Media Links">
+                                                        <input type="submit" name="submit-socialsettings" id="submit-socialsettings" class="btn btn-success btn-lg btn-block" value="Social Media Links speichern">
+                                                </section>
+                                        </form>
+                                </div>
+                        </div>
+                </section>
+                <!-- ===== SEKTION 5: ERWEITERTE KONFIGURATION (MRH Dashboard Module) ===== -->
+                <!-- ===== SEKTION: BUTTONS ===== -->
+                <section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="headingButtons">
+                        <header class="card-header" id="headingButtons" role="banner">
+                                <strong class="h5 mb-0"><i class="fa fa-hand-pointer me-2"></i>Buttons</strong>
+                        </header>
+                        <div id="collapseButtons" class="accordion-collapse" aria-labelledby="headingButtons" data-parent="#accordion">
+                                <div class="card-body">
+                                        <form id="buttonsettings" class="row" method="post" action="" role="form">
+<!-- Buttons (Teil von colorsettings) --><div class="row">
+
+                                                <section class="col-sm-12" role="region" aria-label="Trennlinie Primary">
+                                                        <strong class="h6 mb-2"><i class="fa fa-square me-1"></i> Primary Button (Warenkorb, Details, CTA)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Primary BG">
+                                                        <label for="tpl-btn-primary-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-primary-bg" type="text" name="tpl-btn-primary-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-primary-bg']}" /><div class="demo-farbe tpl-btn-primary-bg"></div><br>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Primary Text">
+                                                        <label for="tpl-btn-primary-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-primary-text" type="text" name="tpl-btn-primary-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-primary-text']}" /><div class="demo-farbe tpl-btn-primary-text"></div><br>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Primary Hover">
+                                                        <label for="tpl-btn-primary-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-primary-hover" type="text" name="tpl-btn-primary-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-primary-hover']}" /><div class="demo-farbe tpl-btn-primary-hover"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Secondary">
+                                                        <strong class="h6 mb-2"><i class="fa fa-square-o me-1"></i> Secondary Button (Merkzettel, Sekundäre Aktionen)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Secondary BG">
+                                                        <label for="tpl-btn-secondary-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-secondary-bg" type="text" name="tpl-btn-secondary-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-secondary-bg']}" /><div class="demo-farbe tpl-btn-secondary-bg"></div><br>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Secondary Text">
+                                                        <label for="tpl-btn-secondary-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-secondary-text" type="text" name="tpl-btn-secondary-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-secondary-text']}" /><div class="demo-farbe tpl-btn-secondary-text"></div><br>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Secondary Hover">
+                                                        <label for="tpl-btn-secondary-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-secondary-hover" type="text" name="tpl-btn-secondary-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-secondary-hover']}" /><div class="demo-farbe tpl-btn-secondary-hover"></div><br>
+                                                </section>
+
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Outline">
+                                                        <strong class="h6 mb-2"><i class="fa fa-circle-o me-1"></i> Outline Button (Rahmen-Buttons)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Outline Border">
+                                                        <label for="tpl-btn-outline-border"><strong>Rahmenfarbe</strong></label>
+                                                        <input id="tpl-btn-outline-border" type="text" name="tpl-btn-outline-border" class="form-control" value="{$tpl_cfg_colors['tpl-btn-outline-border']}" /><div class="demo-farbe tpl-btn-outline-border"></div><br>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Outline Text">
+                                                        <label for="tpl-btn-outline-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-outline-text" type="text" name="tpl-btn-outline-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-outline-text']}" /><div class="demo-farbe tpl-btn-outline-text"></div><br>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Outline Hover">
+                                                        <label for="tpl-btn-outline-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-outline-hover" type="text" name="tpl-btn-outline-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-outline-hover']}" /><div class="demo-farbe tpl-btn-outline-hover"></div><br>
+                                                </section>
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Info">
+                                                        <strong class="h6 mb-2"><span class="fa fa-info-circle me-1"></span> Info/Aktions-Buttons (Merkzettel, Vergleich, Datenblatt, Rezension)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Info BG">
+                                                        <label for="tpl-btn-info-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-info-bg" type="text" name="tpl-btn-info-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-info-bg']}" /><div class="demo-farbe tpl-btn-info-bg"></div>
+
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Info Text">
+                                                        <label for="tpl-btn-info-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-info-text" type="text" name="tpl-btn-info-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-info-text']}" /><div class="demo-farbe tpl-btn-info-text"></div>
+
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Info Hover">
+                                                        <label for="tpl-btn-info-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-info-hover" type="text" name="tpl-btn-info-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-info-hover']}" /><div class="demo-farbe tpl-btn-info-hover"></div>
+
+                                                </section>
+
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Express">
+                                                        <strong class="h6 mb-2"><span class="fa fa-bolt me-1"></span> Express/Schnellkauf-Button</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Express BG">
+                                                        <label for="tpl-btn-express-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-express-bg" type="text" name="tpl-btn-express-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-express-bg']}" /><div class="demo-farbe tpl-btn-express-bg"></div>
+
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Express Text">
+                                                        <label for="tpl-btn-express-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-express-text" type="text" name="tpl-btn-express-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-express-text']}" /><div class="demo-farbe tpl-btn-express-text"></div>
+
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Express Hover">
+                                                        <label for="tpl-btn-express-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-express-hover" type="text" name="tpl-btn-express-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-express-hover']}" /><div class="demo-farbe tpl-btn-express-hover"></div>
+
+                                                </section>
+
+                                                <!-- ===== NEU: DETAILS BUTTON ===== -->
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Details">
+                                                        <strong class="h6 mb-2"><span class="fa fa-search me-1"></span> Details-Button (Produktlisting)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Details BG">
+                                                        <label for="tpl-btn-details-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-details-bg" type="text" name="tpl-btn-details-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-details-bg']}" /><div class="demo-farbe tpl-btn-details-bg"></div>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Details Text">
+                                                        <label for="tpl-btn-details-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-details-text" type="text" name="tpl-btn-details-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-details-text']}" /><div class="demo-farbe tpl-btn-details-text"></div>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Details Hover">
+                                                        <label for="tpl-btn-details-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-details-hover" type="text" name="tpl-btn-details-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-details-hover']}" /><div class="demo-farbe tpl-btn-details-hover"></div>
+                                                </section>
+
+                                                <!-- ===== NEU: MERKZETTEL/WISHLIST BUTTON ===== -->
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Merkzettel">
+                                                        <strong class="h6 mb-2"><span class="fa fa-heart me-1"></span> Merkzettel-Button (Herz)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Wishlist BG">
+                                                        <label for="tpl-btn-wishlist-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-wishlist-bg" type="text" name="tpl-btn-wishlist-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-wishlist-bg']}" /><div class="demo-farbe tpl-btn-wishlist-bg"></div>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Wishlist Text">
+                                                        <label for="tpl-btn-wishlist-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-wishlist-text" type="text" name="tpl-btn-wishlist-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-wishlist-text']}" /><div class="demo-farbe tpl-btn-wishlist-text"></div>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Wishlist Hover">
+                                                        <label for="tpl-btn-wishlist-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-wishlist-hover" type="text" name="tpl-btn-wishlist-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-wishlist-hover']}" /><div class="demo-farbe tpl-btn-wishlist-hover"></div>
+                                                </section>
+
+                                                <!-- ===== NEU: VERGLEICH/COMPARE BUTTON ===== -->
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Trennlinie Vergleich">
+                                                        <strong class="h6 mb-2"><span class="fa fa-eye me-1"></span> Vergleich-Button (Auge)</strong>
+                                                        <hr>
+                                                </section>
+
+                                                <section class="col-sm-4" role="region" aria-label="Compare BG">
+                                                        <label for="tpl-btn-compare-bg"><strong>Hintergrund</strong></label>
+                                                        <input id="tpl-btn-compare-bg" type="text" name="tpl-btn-compare-bg" class="form-control" value="{$tpl_cfg_colors['tpl-btn-compare-bg']}" /><div class="demo-farbe tpl-btn-compare-bg"></div>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Compare Text">
+                                                        <label for="tpl-btn-compare-text"><strong>Textfarbe</strong></label>
+                                                        <input id="tpl-btn-compare-text" type="text" name="tpl-btn-compare-text" class="form-control" value="{$tpl_cfg_colors['tpl-btn-compare-text']}" /><div class="demo-farbe tpl-btn-compare-text"></div>
+                                                </section>
+                                                <section class="col-sm-4" role="region" aria-label="Compare Hover">
+                                                        <label for="tpl-btn-compare-hover"><strong>Hover Hintergrund</strong></label>
+                                                        <input id="tpl-btn-compare-hover" type="text" name="tpl-btn-compare-hover" class="form-control" value="{$tpl_cfg_colors['tpl-btn-compare-hover']}" /><div class="demo-farbe tpl-btn-compare-hover"></div>
+                                                </section>
+
+
+                                                <section class="col-sm-12 mt-3" role="region" aria-label="Buttons speichern">
+
+<input type="submit" name="submit-colorsettings" id="submit-buttonsettings" class="btn btn-success btn-lg btn-block" value="Button-Farben speichern">
+                                        </form>
+                                </div>
+                        </div>
+                </section>
+                <section class="card mt-4 mb-4 mx-3" role="region" aria-labelledby="headingFive">
+                        <header class="card-header" id="headingFive" role="banner">
+                                <strong class="h5 mb-0"><i class="fa fa-cogs me-2"></i>Erweiterte Konfiguration</strong>
+                        </header>
+                        <div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                                <div class="card-body">
+                                        <!-- Mega-Menü Manager -->
+                                        <h6 class="text-muted text-uppercase small mb-3">
+                                                <i class="fa fa-bars me-1"></i> Mega-Menü Manager
+                                                <span class="badge bg-success ms-2">NEU</span>
+                                        </h6>
+                                        <p class="text-muted small mb-3">Konfiguriere die Spalten und Kategorien für das Mega-Dropdown-Menü. Kategorien werden direkt aus der Datenbank geladen. Die Sortierung erfolgt per Drag &amp; Drop.</p>
+                                        <!-- MRH Dashboard: Mega-Menu Manager wurde in System-Modul verschoben -->
+                                                $mega_menu_admin = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/admin/mrh_dashboard/modules/mega_menu/admin.php';
+                                                if (file_exists($mega_menu_admin)) {
+                                                        include($mega_menu_admin);
+                                                } else {
+                                                        echo '<div class="alert alert-warning">Mega-Menü Manager nicht gefunden. Bitte prüfen Sie die Installation.</div>';
+                                                }
+
+                                </div>
+                        </div>
+                </section>
+        </div>
+</section>
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/js/bootstrap-colorpicker.min.js"></script>
+<script async >
+        $(".toggle-templateconfigs").click(function() {
+                $(".templateconfigs").toggleClass("aktiv");
+                // Update aria-expanded for accessibility
+                const isExpanded = $(this).attr("aria-expanded") === "true";
+                $(this).attr("aria-expanded", !isExpanded);
+        });
+
+        $(function () {
+                // Bestehende Colorpicker:
+                $('#color-primary').colorpicker();
+                $('#color-secondary').colorpicker();
+                $('#color-bglight1').colorpicker();
+                $('#color-bglight2').colorpicker();
+                $('#tpl-bg-footer').colorpicker();
+                $('#color-bgproductbox').colorpicker();
+                $('#tpl-text-standard').colorpicker();
+                $('#tpl-text-headings').colorpicker();
+                $('#tpl-text-button').colorpicker();
+                $('#tpl-text-footer').colorpicker();
+                $('#tpl-text-footer-headings').colorpicker();
+
+                // NEU: Menü-Farben Colorpicker
+                $('#tpl-menu-bg').colorpicker();
+                $('#tpl-menu-text').colorpicker();
+                $('#tpl-menu-hover').colorpicker();
+                $('#tpl-menu-active').colorpicker();
+
+                // NEU: Topbar-Farben Colorpicker
+                $('#tpl-topbar-bg').colorpicker();
+                $('#tpl-topbar-text').colorpicker();
+
+                // NEU: Sticky Header Colorpicker
+                $('#tpl-sticky-bg').colorpicker();
+                $('#tpl-sticky-text').colorpicker();
+
+                // Live-Preview: Bestehende Farben
+                $('#color-primary').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-main-color', event.color.toString());
+                });
+
+                $('#color-secondary').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-main-color-2', event.color.toString());
+                        $(':root').css('--tpl-secondary-color', event.color.toString());
+                });
+
+                $('#color-bglight1').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-bg-color', event.color.toString());
+                });
+
+                $('#color-bglight2').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-bg-color-2', event.color.toString());
+                });
+
+                $('#tpl-bg-footer').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-bg-footer', event.color.toString());
+                });
+
+                $('#color-bgproductbox').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-bg-productbox', event.color.toString());
+                });
+
+                $('#tpl-text-standard').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-text-standard', event.color.toString());
+                });
+
+                $('#tpl-text-headings').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-text-headings', event.color.toString());
+                });
+
+                $('#tpl-text-footer').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-text-footer', event.color.toString());
+                });
+
+                $('#tpl-text-footer-headings').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-text-footer-headings', event.color.toString());
+                });
+
+                $('#tpl-text-button').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-text-button', event.color.toString());
+                });
+
+                // NEU: Live-Preview Menü-Farben
+                $('#tpl-menu-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-menu-bg', event.color.toString());
+                });
+
+                $('#tpl-menu-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-menu-text', event.color.toString());
+                });
+
+                $('#tpl-menu-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-menu-hover', event.color.toString());
+                });
+
+                $('#tpl-menu-active').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-menu-active', event.color.toString());
+                });
+
+                // NEU: Live-Preview Topbar-Farben
+                $('#tpl-topbar-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-topbar-bg', event.color.toString());
+                });
+
+                $('#tpl-topbar-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-topbar-text', event.color.toString());
+                });
+
+                // NEU: Live-Preview Sticky Header
+                $('#tpl-sticky-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-sticky-bg', event.color.toString());
+                });
+
+                $('#tpl-sticky-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-sticky-text', event.color.toString());
+                });
+                // ===== BUTTONS: Colorpicker Init =====
+                $('#tpl-btn-primary-bg').colorpicker();
+                $('#tpl-btn-primary-text').colorpicker();
+                $('#tpl-btn-primary-hover').colorpicker();
+                $('#tpl-btn-secondary-bg').colorpicker();
+                $('#tpl-btn-secondary-text').colorpicker();
+                $('#tpl-btn-secondary-hover').colorpicker();
+                $('#tpl-btn-outline-border').colorpicker();
+                $('#tpl-btn-outline-text').colorpicker();
+                $('#tpl-btn-outline-hover').colorpicker();
+
+                // ===== BUTTONS: Live-Preview =====
+                $('#tpl-btn-primary-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-primary-bg', event.color.toString());
+                });
+                $('#tpl-btn-primary-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-primary-text', event.color.toString());
+                });
+                $('#tpl-btn-primary-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-primary-hover', event.color.toString());
+                });
+                $('#tpl-btn-secondary-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-secondary-bg', event.color.toString());
+                });
+                $('#tpl-btn-secondary-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-secondary-text', event.color.toString());
+                });
+                $('#tpl-btn-secondary-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-secondary-hover', event.color.toString());
+                });
+                $('#tpl-btn-outline-border').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-outline-border', event.color.toString());
+                });
+                $('#tpl-btn-outline-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-outline-text', event.color.toString());
+                });
+                $('#tpl-btn-outline-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-outline-hover', event.color.toString());
+                });
+                // ===== INFO BUTTONS: Colorpicker Init =====
+                $('#tpl-btn-info-bg').colorpicker();
+                $('#tpl-btn-info-text').colorpicker();
+                $('#tpl-btn-info-hover').colorpicker();
+
+                // ===== INFO BUTTONS: Live-Preview =====
+                $('#tpl-btn-info-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-info-bg', event.color.toString());
+                });
+                $('#tpl-btn-info-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-info-text', event.color.toString());
+                });
+                $('#tpl-btn-info-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-info-hover', event.color.toString());
+                });
+                // ===== EXPRESS BUTTONS: Colorpicker Init =====
+                $('#tpl-btn-express-bg').colorpicker();
+                $('#tpl-btn-express-text').colorpicker();
+                $('#tpl-btn-express-hover').colorpicker();
+
+                // ===== EXPRESS BUTTONS: Live-Preview =====
+                $('#tpl-btn-express-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-express-bg', event.color.toString());
+                });
+                $('#tpl-btn-express-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-express-text', event.color.toString());
+                });
+                $('#tpl-btn-express-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-express-hover', event.color.toString());
+                });
+
+                // ===== DETAILS BUTTONS: Colorpicker Init =====
+                $('#tpl-btn-details-bg').colorpicker();
+                $('#tpl-btn-details-text').colorpicker();
+                $('#tpl-btn-details-hover').colorpicker();
+
+                // ===== DETAILS BUTTONS: Live-Preview =====
+                $('#tpl-btn-details-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-details-bg', event.color.toString());
+                });
+                $('#tpl-btn-details-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-details-text', event.color.toString());
+                });
+                $('#tpl-btn-details-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-details-hover', event.color.toString());
+                });
+
+                // ===== WISHLIST BUTTONS: Colorpicker Init =====
+                $('#tpl-btn-wishlist-bg').colorpicker();
+                $('#tpl-btn-wishlist-text').colorpicker();
+                $('#tpl-btn-wishlist-hover').colorpicker();
+
+                // ===== WISHLIST BUTTONS: Live-Preview =====
+                $('#tpl-btn-wishlist-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-wishlist-bg', event.color.toString());
+                });
+                $('#tpl-btn-wishlist-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-wishlist-text', event.color.toString());
+                });
+                $('#tpl-btn-wishlist-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-wishlist-hover', event.color.toString());
+                });
+
+                // ===== COMPARE BUTTONS: Colorpicker Init =====
+                $('#tpl-btn-compare-bg').colorpicker();
+                $('#tpl-btn-compare-text').colorpicker();
+                $('#tpl-btn-compare-hover').colorpicker();
+
+                // ===== COMPARE BUTTONS: Live-Preview =====
+                $('#tpl-btn-compare-bg').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-compare-bg', event.color.toString());
+                });
+                $('#tpl-btn-compare-text').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-compare-text', event.color.toString());
+                });
+                $('#tpl-btn-compare-hover').on('colorpickerChange', function(event) {
+                        $(':root').css('--tpl-btn-compare-hover', event.color.toString());
+                });
+
+        });
+</script>
