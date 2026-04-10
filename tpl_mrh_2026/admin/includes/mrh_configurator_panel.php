@@ -355,6 +355,45 @@ foreach ($special_buttons as $variant => $meta) {
 ?>
           </section>
 
+          <!-- ══════════════════════════════════════════════════ -->
+          <!-- Hintergrundfarben (bg-*) -->
+          <!-- ══════════════════════════════════════════════════ -->
+          <section class="col-sm-12 mb-3">
+            <hr>
+            <h6 class="text-muted text-uppercase small mb-3">
+              <i class="fa fa-paint-brush me-1"></i> Hintergrundfarben (bg-*)
+            </h6>
+<?php
+$bg_variants = [
+    'primary'   => ['label' => 'bg-primary',   'icon' => 'fa-square'],
+    'secondary' => ['label' => 'bg-secondary', 'icon' => 'fa-square'],
+    'success'   => ['label' => 'bg-success',   'icon' => 'fa-square'],
+    'danger'    => ['label' => 'bg-danger',    'icon' => 'fa-square'],
+    'warning'   => ['label' => 'bg-warning',   'icon' => 'fa-square'],
+    'info'      => ['label' => 'bg-info',      'icon' => 'fa-square'],
+    'light'     => ['label' => 'bg-light',     'icon' => 'fa-square-o'],
+    'dark'      => ['label' => 'bg-dark',      'icon' => 'fa-square'],
+];
+foreach ($bg_variants as $variant => $meta) {
+    $bg_key   = 'tpl-bg-' . $variant;
+    $text_key = 'tpl-bg-' . $variant . '-text';
+    echo '<div class="row mb-2">';
+    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> ' . $meta['label'] . '</strong></div>';
+    echo '<div class="col-sm-6 mb-2">';
+    echo '<label for="' . $bg_key . '">Hintergrund</label>';
+    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
+    echo '</div>';
+    echo '<div class="col-sm-6 mb-2">';
+    echo '<label for="' . $text_key . '">Textfarbe</label>';
+    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
+    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
+    echo '</div>';
+    echo '</div>';
+}
+?>
+          </section>
+
           <section class="col-sm-12">
             <input type="submit" name="submit-colorsettings" id="submit-colorsettings"
                    class="btn btn-success btn-lg w-100" value="Farben speichern">

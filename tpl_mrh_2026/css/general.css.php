@@ -175,6 +175,23 @@ $defaults = [
     'tpl-btn-compare-bg'       => 'rgb(108, 117, 125)',
     'tpl-btn-compare-text'     => 'rgb(255, 255, 255)',
     'tpl-btn-compare-hover'    => 'rgb(23, 162, 184)',
+    // ── Hintergrundfarben (bg-*) ──
+    'tpl-bg-primary'           => 'rgb(74, 140, 42)',
+    'tpl-bg-primary-text'      => 'rgb(255, 255, 255)',
+    'tpl-bg-secondary'         => 'rgb(108, 117, 125)',
+    'tpl-bg-secondary-text'    => 'rgb(255, 255, 255)',
+    'tpl-bg-success'           => 'rgb(25, 135, 84)',
+    'tpl-bg-success-text'      => 'rgb(255, 255, 255)',
+    'tpl-bg-danger'            => 'rgb(220, 53, 69)',
+    'tpl-bg-danger-text'       => 'rgb(255, 255, 255)',
+    'tpl-bg-warning'           => 'rgb(255, 193, 7)',
+    'tpl-bg-warning-text'      => 'rgb(33, 37, 41)',
+    'tpl-bg-info'              => 'rgb(23, 162, 184)',
+    'tpl-bg-info-text'         => 'rgb(255, 255, 255)',
+    'tpl-bg-light'             => 'rgb(248, 249, 250)',
+    'tpl-bg-light-text'        => 'rgb(33, 37, 41)',
+    'tpl-bg-dark'              => 'rgb(33, 37, 41)',
+    'tpl-bg-dark-text'         => 'rgb(255, 255, 255)',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -304,10 +321,14 @@ foreach ($special as $s) {
     $bg   = '--tpl-btn-'.$s.'-bg';
     $text = '--tpl-btn-'.$s.'-text';
     $hov  = '--tpl-btn-'.$s.'-hover';
-    echo '.btn-'.$s.'{background-color:var('.$bg.');color:var('.$text.');border-color:var('.$bg.');}';
-    echo '.btn-'.$s.':hover,.btn-'.$s.':focus{background-color:var('.$hov.');border-color:var('.$hov.');}';
-}
-?>
+    echo '.btn-'.$s.'{background-color:var('.$bg.');color:var('.$text.');border-color:var('.$bg.');}';    echo '.btn-'.$s.':hover,.btn-'.$s.':focus{background-color:var('.$hov.');border-color:var('.$hov.');}';}
+// bg-* Hintergrundfarben-Overrides
+$bg_variants = ['primary','secondary','success','danger','warning','info','light','dark'];
+foreach ($bg_variants as $v) {
+    $bg   = '--tpl-bg-'.$v;
+    $text = '--tpl-bg-'.$v.'-text';
+    echo '.bg-'.$v.'{background-color:var('.$bg.') !important;color:var('.$text.') !important;}';
+}?>
 </style>
 <style>
   @font-face {

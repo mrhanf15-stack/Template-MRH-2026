@@ -196,6 +196,33 @@ $mrh_color_defaults = [
     'tpl-btn-compare-bg'       => 'rgb(108, 117, 125)',
     'tpl-btn-compare-text'     => 'rgb(255, 255, 255)',
     'tpl-btn-compare-hover'    => 'rgb(23, 162, 184)',
+
+    // ══════════════════════════════════════════════════
+    // ── Hintergrundfarben (bg-*) ──
+    // ══════════════════════════════════════════════════
+    'tpl-bg-primary'           => 'rgb(74, 140, 42)',
+    'tpl-bg-primary-text'      => 'rgb(255, 255, 255)',
+
+    'tpl-bg-secondary'         => 'rgb(108, 117, 125)',
+    'tpl-bg-secondary-text'    => 'rgb(255, 255, 255)',
+
+    'tpl-bg-success'           => 'rgb(25, 135, 84)',
+    'tpl-bg-success-text'      => 'rgb(255, 255, 255)',
+
+    'tpl-bg-danger'            => 'rgb(220, 53, 69)',
+    'tpl-bg-danger-text'       => 'rgb(255, 255, 255)',
+
+    'tpl-bg-warning'           => 'rgb(255, 193, 7)',
+    'tpl-bg-warning-text'      => 'rgb(33, 37, 41)',
+
+    'tpl-bg-info'              => 'rgb(23, 162, 184)',
+    'tpl-bg-info-text'         => 'rgb(255, 255, 255)',
+
+    'tpl-bg-light'             => 'rgb(248, 249, 250)',
+    'tpl-bg-light-text'        => 'rgb(33, 37, 41)',
+
+    'tpl-bg-dark'              => 'rgb(33, 37, 41)',
+    'tpl-bg-dark-text'         => 'rgb(255, 255, 255)',
 ];
 
 $mrh_tpl_defaults = [
