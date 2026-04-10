@@ -527,6 +527,36 @@ foreach ($shippers as $sh) {
     </div>
   </section>
 
+  <!-- ===== SEKTION 5: CUSTOM CSS ===== -->
+  <section class="card mb-4 mx-3">
+    <header class="card-header" id="mrhHeadingCustomCSS">
+      <button class="btn btn-link text-start w-100 p-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mrhCollapseCustomCSS"
+              aria-expanded="false" aria-controls="mrhCollapseCustomCSS">
+        <strong class="h5 mb-0"><i class="fa fa-code me-2"></i>Custom CSS</strong>
+      </button>
+    </header>
+
+    <div id="mrhCollapseCustomCSS" class="accordion-collapse collapse"
+         aria-labelledby="mrhHeadingCustomCSS" data-bs-parent="#mrh-configurator">
+      <div class="card-body">
+        <form id="mrh-customcss" method="post" action="">
+          <section class="col-sm-12 mb-3">
+            <p class="text-muted">Eigenes CSS eingeben. &Auml;nderungen werden <strong>sofort live</strong> auf der Seite angezeigt. Zum dauerhaften Speichern den Button unten verwenden.</p>
+            <textarea id="mrh-custom-css-textarea" name="mrh_custom_css" class="form-control font-monospace"
+                      rows="18" spellcheck="false"
+                      placeholder="/* Eigenes CSS hier eingeben */&#10;.mein-element {&#10;    color: red;&#10;    font-size: 16px;&#10;}"><?php echo htmlspecialchars(isset($GLOBALS['mrh_custom_css']) ? $GLOBALS['mrh_custom_css'] : ''); ?></textarea>
+          </section>
+
+          <section class="col-sm-12">
+            <input type="submit" name="submit-customcss" id="submit-customcss"
+                   class="btn btn-success btn-lg w-100" value="Custom CSS speichern">
+          </section>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== SEKTION 4: SOCIAL MEDIA ===== -->
   <section class="card mb-4 mx-3">
     <header class="card-header" id="mrhHeadingSocial">

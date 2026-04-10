@@ -365,6 +365,38 @@ function mrhToggleConfigurator(){
         setTimeout(initColorpickers, 100);
     };
 })();
+// Custom CSS Live-Preview
+(function(){
+    function initCustomCssLive() {
+        var ta = document.getElementById("mrh-custom-css-textarea");
+        if (!ta || ta.dataset.liveInit) return;
+        ta.dataset.liveInit = "1";
+        // Style-Tag fuer Live-Preview erstellen
+        var liveStyle = document.getElementById("mrh-live-custom-css");
+        if (!liveStyle) {
+            liveStyle = document.createElement("style");
+            liveStyle.id = "mrh-live-custom-css";
+            document.head.appendChild(liveStyle);
+        }
+        // Initial: Gespeichertes CSS anwenden
+        liveStyle.textContent = ta.value;
+        // Bei jeder Eingabe sofort anwenden
+        ta.addEventListener("input", function() {
+            liveStyle.textContent = ta.value;
+        });
+    }
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initCustomCssLive);
+    } else {
+        initCustomCssLive();
+    }
+    // Re-Init beim Panel-Oeffnen
+    var origToggle2 = window.mrhToggleConfigurator;
+    window.mrhToggleConfigurator = function() {
+        origToggle2();
+        setTimeout(initCustomCssLive, 150);
+    };
+})();
 </script>';
 }
 

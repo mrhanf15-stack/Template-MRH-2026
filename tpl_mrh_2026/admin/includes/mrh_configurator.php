@@ -408,3 +408,42 @@ if (isset($_POST['submit-socialsettings'])) {
         $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Speichern der Social Media Links.</div>';
     }
 }
+
+// 5. Custom CSS speichern
+if (isset($_POST['submit-customcss'])) {
+    $custom_css = isset($_POST['mrh_custom_css']) ? $_POST['mrh_custom_css'] : '';
+    // Basis-Sanitierung: <script> Tags und PHP-Tags entfernen
+    $custom_css = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $custom_css);
+    $custom_css = preg_replace('/<\?.*?\?>/s', '', $custom_css);
+    $css_file = $json_dir . 'custom.css';
+    if (file_put_contents($css_file, $custom_css) !== false) {
+        $mrh_config_message = '<div class="alert alert-success mx-3">Custom CSS erfolgreich gespeichert!</div>';
+        // stylesheet.min.css loeschen damit CSS neu kompiliert wird
+        $min_css = $tpl_dir . 'css/stylesheet.min.css';
+        if (file_exists($min_css)) {
+            @unlink($min_css);
+        }
+        // templates_c leeren fuer sofortige Wirkung
+        $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+        if (is_dir($tpl_c)) {
+            $files = glob($tpl_c . '*');
+            foreach ($files as $f) {
+                if (is_file($f)) @unlink($f);
+            }
+        }
+    } else {
+        $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Speichern des Custom CSS.</div>';
+    }
+}
+
+// Custom CSS laden (fuer Panel-Anzeige)
+$custom_css_file = $json_dir . 'custom.css';
+$mrh_custom_css = file_exists($custom_css_file) ? file_get_contents($custom_css_file) : '';
+
+// === Globals setzen ===
+$GLOBALS['mrh_colors']  = $mrh_colors;
+$GLOBALS['mrh_tpl']     = $mrh_tpl;
+$GLOBALS['mrh_logos']   = $mrh_logos;
+$GLOBALS['mrh_social']  = $mrh_social;
+$GLOBALS['mrh_custom_css'] = $mrh_custom_css;
+$GLOBALS['mrh_config_message'] = $mrh_config_message;

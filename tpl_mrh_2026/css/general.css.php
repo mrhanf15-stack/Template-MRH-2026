@@ -53,6 +53,7 @@
     echo '<link rel="stylesheet" href="'.DIR_WS_BASE.$css.'" type="text/css" media="screen" />'.PHP_EOL;
   }
 ?>
+
 <link rel="preload" as="font" href="<?php echo DIR_WS_BASE.DIR_TMPL; ?>fonts/Simple-Line-Icons.ttf" crossorigin="anonymous">
 <link rel="preload" as="font" href="<?php echo DIR_WS_BASE.DIR_TMPL; ?>fonts/mrh/PlusJakartaSans-Bold.woff2" type="font/woff2" crossorigin="anonymous">
 <link rel="preload" as="font" href="<?php echo DIR_WS_BASE.DIR_TMPL; ?>fonts/mrh/Inter-Regular.woff2" type="font/woff2" crossorigin="anonymous">
@@ -341,4 +342,16 @@ foreach ($special as $s) {
   if($demoindex == 'www.modifiedtemplate.de/demo-revplus/') {
       echo '<meta property="og:image" content="https://' . $demoindex . 'fb_revplus_banner.jpg" />';
   }
+?>
+
+<?php
+// ══════════════════════════════════════════════════════════════════
+// Custom CSS aus dem Konfigurator laden (config/custom.css)
+// Wird GANZ AM ENDE geladen, damit es ALLES ueberschreiben kann!
+// ══════════════════════════════════════════════════════════════════
+$custom_css_path = DIR_FS_CATALOG . DIR_TMPL . 'config/custom.css';
+if (file_exists($custom_css_path) && filesize($custom_css_path) > 0) {
+    $custom_css_url = DIR_WS_BASE . DIR_TMPL . 'config/custom.css?v=' . filemtime($custom_css_path);
+    echo '<link rel="stylesheet" href="' . $custom_css_url . '" type="text/css" media="screen" />' . PHP_EOL;
+}
 ?>
