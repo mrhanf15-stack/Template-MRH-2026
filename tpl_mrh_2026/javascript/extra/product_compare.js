@@ -1,49 +1,39 @@
-<?php
 /* -----------------------------------------------------------------------------------------
-   Product Compare v2.0.0 - JavaScript (als .js.php für auto_include)
+   Product Compare v2.0.0 - Vanilla JS (ohne PHP-Abhängigkeit)
 
    Hookpoint: templates/tpl_mrh_2026/javascript/extra/
-   Wird automatisch via general_bottom.js.php auto_include geladen.
+   Wird als <script src="..."> direkt im Template eingebunden.
 
-   v2.0.0: FIX - PHP-Guard entfernt (MODULE_PRODUCT_COMPARE_STATUS nicht nötig)
-           - CSS-Pfad korrigiert (bootstrap4 → tpl_mrh_2026 via DIR_TMPL)
-           - Funktioniert jetzt unabhängig von Shop-Modul-Konfiguration
+   v2.0.0: Konvertierung von .js.php → .js
+           - Alle PHP-Variablen durch JS-Defaults ersetzt
+           - ajaxUrl dynamisch aus window.location ermittelt
+           - CSS wird per JS nachgeladen (product_compare.css)
+           - Kein PHP-Wrapper mehr nötig
    v1.9.4: BUGFIX - Doppelter Confirm-Dialog behoben
-           - handleClearClick: confirm() entfernt (onclick im Template übernimmt)
-           - Verhindert doppelte Abfrage beim Leeren
    v1.9.3: BUGFIX - Clear-Button Selector fix + clearAll() global
-           - handleClearClick: Selector erweitert für HTML-encoded URLs und CSS-Klasse
-           - ProductCompare.clearAll() als globale Funktion für onclick-Aufrufe
-           - Funktioniert mit und ohne onclick im Template
    v1.9.2: BUGFIX - FPC-sichere Initialisierung
-           - currentProducts wird IMMER per AJAX geladen (nicht aus gecachtem PHP)
-           - Cookie-Restore nur wenn Server-Session leer + Cookie vorhanden
-           - Verhindert dass FPC gecachte Produkt-IDs das Cookie wieder setzen
    v1.9.1: BUGFIX - "Liste leeren" per AJAX statt Page-Link
-           - Clear löscht Cookie clientseitig (pcClearCookie)
-           - Clear löscht Cookie serverseitig (AJAX sub_action=clear)
-           - Badge wird sofort auf 0 aktualisiert
-           - Seite wird nach AJAX-Clear neu geladen
-   v1.9.0: Cookie-basierte Persistenz - Vergleichsliste überlebt Logout/Login
-           - pcSaveCookie(): Speichert IDs als Cookie (30 Tage)
-           - pcLoadCookie(): Liest IDs aus Cookie
-           - Sync bei jedem add/remove/clear
-           - Restore beim Seitenaufruf wenn Session leer aber Cookie vorhanden
-   v1.2.0: Neuer Ansatz - Buttons direkt in Smarty-Templates
-   v1.2.2: Bugfixes
+   v1.9.0: Cookie-basierte Persistenz
 
    @author    Mr. Hanf / Manus AI
    @version   2.0.0
    @date      2026-04-10
    -----------------------------------------------------------------------------------------*/
-
-// v2.0.0: Kein PHP-Guard mehr - JS wird immer geladen
-// Die Vergleichsfunktion ist Template-seitig integriert
-?>
-<link rel="stylesheet" href="<?php echo (defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/'); ?>templates/<?php echo defined('DIR_TMPL') ? basename(DIR_TMPL) : 'tpl_mrh_2026'; ?>/css/product_compare.css">
-<script>
 (function() {
     'use strict';
+
+    // === CSS nachladen (product_compare.css) ===
+    (function loadCSS() {
+        var tplBase = '/templates/tpl_mrh_2026/';
+        // Prüfe ob CSS bereits geladen
+        var existing = document.querySelector('link[href*="product_compare.css"]');
+        if (!existing) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = tplBase + 'css/product_compare.css';
+            document.head.appendChild(link);
+        }
+    })();
 
     // === Cookie-Helper Funktionen ===
     function pcSaveCookie(ids) {
@@ -65,33 +55,30 @@
         document.cookie = 'pc_compare_ids=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;SameSite=Lax';
     }
 
-    // === Konfiguration ===
+    // === Konfiguration (ohne PHP - reine JS-Defaults) ===
     var PC = {
-        ajaxUrl: '<?php echo (defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/'); ?>ajax.php?ext=product_compare',
-        compareUrl: '<?php echo function_exists("xtc_href_link") ? xtc_href_link("product_compare.php") : "/product_compare.php"; ?>',
-        maxProducts: <?php echo (defined('MODULE_PRODUCT_COMPARE_MAX_PRODUCTS') ? (int)MODULE_PRODUCT_COMPARE_MAX_PRODUCTS : 6); ?>,
-        currentProducts: [], // v1.9.2: IMMER leer initialisieren (FPC-sicher), wird per AJAX geladen
+        ajaxUrl: '/ajax.php?ext=product_compare',
+        compareUrl: '/product_compare.php',
+        maxProducts: 6,
+        currentProducts: [], // FPC-sicher: IMMER leer, wird per AJAX geladen
 
-        // Texte
+        // Texte (Deutsch)
         text: {
-            add: '<?php echo addslashes(defined("PC_BUTTON_ADD") ? PC_BUTTON_ADD : "Vergleichen"); ?>',
-            added: '<?php echo addslashes(defined("PC_BUTTON_ADDED") ? PC_BUTTON_ADDED : "Im Vergleich"); ?>',
-            compareNow: '<?php echo addslashes(defined("PC_BUTTON_COMPARE_NOW") ? PC_BUTTON_COMPARE_NOW : "Jetzt vergleichen"); ?>',
-            msgAdded: '<?php echo addslashes(defined("PC_MSG_ADDED") ? PC_MSG_ADDED : "Produkt zum Vergleich hinzugefügt"); ?>',
-            msgRemoved: '<?php echo addslashes(defined("PC_MSG_REMOVED") ? PC_MSG_REMOVED : "Produkt aus dem Vergleich entfernt"); ?>',
-            msgAlready: '<?php echo addslashes(defined("PC_MSG_ALREADY") ? PC_MSG_ALREADY : "Produkt ist bereits im Vergleich"); ?>',
-            msgMaxReached: '<?php echo addslashes(defined("PC_MSG_MAX_REACHED") ? str_replace("%s", (defined("MODULE_PRODUCT_COMPARE_MAX_PRODUCTS") ? MODULE_PRODUCT_COMPARE_MAX_PRODUCTS : "6"), PC_MSG_MAX_REACHED) : "Maximale Anzahl erreicht"); ?>',
-            msgCleared: '<?php echo addslashes(defined("PC_MSG_CLEARED") ? PC_MSG_CLEARED : "Vergleichsliste geleert"); ?>'
+            add: 'Vergleichen',
+            added: 'Im Vergleich',
+            compareNow: 'Jetzt vergleichen',
+            msgAdded: 'Produkt zum Vergleich hinzugefügt',
+            msgRemoved: 'Produkt aus dem Vergleich entfernt',
+            msgAlready: 'Produkt ist bereits im Vergleich',
+            msgMaxReached: 'Maximale Anzahl (6) erreicht',
+            msgCleared: 'Vergleichsliste geleert'
         },
 
         // Cache: SKU → products_id Mapping
         skuMap: {}
     };
 
-    // === v1.9.2: FPC-sichere Initialisierung per AJAX ===
-    // currentProducts ist immer leer (FPC-sicher).
-    // Beim Seitenaufruf wird die echte Liste per AJAX vom Server geholt.
-    // Wenn Server-Session leer aber Cookie vorhanden → Cookie-Restore.
+    // === FPC-sichere Initialisierung per AJAX ===
     var initDone = false;
     function initFromServer() {
         ajaxCompare('list', null, function(data) {
@@ -100,21 +87,17 @@
                 var serverCount = data.count || 0;
 
                 if (serverCount > 0) {
-                    // Server hat Produkte → übernehmen + Cookie synchronisieren
                     PC.currentProducts = serverProducts;
                     pcSaveCookie(PC.currentProducts);
                     updateBadge(serverCount);
                     updateAllButtons();
                     initDone = true;
                 } else {
-                    // Server-Session leer → Cookie prüfen für Restore
                     var cookieIds = pcLoadCookie();
                     if (cookieIds.length > 0) {
-                        // Cookie hat Daten → per AJAX in Session wiederherstellen
                         var restoreCount = 0;
                         var totalToRestore = cookieIds.length;
 
-                        // Sofort lokal setzen für schnelle UI-Reaktion
                         PC.currentProducts = cookieIds;
                         updateBadge(cookieIds.length);
                         updateAllButtons();
@@ -142,7 +125,6 @@
                             xhr.send();
                         });
                     } else {
-                        // Beides leer → nichts zu tun
                         PC.currentProducts = [];
                         updateBadge(0);
                         updateAllButtons();
@@ -242,7 +224,6 @@
 
     // === Produkt hinzufügen/entfernen (Toggle) ===
     function toggleCompare(productId, button) {
-        // Wenn productId eine SKU ist (enthält Buchstaben), erst auflösen
         if (isNaN(productId)) {
             resolveProductId(productId, function(resolvedId) {
                 doToggle(resolvedId, button);
@@ -260,7 +241,7 @@
             ajaxCompare('remove', productId, function(data) {
                 if (data.success) {
                     PC.currentProducts = data.products.map(Number);
-                    pcSaveCookie(PC.currentProducts); // Cookie sync
+                    pcSaveCookie(PC.currentProducts);
                     updateBadge(data.count);
                     updateAllButtons();
                     showToast(PC.text.msgRemoved, 'info');
@@ -275,7 +256,7 @@
             ajaxCompare('add', productId, function(data) {
                 if (data.success) {
                     PC.currentProducts = data.products.map(Number);
-                    pcSaveCookie(PC.currentProducts); // Cookie sync
+                    pcSaveCookie(PC.currentProducts);
                     updateBadge(data.count);
                     updateAllButtons();
                     showToast(PC.text.msgAdded, 'success');
@@ -288,23 +269,16 @@
         }
     }
 
-    // === v1.9.1: Liste leeren per AJAX ===
+    // === Liste leeren per AJAX ===
     function clearCompare(reloadPage) {
-        // 1. Cookie sofort clientseitig löschen
         pcClearCookie();
-
-        // 2. Lokale Liste leeren
         PC.currentProducts = [];
-
-        // 3. Badge sofort aktualisieren
         updateBadge(0);
         updateAllButtons();
 
-        // 4. Server-Session per AJAX leeren (löscht auch Cookie serverseitig)
         ajaxCompare('clear', null, function(data) {
             if (data.success) {
                 showToast(PC.text.msgCleared, 'info');
-                // 5. Seite neu laden wenn gewünscht (z.B. auf der Vergleichsseite)
                 if (reloadPage) {
                     setTimeout(function() {
                         window.location.reload();
@@ -315,54 +289,65 @@
     }
 
     // === Alle Buttons aktualisieren ===
-    // v2.0.0: Selector erweitert - findet auch Buttons ohne .btn-compare
-    // (Produktseite hat nur btn-outline-secondary + data-product-id + onclick mit ProductCompare)
     function updateAllButtons() {
         var buttons = document.querySelectorAll('[data-product-id]');
         buttons.forEach(function(btn) {
             // Nur Vergleichs-Buttons (nicht andere Elemente mit data-product-id)
-            var onclick = btn.getAttribute('onclick') || '';
-            var isCompareBtn = btn.classList.contains('btn-compare') || onclick.indexOf('ProductCompare') !== -1;
-            if (!isCompareBtn) return;
+            if (!btn.classList.contains('btn-compare') && !btn.closest('.compare-action')) {
+                // Prüfe ob es ein Vergleichs-Button ist (onclick enthält ProductCompare)
+                var onclick = btn.getAttribute('onclick') || '';
+                if (onclick.indexOf('ProductCompare') === -1) return;
+            }
 
             var pid = parseInt(btn.getAttribute('data-product-id'));
             var isInList = PC.currentProducts.indexOf(pid) !== -1;
 
-            // Icon-Span finden (fa-scale-balanced oder fa-check)
-            var iconSpan = btn.querySelector('span[class*="fa-"]');
-            // Text-Span finden
-            var textSpan = btn.querySelector('span:not([class*="fa-"])');
-
             if (isInList) {
                 btn.classList.add('active');
-                if (iconSpan) iconSpan.className = 'fa-solid fa-check me-1';
-                if (textSpan) textSpan.textContent = PC.text.added;
+                // Icon und Text aktualisieren
+                var iconSpan = btn.querySelector('span[class*="fa-"]');
+                if (iconSpan) {
+                    iconSpan.className = 'fa-solid fa-check me-1';
+                }
+                // Text-Node aktualisieren (nach dem Icon)
+                var textNodes = Array.from(btn.childNodes).filter(function(n) {
+                    return n.nodeType === 3 && n.textContent.trim().length > 0;
+                });
+                if (textNodes.length > 0) {
+                    textNodes[textNodes.length - 1].textContent = ' ' + PC.text.added;
+                }
             } else {
                 btn.classList.remove('active');
-                if (iconSpan) iconSpan.className = 'fa-solid fa-scale-balanced me-1';
-                if (textSpan) textSpan.textContent = PC.text.add;
+                var iconSpan2 = btn.querySelector('span[class*="fa-"]');
+                if (iconSpan2) {
+                    iconSpan2.className = 'fa-solid fa-scale-balanced me-1';
+                }
+                var textNodes2 = Array.from(btn.childNodes).filter(function(n) {
+                    return n.nodeType === 3 && n.textContent.trim().length > 0;
+                });
+                if (textNodes2.length > 0) {
+                    textNodes2[textNodes2.length - 1].textContent = ' ' + PC.text.add;
+                }
             }
         });
     }
 
     // === Seedfinder-Karten: SKU-basierte Buttons initialisieren ===
     function initSeedfinderButtons() {
-        // Seedfinder-Karten haben data-sku statt data-product-id
         var skuButtons = document.querySelectorAll('.btn-compare[data-sku]:not([data-product-id])');
 
         skuButtons.forEach(function(btn) {
             var sku = btn.getAttribute('data-sku');
             if (!sku) return;
 
-            // SKU → products_id auflösen
             resolveProductId(sku, function(productId) {
                 btn.setAttribute('data-product-id', productId);
 
-                // Prüfe ob das Produkt bereits im Vergleich ist
                 var isInList = PC.currentProducts.indexOf(parseInt(productId)) !== -1;
                 if (isInList) {
                     btn.classList.add('active');
-                    btn.innerHTML = '<span class="fa fa-check mr-1"></span>' + PC.text.added;
+                    var iconSpan = btn.querySelector('span[class*="fa-"]');
+                    if (iconSpan) iconSpan.className = 'fa-solid fa-check me-1';
                 }
             });
         });
@@ -370,7 +355,7 @@
 
     // === Button-Click-Handler (Event Delegation) ===
     function handleCompareClick(e) {
-        var btn = e.target.closest('.btn-compare');
+        var btn = e.target.closest('.btn-compare, [data-product-id][onclick*="ProductCompare"]');
         if (!btn) return;
 
         e.preventDefault();
@@ -386,17 +371,13 @@
         }
     }
 
-    // === v1.9.4: Clear-Button Click-Handler (Event Delegation) ===
-    // Fallback falls onclick im Template nicht vorhanden ist.
-    // Confirm-Dialog wird NICHT hier gezeigt (onclick im Template übernimmt das).
+    // === Clear-Button Click-Handler (Event Delegation) ===
     function handleClearClick(e) {
         var link = e.target.closest('a[href*="action=clear"]');
         if (!link) link = e.target.closest('a.btn-outline-danger[href*="product_compare"]');
         if (!link) link = e.target.closest('a.btn-outline-danger[href*="vergleich"]');
         if (!link) return;
 
-        // Nur abfangen wenn KEIN onclick im Template vorhanden ist
-        // (onclick ruft bereits ProductCompare.clearAll() auf)
         if (link.hasAttribute('onclick')) return;
 
         e.preventDefault();
@@ -409,29 +390,22 @@
 
     // === Initialisierung ===
     function init() {
-        // v1.9.2: Badge startet bei 0, wird per AJAX aktualisiert
         updateBadge(0);
-
-        // v1.9.2: Echte Produkt-Liste per AJAX vom Server holen (FPC-sicher)
         initFromServer();
-
-        // Seedfinder SKU-Buttons auflösen
         initSeedfinderButtons();
 
         // Event Delegation für alle Vergleichen-Buttons
         document.addEventListener('click', handleCompareClick);
-
-        // v1.9.1: Event Delegation für Clear-Buttons
         document.addEventListener('click', handleClearClick);
 
-        // MutationObserver für dynamisch geladene Seedfinder-Karten (AJAX/Pagination)
+        // MutationObserver für dynamisch geladene Karten (AJAX/Pagination)
         var observer = new MutationObserver(function(mutations) {
             var shouldUpdate = false;
             mutations.forEach(function(mutation) {
                 if (mutation.addedNodes.length > 0) {
                     mutation.addedNodes.forEach(function(node) {
                         if (node.nodeType === 1 && (
-                            (node.querySelector && node.querySelector('.btn-compare'))
+                            (node.querySelector && node.querySelector('.btn-compare, [data-product-id]'))
                         )) {
                             shouldUpdate = true;
                         }
@@ -463,20 +437,21 @@
         init();
     }
 
-    // Globale Funktion für externe Aufrufe
+    // Globale API
     window.ProductCompare = {
         toggle: toggleCompare,
         update: updateAllButtons,
         clear: clearCompare,
-        // v1.9.3: clearAll() für onclick-Aufrufe im Template
         clearAll: function() { clearCompare(true); },
         getProducts: function() { return PC.currentProducts; },
         getCount: function() { return PC.currentProducts.length; },
-        // v1.9.0: Cookie-Funktionen auch extern verfügbar
         saveCookie: function() { pcSaveCookie(PC.currentProducts); },
         clearCookie: pcClearCookie
     };
 
-})();
-</script>
+    // Globale Shortcut-Funktion für onclick-Aufrufe in Templates
+    window.addToCompare = function(productId) {
+        toggleCompare(productId);
+    };
 
+})();

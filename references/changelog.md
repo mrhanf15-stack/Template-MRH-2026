@@ -1,5 +1,15 @@
 # MRH 2026 Template – Changelog
 
+## 2026-04-10 – ProductCompare v2.0.0: JS-Einbindung gefixt
+
+**Bug:** Vergleichs-Button auf Produktseite sichtbar, aber `window.ProductCompare` undefined → Button ohne Funktion.
+**Ursache:** `product_compare.js.php` hatte PHP-Guard `MODULE_PRODUCT_COMPARE_STATUS == 'true'` der fehlschlug → leerer Output. Zusaetzlich falscher CSS-Pfad (`bootstrap4` statt `tpl_mrh_2026`).
+**Fix:** PHP-Guard entfernt, CSS-Pfad auf `DIR_TMPL` korrigiert, `updateAllButtons()` Selector erweitert fuer Buttons ohne `.btn-compare` Klasse.
+
+| Datei | Aenderung |
+|-------|----------|
+| `javascript/extra/product_compare.js.php` | v2.0.0: PHP-Guard entfernt, CSS-Pfad korrigiert (DIR_TMPL), compareUrl mit Fallback, updateAllButtons() erkennt jetzt auch Buttons ohne .btn-compare (via onclick-Attribut-Check) |
+
 ## 2026-04-09 – Phase 3: Filter-System (Modal + Grundfilter-Leiste)
 
 | Datei | Aenderung |
