@@ -434,6 +434,61 @@ foreach ($alert_variants as $variant) {
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-table-border'); ?>"></div>
     </div>
 
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-ellipsis-h me-1"></i> Pagination (Seitennavigation)</div></div>
+    <div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">Normal (Standard)</div><div class="row">
+        <div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>
+            <input type="text" name="tpl-pg-bg" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-bg'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-bg'); ?>"></div></div>
+        <div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>
+            <input type="text" name="tpl-pg-text" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-text'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-text'); ?>"></div></div>
+        <div class="col-sm-4 mb-2"><label><small>Rahmen</small></label>
+            <input type="text" name="tpl-pg-border" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-border'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-border'); ?>"></div></div>
+    </div></div></div>
+
+    <div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">Hover</div><div class="row">
+        <div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>
+            <input type="text" name="tpl-pg-hover-bg" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-hover-bg'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-hover-bg'); ?>"></div></div>
+        <div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>
+            <input type="text" name="tpl-pg-hover-text" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-hover-text'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-hover-text'); ?>"></div></div>
+        <div class="col-sm-4 mb-2"><label><small>Rahmen</small></label>
+            <input type="text" name="tpl-pg-hover-border" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-hover-border'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-hover-border'); ?>"></div></div>
+    </div></div></div>
+
+    <div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">Aktiv (aktuelle Seite)</div><div class="row">
+        <div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>
+            <input type="text" name="tpl-pg-active-bg" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-active-bg'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-active-bg'); ?>"></div></div>
+        <div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>
+            <input type="text" name="tpl-pg-active-text" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-active-text'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-active-text'); ?>"></div></div>
+        <div class="col-sm-4 mb-2"><label><small>Rahmen</small></label>
+            <input type="text" name="tpl-pg-active-border" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-active-border'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-active-border'); ?>"></div></div>
+    </div></div></div>
+
+    <div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">Deaktiviert</div><div class="row">
+        <div class="col-sm-6 mb-2"><label><small>Textfarbe</small></label>
+            <input type="text" name="tpl-pg-disabled-text" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-disabled-text'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-disabled-text'); ?>"></div></div>
+        <div class="col-sm-6 mb-2"><label><small>Rahmen</small></label>
+            <input type="text" name="tpl-pg-disabled-border" class="form-control form-control-sm colorpicker-element" value="<?php echo mrh_cv($c,'tpl-pg-disabled-border'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-pg-disabled-border'); ?>"></div></div>
+    </div></div></div>
+
+    <div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">Gr&ouml;&szlig;en</div><div class="row">
+        <div class="col-sm-4 mb-2"><label><small>Schriftgr&ouml;&szlig;e</small></label>
+            <input type="text" name="tpl-pg-font-size" class="form-control form-control-sm mrh-size-input" value="<?php echo mrh_cv($c,'tpl-pg-font-size'); ?>" placeholder="0.8125rem"></div>
+        <div class="col-sm-4 mb-2"><label><small>Eckenradius</small></label>
+            <input type="text" name="tpl-pg-radius" class="form-control form-control-sm mrh-size-input" value="<?php echo mrh_cv($c,'tpl-pg-radius'); ?>" placeholder="0.375rem"></div>
+        <div class="col-sm-4 mb-2"><label><small>Button-Gr&ouml;&szlig;e</small></label>
+            <input type="text" name="tpl-pg-size" class="form-control form-control-sm mrh-size-input" value="<?php echo mrh_cv($c,'tpl-pg-size'); ?>" placeholder="2.25rem"></div>
+    </div></div></div>
+
     <div class="col-12 mt-2">
         <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Komponenten speichern">
     </div>
@@ -557,7 +612,7 @@ foreach ($socials as $skey => $info) {
 
 </div><!-- /#mrh-configurator-v4 -->
 
-<!-- Tab-Navigation JS (Vanilla, kein jQuery) -->
+<!-- Tab-Navigation JS + Live-Preview (Vanilla, kein jQuery) -->
 <script>
 (function(){
     var tabs = document.querySelectorAll('#mrh-config-tabs .mrh-tab');
@@ -570,11 +625,14 @@ foreach ($socials as $skey => $info) {
             this.classList.add('active');
             var el = document.getElementById('tab-' + target);
             if (el) el.classList.add('active');
+            // Colorpicker in neu sichtbarem Tab initialisieren (admin.php)
+            if (typeof window.mrhReinitColorpickers === 'function') {
+                setTimeout(window.mrhReinitColorpickers, 50);
+            }
         });
     });
-    // Live-Preview für Größen-Inputs (rem-Werte -> CSS-Variablen)
-    var sizeInputs = document.querySelectorAll('.mrh-size-input');
-    sizeInputs.forEach(function(input){
+    // Live-Preview fuer Groessen-Inputs (rem-Werte -> CSS-Variablen)
+    document.querySelectorAll('.mrh-size-input').forEach(function(input){
         input.addEventListener('input', function(){
             var name = this.getAttribute('name');
             var val = this.value.trim();

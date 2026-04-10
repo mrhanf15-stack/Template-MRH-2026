@@ -318,6 +318,24 @@ $mrh_color_defaults = [
     'tpl-table-striped-bg'     => 'rgba(0, 0, 0, 0.05)',
     'tpl-table-hover-bg'       => 'rgba(0, 0, 0, 0.075)',
     'tpl-table-border'         => 'rgb(222, 226, 230)',
+
+    // ══════════════════════════════════════════════════
+    // ── Pagination ──
+    // ══════════════════════════════════════════════════
+    'tpl-pg-bg'                => 'transparent',
+    'tpl-pg-text'              => 'rgb(55, 65, 81)',
+    'tpl-pg-border'            => 'rgb(209, 213, 219)',
+    'tpl-pg-hover-bg'          => 'rgb(240, 253, 244)',
+    'tpl-pg-hover-text'        => 'rgb(22, 101, 52)',
+    'tpl-pg-hover-border'      => 'rgb(134, 239, 172)',
+    'tpl-pg-active-bg'         => 'rgb(22, 163, 74)',
+    'tpl-pg-active-text'       => 'rgb(255, 255, 255)',
+    'tpl-pg-active-border'     => 'rgb(22, 163, 74)',
+    'tpl-pg-disabled-text'     => 'rgb(156, 163, 175)',
+    'tpl-pg-disabled-border'   => 'rgb(229, 231, 235)',
+    'tpl-pg-font-size'         => '0.8125rem',
+    'tpl-pg-radius'            => '0.375rem',
+    'tpl-pg-size'              => '2.25rem',
 ];
 
 $mrh_tpl_defaults = [

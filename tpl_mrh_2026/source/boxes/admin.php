@@ -352,6 +352,8 @@ function mrhToggleConfigurator(){
             if (demo && textInput.value) demo.style.background = textInput.value;
         });
     }
+    // Global exponieren fuer Tab-Wechsel Re-Init aus dem Panel-JS
+    window.mrhReinitColorpickers = initColorpickers;
     // Init beim Laden und beim Oeffnen des Panels
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", initColorpickers);

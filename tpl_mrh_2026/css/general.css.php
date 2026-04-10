@@ -260,6 +260,21 @@ $defaults = [
     'tpl-table-striped-bg'     => 'rgba(0, 0, 0, 0.05)',
     'tpl-table-hover-bg'       => 'rgba(0, 0, 0, 0.075)',
     'tpl-table-border'         => 'rgb(222, 226, 230)',
+    // ── Pagination ──
+    'tpl-pg-bg'                => 'transparent',
+    'tpl-pg-text'              => 'rgb(55, 65, 81)',
+    'tpl-pg-border'            => 'rgb(209, 213, 219)',
+    'tpl-pg-hover-bg'          => 'rgb(240, 253, 244)',
+    'tpl-pg-hover-text'        => 'rgb(22, 101, 52)',
+    'tpl-pg-hover-border'      => 'rgb(134, 239, 172)',
+    'tpl-pg-active-bg'         => 'rgb(22, 163, 74)',
+    'tpl-pg-active-text'       => 'rgb(255, 255, 255)',
+    'tpl-pg-active-border'     => 'rgb(22, 163, 74)',
+    'tpl-pg-disabled-text'     => 'rgb(156, 163, 175)',
+    'tpl-pg-disabled-border'   => 'rgb(229, 231, 235)',
+    'tpl-pg-font-size'         => '0.8125rem',
+    'tpl-pg-radius'            => '0.375rem',
+    'tpl-pg-size'              => '2.25rem',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -435,6 +450,12 @@ echo '.form-control:focus,.form-select:focus{border-color:var(--tpl-form-focus-b
 echo '.table{border-color:var(--tpl-table-border);}';
 echo '.table-striped>tbody>tr:nth-of-type(odd)>*{background-color:var(--tpl-table-striped-bg);}';
 echo '.table-hover>tbody>tr:hover>*{background-color:var(--tpl-table-hover-bg);}';
+
+// ═══ Pagination-Overrides: --tpl-pg-* → .mrh-pagination__* ═══
+echo '.mrh-pagination__link{background:var(--tpl-pg-bg);color:var(--tpl-pg-text);border-color:var(--tpl-pg-border);font-size:var(--tpl-pg-font-size);border-radius:var(--tpl-pg-radius);min-width:var(--tpl-pg-size);height:var(--tpl-pg-size);}';
+echo 'a.mrh-pagination__link:hover{background-color:var(--tpl-pg-hover-bg);color:var(--tpl-pg-hover-text);border-color:var(--tpl-pg-hover-border);}';
+echo '.mrh-pagination__link--current{background-color:var(--tpl-pg-active-bg) !important;color:var(--tpl-pg-active-text) !important;border-color:var(--tpl-pg-active-border) !important;}';
+echo '.mrh-pagination__link--disabled{color:var(--tpl-pg-disabled-text);border-color:var(--tpl-pg-disabled-border);}';
 ?>
 </style>
 <style>
