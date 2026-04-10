@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v4.0.0 - CSS (tpl_mrh_2026)
+   Product Compare v4.1.0 - CSS (tpl_mrh_2026)
    
    Nur Compare-spezifische Styles.
    Grid wird komplett ueber Bootstrap 5.3 row/col gesteuert.
@@ -43,19 +43,43 @@
     transform: scale(1.15);
 }
 
-/* === Short Description - Fixed Height with Scroll === */
+/* === Short Description - Fixed Height, Top-Aligned, Scrollable === */
 .compare-desc-box {
-    height: 350px;
+    height: 280px;
     overflow-y: auto;
     flex-shrink: 0;
-    align-self: flex-start;
     width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .compare-desc-box .lr_desc {
     position: relative;
     max-height: none;
-    padding-top: 28px;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+/* === Card Body above desc-box: reduce bottom padding === */
+.compare-card .card-body.pb-1 + .compare-desc-box,
+.compare-card .card-body + .compare-desc-box {
+    padding-top: 0;
+}
+
+/* === Card Uniform Structure === */
+.compare-card {
+    overflow: hidden;
+}
+
+/* === Buttons Row - Uniform alignment === */
+.compare-card .compare-btn-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+}
+.compare-card .compare-btn-row .btn-details-right {
+    margin-left: auto;
 }
 
 /* === Picto Icon - Absolute so it does not push table down === */
