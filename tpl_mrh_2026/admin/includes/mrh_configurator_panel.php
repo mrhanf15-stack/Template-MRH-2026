@@ -1,18 +1,20 @@
 <?php
 /* =====================================================================
-   MRH 2026 Template – Konfigurator Panel v3.0
+   MRH 2026 Template – Konfigurator Panel v4.0
    
    Wird eingebunden via source/boxes/admin.php
    Benötigt: admin/includes/mrh_configurator.php (PHP-Backend)
    
-   v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
-                       Kein mrh-* / tpl-* Dualismus mehr!
+   v4.0 (2026-04-10): Komplett-Umbau auf 7-Tab-Layout
+     1. Allgemein    – Grundfarben, Hintergrund, Schrift, Footer, Topbar
+     2. Navigation   – Menü, Sticky Header
+     3. Buttons      – Gefüllt, Outline, Spezial
+     4. Typografie   – h1-h6 (Größe+Farbe), Body, Links, text-*
+     5. Komponenten  – bg-*, border-*, alert-*, card, form, table
+     6. Einstellungen – Infinite Scroll, Barrierefrei, Logos, Social
+     7. Custom CSS   – Textarea mit Live-Preview
    
-   Sektionen:
-   1. Farben individualisieren (inkl. Menü + Topbar + Sticky + Buttons)
-   2. Weitere Konfiguration
-   3. Zahlungs- und Versandlogos
-   4. Social Media Links
+   v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
    ===================================================================== */
 
 // Backend laden (liest/schreibt JSON, setzt $GLOBALS)
@@ -37,61 +39,115 @@ function mrh_cv($colors, $key) {
 if (!empty($msg)) echo $msg;
 ?>
 
-<div id="mrh-configurator" class="accordion accordion-flush" role="region">
+<!-- MRH Konfigurator v4.0 – Tab-Layout -->
+<style>
+.mrh-tabs{display:flex;border-bottom:2px solid #dee2e6;margin:0 12px;flex-wrap:wrap;gap:2px;}
+.mrh-tab{padding:7px 12px;cursor:pointer;font-size:12px;font-weight:600;color:#666;border:1px solid transparent;border-bottom:none;border-radius:4px 4px 0 0;margin-bottom:-2px;white-space:nowrap;user-select:none;transition:all .15s;}
+.mrh-tab:hover{color:#333;background:#f8f9fa;}
+.mrh-tab.active{color:#4a8c2a;border-color:#dee2e6;border-bottom:2px solid #fff;background:#fff;}
+.mrh-tab-pane{display:none;padding:12px;}
+.mrh-tab-pane.active{display:block;}
+.mrh-sh{border-bottom:2px solid #4a8c2a;padding:5px 0;margin:14px 0 8px;font-weight:700;font-size:13px;color:#333;}
+.mrh-fg{background:#f8f9fa;border-radius:6px;padding:8px 10px;margin-bottom:6px;}
+.mrh-fg-title{font-size:12px;font-weight:700;margin-bottom:4px;}
+</style>
 
-  <!-- ===== SEKTION 1: FARBEN ===== -->
-  <section class="card mt-4 mb-4 mx-3">
-    <header class="card-header" id="mrhHeadingColors">
-      <button class="btn btn-link text-start w-100 p-0" type="button"
-              data-bs-toggle="collapse" data-bs-target="#mrhCollapseColors"
-              aria-expanded="true" aria-controls="mrhCollapseColors">
-        <strong class="h5 mb-0"><i class="fa fa-palette me-2"></i>Farben individualisieren</strong>
-      </button>
-    </header>
+<div id="mrh-configurator-v4">
 
-    <div id="mrhCollapseColors" class="accordion-collapse collapse show"
-         aria-labelledby="mrhHeadingColors" data-bs-parent="#mrh-configurator">
-      <div class="card-body">
-        <form id="mrh-colorsettings" class="row" method="post" action="">
+<!-- Tab-Navigation -->
+<div class="mrh-tabs" id="mrh-config-tabs">
+    <div class="mrh-tab active" data-tab="allgemein"><i class="fa fa-palette me-1"></i>Allgemein</div>
+    <div class="mrh-tab" data-tab="navigation"><i class="fa fa-bars me-1"></i>Navigation</div>
+    <div class="mrh-tab" data-tab="buttons"><i class="fa fa-square me-1"></i>Buttons</div>
+    <div class="mrh-tab" data-tab="typografie"><i class="fa fa-font me-1"></i>Typografie</div>
+    <div class="mrh-tab" data-tab="komponenten"><i class="fa fa-puzzle-piece me-1"></i>Komponenten</div>
+    <div class="mrh-tab" data-tab="einstellungen"><i class="fa fa-cog me-1"></i>Einstellungen</div>
+    <div class="mrh-tab" data-tab="customcss"><i class="fa fa-code me-1"></i>Custom CSS</div>
+</div>
 
-          <!-- Hauptfarben -->
-          <section class="col-sm-12 mb-3">
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-circle-half-stroke me-1"></i> Hauptfarben
-            </h6>
-            <div class="row">
-              <div class="col-sm-4 mb-3">
-                <label for="tpl-main-color"><strong>Prim&auml;rfarbe</strong></label>
-                <input id="tpl-main-color" type="text" name="tpl-main-color"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-main-color'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-main-color'); ?>"></div>
-              </div>
-              <div class="col-sm-4 mb-3">
-                <label for="tpl-main-color-2"><strong>Sekund&auml;rfarbe</strong></label>
-                <input id="tpl-main-color-2" type="text" name="tpl-main-color-2"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-main-color-2'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-main-color-2'); ?>"></div>
-              </div>
-              <div class="col-sm-4 mb-3">
-                <label for="tpl-secondary-color"><strong>Akzentfarbe</strong></label>
-                <input id="tpl-secondary-color" type="text" name="tpl-secondary-color"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-secondary-color'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-secondary-color'); ?>"></div>
-              </div>
-            </div>
-          </section>
+<!-- ================================================================== -->
+<!-- TAB 1: ALLGEMEIN -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane active" id="tab-allgemein">
+<form id="mrh-form-allgemein" class="row mx-0" method="post" action="">
 
-          <hr class="mx-3">
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-circle-half-stroke me-1"></i> Hauptfarben</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-main-color"><strong>Prim&auml;rfarbe</strong></label>
+        <input id="tpl-main-color" type="text" name="tpl-main-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-main-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-main-color'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-main-color-2"><strong>Sekund&auml;rfarbe</strong></label>
+        <input id="tpl-main-color-2" type="text" name="tpl-main-color-2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-main-color-2'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-main-color-2'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-secondary-color"><strong>Akzentfarbe</strong></label>
+        <input id="tpl-secondary-color" type="text" name="tpl-secondary-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-secondary-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-secondary-color'); ?>"></div>
+    </div>
 
-          <!-- Men&uuml;-Farben -->
-          <section class="col-sm-12 mb-3">
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-bars me-1"></i> Hauptnavigation (Men&uuml;-Leiste)
-            </h6>
-            <div class="row">
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-grip-lines me-1"></i> Topbar (Trust-Leiste)</div></div>
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-topbar-bg"><strong>Topbar Hintergrund</strong></label>
+        <input id="tpl-topbar-bg" type="text" name="tpl-topbar-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-topbar-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-topbar-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-topbar-text"><strong>Topbar Textfarbe</strong></label>
+        <input id="tpl-topbar-text" type="text" name="tpl-topbar-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-topbar-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-topbar-text'); ?>"></div>
+    </div>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-fill-drip me-1"></i> Hintergrundfarben</div></div>
+<?php
+$bg_fields = [
+    'tpl-bg-color'      => 'Hintergrundfarbe 1',
+    'tpl-bg-color-2'    => 'Hintergrundfarbe 2',
+    'tpl-bg-productbox' => 'Produktboxen Hintergrund',
+    'tpl-bg-footer'     => 'Footer Hintergrund',
+];
+foreach ($bg_fields as $key => $label) {
+    echo '<div class="col-sm-6 mb-3">';
+    echo '<label for="'.$key.'"><strong>'.$label.'</strong></label>';
+    echo '<input id="'.$key.'" type="text" name="'.$key.'" class="form-control colorpicker-element" value="'.mrh_cv($c,$key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
+    echo '</div>';
+}
+?>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-font me-1"></i> Schriftfarben</div></div>
+<?php
+$text_fields = [
+    'tpl-text-standard'        => 'Standard Schriftfarbe',
+    'tpl-text-headings'        => '&Uuml;berschriften Schriftfarbe',
+    'tpl-text-button'          => 'Schriftfarbe in Buttons &amp; Badges',
+    'tpl-text-footer'          => 'Schriftfarbe Text &amp; Links im Footer',
+    'tpl-text-footer-headings' => '&Uuml;berschriften im Footer',
+];
+foreach ($text_fields as $key => $label) {
+    echo '<div class="col-sm-6 mb-3">';
+    echo '<label for="'.$key.'"><strong>'.$label.'</strong></label>';
+    echo '<input id="'.$key.'" type="text" name="'.$key.'" class="form-control colorpicker-element" value="'.mrh_cv($c,$key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
+    echo '</div>';
+}
+?>
+
+    <div class="col-12 mt-2">
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Allgemein speichern">
+    </div>
+</form>
+</div>
+
+<!-- ================================================================== -->
+<!-- TAB 2: NAVIGATION -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-navigation">
+<form id="mrh-form-navigation" class="row mx-0" method="post" action="">
+
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-bars me-1"></i> Hauptnavigation (Men&uuml;-Leiste)</div></div>
 <?php
 $menu_fields = [
     'tpl-menu-bg'     => 'Men&uuml; Hintergrund',
@@ -107,410 +163,311 @@ foreach ($menu_fields as $key => $label) {
     echo '</div>';
 }
 ?>
-            </div>
-          </section>
 
-          <hr class="mx-3">
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-thumbtack me-1"></i> Sticky Header</div></div>
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
+        <input id="tpl-sticky-bg" type="text" name="tpl-sticky-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sticky-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
+        <input id="tpl-sticky-text" type="text" name="tpl-sticky-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sticky-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-text'); ?>"></div>
+    </div>
 
-          <!-- Topbar-Farben -->
-          <section class="col-sm-12 mb-3">
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-grip-lines me-1"></i> Topbar (Trust-Leiste)
-            </h6>
-            <div class="row">
-              <div class="col-sm-6 mb-3">
-                <label for="tpl-topbar-bg"><strong>Topbar Hintergrund</strong></label>
-                <input id="tpl-topbar-bg" type="text" name="tpl-topbar-bg"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-topbar-bg'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-topbar-bg'); ?>"></div>
-              </div>
-              <div class="col-sm-6 mb-3">
-                <label for="tpl-topbar-text"><strong>Topbar Textfarbe</strong></label>
-                <input id="tpl-topbar-text" type="text" name="tpl-topbar-text"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-topbar-text'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-topbar-text'); ?>"></div>
-              </div>
-            </div>
-          </section>
+    <div class="col-12 mt-2">
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Navigation speichern">
+    </div>
+</form>
+</div>
 
-          <hr class="mx-3">
+<!-- ================================================================== -->
+<!-- TAB 3: BUTTONS -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-buttons">
+<form id="mrh-form-buttons" class="row mx-0" method="post" action="">
 
-          <!-- Hintergrundfarben -->
-          <section class="col-sm-6 mb-3">
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-fill-drip me-1"></i> Hintergrundfarben
-            </h6>
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-square me-1"></i> Gef&uuml;llte Buttons (btn-*)</div></div>
 <?php
-$bg_fields = [
-    'tpl-bg-color'      => 'Hintergrundfarbe 1',
-    'tpl-bg-color-2'    => 'Hintergrundfarbe 2',
-    'tpl-bg-productbox' => 'Produktboxen Hintergrund',
-    'tpl-bg-footer'     => 'Footer Hintergrund',
-];
-foreach ($bg_fields as $key => $label) {
-    echo '<div class="mb-3">';
-    echo '<label for="'.$key.'"><strong>'.$label.'</strong></label>';
-    echo '<input id="'.$key.'" type="text" name="'.$key.'" class="form-control colorpicker-element" value="'.mrh_cv($c,$key).'">';
-    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
-    echo '</div>';
-}
-?>
-          </section>
-
-          <!-- Schriftfarben -->
-          <section class="col-sm-6 mb-3">
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-font me-1"></i> Schriftfarben
-            </h6>
-<?php
-$text_fields = [
-    'tpl-text-standard'        => 'Standard Schriftfarbe',
-    'tpl-text-headings'        => '&Uuml;berschriften Schriftfarbe',
-    'tpl-text-button'          => 'Schriftfarbe in Buttons &amp; Badges',
-    'tpl-text-footer'          => 'Schriftfarbe Text &amp; Links im Footer',
-    'tpl-text-footer-headings' => '&Uuml;berschriften im Footer',
-];
-foreach ($text_fields as $key => $label) {
-    echo '<div class="mb-3">';
-    echo '<label for="'.$key.'"><strong>'.$label.'</strong></label>';
-    echo '<input id="'.$key.'" type="text" name="'.$key.'" class="form-control colorpicker-element" value="'.mrh_cv($c,$key).'">';
-    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
-    echo '</div>';
-}
-?>
-          </section>
-
-          <!-- Sticky Header -->
-          <section class="col-sm-12 mb-3">
-            <hr>
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-thumbtack me-1"></i> Sticky Header
-            </h6>
-            <div class="row">
-              <div class="col-sm-6 mb-3">
-                <label for="tpl-sticky-bg"><strong>Sticky Header Hintergrund</strong></label>
-                <input id="tpl-sticky-bg" type="text" name="tpl-sticky-bg"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-sticky-bg'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-bg'); ?>"></div>
-              </div>
-              <div class="col-sm-6 mb-3">
-                <label for="tpl-sticky-text"><strong>Sticky Header Textfarbe</strong></label>
-                <input id="tpl-sticky-text" type="text" name="tpl-sticky-text"
-                       class="form-control colorpicker-element"
-                       value="<?php echo mrh_cv($c,'tpl-sticky-text'); ?>">
-                <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-text'); ?>"></div>
-              </div>
-            </div>
-          </section>
-
-          <!-- ══════════════════════════════════════════════════ -->
-          <!-- Gef&uuml;llte Buttons (btn-*) -->
-          <!-- ══════════════════════════════════════════════════ -->
-          <section class="col-sm-12 mb-3">
-            <hr>
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-square me-1"></i> Gef&uuml;llte Buttons
-            </h6>
-<?php
-$filled_buttons = [
-    'primary'   => ['label' => 'Primary',   'icon' => 'fa-circle'],
-    'secondary' => ['label' => 'Secondary', 'icon' => 'fa-circle'],
-    'success'   => ['label' => 'Success',   'icon' => 'fa-check-circle'],
-    'danger'    => ['label' => 'Danger',    'icon' => 'fa-exclamation-circle'],
-    'warning'   => ['label' => 'Warning',   'icon' => 'fa-exclamation-triangle'],
-    'info'      => ['label' => 'Info',      'icon' => 'fa-info-circle'],
-    'light'     => ['label' => 'Light',     'icon' => 'fa-sun'],
-    'dark'      => ['label' => 'Dark',      'icon' => 'fa-moon'],
-];
-foreach ($filled_buttons as $variant => $meta) {
+$filled_buttons = ['primary'=>'Primary','secondary'=>'Secondary','success'=>'Success','danger'=>'Danger','warning'=>'Warning','info'=>'Info','light'=>'Light','dark'=>'Dark'];
+foreach ($filled_buttons as $variant => $label) {
     $bg_key    = 'tpl-btn-' . $variant . '-bg';
     $text_key  = 'tpl-btn-' . $variant . '-text';
     $hover_key = 'tpl-btn-' . $variant . '-hover';
-    echo '<div class="row mb-2">';
-    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> btn-' . $variant . '</strong></div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $bg_key . '">Hintergrund</label>';
-    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $text_key . '">Textfarbe</label>';
-    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $hover_key . '">Hover Hintergrund</label>';
-    echo '<input id="' . $hover_key . '" type="text" name="' . $hover_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $hover_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $hover_key) . '"></div>';
-    echo '</div>';
-    echo '</div>';
+    echo '<div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">btn-'.$variant.' ('.$label.')</div><div class="row">';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>';
+    echo '<input type="text" name="'.$bg_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$bg_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$bg_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>';
+    echo '<input type="text" name="'.$text_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$text_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$text_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hover</small></label>';
+    echo '<input type="text" name="'.$hover_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$hover_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$hover_key).'"></div></div>';
+    echo '</div></div></div>';
 }
 ?>
-          </section>
 
-          <!-- ══════════════════════════════════════════════════ -->
-          <!-- Outline Buttons (btn-outline-*) -->
-          <!-- ══════════════════════════════════════════════════ -->
-          <section class="col-sm-12 mb-3">
-            <hr>
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-square-o me-1"></i> Outline Buttons
-            </h6>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-square-full me-1"></i> Outline Buttons (btn-outline-*)</div></div>
 <?php
-// Allgemeine Outline-Felder (Legacy-Kompatibilit&auml;t)
-$outline_general = [
-    'tpl-btn-outline-border' => 'Outline Rahmenfarbe',
-    'tpl-btn-outline-text'   => 'Outline Textfarbe',
-    'tpl-btn-outline-hover'  => 'Outline Hover',
-];
-echo '<div class="row mb-3">';
-foreach ($outline_general as $key => $label) {
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $key . '"><strong>' . $label . '</strong></label>';
-    echo '<input id="' . $key . '" type="text" name="' . $key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $key) . '"></div>';
-    echo '</div>';
-}
-echo '</div>';
-echo '<hr class="my-2">';
-
-// Einzelne Outline-Varianten
-$outline_buttons = [
-    'primary'   => ['label' => 'Outline Primary',   'icon' => 'fa-circle-o'],
-    'secondary' => ['label' => 'Outline Secondary', 'icon' => 'fa-circle-o'],
-    'success'   => ['label' => 'Outline Success',   'icon' => 'fa-check-circle-o'],
-    'danger'    => ['label' => 'Outline Danger',    'icon' => 'fa-exclamation-circle'],
-    'warning'   => ['label' => 'Outline Warning',   'icon' => 'fa-exclamation-triangle'],
-    'info'      => ['label' => 'Outline Info',      'icon' => 'fa-info-circle'],
-    'light'     => ['label' => 'Outline Light',     'icon' => 'fa-sun-o'],
-    'dark'      => ['label' => 'Outline Dark',      'icon' => 'fa-moon-o'],
-];
-foreach ($outline_buttons as $variant => $meta) {
+foreach ($filled_buttons as $variant => $label) {
     $bg_key    = 'tpl-btn-outline-' . $variant . '-bg';
     $text_key  = 'tpl-btn-outline-' . $variant . '-text';
     $hover_key = 'tpl-btn-outline-' . $variant . '-hover';
-    echo '<div class="row mb-2">';
-    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> btn-outline-' . $variant . '</strong></div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $bg_key . '">Hintergrund</label>';
-    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $text_key . '">Textfarbe</label>';
-    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $hover_key . '">Hover Hintergrund</label>';
-    echo '<input id="' . $hover_key . '" type="text" name="' . $hover_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $hover_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $hover_key) . '"></div>';
-    echo '</div>';
-    echo '</div>';
+    echo '<div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">btn-outline-'.$variant.' ('.$label.')</div><div class="row">';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>';
+    echo '<input type="text" name="'.$bg_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$bg_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$bg_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>';
+    echo '<input type="text" name="'.$text_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$text_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$text_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hover</small></label>';
+    echo '<input type="text" name="'.$hover_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$hover_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$hover_key).'"></div></div>';
+    echo '</div></div></div>';
 }
 ?>
-          </section>
 
-          <!-- ══════════════════════════════════════════════════ -->
-          <!-- Spezial-Buttons (Express, Details, Wishlist, Compare) -->
-          <!-- ══════════════════════════════════════════════════ -->
-          <section class="col-sm-12 mb-3">
-            <hr>
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-star me-1"></i> Spezial-Buttons
-            </h6>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-star me-1"></i> Spezial-Buttons</div></div>
 <?php
-$special_buttons = [
-    'express'  => ['label' => 'Express Kaufen', 'icon' => 'fa-bolt'],
-    'details'  => ['label' => 'Details',        'icon' => 'fa-eye'],
-    'wishlist' => ['label' => 'Merkzettel',     'icon' => 'fa-heart'],
-    'compare'  => ['label' => 'Vergleichen',    'icon' => 'fa-exchange'],
-];
-foreach ($special_buttons as $variant => $meta) {
+$special_buttons = ['express'=>'Express Kaufen','details'=>'Details (Auge)','wishlist'=>'Merkzettel (Herz)','compare'=>'Vergleichen (Waage)'];
+foreach ($special_buttons as $variant => $label) {
     $bg_key    = 'tpl-btn-' . $variant . '-bg';
     $text_key  = 'tpl-btn-' . $variant . '-text';
     $hover_key = 'tpl-btn-' . $variant . '-hover';
-    echo '<div class="row mb-2">';
-    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> ' . $meta['label'] . '</strong></div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $bg_key . '">Hintergrund</label>';
-    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $text_key . '">Textfarbe</label>';
-    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-4 mb-2">';
-    echo '<label for="' . $hover_key . '">Hover Hintergrund</label>';
-    echo '<input id="' . $hover_key . '" type="text" name="' . $hover_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $hover_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $hover_key) . '"></div>';
-    echo '</div>';
+    echo '<div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">'.$label.'</div><div class="row">';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>';
+    echo '<input type="text" name="'.$bg_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$bg_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$bg_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>';
+    echo '<input type="text" name="'.$text_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$text_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$text_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hover</small></label>';
+    echo '<input type="text" name="'.$hover_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$hover_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$hover_key).'"></div></div>';
+    echo '</div></div></div>';
+}
+?>
+
+    <!-- Legacy Outline-Keys (Kompatibilität) -->
+    <input type="hidden" name="tpl-btn-outline-border" value="<?php echo mrh_cv($c,'tpl-btn-outline-border'); ?>">
+    <input type="hidden" name="tpl-btn-outline-text" value="<?php echo mrh_cv($c,'tpl-btn-outline-text'); ?>">
+    <input type="hidden" name="tpl-btn-outline-hover" value="<?php echo mrh_cv($c,'tpl-btn-outline-hover'); ?>">
+
+    <div class="col-12 mt-2">
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Buttons speichern">
+    </div>
+</form>
+</div>
+
+<!-- ================================================================== -->
+<!-- TAB 4: TYPOGRAFIE -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-typografie">
+<form id="mrh-form-typografie" class="row mx-0" method="post" action="">
+
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-heading me-1"></i> &Uuml;berschriften (h1 – h6)</div></div>
+<?php
+for ($i = 1; $i <= 6; $i++) {
+    $size_key  = 'tpl-h'.$i.'-size';
+    $color_key = 'tpl-h'.$i.'-color';
+    echo '<div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">h'.$i.'</div><div class="row">';
+    echo '<div class="col-sm-6 mb-2"><label><small>Schriftgr&ouml;&szlig;e (rem)</small></label>';
+    echo '<input type="text" name="'.$size_key.'" class="form-control form-control-sm mrh-size-input" value="'.mrh_cv($c,$size_key).'" placeholder="z.B. 2.5rem"></div>';
+    echo '<div class="col-sm-6 mb-2"><label><small>Farbe</small></label>';
+    echo '<input type="text" name="'.$color_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$color_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$color_key).'"></div></div>';
+    echo '</div></div></div>';
+}
+?>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-paragraph me-1"></i> Flie&szlig;text &amp; Allgemein</div></div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Body Schriftgr&ouml;&szlig;e</strong></label>
+        <input type="text" name="tpl-body-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-body-size'); ?>" placeholder="z.B. 1rem">
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Body Textfarbe</strong></label>
+        <input type="text" name="tpl-body-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-body-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-body-color'); ?>"></div>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Small / .small Gr&ouml;&szlig;e</strong></label>
+        <input type="text" name="tpl-small-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-small-size'); ?>" placeholder="z.B. 0.875rem">
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>.lead Gr&ouml;&szlig;e</strong></label>
+        <input type="text" name="tpl-lead-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-lead-size'); ?>" placeholder="z.B. 1.25rem">
+    </div>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-link me-1"></i> Links</div></div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Link-Farbe</strong></label>
+        <input type="text" name="tpl-link-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-link-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-link-color'); ?>"></div>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Link Hover-Farbe</strong></label>
+        <input type="text" name="tpl-link-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-link-hover'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-link-hover'); ?>"></div>
+    </div>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-text-height me-1"></i> Text-Klassen (text-*)</div></div>
+<?php
+$text_classes = ['primary'=>'text-primary','secondary'=>'text-secondary','success'=>'text-success','danger'=>'text-danger','warning'=>'text-warning','info'=>'text-info','light'=>'text-light','dark'=>'text-dark','muted'=>'text-muted','white'=>'text-white'];
+foreach ($text_classes as $variant => $label) {
+    $key = 'tpl-text-' . $variant;
+    echo '<div class="col-sm-4 mb-3">';
+    echo '<label><strong>'.$label.'</strong></label>';
+    echo '<input type="text" name="'.$key.'" class="form-control colorpicker-element" value="'.mrh_cv($c,$key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
     echo '</div>';
 }
 ?>
-          </section>
 
-          <!-- ══════════════════════════════════════════════════ -->
-          <!-- Hintergrundfarben (bg-*) -->
-          <!-- ══════════════════════════════════════════════════ -->
-          <section class="col-sm-12 mb-3">
-            <hr>
-            <h6 class="text-muted text-uppercase small mb-3">
-              <i class="fa fa-paint-brush me-1"></i> Hintergrundfarben (bg-*)
-            </h6>
+    <div class="col-12 mt-2">
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Typografie speichern">
+    </div>
+</form>
+</div>
+
+<!-- ================================================================== -->
+<!-- TAB 5: KOMPONENTEN -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-komponenten">
+<form id="mrh-form-komponenten" class="row mx-0" method="post" action="">
+
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-fill-drip me-1"></i> Hintergrundfarben (bg-*)</div></div>
 <?php
-$bg_variants = [
-    'primary'   => ['label' => 'bg-primary',   'icon' => 'fa-square'],
-    'secondary' => ['label' => 'bg-secondary', 'icon' => 'fa-square'],
-    'success'   => ['label' => 'bg-success',   'icon' => 'fa-square'],
-    'danger'    => ['label' => 'bg-danger',    'icon' => 'fa-square'],
-    'warning'   => ['label' => 'bg-warning',   'icon' => 'fa-square'],
-    'info'      => ['label' => 'bg-info',      'icon' => 'fa-square'],
-    'light'     => ['label' => 'bg-light',     'icon' => 'fa-square-o'],
-    'dark'      => ['label' => 'bg-dark',      'icon' => 'fa-square'],
-];
-foreach ($bg_variants as $variant => $meta) {
+$bg_variants = ['primary','secondary','success','danger','warning','info','light','dark'];
+foreach ($bg_variants as $variant) {
     $bg_key   = 'tpl-bg-' . $variant;
     $text_key = 'tpl-bg-' . $variant . '-text';
-    echo '<div class="row mb-2">';
-    echo '<div class="col-12 mb-1"><strong><i class="fa ' . $meta['icon'] . ' me-1"></i> ' . $meta['label'] . '</strong></div>';
-    echo '<div class="col-sm-6 mb-2">';
-    echo '<label for="' . $bg_key . '">Hintergrund</label>';
-    echo '<input id="' . $bg_key . '" type="text" name="' . $bg_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $bg_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $bg_key) . '"></div>';
-    echo '</div>';
-    echo '<div class="col-sm-6 mb-2">';
-    echo '<label for="' . $text_key . '">Textfarbe</label>';
-    echo '<input id="' . $text_key . '" type="text" name="' . $text_key . '" class="form-control colorpicker-element" value="' . mrh_cv($c, $text_key) . '">';
-    echo '<div class="demo-farbe mt-1" style="background:' . mrh_cv($c, $text_key) . '"></div>';
-    echo '</div>';
+    echo '<div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">bg-'.$variant.'</div><div class="row">';
+    echo '<div class="col-sm-6 mb-2"><label><small>Hintergrund</small></label>';
+    echo '<input type="text" name="'.$bg_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$bg_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$bg_key).'"></div></div>';
+    echo '<div class="col-sm-6 mb-2"><label><small>Textfarbe</small></label>';
+    echo '<input type="text" name="'.$text_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$text_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$text_key).'"></div></div>';
+    echo '</div></div></div>';
+}
+?>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-border-all me-1"></i> Rahmenfarben (border-*)</div></div>
+<?php
+foreach ($bg_variants as $variant) {
+    $key = 'tpl-border-' . $variant;
+    echo '<div class="col-sm-3 mb-3">';
+    echo '<label><strong>border-'.$variant.'</strong></label>';
+    echo '<input type="text" name="'.$key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
     echo '</div>';
 }
 ?>
-          </section>
 
-          <section class="col-sm-12">
-            <input type="submit" name="submit-colorsettings" id="submit-colorsettings"
-                   class="btn btn-success btn-lg w-100" value="Farben speichern">
-          </section>
-        </form>
-      </div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-bell me-1"></i> Alerts (alert-*)</div></div>
+<?php
+$alert_variants = ['primary','secondary','success','danger','warning','info'];
+foreach ($alert_variants as $variant) {
+    $bg_key     = 'tpl-alert-' . $variant . '-bg';
+    $text_key   = 'tpl-alert-' . $variant . '-text';
+    $border_key = 'tpl-alert-' . $variant . '-border';
+    echo '<div class="col-12"><div class="mrh-fg"><div class="mrh-fg-title">alert-'.$variant.'</div><div class="row">';
+    echo '<div class="col-sm-4 mb-2"><label><small>Hintergrund</small></label>';
+    echo '<input type="text" name="'.$bg_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$bg_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$bg_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Textfarbe</small></label>';
+    echo '<input type="text" name="'.$text_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$text_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$text_key).'"></div></div>';
+    echo '<div class="col-sm-4 mb-2"><label><small>Rahmen</small></label>';
+    echo '<input type="text" name="'.$border_key.'" class="form-control form-control-sm colorpicker-element" value="'.mrh_cv($c,$border_key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$border_key).'"></div></div>';
+    echo '</div></div></div>';
+}
+?>
+
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-id-card me-1"></i> Card</div></div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Card Hintergrund</strong></label>
+        <input type="text" name="tpl-card-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-card-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-card-bg'); ?>"></div>
     </div>
-  </section>
-
-  <!-- ===== SEKTION 2: WEITERE KONFIGURATION ===== -->
-  <section class="card mb-4 mx-3">
-    <header class="card-header" id="mrhHeadingConfig">
-      <button class="btn btn-link text-start w-100 p-0" type="button"
-              data-bs-toggle="collapse" data-bs-target="#mrhCollapseConfig"
-              aria-expanded="false" aria-controls="mrhCollapseConfig">
-        <strong class="h5 mb-0"><i class="fa fa-sliders me-2"></i>Weitere Konfiguration</strong>
-      </button>
-    </header>
-
-    <div id="mrhCollapseConfig" class="accordion-collapse collapse"
-         aria-labelledby="mrhHeadingConfig" data-bs-parent="#mrh-configurator">
-      <div class="card-body">
-        <form id="mrh-tplsettings" class="row" method="post" action="">
-
-          <section class="col-sm-6 mb-3">
-            <fieldset>
-              <legend><strong>SSL-Zertifikat (https) aktiv?</strong></legend>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
-                       id="mrh-ssl" name="tpl_cfg_ssl" value="on"
-                       <?php if(isset($t['tpl_cfg_ssl']) && $t['tpl_cfg_ssl']==='on') echo 'checked'; ?>>
-                <label class="form-check-label" for="mrh-ssl">SSL aktiv</label>
-              </div>
-            </fieldset>
-          </section>
-
-          <section class="col-sm-6 mb-3">
-            <fieldset>
-              <legend><strong>TrustedShops Siegel im Header?</strong></legend>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
-                       id="mrh-ts" name="tpl_cfg_ts" value="on"
-                       <?php if(isset($t['tpl_cfg_ts']) && $t['tpl_cfg_ts']==='on') echo 'checked'; ?>>
-                <label class="form-check-label" for="mrh-ts">Anzeigen</label>
-              </div>
-            </fieldset>
-          </section>
-
-          <section class="col-sm-6 mb-3">
-            <fieldset>
-              <legend><strong>Men&uuml; horizontal oder vertikal?</strong></legend>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="tpl_cfg_menu"
-                       value="horizontal" id="mrh-menu-h"
-                       <?php if(isset($t['tpl_cfg_menu']) && $t['tpl_cfg_menu']==='horizontal') echo 'checked'; ?>>
-                <label class="form-check-label" for="mrh-menu-h">Horizontal</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="tpl_cfg_menu"
-                       value="vertikal" id="mrh-menu-v"
-                       <?php if(isset($t['tpl_cfg_menu']) && $t['tpl_cfg_menu']==='vertikal') echo 'checked'; ?>>
-                <label class="form-check-label" for="mrh-menu-v">Vertikal</label>
-              </div>
-            </fieldset>
-          </section>
-
-          <section class="col-sm-6 mb-3">
-            <fieldset>
-              <legend><strong>Infinite Scroll?</strong></legend>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
-                       id="mrh-infinitescroll" name="tpl_cfg_infinitescroll" value="on"
-                       <?php if(isset($t['tpl_cfg_infinitescroll']) && $t['tpl_cfg_infinitescroll']==='on') echo 'checked'; ?>>
-                <label class="form-check-label" for="mrh-infinitescroll">Aktiv (Kategorie- &amp; Suchergebnisseiten)</label>
-              </div>
-            </fieldset>
-          </section>
-
-          <section class="col-sm-6 mb-3">
-            <fieldset>
-              <legend><strong>Barrierefrei-Tool?</strong></legend>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
-                       id="mrh-barrierefreiTool" name="tpl_cfg_barrierefreiTool" value="on"
-                       <?php if(isset($t['tpl_cfg_barrierefreiTool']) && $t['tpl_cfg_barrierefreiTool']==='on') echo 'checked'; ?>>
-                <label class="form-check-label" for="mrh-barrierefreiTool">Anzeigen (unten links)</label>
-              </div>
-            </fieldset>
-          </section>
-
-          <section class="col-sm-12">
-            <input type="submit" name="submit-tplsettings" id="submit-tplsettings"
-                   class="btn btn-success btn-lg w-100" value="Konfiguration speichern">
-          </section>
-        </form>
-      </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Card Rahmen</strong></label>
+        <input type="text" name="tpl-card-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-card-border'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-card-border'); ?>"></div>
     </div>
-  </section>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Card Header BG</strong></label>
+        <input type="text" name="tpl-card-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-card-header-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-card-header-bg'); ?>"></div>
+    </div>
 
-  <!-- ===== SEKTION 3: ZAHLUNGS- UND VERSANDLOGOS ===== -->
-  <section class="card mb-4 mx-3">
-    <header class="card-header" id="mrhHeadingLogos">
-      <button class="btn btn-link text-start w-100 p-0" type="button"
-              data-bs-toggle="collapse" data-bs-target="#mrhCollapseLogos"
-              aria-expanded="false" aria-controls="mrhCollapseLogos">
-        <strong class="h5 mb-0"><i class="fa fa-credit-card me-2"></i>Zahlungs- und Versandlogos</strong>
-      </button>
-    </header>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-keyboard me-1"></i> Formular-Elemente</div></div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Focus Rahmenfarbe</strong></label>
+        <input type="text" name="tpl-form-focus-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-form-focus-border'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-form-focus-border'); ?>"></div>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Focus Schatten</strong></label>
+        <input type="text" name="tpl-form-focus-shadow" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-form-focus-shadow'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-form-focus-shadow'); ?>"></div>
+    </div>
 
-    <div id="mrhCollapseLogos" class="accordion-collapse collapse"
-         aria-labelledby="mrhHeadingLogos" data-bs-parent="#mrh-configurator">
-      <div class="card-body">
-        <form id="mrh-logosettings" class="row" method="post" action="">
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-table me-1"></i> Tabellen</div></div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Striped Hintergrund</strong></label>
+        <input type="text" name="tpl-table-striped-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-table-striped-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-table-striped-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Hover Hintergrund</strong></label>
+        <input type="text" name="tpl-table-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-table-hover-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-table-hover-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Tabellen-Rahmen</strong></label>
+        <input type="text" name="tpl-table-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-table-border'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-table-border'); ?>"></div>
+    </div>
 
-          <section class="col-sm-12 mb-4">
-            <strong>Zahlungslogos</strong>
-            <div class="row mt-2">
+    <div class="col-12 mt-2">
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Komponenten speichern">
+    </div>
+</form>
+</div>
+
+<!-- ================================================================== -->
+<!-- TAB 6: EINSTELLUNGEN -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-einstellungen">
+
+<form id="mrh-form-tplsettings" class="row mx-0" method="post" action="">
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-sliders me-1"></i> Allgemeine Einstellungen</div></div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Infinite Scroll</strong></label>
+        <select name="tpl_cfg_infinitescroll" class="form-select">
+            <option value="on" <?php echo ($t['tpl_cfg_infinitescroll'] ?? 'on') === 'on' ? 'selected' : ''; ?>>Aktiviert</option>
+            <option value="off" <?php echo ($t['tpl_cfg_infinitescroll'] ?? 'on') === 'off' ? 'selected' : ''; ?>>Deaktiviert</option>
+        </select>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Barrierefrei-Tool</strong></label>
+        <select name="tpl_cfg_barrierefreiTool" class="form-select">
+            <option value="on" <?php echo ($t['tpl_cfg_barrierefreiTool'] ?? 'on') === 'on' ? 'selected' : ''; ?>>Aktiviert</option>
+            <option value="off" <?php echo ($t['tpl_cfg_barrierefreiTool'] ?? 'on') === 'off' ? 'selected' : ''; ?>>Deaktiviert</option>
+        </select>
+    </div>
+    <div class="col-12 mt-2 mb-4">
+        <input type="submit" name="submit-tplsettings" class="btn btn-success btn-lg w-100" value="Einstellungen speichern">
+    </div>
+</form>
+
+<form id="mrh-form-logos" class="row mx-0" method="post" action="">
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-credit-card me-1"></i> Zahlungslogos</div></div>
 <?php
 $payments = ['vorkasse','paypal','kreditkarten','applepay','googlepay','amazon','klarna','lastschrift','rechnung'];
 $active_payments = isset($l['payment']) ? $l['payment'] : [];
@@ -520,22 +477,15 @@ foreach ($payments as $p) {
     if ($p === 'applepay') $plabel = 'Apple Pay';
     if ($p === 'googlepay') $plabel = 'Google Pay';
     if ($p === 'kreditkarten') $plabel = 'Kreditkarten';
-    echo '<div class="col-sm-3 mb-2">';
-    echo '<div class="form-check">';
+    echo '<div class="col-sm-3 mb-2"><div class="form-check">';
     echo '<input class="form-check-input" type="checkbox" name="mrh_cfg_payment_logos[]" value="'.$p.'" id="mrh_pay_'.$p.'" '.$checked.'>';
     echo '<label class="form-check-label" for="mrh_pay_'.$p.'">';
-    echo '<img height="36" width="36" src="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/img/payment/zahlungsarten_'.$p.'.webp" alt="'.$plabel.'" loading="lazy"> '.$plabel;
-    echo '</label>';
-    echo '</div>';
-    echo '</div>';
+    echo '<img height="28" width="28" src="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/img/payment/zahlungsarten_'.$p.'.webp" alt="'.$plabel.'" loading="lazy"> '.$plabel;
+    echo '</label></div></div>';
 }
 ?>
-            </div>
-          </section>
 
-          <section class="col-sm-12 mb-4">
-            <strong>Versandlogos</strong>
-            <div class="row mt-2">
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1"></i> Versandlogos</div></div>
 <?php
 $shippers = ['hermes','dhl','dpd','ups','gls','fedex'];
 $active_shipping = isset($l['shipping']) ? $l['shipping'] : [];
@@ -544,74 +494,22 @@ foreach ($shippers as $sh) {
     $slabel = strtoupper($sh);
     if ($sh === 'hermes') $slabel = 'Hermes';
     if ($sh === 'fedex') $slabel = 'FedEx';
-    echo '<div class="col-sm-3 mb-2">';
-    echo '<div class="form-check">';
+    echo '<div class="col-sm-3 mb-2"><div class="form-check">';
     echo '<input class="form-check-input" type="checkbox" name="mrh_cfg_shipping_logos[]" value="'.$sh.'" id="mrh_ship_'.$sh.'" '.$checked.'>';
     echo '<label class="form-check-label" for="mrh_ship_'.$sh.'">';
-    echo '<img height="36" width="36" src="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/img/shipping/'.$sh.'.webp" alt="'.$slabel.'" loading="lazy"> '.$slabel;
-    echo '</label>';
-    echo '</div>';
-    echo '</div>';
+    echo '<img height="28" width="28" src="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/img/shipping/'.$sh.'.webp" alt="'.$slabel.'" loading="lazy"> '.$slabel;
+    echo '</label></div></div>';
 }
 ?>
-            </div>
-          </section>
 
-          <section class="col-sm-12">
-            <input type="submit" name="submit-logosettings" id="submit-logosettings"
-                   class="btn btn-success btn-lg w-100" value="Logos speichern">
-          </section>
-        </form>
-      </div>
+    <div class="col-12 mt-2 mb-4">
+        <input type="submit" name="submit-logosettings" class="btn btn-success btn-lg w-100" value="Logos speichern">
     </div>
-  </section>
+</form>
 
-  <!-- ===== SEKTION 5: CUSTOM CSS ===== -->
-  <section class="card mb-4 mx-3">
-    <header class="card-header" id="mrhHeadingCustomCSS">
-      <button class="btn btn-link text-start w-100 p-0" type="button"
-              data-bs-toggle="collapse" data-bs-target="#mrhCollapseCustomCSS"
-              aria-expanded="false" aria-controls="mrhCollapseCustomCSS">
-        <strong class="h5 mb-0"><i class="fa fa-code me-2"></i>Custom CSS</strong>
-      </button>
-    </header>
-
-    <div id="mrhCollapseCustomCSS" class="accordion-collapse collapse"
-         aria-labelledby="mrhHeadingCustomCSS" data-bs-parent="#mrh-configurator">
-      <div class="card-body">
-        <form id="mrh-customcss" method="post" action="">
-          <section class="col-sm-12 mb-3">
-            <p class="text-muted">Eigenes CSS eingeben. &Auml;nderungen werden <strong>sofort live</strong> auf der Seite angezeigt. Zum dauerhaften Speichern den Button unten verwenden.</p>
-            <textarea id="mrh-custom-css-textarea" name="mrh_custom_css" class="form-control font-monospace"
-                      rows="18" spellcheck="false"
-                      placeholder="/* Eigenes CSS hier eingeben */&#10;.mein-element {&#10;    color: red;&#10;    font-size: 16px;&#10;}"><?php echo htmlspecialchars(isset($GLOBALS['mrh_custom_css']) ? $GLOBALS['mrh_custom_css'] : ''); ?></textarea>
-          </section>
-
-          <section class="col-sm-12">
-            <input type="submit" name="submit-customcss" id="submit-customcss"
-                   class="btn btn-success btn-lg w-100" value="Custom CSS speichern">
-          </section>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SEKTION 4: SOCIAL MEDIA ===== -->
-  <section class="card mb-4 mx-3">
-    <header class="card-header" id="mrhHeadingSocial">
-      <button class="btn btn-link text-start w-100 p-0" type="button"
-              data-bs-toggle="collapse" data-bs-target="#mrhCollapseSocial"
-              aria-expanded="false" aria-controls="mrhCollapseSocial">
-        <strong class="h5 mb-0"><i class="fa-brands fa-instagram me-2"></i>Social Media Links</strong>
-      </button>
-    </header>
-
-    <div id="mrhCollapseSocial" class="accordion-collapse collapse"
-         aria-labelledby="mrhHeadingSocial" data-bs-parent="#mrh-configurator">
-      <div class="card-body">
-        <form id="mrh-socialsettings" class="row" method="post" action="">
-          <section class="col-sm-12 mb-3">
-            <p class="text-muted">Tragen Sie Ihre Social Media Links ein. Leere Felder werden nicht angezeigt.</p>
+<form id="mrh-form-social" class="row mx-0" method="post" action="">
+    <div class="col-12"><div class="mrh-sh"><i class="fa-brands fa-instagram me-1"></i> Social Media Links</div></div>
+    <div class="col-12 mb-2"><p class="text-muted small">Tragen Sie Ihre Social Media Links ein. Leere Felder werden nicht angezeigt.</p></div>
 <?php
 $socials = [
     'facebook'  => ['label' => 'Facebook',    'icon' => 'fa-brands fa-facebook',  'placeholder' => 'https://www.facebook.com/IhrName'],
@@ -624,23 +522,66 @@ $socials = [
 ];
 foreach ($socials as $skey => $info) {
     $val = isset($s[$skey]) ? htmlspecialchars($s[$skey]) : '';
-    echo '<div class="row mb-3">';
-    echo '<div class="col-sm-12">';
+    echo '<div class="col-sm-6 mb-3">';
     echo '<label for="mrh-social-'.$skey.'"><strong><i class="'.$info['icon'].' me-1"></i>'.$info['label'].'</strong></label>';
     echo '<input type="url" class="form-control" id="mrh-social-'.$skey.'" name="'.$skey.'" value="'.$val.'" placeholder="'.$info['placeholder'].'">';
     echo '</div>';
-    echo '</div>';
 }
 ?>
-          </section>
 
-          <section class="col-sm-12">
-            <input type="submit" name="submit-socialsettings" id="submit-socialsettings"
-                   class="btn btn-success btn-lg w-100" value="Social Media Links speichern">
-          </section>
-        </form>
-      </div>
+    <div class="col-12 mt-2">
+        <input type="submit" name="submit-socialsettings" class="btn btn-success btn-lg w-100" value="Social Media Links speichern">
     </div>
-  </section>
-
+</form>
 </div>
+
+<!-- ================================================================== -->
+<!-- TAB 7: CUSTOM CSS -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-customcss">
+<form id="mrh-form-customcss" method="post" action="">
+
+    <div class="mrh-sh mx-2"><i class="fa fa-code me-1"></i> Eigenes CSS (Live-Preview)</div>
+    <p class="text-muted small mx-2">CSS wird sofort auf der Seite angewendet. Erst beim Speichern wird es persistent.</p>
+
+    <textarea id="mrh-custom-css-textarea" name="mrh_custom_css" class="form-control font-monospace mx-2"
+              rows="20" spellcheck="false"
+              style="width:calc(100% - 24px);background:#1e1e2e;color:#cdd6f4;font-size:13px;line-height:1.6;tab-size:4;resize:vertical;"
+              placeholder="/* Eigenes CSS hier eingeben */&#10;.mein-element {&#10;    color: red;&#10;    font-size: 16px;&#10;}"><?php echo htmlspecialchars(isset($GLOBALS['mrh_custom_css']) ? $GLOBALS['mrh_custom_css'] : ''); ?></textarea>
+
+    <div class="mx-2 mt-3">
+        <input type="submit" name="submit-customcss" class="btn btn-success btn-lg w-100" value="Custom CSS speichern">
+    </div>
+</form>
+</div>
+
+</div><!-- /#mrh-configurator-v4 -->
+
+<!-- Tab-Navigation JS (Vanilla, kein jQuery) -->
+<script>
+(function(){
+    var tabs = document.querySelectorAll('#mrh-config-tabs .mrh-tab');
+    var panes = document.querySelectorAll('.mrh-tab-pane');
+    tabs.forEach(function(tab){
+        tab.addEventListener('click', function(){
+            var target = this.getAttribute('data-tab');
+            tabs.forEach(function(t){ t.classList.remove('active'); });
+            panes.forEach(function(p){ p.classList.remove('active'); });
+            this.classList.add('active');
+            var el = document.getElementById('tab-' + target);
+            if (el) el.classList.add('active');
+        });
+    });
+    // Live-Preview für Größen-Inputs (rem-Werte -> CSS-Variablen)
+    var sizeInputs = document.querySelectorAll('.mrh-size-input');
+    sizeInputs.forEach(function(input){
+        input.addEventListener('input', function(){
+            var name = this.getAttribute('name');
+            var val = this.value.trim();
+            if (name && val) {
+                document.documentElement.style.setProperty('--' + name, val);
+            }
+        });
+    });
+})();
+</script>

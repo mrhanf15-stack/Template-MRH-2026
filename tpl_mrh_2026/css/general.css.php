@@ -192,6 +192,74 @@ $defaults = [
     'tpl-bg-light-text'        => 'rgb(33, 37, 41)',
     'tpl-bg-dark'              => 'rgb(33, 37, 41)',
     'tpl-bg-dark-text'         => 'rgb(255, 255, 255)',
+    // ── Typografie: Ueberschriften (h1-h6) ──
+    'tpl-h1-size'              => '2.5rem',
+    'tpl-h1-color'             => 'rgb(15, 23, 42)',
+    'tpl-h2-size'              => '2rem',
+    'tpl-h2-color'             => 'rgb(15, 23, 42)',
+    'tpl-h3-size'              => '1.75rem',
+    'tpl-h3-color'             => 'rgb(15, 23, 42)',
+    'tpl-h4-size'              => '1.5rem',
+    'tpl-h4-color'             => 'rgb(15, 23, 42)',
+    'tpl-h5-size'              => '1.25rem',
+    'tpl-h5-color'             => 'rgb(15, 23, 42)',
+    'tpl-h6-size'              => '1rem',
+    'tpl-h6-color'             => 'rgb(15, 23, 42)',
+    // ── Typografie: Fliesstext & Links ──
+    'tpl-body-size'            => '1rem',
+    'tpl-body-color'           => 'rgb(33, 37, 41)',
+    'tpl-small-size'           => '0.875rem',
+    'tpl-lead-size'            => '1.25rem',
+    'tpl-link-color'           => 'rgb(74, 140, 42)',
+    'tpl-link-hover'           => 'rgb(58, 112, 32)',
+    // ── Text-Klassen (text-*) ──
+    'tpl-text-primary'         => 'rgb(74, 140, 42)',
+    'tpl-text-secondary'       => 'rgb(108, 117, 125)',
+    'tpl-text-success'         => 'rgb(25, 135, 84)',
+    'tpl-text-danger'          => 'rgb(220, 53, 69)',
+    'tpl-text-warning'         => 'rgb(255, 193, 7)',
+    'tpl-text-info'            => 'rgb(23, 162, 184)',
+    'tpl-text-light'           => 'rgb(248, 249, 250)',
+    'tpl-text-dark'            => 'rgb(33, 37, 41)',
+    'tpl-text-muted'           => 'rgb(108, 117, 125)',
+    'tpl-text-white'           => 'rgb(255, 255, 255)',
+    // ── Border-Klassen (border-*) ──
+    'tpl-border-primary'       => 'rgb(74, 140, 42)',
+    'tpl-border-secondary'     => 'rgb(108, 117, 125)',
+    'tpl-border-success'       => 'rgb(25, 135, 84)',
+    'tpl-border-danger'        => 'rgb(220, 53, 69)',
+    'tpl-border-warning'       => 'rgb(255, 193, 7)',
+    'tpl-border-info'          => 'rgb(23, 162, 184)',
+    'tpl-border-light'         => 'rgb(222, 226, 230)',
+    'tpl-border-dark'          => 'rgb(33, 37, 41)',
+    // ── Alert-Klassen (alert-*) ──
+    'tpl-alert-primary-bg'     => 'rgb(209, 231, 197)',
+    'tpl-alert-primary-text'   => 'rgb(37, 70, 21)',
+    'tpl-alert-primary-border' => 'rgb(183, 218, 166)',
+    'tpl-alert-secondary-bg'   => 'rgb(226, 227, 229)',
+    'tpl-alert-secondary-text' => 'rgb(65, 70, 75)',
+    'tpl-alert-secondary-border' => 'rgb(214, 216, 219)',
+    'tpl-alert-success-bg'     => 'rgb(209, 231, 221)',
+    'tpl-alert-success-text'   => 'rgb(15, 81, 50)',
+    'tpl-alert-success-border' => 'rgb(186, 219, 204)',
+    'tpl-alert-danger-bg'      => 'rgb(248, 215, 218)',
+    'tpl-alert-danger-text'    => 'rgb(132, 32, 41)',
+    'tpl-alert-danger-border'  => 'rgb(245, 198, 203)',
+    'tpl-alert-warning-bg'     => 'rgb(255, 243, 205)',
+    'tpl-alert-warning-text'   => 'rgb(102, 77, 3)',
+    'tpl-alert-warning-border' => 'rgb(255, 238, 186)',
+    'tpl-alert-info-bg'        => 'rgb(207, 244, 252)',
+    'tpl-alert-info-text'      => 'rgb(14, 97, 110)',
+    'tpl-alert-info-border'    => 'rgb(182, 236, 249)',
+    // ── Komponenten: Card, Form, Table ──
+    'tpl-card-bg'              => 'rgb(255, 255, 255)',
+    'tpl-card-border'          => 'rgb(222, 226, 230)',
+    'tpl-card-header-bg'       => 'rgb(248, 249, 250)',
+    'tpl-form-focus-border'    => 'rgb(74, 140, 42)',
+    'tpl-form-focus-shadow'    => 'rgba(74, 140, 42, 0.25)',
+    'tpl-table-striped-bg'     => 'rgba(0, 0, 0, 0.05)',
+    'tpl-table-hover-bg'       => 'rgba(0, 0, 0, 0.075)',
+    'tpl-table-border'         => 'rgb(222, 226, 230)',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -328,7 +396,46 @@ foreach ($bg_variants as $v) {
     $bg   = '--tpl-bg-'.$v;
     $text = '--tpl-bg-'.$v.'-text';
     echo '.bg-'.$v.'{background-color:var('.$bg.') !important;color:var('.$text.') !important;}';
-}?>
+}
+
+// ═══ Typografie-Overrides: h1-h6, body, small, lead, links ═══
+for ($i = 1; $i <= 6; $i++) {
+    echo 'h'.$i.'{font-size:var(--tpl-h'.$i.'-size);color:var(--tpl-h'.$i.'-color);}';
+}
+echo 'body{font-size:var(--tpl-body-size);color:var(--tpl-body-color);}';
+echo 'small,.small{font-size:var(--tpl-small-size);}';
+echo '.lead{font-size:var(--tpl-lead-size);}';
+echo 'a{color:var(--tpl-link-color);}a:hover{color:var(--tpl-link-hover);}';
+
+// ═══ text-* Klassen-Overrides ═══
+$text_variants = ['primary','secondary','success','danger','warning','info','light','dark','muted','white'];
+foreach ($text_variants as $v) {
+    echo '.text-'.$v.'{color:var(--tpl-text-'.$v.') !important;}';
+}
+
+// ═══ border-* Klassen-Overrides ═══
+foreach ($bg_variants as $v) {
+    echo '.border-'.$v.'{border-color:var(--tpl-border-'.$v.') !important;}';
+}
+
+// ═══ alert-* Klassen-Overrides ═══
+$alert_variants = ['primary','secondary','success','danger','warning','info'];
+foreach ($alert_variants as $v) {
+    echo '.alert-'.$v.'{background-color:var(--tpl-alert-'.$v.'-bg) !important;color:var(--tpl-alert-'.$v.'-text) !important;border-color:var(--tpl-alert-'.$v.'-border) !important;}';
+}
+
+// ═══ Card-Overrides ═══
+echo '.card{background-color:var(--tpl-card-bg);border-color:var(--tpl-card-border);}';
+echo '.card-header{background-color:var(--tpl-card-header-bg);}';
+
+// ═══ Form-Focus-Overrides ═══
+echo '.form-control:focus,.form-select:focus{border-color:var(--tpl-form-focus-border) !important;box-shadow:0 0 0 .25rem var(--tpl-form-focus-shadow) !important;}';
+
+// ═══ Table-Overrides ═══
+echo '.table{border-color:var(--tpl-table-border);}';
+echo '.table-striped>tbody>tr:nth-of-type(odd)>*{background-color:var(--tpl-table-striped-bg);}';
+echo '.table-hover>tbody>tr:hover>*{background-color:var(--tpl-table-hover-bg);}';
+?>
 </style>
 <style>
   @font-face {
