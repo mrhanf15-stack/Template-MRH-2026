@@ -138,32 +138,10 @@ if ($imgPath && is_dir($imgPath)) {
 
 
 <script>
-    
-$(document).ready(function(){
-    $('.product-carousel').owlCarousel({
-    rewind:true,
-    loop:false,
-    margin:10,
-    stageElement: 'ul',
-    itemElement: 'li',
-    lazyLoad:true,
-    dots:false,
-    nav:true,
-    navigation:true,
-    responsiveClass:true,
-    responsive:{
-        0:{
-            items:2
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
-        }
-    }
-})
-});
+/* ============================================================
+   Owl Carousel Init ENTFERNT (2026-04-10)
+   Ersetzt durch mrh-autoslider.js.php (Vanilla JS)
+   ============================================================ */
 
 
 $('.field_eye').on('click', '.fa-eye, .fa-eye-slash', function() {
