@@ -1,5 +1,6 @@
 {*
- * Product Compare v2.1.0 - 3-Column Card Layout (tpl_mrh_2026)
+ * Product Compare v2.2.0 - 5-Column Card Layout (tpl_mrh_2026)
+ * - v2.2.0: 3-Spalten → 5-Spalten Grid (col-compare Klasse)
  * - v2.1.0: bs4button Modifier entfernt (existiert nicht in tpl_mrh_2026)
  *           FontAwesome 4 → FontAwesome 6 Icons
  * - v2.0.3: H2 mt-3, Short Description oben ausgerichtet (align-self-start)
@@ -14,7 +15,7 @@
  * - Fixed image height for alignment
  * - Short description fixed height with scroll (550px)
  * - Price/Buttons in card-footer at bottom
- * @version   2.1.0
+ * @version   2.2.0
  * @date      2026-04-10
  *}
 {assign "dummy" ""}
@@ -62,10 +63,10 @@
       </a>
     </div>
 
-    {* Product cards - 3-column grid *}
-    <div class="row">
+    {* Product cards - 5-column grid *}
+    <div class="row compare-grid">
     {foreach from=$COMPARE_PRODUCTS item=module_data name=compare_loop}
-      <div class="col-sm-12 col-md-6 col-lg-4 mb-3 listingbox">
+      <div class="col-compare mb-3 listingbox">
         <div class="card h-100 d-flex flex-column">
 
           {* Remove button *}
