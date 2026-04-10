@@ -150,13 +150,13 @@
 
 /* === Badge Position Classes (set by Admin) === */
 .product-compare-badge.pc-pos-bottom-right {
-    bottom: 110px !important;
+    bottom: 80px !important;
     right: 20px !important;
     top: auto !important;
     left: auto !important;
 }
 .product-compare-badge.pc-pos-bottom-left {
-    bottom: 110px !important;
+    bottom: 80px !important;
     left: 20px !important;
     top: auto !important;
     right: auto !important;
@@ -244,7 +244,7 @@
 /* === Toast Notification === */
 .compare-toast {
     position: fixed;
-    bottom: 175px;
+    bottom: 145px;
     right: 20px;
     z-index: 1060;
     background: #333;
@@ -387,11 +387,11 @@
 
 @media (max-width: 576px) {
     .product-compare-badge.pc-pos-bottom-right {
-        bottom: 110px !important;
+        bottom: 65px !important;
         right: 10px !important;
     }
     .product-compare-badge.pc-pos-bottom-left {
-        bottom: 110px !important;
+        bottom: 65px !important;
         left: 10px !important;
     }
     .product-compare-badge.pc-pos-top-right {

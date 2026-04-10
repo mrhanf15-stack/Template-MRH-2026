@@ -78,7 +78,15 @@
           {$module_data.PRODUCTS_BUTTON_DETAILS}
           {if $module_data.PRODUCTS_BUTTON_BUY_NOW || ($module_data.PRODUCTS_FSK18 != '1')}{$module_data.PRODUCTS_BUTTON_BUY_NOW}{/if}
         </div>
-      {/if}      
+      {/if}
+
+      {if $smarty.const.MODULE_PRODUCT_COMPARE_STATUS == 'true'}
+        <div class="lb_compare mt-1 text-center">
+          <a href="javascript:void(0);" class="btn btn-sm btn-compare" data-product-id="{$module_data.PRODUCTS_ID}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} vergleichen">
+            <span class="fa fa-balance-scale mr-1"></span>Vergleichen
+          </a>
+        </div>
+      {/if}
      
     </div>
   </div>
