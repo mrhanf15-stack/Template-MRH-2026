@@ -1,29 +1,32 @@
 {*
- * Product Compare v2.3.0 - 5-Column Grid Layout (tpl_mrh_2026)
- * - v2.3.0: Umgebaut auf .listingcontainer CSS Grid (wie product_listing)
- *           Entfernt: eigenes col-compare/compare-grid System
- *           Nutzt jetzt das gleiche 5-Spalten Grid wie das Produktlisting
- * - v2.2.0: 3-Spalten → 5-Spalten Grid (col-compare Klasse)
- * - v2.1.0: bs4button Modifier entfernt (existiert nicht in tpl_mrh_2026)
- *           FontAwesome 4 → FontAwesome 6 Icons
- * - v2.0.3: H2 mt-3, Short Description oben ausgerichtet (align-self-start)
- * - v2.0.2: Smarty-sicherer onclick (ohne geschweifte Klammern)
- *           OpCache-Hinweis: Nach Update php opcache_reset() ausfuehren!
- * - v2.0.1: Clear-Button onclick als Fallback fuer Event Delegation
- * - v2.0.0: Clear-Button onclick entfernt (JS Event Delegation uebernimmt)
- * - contentAnywhere support for custom content blocks
- * - history.back() for "Weiter einkaufen" button
- * - Images position absolute + object-fit cover for FORCED equal height
- * - Legend hidden via CSS
- * - Fixed image height for alignment
- * - Short description fixed height with scroll
- * - Price/Buttons in card-footer at bottom
- * @version   2.3.0
+ * Product Compare v4.0.0 - Bootstrap 5.3 Grid Layout (tpl_mrh_2026)
+ * Wireframe-konformes Card-Design, identisch mit Seedfinder-Ergebnissen
+ *
+ * Grid: row g-3 + col-6 col-md-4 col-lg-3
+ *   Desktop (>=992px): 4 Spalten
+ *   Tablet  (>=768px): 3 Spalten
+ *   Mobile:            2 Spalten
+ *
+ * Card-Struktur (Wireframe CategoryPageWireframe.tsx):
+ *   1. Remove-Button (oben rechts, nur Compare)
+ *   2. Produktbild (aspect-ratio, object-cover)
+ *   3. Hersteller (klein, sekundaer)
+ *   4. Produktname (fett)
+ *   5. Kurzbeschreibung (scrollbar)
+ *   6. Lieferzeit
+ *   7. Bewertungen
+ *   8. Preis
+ *   9. Buttons: Details + Merkzettel
+ *
+ * Kein !important, kein eigenes Grid-System
+ * Nutzt BS5.3 row/col + mrh-btn-* Klassen
+ *
+ * @version   4.0.0
  * @date      2026-04-10
  *}
 {assign "dummy" ""}
 
-<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=2.3.0">
+<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=4.0.0">
 
 <div class="product-compare-page">
 
@@ -34,13 +37,8 @@
     {/if}
   </h1>
 
-  {* SEO Content: Einleitung (Datei muss existieren, ggf. leer) *}
+  {* SEO Content: Einleitung *}
   {include file="module/product_compare_intro.html"}
-
-
-  {* === contentAnywhere: Top Content Block === *}
-  {* Ersetze die Content-ID (z.B. 99) mit der gewuenschten coID aus dem Content Manager *}
-  {* Beispiel: {99|contentAnywhere|inserttags} *}
 
   {if $COMPARE_COUNT == 0}
     <div class="card mb-4">
@@ -66,110 +64,115 @@
       </a>
     </div>
 
-    {* Product cards - nutzt .listingcontainer CSS Grid (5 Spalten wie Produktlisting) *}
-    <div class="listingcontainer">
+    {* ══════════════════════════════════════════════════════════ *}
+    {* Product Cards - BS5.3 Grid: 4 Desktop / 3 Tablet / 2 Mob *}
+    {* ══════════════════════════════════════════════════════════ *}
+    <div class="row g-3">
     {foreach from=$COMPARE_PRODUCTS item=module_data name=compare_loop}
-      <div class="listingbox">
-        <div class="lb_inner p-3">
-        <div class="lb_inner_wrap_image_title pt-3">
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 d-flex flex-column position-relative compare-card">
 
-          {* Remove button *}
+          {* ── Remove Button (nur Compare) ── *}
           <a href="{$module_data.PRODUCTS_REMOVE_LINK}" class="compare-remove-btn" title="{$PC_REMOVE_BUTTON}">
             <span class="fa-solid fa-xmark"></span>
           </a>
 
-          {* Product image *}
-          <div class="lb_image">
+          {* ── Produktbild ── *}
+          <a href="{$module_data.PRODUCTS_LINK}" class="compare-img-link d-block overflow-hidden" aria-label="{$module_data.PRODUCTS_NAME|onlytext}">
             {if $module_data.PRODUCTS_IMAGE != ''}
-              <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext}">
-                <img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" />
-              </a>
+              <div class="ratio ratio-1x1 bg-light">
+                <img loading="lazy" class="w-100 h-100 object-fit-cover" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" />
+              </div>
             {/if}
-          </div>
+          </a>
 
-          {* Product title *}
-          <div class="lb_title">
-            <strong class="h3">
-              <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext}">
+          {* ── Hersteller + Produktname ── *}
+          <div class="card-body pb-1">
+            {if !empty($module_data.MANUFACTURER)}
+              <p class="small text-secondary mb-0">{$module_data.MANUFACTURER}</p>
+            {/if}
+            <h2 class="h6 mb-1">
+              <a href="{$module_data.PRODUCTS_LINK}" class="text-decoration-none text-dark">
                 {$module_data.PRODUCTS_NAME}
               </a>
-            </strong>
+            </h2>
           </div>
 
-          {* Manufacturer *}
-          {if !empty($module_data.MANUFACTURER)}
-            <footer class="blockquote-footer mb-1"><cite title="{$module_data.PRODUCTS_NAME|onlytext} - {$module_data.MANUFACTURER|onlytext}">{$module_data.MANUFACTURER}</cite></footer>
-          {/if}
-
-          {* Short description with scroll *}
+          {* ── Kurzbeschreibung (scrollbar) ── *}
           {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
-            <div class="compare-desc-box">
+            <div class="card-body pt-0 pb-1 compare-desc-box">
               <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
             </div>
           {/if}
 
-          {* Shipping *}
-          <div class="lb_shipping">
-            {if $module_data.PRODUCTS_SHIPPING_NAME}
-              {#text_shippingtime#} {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
-            {else}
-              &nbsp;
-            {/if}
-          </div>
+          {* ── Footer: Lieferzeit, Preis, Buttons ── *}
+          <div class="card-footer bg-body-tertiary mt-auto">
 
-        </div>
-
-        {* Price + Buttons *}
-        <div class="lb_inner_wrap_prices">
-          <div class="lb_price">
-            {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
-              {include file="module/includes/price_box.html"}
-            {/foreach}
-            {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-              {if $module_data.PRODUCTS_VPE}
-                <div class="lb_vpe">{$module_data.PRODUCTS_VPE}</div>
+            {* Lieferzeit *}
+            <div class="small text-secondary mb-1">
+              {if $module_data.PRODUCTS_SHIPPING_NAME}
+                {#text_shippingtime#} {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
+              {else}
+                &nbsp;
               {/if}
-            {/if}
-          </div>
-
-          {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-            <div class="lb_tax">
-              {$module_data.PRODUCTS_TAX_INFO}
-            </div>
-            <div class="lb_tax lb_shipping_prices">
-              {$module_data.PRODUCTS_SHIPPING_LINK}
             </div>
 
-            {* Product attributes/options *}
-            {if $module_data.PRODUCT_ATTRIBUTES}
-              <div id="options{$module_data.PRODUCTS_ID}" class="cf">{$module_data.PRODUCT_ATTRIBUTES|replace:' p-2':''}</div>
+            {* Bewertungen *}
+            {if isset($module_data.PRODUCTS_REVIEWS_COUNT)}
+              <div class="lb_rating_icons mb-1{if $module_data.PRODUCTS_REVIEWS_COUNT < 1} no_reviews{/if}">
+                <span class="lb_rating_image">
+                  <img src="{$tpl_path}img/stars_{$module_data.PRODUCTS_REVIEWS_AVERAGE}.png" alt="Rating: {$module_data.PRODUCTS_REVIEWS_AVERAGE} of 5 stars" />
+                </span>
+                <span class="lb_rating_count small">({$module_data.PRODUCTS_REVIEWS_COUNT})</span>
+              </div>
             {/if}
 
-            {* Buttons *}
-            <div class="d-flex lb-buttons-wrap justify-content-between align-items-center gap-1 mt-2">
-              {$module_data.FORM_ACTION}
-              {if $module_data.PRODUCTS_SHIPPINGTIME != '4'}
-                {if $module_data.PRODUCTS_BUTTON_BUY_NOW || ($module_data.PRODUCTS_FSK18 != '0' && $smarty.const.SHOW_BUTTON_BUY_NOW != 'false')}
-                  {if defined($module_data.QTYPD_STATUS) && $module_data.QTYPD_STATUS == 'true'}
-                    {$module_data.ADD_QTYPD|replace:'select':'select class="form-control form-control-sm listingDropDown"'}
-                  {else}
-                    {$module_data.ADD_QTY|replace:'input':'input class="form-control form-control-sm listingDropDown"'}
-                  {/if}
-                  {$module_data.PRODUCTS_ADD_CART_BUTTON}
+            {* Preis *}
+            <div class="text-end mb-2">
+              {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+                {include file="module/includes/price_box.html"}
+              {/foreach}
+              {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+                {if $module_data.PRODUCTS_VPE}
+                  <div class="small text-secondary">{$module_data.PRODUCTS_VPE}</div>
                 {/if}
               {/if}
-              {if !empty($module_data.PRODUCTS_LINK_WISHLIST_NOW)}
-                <button type="submit" name="wishlist" class="btn btn-sm mrh-btn-wishlist" title="{$smarty.const.TEXT_TO_WISHLIST}">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-              {/if}
-              <a class="btn btn-sm mrh-btn-details flex-grow-1" href="{$module_data.PRODUCTS_LINK}">
-                <span>Details</span>
-              </a>
-              {$module_data.FORM_END}
             </div>
-          {/if}
-        </div>
+
+            {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+              <div class="small text-secondary mb-1">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+
+              {* Attribute/Optionen *}
+              {if $module_data.PRODUCT_ATTRIBUTES}
+                <div id="options{$module_data.PRODUCTS_ID}" class="cf mb-2">{$module_data.PRODUCT_ATTRIBUTES|replace:' p-2':''}</div>
+              {/if}
+
+              {* ── Buttons: Warenkorb | Merkzettel | Details ── *}
+              <div class="d-flex justify-content-between align-items-center gap-1 mt-2">
+                {$module_data.FORM_ACTION}
+                {if $module_data.PRODUCTS_SHIPPINGTIME != '4'}
+                  {if $module_data.PRODUCTS_BUTTON_BUY_NOW || ($module_data.PRODUCTS_FSK18 != '0' && $smarty.const.SHOW_BUTTON_BUY_NOW != 'false')}
+                    {if defined($module_data.QTYPD_STATUS) && $module_data.QTYPD_STATUS == 'true'}
+                      {$module_data.ADD_QTYPD|replace:'select':'select class="form-control form-control-sm"'}
+                    {else}
+                      {$module_data.ADD_QTY|replace:'input':'input class="form-control form-control-sm"'}
+                    {/if}
+                    {$module_data.PRODUCTS_ADD_CART_BUTTON}
+                  {/if}
+                {/if}
+                {if !empty($module_data.PRODUCTS_LINK_WISHLIST_NOW)}
+                  <button type="submit" name="wishlist" class="btn btn-sm mrh-btn-wishlist" title="{$smarty.const.TEXT_TO_WISHLIST}">
+                    <span class="fa-regular fa-heart"></span>
+                  </button>
+                {/if}
+                <a class="btn btn-sm mrh-btn-details flex-grow-1" href="{$module_data.PRODUCTS_LINK}">
+                  <span class="fa-solid fa-eye me-1"></span><span>Details</span>
+                </a>
+                {$module_data.FORM_END}
+              </div>
+            {/if}
+          </div>
+
         </div>
       </div>
     {/foreach}
@@ -187,11 +190,7 @@
 
   {/if}
 
-    {* SEO Content: Hauptteil (Datei muss existieren, ggf. leer) *}
+  {* SEO Content: Hauptteil *}
   {include file="module/product_compare_main.html"}
-
-  {* === contentAnywhere: Bottom Content Block === *}
-  {* Ersetze die Content-ID (z.B. 100) mit der gewuenschten coID aus dem Content Manager *}
-  {* Beispiel: {100|contentAnywhere|inserttags} *}
 
 </div>

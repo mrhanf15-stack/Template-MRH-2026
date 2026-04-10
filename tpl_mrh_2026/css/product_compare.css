@@ -1,8 +1,9 @@
 /* =========================================================================
-   Product Compare v2.3.0 - CSS
-   Nutzt jetzt .listingcontainer CSS Grid aus mrh-custom.css (5 Spalten)
-   Eigenes Grid-System (col-compare/compare-grid) entfernt.
-   Nur noch Compare-spezifische Styles (Remove-Button, Desc-Box, Badge etc.)
+   Product Compare v4.0.0 - CSS (tpl_mrh_2026)
+   
+   Nur Compare-spezifische Styles.
+   Grid wird komplett ueber Bootstrap 5.3 row/col gesteuert.
+   Kein eigenes Grid-System, kein !important.
    ========================================================================= */
 
 /* === Page Layout === */
@@ -10,27 +11,12 @@
     padding: 0;
 }
 
-/* === 4-Spalten Grid fuer Vergleichsseite (statt 5 wie im Listing) === */
-/* !important noetig weil mrh-custom.css NACH dieser Datei geladen wird */
-.product-compare-page .listingcontainer {
-    grid-template-columns: repeat(4, 1fr) !important;
-}
-@media (max-width: 1400px) {
-    .product-compare-page .listingcontainer { grid-template-columns: repeat(3, 1fr) !important; }
-}
-@media (max-width: 992px) {
-    .product-compare-page .listingcontainer { grid-template-columns: repeat(2, 1fr) !important; }
-}
-@media (max-width: 576px) {
-    .product-compare-page .listingcontainer { grid-template-columns: 1fr !important; }
-}
-
 .product-compare-page h1 {
     font-size: 1.4rem;
     font-weight: 600;
 }
 
-/* === Remove Button (top-right corner of each card) === */
+/* === Remove Button (top-right corner of each compare card) === */
 .compare-remove-btn {
     position: absolute;
     top: 5px;
@@ -58,7 +44,7 @@
 }
 
 /* === Short Description - Fixed Height with Scroll === */
-.product-compare-page .compare-desc-box {
+.compare-desc-box {
     height: 350px;
     overflow-y: auto;
     flex-shrink: 0;
@@ -66,14 +52,14 @@
     width: 100%;
 }
 
-.product-compare-page .compare-desc-box .lr_desc {
+.compare-desc-box .lr_desc {
     position: relative;
     max-height: none;
     padding-top: 28px;
 }
 
 /* === Picto Icon - Absolute so it does not push table down === */
-.product-compare-page .compare-desc-box .lr_desc .picto.templatestyle {
+.compare-desc-box .lr_desc .picto.templatestyle {
     position: absolute;
     top: 0;
     left: 0;
@@ -83,23 +69,18 @@
 }
 
 /* === When picto has class .off (hidden icon) keep same spacing === */
-.product-compare-page .compare-desc-box .lr_desc .picto.templatestyle.off {
+.compare-desc-box .lr_desc .picto.templatestyle.off {
     visibility: hidden;
 }
 
 /* === HIDE Legend (stock color dots) inside options === */
 .product-compare-page .legend {
-    display: none !important;
-}
-
-/* === lb_inner needs position:relative for the remove button === */
-.product-compare-page .listingbox .lb_inner {
-    position: relative;
+    display: none;
 }
 
 /* === Floating Compare Badge - Base === */
 .product-compare-badge {
-    position: fixed !important;
+    position: fixed;
     z-index: 1050;
     display: none;
     transition: all 0.3s ease;
@@ -110,28 +91,28 @@
 
 /* === Badge Position Classes (set by Admin) === */
 .product-compare-badge.pc-pos-bottom-right {
-    bottom: 80px !important;
-    right: 20px !important;
-    top: auto !important;
-    left: auto !important;
+    bottom: 80px;
+    right: 20px;
+    top: auto;
+    left: auto;
 }
 .product-compare-badge.pc-pos-bottom-left {
-    bottom: 80px !important;
-    left: 20px !important;
-    top: auto !important;
-    right: auto !important;
+    bottom: 80px;
+    left: 20px;
+    top: auto;
+    right: auto;
 }
 .product-compare-badge.pc-pos-top-right {
-    top: 80px !important;
-    right: 20px !important;
-    bottom: auto !important;
-    left: auto !important;
+    top: 80px;
+    right: 20px;
+    bottom: auto;
+    left: auto;
 }
 .product-compare-badge.pc-pos-top-left {
-    top: 80px !important;
-    left: 20px !important;
-    bottom: auto !important;
-    right: auto !important;
+    top: 80px;
+    left: 20px;
+    bottom: auto;
+    right: auto;
 }
 
 /* === Badge Link (colors set via inline styles from Admin) === */
@@ -196,9 +177,6 @@
 .btn-compare.active:hover {
     background: #dc3545;
     border-color: #dc3545;
-}
-.btn-compare .fa {
-    font-size: 0.9rem;
 }
 
 /* === Toast Notification === */
@@ -279,32 +257,35 @@
     text-align: center;
 }
 
-/* === Responsive: Compare-spezifisch === */
-@media (max-width: 575px) {
-    .product-compare-page .compare-desc-box {
+/* === Responsive === */
+@media (max-width: 767px) {
+    .compare-desc-box {
         height: auto;
         max-height: 300px;
     }
+}
+
+@media (max-width: 575px) {
     .product-compare-badge.pc-pos-bottom-right {
-        bottom: 70px !important;
-        right: 15px !important;
+        bottom: 65px;
+        right: 10px;
     }
     .product-compare-badge.pc-pos-bottom-left {
-        bottom: 70px !important;
-        left: 15px !important;
+        bottom: 65px;
+        left: 10px;
     }
     .product-compare-badge.pc-pos-top-right {
-        top: 70px !important;
-        right: 15px !important;
+        top: 65px;
+        right: 10px;
     }
     .product-compare-badge.pc-pos-top-left {
-        top: 70px !important;
-        left: 15px !important;
+        top: 65px;
+        left: 10px;
     }
     .product-compare-badge .compare-badge-link {
-        width: 48px;
-        height: 48px;
-        font-size: 1.2rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
     }
     .compare-toast {
         bottom: 125px;
@@ -315,29 +296,5 @@
     .btn-compare {
         font-size: 0.75rem;
         padding: 3px 8px;
-    }
-}
-
-@media (max-width: 576px) {
-    .product-compare-badge.pc-pos-bottom-right {
-        bottom: 65px !important;
-        right: 10px !important;
-    }
-    .product-compare-badge.pc-pos-bottom-left {
-        bottom: 65px !important;
-        left: 10px !important;
-    }
-    .product-compare-badge.pc-pos-top-right {
-        top: 65px !important;
-        right: 10px !important;
-    }
-    .product-compare-badge.pc-pos-top-left {
-        top: 65px !important;
-        left: 10px !important;
-    }
-    .product-compare-badge .compare-badge-link {
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
     }
 }
