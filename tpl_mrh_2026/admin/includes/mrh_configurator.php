@@ -461,12 +461,20 @@ $mrh_social = array_merge($mrh_social_defaults, mrh_read_json($json_dir . 'socia
 // === Formulare verarbeiten ===
 $mrh_config_message = '';
 
-// 1. Farben speichern
+// 1. Farben speichern (MERGE: nur gesendete Keys ueberschreiben, Rest beibehalten)
 if (isset($_POST['submit-colorsettings'])) {
-    $save_colors = [];
+    // Bestehende Werte als Basis laden (nicht nur Defaults!)
+    $save_colors = $mrh_colors;
     foreach ($mrh_color_defaults as $key => $default) {
-        $posted = isset($_POST[$key]) ? mrh_sanitize_color($_POST[$key]) : '';
-        $save_colors[$key] = !empty($posted) ? $posted : $default;
+        // Nur Keys ueberschreiben die tatsaechlich im POST vorhanden sind
+        if (isset($_POST[$key])) {
+            $posted = mrh_sanitize_color($_POST[$key]);
+            $save_colors[$key] = !empty($posted) ? $posted : $default;
+        }
+        // Fehlende Keys (nicht im POST UND nicht in bestehender JSON) -> Default
+        if (!isset($save_colors[$key])) {
+            $save_colors[$key] = $default;
+        }
     }
     if (mrh_write_json($json_dir . 'colors.json', $save_colors)) {
         $mrh_colors = $save_colors;
