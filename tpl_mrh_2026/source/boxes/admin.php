@@ -312,6 +312,38 @@ function mrhToggleConfigurator(){
         var b = parseInt(hex.substring(4,6),16);
         return "rgb(" + r + ", " + g + ", " + b + ")";
     }
+    // Mapping tpl-* -> mrh-* Aliase (damit mrh-custom.css sofort reagiert)
+    var tplToMrh = {
+        'tpl-bg-color':'mrh-bg-color','tpl-bg-color-2':'mrh-bg-color-2',
+        'tpl-bg-productbox':'mrh-bg-productbox','tpl-bg-footer':'mrh-bg-footer',
+        'tpl-text-standard':'mrh-text-standard','tpl-text-headings':'mrh-text-headings',
+        'tpl-text-button':'mrh-text-button','tpl-text-footer':'mrh-text-footer',
+        'tpl-text-footer-headings':'mrh-text-footer-headings',
+        'tpl-menu-bg':'mrh-menu-bg','tpl-menu-text':'mrh-menu-text',
+        'tpl-menu-hover':'mrh-menu-hover-bg','tpl-menu-active':'mrh-menu-active-bg',
+        'tpl-topbar-bg':'mrh-topbar-bg','tpl-topbar-text':'mrh-topbar-text',
+        'tpl-sticky-bg':'mrh-sticky-bg','tpl-sticky-text':'mrh-sticky-text'
+    };
+    // Berechnete Variablen die von bestimmten tpl-* Keys abhaengen
+    var tplDerived = {
+        'tpl-bg-color':    [['mrh-nav-bg',null]],
+        'tpl-bg-color-2':  [['mrh-nav-hover',null]],
+        'tpl-main-color':  [['mrh-green-accent',null],['mrh-badge-bg',null]],
+        'tpl-text-button':  [['mrh-badge-text',null]]
+    };
+    // Hilfsfunktion: CSS-Variable setzen + Aliase + abgeleitete Variablen
+    function mrhSetLiveVar(name, val) {
+        var root = document.documentElement.style;
+        root.setProperty('--' + name, val);
+        // mrh-* Alias setzen
+        if (tplToMrh[name]) root.setProperty('--' + tplToMrh[name], val);
+        // Abgeleitete Variablen setzen
+        if (tplDerived[name]) {
+            tplDerived[name].forEach(function(d) {
+                root.setProperty('--' + d[0], val);
+            });
+        }
+    }
     function initColorpickers() {
         var panel = document.getElementById("mrh-admin-configurator");
         if (!panel) return;
@@ -337,19 +369,31 @@ function mrhToggleConfigurator(){
                 var rgbVal = hexToRgb(colorInput.value);
                 textInput.value = rgbVal;
                 if (demo) demo.style.background = rgbVal;
-                // Live CSS-Variable setzen
+                // Live CSS-Variable setzen (inkl. Aliase)
                 var name = textInput.getAttribute("name");
-                if (name) document.documentElement.style.setProperty("--" + name, rgbVal);
+                if (name) mrhSetLiveVar(name, rgbVal);
             });
             // Sync: Text-Input -> Color-Input + Live-Preview
             textInput.addEventListener("input", function() {
                 colorInput.value = rgbToHex(textInput.value);
                 if (demo) demo.style.background = textInput.value;
                 var name = textInput.getAttribute("name");
-                if (name) document.documentElement.style.setProperty("--" + name, textInput.value);
+                if (name) mrhSetLiveVar(name, textInput.value);
             });
             // Initial: Demo-Farbe setzen
             if (demo && textInput.value) demo.style.background = textInput.value;
+        });
+        // Auch .mrh-size-input Felder fuer Live-Preview (rem/px Werte)
+        var sizeInputs = panel.querySelectorAll(".mrh-size-input");
+        sizeInputs.forEach(function(si) {
+            if (si.dataset.liveInit) return;
+            si.dataset.liveInit = "1";
+            si.addEventListener("input", function() {
+                var name = si.getAttribute("name");
+                if (name && si.value) {
+                    document.documentElement.style.setProperty('--' + name, si.value);
+                }
+            });
         });
     }
     // Global exponieren fuer Tab-Wechsel Re-Init aus dem Panel-JS
