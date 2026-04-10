@@ -5,6 +5,8 @@
    Hookpoint: templates/tpl_mrh_2026/javascript/extra/
    Wird automatisch via general_bottom.js.php auto_include geladen.
 
+   v2.1.0: BS5.3 + FA6 Migration
+           - initSeedfinderButtons: fa fa-check mr-1 → fa-solid fa-check me-1
    v2.0.0: FIX - PHP-Guard entfernt (MODULE_PRODUCT_COMPARE_STATUS nicht nötig)
            - CSS-Pfad korrigiert (bootstrap4 → tpl_mrh_2026 via DIR_TMPL)
            - Funktioniert jetzt unabhängig von Shop-Modul-Konfiguration
@@ -33,7 +35,7 @@
    v1.2.2: Bugfixes
 
    @author    Mr. Hanf / Manus AI
-   @version   2.0.0
+   @version   2.1.0
    @date      2026-04-10
    -----------------------------------------------------------------------------------------*/
 
@@ -362,7 +364,7 @@
                 var isInList = PC.currentProducts.indexOf(parseInt(productId)) !== -1;
                 if (isInList) {
                     btn.classList.add('active');
-                    btn.innerHTML = '<span class="fa fa-check mr-1"></span>' + PC.text.added;
+                    btn.innerHTML = '<span class="fa-solid fa-check me-1"></span>' + PC.text.added;
                 }
             });
         });
