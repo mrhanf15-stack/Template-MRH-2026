@@ -190,7 +190,7 @@ if (file_exists($mrh_panel_file)) {
     position: fixed;
     top: 36px;
     right: 0;
-    width: 480px;
+    width: 680px;
     max-width: 95vw;
     height: calc(100vh - 36px);
     background: #fff;
@@ -257,6 +257,8 @@ if (file_exists($mrh_panel_file)) {
     </div>
     ' . $mrh_panel_html . '
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/css/bootstrap-colorpicker.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.3/js/bootstrap-colorpicker.min.js"></script>
 <script>
 function mrhToggleConfigurator(){
     var p=document.getElementById("mrh-admin-configurator");
@@ -269,6 +271,26 @@ function mrhToggleConfigurator(){
         o.classList.add("open");
     }
 }
+// Colorpicker + Live-Preview fuer alle Farbfelder
+(function(){
+    if(typeof jQuery==="undefined") return;
+    $(function(){
+        // Alle Colorpicker initialisieren
+        $("#mrh-admin-configurator .colorpicker-element").each(function(){
+            $(this).colorpicker();
+        });
+        // Live-Preview: Jede Farbänderung sofort als CSS-Variable setzen
+        $("#mrh-admin-configurator .colorpicker-element").on("colorpickerChange", function(e){
+            var name = $(this).attr("name");
+            if(!name) return;
+            var val = e.color ? e.color.toString() : $(this).val();
+            // CSS-Variable setzen (mrh-* und tpl-* Mapping)
+            document.documentElement.style.setProperty("--" + name, val);
+            // Farbvorschau-Kästchen aktualisieren
+            $(this).next(".demo-farbe").css("background", val);
+        });
+    });
+})();
 </script>';
 }
 
