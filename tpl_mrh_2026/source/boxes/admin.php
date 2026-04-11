@@ -190,6 +190,7 @@ if (file_exists($mrh_panel_file)) {
     position: fixed;
     top: 36px;
     right: 0;
+    left: auto;
     width: 680px;
     max-width: 95vw;
     height: calc(100vh - 36px);
@@ -198,11 +199,19 @@ if (file_exists($mrh_panel_file)) {
     overflow-y: auto;
     box-shadow: -4px 0 20px rgba(0,0,0,0.25);
     border-left: 3px solid #4a8c2a;
+    border-right: none;
     padding: 0;
     transition: transform 0.3s ease;
 }
 #mrh-admin-configurator.open {
     display: block;
+}
+#mrh-admin-configurator.mrh-dock-left {
+    right: auto;
+    left: 0;
+    border-left: none;
+    border-right: 3px solid #4a8c2a;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.25);
 }
 #mrh-cfg-overlay {
     display: none;
@@ -231,6 +240,8 @@ if (file_exists($mrh_panel_file)) {
     z-index: 1;
     cursor: default;
 }
+#mrh-cfg-close .mrh-cfg-title { flex: 1; }
+#mrh-cfg-close .mrh-cfg-btns { display: flex; gap: 6px; align-items: center; }
 #mrh-cfg-close button {
     background: none;
     border: 2px solid rgba(255,255,255,0.5);
@@ -248,12 +259,20 @@ if (file_exists($mrh_panel_file)) {
 #mrh-cfg-close button:hover {
     background: rgba(255,255,255,0.2);
 }
+#mrh-cfg-close button.mrh-dock-active {
+    background: rgba(255,255,255,0.3);
+    border-color: #fff;
+}
 </style>
 <div id="mrh-cfg-overlay" onclick="document.getElementById(\'mrh-admin-configurator\').classList.remove(\'open\');this.classList.remove(\'open\');"></div>
 <div id="mrh-admin-configurator">
     <div id="mrh-cfg-close">
-        <span>MRH 2026 Konfigurator</span>
-        <button onclick="document.getElementById(\'mrh-admin-configurator\').classList.remove(\'open\');document.getElementById(\'mrh-cfg-overlay\').classList.remove(\'open\');" title="Schliessen">&times;</button>
+        <span class="mrh-cfg-title">MRH 2026 Konfigurator</span>
+        <div class="mrh-cfg-btns">
+            <button id="mrh-dock-left" onclick="mrhDockSide(\'left\')" title="Links anheften">&#9664;</button>
+            <button id="mrh-dock-right" onclick="mrhDockSide(\'right\')" title="Rechts anheften" class="mrh-dock-active">&#9654;</button>
+            <button onclick="document.getElementById(\'mrh-admin-configurator\').classList.remove(\'open\');document.getElementById(\'mrh-cfg-overlay\').classList.remove(\'open\');" title="Schliessen">&times;</button>
+        </div>
     </div>
     ' . $mrh_panel_html . '
 </div>
@@ -285,6 +304,29 @@ if (file_exists($mrh_panel_file)) {
 }
 </style>
 <script>
+// Dock-Seite wechseln (links/rechts)
+function mrhDockSide(side) {
+    var panel = document.getElementById("mrh-admin-configurator");
+    var btnL = document.getElementById("mrh-dock-left");
+    var btnR = document.getElementById("mrh-dock-right");
+    if (side === "left") {
+        panel.classList.add("mrh-dock-left");
+        if (btnL) btnL.classList.add("mrh-dock-active");
+        if (btnR) btnR.classList.remove("mrh-dock-active");
+    } else {
+        panel.classList.remove("mrh-dock-left");
+        if (btnR) btnR.classList.add("mrh-dock-active");
+        if (btnL) btnL.classList.remove("mrh-dock-active");
+    }
+    try { localStorage.setItem("mrh-cfg-dock", side); } catch(e) {}
+}
+// Gespeicherte Dock-Seite beim Laden wiederherstellen
+(function(){
+    try {
+        var saved = localStorage.getItem("mrh-cfg-dock");
+        if (saved === "left") mrhDockSide("left");
+    } catch(e) {}
+})();
 function mrhToggleConfigurator(){
     var p=document.getElementById("mrh-admin-configurator");
     var o=document.getElementById("mrh-cfg-overlay");
