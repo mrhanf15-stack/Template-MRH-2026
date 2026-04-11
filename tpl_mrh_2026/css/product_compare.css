@@ -12,6 +12,7 @@
    v5.3.0: Fix Button-Stretch bei Ausverkauft: card-footer flex-end,
            action-row align-self, Buttons max-height begrenzt
    v5.3.1: Bootstrap card-footer border-top und bg entfernt (doppelt)
+   v5.3.2: compare-footer-bar border-top entfernt
    ========================================================================= */
 
 /* === Page Layout === */
@@ -136,7 +137,7 @@ a.compare-remove-btn:hover {
 
 /* === Footer Bar (v5.1.0): Strukturierter Card-Footer === */
 .product-compare-page .compare-footer-bar {
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: none;
     padding-top: 8px;
     margin-top: auto;
     width: 100%;
