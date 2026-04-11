@@ -11,6 +11,7 @@
            compare-action-row, Buttons immer horizontal
    v5.3.0: Fix Button-Stretch bei Ausverkauft: card-footer flex-end,
            action-row align-self, Buttons max-height begrenzt
+   v5.3.1: Bootstrap card-footer border-top und bg entfernt (doppelt)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -129,6 +130,8 @@ a.compare-remove-btn:hover {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    border-top: none;
+    background: transparent;
 }
 
 /* === Footer Bar (v5.1.0): Strukturierter Card-Footer === */
