@@ -1444,43 +1444,27 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 <!-- TAB 10: BADGE-KONFIGURATOR -->
 <!-- ================================================================== -->
 <div class="mrh-tab-pane" id="tab-badges">
-
-<style>
-/* === Badge-Konfigurator Tab 10 Styles === */
-.mrh-badge-cfg { padding: 8px 12px; }
-.mrh-badge-cfg .mrh-sh { font-weight: 700; font-size: 13px; margin: 12px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #dee2e6; }
-.mrh-badge-cfg .mrh-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
-.mrh-badge-cfg .mrh-badge-row label { min-width: 120px; font-size: 12px; font-weight: 600; }
-.mrh-badge-cfg .mrh-badge-row input[type="text"],
-.mrh-badge-cfg .mrh-badge-row select { font-size: 12px; padding: 4px 8px; border: 1px solid #ced4da; border-radius: 4px; }
-.mrh-badge-cfg .mrh-badge-row input[type="text"].color-input { width: 60px; height: 28px; cursor: pointer; }
-.mrh-badge-cfg .mrh-badge-row input[type="text"].size-input { width: 90px; }
-.mrh-badge-cfg .mrh-badge-preview { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 12px; background: #f8f9fa; border-radius: 8px; margin: 12px 0; }
-.mrh-badge-cfg .mrh-badge-preview .badge-demo { display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; transition: transform 0.15s ease, box-shadow 0.15s ease; cursor: default; }
-.mrh-badge-cfg .mrh-badge-type-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
-.mrh-badge-cfg .mrh-badge-type-card h4 { font-size: 13px; font-weight: 700; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
-</style>
-
-<div class="mrh-badge-cfg">
+<form id="mrh-form-badges" class="row mx-0" method="post" action="">
 
     <!-- Live-Vorschau -->
-    <div class="mrh-sh"><span class="fa fa-eye me-1"></span> Live-Vorschau</div>
-    <div class="mrh-badge-preview" id="mrh-badge-preview"></div>
+    <div class="col-12"><div class="mrh-sh"><i class="fa fa-eye me-1"></i> Live-Vorschau</div></div>
+    <div class="col-12 mb-3">
+        <div id="mrh-badge-preview" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px;background:#f8f9fa;border-radius:8px;"></div>
+    </div>
 
     <!-- Allgemeine Badge-Einstellungen -->
-    <div class="mrh-sh"><span class="fa fa-sliders me-1"></span> Allgemeine Einstellungen</div>
-
-    <div class="mrh-badge-row">
-        <label>Rundung (border-radius)</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-radius" value="<?php echo htmlspecialchars($c['tpl-badge-radius'] ?? '50rem'); ?>">
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-sliders me-1"></i> Allgemeine Einstellungen</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-radius"><strong>Rundung</strong></label>
+        <input id="tpl-badge-radius" type="text" name="tpl-badge-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-radius','50rem'); ?>">
     </div>
-    <div class="mrh-badge-row">
-        <label>Schriftgroesse</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-font-size" value="<?php echo htmlspecialchars($c['tpl-badge-font-size'] ?? '0.8rem'); ?>">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-font-size"><strong>Schriftgr&ouml;&szlig;e</strong></label>
+        <input id="tpl-badge-font-size" type="text" name="tpl-badge-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-font-size','0.8rem'); ?>">
     </div>
-    <div class="mrh-badge-row">
-        <label>Schriftgewicht</label>
-        <select name="tpl-badge-font-weight" class="demo-farbe">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-font-weight"><strong>Schriftgewicht</strong></label>
+        <select id="tpl-badge-font-weight" name="tpl-badge-font-weight" class="form-control">
             <?php $fw = $c['tpl-badge-font-weight'] ?? '600'; ?>
             <option value="400" <?php echo $fw==='400'?'selected':''; ?>>Normal (400)</option>
             <option value="500" <?php echo $fw==='500'?'selected':''; ?>>Medium (500)</option>
@@ -1488,161 +1472,156 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             <option value="700" <?php echo $fw==='700'?'selected':''; ?>>Bold (700)</option>
         </select>
     </div>
-    <div class="mrh-badge-row">
-        <label>Padding (innen)</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-padding" value="<?php echo htmlspecialchars($c['tpl-badge-padding'] ?? '0.25rem 0.7rem'); ?>">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-padding"><strong>Padding (innen)</strong></label>
+        <input id="tpl-badge-padding" type="text" name="tpl-badge-padding" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-padding','0.25rem 0.7rem'); ?>">
     </div>
-    <div class="mrh-badge-row">
-        <label>Abstand (gap)</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-bar-gap" value="<?php echo htmlspecialchars($c['tpl-badge-bar-gap'] ?? '0.4rem'); ?>">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-bar-gap"><strong>Abstand (gap)</strong></label>
+        <input id="tpl-badge-bar-gap" type="text" name="tpl-badge-bar-gap" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-bar-gap','0.4rem'); ?>">
     </div>
-    <div class="mrh-badge-row">
-        <label>Rahmenbreite</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-border-width" value="<?php echo htmlspecialchars($c['tpl-badge-border-width'] ?? '0px'); ?>">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-border-width"><strong>Rahmenbreite</strong></label>
+        <input id="tpl-badge-border-width" type="text" name="tpl-badge-border-width" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-border-width','0px'); ?>">
     </div>
-    <div class="mrh-badge-row">
-        <label>Rahmenfarbe</label>
-        <input type="text" class="color-input demo-farbe" name="tpl-badge-border-color" value="<?php echo htmlspecialchars($c['tpl-badge-border-color'] ?? 'transparent'); ?>">
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-badge-border-color"><strong>Rahmenfarbe (global)</strong></label>
+        <input id="tpl-badge-border-color" type="text" name="tpl-badge-border-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-border-color','transparent'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-border-color','transparent'); ?>"></div>
     </div>
 
     <!-- Hover-Einstellungen -->
-    <div class="mrh-sh"><span class="fa fa-hand-pointer-o me-1"></span> Hover-Effekt</div>
-    <div class="mrh-badge-row">
-        <label>Hover aktiviert</label>
-        <select name="tpl-badge-hover-enabled" class="demo-farbe">
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-hand-pointer-o me-1"></i> Hover-Effekt</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-hover-enabled"><strong>Hover aktiviert</strong></label>
+        <select id="tpl-badge-hover-enabled" name="tpl-badge-hover-enabled" class="form-control">
             <?php $he = $c['tpl-badge-hover-enabled'] ?? '1'; ?>
             <option value="1" <?php echo $he==='1'?'selected':''; ?>>Ja</option>
             <option value="0" <?php echo $he==='0'?'selected':''; ?>>Nein</option>
         </select>
     </div>
-    <div class="mrh-badge-row">
-        <label>Hover-Transform</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-hover-transform" value="<?php echo htmlspecialchars($c['tpl-badge-hover-transform'] ?? 'translateY(-1px)'); ?>">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-hover-transform"><strong>Hover-Transform</strong></label>
+        <input id="tpl-badge-hover-transform" type="text" name="tpl-badge-hover-transform" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-hover-transform','translateY(-1px)'); ?>">
     </div>
-    <div class="mrh-badge-row">
-        <label>Hover-Schatten</label>
-        <input type="text" class="size-input demo-farbe" name="tpl-badge-hover-shadow" value="<?php echo htmlspecialchars($c['tpl-badge-hover-shadow'] ?? '0 2px 6px rgba(0,0,0,0.12)'); ?>" style="width:200px;">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-hover-shadow"><strong>Hover-Schatten</strong></label>
+        <input id="tpl-badge-hover-shadow" type="text" name="tpl-badge-hover-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-hover-shadow','0 2px 6px rgba(0,0,0,0.12)'); ?>">
     </div>
 
     <!-- Badge-Typen -->
-    <div class="mrh-sh"><span class="fa fa-tags me-1"></span> Badge-Typen</div>
-
-    <!-- Feminisiert -->
-    <div class="mrh-badge-type-card">
-        <h4><span class="fa fa-venus" style="color:#fc5b96;"></span> Feminisiert</h4>
-        <div class="mrh-badge-row">
-            <label>Hintergrund</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-fem-bg" value="<?php echo htmlspecialchars($c['tpl-badge-fem-bg'] ?? 'rgb(252, 91, 150)'); ?>">
-            <label>Text</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-fem-text" value="<?php echo htmlspecialchars($c['tpl-badge-fem-text'] ?? 'rgb(255, 255, 255)'); ?>">
-            <label>Rahmen</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-fem-border" value="<?php echo htmlspecialchars($c['tpl-badge-fem-border'] ?? 'transparent'); ?>">
-        </div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-venus me-1" style="color:#fc5b96;"></i> Feminisiert</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-fem-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-badge-fem-bg" type="text" name="tpl-badge-fem-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-fem-bg','rgb(252, 91, 150)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-fem-bg','rgb(252, 91, 150)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-fem-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-badge-fem-text" type="text" name="tpl-badge-fem-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-fem-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-fem-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-fem-border"><strong>Rahmenfarbe</strong></label>
+        <input id="tpl-badge-fem-border" type="text" name="tpl-badge-fem-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-fem-border','transparent'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-fem-border','transparent'); ?>"></div>
     </div>
 
-    <!-- Regulaer -->
-    <div class="mrh-badge-type-card">
-        <h4><span class="fa fa-mars" style="color:#2ea2f0;"></span> Regulaer</h4>
-        <div class="mrh-badge-row">
-            <label>Hintergrund</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-reg-bg" value="<?php echo htmlspecialchars($c['tpl-badge-reg-bg'] ?? 'rgb(46, 162, 240)'); ?>">
-            <label>Text</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-reg-text" value="<?php echo htmlspecialchars($c['tpl-badge-reg-text'] ?? 'rgb(255, 255, 255)'); ?>">
-            <label>Rahmen</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-reg-border" value="<?php echo htmlspecialchars($c['tpl-badge-reg-border'] ?? 'transparent'); ?>">
-        </div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-mars me-1" style="color:#2ea2f0;"></i> Regul&auml;r</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-reg-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-badge-reg-bg" type="text" name="tpl-badge-reg-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-reg-bg','rgb(46, 162, 240)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-reg-bg','rgb(46, 162, 240)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-reg-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-badge-reg-text" type="text" name="tpl-badge-reg-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-reg-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-reg-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-reg-border"><strong>Rahmenfarbe</strong></label>
+        <input id="tpl-badge-reg-border" type="text" name="tpl-badge-reg-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-reg-border','transparent'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-reg-border','transparent'); ?>"></div>
     </div>
 
-    <!-- Photoperiodisch -->
-    <div class="mrh-badge-type-card">
-        <h4><span class="fa fa-sun-o" style="color:#6c757d;"></span> Photoperiodisch</h4>
-        <div class="mrh-badge-row">
-            <label>Hintergrund</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-photo-bg" value="<?php echo htmlspecialchars($c['tpl-badge-photo-bg'] ?? 'rgb(108, 117, 125)'); ?>">
-            <label>Text</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-photo-text" value="<?php echo htmlspecialchars($c['tpl-badge-photo-text'] ?? 'rgb(255, 255, 255)'); ?>">
-            <label>Rahmen</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-photo-border" value="<?php echo htmlspecialchars($c['tpl-badge-photo-border'] ?? 'transparent'); ?>">
-        </div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-sun-o me-1" style="color:#6c757d;"></i> Photoperiodisch</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-photo-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-badge-photo-bg" type="text" name="tpl-badge-photo-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-photo-bg','rgb(108, 117, 125)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-photo-bg','rgb(108, 117, 125)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-photo-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-badge-photo-text" type="text" name="tpl-badge-photo-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-photo-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-photo-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-photo-border"><strong>Rahmenfarbe</strong></label>
+        <input id="tpl-badge-photo-border" type="text" name="tpl-badge-photo-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-photo-border','transparent'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-photo-border','transparent'); ?>"></div>
     </div>
 
-    <!-- Autoflowering -->
-    <div class="mrh-badge-type-card">
-        <h4><span class="fa fa-tachometer" style="color:#15803d;"></span> Autoflowering (Picto-Container)</h4>
-        <div class="mrh-badge-row">
-            <label>Hintergrund</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-auto-bg" value="<?php echo htmlspecialchars($c['tpl-badge-auto-bg'] ?? 'rgb(240, 253, 244)'); ?>">
-            <label>Text</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-auto-text" value="<?php echo htmlspecialchars($c['tpl-badge-auto-text'] ?? 'rgb(21, 128, 61)'); ?>">
-            <label>Rahmen</label>
-            <input type="text" class="color-input demo-farbe" name="tpl-badge-auto-border" value="<?php echo htmlspecialchars($c['tpl-badge-auto-border'] ?? 'rgba(34, 197, 94, 0.25)'); ?>">
-        </div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-tachometer me-1" style="color:#15803d;"></i> Autoflowering (Picto-Container)</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-auto-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-badge-auto-bg" type="text" name="tpl-badge-auto-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-auto-bg','rgb(240, 253, 244)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-auto-bg','rgb(240, 253, 244)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-auto-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-badge-auto-text" type="text" name="tpl-badge-auto-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-auto-text','rgb(21, 128, 61)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-auto-text','rgb(21, 128, 61)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-badge-auto-border"><strong>Rahmenfarbe</strong></label>
+        <input id="tpl-badge-auto-border" type="text" name="tpl-badge-auto-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-auto-border','rgba(34, 197, 94, 0.25)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-auto-border','rgba(34, 197, 94, 0.25)'); ?>"></div>
     </div>
 
     <!-- Speichern -->
-    <div style="margin-top: 16px; display: flex; gap: 8px;">
-        <form method="post" action="">
-            <button type="submit" name="submit-colors" class="btn btn-success btn-lg">
-                <span class="fa fa-save me-1"></span> Badges speichern
-            </button>
-        </form>
+    <div class="col-12 mt-3 mb-3">
+        <button type="submit" name="submit-colors" class="btn btn-success btn-lg">
+            <i class="fa fa-save me-1"></i> Badges speichern
+        </button>
     </div>
 
-</div>
+</form>
 
 <script>
 (function(){
     'use strict';
-
-    // Badge-Vorschau rendern
     function renderBadgePreview() {
         var preview = document.getElementById('mrh-badge-preview');
         if (!preview) return;
-
-        var radius = getVal('tpl-badge-radius', '50rem');
-        var fontSize = getVal('tpl-badge-font-size', '0.8rem');
-        var fontWeight = getVal('tpl-badge-font-weight', '600');
-        var padding = getVal('tpl-badge-padding', '0.25rem 0.7rem');
-        var borderWidth = getVal('tpl-badge-border-width', '0px');
-        var borderColor = getVal('tpl-badge-border-color', 'transparent');
-
+        var radius = gv('tpl-badge-radius','50rem');
+        var fs = gv('tpl-badge-font-size','0.8rem');
+        var fw = gv('tpl-badge-font-weight','600');
+        var pad = gv('tpl-badge-padding','0.25rem 0.7rem');
+        var bw = gv('tpl-badge-border-width','0px');
+        var bc = gv('tpl-badge-border-color','transparent');
         var types = [
-            { key: 'fem', label: 'Feminisiert', icon: 'fa-venus' },
-            { key: 'reg', label: 'Regulaer', icon: 'fa-mars' },
-            { key: 'photo', label: 'Photoperiodisch', icon: 'fa-sun-o' },
-            { key: 'auto', label: 'Autoflowering', icon: 'fa-tachometer' }
+            {k:'fem',l:'Feminisiert',i:'fa-venus'},
+            {k:'reg',l:'Regul\u00e4r',i:'fa-mars'},
+            {k:'photo',l:'Photoperiodisch',i:'fa-sun-o'},
+            {k:'auto',l:'Autoflowering',i:'fa-tachometer'}
         ];
-
-        var html = '';
-        types.forEach(function(t) {
-            var bg = getVal('tpl-badge-' + t.key + '-bg', '#6c757d');
-            var text = getVal('tpl-badge-' + t.key + '-text', '#fff');
-            var border = getVal('tpl-badge-' + t.key + '-border', 'transparent');
-            html += '<span class="badge-demo" style="'
-                + 'background:' + bg + ';'
-                + 'color:' + text + ';'
-                + 'border-radius:' + radius + ';'
-                + 'font-size:' + fontSize + ';'
-                + 'font-weight:' + fontWeight + ';'
-                + 'padding:' + padding + ';'
-                + 'border:' + borderWidth + ' solid ' + (border !== 'transparent' ? border : borderColor) + ';'
-                + '"><span class="fa ' + t.icon + '" style="font-size:0.9em;"></span> ' + t.label + '</span>';
+        var h = '';
+        types.forEach(function(t){
+            var bg = gv('tpl-badge-'+t.k+'-bg','#6c757d');
+            var tx = gv('tpl-badge-'+t.k+'-text','#fff');
+            var bd = gv('tpl-badge-'+t.k+'-border','transparent');
+            h += '<span style="display:inline-flex;align-items:center;gap:.3rem;white-space:nowrap;'
+                +'background:'+bg+';color:'+tx+';border-radius:'+radius+';font-size:'+fs+';font-weight:'+fw+';'
+                +'padding:'+pad+';border:'+bw+' solid '+(bd!=='transparent'?bd:bc)+';'
+                +'"><span class="fa '+t.i+'" style="font-size:.9em"></span> '+t.l+'</span>';
         });
-        preview.innerHTML = html;
+        preview.innerHTML = h;
     }
-
-    function getVal(name, fallback) {
-        var el = document.querySelector('[name="' + name + '"]');
-        return el ? (el.value || fallback) : fallback;
-    }
-
-    // Live-Update bei Aenderungen
-    document.querySelectorAll('.mrh-badge-cfg input, .mrh-badge-cfg select').forEach(function(el) {
-        el.addEventListener('input', renderBadgePreview);
-        el.addEventListener('change', renderBadgePreview);
+    function gv(n,fb){var e=document.getElementById(n);return e?(e.value||fb):fb;}
+    document.querySelectorAll('#tab-badges input, #tab-badges select').forEach(function(el){
+        el.addEventListener('input',renderBadgePreview);
+        el.addEventListener('change',renderBadgePreview);
     });
-
-    // Initial rendern
     renderBadgePreview();
 })();
 </script>
