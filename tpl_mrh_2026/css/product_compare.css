@@ -19,6 +19,10 @@
 
 /* === Remove Button (top-right corner, round) === */
 /* Farben konfigurierbar via Konfigurator Tab 3 > Spezial-Buttons > "Vergleich entfernen" */
+a.compare-remove-btn,
+a.compare-remove-btn span {
+    color: var(--tpl-btn-compare-remove-text, #fff) !important;
+}
 .compare-remove-btn {
     position: absolute;
     top: 8px;
@@ -28,19 +32,19 @@
     height: 28px;
     border-radius: 50%;
     background: var(--tpl-btn-compare-remove-bg, rgba(220, 53, 69, 0.9));
-    color: var(--tpl-btn-compare-remove-text, #fff);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 13px;
     text-decoration: none;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
     line-height: 1;
 }
 
-.compare-remove-btn:hover {
+a.compare-remove-btn:hover,
+a.compare-remove-btn:hover span {
     background: var(--tpl-btn-compare-remove-hover, #c82333);
-    color: var(--tpl-btn-compare-remove-text, #fff);
+    color: var(--tpl-btn-compare-remove-text, #fff) !important;
     text-decoration: none;
     transform: scale(1.15);
 }
