@@ -161,7 +161,7 @@
           </div>
           {if $PRODUCTS_QUANTITY > 0}
             {if isset($ADD_CART_BUTTON_EXPRESS) && !$PAYPALPLAN}
-              <div class="mt-2">{$ADD_CART_BUTTON_EXPRESS|replace:'btn ':'btn btn-outline-secondary btn-sm w-100 '}</div>
+              <div class="mt-2">{$ADD_CART_BUTTON_EXPRESS|replace:'btn ':'btn mrh-btn-express btn-sm w-100 '}</div>
             {/if}
             {if isset($ADD_CART_BUTTON_PAYPAL) && !$PAYPALPLAN}
               <div class="mt-2">{$ADD_CART_BUTTON_PAYPAL}</div>
@@ -191,14 +191,14 @@
         {* Merkzettel *}
         {if isset($ADD_CART_BUTTON_WISHLIST) && $ADD_CART_BUTTON_WISHLIST != ''}
           <div class="mrh-action-btn">
-            <button type="submit" name="wishlist" class="btn btn-outline-secondary btn-sm">
+            <button type="submit" name="wishlist" class="btn mrh-btn-wishlist btn-sm">
               <span class="fa-regular fa-heart me-1"></span>{#btn_wishlist#}
             </button>
           </div>
         {/if}
         {* Vergleichen *}
         {if $smarty.const.MODULE_PRODUCT_COMPARE_STATUS == 'true'}
-          <button type="button" class="btn btn-outline-secondary btn-sm"
+          <button type="button" class="btn mrh-btn-compare btn-sm"
                   data-product-id="{$PRODUCTS_ID}"
                   onclick="event.preventDefault(); window.ProductCompare && window.ProductCompare.toggle('{$PRODUCTS_ID}', this);">
             <span class="fa-solid fa-scale-balanced me-1"></span>

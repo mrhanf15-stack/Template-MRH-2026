@@ -832,6 +832,7 @@ body:not(.using-keyboard) *:focus {
    ============================================================ */
 .btn-primary,
 .btn-cart,
+.mrh-btn-primary,
 .cssbutton {
   background-color: var(--tpl-btn-primary-bg) !important;
   border-color: var(--tpl-btn-primary-bg) !important;
@@ -843,6 +844,7 @@ body:not(.using-keyboard) *:focus {
 }
 .btn-primary:hover,
 .btn-cart:hover,
+.mrh-btn-primary:hover,
 .cssbutton:hover {
   background-color: var(--tpl-btn-primary-hover) !important;
   border-color: var(--tpl-btn-primary-hover) !important;
@@ -877,14 +879,16 @@ body:not(.using-keyboard) *:focus {
   background-color: var(--tpl-btn-info-hover) !important;
   border-color: var(--tpl-btn-info-hover) !important;
 }
-.btn-express {
+.btn-express,
+.mrh-btn-express {
   background-color: var(--tpl-btn-express-bg) !important;
   border-color: var(--tpl-btn-express-bg) !important;
   color: var(--tpl-btn-express-text) !important;
   border-radius: 6px;
   transition: all 0.2s ease;
 }
-.btn-express:hover {
+.btn-express:hover,
+.mrh-btn-express:hover {
   background-color: var(--tpl-btn-express-hover) !important;
   border-color: var(--tpl-btn-express-hover) !important;
   color: var(--tpl-btn-express-text) !important;
