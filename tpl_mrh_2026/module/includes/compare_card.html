@@ -1,8 +1,9 @@
 {*
- * compare_card.html v1.1.0 – Include fuer Vergleichsseite
+ * compare_card.html v1.2.0 – Include fuer Vergleichsseite
  * tpl_mrh_2026 – Bootstrap 5.3
- * @version   1.1.0
+ * @version   1.2.0
  * @date      2026-04-11
+ * v1.2.0: Merken+Details IMMER anzeigen (auch bei ausverkauft)
  *}
 
 <div class="card h-100 d-flex flex-column position-relative">
@@ -78,9 +79,9 @@
     </div>
 
     {* ── Footer Bar: strukturiert ── *}
-    {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-      <div class="compare-footer-bar">
-        {* Zeile 1: Qty-Input + Kaufbutton *}
+    <div class="compare-footer-bar">
+      {* Zeile 1: Qty-Input + Kaufbutton (nur wenn kaufbar) *}
+      {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
         {if $module_data.PRODUCTS_SHIPPINGTIME != '4'}
           {if $module_data.PRODUCTS_BUTTON_BUY_NOW || ($module_data.PRODUCTS_FSK18 != '0' && $smarty.const.SHOW_BUTTON_BUY_NOW != 'false')}
             <div class="compare-buy-row d-flex align-items-center gap-2 flex-nowrap">
@@ -93,20 +94,20 @@
             </div>
           {/if}
         {/if}
+      {/if}
 
-        {* Zeile 2: Merkzettel + Details *}
-        <div class="compare-action-row">
-          {if !empty($module_data.PRODUCTS_LINK_WISHLIST_NOW)}
-            <button type="submit" name="wishlist" class="btn btn-sm mrh-btn-wishlist" title="{$smarty.const.TEXT_TO_WISHLIST}">
-              <span class="fa-regular fa-heart me-1"></span>Merken
-            </button>
-          {/if}
-          <a class="btn btn-sm mrh-btn-details" href="{$module_data.PRODUCTS_LINK}">
-            <span class="fa-solid fa-eye me-1"></span>Details
-          </a>
-        </div>
+      {* Zeile 2: Merkzettel + Details (IMMER anzeigen, auch bei ausverkauft) *}
+      <div class="compare-action-row">
+        {if !empty($module_data.PRODUCTS_LINK_WISHLIST_NOW)}
+          <button type="submit" name="wishlist" class="btn btn-sm mrh-btn-wishlist" title="{$smarty.const.TEXT_TO_WISHLIST}">
+            <span class="fa-regular fa-heart me-1"></span>Merken
+          </button>
+        {/if}
+        <a class="btn btn-sm mrh-btn-details" href="{$module_data.PRODUCTS_LINK}">
+          <span class="fa-solid fa-eye me-1"></span>Details
+        </a>
       </div>
-    {/if}
+    </div>
 
     {$module_data.FORM_END}
   </div>
