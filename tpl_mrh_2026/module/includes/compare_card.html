@@ -1,9 +1,10 @@
 {*
- * compare_card.html v1.2.0 – Include fuer Vergleichsseite
+ * compare_card.html v1.3.0 – Include fuer Vergleichsseite
  * tpl_mrh_2026 – Bootstrap 5.3
- * @version   1.2.0
+ * @version   1.3.0
  * @date      2026-04-11
  * v1.2.0: Merken+Details IMMER anzeigen (auch bei ausverkauft)
+ * v1.3.0: Badge-Zeile unter Produktname (Feminisiert, Regulaer, Autoflowering, Photoperiodisch)
  *}
 
 <div class="card h-100 d-flex flex-column position-relative">
@@ -37,6 +38,9 @@
       </a>
     </h2>
   </div>
+
+  {* ── Badge-Zeile (v1.3.0) ── *}
+  <div class="compare-badge-row" data-product-id="{$module_data.PRODUCTS_ID}"></div>
 
   {* ── Kurzbeschreibung (flex-grow, scrollbar) ── *}
   {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}

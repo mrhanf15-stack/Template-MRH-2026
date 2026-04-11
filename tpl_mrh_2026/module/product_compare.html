@@ -1,30 +1,22 @@
 {*
- * Product Compare v5.0.0 - Bootstrap 5.3 Grid Layout (tpl_mrh_2026)
- * Referenz-Design: mr-hanf.de product_compare v2.0.3 (bootstrap4)
- * Portiert auf BS5.3 mit 4-Spalten Grid (statt 3 wegen fehlender Sidebar)
+ * Product Compare v5.2.0 - Bootstrap 5.3 Grid Layout (tpl_mrh_2026)
  *
  * Grid: row g-3 + col-6 col-md-4 col-lg-3
  *   Desktop (>=992px): 4 Spalten
  *   Tablet  (>=768px): 3 Spalten
  *   Mobile:            2 Spalten
  *
- * Card-Struktur (wie .de Referenz):
- *   1. Remove-Button (oben rechts, rund, rot)
- *   2. Produktbild (landscape 4:3, object-cover)
- *   3. Produktname (prominent) + Hersteller (blockquote-footer)
- *   4. Kurzbeschreibung (volle Hoehe, scrollbar bei Ueberlauf)
- *   5. card-footer mt-auto: Attribute, Preis, Buttons
- *   6. Buttons: Qty | Cart | Wishlist | Details (rechts)
+ * Card-Design via Include: module/includes/compare_card.html
+ * Visuell identisch mit seedfinder_card.html
  *
- * Kein !important, kein eigenes Grid-System
- * Form-Tag im card-footer (nicht in btn-row)
- *
- * @version   5.0.0
+ * @version   5.2.0
  * @date      2026-04-11
+ * v5.1.0: Include-basiert statt inline Card-Struktur
+ * v5.2.0: Badge-Zeile JS (Feminisiert, Regulaer, Autoflowering, Photoperiodisch)
  *}
 {assign "dummy" ""}
 
-<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=5.0.0">
+<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=5.4.0">
 
 <div class="product-compare-page">
 
@@ -62,106 +54,11 @@
       </a>
     </div>
 
-    {* ══════════════════════════════════════════════════════════ *}
     {* Product Cards - BS5.3 Grid: 4 Desktop / 3 Tablet / 2 Mob *}
-    {* ══════════════════════════════════════════════════════════ *}
     <div class="row g-3">
     {foreach from=$COMPARE_PRODUCTS item=module_data name=compare_loop}
-      <div class="col-6 col-md-4 col-lg-3 listingbox">
-        <div class="card h-100 d-flex flex-column">
-
-          {* ── Remove Button (oben rechts, rund) ── *}
-          <a href="{$module_data.PRODUCTS_REMOVE_LINK}" class="compare-remove-btn" title="{$PC_REMOVE_BUTTON}">
-            <span class="fa-solid fa-xmark"></span>
-          </a>
-
-          {* ── Produktbild (landscape, object-cover) ── *}
-          <a href="{$module_data.PRODUCTS_LINK}" class="card-body text-center lb_image compare-img-box p-0">
-            {if $module_data.PRODUCTS_IMAGE != ''}
-              <img class="compare-product-img" loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" title="{$module_data.PRODUCTS_NAME|onlytext}" />
-            {/if}
-          </a>
-
-          {* ── Produktname + Hersteller ── *}
-          <div class="card-body pt-2 pb-1">
-            <h2 class="lb_title lead text-secondary mb-1">
-              <a href="{$module_data.PRODUCTS_LINK}" class="text-decoration-none">{$module_data.PRODUCTS_NAME}</a>
-            </h2>
-            {if !empty($module_data.MANUFACTURER)}
-              <footer class="blockquote-footer mb-1">
-                <cite title="{$module_data.PRODUCTS_NAME|onlytext} - {$module_data.MANUFACTURER|onlytext}">{$module_data.MANUFACTURER}</cite>
-              </footer>
-            {/if}
-          </div>
-
-          {* ── Kurzbeschreibung (volle Hoehe, scrollbar bei Ueberlauf) ── *}
-          {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
-            <div class="card-body pt-0 pb-1 compare-desc-box align-self-start">
-              <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
-            </div>
-          {/if}
-
-          {* ── Footer: Attribute, Preis, Buttons (mt-auto = immer unten) ── *}
-          <div class="card-footer bg-body-tertiary mt-auto compare-footer">
-            {$module_data.FORM_ACTION}
-
-            {* Attribute/Optionen (Preisoptionen, Radio-Buttons) *}
-            {if $module_data.PRODUCT_ATTRIBUTES}
-              <div id="options{$module_data.PRODUCTS_ID}" class="cf mb-2">{$module_data.PRODUCT_ATTRIBUTES|replace:' p-2':''}</div>
-            {/if}
-
-            {* Lieferzeit + Preis *}
-            <div class="text-end mt-2">
-              <div class="lb_shipping small">
-                {if $module_data.PRODUCTS_SHIPPING_NAME}
-                  {#text_shippingtime#} {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
-                {else}
-                  &nbsp;
-                {/if}
-              </div>
-              <div>
-                {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
-                  {include file="module/includes/price_box.html"}
-                {/foreach}
-                {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-                  {if $module_data.PRODUCTS_VPE}
-                    <div class="lb_vpe text-secondary small">{$module_data.PRODUCTS_VPE}</div>
-                  {/if}
-                {/if}
-              </div>
-              {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-                <div class="lb_tax text-secondary small mb-1">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
-              {/if}
-            </div>
-
-            {* ── Buttons: Qty | Cart | Wishlist | Details (rechts) ── *}
-            {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-              <div class="compare-btn-row">
-                {if $module_data.PRODUCTS_SHIPPINGTIME != '4'}
-                  {if $module_data.PRODUCTS_BUTTON_BUY_NOW || ($module_data.PRODUCTS_FSK18 != '0' && $smarty.const.SHOW_BUTTON_BUY_NOW != 'false')}
-                    {if defined($module_data.QTYPD_STATUS) && $module_data.QTYPD_STATUS == 'true'}
-                      {$module_data.ADD_QTYPD|replace:'select':'select class="form-select form-select-sm compare-qty"'}
-                    {else}
-                      {$module_data.ADD_QTY|replace:'input':'input class="form-control form-control-sm compare-qty"'}
-                    {/if}
-                    {$module_data.PRODUCTS_ADD_CART_BUTTON}
-                  {/if}
-                {/if}
-                {if !empty($module_data.PRODUCTS_LINK_WISHLIST_NOW)}
-                  <button type="submit" name="wishlist" class="btn btn-sm mrh-btn-wishlist" title="{$smarty.const.TEXT_TO_WISHLIST}">
-                    <span class="fa-regular fa-heart"></span>
-                  </button>
-                {/if}
-                <a class="btn btn-sm mrh-btn-details ms-auto" href="{$module_data.PRODUCTS_LINK}">
-                  <span class="fa-solid fa-eye me-1"></span>Details
-                </a>
-              </div>
-            {/if}
-
-            {$module_data.FORM_END}
-          </div>
-
-        </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        {include file="module/includes/compare_card.html"}
       </div>
     {/foreach}
     </div>
@@ -182,3 +79,120 @@
   {include file="module/product_compare_main.html"}
 
 </div>
+
+{* ── Badge-Zeile JS v1.0 (v5.2.0) ──
+   Verschiebt .picto.templatestyle Badges aus der lr_desc
+   in die .compare-badge-row unter dem Produktnamen.
+   Erzeugt farbige Pill-Labels basierend auf Icon-Klassen/Titles.
+*}
+<script>
+(function(){
+  'use strict';
+
+  /* Badge-Mapping: Icon-Klasse/Title → Label + Farb-Klasse */
+  var BADGE_MAP = {
+    'Autoflowering':  { label: 'Autoflowering',  cls: 'mrh-cbadge-auto' },
+    'Feminisiert':    { label: 'Feminisiert',     cls: 'mrh-cbadge-fem' },
+    'Regulär':        { label: 'Regulär',         cls: 'mrh-cbadge-reg' },
+    'Regular':        { label: 'Regulär',         cls: 'mrh-cbadge-reg' },
+    'Photoperiodisch':{ label: 'Photoperiodisch', cls: 'mrh-cbadge-photo' },
+    'CBD':            { label: 'CBD',             cls: 'mrh-cbadge-cbd' }
+  };
+
+  /* Erkennt Badge-Typ aus einem Element (span mit title oder Klasse) */
+  function detectBadges(pictoEl) {
+    var found = [];
+    if (!pictoEl) return found;
+
+    /* Alle spans mit title-Attribut durchsuchen */
+    var spans = pictoEl.querySelectorAll('[title]');
+    for (var i = 0; i < spans.length; i++) {
+      var title = spans[i].getAttribute('title');
+      if (title && BADGE_MAP[title]) {
+        found.push(BADGE_MAP[title]);
+      }
+    }
+
+    /* Fallback: Autoflowering via Klasse shortfongc erkennen */
+    if (found.length === 0 || !found.some(function(b){ return b.cls === 'mrh-cbadge-auto'; })) {
+      var autoSpan = pictoEl.querySelector('.shortfongc');
+      if (autoSpan) {
+        var alreadyHas = found.some(function(b){ return b.cls === 'mrh-cbadge-auto'; });
+        if (!alreadyHas) {
+          found.push(BADGE_MAP['Autoflowering']);
+        }
+      }
+    }
+
+    /* Fallback: Feminisiert via Klasse fa-venus erkennen */
+    if (!found.some(function(b){ return b.cls === 'mrh-cbadge-fem'; })) {
+      if (pictoEl.querySelector('.fa-venus')) {
+        found.push(BADGE_MAP['Feminisiert']);
+      }
+    }
+
+    /* Fallback: Regulaer via Klasse fa-mars erkennen */
+    if (!found.some(function(b){ return b.cls === 'mrh-cbadge-reg'; })) {
+      if (pictoEl.querySelector('.fa-mars')) {
+        found.push(BADGE_MAP['Regulär']);
+      }
+    }
+
+    return found;
+  }
+
+  /* Erstellt ein Pill-Badge HTML-Element */
+  function createPill(badgeInfo) {
+    var pill = document.createElement('span');
+    pill.className = 'mrh-cbadge ' + badgeInfo.cls;
+    pill.textContent = badgeInfo.label;
+    return pill;
+  }
+
+  /* Hauptlogik: Badges verschieben */
+  function initBadges() {
+    var cards = document.querySelectorAll('.product-compare-page .card.h-100');
+    cards.forEach(function(card) {
+      var badgeRow = card.querySelector('.compare-badge-row');
+      if (!badgeRow) return;
+
+      /* Finde .picto.templatestyle in der lr_desc */
+      var descBox = card.querySelector('.compare-desc-box .lr_desc');
+      if (!descBox) return;
+
+      var pictos = descBox.querySelectorAll('.picto.templatestyle');
+      var allBadges = [];
+
+      pictos.forEach(function(picto) {
+        var badges = detectBadges(picto);
+        allBadges = allBadges.concat(badges);
+        /* Picto aus lr_desc entfernen */
+        picto.parentNode.removeChild(picto);
+      });
+
+      /* Deduplizieren */
+      var seen = {};
+      allBadges = allBadges.filter(function(b) {
+        if (seen[b.cls]) return false;
+        seen[b.cls] = true;
+        return true;
+      });
+
+      /* Pills erstellen */
+      if (allBadges.length > 0) {
+        allBadges.forEach(function(b) {
+          badgeRow.appendChild(createPill(b));
+        });
+      }
+      /* Wenn keine Badges: min-height via CSS sorgt fuer Platzhalter */
+    });
+  }
+
+  /* Ausfuehren wenn DOM bereit */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBadges);
+  } else {
+    initBadges();
+  }
+})();
+</script>
