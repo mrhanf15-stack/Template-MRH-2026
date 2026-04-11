@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.2.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.4.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
@@ -13,6 +13,8 @@
            action-row align-self, Buttons max-height begrenzt
    v5.3.1: Bootstrap card-footer border-top und bg entfernt (doppelt)
    v5.3.2: compare-footer-bar border-top entfernt
+   v5.4.0: Badge-Zeile unter Produktname (Feminisiert, Regulaer,
+           Autoflowering, Photoperiodisch) als farbige Pills
    ========================================================================= */
 
 /* === Page Layout === */
@@ -214,19 +216,63 @@ a.compare-remove-btn:hover {
     flex-wrap: nowrap;
 }
 
-/* === Picto Icon - Absolute so it does not push table down === */
+/* === Picto Icon in lr_desc: Verstecken (wird per JS in Badge-Zeile verschoben) === */
 .compare-desc-box .lr_desc .picto.templatestyle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 24px;
-    line-height: 24px;
-    z-index: 2;
+    display: none;
 }
 
-/* === When picto has class .off (hidden icon) keep same spacing === */
-.compare-desc-box .lr_desc .picto.templatestyle.off {
-    visibility: hidden;
+/* === Badge-Zeile unter Produktname (v5.4.0) === */
+.compare-badge-row {
+    min-height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 12px 4px;
+    flex-wrap: wrap;
+}
+
+/* === Badge Pills (farbige Labels) === */
+.mrh-cbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+}
+
+/* Feminisiert - Rosa */
+.mrh-cbadge-fem {
+    background: #e91e8c;
+    color: #fff;
+}
+
+/* Regulaer - Grau/Dunkel */
+.mrh-cbadge-reg {
+    background: #6c757d;
+    color: #fff;
+}
+
+/* Autoflowering - Gruen */
+.mrh-cbadge-auto {
+    background: #28a745;
+    color: #fff;
+}
+
+/* Photoperiodisch - Dunkelgruen/Teal */
+.mrh-cbadge-photo {
+    background: #1a7a5a;
+    color: #fff;
+}
+
+/* CBD - Blau */
+.mrh-cbadge-cbd {
+    background: #17a2b8;
+    color: #fff;
 }
 
 /* === HIDE Legend (stock color dots) inside options === */
