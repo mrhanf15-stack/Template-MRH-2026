@@ -19,9 +19,25 @@
 
 /* === Remove Button (top-right corner, round) === */
 /* Farben konfigurierbar via Konfigurator Tab 3 > Spezial-Buttons > "Vergleich entfernen" */
+.card a.compare-remove-btn,
+.card a.compare-remove-btn:link,
+.card a.compare-remove-btn:visited,
+.card a.compare-remove-btn:hover,
+.card a.compare-remove-btn:active,
+.card a.compare-remove-btn:focus,
 a.compare-remove-btn,
-a.compare-remove-btn span {
+a.compare-remove-btn:link,
+a.compare-remove-btn:visited,
+a.compare-remove-btn:active,
+a.compare-remove-btn:focus {
     color: var(--tpl-btn-compare-remove-text, #fff) !important;
+    text-decoration: none !important;
+    text-underline-offset: 0 !important;
+    -webkit-text-decoration: none !important;
+}
+.card a.compare-remove-btn span,
+a.compare-remove-btn span {
+    color: inherit !important;
     text-decoration: none !important;
 }
 .compare-remove-btn {
@@ -37,16 +53,13 @@ a.compare-remove-btn span {
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
     line-height: 1;
 }
 
-a.compare-remove-btn:hover,
-a.compare-remove-btn:hover span {
+a.compare-remove-btn:hover {
     background: var(--tpl-btn-compare-remove-hover, #c82333);
-    color: var(--tpl-btn-compare-remove-text, #fff) !important;
-    text-decoration: none !important;
     transform: scale(1.15);
 }
 
