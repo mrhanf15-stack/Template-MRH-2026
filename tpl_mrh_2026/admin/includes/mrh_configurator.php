@@ -205,6 +205,10 @@ $mrh_color_defaults = [
     'tpl-btn-compare-text'     => 'rgb(255, 255, 255)',
     'tpl-btn-compare-hover'    => 'rgb(23, 162, 184)',
 
+    'tpl-btn-compare-remove-bg'    => 'rgba(220, 53, 69, 0.9)',
+    'tpl-btn-compare-remove-text'  => 'rgb(255, 255, 255)',
+    'tpl-btn-compare-remove-hover' => 'rgb(200, 35, 51)',
+
     // ══════════════════════════════════════════════════
     // ── Hintergrundfarben (bg-*) ──
     // ══════════════════════════════════════════════════
@@ -454,6 +458,9 @@ $mrh_to_tpl_map = [
     'mrh-btn-compare-bg'    => 'tpl-btn-compare-bg',
     'mrh-btn-compare-text'  => 'tpl-btn-compare-text',
     'mrh-btn-compare-hover' => 'tpl-btn-compare-hover',
+    'mrh-btn-compare-remove-bg'    => 'tpl-btn-compare-remove-bg',
+    'mrh-btn-compare-remove-text'  => 'tpl-btn-compare-remove-text',
+    'mrh-btn-compare-remove-hover' => 'tpl-btn-compare-remove-hover',
 ];
 
 // Migration: mrh-* Werte auf tpl-* übertragen (nur wenn tpl-* Key noch nicht gesetzt)

@@ -2370,6 +2370,9 @@ table.tebals.wite tr:last-child td:last-child {
 .demo-farbe.tpl-btn-compare-bg { background-color: var(--tpl-btn-compare-bg) !important; }
 .demo-farbe.tpl-btn-compare-text { background-color: var(--tpl-btn-compare-text) !important; }
 .demo-farbe.tpl-btn-compare-hover { background-color: var(--tpl-btn-compare-hover) !important; }
+.demo-farbe.tpl-btn-compare-remove-bg { background-color: var(--tpl-btn-compare-remove-bg) !important; }
+.demo-farbe.tpl-btn-compare-remove-text { background-color: var(--tpl-btn-compare-remove-text) !important; }
+.demo-farbe.tpl-btn-compare-remove-hover { background-color: var(--tpl-btn-compare-remove-hover) !important; }
 
 /* ============================================================
    ROWANSICHT (Listenansicht) – 2-spaltig Desktop, 1-spaltig Mobil

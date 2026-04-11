@@ -175,6 +175,10 @@ $defaults = [
     'tpl-btn-compare-bg'       => 'rgb(108, 117, 125)',
     'tpl-btn-compare-text'     => 'rgb(255, 255, 255)',
     'tpl-btn-compare-hover'    => 'rgb(23, 162, 184)',
+    // Button: Compare Remove (X-Button auf Vergleichsseite)
+    'tpl-btn-compare-remove-bg'    => 'rgba(220, 53, 69, 0.9)',
+    'tpl-btn-compare-remove-text'  => 'rgb(255, 255, 255)',
+    'tpl-btn-compare-remove-hover' => 'rgb(200, 35, 51)',
     // ── Hintergrundfarben (bg-*) ──
     'tpl-bg-primary'           => 'rgb(74, 140, 42)',
     'tpl-bg-primary-text'      => 'rgb(255, 255, 255)',

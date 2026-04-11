@@ -239,7 +239,7 @@ foreach ($filled_buttons as $variant => $label) {
 
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-star me-1"></i> Spezial-Buttons</div></div>
 <?php
-$special_buttons = ['express'=>'Express Kaufen','details'=>'Details (Auge)','wishlist'=>'Merkzettel (Herz)','compare'=>'Vergleichen (Waage)'];
+$special_buttons = ['express'=>'Express Kaufen','details'=>'Details (Auge)','wishlist'=>'Merkzettel (Herz)','compare'=>'Vergleichen (Waage)','compare-remove'=>'Vergleich entfernen (X)'];
 foreach ($special_buttons as $variant => $label) {
     $bg_key    = 'tpl-btn-' . $variant . '-bg';
     $text_key  = 'tpl-btn-' . $variant . '-text';
