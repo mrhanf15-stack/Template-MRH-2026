@@ -211,6 +211,36 @@ $mrh_color_defaults = [
     'tpl-btn-compare-remove-hover' => 'rgb(200, 35, 51)',
 
     // ══════════════════════════════════════════════════
+    // ── Floating Vergleichs-Badge ──
+    // ══════════════════════════════════════════════════
+    'tpl-compare-float-bg'         => 'rgb(74, 140, 42)',
+    'tpl-compare-float-text'       => 'rgb(255, 255, 255)',
+    'tpl-compare-float-hover-bg'   => 'rgb(56, 112, 32)',
+    'tpl-compare-float-size'       => '56px',
+    'tpl-compare-float-font-size'  => '1.4rem',
+    'tpl-compare-float-radius'     => '50%',
+    'tpl-compare-float-shadow'     => '0 4px 12px rgba(0,0,0,0.3)',
+    'tpl-compare-float-count-bg'   => 'rgb(220, 53, 69)',
+    'tpl-compare-float-count-text' => 'rgb(255, 255, 255)',
+    'tpl-compare-float-count-size' => '22px',
+    'tpl-compare-float-count-font' => '0.75rem',
+
+    // ══════════════════════════════════════════════════
+    // ── Versandkosten-Leiste (#mrh-shipping-bar) ──
+    // ══════════════════════════════════════════════════
+    'tpl-shipping-bar-bg'          => 'rgb(255, 251, 235)',
+    'tpl-shipping-bar-text'        => 'rgb(190, 158, 31)',
+    'tpl-shipping-bar-amount'      => 'rgb(40, 167, 69)',
+    'tpl-shipping-bar-font-size'   => '11px',
+    'tpl-shipping-bar-font-weight' => '600',
+    'tpl-shipping-bar-padding'     => '8px 0',
+    'tpl-shipping-bar-track-bg'    => 'rgb(209, 250, 229)',
+    'tpl-shipping-bar-track-h'     => '6px',
+    'tpl-shipping-bar-track-radius'=> '999px',
+    'tpl-shipping-bar-fill-bg'     => 'rgb(74, 140, 42)',
+    'tpl-shipping-bar-icon-size'   => '1rem',
+
+    // ══════════════════════════════════════════════════
     // ── Produkt-Badges (Geschlecht/Typ) ──
     // ══════════════════════════════════════════════════
     // Badge-Container (.mrh-badge-bar)

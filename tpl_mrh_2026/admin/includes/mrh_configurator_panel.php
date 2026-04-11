@@ -1624,6 +1624,112 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-picto-icon-size" type="text" name="tpl-picto-icon-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-icon-size','1rem'); ?>">
     </div>
 
+    <!-- ═══ Floating Vergleichs-Badge ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-balance-scale me-1" style="color:#4a8c2a;"></i> Floating Vergleichs-Badge</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Der schwebende Vergleichs-Button (unten rechts) mit Z&auml;hler</small></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-compare-float-bg" type="text" name="tpl-compare-float-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-compare-float-bg','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-compare-float-bg','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-text"><strong>Icon-Farbe</strong></label>
+        <input id="tpl-compare-float-text" type="text" name="tpl-compare-float-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-compare-float-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-compare-float-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-hover-bg"><strong>Hover-Hintergrund</strong></label>
+        <input id="tpl-compare-float-hover-bg" type="text" name="tpl-compare-float-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-compare-float-hover-bg','rgb(56, 112, 32)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-compare-float-hover-bg','rgb(56, 112, 32)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-size"><strong>Gr&ouml;&szlig;e (Breite/H&ouml;he)</strong></label>
+        <input id="tpl-compare-float-size" type="text" name="tpl-compare-float-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-size','56px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-font-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-compare-float-font-size" type="text" name="tpl-compare-float-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-font-size','1.4rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-radius"><strong>Rundung</strong></label>
+        <input id="tpl-compare-float-radius" type="text" name="tpl-compare-float-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-radius','50%'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-shadow"><strong>Schatten</strong></label>
+        <input id="tpl-compare-float-shadow" type="text" name="tpl-compare-float-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-shadow','0 4px 12px rgba(0,0,0,0.3)'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-count-bg"><strong>Z&auml;hler-Hintergrund</strong></label>
+        <input id="tpl-compare-float-count-bg" type="text" name="tpl-compare-float-count-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-compare-float-count-bg','rgb(220, 53, 69)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-compare-float-count-bg','rgb(220, 53, 69)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-count-text"><strong>Z&auml;hler-Textfarbe</strong></label>
+        <input id="tpl-compare-float-count-text" type="text" name="tpl-compare-float-count-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-compare-float-count-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-compare-float-count-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-count-size"><strong>Z&auml;hler-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-compare-float-count-size" type="text" name="tpl-compare-float-count-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-count-size','22px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-compare-float-count-font"><strong>Z&auml;hler-Schriftgr&ouml;&szlig;e</strong></label>
+        <input id="tpl-compare-float-count-font" type="text" name="tpl-compare-float-count-font" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-count-font','0.75rem'); ?>">
+    </div>
+
+    <!-- ═══ Versandkosten-Leiste ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1" style="color:#be9e1f;"></i> Versandkosten-Leiste</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Die Leiste &quot;Noch X EUR bis kostenloser Versand&quot; im Header</small></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-shipping-bar-bg" type="text" name="tpl-shipping-bar-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-shipping-bar-bg','rgb(255, 251, 235)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-shipping-bar-bg','rgb(255, 251, 235)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-shipping-bar-text" type="text" name="tpl-shipping-bar-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-shipping-bar-text','rgb(190, 158, 31)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-shipping-bar-text','rgb(190, 158, 31)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-amount"><strong>Betragsfarbe</strong></label>
+        <input id="tpl-shipping-bar-amount" type="text" name="tpl-shipping-bar-amount" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-shipping-bar-amount','rgb(40, 167, 69)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-shipping-bar-amount','rgb(40, 167, 69)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-font-size"><strong>Schriftgr&ouml;&szlig;e</strong></label>
+        <input id="tpl-shipping-bar-font-size" type="text" name="tpl-shipping-bar-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-shipping-bar-font-size','11px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-font-weight"><strong>Schriftgewicht</strong></label>
+        <input id="tpl-shipping-bar-font-weight" type="text" name="tpl-shipping-bar-font-weight" class="form-control" value="<?php echo mrh_cv($c,'tpl-shipping-bar-font-weight','600'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-padding"><strong>Padding</strong></label>
+        <input id="tpl-shipping-bar-padding" type="text" name="tpl-shipping-bar-padding" class="form-control" value="<?php echo mrh_cv($c,'tpl-shipping-bar-padding','8px 0'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-track-bg"><strong>Fortschrittsbalken-Hintergrund</strong></label>
+        <input id="tpl-shipping-bar-track-bg" type="text" name="tpl-shipping-bar-track-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-shipping-bar-track-bg','rgb(209, 250, 229)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-shipping-bar-track-bg','rgb(209, 250, 229)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-track-h"><strong>Balken-H&ouml;he</strong></label>
+        <input id="tpl-shipping-bar-track-h" type="text" name="tpl-shipping-bar-track-h" class="form-control" value="<?php echo mrh_cv($c,'tpl-shipping-bar-track-h','6px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-track-radius"><strong>Balken-Rundung</strong></label>
+        <input id="tpl-shipping-bar-track-radius" type="text" name="tpl-shipping-bar-track-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-shipping-bar-track-radius','999px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-fill-bg"><strong>Fortschrittsbalken-F&uuml;llung</strong></label>
+        <input id="tpl-shipping-bar-fill-bg" type="text" name="tpl-shipping-bar-fill-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-shipping-bar-fill-bg','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-shipping-bar-fill-bg','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-shipping-bar-icon-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-shipping-bar-icon-size" type="text" name="tpl-shipping-bar-icon-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-shipping-bar-icon-size','1rem'); ?>">
+    </div>
+
     <!-- Speichern -->
     <div class="col-12 mt-3 mb-3">
         <button type="submit" name="submit-colors" class="btn btn-success btn-lg">

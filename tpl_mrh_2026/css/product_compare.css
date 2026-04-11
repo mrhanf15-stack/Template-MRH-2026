@@ -318,34 +318,40 @@ a.compare-remove-btn:hover {
 }
 
 /* === Badge Link (colors set via inline styles from Admin) === */
+/* Farben konfigurierbar via Konfigurator Tab 10 > Floating Vergleichs-Badge */
 .product-compare-badge .compare-badge-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    width: var(--tpl-compare-float-size, 56px);
+    height: var(--tpl-compare-float-size, 56px);
+    border-radius: var(--tpl-compare-float-radius, 50%);
+    font-size: var(--tpl-compare-float-font-size, 1.4rem);
+    background: var(--tpl-compare-float-bg, rgb(74, 140, 42));
+    color: var(--tpl-compare-float-text, #fff) !important;
+    text-decoration: none !important;
+    box-shadow: var(--tpl-compare-float-shadow, 0 4px 12px rgba(0,0,0,0.3));
     position: relative;
     transition: all 0.3s ease;
 }
 .product-compare-badge .compare-badge-link:hover {
+    background: var(--tpl-compare-float-hover-bg, rgb(56, 112, 32));
     transform: scale(1.1);
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
-/* === Badge Count (colors set via inline styles from Admin) === */
+/* === Badge Count (konfigurierbar via Tab 10) === */
 .product-compare-badge .compare-count {
     position: absolute;
     top: -5px;
     right: -5px;
-    font-size: 0.75rem;
+    font-size: var(--tpl-compare-float-count-font, 0.75rem);
     font-weight: 700;
-    width: 22px;
-    height: 22px;
+    width: var(--tpl-compare-float-count-size, 22px);
+    height: var(--tpl-compare-float-count-size, 22px);
     border-radius: 50%;
+    background: var(--tpl-compare-float-count-bg, rgb(220, 53, 69));
+    color: var(--tpl-compare-float-count-text, #fff) !important;
     display: flex;
     align-items: center;
     justify-content: center;

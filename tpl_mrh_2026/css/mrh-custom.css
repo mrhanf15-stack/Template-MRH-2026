@@ -86,10 +86,11 @@ h1, h2, h3, h4, h5, h6,
 /* ============================================================
    02 FREE SHIPPING PROGRESS BAR
    ============================================================ */
+/* Farben konfigurierbar via Konfigurator Tab 10 > Versandkosten-Leiste */
 #mrh-shipping-bar {
-  background-color: var(--mrh-shipping-bar-bg);
-  padding: 8px 0;
-  font-size: 11px;
+  background-color: var(--tpl-shipping-bar-bg, rgb(255, 251, 235));
+  padding: var(--tpl-shipping-bar-padding, 8px 0);
+  font-size: var(--tpl-shipping-bar-font-size, 11px);
   font-family: var(--tpl-font-text), sans-serif;
 }
 #mrh-shipping-bar .container {
@@ -99,20 +100,20 @@ h1, h2, h3, h4, h5, h6,
 }
 #mrh-shipping-bar .mrh-progress-track {
   flex: 1;
-  background-color: #d1fae5;
-  border-radius: 999px;
-  height: 6px;
+  background-color: var(--tpl-shipping-bar-track-bg, #d1fae5);
+  border-radius: var(--tpl-shipping-bar-track-radius, 999px);
+  height: var(--tpl-shipping-bar-track-h, 6px);
   overflow: hidden;
 }
 #mrh-shipping-bar .mrh-progress-fill {
-  background-color: var(--tpl-main-color);
+  background-color: var(--tpl-shipping-bar-fill-bg, var(--tpl-main-color));
   height: 100%;
-  border-radius: 999px;
+  border-radius: var(--tpl-shipping-bar-track-radius, 999px);
   transition: width 0.5s ease;
 }
 #mrh-shipping-bar .mrh-shipping-text {
-  color: var(--mrh-shipping-bar-text);
-  font-weight: 600;
+  color: var(--tpl-shipping-bar-text, rgb(190, 158, 31));
+  font-weight: var(--tpl-shipping-bar-font-weight, 600);
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -120,6 +121,13 @@ h1, h2, h3, h4, h5, h6,
 }
 #mrh-shipping-bar .mrh-shipping-text i {
   font-size: 12px;
+}
+#mrh-shipping-bar .fsb-amount {
+  color: var(--tpl-shipping-bar-amount, rgb(40, 167, 69)) !important;
+  font-weight: var(--tpl-shipping-bar-font-weight, 600);
+}
+#mrh-shipping-bar .fsb-icon {
+  font-size: var(--tpl-shipping-bar-icon-size, 1rem);
 }
 
 /* ============================================================
