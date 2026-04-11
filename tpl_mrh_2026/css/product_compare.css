@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.1.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.2.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
@@ -7,6 +7,8 @@
    Kein eigenes Grid-System, kein !important.
    v5.1.0: Footer-Bar Klassen (compare-footer-bar, compare-buy-row,
            compare-action-row, compare-cart-btn) + 4-Spalten Grid-Fix
+   v5.2.0: Fix fuer Ausverkauft-Karten: cssButton Override in
+           compare-action-row, Buttons immer horizontal
    ========================================================================= */
 
 /* === Page Layout === */
@@ -166,6 +168,30 @@ a.compare-remove-btn:hover {
 .product-compare-page .card-footer .btn {
     font-size: .75rem;
     padding: .25rem .5rem;
+}
+
+/* === Ausverkauft-Fix: cssButton Override in Action Row (v5.2.0) ===
+   Bei komplett ausverkauften Produkten generiert css_button.inc.php
+   .cssButton Wrapper statt .btn Klassen. Diese haben width:100%
+   und display:flex was vertikales Stacking verursacht. */
+.product-compare-page .compare-action-row .cssButton {
+    display: inline-flex;
+    flex-direction: row;
+    width: auto;
+    flex: 1 1 0;
+    padding: 4px 8px;
+    font-size: .75rem;
+    min-height: auto;
+    white-space: nowrap;
+}
+.product-compare-page .compare-action-row .cssButton .cssButtonText,
+.product-compare-page .compare-action-row .cssButton .cssButtonIcon {
+    font-size: .75rem;
+    padding: 0 2px;
+}
+/* Sicherstellen dass Action Row immer horizontal bleibt */
+.product-compare-page .compare-action-row {
+    flex-wrap: nowrap;
 }
 
 /* === Picto Icon - Absolute so it does not push table down === */
