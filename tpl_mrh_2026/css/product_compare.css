@@ -16,6 +16,7 @@
    v5.4.0: Badge-Zeile unter Produktname (Feminisiert, Regulaer,
            Autoflowering, Photoperiodisch) als farbige Pills
    v5.4.1: compare-desc-box flex:0 0 auto (Tabelle oben anliegend)
+   v5.4.2: compare-name-box flex:0 0 auto (Hersteller+Name kein flex-grow)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -86,6 +87,11 @@ a.compare-remove-btn:hover {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* === Hersteller + Produktname Box (kein flex-grow) === */
+.compare-name-box {
+    flex: 0 0 auto;
 }
 
 /* === Short Description - Full Height, Scrollable on Overflow === */

@@ -6,6 +6,7 @@
  * v1.2.0: Merken+Details IMMER anzeigen (auch bei ausverkauft)
  * v1.3.0: Badge-Zeile unter Produktname (Feminisiert, Regulaer, Autoflowering, Photoperiodisch)
  * v1.4.0: card-body auf desc-box durch px-3 pb-1 ersetzt (Tabelle oben anliegend)
+ * v1.4.1: card-body auf Hersteller+Name durch compare-name-box ersetzt (kein flex-grow)
  *}
 
 <div class="card h-100 d-flex flex-column position-relative">
@@ -29,7 +30,7 @@
   {/if}
 
   {* ── Hersteller + Produktname ── *}
-  <div class="card-body pb-1">
+  <div class="compare-name-box px-3 pt-3 pb-1">
     {if !empty($module_data.MANUFACTURER)}
       <p class="small text-secondary mb-0">{$module_data.MANUFACTURER}</p>
     {/if}
