@@ -14,6 +14,8 @@
      6. Einstellungen – Infinite Scroll, Barrierefrei, Logos, Social
      7. Custom CSS   – Textarea mit Live-Preview
      8. Presets      – Farb-Presets laden, Backup/Restore, Reset
+   v4.1 (2026-04-11): Tab 9 Icon-Konfigurator hinzugefuegt
+     9. Icons        – Icon-Tausch, Farbe, Groesse, Stil, Bereichs-Overrides
    
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
    ===================================================================== */
@@ -32,6 +34,7 @@ $s = isset($GLOBALS['mrh_social'])  ? $GLOBALS['mrh_social'] : [];
 $msg = isset($GLOBALS['mrh_config_message']) ? $GLOBALS['mrh_config_message'] : '';
 $presets = isset($GLOBALS['mrh_presets']) ? $GLOBALS['mrh_presets'] : [];
 $backups = isset($GLOBALS['mrh_backups']) ? $GLOBALS['mrh_backups'] : [];
+$icons   = isset($GLOBALS['mrh_icons'])   ? $GLOBALS['mrh_icons']   : [];
 
 // Hilfsfunktion: Farbwert sicher ausgeben
 function mrh_cv($colors, $key) {
@@ -67,6 +70,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="einstellungen"><i class="fa fa-cog me-1"></i>Einstellungen</div>
     <div class="mrh-tab" data-tab="customcss"><i class="fa fa-code me-1"></i>Custom CSS</div>
     <div class="mrh-tab" data-tab="presets"><i class="fa fa-magic me-1"></i>Presets</div>
+    <div class="mrh-tab" data-tab="icons"><i class="fa fa-icons me-1"></i>Icons</div>
 </div>
 
 <!-- ================================================================== -->
@@ -692,6 +696,744 @@ foreach ($socials as $skey => $info) {
             <i class="fa fa-exclamation-triangle me-1"></i> Auf Standard zuruecksetzen
         </button>
     </form>
+
+</div>
+
+<!-- ================================================================== -->
+<!-- TAB 9: ICON-KONFIGURATOR -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-icons">
+
+<style>
+/* === Icon-Konfigurator Tab 9 Styles === */
+.mrh-icon-cfg { padding: 8px 12px; }
+.mrh-icon-cfg .mrh-icon-section { margin-bottom: 16px; }
+.mrh-icon-cfg .mrh-icon-section-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    color: #4a8c2a; letter-spacing: 0.5px; padding: 4px 0;
+    border-bottom: 2px solid #4a8c2a; margin-bottom: 8px;
+}
+.mrh-icon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mrh-icon-card {
+    background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;
+    padding: 8px 10px; display: flex; align-items: center; gap: 8px;
+    transition: border-color 0.15s, box-shadow 0.15s; cursor: default;
+}
+.mrh-icon-card:hover { border-color: #4a8c2a; box-shadow: 0 1px 4px rgba(74,140,42,0.15); }
+.mrh-icon-card .mrh-ic-preview {
+    width: 36px; height: 36px; display: flex; align-items: center;
+    justify-content: center; background: #fff; border-radius: 4px;
+    border: 1px solid #dee2e6; font-size: 16px; flex-shrink: 0;
+}
+.mrh-icon-card .mrh-ic-info { flex: 1; min-width: 0; }
+.mrh-icon-card .mrh-ic-label { font-size: 11px; font-weight: 600; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mrh-icon-card .mrh-ic-class { font-size: 10px; color: #888; font-family: monospace; }
+.mrh-icon-card .mrh-ic-actions { display: flex; gap: 3px; flex-shrink: 0; }
+.mrh-icon-card .mrh-ic-actions button {
+    width: 24px; height: 24px; border: 1px solid #dee2e6; border-radius: 3px;
+    background: #fff; cursor: pointer; font-size: 10px; color: #666;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; padding: 0;
+}
+.mrh-icon-card .mrh-ic-actions button:hover { border-color: #4a8c2a; color: #4a8c2a; background: #f0fdf4; }
+
+/* Global-Einstellungen Bar */
+.mrh-icon-global-bar {
+    background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px;
+    padding: 8px 12px; margin-bottom: 12px; display: flex;
+    flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.mrh-icon-global-bar label { font-size: 11px; font-weight: 600; color: #333; }
+.mrh-icon-global-bar select, .mrh-icon-global-bar input {
+    font-size: 11px; padding: 3px 6px; border: 1px solid #d1d5db;
+    border-radius: 4px; background: #fff;
+}
+.mrh-icon-global-bar select { min-width: 80px; }
+.mrh-icon-global-bar input[type="color"] {
+    width: 28px; height: 26px; padding: 1px; border: 1px solid #d1d5db;
+    border-radius: 4px; cursor: pointer;
+}
+
+/* Bereichs-Overrides */
+.mrh-area-section { margin-top: 16px; }
+.mrh-area-toggle {
+    display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+    background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;
+    cursor: pointer; margin-bottom: 4px; transition: background 0.15s;
+}
+.mrh-area-toggle:hover { background: #f0fdf4; }
+.mrh-area-toggle .mrh-area-name { font-size: 12px; font-weight: 600; flex: 1; }
+.mrh-area-toggle .mrh-area-badge {
+    font-size: 10px; padding: 1px 6px; border-radius: 10px;
+    background: #e9ecef; color: #666;
+}
+.mrh-area-toggle.active .mrh-area-badge { background: #4a8c2a; color: #fff; }
+.mrh-area-overrides { display: none; padding: 6px 0 6px 12px; }
+.mrh-area-overrides.open { display: block; }
+.mrh-area-override-row {
+    display: flex; align-items: center; gap: 6px; padding: 3px 0;
+    font-size: 11px; border-bottom: 1px solid #f3f4f6;
+}
+.mrh-area-override-row:last-child { border-bottom: none; }
+.mrh-area-override-row .mrh-aor-icon { width: 20px; text-align: center; color: #666; }
+.mrh-area-override-row .mrh-aor-name { flex: 1; font-weight: 500; }
+.mrh-area-override-row select, .mrh-area-override-row input {
+    font-size: 10px; padding: 2px 4px; border: 1px solid #d1d5db;
+    border-radius: 3px; background: #fff;
+}
+.mrh-area-override-row input[type="color"] {
+    width: 22px; height: 20px; padding: 0; cursor: pointer;
+}
+
+/* Icon-Picker Modal */
+.mrh-icon-picker-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 200000;
+}
+.mrh-icon-picker-overlay.open { display: flex; align-items: center; justify-content: center; }
+.mrh-icon-picker-modal {
+    background: #fff; border-radius: 8px; width: 480px; max-width: 90vw;
+    max-height: 70vh; display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.mrh-icon-picker-header {
+    padding: 10px 14px; border-bottom: 1px solid #e9ecef;
+    display: flex; align-items: center; gap: 8px;
+}
+.mrh-icon-picker-header input {
+    flex: 1; border: 1px solid #d1d5db; border-radius: 4px;
+    padding: 5px 8px; font-size: 12px;
+}
+.mrh-icon-picker-header button {
+    background: none; border: 1px solid #d1d5db; border-radius: 4px;
+    width: 28px; height: 28px; cursor: pointer; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+}
+.mrh-icon-picker-body {
+    overflow-y: auto; padding: 10px; flex: 1;
+    display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px;
+}
+.mrh-icon-picker-item {
+    width: 100%; aspect-ratio: 1; display: flex; align-items: center;
+    justify-content: center; border: 1px solid #e9ecef; border-radius: 4px;
+    cursor: pointer; font-size: 16px; color: #555; transition: all 0.15s;
+    background: #fff;
+}
+.mrh-icon-picker-item:hover { border-color: #4a8c2a; color: #4a8c2a; background: #f0fdf4; }
+.mrh-icon-picker-item.selected { border-color: #4a8c2a; background: #dcfce7; color: #166534; }
+
+/* Live-Vorschau */
+.mrh-icon-preview-box {
+    background: #fff; border: 1px solid #e9ecef; border-radius: 6px;
+    padding: 10px; margin-top: 12px;
+}
+.mrh-icon-preview-box .mrh-preview-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    color: #666; margin-bottom: 8px; letter-spacing: 0.5px;
+}
+.mrh-icon-preview-row {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    padding: 6px 0;
+}
+.mrh-icon-preview-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 6px 14px; border-radius: 4px; font-size: 12px;
+    font-weight: 600; border: 1px solid transparent;
+}
+.mrh-icon-preview-btn.cart { background: var(--tpl-btn-primary-bg, #4a8c2a); color: var(--tpl-btn-primary-text, #fff); }
+.mrh-icon-preview-btn.express { background: var(--tpl-btn-express-bg, #43c875); color: var(--tpl-btn-express-text, #fff); }
+.mrh-icon-preview-btn.wishlist { background: var(--tpl-btn-wishlist-bg, #6c757d); color: var(--tpl-btn-wishlist-text, #fff); }
+.mrh-icon-preview-btn.compare { background: var(--tpl-btn-compare-bg, #6c757d); color: var(--tpl-btn-compare-text, #fff); }
+.mrh-icon-preview-btn.details { background: var(--tpl-btn-details-bg, #fff); color: var(--tpl-btn-details-text, #198754); border-color: var(--tpl-btn-details-text, #198754); }
+.mrh-icon-preview-stars { color: #ffc107; font-size: 14px; }
+.mrh-icon-preview-nav {
+    display: flex; gap: 16px; align-items: center;
+    padding: 6px 10px; background: #f8f9fa; border-radius: 4px;
+}
+.mrh-icon-preview-nav i { font-size: 16px; color: #555; }
+.mrh-icon-preview-status {
+    display: flex; gap: 12px; align-items: center;
+}
+.mrh-icon-preview-status span { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+</style>
+
+<div class="mrh-icon-cfg">
+
+    <!-- Globale Einstellungen -->
+    <div class="mrh-sh"><i class="fa fa-globe me-1"></i> Globale Icon-Einstellungen</div>
+    <div class="mrh-icon-global-bar" id="mrh-icon-global">
+        <div>
+            <label>Stil:</label>
+            <select id="mrh-ig-style">
+                <option value="solid">Solid</option>
+                <option value="regular">Regular</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+        <div>
+            <label>Groesse:</label>
+            <select id="mrh-ig-size">
+                <option value="xs">XS</option>
+                <option value="sm">SM</option>
+                <option value="md" selected>MD</option>
+                <option value="lg">LG</option>
+                <option value="xl">XL</option>
+            </select>
+        </div>
+        <div>
+            <label>Farbe:</label>
+            <input type="color" id="mrh-ig-color" value="#333333">
+        </div>
+        <div>
+            <label>Deckkraft:</label>
+            <select id="mrh-ig-opacity">
+                <option value="1">100%</option>
+                <option value="0.8">80%</option>
+                <option value="0.6">60%</option>
+                <option value="0.4">40%</option>
+            </select>
+        </div>
+        <div>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="mrhIconApplyGlobal()" title="Globale Einstellungen auf alle Icons anwenden">
+                <i class="fa fa-sync-alt me-1"></i> Auf alle anwenden
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter-Leiste -->
+    <div style="margin-bottom:10px;display:flex;gap:4px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-sm btn-success mrh-icon-filter active" data-section="all">Alle</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary mrh-icon-filter" data-section="buttons"><i class="fa fa-mouse-pointer me-1"></i>Buttons</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary mrh-icon-filter" data-section="navigation"><i class="fa fa-compass me-1"></i>Navigation</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary mrh-icon-filter" data-section="ratings"><i class="fa fa-star me-1"></i>Bewertungen</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary mrh-icon-filter" data-section="status"><i class="fa fa-bell me-1"></i>Status</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary mrh-icon-filter" data-section="product"><i class="fa fa-seedling me-1"></i>Produkt</button>
+    </div>
+
+    <!-- Icon-Grid (wird per JS generiert) -->
+    <div id="mrh-icon-grid-container"></div>
+
+    <!-- Bereichs-Overrides -->
+    <div class="mrh-area-section">
+        <div class="mrh-sh"><i class="fa fa-layer-group me-1"></i> Bereichs-Ueberschreibungen</div>
+        <p class="text-muted small mb-2">Aktiviere einen Bereich, um Icons dort individuell zu ueberschreiben.</p>
+        <div id="mrh-area-list"></div>
+    </div>
+
+    <!-- Live-Vorschau -->
+    <div class="mrh-icon-preview-box">
+        <div class="mrh-preview-title"><i class="fa fa-eye me-1"></i> Live-Vorschau</div>
+        
+        <div style="font-size:11px;font-weight:600;color:#888;margin-bottom:4px;">Buttons:</div>
+        <div class="mrh-icon-preview-row" id="mrh-preview-buttons"></div>
+        
+        <div style="font-size:11px;font-weight:600;color:#888;margin:8px 0 4px;">Navigation:</div>
+        <div class="mrh-icon-preview-nav" id="mrh-preview-nav"></div>
+        
+        <div style="font-size:11px;font-weight:600;color:#888;margin:8px 0 4px;">Bewertungen &amp; Status:</div>
+        <div class="mrh-icon-preview-status" id="mrh-preview-status"></div>
+    </div>
+
+    <!-- Speichern / Reset -->
+    <div class="mt-3" style="display:flex;gap:8px;">
+        <form method="post" action="" style="flex:1;" id="mrh-icon-save-form">
+            <input type="hidden" name="mrh_icons_json" id="mrh-icons-json-input" value="">
+            <button type="submit" name="submit-iconsettings" class="btn btn-success btn-lg w-100">
+                <i class="fa fa-save me-1"></i> Icon-Konfiguration speichern
+            </button>
+        </form>
+        <form method="post" action="" onsubmit="return confirm('Alle Icons auf Standard zuruecksetzen?');">
+            <button type="submit" name="submit-reset-icons" class="btn btn-outline-danger btn-lg">
+                <i class="fa fa-undo me-1"></i> Reset
+            </button>
+        </form>
+    </div>
+
+    <!-- Export/Import -->
+    <div class="mt-2" style="display:flex;gap:8px;">
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="mrhIconExport()">
+            <i class="fa fa-download me-1"></i> Exportieren (JSON)
+        </button>
+        <label class="btn btn-sm btn-outline-secondary mb-0" style="cursor:pointer;">
+            <i class="fa fa-upload me-1"></i> Importieren
+            <input type="file" accept=".json" style="display:none;" onchange="mrhIconImport(event)">
+        </label>
+    </div>
+
+</div>
+
+<!-- Icon-Picker Modal -->
+<div class="mrh-icon-picker-overlay" id="mrh-icon-picker">
+    <div class="mrh-icon-picker-modal">
+        <div class="mrh-icon-picker-header">
+            <input type="text" id="mrh-icon-picker-search" placeholder="Icon suchen (z.B. cart, heart, star...)">
+            <button onclick="mrhIconPickerClose()" title="Schliessen">&times;</button>
+        </div>
+        <div class="mrh-icon-picker-body" id="mrh-icon-picker-grid"></div>
+    </div>
+</div>
+
+<?php
+// Icon-Daten als JSON fuer JavaScript bereitstellen
+$icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+?>
+<script>
+(function(){
+    // === Icon-Konfigurator Daten ===
+    var mrhIconData = <?php echo $icons_json_safe; ?>;
+    if (!mrhIconData || !mrhIconData.icons) {
+        mrhIconData = {global:{style:'solid',size:'md',color:'',opacity:'1'},icons:{},areas:{}};
+    }
+
+    // FA-Icon-Bibliothek (haeufigste Icons fuer den Picker)
+    var faIcons = [
+        'fa-shopping-cart','fa-cart-plus','fa-cart-arrow-down','fa-bolt','fa-bolt-lightning',
+        'fa-heart','fa-heart-crack','fa-star','fa-star-half-alt','fa-balance-scale',
+        'fa-info-circle','fa-info','fa-check-circle','fa-check','fa-times-circle','fa-times',
+        'fa-exclamation-triangle','fa-exclamation-circle','fa-question-circle',
+        'fa-search','fa-search-plus','fa-search-minus','fa-magnifying-glass',
+        'fa-user','fa-user-circle','fa-user-plus','fa-user-check','fa-users',
+        'fa-sign-in-alt','fa-sign-out-alt','fa-right-to-bracket','fa-right-from-bracket',
+        'fa-bars','fa-ellipsis-v','fa-ellipsis-h','fa-grip-lines',
+        'fa-chevron-down','fa-chevron-up','fa-chevron-left','fa-chevron-right',
+        'fa-angle-down','fa-angle-up','fa-angle-left','fa-angle-right',
+        'fa-arrow-down','fa-arrow-up','fa-arrow-left','fa-arrow-right',
+        'fa-caret-down','fa-caret-up','fa-caret-left','fa-caret-right',
+        'fa-trash','fa-trash-alt','fa-trash-can','fa-eraser',
+        'fa-seedling','fa-leaf','fa-cannabis','fa-tree','fa-pagelines',
+        'fa-print','fa-file-pdf','fa-file-alt','fa-copy','fa-clipboard',
+        'fa-comment','fa-comment-alt','fa-comments','fa-comment-dots',
+        'fa-sync-alt','fa-rotate','fa-refresh','fa-redo','fa-undo',
+        'fa-expand','fa-compress','fa-maximize','fa-minimize',
+        'fa-eye','fa-eye-slash','fa-glasses',
+        'fa-home','fa-house','fa-building','fa-store',
+        'fa-envelope','fa-envelope-open','fa-paper-plane','fa-inbox',
+        'fa-phone','fa-phone-alt','fa-mobile','fa-headset',
+        'fa-truck','fa-truck-fast','fa-shipping-fast','fa-box','fa-boxes',
+        'fa-credit-card','fa-wallet','fa-money-bill','fa-coins',
+        'fa-lock','fa-unlock','fa-shield-alt','fa-key',
+        'fa-cog','fa-cogs','fa-gear','fa-gears','fa-sliders','fa-wrench',
+        'fa-bell','fa-bell-slash','fa-bullhorn','fa-flag',
+        'fa-tag','fa-tags','fa-bookmark','fa-thumbtack',
+        'fa-clock','fa-calendar','fa-calendar-alt','fa-calendar-days',
+        'fa-map-marker-alt','fa-location-dot','fa-globe','fa-map',
+        'fa-share','fa-share-alt','fa-share-nodes','fa-link','fa-external-link-alt',
+        'fa-download','fa-upload','fa-cloud-download-alt','fa-cloud-upload-alt',
+        'fa-image','fa-images','fa-camera','fa-video',
+        'fa-filter','fa-sort','fa-sort-up','fa-sort-down',
+        'fa-list','fa-list-ul','fa-list-ol','fa-th','fa-th-large','fa-grid',
+        'fa-plus','fa-plus-circle','fa-minus','fa-minus-circle',
+        'fa-edit','fa-pen','fa-pencil-alt','fa-pen-to-square',
+        'fa-power-off','fa-circle-notch','fa-spinner','fa-hourglass',
+        'fa-award','fa-trophy','fa-medal','fa-certificate','fa-crown',
+        'fa-fire','fa-fire-flame-curved','fa-snowflake','fa-sun','fa-moon',
+        'fa-percent','fa-percentage','fa-hashtag','fa-at'
+    ];
+
+    // Size-Map fuer CSS
+    var sizeMap = {xs:'0.75em',sm:'0.875em',md:'1em',lg:'1.25em',xl:'1.5em','2xl':'2em'};
+    // Style-Map fuer FA-Prefix
+    var styleMap = {solid:'fas',regular:'far',light:'fal',brands:'fab'};
+
+    // === Sektions-Labels ===
+    var sectionLabels = {
+        buttons: 'Buttons',
+        navigation: 'Navigation',
+        ratings: 'Bewertungen',
+        status: 'Status-Meldungen',
+        product: 'Produkt'
+    };
+
+    // === Globale Einstellungen laden ===
+    function loadGlobalSettings() {
+        var g = mrhIconData.global || {};
+        var elStyle = document.getElementById('mrh-ig-style');
+        var elSize = document.getElementById('mrh-ig-size');
+        var elColor = document.getElementById('mrh-ig-color');
+        var elOpacity = document.getElementById('mrh-ig-opacity');
+        if (elStyle) elStyle.value = g.style || 'solid';
+        if (elSize) elSize.value = g.size || 'md';
+        if (elColor && g.color) elColor.value = g.color;
+        if (elOpacity) elOpacity.value = g.opacity || '1';
+    }
+
+    // === Icon-Grid rendern ===
+    function renderIconGrid(filterSection) {
+        var container = document.getElementById('mrh-icon-grid-container');
+        if (!container) return;
+        container.innerHTML = '';
+        var icons = mrhIconData.icons || {};
+        // Nach Sektionen gruppieren
+        var sections = {};
+        for (var key in icons) {
+            var ic = icons[key];
+            var sec = ic.section || 'other';
+            if (filterSection && filterSection !== 'all' && sec !== filterSection) continue;
+            if (!sections[sec]) sections[sec] = [];
+            sections[sec].push({key: key, data: ic});
+        }
+        for (var secKey in sections) {
+            var secDiv = document.createElement('div');
+            secDiv.className = 'mrh-icon-section';
+            secDiv.innerHTML = '<div class="mrh-icon-section-title">' + (sectionLabels[secKey] || secKey) + ' (' + sections[secKey].length + ')</div>';
+            var grid = document.createElement('div');
+            grid.className = 'mrh-icon-grid';
+            sections[secKey].forEach(function(item) {
+                var ic = item.data;
+                var prefix = styleMap[ic.style] || 'fas';
+                var colorStyle = ic.color ? 'color:' + ic.color + ';' : '';
+                var sizeStyle = 'font-size:' + (sizeMap[ic.size] || '1em') + ';';
+                var card = document.createElement('div');
+                card.className = 'mrh-icon-card';
+                card.setAttribute('data-icon-key', item.key);
+                card.innerHTML = 
+                    '<div class="mrh-ic-preview"><i class="' + prefix + ' ' + ic.class + '" style="' + colorStyle + sizeStyle + '"></i></div>' +
+                    '<div class="mrh-ic-info">' +
+                        '<div class="mrh-ic-label">' + (ic.label || item.key) + '</div>' +
+                        '<div class="mrh-ic-class">' + prefix + ' ' + ic.class + '</div>' +
+                    '</div>' +
+                    '<div class="mrh-ic-actions">' +
+                        '<button type="button" onclick="mrhIconPickerOpen(\'' + item.key + '\')" title="Icon tauschen"><i class="fa fa-exchange-alt"></i></button>' +
+                        '<input type="color" value="' + (ic.color || '#333333') + '" title="Farbe" style="width:24px;height:24px;padding:0;border:1px solid #dee2e6;border-radius:3px;cursor:pointer;" onchange="mrhIconSetColor(\'' + item.key + '\', this.value)">' +
+                        '<select onchange="mrhIconSetSize(\'' + item.key + '\', this.value)" title="Groesse" style="font-size:10px;padding:1px 2px;border:1px solid #dee2e6;border-radius:3px;width:38px;">' +
+                            '<option value="xs"' + (ic.size==='xs'?' selected':'') + '>XS</option>' +
+                            '<option value="sm"' + (ic.size==='sm'?' selected':'') + '>SM</option>' +
+                            '<option value="md"' + (ic.size==='md'?' selected':'') + '>MD</option>' +
+                            '<option value="lg"' + (ic.size==='lg'?' selected':'') + '>LG</option>' +
+                            '<option value="xl"' + (ic.size==='xl'?' selected':'') + '>XL</option>' +
+                        '</select>' +
+                        '<select onchange="mrhIconSetStyle(\'' + item.key + '\', this.value)" title="Stil" style="font-size:10px;padding:1px 2px;border:1px solid #dee2e6;border-radius:3px;width:52px;">' +
+                            '<option value="solid"' + (ic.style==='solid'?' selected':'') + '>Solid</option>' +
+                            '<option value="regular"' + (ic.style==='regular'?' selected':'') + '>Regular</option>' +
+                            '<option value="light"' + (ic.style==='light'?' selected':'') + '>Light</option>' +
+                        '</select>' +
+                    '</div>';
+                grid.appendChild(card);
+            });
+            secDiv.appendChild(grid);
+            container.appendChild(secDiv);
+        }
+    }
+
+    // === Bereichs-Overrides rendern ===
+    function renderAreas() {
+        var container = document.getElementById('mrh-area-list');
+        if (!container) return;
+        container.innerHTML = '';
+        var areas = mrhIconData.areas || {};
+        for (var areaKey in areas) {
+            var area = areas[areaKey];
+            var isActive = area.enabled ? true : false;
+            var overrideCount = area.overrides ? Object.keys(area.overrides).length : 0;
+            
+            var areaDiv = document.createElement('div');
+            areaDiv.innerHTML = 
+                '<div class="mrh-area-toggle' + (isActive ? ' active' : '') + '" onclick="mrhAreaToggle(this, \'' + areaKey + '\')">' +
+                    '<input type="checkbox" ' + (isActive ? 'checked' : '') + ' style="margin:0;" onclick="event.stopPropagation();mrhAreaEnable(\'' + areaKey + '\', this.checked);">' +
+                    '<span class="mrh-area-name">' + (area.label || areaKey) + '</span>' +
+                    '<span class="mrh-area-badge">' + overrideCount + ' Overrides</span>' +
+                '</div>' +
+                '<div class="mrh-area-overrides" id="mrh-area-ov-' + areaKey + '">' +
+                    mrhBuildAreaOverrides(areaKey) +
+                '</div>';
+            container.appendChild(areaDiv);
+        }
+    }
+
+    function mrhBuildAreaOverrides(areaKey) {
+        var icons = mrhIconData.icons || {};
+        var overrides = (mrhIconData.areas && mrhIconData.areas[areaKey]) ? (mrhIconData.areas[areaKey].overrides || {}) : {};
+        var html = '<div style="font-size:10px;color:#888;margin-bottom:4px;">Waehle Icons, die in diesem Bereich anders dargestellt werden sollen:</div>';
+        for (var iconKey in icons) {
+            var ic = icons[iconKey];
+            var ov = overrides[iconKey] || {};
+            var hasOverride = Object.keys(ov).length > 0;
+            var prefix = styleMap[ov.style || ic.style] || 'fas';
+            html += '<div class="mrh-area-override-row">' +
+                '<span class="mrh-aor-icon"><i class="' + prefix + ' ' + (ov.class || ic.class) + '"></i></span>' +
+                '<span class="mrh-aor-name">' + (ic.label || iconKey) + '</span>' +
+                '<select onchange="mrhAreaSetOverride(\'' + areaKey + '\',\'' + iconKey + '\',\'size\',this.value)" style="width:38px;">' +
+                    '<option value=""' + (!ov.size?' selected':'') + '>-</option>' +
+                    '<option value="xs"' + (ov.size==='xs'?' selected':'') + '>XS</option>' +
+                    '<option value="sm"' + (ov.size==='sm'?' selected':'') + '>SM</option>' +
+                    '<option value="md"' + (ov.size==='md'?' selected':'') + '>MD</option>' +
+                    '<option value="lg"' + (ov.size==='lg'?' selected':'') + '>LG</option>' +
+                    '<option value="xl"' + (ov.size==='xl'?' selected':'') + '>XL</option>' +
+                '</select>' +
+                '<input type="color" value="' + (ov.color || ic.color || '#333333') + '" onchange="mrhAreaSetOverride(\'' + areaKey + '\',\'' + iconKey + '\',\'color\',this.value)" style="width:22px;height:20px;">' +
+                '<button type="button" onclick="mrhIconPickerOpen(\'' + iconKey + '\',\'' + areaKey + '\')" style="font-size:9px;padding:1px 4px;border:1px solid #dee2e6;border-radius:3px;background:#fff;cursor:pointer;" title="Icon tauschen"><i class="fa fa-exchange-alt"></i></button>' +
+                (hasOverride ? '<button type="button" onclick="mrhAreaClearOverride(\'' + areaKey + '\',\'' + iconKey + '\')" style="font-size:9px;padding:1px 4px;border:1px solid #fca5a5;border-radius:3px;background:#fff;color:#dc3545;cursor:pointer;" title="Override entfernen"><i class="fa fa-times"></i></button>' : '') +
+            '</div>';
+        }
+        return html;
+    }
+
+    // === Live-Vorschau rendern ===
+    function renderPreview() {
+        var icons = mrhIconData.icons || {};
+        // Buttons
+        var btnContainer = document.getElementById('mrh-preview-buttons');
+        if (btnContainer) {
+            var ic = icons;
+            btnContainer.innerHTML = 
+                mrhPreviewBtn('cart', 'In den Warenkorb', ic['icon-cart']) +
+                mrhPreviewBtn('express', 'Schnellkauf', ic['icon-express']) +
+                mrhPreviewBtn('wishlist', 'Merkzettel', ic['icon-wishlist']) +
+                mrhPreviewBtn('compare', 'Vergleichen', ic['icon-compare']) +
+                mrhPreviewBtn('details', 'Details', ic['icon-details']);
+        }
+        // Navigation
+        var navContainer = document.getElementById('mrh-preview-nav');
+        if (navContainer) {
+            navContainer.innerHTML = 
+                mrhPreviewIcon(ic['icon-menu']) + '&nbsp;&nbsp;' +
+                mrhPreviewIcon(ic['icon-search']) + '&nbsp;&nbsp;' +
+                mrhPreviewIcon(ic['icon-account']) + '&nbsp;&nbsp;' +
+                mrhPreviewIcon(ic['icon-login']) + '&nbsp;&nbsp;' +
+                mrhPreviewIcon(ic['icon-dropdown']);
+        }
+        // Status
+        var statusContainer = document.getElementById('mrh-preview-status');
+        if (statusContainer) {
+            statusContainer.innerHTML = 
+                '<span>' + mrhPreviewIcon(ic['icon-star-full']) + mrhPreviewIcon(ic['icon-star-full']) + mrhPreviewIcon(ic['icon-star-full']) + mrhPreviewIcon(ic['icon-star-empty']) + mrhPreviewIcon(ic['icon-star-empty']) + '</span>' +
+                '<span>' + mrhPreviewIcon(ic['icon-success']) + ' Erfolg</span>' +
+                '<span>' + mrhPreviewIcon(ic['icon-warning']) + ' Warnung</span>' +
+                '<span>' + mrhPreviewIcon(ic['icon-error']) + ' Fehler</span>';
+        }
+    }
+
+    function mrhPreviewBtn(type, label, iconData) {
+        if (!iconData) return '';
+        var prefix = styleMap[iconData.style] || 'fas';
+        var colorStyle = iconData.color ? 'color:' + iconData.color + ';' : '';
+        return '<span class="mrh-icon-preview-btn ' + type + '">' +
+            '<i class="' + prefix + ' ' + iconData.class + '" style="' + colorStyle + '"></i> ' + label +
+        '</span>';
+    }
+
+    function mrhPreviewIcon(iconData) {
+        if (!iconData) return '';
+        var prefix = styleMap[iconData.style] || 'fas';
+        var style = '';
+        if (iconData.color) style += 'color:' + iconData.color + ';';
+        if (iconData.size) style += 'font-size:' + (sizeMap[iconData.size] || '1em') + ';';
+        return '<i class="' + prefix + ' ' + iconData.class + '" style="' + style + '"></i>';
+    }
+
+    // === Aktionen ===
+    window.mrhIconSetColor = function(key, color) {
+        if (mrhIconData.icons[key]) {
+            mrhIconData.icons[key].color = color;
+            renderIconGrid(currentFilter);
+            renderPreview();
+        }
+    };
+    window.mrhIconSetSize = function(key, size) {
+        if (mrhIconData.icons[key]) {
+            mrhIconData.icons[key].size = size;
+            renderIconGrid(currentFilter);
+            renderPreview();
+        }
+    };
+    window.mrhIconSetStyle = function(key, style) {
+        if (mrhIconData.icons[key]) {
+            mrhIconData.icons[key].style = style;
+            renderIconGrid(currentFilter);
+            renderPreview();
+        }
+    };
+    window.mrhIconApplyGlobal = function() {
+        var g = {
+            style: document.getElementById('mrh-ig-style').value,
+            size: document.getElementById('mrh-ig-size').value,
+            color: document.getElementById('mrh-ig-color').value,
+            opacity: document.getElementById('mrh-ig-opacity').value
+        };
+        mrhIconData.global = g;
+        for (var key in mrhIconData.icons) {
+            mrhIconData.icons[key].style = g.style;
+            mrhIconData.icons[key].size = g.size;
+            if (g.color && g.color !== '#333333') mrhIconData.icons[key].color = g.color;
+        }
+        renderIconGrid(currentFilter);
+        renderPreview();
+    };
+
+    // === Bereichs-Funktionen ===
+    window.mrhAreaToggle = function(el, areaKey) {
+        var ov = document.getElementById('mrh-area-ov-' + areaKey);
+        if (ov) ov.classList.toggle('open');
+    };
+    window.mrhAreaEnable = function(areaKey, enabled) {
+        if (mrhIconData.areas && mrhIconData.areas[areaKey]) {
+            mrhIconData.areas[areaKey].enabled = enabled;
+        }
+    };
+    window.mrhAreaSetOverride = function(areaKey, iconKey, prop, value) {
+        if (!mrhIconData.areas) mrhIconData.areas = {};
+        if (!mrhIconData.areas[areaKey]) mrhIconData.areas[areaKey] = {enabled:true,overrides:{}};
+        if (!mrhIconData.areas[areaKey].overrides) mrhIconData.areas[areaKey].overrides = {};
+        if (!mrhIconData.areas[areaKey].overrides[iconKey]) mrhIconData.areas[areaKey].overrides[iconKey] = {};
+        if (value) {
+            mrhIconData.areas[areaKey].overrides[iconKey][prop] = value;
+        } else {
+            delete mrhIconData.areas[areaKey].overrides[iconKey][prop];
+            if (Object.keys(mrhIconData.areas[areaKey].overrides[iconKey]).length === 0) {
+                delete mrhIconData.areas[areaKey].overrides[iconKey];
+            }
+        }
+        renderAreas();
+    };
+    window.mrhAreaClearOverride = function(areaKey, iconKey) {
+        if (mrhIconData.areas && mrhIconData.areas[areaKey] && mrhIconData.areas[areaKey].overrides) {
+            delete mrhIconData.areas[areaKey].overrides[iconKey];
+        }
+        renderAreas();
+    };
+
+    // === Icon-Picker ===
+    var pickerTarget = null;
+    var pickerArea = null;
+
+    window.mrhIconPickerOpen = function(iconKey, areaKey) {
+        pickerTarget = iconKey;
+        pickerArea = areaKey || null;
+        var overlay = document.getElementById('mrh-icon-picker');
+        if (overlay) overlay.classList.add('open');
+        renderPickerGrid('');
+        var searchInput = document.getElementById('mrh-icon-picker-search');
+        if (searchInput) { searchInput.value = ''; searchInput.focus(); }
+    };
+    window.mrhIconPickerClose = function() {
+        var overlay = document.getElementById('mrh-icon-picker');
+        if (overlay) overlay.classList.remove('open');
+        pickerTarget = null;
+        pickerArea = null;
+    };
+
+    function renderPickerGrid(filter) {
+        var grid = document.getElementById('mrh-icon-picker-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        var currentClass = '';
+        if (pickerTarget && mrhIconData.icons[pickerTarget]) {
+            currentClass = mrhIconData.icons[pickerTarget].class;
+        }
+        faIcons.forEach(function(cls) {
+            if (filter && cls.indexOf(filter) === -1) return;
+            var item = document.createElement('div');
+            item.className = 'mrh-icon-picker-item' + (cls === currentClass ? ' selected' : '');
+            item.innerHTML = '<i class="fas ' + cls + '"></i>';
+            item.title = cls;
+            item.addEventListener('click', function() {
+                if (pickerArea) {
+                    // Bereichs-Override
+                    mrhAreaSetOverride(pickerArea, pickerTarget, 'class', cls);
+                } else {
+                    // Globaler Icon-Tausch
+                    if (mrhIconData.icons[pickerTarget]) {
+                        mrhIconData.icons[pickerTarget].class = cls;
+                        renderIconGrid(currentFilter);
+                        renderPreview();
+                    }
+                }
+                mrhIconPickerClose();
+            });
+            grid.appendChild(item);
+        });
+    }
+
+    // Picker-Suche
+    var pickerSearchEl = document.getElementById('mrh-icon-picker-search');
+    if (pickerSearchEl) {
+        pickerSearchEl.addEventListener('input', function() {
+            renderPickerGrid(this.value.toLowerCase().trim());
+        });
+    }
+
+    // Overlay-Klick schliesst Picker
+    var pickerOverlay = document.getElementById('mrh-icon-picker');
+    if (pickerOverlay) {
+        pickerOverlay.addEventListener('click', function(e) {
+            if (e.target === pickerOverlay) mrhIconPickerClose();
+        });
+    }
+
+    // === Filter ===
+    var currentFilter = 'all';
+    document.querySelectorAll('.mrh-icon-filter').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.mrh-icon-filter').forEach(function(b) {
+                b.classList.remove('active','btn-success');
+                b.classList.add('btn-outline-secondary');
+            });
+            this.classList.remove('btn-outline-secondary');
+            this.classList.add('active','btn-success');
+            currentFilter = this.getAttribute('data-section');
+            renderIconGrid(currentFilter);
+        });
+    });
+
+    // === Speichern: JSON in Hidden-Input schreiben ===
+    var saveForm = document.getElementById('mrh-icon-save-form');
+    if (saveForm) {
+        saveForm.addEventListener('submit', function() {
+            // Globale Einstellungen aktualisieren
+            mrhIconData.global = {
+                style: document.getElementById('mrh-ig-style').value,
+                size: document.getElementById('mrh-ig-size').value,
+                color: document.getElementById('mrh-ig-color').value,
+                opacity: document.getElementById('mrh-ig-opacity').value
+            };
+            document.getElementById('mrh-icons-json-input').value = JSON.stringify(mrhIconData);
+        });
+    }
+
+    // === Export ===
+    window.mrhIconExport = function() {
+        var blob = new Blob([JSON.stringify(mrhIconData, null, 2)], {type: 'application/json'});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'mrh-icons-export-' + new Date().toISOString().slice(0,10) + '.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    // === Import ===
+    window.mrhIconImport = function(event) {
+        var file = event.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                var data = JSON.parse(e.target.result);
+                if (data && data.icons) {
+                    mrhIconData = data;
+                    loadGlobalSettings();
+                    renderIconGrid(currentFilter);
+                    renderAreas();
+                    renderPreview();
+                    alert('Icon-Konfiguration erfolgreich importiert! Klicke "Speichern" um die Aenderungen zu uebernehmen.');
+                } else {
+                    alert('Ungueltige JSON-Datei: Kein "icons" Objekt gefunden.');
+                }
+            } catch(err) {
+                alert('Fehler beim Lesen der Datei: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    // === Init ===
+    loadGlobalSettings();
+    renderIconGrid('all');
+    renderAreas();
+    renderPreview();
+
+})();
+</script>
 
 </div>
 

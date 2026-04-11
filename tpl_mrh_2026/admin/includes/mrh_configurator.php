@@ -11,6 +11,7 @@
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
                        Kein mrh-* / tpl-* Dualismus mehr!
    v3.1 (2026-04-10): Preset/Backup/Restore-System hinzugefuegt
+   v3.2 (2026-04-11): Icon-Konfigurator (Tab 9) – icons.json Speichern/Laden/Reset
    
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
@@ -730,6 +731,181 @@ if (is_dir($backups_dir)) {
     }
 }
 
+// =====================================================================
+// === 10. Icon-Konfiguration ===
+// =====================================================================
+
+// Icon-Defaults aus default_icons.json laden
+$icon_defaults_file = $json_dir . 'default_icons.json';
+$icon_config_file   = $json_dir . 'icons.json';
+$mrh_icon_defaults  = mrh_read_json($icon_defaults_file);
+$mrh_icons          = mrh_read_json($icon_config_file);
+
+// Merge: Defaults als Basis, aktive Konfiguration drueber
+if (!empty($mrh_icon_defaults) && !empty($mrh_icons)) {
+    // Global-Einstellungen mergen
+    if (isset($mrh_icon_defaults['global'])) {
+        $mrh_icons['global'] = array_merge(
+            $mrh_icon_defaults['global'],
+            isset($mrh_icons['global']) ? $mrh_icons['global'] : []
+        );
+    }
+    // Icons: Defaults als Basis, aktive Konfiguration drueber
+    if (isset($mrh_icon_defaults['icons'])) {
+        $merged_icons = $mrh_icon_defaults['icons'];
+        if (isset($mrh_icons['icons']) && is_array($mrh_icons['icons'])) {
+            foreach ($mrh_icons['icons'] as $key => $val) {
+                if (is_array($val)) {
+                    $merged_icons[$key] = isset($merged_icons[$key]) 
+                        ? array_merge($merged_icons[$key], $val) 
+                        : $val;
+                }
+            }
+        }
+        $mrh_icons['icons'] = $merged_icons;
+    }
+    // Areas: Defaults als Basis
+    if (isset($mrh_icon_defaults['areas']) && !isset($mrh_icons['areas'])) {
+        $mrh_icons['areas'] = $mrh_icon_defaults['areas'];
+    }
+} elseif (empty($mrh_icons) && !empty($mrh_icon_defaults)) {
+    $mrh_icons = $mrh_icon_defaults;
+}
+
+/**
+ * Sanitize-Funktion fuer Icon-Werte
+ */
+function mrh_sanitize_icon_value($key, $value) {
+    $value = trim($value);
+    switch ($key) {
+        case 'class':
+            // Nur erlaubte Zeichen: a-z, 0-9, Bindestrich
+            return preg_match('/^[a-z0-9\-]+$/', $value) ? $value : '';
+        case 'style':
+            return in_array($value, ['solid', 'regular', 'light', 'brands']) ? $value : 'solid';
+        case 'size':
+            return in_array($value, ['xs', 'sm', 'md', 'lg', 'xl', '2xl']) ? $value : 'md';
+        case 'color':
+            // Hex-Farbe oder leer
+            if (empty($value)) return '';
+            if (preg_match('/^#[0-9a-fA-F]{3,8}$/', $value)) return $value;
+            if (preg_match('/^rgb/', $value)) return mrh_sanitize_color($value);
+            return '';
+        case 'opacity':
+            $f = floatval($value);
+            return ($f >= 0 && $f <= 1) ? (string)$f : '1';
+        default:
+            return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+}
+
+// 10a. Icon-Konfiguration speichern
+if (isset($_POST['submit-iconsettings'])) {
+    $posted_json = isset($_POST['mrh_icons_json']) ? $_POST['mrh_icons_json'] : '';
+    $posted_data = json_decode(stripslashes($posted_json), true);
+    
+    if (is_array($posted_data)) {
+        // Global-Einstellungen sanitizen
+        if (isset($posted_data['global']) && is_array($posted_data['global'])) {
+            foreach ($posted_data['global'] as $gk => $gv) {
+                $posted_data['global'][$gk] = mrh_sanitize_icon_value($gk, $gv);
+            }
+        }
+        // Icons sanitizen
+        if (isset($posted_data['icons']) && is_array($posted_data['icons'])) {
+            foreach ($posted_data['icons'] as $icon_key => $icon_data) {
+                // Icon-Key validieren (nur icon-* erlaubt)
+                if (strpos($icon_key, 'icon-') !== 0) {
+                    unset($posted_data['icons'][$icon_key]);
+                    continue;
+                }
+                if (is_array($icon_data)) {
+                    foreach ($icon_data as $prop => $val) {
+                        if (in_array($prop, ['class','style','size','color','opacity'])) {
+                            $posted_data['icons'][$icon_key][$prop] = mrh_sanitize_icon_value($prop, $val);
+                        }
+                    }
+                }
+            }
+        }
+        // Areas sanitizen
+        if (isset($posted_data['areas']) && is_array($posted_data['areas'])) {
+            $valid_areas = ['produktlisting','produktdetail','header','warenkorb','account','footer'];
+            foreach ($posted_data['areas'] as $area_key => $area_data) {
+                if (!in_array($area_key, $valid_areas)) {
+                    unset($posted_data['areas'][$area_key]);
+                    continue;
+                }
+                // enabled Flag
+                if (isset($area_data['enabled'])) {
+                    $posted_data['areas'][$area_key]['enabled'] = (bool)$area_data['enabled'];
+                }
+                // Overrides sanitizen
+                if (isset($area_data['overrides']) && is_array($area_data['overrides'])) {
+                    foreach ($area_data['overrides'] as $ov_key => $ov_data) {
+                        if (strpos($ov_key, 'icon-') !== 0) {
+                            unset($posted_data['areas'][$area_key]['overrides'][$ov_key]);
+                            continue;
+                        }
+                        if (is_array($ov_data)) {
+                            foreach ($ov_data as $prop => $val) {
+                                if (in_array($prop, ['class','style','size','color','opacity'])) {
+                                    $posted_data['areas'][$area_key]['overrides'][$ov_key][$prop] = mrh_sanitize_icon_value($prop, $val);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Meta-Daten hinzufuegen
+        $posted_data['_meta'] = [
+            'version' => '1.0',
+            'description' => 'MRH 2026 Icon-Konfigurator',
+            'date' => date('Y-m-d H:i:s'),
+        ];
+        
+        if (mrh_write_json($icon_config_file, $posted_data)) {
+            $mrh_icons = $posted_data;
+            $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-check-circle me-1"></i> Icon-Konfiguration erfolgreich gespeichert!</div>';
+            // templates_c leeren fuer sofortige Wirkung
+            $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+            if (is_dir($tpl_c)) {
+                $files = glob($tpl_c . '*');
+                foreach ($files as $f) {
+                    if (is_file($f)) @unlink($f);
+                }
+            }
+        } else {
+            $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Speichern der Icon-Konfiguration.</div>';
+        }
+    } else {
+        $mrh_config_message = '<div class="alert alert-danger mx-3">Ungueltige Icon-Daten empfangen.</div>';
+    }
+}
+
+// 10b. Icon-Konfiguration auf Standard zuruecksetzen
+if (isset($_POST['submit-reset-icons'])) {
+    if (file_exists($icon_defaults_file)) {
+        $default_data = mrh_read_json($icon_defaults_file);
+        if (mrh_write_json($icon_config_file, $default_data)) {
+            $mrh_icons = $default_data;
+            $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-undo me-1"></i> Icon-Konfiguration auf Standard zurueckgesetzt!</div>';
+            // templates_c leeren
+            $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+            if (is_dir($tpl_c)) {
+                $files = glob($tpl_c . '*');
+                foreach ($files as $f) {
+                    if (is_file($f)) @unlink($f);
+                }
+            }
+        } else {
+            $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Zuruecksetzen der Icons.</div>';
+        }
+    }
+}
+
 // === Globals setzen ===
 $GLOBALS['mrh_colors']  = $mrh_colors;
 $GLOBALS['mrh_tpl']     = $mrh_tpl;
@@ -739,3 +915,4 @@ $GLOBALS['mrh_custom_css'] = $mrh_custom_css;
 $GLOBALS['mrh_config_message'] = $mrh_config_message;
 $GLOBALS['mrh_presets'] = $available_presets;
 $GLOBALS['mrh_backups'] = $available_backups;
+$GLOBALS['mrh_icons']   = $mrh_icons;

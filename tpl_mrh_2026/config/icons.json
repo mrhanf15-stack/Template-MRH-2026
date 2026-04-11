@@ -1,0 +1,254 @@
+{
+    "_meta": {
+        "version": "1.0",
+        "description": "MRH 2026 Icon-Konfigurator – Standard-Konfiguration",
+        "date": "2026-04-11"
+    },
+    "global": {
+        "style": "solid",
+        "size": "md",
+        "color": "",
+        "opacity": "1"
+    },
+    "icons": {
+        "icon-cart": {
+            "label": "Warenkorb",
+            "class": "fa-shopping-cart",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "buttons",
+            "description": "Warenkorb-Button (In den Warenkorb)"
+        },
+        "icon-express": {
+            "label": "Schnellkauf",
+            "class": "fa-bolt",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "buttons",
+            "description": "Express-Kauf / Schnellkauf-Button"
+        },
+        "icon-wishlist": {
+            "label": "Merkzettel",
+            "class": "fa-heart",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "buttons",
+            "description": "Merkzettel / Wunschliste Button"
+        },
+        "icon-compare": {
+            "label": "Vergleichen",
+            "class": "fa-balance-scale",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "buttons",
+            "description": "Produktvergleich-Button"
+        },
+        "icon-details": {
+            "label": "Details",
+            "class": "fa-info-circle",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "buttons",
+            "description": "Details-Button (Produktlisting)"
+        },
+        "icon-delete": {
+            "label": "Loeschen",
+            "class": "fa-trash",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "buttons",
+            "description": "Loeschen-Button (Warenkorb, Merkzettel)"
+        },
+        "icon-menu": {
+            "label": "Menue",
+            "class": "fa-bars",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "navigation",
+            "description": "Hamburger-Menue / Mobile Navigation"
+        },
+        "icon-search": {
+            "label": "Suche",
+            "class": "fa-search",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "navigation",
+            "description": "Suchfeld-Icon"
+        },
+        "icon-account": {
+            "label": "Konto",
+            "class": "fa-user",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "navigation",
+            "description": "Benutzer-Konto / Account-Icon"
+        },
+        "icon-dropdown": {
+            "label": "Dropdown",
+            "class": "fa-chevron-down",
+            "style": "solid",
+            "size": "sm",
+            "color": "",
+            "section": "navigation",
+            "description": "Dropdown-Pfeil (Menue, Selects)"
+        },
+        "icon-login": {
+            "label": "Anmelden",
+            "class": "fa-sign-in-alt",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "navigation",
+            "description": "Login / Anmelden Icon"
+        },
+        "icon-logout": {
+            "label": "Abmelden",
+            "class": "fa-sign-out-alt",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "navigation",
+            "description": "Logout / Abmelden Icon"
+        },
+        "icon-star-full": {
+            "label": "Stern voll",
+            "class": "fa-star",
+            "style": "solid",
+            "size": "md",
+            "color": "#ffc107",
+            "section": "ratings",
+            "description": "Voller Bewertungsstern"
+        },
+        "icon-star-empty": {
+            "label": "Stern leer",
+            "class": "fa-star",
+            "style": "regular",
+            "size": "md",
+            "color": "#dee2e6",
+            "section": "ratings",
+            "description": "Leerer Bewertungsstern"
+        },
+        "icon-success": {
+            "label": "Erfolg",
+            "class": "fa-check-circle",
+            "style": "solid",
+            "size": "md",
+            "color": "#198754",
+            "section": "status",
+            "description": "Erfolgsmeldung / Bestaetigung"
+        },
+        "icon-info": {
+            "label": "Info",
+            "class": "fa-info-circle",
+            "style": "solid",
+            "size": "md",
+            "color": "#0dcaf0",
+            "section": "status",
+            "description": "Informations-Hinweis"
+        },
+        "icon-warning": {
+            "label": "Warnung",
+            "class": "fa-exclamation-triangle",
+            "style": "solid",
+            "size": "md",
+            "color": "#ffc107",
+            "section": "status",
+            "description": "Warnungs-Hinweis"
+        },
+        "icon-error": {
+            "label": "Fehler",
+            "class": "fa-times-circle",
+            "style": "solid",
+            "size": "md",
+            "color": "#dc3545",
+            "section": "status",
+            "description": "Fehlermeldung"
+        },
+        "icon-seedling": {
+            "label": "Pflanze",
+            "class": "fa-seedling",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "product",
+            "description": "Samen / Pflanze / Cannabis-Icon"
+        },
+        "icon-print": {
+            "label": "Drucken",
+            "class": "fa-print",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "product",
+            "description": "Drucken-Button (Produktseite)"
+        },
+        "icon-review": {
+            "label": "Bewertung",
+            "class": "fa-comment",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "product",
+            "description": "Bewertung schreiben"
+        },
+        "icon-zoom": {
+            "label": "Zoom",
+            "class": "fa-search-plus",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "product",
+            "description": "Bild vergroessern / Zoom"
+        },
+        "icon-refresh": {
+            "label": "Aktualisieren",
+            "class": "fa-sync-alt",
+            "style": "solid",
+            "size": "md",
+            "color": "",
+            "section": "product",
+            "description": "Aktualisieren / Neu laden"
+        }
+    },
+    "areas": {
+        "produktlisting": {
+            "label": "Produktlisting",
+            "enabled": false,
+            "overrides": {}
+        },
+        "produktdetail": {
+            "label": "Produktdetail",
+            "enabled": false,
+            "overrides": {}
+        },
+        "header": {
+            "label": "Header / Navigation",
+            "enabled": false,
+            "overrides": {}
+        },
+        "warenkorb": {
+            "label": "Warenkorb",
+            "enabled": false,
+            "overrides": {}
+        },
+        "account": {
+            "label": "Mein Konto",
+            "enabled": false,
+            "overrides": {}
+        },
+        "footer": {
+            "label": "Footer",
+            "enabled": false,
+            "overrides": {}
+        }
+    }
+}
