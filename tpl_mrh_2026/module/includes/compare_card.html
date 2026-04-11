@@ -1,13 +1,14 @@
 {*
- * compare_card.html v1.5.0 – Include fuer Vergleichsseite
+ * compare_card.html v1.6.0 – Include fuer Vergleichsseite
  * tpl_mrh_2026 – Bootstrap 5.3
- * @version   1.5.0
+ * @version   1.6.0
  * @date      2026-04-11
  * v1.2.0: Merken+Details IMMER anzeigen (auch bei ausverkauft)
  * v1.3.0: Badge-Zeile unter Produktname
  * v1.4.0: card-body auf desc-box durch px-3 pb-1 ersetzt
  * v1.4.1: card-body auf Hersteller+Name durch compare-name-box ersetzt
  * v1.5.0: Optionen direkt unter Tabelle, Preis+Buttons unten fixiert
+ * v1.6.0: Akkordeon-Toggle Button fuer Mobile (Tabelle ein-/ausklappen)
  *}
 
 <div class="card h-100 d-flex flex-column position-relative">
@@ -45,7 +46,15 @@
   {* ── Badge-Zeile (v1.3.0) ── *}
   <div class="compare-badge-row" data-product-id="{$module_data.PRODUCTS_ID}"></div>
 
-  {* ── Kurzbeschreibung (scrollbar) ── *}
+  {* ── Toggle-Button fuer Akkordeon (nur auf Mobile sichtbar via CSS) (v1.6.0) ── *}
+  {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
+    <button type="button" class="compare-desc-toggle" aria-expanded="false">
+      <span class="fa-solid fa-table-list me-1"></span>Eigenschaften anzeigen
+      <span class="toggle-icon fa-solid fa-chevron-down ms-1"></span>
+    </button>
+  {/if}
+
+  {* ── Kurzbeschreibung (scrollbar / Akkordeon auf Mobile) ── *}
   {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
     <div class="compare-desc-box px-3 pb-1{if $module_data.PRODUCT_ATTRIBUTES} has-options{/if}">
       <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>

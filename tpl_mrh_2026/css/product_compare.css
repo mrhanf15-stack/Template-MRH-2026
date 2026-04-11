@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.4.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.5.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
@@ -20,6 +20,8 @@
    v5.4.3: card-footer mt-auto (unten fixiert) + max-height 400px
    v5.4.4: compare-options-box (Optionen direkt unter Tabelle, nicht im Footer)
    v5.4.5: form als flex-container (mt-auto auf card-footer wirkt durch form hindurch)
+   v5.5.0: Mobile UX Optimierung – responsive Tabelle, kompakte Karten,
+           Akkordeon-Toggle fuer Beschreibung, kleinere Schriften
    ========================================================================= */
 
 /* === Page Layout === */
@@ -513,9 +515,117 @@ a.compare-remove-btn:hover {
 }
 
 @media (max-width: 575px) {
+    /* --- Grid: 1 Spalte, max-width begrenzt, zentriert --- */
     .product-compare-page .row.g-3 > .listingbox {
         width: 100%;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
     }
+
+    /* --- Produktbild: kompakter (4:3 statt 1:1) --- */
+    .product-compare-page .card .ratio-1x1 {
+        --bs-aspect-ratio: 75%;  /* 4:3 */
+    }
+
+    /* --- Name + Hersteller: kleinere Schrift --- */
+    .product-compare-page .compare-name-box h2 {
+        font-size: 0.95rem;
+    }
+    .product-compare-page .compare-name-box p {
+        font-size: 0.75rem;
+    }
+
+    /* --- Tabelle responsive: horizontales Scrollen wenn noetig --- */
+    .product-compare-page .compare-desc-box {
+        max-height: none;       /* Akkordeon steuert Hoehe */
+        overflow-y: hidden;
+        overflow-x: hidden;
+        position: relative;
+    }
+    .product-compare-page .compare-desc-box .lr_desc {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .product-compare-page .compare-desc-box .lr_desc table {
+        font-size: 0.75rem;
+        word-break: break-word;
+    }
+    .product-compare-page .compare-desc-box .lr_desc table td,
+    .product-compare-page .compare-desc-box .lr_desc table th {
+        padding: 3px 5px;
+        white-space: normal;
+    }
+
+    /* --- Akkordeon: Tabelle eingeklappt (v5.5.0) --- */
+    .product-compare-page .compare-desc-box.collapsed {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .product-compare-page .compare-desc-box.expanded {
+        max-height: 600px;
+        overflow-y: auto;
+        transition: max-height 0.3s ease;
+    }
+
+    /* --- Toggle-Button fuer Akkordeon --- */
+    .compare-desc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: 100%;
+        padding: 6px 12px;
+        margin: 0;
+        border: none;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        background: #f8f9fa;
+        color: #495057;
+        font-size: 0.78rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        flex: 0 0 auto;
+    }
+    .compare-desc-toggle:hover {
+        background: #e9ecef;
+    }
+    .compare-desc-toggle .toggle-icon {
+        transition: transform 0.3s ease;
+        font-size: 0.7rem;
+    }
+    .compare-desc-toggle.open .toggle-icon {
+        transform: rotate(180deg);
+    }
+
+    /* --- Optionen: kompakter auf Mobile --- */
+    .product-compare-page .compare-options-box {
+        font-size: 0.8rem;
+    }
+    .product-compare-page .compare-options-box select {
+        font-size: 0.78rem;
+        padding: 2px 4px;
+    }
+
+    /* --- Footer Buttons: volle Breite --- */
+    .product-compare-page .compare-footer-bar .compare-buy-row {
+        flex-wrap: nowrap;
+    }
+    .product-compare-page .compare-footer-bar .compare-buy-row .compare-cart-btn {
+        font-size: 0.8rem;
+        padding: .35rem .5rem;
+    }
+    .product-compare-page .compare-action-row .btn {
+        flex: 1 1 0;
+        font-size: 0.72rem;
+        padding: .2rem .4rem;
+    }
+
+    /* --- Floating Badge: kleiner auf Mobile --- */
     .product-compare-badge.pc-pos-bottom-right {
         bottom: 65px;
         right: 10px;
@@ -553,4 +663,9 @@ a.compare-remove-btn:hover {
     .compare-qty {
         width: 48px;
     }
+}
+
+/* --- Akkordeon Toggle: nur auf Mobile sichtbar (v5.5.0) --- */
+.compare-desc-toggle {
+    display: none;
 }
