@@ -11,6 +11,10 @@
    - Header-Bar: Uebernimmt bestehenden #mrh-shipping-bar Container
    - 100% Vanilla JS (kein jQuery)
 
+   v1.6.1: FAW (Fietz Accessibility Widget) Kontrastkorrektur-Schutz
+     - Entfernt inline style !important von FAW auf #mrh-shipping-bar Elementen
+     - MutationObserver ueberwacht style-Aenderungen und stellt CSS-Variablen wieder her
+     - data-faw-ignore Attribut auf Header-Bar gesetzt
    v1.6.0: CSS-Variablen-Integration fuer Konfigurator Tab 10
      - Header-Bar (#mrh-shipping-bar) nutzt jetzt --tpl-shipping-bar-* Variablen
      - .fsb-text/.fsb-amount im Header-Bar-Kontext erben Konfigurator-Werte
@@ -60,7 +64,7 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
     $fsb_lang = isset($_SESSION['language']) ? $_SESSION['language'] : 'german';
 ?>
 <style>
-/* ===== FreeShippingBar v1.6.0-mrh2026 ===== */
+/* ===== FreeShippingBar v1.6.1-mrh2026 ===== */
 
 /* ===== Fixierter Balken (unten/oben) – nutzt PHP-Modul-Farben ===== */
 #fsb-container {
@@ -353,6 +357,9 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
 
     // data-fsb-active Attribut setzen
     headerBar.setAttribute('data-fsb-active', 'true');
+
+    // FAW (Fietz Accessibility Widget) Schutz: Kontrastkorrektur auf Shipping Bar verhindern
+    headerBar.setAttribute('data-faw-ignore', 'true');
 
     // Container-Padding entfernen fuer volle Breite
     var container = headerBar.querySelector('.container');
@@ -670,6 +677,60 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
     }
   }
 
+  // ===== FAW-Kontrastkorrektur entfernen (v1.6.1) =====
+  // Das Fietz Accessibility Widget setzt inline style="color: ... !important;"
+  // auf Elemente mit niedrigem Kontrast. Da die Shipping Bar bewusst vom
+  // Konfigurator gestylt wird, entfernen wir diese Korrektur.
+  function fsbCleanFawStyles() {
+    var headerBar = document.getElementById('mrh-shipping-bar');
+    if (!headerBar) return;
+
+    var els = headerBar.querySelectorAll('[data-faw-contrast-processed]');
+    for (var i = 0; i < els.length; i++) {
+      els[i].removeAttribute('style');
+      els[i].removeAttribute('data-faw-contrast-processed');
+      els[i].removeAttribute('data-faw-original-color');
+      els[i].removeAttribute('data-faw-contrast-ratio');
+      els[i].removeAttribute('data-faw-background-estimate');
+      els[i].removeAttribute('data-faw-improved-ratio');
+    }
+    // Auch den Container selbst pruefen
+    if (headerBar.hasAttribute('data-faw-contrast-processed')) {
+      headerBar.removeAttribute('style');
+      headerBar.removeAttribute('data-faw-contrast-processed');
+    }
+  }
+
+  // ===== FAW MutationObserver (v1.6.1) =====
+  // Ueberwacht style-Aenderungen auf der Shipping Bar und entfernt FAW-Korrekturen
+  function fsbWatchFawChanges() {
+    var headerBar = document.getElementById('mrh-shipping-bar');
+    if (!headerBar) return;
+
+    var observer = new MutationObserver(function(mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var m = mutations[i];
+        if (m.type === 'attributes' && m.attributeName === 'style') {
+          var el = m.target;
+          if (el.hasAttribute('data-faw-contrast-processed')) {
+            el.removeAttribute('style');
+            el.removeAttribute('data-faw-contrast-processed');
+            el.removeAttribute('data-faw-original-color');
+            el.removeAttribute('data-faw-contrast-ratio');
+            el.removeAttribute('data-faw-background-estimate');
+            el.removeAttribute('data-faw-improved-ratio');
+          }
+        }
+      }
+    });
+
+    observer.observe(headerBar, {
+      attributes: true,
+      attributeFilter: ['style'],
+      subtree: true
+    });
+  }
+
   // ===== Initialisierung =====
   function fsbInit() {
     fsbReadCurrentCountry();
@@ -685,6 +746,13 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
 
     fsbStartPolling();
     fsbWatchAddToCart();
+
+    // FAW-Schutz: Initiale Bereinigung + MutationObserver (v1.6.1)
+    // Verzoegert, damit FAW zuerst laeuft und wir danach aufraeumen
+    setTimeout(function() {
+      fsbCleanFawStyles();
+      fsbWatchFawChanges();
+    }, 2000);
   }
 
   if (document.readyState === 'loading') {
