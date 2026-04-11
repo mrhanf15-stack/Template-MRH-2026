@@ -18,6 +18,7 @@
    v5.4.1: compare-desc-box flex:0 0 auto (Tabelle oben anliegend)
    v5.4.2: compare-name-box flex:0 0 auto (Hersteller+Name kein flex-grow)
    v5.4.3: card-footer mt-auto (unten fixiert) + max-height 400px
+   v5.4.4: compare-options-box (Optionen direkt unter Tabelle, nicht im Footer)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -92,6 +93,11 @@ a.compare-remove-btn:hover {
 
 /* === Hersteller + Produktname Box (kein flex-grow) === */
 .compare-name-box {
+    flex: 0 0 auto;
+}
+
+/* === Optionen-Box: direkt unter Tabelle, kein flex-grow (v5.4.4) === */
+.compare-options-box {
     flex: 0 0 auto;
 }
 

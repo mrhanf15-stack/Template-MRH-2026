@@ -1,12 +1,13 @@
 {*
- * compare_card.html v1.4.0 – Include fuer Vergleichsseite
+ * compare_card.html v1.5.0 – Include fuer Vergleichsseite
  * tpl_mrh_2026 – Bootstrap 5.3
- * @version   1.4.0
+ * @version   1.5.0
  * @date      2026-04-11
  * v1.2.0: Merken+Details IMMER anzeigen (auch bei ausverkauft)
- * v1.3.0: Badge-Zeile unter Produktname (Feminisiert, Regulaer, Autoflowering, Photoperiodisch)
- * v1.4.0: card-body auf desc-box durch px-3 pb-1 ersetzt (Tabelle oben anliegend)
- * v1.4.1: card-body auf Hersteller+Name durch compare-name-box ersetzt (kein flex-grow)
+ * v1.3.0: Badge-Zeile unter Produktname
+ * v1.4.0: card-body auf desc-box durch px-3 pb-1 ersetzt
+ * v1.4.1: card-body auf Hersteller+Name durch compare-name-box ersetzt
+ * v1.5.0: Optionen direkt unter Tabelle, Preis+Buttons unten fixiert
  *}
 
 <div class="card h-100 d-flex flex-column position-relative">
@@ -44,23 +45,27 @@
   {* ── Badge-Zeile (v1.3.0) ── *}
   <div class="compare-badge-row" data-product-id="{$module_data.PRODUCTS_ID}"></div>
 
-  {* ── Kurzbeschreibung (flex-grow, scrollbar) ── *}
+  {* ── Kurzbeschreibung (scrollbar) ── *}
   {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
     <div class="compare-desc-box px-3 pb-1{if $module_data.PRODUCT_ATTRIBUTES} has-options{/if}">
       <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
     </div>
   {/if}
 
-  {* ── Footer: Optionen + Preis + Buttons (KEIN mt-auto) ── *}
-  <div class="card-footer bg-body-tertiary">
-    {$module_data.FORM_ACTION}
+  {* ── FORM oeffnen (umschliesst Optionen + Footer) ── *}
+  {$module_data.FORM_ACTION}
 
-    {* ── Attribute/Optionen ── *}
-    {if $module_data.PRODUCT_ATTRIBUTES}
-      <div id="options{$module_data.PRODUCTS_ID}" class="cf mb-2">
+  {* ── Attribute/Optionen: direkt unter Tabelle (v1.5.0) ── *}
+  {if $module_data.PRODUCT_ATTRIBUTES}
+    <div class="compare-options-box px-3 pb-1">
+      <div id="options{$module_data.PRODUCTS_ID}" class="cf">
         {$module_data.PRODUCT_ATTRIBUTES|replace:' p-2':''}
       </div>
-    {/if}
+    </div>
+  {/if}
+
+  {* ── Footer: Preis + Buttons (mt-auto = unten fixiert) ── *}
+  <div class="card-footer">
 
     {* ── Lieferzeit ── *}
     <div class="lb_shipping small text-end">
@@ -115,7 +120,9 @@
       </div>
     </div>
 
-    {$module_data.FORM_END}
   </div>
+
+  {* ── FORM schliessen ── *}
+  {$module_data.FORM_END}
 
 </div>
