@@ -40,13 +40,13 @@ function css_button($image, $alt, $parameters = '', $submit = false) {
 	// Mehrfachnutzung Account, Checkout, Bewertungen, Contentseiten
     'button_back.gif'               => array('Text' => $alt,								'icon' => 'fa fa-arrow-left',      	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm'),
 	// Mehrfachnutzung Produktseiten
-    'button_buy_now.gif'            => array('Text' => '',									'icon' => 'fa fa-shopping-cart',   	'iconposition' => 'left',		'Class' => 'btn btn-cart btn-outline-secondary btn-sm'),
+    'button_buy_now.gif'            => array('Text' => '',									'icon' => 'fa fa-shopping-cart',   	'iconposition' => 'left',		'Class' => 'btn mrh-btn-primary btn-sm'),
 	// Mehrfachnutzung Checkout Rechnungsadresse, Lieferadresse
     'button_change_address.gif'     => array('Text' => $alt,								'icon' => 'fa fa-edit',            	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm'),
 	// Warenkorb
     'button_checkout.gif'           => array('Text' => $alt,								'icon' => 'far fa-credit-card',    	'iconposition' => 'right',		'Class' => 'btn btn-checkout btn-success btn-block'),
 	// Mehrfachnutzung Nutzerkonto-Bestellhistorie, Produktdetailseiten, Warenkorb
-    'button_checkout_express.gif'   => array('Text' => TEXT_CHECKOUT_EXPRESS_INFO_LINK,		'icon' => 'fa fa-cart-plus',	    'iconposition' => 'left',		'Class' => 'btn btn-express btn-outline-secondary btn-sm btn-block'),
+    'button_checkout_express.gif'   => array('Text' => TEXT_CHECKOUT_EXPRESS_INFO_LINK,		'icon' => 'fa fa-cart-plus',	    'iconposition' => 'left',		'Class' => 'btn mrh-btn-express btn-sm w-100'),
 	// Mehrfachnutzung Downloads-Login, Payone, PayPal
     'button_confirm.gif'            => array('Text' => $alt,								'icon' => 'fa fa-check',            'iconposition' => 'right',		'Class' => 'btn btn-secondary btn-sm'),
 	// Checkout -> Kaufen-Button
@@ -60,9 +60,9 @@ function css_button($image, $alt, $parameters = '', $submit = false) {
 	// Produktseiten Downloads
     'button_download.gif'           => array('Text' => $alt,								'icon' => 'fa fa-download',        	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm'),
 	// Mehrfachnutzung Nutzerkonto-Bestellhistorie, Produktseiten, Produktdetailseiten, Bewertungen
-    'button_in_cart.gif'            => array('Text' => $alt,								'icon' => 'fa fa-shopping-cart',   	'iconposition' => 'left',		'Class' => 'btn btn-cart btn-secondary btn-sm btn-block'),
+    'button_in_cart.gif'            => array('Text' => $alt,								'icon' => 'fa fa-shopping-cart',   	'iconposition' => 'left',		'Class' => 'btn mrh-btn-primary btn-sm w-100'),
 	// Mehrfachnutzung Produktseiten, Produktdetailseiten
-    'button_in_wishlist.gif'        => array('Text' => $alt,								'icon' => 'fa fa-heart',            'iconposition' => 'left',		'Class' => 'btn btn-wish btn-outline-info btn-sm btn-block'),
+    'button_in_wishlist.gif'        => array('Text' => $alt,								'icon' => 'fa fa-heart',            'iconposition' => 'left',		'Class' => 'btn mrh-btn-wishlist btn-sm w-100'),
 	// Login
     'button_login.gif'              => array('Text' => $alt,								'icon' => 'fa fa-user',            	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm'),
 	// Newsletteranmeldung
@@ -104,7 +104,7 @@ function css_button($image, $alt, $parameters = '', $submit = false) {
 	// Adressbuch
     'small_edit.gif'                => array('Text' => $alt,								'icon' => 'fa fa-edit',            	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm'),
 	// Mehrfachnutzung Nutzerkonto, Nutzerkonto-Bestellhistorie
-    'small_express.gif'             => array('Text' => '',									'icon' => 'fa fa-cart-plus',	    'iconposition' => 'left',		'Class' => 'btn btn-express btn-outline-secondary btn-sm'),
+    'small_express.gif'             => array('Text' => '',									'icon' => 'fa fa-cart-plus',	    'iconposition' => 'left',		'Class' => 'btn mrh-btn-express btn-sm'),
     'small_view.gif'                => array('Text' => $alt,								'icon' => 'fa fa-eye-open',        	'iconposition' => 'right',		'Class' => 'btn btn-secondary btn-sm'),
 	// Merkzettel
     'wishlist_del.gif'              => array('Text' => '',									'icon' => 'fa fa-trash',      		'iconposition' => 'left',		'Class' => 'btn btn-danger btn-sm'),
@@ -136,7 +136,7 @@ function css_button($image, $alt, $parameters = '', $submit = false) {
 	// Button Frage zum Artikel
     'button_product_inquiry'		=> array('Text' => $alt,								'icon' => 'far fa-envelope',		'iconposition' => 'left',		'Class' => 'btn btn-xs btn-info btn-block'),
 	// Mehrfachnutzung Box Bestsellers, alle Produktlisten, Neue Artikel, Warenkorb -> Produkte
-    'button_wishlist_now'	    	=> array('Text' => '',									'icon' => 'fa fa-heart',			'iconposition' => 'left',		'Class' => 'btn btn-wish btn-outline-info btn-sm'),
+    'button_wishlist_now'	    	=> array('Text' => '',									'icon' => 'fa fa-heart',			'iconposition' => 'left',		'Class' => 'btn mrh-btn-wishlist btn-sm'),
 	// Mehrfachnutzung Bewertungen, Produktdetailseiten
     'button_write_review'			=> array('Text' => PRODUCTS_REVIEW_LINK,				'icon' => 'fa fa-edit',            	'iconposition' => 'left',		'Class' => 'btn btn-info btn-xs btn-block'),
 	// Warenkorb Gutscheine

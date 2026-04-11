@@ -169,12 +169,12 @@
               {$ADD_QTY|replace:'input':'input class="form-control form-control-sm text-center" id="mrh-qty"'}
             </div>
             <div class="flex-grow-1">
-              {$ADD_CART_BUTTON|replace:'btn ':'btn mrh-btn-primary btn-lg w-100 '}
+              {$ADD_CART_BUTTON|replace:'btn-sm':'btn-lg w-100'}
             </div>
           </div>
           {if $PRODUCTS_QUANTITY > 0}
             {if isset($ADD_CART_BUTTON_EXPRESS) && !$PAYPALPLAN}
-              <div class="mt-2">{$ADD_CART_BUTTON_EXPRESS|replace:'btn ':'btn mrh-btn-express btn-sm w-100 '}</div>
+              <div class="mt-2">{$ADD_CART_BUTTON_EXPRESS}</div>
             {/if}
             {if isset($ADD_CART_BUTTON_PAYPAL) && !$PAYPALPLAN}
               <div class="mt-2">{$ADD_CART_BUTTON_PAYPAL}</div>
