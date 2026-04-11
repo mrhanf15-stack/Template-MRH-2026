@@ -1,0 +1,114 @@
+{*
+ * compare_card.html v1.1.0 – Include fuer Vergleichsseite
+ * tpl_mrh_2026 – Bootstrap 5.3
+ * @version   1.1.0
+ * @date      2026-04-11
+ *}
+
+<div class="card h-100 d-flex flex-column position-relative">
+
+  {* ── Remove Button ── *}
+  <a href="{$module_data.PRODUCTS_REMOVE_LINK}" class="compare-remove-btn" title="{$PC_REMOVE_BUTTON}"
+     onclick="event.preventDefault(); ProductCompare.remove('{$module_data.PRODUCTS_ID}');">
+    <span class="fa-solid fa-xmark"></span>
+  </a>
+
+  {* ── Produktbild ── *}
+  {if $module_data.PRODUCTS_IMAGE != ''}
+    <a href="{$module_data.PRODUCTS_LINK}" class="d-block overflow-hidden">
+      <div class="ratio ratio-1x1 bg-light">
+        <img class="w-100 h-100 object-fit-cover" loading="lazy"
+             src="{$module_data.PRODUCTS_IMAGE}"
+             alt="{$module_data.PRODUCTS_NAME|onlytext}"
+             title="{$module_data.PRODUCTS_NAME|onlytext}">
+      </div>
+    </a>
+  {/if}
+
+  {* ── Hersteller + Produktname ── *}
+  <div class="card-body pb-1">
+    {if !empty($module_data.MANUFACTURER)}
+      <p class="small text-secondary mb-0">{$module_data.MANUFACTURER}</p>
+    {/if}
+    <h2 class="h6 mb-1">
+      <a href="{$module_data.PRODUCTS_LINK}" class="text-decoration-none text-dark">
+        {$module_data.PRODUCTS_NAME}
+      </a>
+    </h2>
+  </div>
+
+  {* ── Kurzbeschreibung (flex-grow, scrollbar) ── *}
+  {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
+    <div class="card-body pt-0 pb-1 compare-desc-box{if $module_data.PRODUCT_ATTRIBUTES} has-options{/if}">
+      <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
+    </div>
+  {/if}
+
+  {* ── Footer: Optionen + Preis + Buttons (KEIN mt-auto) ── *}
+  <div class="card-footer bg-body-tertiary">
+    {$module_data.FORM_ACTION}
+
+    {* ── Attribute/Optionen ── *}
+    {if $module_data.PRODUCT_ATTRIBUTES}
+      <div id="options{$module_data.PRODUCTS_ID}" class="cf mb-2">
+        {$module_data.PRODUCT_ATTRIBUTES|replace:' p-2':''}
+      </div>
+    {/if}
+
+    {* ── Lieferzeit ── *}
+    <div class="lb_shipping small text-end">
+      {if $module_data.PRODUCTS_SHIPPING_NAME}
+        {#text_shippingtime#} {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
+      {else}
+        &nbsp;
+      {/if}
+    </div>
+
+    {* ── Preis ── *}
+    <div class="text-end mt-1 mb-2">
+      {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+        {include file="module/includes/price_box.html"}
+      {/foreach}
+      {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+        {if $module_data.PRODUCTS_VPE}
+          <div class="lb_vpe text-secondary small">{$module_data.PRODUCTS_VPE}</div>
+        {/if}
+        <div class="lb_tax text-secondary small mb-1">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+      {/if}
+    </div>
+
+    {* ── Footer Bar: strukturiert ── *}
+    {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+      <div class="compare-footer-bar">
+        {* Zeile 1: Qty-Input + Kaufbutton *}
+        {if $module_data.PRODUCTS_SHIPPINGTIME != '4'}
+          {if $module_data.PRODUCTS_BUTTON_BUY_NOW || ($module_data.PRODUCTS_FSK18 != '0' && $smarty.const.SHOW_BUTTON_BUY_NOW != 'false')}
+            <div class="compare-buy-row d-flex align-items-center gap-2 flex-nowrap">
+              {if defined($module_data.QTYPD_STATUS) && $module_data.QTYPD_STATUS == 'true'}
+                {$module_data.ADD_QTYPD|replace:'select':'select class="form-select form-select-sm compare-qty" style="width:55px;flex:0 0 55px"'}
+              {else}
+                {$module_data.ADD_QTY|replace:'input':'input class="form-control form-control-sm compare-qty"'}
+              {/if}
+              {$module_data.PRODUCTS_ADD_CART_BUTTON|replace:"btn mrh-btn-primary btn-sm":"btn mrh-btn-primary compare-cart-btn flex-grow-1"}
+            </div>
+          {/if}
+        {/if}
+
+        {* Zeile 2: Merkzettel + Details *}
+        <div class="compare-action-row">
+          {if !empty($module_data.PRODUCTS_LINK_WISHLIST_NOW)}
+            <button type="submit" name="wishlist" class="btn btn-sm mrh-btn-wishlist" title="{$smarty.const.TEXT_TO_WISHLIST}">
+              <span class="fa-regular fa-heart me-1"></span>Merken
+            </button>
+          {/if}
+          <a class="btn btn-sm mrh-btn-details" href="{$module_data.PRODUCTS_LINK}">
+            <span class="fa-solid fa-eye me-1"></span>Details
+          </a>
+        </div>
+      </div>
+    {/if}
+
+    {$module_data.FORM_END}
+  </div>
+
+</div>

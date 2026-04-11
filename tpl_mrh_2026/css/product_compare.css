@@ -1,10 +1,12 @@
 /* =========================================================================
-   Product Compare v5.0.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.1.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
    Grid wird komplett ueber Bootstrap 5.3 row/col gesteuert.
    Kein eigenes Grid-System, kein !important.
+   v5.1.0: Footer-Bar Klassen (compare-footer-bar, compare-buy-row,
+           compare-action-row, compare-cart-btn) + 4-Spalten Grid-Fix
    ========================================================================= */
 
 /* === Page Layout === */
@@ -111,6 +113,59 @@ a.compare-remove-btn:hover {
 /* Details Button always pushed to the right */
 .compare-btn-row .mrh-btn-details {
     margin-left: auto;
+}
+
+/* === 4-Spalten Grid-Fix (ueberschreibt mrh-autoslider.css .row .listingbox) === */
+.product-compare-page .row.g-3 > .listingbox {
+    width: 25%;
+}
+
+/* === Footer Bar (v5.1.0): Strukturierter Card-Footer === */
+.product-compare-page .compare-footer-bar {
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+/* === Buy Row: Qty links + Cart rechts, eine Zeile === */
+.product-compare-page .compare-footer-bar .compare-buy-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+/* Qty Select/Input innerhalb Buy Row */
+.product-compare-page .compare-footer-bar .compare-buy-row .compare-qty {
+    width: 55px;
+    flex: 0 0 55px;
+}
+
+/* Cart Button innerhalb Buy Row */
+.product-compare-page .compare-footer-bar .compare-buy-row .compare-cart-btn {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: .4rem .75rem;
+    font-size: .85rem;
+}
+
+/* === Action Row: Merken + Details nebeneinander === */
+.product-compare-page .compare-footer-bar .compare-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+/* Kleinere Buttons im Card-Footer */
+.product-compare-page .card-footer .btn {
+    font-size: .75rem;
+    padding: .25rem .5rem;
 }
 
 /* === Picto Icon - Absolute so it does not push table down === */
@@ -314,12 +369,18 @@ a.compare-remove-btn:hover {
 
 /* === Responsive === */
 @media (max-width: 991px) {
+    .product-compare-page .row.g-3 > .listingbox {
+        width: 33.333%;
+    }
     .compare-img-box {
         min-height: 150px;
     }
 }
 
 @media (max-width: 767px) {
+    .product-compare-page .row.g-3 > .listingbox {
+        width: 50%;
+    }
     .compare-desc-box {
         max-height: 350px;
     }
@@ -329,6 +390,9 @@ a.compare-remove-btn:hover {
 }
 
 @media (max-width: 575px) {
+    .product-compare-page .row.g-3 > .listingbox {
+        width: 100%;
+    }
     .product-compare-badge.pc-pos-bottom-right {
         bottom: 65px;
         right: 10px;
