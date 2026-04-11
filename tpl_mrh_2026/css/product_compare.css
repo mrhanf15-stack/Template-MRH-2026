@@ -17,6 +17,7 @@
            Autoflowering, Photoperiodisch) als farbige Pills
    v5.4.1: compare-desc-box flex:0 0 auto (Tabelle oben anliegend)
    v5.4.2: compare-name-box flex:0 0 auto (Hersteller+Name kein flex-grow)
+   v5.4.3: card-footer mt-auto (unten fixiert) + max-height 400px
    ========================================================================= */
 
 /* === Page Layout === */
@@ -98,7 +99,7 @@ a.compare-remove-btn:hover {
 /* flex: 0 0 auto ueberschreibt Bootstrap .card-body flex:1 1 auto,
    damit die Tabelle oben anliegt statt vertikal zentriert zu werden */
 .compare-desc-box {
-    max-height: 550px;
+    max-height: 400px;
     overflow-y: auto;
     flex: 0 0 auto;
 }
@@ -144,6 +145,7 @@ a.compare-remove-btn:hover {
     justify-content: flex-end;
     border-top: none;
     background: transparent;
+    margin-top: auto;
 }
 
 /* === Footer Bar (v5.1.0): Strukturierter Card-Footer === */
