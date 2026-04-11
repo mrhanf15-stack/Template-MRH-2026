@@ -436,8 +436,9 @@ if (empty($json_a)) {
   }
   // --- Berechnete Variablen ---
   echo '--mrh-header-shadow:0 1px 3px rgba(0,0,0,0.06);';
-  echo '--mrh-shipping-bar-bg:rgba(240,253,244,0.8);';
-  echo '--mrh-shipping-bar-text:' . htmlspecialchars($json_a['tpl-main-color-2'] ?? 'rgb(30,30,30)') . ';';
+  // mrh-shipping-bar Aliase: Konfigurator-Werte aus colors.json (nicht mehr hardcoded)
+  echo '--mrh-shipping-bar-bg:' . htmlspecialchars($json_a['tpl-shipping-bar-bg'] ?? 'rgb(255, 251, 235)') . ';';
+  echo '--mrh-shipping-bar-text:' . htmlspecialchars($json_a['tpl-shipping-bar-text'] ?? 'rgb(190, 158, 31)') . ';';
   echo '--mrh-green-accent:' . htmlspecialchars($json_a['tpl-main-color'] ?? 'rgb(74,140,42)') . ';';
   echo '--mrh-green-light:#f0fdf4;';
   echo '--mrh-nav-bg:' . htmlspecialchars($json_a['tpl-bg-color'] ?? 'rgb(255,255,255)') . ';';
