@@ -9,6 +9,8 @@
            compare-action-row, compare-cart-btn) + 4-Spalten Grid-Fix
    v5.2.0: Fix fuer Ausverkauft-Karten: cssButton Override in
            compare-action-row, Buttons immer horizontal
+   v5.3.0: Fix Button-Stretch bei Ausverkauft: card-footer flex-end,
+           action-row align-self, Buttons max-height begrenzt
    ========================================================================= */
 
 /* === Page Layout === */
@@ -122,11 +124,19 @@ a.compare-remove-btn:hover {
     width: 25%;
 }
 
+/* === Card Footer Flex Fix (v5.3.0): Verhindert Stretch bei fehlender buy-row === */
+.product-compare-page .card-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 /* === Footer Bar (v5.1.0): Strukturierter Card-Footer === */
 .product-compare-page .compare-footer-bar {
     border-top: 1px solid rgba(0,0,0,.1);
     padding-top: 8px;
-    margin-top: 8px;
+    margin-top: auto;
+    width: 100%;
 }
 
 /* === Buy Row: Qty links + Cart rechts, eine Zeile === */
@@ -162,12 +172,18 @@ a.compare-remove-btn:hover {
     align-items: center;
     justify-content: space-between;
     gap: 6px;
+    align-self: flex-end;
+    width: 100%;
 }
 
 /* Kleinere Buttons im Card-Footer */
 .product-compare-page .card-footer .btn {
     font-size: .75rem;
     padding: .25rem .5rem;
+    max-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* === Ausverkauft-Fix: cssButton Override in Action Row (v5.2.0) ===
