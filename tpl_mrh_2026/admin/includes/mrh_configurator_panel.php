@@ -1578,6 +1578,52 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-auto-border','rgba(34, 197, 94, 0.25)'); ?>"></div>
     </div>
 
+    <!-- Picto-Container (.picto.templatestyle) -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-cube me-1" style="color:#15803d;"></i> Picto-Container (Autoflowering-Box)</div></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-picto-bg" type="text" name="tpl-picto-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-picto-bg','rgb(240, 253, 244)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-picto-bg','rgb(240, 253, 244)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-picto-text" type="text" name="tpl-picto-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-picto-text','rgb(21, 128, 61)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-picto-text','rgb(21, 128, 61)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-border-color"><strong>Rahmenfarbe</strong></label>
+        <input id="tpl-picto-border-color" type="text" name="tpl-picto-border-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-picto-border-color','rgba(34, 197, 94, 0.25)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-picto-border-color','rgba(34, 197, 94, 0.25)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-border-width"><strong>Rahmenbreite</strong></label>
+        <input id="tpl-picto-border-width" type="text" name="tpl-picto-border-width" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-border-width','1px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-border-radius"><strong>Rundung</strong></label>
+        <input id="tpl-picto-border-radius" type="text" name="tpl-picto-border-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-border-radius','12px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-padding"><strong>Padding</strong></label>
+        <input id="tpl-picto-padding" type="text" name="tpl-picto-padding" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-padding','8px 16px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-margin-bottom"><strong>Abstand unten</strong></label>
+        <input id="tpl-picto-margin-bottom" type="text" name="tpl-picto-margin-bottom" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-margin-bottom','0.75rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-shadow"><strong>Schatten</strong></label>
+        <input id="tpl-picto-shadow" type="text" name="tpl-picto-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-shadow','none'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-opacity"><strong>Deckkraft</strong></label>
+        <input id="tpl-picto-opacity" type="text" name="tpl-picto-opacity" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-opacity','1'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-picto-icon-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-picto-icon-size" type="text" name="tpl-picto-icon-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-picto-icon-size','1rem'); ?>">
+    </div>
+
     <!-- Speichern -->
     <div class="col-12 mt-3 mb-3">
         <button type="submit" name="submit-colors" class="btn btn-success btn-lg">

@@ -1381,18 +1381,20 @@ body.mrh-no-scroll {
   font-size: var(--tpl-badge-font-size, 0.8rem);
   font-weight: var(--tpl-badge-font-weight, 600);
   font-family: var(--tpl-font-text), sans-serif;
-  padding: var(--tpl-badge-padding, 8px 16px);
-  border-radius: var(--tpl-badge-radius, var(--mrh-tbl-radius));
-  margin-bottom: 0.75rem;
+  padding: var(--tpl-picto-padding, 8px 16px);
+  border-radius: var(--tpl-picto-border-radius, 12px);
+  margin-bottom: var(--tpl-picto-margin-bottom, 0.75rem);
   line-height: 1.3;
-  /* Autoflowering-Farben aus Konfigurator */
-  background: var(--tpl-badge-auto-bg, var(--mrh-tbl-aut-bg, #f0fdf4));
-  border: var(--tpl-badge-border-width, 1px) solid var(--tpl-badge-auto-border, rgba(34, 197, 94, 0.25));
-  color: var(--tpl-badge-auto-text, #15803d);
+  /* Picto-Container Farben aus Konfigurator */
+  background: var(--tpl-picto-bg, var(--tpl-badge-auto-bg, #f0fdf4));
+  border: var(--tpl-picto-border-width, 1px) solid var(--tpl-picto-border-color, rgba(34, 197, 94, 0.25));
+  color: var(--tpl-picto-text, var(--tpl-badge-auto-text, #15803d));
+  box-shadow: var(--tpl-picto-shadow, none);
+  opacity: var(--tpl-picto-opacity, 1);
 }
 .picto.templatestyle .fa,
 .picto.templatestyle .shortfongc {
-  font-size: 1rem;
+  font-size: var(--tpl-picto-icon-size, 1rem);
 }
 /* Ausgeblendet: .off Klasse */
 .picto.templatestyle.off {

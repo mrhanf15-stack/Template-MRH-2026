@@ -250,6 +250,18 @@ $mrh_color_defaults = [
     'tpl-badge-auto-border'        => 'rgba(34, 197, 94, 0.25)',
     'tpl-badge-auto-icon'          => 'fa-tachometer',
 
+    // Picto-Container (.picto.templatestyle)
+    'tpl-picto-bg'                 => 'rgb(240, 253, 244)',
+    'tpl-picto-text'               => 'rgb(21, 128, 61)',
+    'tpl-picto-border-color'       => 'rgba(34, 197, 94, 0.25)',
+    'tpl-picto-border-width'       => '1px',
+    'tpl-picto-border-radius'      => '12px',
+    'tpl-picto-padding'            => '8px 16px',
+    'tpl-picto-margin-bottom'      => '0.75rem',
+    'tpl-picto-shadow'             => 'none',
+    'tpl-picto-opacity'            => '1',
+    'tpl-picto-icon-size'          => '1rem',
+
     // ══════════════════════════════════════════════════
     // ── Hintergrundfarben (bg-*) ──
     // ══════════════════════════════════════════════════
