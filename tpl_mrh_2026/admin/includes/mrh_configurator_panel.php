@@ -1732,9 +1732,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 
     <!-- Speichern -->
     <div class="col-12 mt-3 mb-3">
-        <button type="submit" name="submit-colors" class="btn btn-success btn-lg">
-            <i class="fa fa-save me-1"></i> Badges speichern
-        </button>
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Badges speichern">
     </div>
 
 </form>
