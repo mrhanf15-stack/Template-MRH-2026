@@ -13,10 +13,11 @@
  * @date      2026-04-11
  * v5.1.0: Include-basiert statt inline Card-Struktur
  * v5.2.0: Badge-Zeile JS (Feminisiert, Regulaer, Autoflowering, Photoperiodisch)
+ * v5.2.1: Badges nur Icons (ausser Photoperiodisch = Text)
  *}
 {assign "dummy" ""}
 
-<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=5.4.0">
+<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=5.4.1">
 
 <div class="product-compare-page">
 
@@ -89,14 +90,16 @@
 (function(){
   'use strict';
 
-  /* Badge-Mapping: Icon-Klasse/Title → Label + Farb-Klasse */
+  /* Badge-Mapping: Title → Label + Farb-Klasse + Icon + iconOnly Flag
+     iconOnly=true: Nur Icon anzeigen (mit title-Tooltip)
+     iconOnly=false: Text-Label anzeigen */
   var BADGE_MAP = {
-    'Autoflowering':  { label: 'Autoflowering',  cls: 'mrh-cbadge-auto' },
-    'Feminisiert':    { label: 'Feminisiert',     cls: 'mrh-cbadge-fem' },
-    'Regulär':        { label: 'Regulär',         cls: 'mrh-cbadge-reg' },
-    'Regular':        { label: 'Regulär',         cls: 'mrh-cbadge-reg' },
-    'Photoperiodisch':{ label: 'Photoperiodisch', cls: 'mrh-cbadge-photo' },
-    'CBD':            { label: 'CBD',             cls: 'mrh-cbadge-cbd' }
+    'Autoflowering':  { label: 'Autoflowering',  cls: 'mrh-cbadge-auto',  icon: 'fa fa-fw fa-tachometer', iconOnly: true },
+    'Feminisiert':    { label: 'Feminisiert',     cls: 'mrh-cbadge-fem',   icon: 'fa fa-fw fa-venus',      iconOnly: true },
+    'Regulär':        { label: 'Regulär',         cls: 'mrh-cbadge-reg',   icon: 'fa fa-fw fa-mars',       iconOnly: true },
+    'Regular':        { label: 'Regulär',         cls: 'mrh-cbadge-reg',   icon: 'fa fa-fw fa-mars',       iconOnly: true },
+    'Photoperiodisch':{ label: 'Photoperiodisch', cls: 'mrh-cbadge-photo', icon: '',                       iconOnly: false },
+    'CBD':            { label: 'CBD',             cls: 'mrh-cbadge-cbd',   icon: '',                       iconOnly: false }
   };
 
   /* Erkennt Badge-Typ aus einem Element (span mit title oder Klasse) */
@@ -141,11 +144,21 @@
     return found;
   }
 
-  /* Erstellt ein Pill-Badge HTML-Element */
+  /* Erstellt ein Pill-Badge HTML-Element
+     iconOnly: Nur Icon mit title-Tooltip
+     sonst: Text-Label */
   function createPill(badgeInfo) {
     var pill = document.createElement('span');
     pill.className = 'mrh-cbadge ' + badgeInfo.cls;
-    pill.textContent = badgeInfo.label;
+    pill.setAttribute('title', badgeInfo.label);
+
+    if (badgeInfo.iconOnly && badgeInfo.icon) {
+      var ico = document.createElement('span');
+      ico.className = badgeInfo.icon;
+      pill.appendChild(ico);
+    } else {
+      pill.textContent = badgeInfo.label;
+    }
     return pill;
   }
 

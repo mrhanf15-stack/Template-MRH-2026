@@ -15,6 +15,7 @@
    v5.3.2: compare-footer-bar border-top entfernt
    v5.4.0: Badge-Zeile unter Produktname (Feminisiert, Regulaer,
            Autoflowering, Photoperiodisch) als farbige Pills
+   v5.4.1: compare-desc-box flex:0 0 auto (Tabelle oben anliegend)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -88,10 +89,12 @@ a.compare-remove-btn:hover {
 }
 
 /* === Short Description - Full Height, Scrollable on Overflow === */
+/* flex: 0 0 auto ueberschreibt Bootstrap .card-body flex:1 1 auto,
+   damit die Tabelle oben anliegt statt vertikal zentriert zu werden */
 .compare-desc-box {
     max-height: 550px;
     overflow-y: auto;
-    flex-shrink: 0;
+    flex: 0 0 auto;
 }
 
 .compare-desc-box .lr_desc {
