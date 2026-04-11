@@ -12,6 +12,7 @@
                        Kein mrh-* / tpl-* Dualismus mehr!
    v3.1 (2026-04-10): Preset/Backup/Restore-System hinzugefuegt
    v3.2 (2026-04-11): Icon-Konfigurator (Tab 9) – icons.json Speichern/Laden/Reset
+   v3.3 (2026-04-11): Badge-Konfigurator – Produkt-Typ-Badges konfigurierbar
    
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
@@ -208,6 +209,46 @@ $mrh_color_defaults = [
     'tpl-btn-compare-remove-bg'    => 'rgba(220, 53, 69, 0.9)',
     'tpl-btn-compare-remove-text'  => 'rgb(255, 255, 255)',
     'tpl-btn-compare-remove-hover' => 'rgb(200, 35, 51)',
+
+    // ══════════════════════════════════════════════════
+    // ── Produkt-Badges (Geschlecht/Typ) ──
+    // ══════════════════════════════════════════════════
+    // Badge-Container (.mrh-badge-bar)
+    'tpl-badge-bar-gap'            => '0.4rem',
+    'tpl-badge-bar-margin'         => '0.4rem',
+
+    // Allgemeine Badge-Basis (.mrh-type-badge)
+    'tpl-badge-padding'            => '0.25rem 0.7rem',
+    'tpl-badge-radius'             => '50rem',
+    'tpl-badge-font-size'          => '0.8rem',
+    'tpl-badge-font-weight'        => '600',
+    'tpl-badge-border-width'       => '0px',
+    'tpl-badge-border-color'       => 'transparent',
+    'tpl-badge-hover-enabled'      => '1',
+    'tpl-badge-hover-transform'    => 'translateY(-1px)',
+    'tpl-badge-hover-shadow'       => '0 2px 6px rgba(0,0,0,0.12)',
+
+    // Feminisiert (.mrh-badge-fem)
+    'tpl-badge-fem-bg'             => 'rgb(252, 91, 150)',
+    'tpl-badge-fem-text'           => 'rgb(255, 255, 255)',
+    'tpl-badge-fem-border'         => 'transparent',
+    'tpl-badge-fem-icon'           => 'fa-venus',
+
+    // Regulaer (.mrh-badge-reg)
+    'tpl-badge-reg-bg'             => 'rgb(46, 162, 240)',
+    'tpl-badge-reg-text'           => 'rgb(255, 255, 255)',
+    'tpl-badge-reg-border'         => 'transparent',
+
+    // Photoperiodisch (.mrh-badge-photo)
+    'tpl-badge-photo-bg'           => 'rgb(108, 117, 125)',
+    'tpl-badge-photo-text'         => 'rgb(255, 255, 255)',
+    'tpl-badge-photo-border'       => 'transparent',
+
+    // Autoflowering (.mrh-badge-auto / .picto.templatestyle)
+    'tpl-badge-auto-bg'            => 'rgb(240, 253, 244)',
+    'tpl-badge-auto-text'          => 'rgb(21, 128, 61)',
+    'tpl-badge-auto-border'        => 'rgba(34, 197, 94, 0.25)',
+    'tpl-badge-auto-icon'          => 'fa-tachometer',
 
     // ══════════════════════════════════════════════════
     // ── Hintergrundfarben (bg-*) ──
