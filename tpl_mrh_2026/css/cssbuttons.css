@@ -1,197 +1,219 @@
 
-/* 24. START CSS Buttons */
-/* Globals for CSS Buttons */
+/* ============================================================
+   cssbuttons.css – MRH 2026 v2.0
+   Legacy-Kompatibilität für modified-eCommerce System-Buttons.
+   Alle Farben über Konfigurator-Variablen (--tpl-btn-*) steuerbar.
+   PayPal-Buttons (Color6) bleiben unverändert.
+   ============================================================ */
+
+/* --- Basis: .cssButton Legacy-Wrapper ---
+   Wird von css_button.inc.php generiert.
+   Neue Version gibt BS5.3 btn-Klassen aus,
+   aber alte Templates nutzen noch .cssButton spans. */
 .cssButton {
-    position:relative;
-    font-family: 'Red Hat Display', sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-    padding: 9px 5px;
-    font-weight:900;
-    text-transform:none;
-    white-space:nowrap;
-    text-decoration:none;
-    min-height:44px;
-    border-radius:4px;
-    transition: all 0.3s ease-in-out;
-  }
-  .cssButtonText {
-    font-size:13px;
-    line-height:24px;
-    text-transform:uppercase;
-    vertical-align:top;
-    padding: 0px 3px;
-  }
-  .cssButtonIcon {
-    font-size:13px;
-    line-height:24px;
-    vertical-align:top;
-    padding: 0px 3px;
-  }
-  .cssButtonIcon .far,
-  .cssButtonIcon .fas,
-  .cssButtonIcon .fa-solid,
-  .cssButtonIcon .fa-regular {
-    vertical-align:top;
-    line-height:24px;
-  }
-  .cssButton button {
-    position:absolute;
-    left:0px;
-    top:0px;
-    width:100%;
-    height:100%;
-    color:transparent;
-    cursor:pointer;
-    opacity: 0;
-  }
-  .cssButton:hover {
-    opacity:0.8;
-    text-decoration:none;
-  }
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 9px 12px;
+  font-weight: 600;
+  text-transform: none;
+  white-space: nowrap;
+  text-decoration: none;
+  min-height: 44px;
+  border-radius: var(--bs-border-radius, 0.375rem);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.cssButton:hover {
+  text-decoration: none;
+  opacity: 0.85;
+}
+.cssButton button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  cursor: pointer;
+  opacity: 0;
+  border: none;
+  background: transparent;
+}
 
-  /* Colors for CSS Buttons */
-  /* Color Grey */
-  .cssButtonColor1 {
-    border-radius:4px;
-    text-decoration:none;
-    border: 1px solid var(--button1_border, rgba(0,0,0,0.1));
-    background: var(--tpl-btn-secondary-bg, var(--button1_background, #ddd));
-    color: var(--tpl-btn-secondary-text, var(--button1_color, #333));
-  }
-  .cssButtonColor1:hover {
-    opacity:0.8;
-    text-decoration:none !important;
-  }
+/* --- Text & Icon innerhalb cssButton --- */
+.cssButtonText {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  vertical-align: middle;
+  padding: 0 4px;
+}
+.cssButtonIcon {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  vertical-align: middle;
+  padding: 0 4px;
+}
 
-  /* Color Black */
-  .cssButtonColor2 {
-    border-radius:4px;
-    text-decoration:none;
-    border: 1px solid var(--button2_border, rgba(0,0,0,0.1));
-    background: var(--tpl-btn-secondary-bg, var(--button2_background, #4d4d4d));
-    color: var(--tpl-btn-secondary-text, var(--button2_color, #fff));
-  }
-  .cssButtonColor2:hover {
-    opacity:0.8;
-    text-decoration:none !important;
-  }
+/* --- Color1: Secondary (Warenkorb-Link) --- */
+.cssButtonColor1 {
+  background-color: var(--tpl-btn-secondary-bg, var(--bs-secondary, #6c757d));
+  color: var(--tpl-btn-secondary-text, #fff);
+  border-color: var(--tpl-btn-secondary-bg, var(--bs-secondary, #6c757d));
+}
+.cssButtonColor1:hover {
+  background-color: var(--tpl-btn-secondary-hover, #565e64);
+  color: var(--tpl-btn-secondary-text, #fff);
+  opacity: 1;
+}
 
-  /* Color: light grey */
-  .cssButtonColor3 {
-    border-radius:4px;
-    border: 1px solid rgba(0,0,0,0.1);
-    text-decoration:none;
-    background:#eee;
-    color:#333;
-  }
-  .cssButtonColor3:hover {
-    opacity:0.8;
-    text-decoration:none !important;
-  }
+/* --- Color2: Dark/Secondary (Kasse, Merkliste) --- */
+.cssButtonColor2 {
+  background-color: var(--tpl-btn-secondary-bg, var(--bs-dark, #212529));
+  color: var(--tpl-btn-secondary-text, #fff);
+  border-color: var(--tpl-btn-secondary-bg, var(--bs-dark, #212529));
+}
+.cssButtonColor2:hover {
+  background-color: var(--tpl-btn-secondary-hover, #1a1e21);
+  color: var(--tpl-btn-secondary-text, #fff);
+  opacity: 1;
+}
 
-  /* Green/Express Buttons – Konfigurator-gesteuert */
-  .cssButtonColor4 {
-    border-radius:4px;
-    border:1px solid rgba(0,0,0,0.1);
-    text-decoration:none;
-    background-color: var(--tpl-btn-express-bg, #43c875);
-    color: var(--tpl-btn-express-text, #ffffff);
-  }
-  .cssButtonColor4:hover {
-    background-color: var(--tpl-btn-express-hover, #36861e);
-    color: var(--tpl-btn-express-text, #ffffff);
-    opacity: 1;
-    text-decoration:none !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.25);
-  }
+/* --- Color3: Light (Schnellsuche) --- */
+.cssButtonColor3 {
+  background-color: var(--tpl-btn-outline-bg, var(--bs-light, #f8f9fa));
+  color: var(--tpl-btn-outline-text, var(--bs-body-color, #212529));
+  border-color: var(--bs-border-color, #dee2e6);
+}
+.cssButtonColor3:hover {
+  background-color: var(--tpl-btn-outline-hover, #e2e6ea);
+  color: var(--tpl-btn-outline-text, var(--bs-body-color, #212529));
+  opacity: 1;
+}
 
-  /* Transparent Icons no Border */
-  .cssButtonColor5 {
-    background:#ccc;
-    color:#333;
-  }
-  .cssButtonColor5:hover {
-    opacity:0.8;
-    text-decoration:none !important;
-  }
+/* --- Color4: Express/Warenkorb (Grün) --- */
+.cssButtonColor4 {
+  background-color: var(--tpl-btn-express-bg, #43c875);
+  color: var(--tpl-btn-express-text, #fff);
+  border-color: var(--tpl-btn-express-bg, #43c875);
+}
+.cssButtonColor4:hover {
+  background-color: var(--tpl-btn-express-hover, #36861e);
+  color: var(--tpl-btn-express-text, #fff);
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(67, 200, 117, 0.25);
+}
 
-  /* Yellow Paypal Express Buttons */
-  .cssButtonColor6 {
-    border-radius:2px;
-    border:1px solid #d19c20;
-    text-decoration:none;
-    background-color:#ffc848;
-    color:#222;
-    display:inline-block;
-    text-shadow:1px 1px 0px #ffd97e;
-    box-shadow:inset 1px 1px 0px 0px #ffe3a1;
-    height:32px;
-  }
-  .cssButtonColor6:hover {
-    background-color:#fbba22;
-    color:#222;
-    text-decoration:none !important;
-  }
-  .cssButtonColor6 .color-paypal0 {
-    font-size:10px;
-    line-height:16px;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight:bold;
-    color:#013088;
-    padding: 0 5px 0 0;
-    vertical-align:middle;
-  }
-  .cssButtonColor6 .color-paypal1 {
-    font-size:18px;
-    line-height:16px;
-    font-family: 'Poppins', sans-serif;
-    font-style:italic;
-    font-weight:700;
-    color:#013088;
-  }
-  .cssButtonColor6 .color-paypal2 {
-    font-size:18px;
-    line-height:16px;
-    font-family: 'Poppins', sans-serif;
-    font-style:italic;
-    font-weight:700;
-    color:#019CDE;
-  }
+/* --- Color5: Transparent/Delete Icons --- */
+.cssButtonColor5 {
+  background-color: transparent;
+  color: var(--bs-danger, #dc3545);
+  border: none;
+  padding: 4px;
+  min-height: auto;
+}
+.cssButtonColor5:hover {
+  color: var(--bs-danger, #dc3545);
+  opacity: 0.7;
+}
 
-  /* Small account action text-buttons  */
-  .cssButtonColor7 {
-    text-transform:none;
-    font-weight:600;
-    padding: 0px;
-    margin: 0px;
-    height:auto;
-    text-decoration:none;
-    border: none;;
-    color: #333;
-  }
-  .cssButtonColor7 .cssButtonText {
-    font-size: 12px;
-    line-height: 16px;
-    text-transform: none;
-    vertical-align: top;
-    padding: 0px 3px;
-    text-decoration:none;
-    border-bottom: 1px solid #555;
-  }
-  .cssButtonColor7 .cssButtonIcon {
-    font-size: 12px;
-    line-height: 16px;
-    vertical-align: top;
-    padding: 0px 3px;
-  }
-  .cssButtonColor7:hover {
-    opacity:0.8;
-    text-decoration:none !important;
-    border:none;
-    background:none;
-  }
-  /* 24. END CSS Buttons */
+/* --- Color6: PayPal Express (NICHT ÄNDERN) --- */
+.cssButtonColor6 {
+  border-radius: 2px;
+  border: 1px solid #d19c20;
+  text-decoration: none;
+  background-color: #ffc848;
+  color: #222;
+  display: inline-block;
+  text-shadow: 1px 1px 0 #ffd97e;
+  box-shadow: inset 1px 1px 0 0 #ffe3a1;
+  height: 32px;
+}
+.cssButtonColor6:hover {
+  background-color: #fbba22;
+  color: #222;
+  text-decoration: none;
+}
+.cssButtonColor6 .color-paypal0 {
+  font-size: 10px;
+  line-height: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #013088;
+  padding: 0 5px 0 0;
+  vertical-align: middle;
+}
+.cssButtonColor6 .color-paypal1 {
+  font-size: 18px;
+  line-height: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #013088;
+}
+.cssButtonColor6 .color-paypal2 {
+  font-size: 18px;
+  line-height: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #019CDE;
+}
+
+/* --- Color7: Small Account Text-Links --- */
+.cssButtonColor7 {
+  font-weight: 500;
+  padding: 2px 4px;
+  min-height: auto;
+  background: transparent;
+  border: none;
+  color: var(--bs-body-color, #333);
+  font-size: 0.8125rem;
+}
+.cssButtonColor7 .cssButtonText {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-transform: none;
+  padding: 0 3px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cssButtonColor7 .cssButtonIcon {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  padding: 0 3px;
+}
+.cssButtonColor7:hover {
+  color: var(--tpl-primary, var(--bs-primary, #0d6efd));
+  background: transparent;
+  border: none;
+  opacity: 1;
+}
+
+/* --- Positionierungs-Wrapper (Legacy) --- */
+[class^="cssButtonPos"] {
+  display: inline-block;
+}
+
+/* --- Toggle-Bereich (Offcanvas Cart/Wishlist) --- */
+.toggle_products_icon .cssButton {
+  padding: 3px;
+  min-height: 30px;
+}
+.toggle_products_icon .cssButton .cssButtonText {
+  display: none;
+}
+.toggle_products_icon .btn {
+  padding: 3px 6px;
+  min-height: 30px;
+}
+
+/* ============================================================
+   END cssbuttons.css
+   ============================================================ */
