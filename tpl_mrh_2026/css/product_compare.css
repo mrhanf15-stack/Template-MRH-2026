@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.6.1 - CSS (tpl_mrh_2026)
+   Product Compare v5.6.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
@@ -23,7 +23,6 @@
    v5.5.0: Mobile UX Optimierung (ersetzt durch v5.6.0)
    v5.6.0: Akkordeon entfernt, Tabelle mit fixer Hoehe (250px) + Scrollbalken,
            Bild natuerliche Hoehe auf Mobile (kein festes Ratio)
-   v5.6.1: Content-Tabellen responsive (horizontaler Scroll-Wrapper)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -494,17 +493,6 @@ a.compare-remove-btn:hover {
     text-align: center;
 }
 
-/* === Content-Tabellen responsive (v5.6.1) ===
-   Tabellen im SEO-Content (.card-body) der Vergleichsseite
-   bekommen einen horizontalen Scroll-Wrapper auf Mobile */
-.product-compare-page .card-body table {
-    width: 100%;
-}
-.product-compare-page .card-body {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
 /* === Responsive === */
 @media (max-width: 991px) {
     .product-compare-page .row.g-3 > .listingbox {
@@ -575,17 +563,6 @@ a.compare-remove-btn:hover {
     .product-compare-page .compare-desc-box .lr_desc table td,
     .product-compare-page .compare-desc-box .lr_desc table th {
         padding: 3px 5px;
-        white-space: normal;
-    }
-
-    /* --- Content-Tabellen: kleiner + scrollbar auf Mobile (v5.6.1) --- */
-    .product-compare-page .card-body table {
-        font-size: 0.78rem;
-        word-break: break-word;
-    }
-    .product-compare-page .card-body table td,
-    .product-compare-page .card-body table th {
-        padding: 4px 6px;
         white-space: normal;
     }
 
