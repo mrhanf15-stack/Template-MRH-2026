@@ -76,6 +76,14 @@ function mrh_sanitize_color($value) {
     if (preg_match('/^[\d.]+(rem|px|em|%|vw|vh)$/', $value)) {
         return $value;
     }
+    // CSS-Keyword: auto, none, inherit, initial, unset
+    if (in_array($value, ['auto', 'none', 'inherit', 'initial', 'unset'], true)) {
+        return $value;
+    }
+    // CSS-Shorthand (z.B. "8px 0", "10px 20px 10px 20px") – max 4 Teile
+    if (preg_match('/^([\d.]+(rem|px|em|%|vw|vh)|0)(\s+([\d.]+(rem|px|em|%|vw|vh)|0)){1,3}$/', $value)) {
+        return $value;
+    }
     return '';
 }
 
@@ -224,6 +232,28 @@ $mrh_color_defaults = [
     'tpl-compare-float-count-text' => 'rgb(255, 255, 255)',
     'tpl-compare-float-count-size' => '22px',
     'tpl-compare-float-count-font' => '0.75rem',
+    // Abstand (Margin) – Desktop
+    'tpl-compare-float-margin-top'    => 'auto',
+    'tpl-compare-float-margin-right'  => '20px',
+    'tpl-compare-float-margin-bottom' => '80px',
+    'tpl-compare-float-margin-left'   => 'auto',
+    // Abstand (Margin) – Mobile
+    'tpl-compare-float-mob-margin-top'    => 'auto',
+    'tpl-compare-float-mob-margin-right'  => '10px',
+    'tpl-compare-float-mob-margin-bottom' => '65px',
+    'tpl-compare-float-mob-margin-left'   => 'auto',
+
+    // ══════════════════════════════════════════════════
+    // ── Mobile Sidebar Navigation ──
+    // ══════════════════════════════════════════════════
+    'tpl-mobile-panel-bg'              => '#fafcfa',
+    'tpl-mobile-header-bg'             => '#2d7a3a',
+    'tpl-mobile-header-text'           => '#ffffff',
+    'tpl-mobile-link-color'            => '#333333',
+    'tpl-mobile-link-hover'            => '#2d7a3a',
+    'tpl-mobile-link-hover-bg'         => '#edf7ee',
+    'tpl-mobile-search-border'         => '#2d7a3a',
+    'tpl-mobile-search-btn-bg'         => '#2d7a3a',
 
     // ══════════════════════════════════════════════════
     // ── Versandkosten-Leiste (#mrh-shipping-bar) ──

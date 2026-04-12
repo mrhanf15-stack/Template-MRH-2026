@@ -587,22 +587,30 @@ a.compare-remove-btn:hover {
         padding: .2rem .4rem;
     }
 
-    /* --- Floating Badge: kleiner auf Mobile, Konfigurator-Margins bleiben aktiv --- */
+    /* --- Floating Badge: kleiner auf Mobile, eigene Mobile-Margin-Variablen --- */
     .product-compare-badge.pc-pos-bottom-right {
-        bottom: var(--tpl-compare-float-margin-bottom, 65px);
-        right: var(--tpl-compare-float-margin-right, 10px);
+        bottom: var(--tpl-compare-float-mob-margin-bottom, 65px);
+        right: var(--tpl-compare-float-mob-margin-right, 10px);
+        top: var(--tpl-compare-float-mob-margin-top, auto);
+        left: var(--tpl-compare-float-mob-margin-left, auto);
     }
     .product-compare-badge.pc-pos-bottom-left {
-        bottom: var(--tpl-compare-float-margin-bottom, 65px);
-        left: var(--tpl-compare-float-margin-left, 10px);
+        bottom: var(--tpl-compare-float-mob-margin-bottom, 65px);
+        left: var(--tpl-compare-float-mob-margin-left, 10px);
+        top: var(--tpl-compare-float-mob-margin-top, auto);
+        right: var(--tpl-compare-float-mob-margin-right, auto);
     }
     .product-compare-badge.pc-pos-top-right {
-        top: var(--tpl-compare-float-margin-top, 65px);
-        right: var(--tpl-compare-float-margin-right, 10px);
+        top: var(--tpl-compare-float-mob-margin-top, 65px);
+        right: var(--tpl-compare-float-mob-margin-right, 10px);
+        bottom: var(--tpl-compare-float-mob-margin-bottom, auto);
+        left: var(--tpl-compare-float-mob-margin-left, auto);
     }
     .product-compare-badge.pc-pos-top-left {
-        top: var(--tpl-compare-float-margin-top, 65px);
-        left: var(--tpl-compare-float-margin-left, 10px);
+        top: var(--tpl-compare-float-mob-margin-top, 65px);
+        left: var(--tpl-compare-float-mob-margin-left, 10px);
+        bottom: var(--tpl-compare-float-mob-margin-bottom, auto);
+        right: var(--tpl-compare-float-mob-margin-right, auto);
     }
     .product-compare-badge .compare-badge-link {
         width: 44px;

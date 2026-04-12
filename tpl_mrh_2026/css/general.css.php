@@ -195,6 +195,11 @@ $defaults = [
     'tpl-compare-float-margin-right'=> '20px',
     'tpl-compare-float-margin-bottom'=> '80px',
     'tpl-compare-float-margin-left' => 'auto',
+    // Abstand (Margin) – Mobile
+    'tpl-compare-float-mob-margin-top'  => 'auto',
+    'tpl-compare-float-mob-margin-right'=> '10px',
+    'tpl-compare-float-mob-margin-bottom'=> '65px',
+    'tpl-compare-float-mob-margin-left' => 'auto',
     // ── Mobile Sidebar Navigation ──
     'tpl-mobile-panel-bg'           => '#fafcfa',
     'tpl-mobile-header-bg'          => '#2d7a3a',

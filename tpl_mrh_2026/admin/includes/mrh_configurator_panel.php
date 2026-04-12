@@ -1718,6 +1718,25 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-compare-float-margin-left" type="text" name="tpl-compare-float-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-margin-left','auto'); ?>">
     </div>
 
+    <!-- Mobile Margin -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-mobile-screen me-1"></i> Abstand (Margin) &ndash; Mobile (unter 768px)</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-mob-margin-top"><strong>Oben (Mobil)</strong></label>
+        <input id="tpl-compare-float-mob-margin-top" type="text" name="tpl-compare-float-mob-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-margin-top','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-mob-margin-right"><strong>Rechts (Mobil)</strong></label>
+        <input id="tpl-compare-float-mob-margin-right" type="text" name="tpl-compare-float-mob-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-margin-right','10px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-mob-margin-bottom"><strong>Unten (Mobil)</strong></label>
+        <input id="tpl-compare-float-mob-margin-bottom" type="text" name="tpl-compare-float-mob-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-margin-bottom','65px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-mob-margin-left"><strong>Links (Mobil)</strong></label>
+        <input id="tpl-compare-float-mob-margin-left" type="text" name="tpl-compare-float-mob-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-margin-left','auto'); ?>">
+    </div>
+
     <!-- ═══ Versandkosten-Leiste ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1" style="color:#be9e1f;"></i> Versandkosten-Leiste</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Die Leiste &quot;Noch X EUR bis kostenloser Versand&quot; im Header</small></div>
