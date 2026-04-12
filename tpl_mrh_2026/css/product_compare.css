@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.5.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.5.1 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
@@ -22,6 +22,7 @@
    v5.4.5: form als flex-container (mt-auto auf card-footer wirkt durch form hindurch)
    v5.5.0: Mobile UX Optimierung – responsive Tabelle, kompakte Karten,
            Akkordeon-Toggle fuer Beschreibung, kleinere Schriften
+   v5.5.1: Fix Toggle-Button Sichtbarkeit (display:none vor @media verschoben)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -492,6 +493,12 @@ a.compare-remove-btn:hover {
     text-align: center;
 }
 
+/* --- Akkordeon Toggle: nur auf Mobile sichtbar (v5.5.0) --- */
+/* MUSS vor @media stehen, damit die mobile display:flex Regel gewinnt */
+.compare-desc-toggle {
+    display: none;
+}
+
 /* === Responsive === */
 @media (max-width: 991px) {
     .product-compare-page .row.g-3 > .listingbox {
@@ -663,9 +670,4 @@ a.compare-remove-btn:hover {
     .compare-qty {
         width: 48px;
     }
-}
-
-/* --- Akkordeon Toggle: nur auf Mobile sichtbar (v5.5.0) --- */
-.compare-desc-toggle {
-    display: none;
 }
