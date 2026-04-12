@@ -1424,6 +1424,7 @@ body.mrh-no-scroll {
   opacity: var(--tpl-picto-opacity, 1);
 }
 .picto.templatestyle .fa,
+.picto.templatestyle .fa-solid,
 .picto.templatestyle .shortfongc {
   font-size: var(--tpl-picto-icon-size, 1rem);
 }

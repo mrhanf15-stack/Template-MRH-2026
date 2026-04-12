@@ -1533,7 +1533,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     </div>
 
     <!-- Badge-Typen -->
-    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-venus me-1" style="color:#fc5b96;"></i> Feminisiert</div></div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa-solid fa-venus me-1" style="color:#fc5b96;"></i> Feminisiert</div></div>
     <div class="col-sm-4 mb-3">
         <label for="tpl-badge-fem-bg"><strong>Hintergrund</strong></label>
         <input id="tpl-badge-fem-bg" type="text" name="tpl-badge-fem-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-fem-bg','rgb(252, 91, 150)'); ?>">
@@ -1550,7 +1550,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-fem-border','transparent'); ?>"></div>
     </div>
 
-    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-mars me-1" style="color:#2ea2f0;"></i> Regul&auml;r</div></div>
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa-solid fa-mars me-1" style="color:#2ea2f0;"></i> Regul&auml;r</div></div>
     <div class="col-sm-4 mb-3">
         <label for="tpl-badge-reg-bg"><strong>Hintergrund</strong></label>
         <input id="tpl-badge-reg-bg" type="text" name="tpl-badge-reg-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-badge-reg-bg','rgb(46, 162, 240)'); ?>">
