@@ -251,11 +251,11 @@ a.compare-remove-btn:hover {
 
 /* === Badge-Zeile unter Produktname (v5.4.0) === */
 .compare-badge-row {
-    min-height: 26px;
+    min-height: var(--tpl-cbadge-row-min-height, 50px);
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 2px 12px 4px;
+    gap: var(--tpl-cbadge-row-gap, 5px);
+    padding: var(--tpl-cbadge-row-padding, 2px 12px 4px);
     flex-wrap: wrap;
 }
 
