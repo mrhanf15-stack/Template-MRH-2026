@@ -319,30 +319,30 @@ a.compare-remove-btn:hover {
     display: block;
 }
 
-/* === Badge Position Classes (set by Admin) === */
+/* === Badge Position Classes (set by Admin, Margins via Konfigurator) === */
 .product-compare-badge.pc-pos-bottom-right {
-    bottom: 80px;
-    right: 20px;
-    top: auto;
-    left: auto;
+    bottom: var(--tpl-compare-float-margin-bottom, 80px);
+    right: var(--tpl-compare-float-margin-right, 20px);
+    top: var(--tpl-compare-float-margin-top, auto);
+    left: var(--tpl-compare-float-margin-left, auto);
 }
 .product-compare-badge.pc-pos-bottom-left {
-    bottom: 80px;
-    left: 20px;
-    top: auto;
-    right: auto;
+    bottom: var(--tpl-compare-float-margin-bottom, 80px);
+    left: var(--tpl-compare-float-margin-left, 20px);
+    top: var(--tpl-compare-float-margin-top, auto);
+    right: var(--tpl-compare-float-margin-right, auto);
 }
 .product-compare-badge.pc-pos-top-right {
-    top: 80px;
-    right: 20px;
-    bottom: auto;
-    left: auto;
+    top: var(--tpl-compare-float-margin-top, 80px);
+    right: var(--tpl-compare-float-margin-right, 20px);
+    bottom: var(--tpl-compare-float-margin-bottom, auto);
+    left: var(--tpl-compare-float-margin-left, auto);
 }
 .product-compare-badge.pc-pos-top-left {
-    top: 80px;
-    left: 20px;
-    bottom: auto;
-    right: auto;
+    top: var(--tpl-compare-float-margin-top, 80px);
+    left: var(--tpl-compare-float-margin-left, 20px);
+    bottom: var(--tpl-compare-float-margin-bottom, auto);
+    right: var(--tpl-compare-float-margin-right, auto);
 }
 
 /* === Badge Link (colors set via inline styles from Admin) === */
@@ -587,22 +587,22 @@ a.compare-remove-btn:hover {
         padding: .2rem .4rem;
     }
 
-    /* --- Floating Badge: kleiner auf Mobile --- */
+    /* --- Floating Badge: kleiner auf Mobile, Konfigurator-Margins bleiben aktiv --- */
     .product-compare-badge.pc-pos-bottom-right {
-        bottom: 65px;
-        right: 10px;
+        bottom: var(--tpl-compare-float-margin-bottom, 65px);
+        right: var(--tpl-compare-float-margin-right, 10px);
     }
     .product-compare-badge.pc-pos-bottom-left {
-        bottom: 65px;
-        left: 10px;
+        bottom: var(--tpl-compare-float-margin-bottom, 65px);
+        left: var(--tpl-compare-float-margin-left, 10px);
     }
     .product-compare-badge.pc-pos-top-right {
-        top: 65px;
-        right: 10px;
+        top: var(--tpl-compare-float-margin-top, 65px);
+        right: var(--tpl-compare-float-margin-right, 10px);
     }
     .product-compare-badge.pc-pos-top-left {
-        top: 65px;
-        left: 10px;
+        top: var(--tpl-compare-float-margin-top, 65px);
+        left: var(--tpl-compare-float-margin-left, 10px);
     }
     .product-compare-badge .compare-badge-link {
         width: 44px;

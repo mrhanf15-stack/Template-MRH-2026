@@ -5427,3 +5427,52 @@ a.iframe:hover {
 .mrh-filter-btn-reset:hover {
   background: rgba(0, 0, 0, 0.05);
 }
+
+/* ============================================================
+   MOBILE SIDEBAR NAVIGATION – Konfigurator-Overrides
+   Ueberschreibt die hardcoded Farben aus mrh-core.js.php
+   mit CSS-Variablen aus dem Konfigurator (Tab 2).
+   ============================================================ */
+
+/* Panel Hintergrund */
+.mrh-mobile-panel {
+  background: var(--tpl-mobile-panel-bg, #fafcfa) !important;
+}
+
+/* Header: Gradient wird durch solide Farbe ersetzt wenn konfiguriert */
+.mrh-mobile-header {
+  background: var(--tpl-mobile-header-bg, linear-gradient(135deg, #2d7a3a 0%, #1a5c28 100%)) !important;
+  color: var(--tpl-mobile-header-text, #fff) !important;
+}
+.mrh-mobile-title {
+  color: var(--tpl-mobile-header-text, #fff) !important;
+}
+.mrh-mobile-close {
+  color: var(--tpl-mobile-header-text, #fff) !important;
+}
+
+/* Suchleiste */
+.mrh-mobile-search-form {
+  border-color: var(--tpl-mobile-search-border, #2d7a3a) !important;
+}
+.mrh-mobile-search-btn {
+  background: var(--tpl-mobile-search-btn-bg, #2d7a3a) !important;
+}
+.mrh-mobile-search-btn:hover {
+  filter: brightness(0.85);
+}
+
+/* Navigation Links */
+.mrh-mobile-link {
+  color: var(--tpl-mobile-link-color, #333) !important;
+}
+.mrh-mobile-link:hover,
+.mrh-mobile-link:focus {
+  background: var(--tpl-mobile-link-hover-bg, #edf7ee) !important;
+  color: var(--tpl-mobile-link-hover, #2d7a3a) !important;
+}
+.mrh-mobile-link:active {
+  background: var(--tpl-mobile-link-hover-bg, #dff0e0) !important;
+  color: var(--tpl-mobile-link-hover, #1a5c28) !important;
+  filter: brightness(0.95);
+}

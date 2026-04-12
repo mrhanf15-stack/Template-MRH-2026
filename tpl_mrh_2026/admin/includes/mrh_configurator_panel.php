@@ -187,6 +187,28 @@ foreach ($menu_fields as $key => $label) {
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sticky-text'); ?>"></div>
     </div>
 
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-mobile-screen me-1"></i> Mobile Sidebar Navigation</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Das seitliche Men&uuml; auf Mobilger&auml;ten (Hamburger-Men&uuml;)</small></div>
+<?php
+$mobile_fields = [
+    'tpl-mobile-panel-bg'      => 'Panel Hintergrund',
+    'tpl-mobile-header-bg'     => 'Header Hintergrund',
+    'tpl-mobile-header-text'   => 'Header Textfarbe',
+    'tpl-mobile-link-color'    => 'Link-Farbe',
+    'tpl-mobile-link-hover'    => 'Link Hover-Farbe',
+    'tpl-mobile-link-hover-bg' => 'Link Hover-Hintergrund',
+    'tpl-mobile-search-border' => 'Suchfeld Rahmenfarbe',
+    'tpl-mobile-search-btn-bg' => 'Such-Button Hintergrund',
+];
+foreach ($mobile_fields as $key => $label) {
+    echo '<div class="col-sm-3 mb-3">';
+    echo '<label for="'.$key.'"><strong>'.$label.'</strong></label>';
+    echo '<input id="'.$key.'" type="text" name="'.$key.'" class="form-control colorpicker-element" value="'.mrh_cv($c,$key).'">';
+    echo '<div class="demo-farbe mt-1" style="background:'.mrh_cv($c,$key).'"></div>';
+    echo '</div>';
+}
+?>
+
     <div class="col-12 mt-2">
         <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Navigation speichern">
     </div>
@@ -1677,6 +1699,25 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-compare-float-count-font" type="text" name="tpl-compare-float-count-font" class="form-control" value="<?php echo mrh_cv($c,'tpl-compare-float-count-font','0.75rem'); ?>">
     </div>
 
+    <!-- Margin-Einstellungen fuer Floating Badge -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-arrows-alt me-1"></i> Abstand (Margin) &ndash; Abstand vom Bildschirmrand</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-margin-top"><strong>Oben</strong></label>
+        <input id="tpl-compare-float-margin-top" type="text" name="tpl-compare-float-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-margin-top','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-margin-right"><strong>Rechts</strong></label>
+        <input id="tpl-compare-float-margin-right" type="text" name="tpl-compare-float-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-margin-right','20px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-margin-bottom"><strong>Unten</strong></label>
+        <input id="tpl-compare-float-margin-bottom" type="text" name="tpl-compare-float-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-margin-bottom','80px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-margin-left"><strong>Links</strong></label>
+        <input id="tpl-compare-float-margin-left" type="text" name="tpl-compare-float-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-margin-left','auto'); ?>">
+    </div>
+
     <!-- ═══ Versandkosten-Leiste ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1" style="color:#be9e1f;"></i> Versandkosten-Leiste</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Die Leiste &quot;Noch X EUR bis kostenloser Versand&quot; im Header</small></div>
@@ -1809,5 +1850,56 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             }
         });
     });
+
+    // ===== Live-Preview fuer ALLE Konfigurator-Inputs (v1.1.0) =====
+    // Setzt CSS-Variablen auf :root fuer sofortige Vorschau ohne Speichern.
+    // Gilt fuer alle input[name^="tpl-"] im Konfigurator.
+    function mrhLiveApplyAll() {
+        var inputs = document.querySelectorAll('#mrh-configurator-v4 input[name^="tpl-"]');
+        inputs.forEach(function(input) {
+            // Nur Inputs die noch keinen Listener haben
+            if (input.hasAttribute('data-mrh-live')) return;
+            input.setAttribute('data-mrh-live', '1');
+
+            var applyFn = function() {
+                var name = input.getAttribute('name');
+                var val = input.value.trim();
+                if (name && val) {
+                    document.documentElement.style.setProperty('--' + name, val);
+                }
+            };
+
+            input.addEventListener('input', applyFn);
+            input.addEventListener('change', applyFn);
+        });
+    }
+    // Initial + nach Tab-Wechsel (Colorpicker werden erst bei Tab-Wechsel initialisiert)
+    mrhLiveApplyAll();
+    document.querySelectorAll('#mrh-config-tabs .mrh-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            setTimeout(mrhLiveApplyAll, 100);
+        });
+    });
+
+    // Colorpicker-Aenderungen abfangen (Spectrum/Pickr setzen Werte per JS)
+    if (typeof MutationObserver !== 'undefined') {
+        var configForm = document.getElementById('mrh-configurator-v4');
+        if (configForm) {
+            var cpObserver = new MutationObserver(function(mutations) {
+                mutations.forEach(function(m) {
+                    if (m.type === 'attributes' && m.attributeName === 'value') {
+                        var el = m.target;
+                        if (el.tagName === 'INPUT' && el.name && el.name.indexOf('tpl-') === 0) {
+                            var val = el.value.trim();
+                            if (val) {
+                                document.documentElement.style.setProperty('--' + el.name, val);
+                            }
+                        }
+                    }
+                });
+            });
+            cpObserver.observe(configForm, { attributes: true, attributeFilter: ['value'], subtree: true });
+        }
+    }
 })();
 </script>
