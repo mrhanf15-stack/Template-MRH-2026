@@ -85,19 +85,16 @@
 
 </div>
 
-{* ── Badge-Zeile JS v2.0 (v5.5.0) ──
-   Extrahiert Geschlecht-Zeile aus der Tabelle + Picto-Icons.
-   Nutzt Konfigurator-Farben (inline-styles) statt eigene Farben.
-   Verschiebt beides in die .compare-badge-row unter dem Produktnamen.
+{* -- Badge-Zeile JS v2.1 (v5.5.1) --
+   Verschiebt NUR .picto.templatestyle Icons in die .compare-badge-row.
+   Geschlecht-Zeile bleibt in der Tabelle (Konfigurator-Styling).
 *}
+{literal}
 <script>
 (function(){
   'use strict';
 
-  /**
-   * initBadges – Hauptlogik fuer Vergleich + Seedfinder
-   * @param {string} scope – CSS-Selektor fuer den Container (.product-compare-page oder .seedfinder-page)
-   */
+  /* initBadges: Nur Picto-Icons als Pills verschieben */
   function initBadges(scope) {
     var cards = document.querySelectorAll(scope + ' .card.h-100');
     cards.forEach(function(card) {
@@ -107,36 +104,7 @@
       var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
       if (!descBox) return;
 
-      /* 1. Geschlecht-Zeile aus Tabelle extrahieren */
-      var rows = descBox.querySelectorAll('tr');
-      for (var i = 0; i < rows.length; i++) {
-        var cells = rows[i].querySelectorAll('td');
-        if (cells.length >= 2) {
-          var label = cells[0].textContent.trim();
-          if (label === 'Geschlecht' || label.indexOf('Geschlecht') === 0) {
-            /* Wert-Zelle (letzte td) */
-            var valueCell = cells[cells.length - 1];
-            var text = valueCell.textContent.trim();
-            var color = valueCell.style.color || '';
-
-            /* Badge erstellen mit Konfigurator-Farbe */
-            var pill = document.createElement('span');
-            pill.className = 'mrh-cbadge mrh-cbadge-geschlecht';
-            pill.textContent = text;
-            if (color) {
-              pill.style.color = color;
-              pill.style.borderColor = color;
-            }
-            badgeRow.appendChild(pill);
-
-            /* Zeile aus Tabelle entfernen */
-            rows[i].parentNode.removeChild(rows[i]);
-            break;
-          }
-        }
-      }
-
-      /* 2. Picto-Icons extrahieren (Autoflowering etc.) */
+      /* Picto-Icons extrahieren (Autoflowering, Feminisiert etc.) */
       var pictos = descBox.querySelectorAll('.picto.templatestyle');
       pictos.forEach(function(picto) {
         var spans = picto.querySelectorAll('[title]');
@@ -146,18 +114,16 @@
             var iconPill = document.createElement('span');
             iconPill.className = 'mrh-cbadge mrh-cbadge-icon';
             iconPill.setAttribute('title', title);
-            /* Icon klonen */
             var iconClone = spans[j].cloneNode(true);
             iconClone.removeAttribute('title');
             iconPill.appendChild(iconClone);
             badgeRow.appendChild(iconPill);
           }
         }
-        /* Picto aus Tabelle entfernen */
         picto.parentNode.removeChild(picto);
       });
 
-      /* 3. Fallback: Autoflowering via shortfongc Klasse */
+      /* Fallback: Autoflowering via shortfongc Klasse */
       if (!badgeRow.querySelector('[title="Autoflowering"]')) {
         var autoSpan = descBox.querySelector('.shortfongc');
         if (autoSpan) {
@@ -172,7 +138,6 @@
     });
   }
 
-  /* Ausfuehren wenn DOM bereit */
   function run() {
     initBadges('.product-compare-page');
   }
@@ -183,7 +148,7 @@
     run();
   }
 
-  /* Global verfuegbar machen fuer Seedfinder (AJAX-Nachladen) */
   window.MrhBadgeInit = initBadges;
 })();
 </script>
+{/literal}

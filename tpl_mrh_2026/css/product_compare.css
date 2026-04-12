@@ -273,13 +273,6 @@ a.compare-remove-btn:hover {
     letter-spacing: 0.02em;
 }
 
-/* Geschlecht-Badge: Konfigurator-Farbe via inline-style (color + borderColor) */
-.mrh-cbadge-geschlecht {
-    background: transparent;
-    border: 1.5px solid currentColor;
-    /* color + borderColor werden per JS inline gesetzt */
-}
-
 /* Icon-Badge (Autoflowering, etc.): dezenter Hintergrund */
 .mrh-cbadge-icon {
     background: #f0f0f0;
