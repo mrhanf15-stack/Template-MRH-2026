@@ -510,7 +510,7 @@ if (empty($json_a)) {
   }
   // mrh-* -> tpl-* Aliase ausgeben (MRH-Konfigurator -> CSS-Regeln)
   foreach ($mrh_to_tpl as $mrh_key => $tpl_key) {
-      if (isset($json_a[$mrh_key]) && !empty($json_a[$mrh_key])) {
+      if (isset($json_a[$mrh_key]) && $json_a[$mrh_key] !== '') {
           // tpl-* Alias fuer CSS-Override-Regeln
           echo '--' . htmlspecialchars($tpl_key) . ':' . htmlspecialchars($json_a[$mrh_key]) . ';';
       }
@@ -518,7 +518,7 @@ if (empty($json_a)) {
   // tpl-* -> mrh-* Aliase ausgeben (Abwaertskompatibilitaet)
   $tpl_to_mrh = array_flip($mrh_to_tpl);
   foreach ($tpl_to_mrh as $tpl_key => $mrh_key) {
-      if (isset($json_a[$tpl_key]) && !empty($json_a[$tpl_key])) {
+      if (isset($json_a[$tpl_key]) && $json_a[$tpl_key] !== '') {
           echo '--' . htmlspecialchars($mrh_key) . ':' . htmlspecialchars($json_a[$tpl_key]) . ';';
       }
   }

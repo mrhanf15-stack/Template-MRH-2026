@@ -2183,22 +2183,24 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     // Setzt CSS-Variablen auf :root fuer sofortige Vorschau ohne Speichern.
     // Gilt fuer alle input[name^="tpl-"] im Konfigurator.
     function mrhLiveApplyAll() {
-        var inputs = document.querySelectorAll('#mrh-configurator-v4 input[name^="tpl-"]');
-        inputs.forEach(function(input) {
-            // Nur Inputs die noch keinen Listener haben
-            if (input.hasAttribute('data-mrh-live')) return;
-            input.setAttribute('data-mrh-live', '1');
+        // Inputs UND Selects mit tpl-* Namen abfangen
+        var elements = document.querySelectorAll('#mrh-configurator-v4 input[name^="tpl-"], #mrh-configurator-v4 select[name^="tpl-"]');
+        elements.forEach(function(el) {
+            // Nur Elemente die noch keinen Listener haben
+            if (el.hasAttribute('data-mrh-live')) return;
+            el.setAttribute('data-mrh-live', '1');
 
             var applyFn = function() {
-                var name = input.getAttribute('name');
-                var val = input.value.trim();
-                if (name && val) {
+                var name = el.getAttribute('name');
+                var val = el.value.trim();
+                // val !== '' statt val (damit '0' nicht als falsy ignoriert wird)
+                if (name && val !== '') {
                     document.documentElement.style.setProperty('--' + name, val);
                 }
             };
 
-            input.addEventListener('input', applyFn);
-            input.addEventListener('change', applyFn);
+            el.addEventListener('input', applyFn);
+            el.addEventListener('change', applyFn);
         });
     }
     // Initial + nach Tab-Wechsel (Colorpicker werden erst bei Tab-Wechsel initialisiert)
@@ -2217,9 +2219,9 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
                 mutations.forEach(function(m) {
                     if (m.type === 'attributes' && m.attributeName === 'value') {
                         var el = m.target;
-                        if (el.tagName === 'INPUT' && el.name && el.name.indexOf('tpl-') === 0) {
+                        if ((el.tagName === 'INPUT' || el.tagName === 'SELECT') && el.name && el.name.indexOf('tpl-') === 0) {
                             var val = el.value.trim();
-                            if (val) {
+                            if (val !== '') {
                                 document.documentElement.style.setProperty('--' + el.name, val);
                             }
                         }

@@ -72,8 +72,8 @@ function mrh_sanitize_color($value) {
     if (preg_match('/^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*[\d.]+\s*,\s*[\d.]+\s*\)$/', $value)) {
         return $value;
     }
-    // CSS-Groessenangabe (rem, px, em, %, vw, vh)
-    if (preg_match('/^[\d.]+(rem|px|em|%|vw|vh)$/', $value)) {
+    // CSS-Groessenangabe (rem, px, em, %, vw, vh) – auch negative Werte
+    if (preg_match('/^-?[\d.]+(rem|px|em|%|vw|vh)$/', $value)) {
         return $value;
     }
     // CSS-Keyword: auto, none, inherit, initial, unset
@@ -84,8 +84,21 @@ function mrh_sanitize_color($value) {
     if (preg_match('/^\d+$/', $value)) {
         return $value;
     }
-    // CSS-Shorthand (z.B. "8px 0", "10px 20px 10px 20px") – max 4 Teile
-    if (preg_match('/^([\d.]+(rem|px|em|%|vw|vh)|0)(\s+([\d.]+(rem|px|em|%|vw|vh)|0)){1,3}$/', $value)) {
+    // CSS-Shorthand (z.B. "8px 0", "10px 20px 10px 20px") – max 4 Teile, auch negative
+    if (preg_match('/^(-?[\d.]+(rem|px|em|%|vw|vh)|0)(\s+(-?[\d.]+(rem|px|em|%|vw|vh)|0)){1,3}$/', $value)) {
+        return $value;
+    }
+    // Box-Shadow: z.B. "0 4px 12px rgba(0,0,0,0.3)" oder "0 2px 6px rgba(0,0,0,0.12)"
+    if (preg_match('/^-?\d+\s+-?\d+(px|rem|em)?\s+-?\d+(px|rem|em)?\s+rgba?\(\s*[\d.,\s]+\)$/', $value)) {
+        return $value;
+    }
+    // CSS-Transform: z.B. "translateY(-1px)" oder "scale(1.05)"
+    if (preg_match('/^(translate[XY]?|scale|rotate|skew[XY]?)\(\s*-?[\d.]+(px|rem|em|deg|%)?\s*\)$/', $value)) {
+        return $value;
+    }
+    // Allgemeiner CSS-Wert: nur sichere Zeichen (Buchstaben, Zahlen, Leerzeichen, Klammern, Komma, Punkt, Minus, Prozent, Hash)
+    // Maximal 200 Zeichen, kein Semikolon, kein Script
+    if (strlen($value) <= 200 && preg_match('/^[a-zA-Z0-9\s(),._#%\/-]+$/', $value) && stripos($value, 'script') === false && strpos($value, ';') === false) {
         return $value;
     }
     return '';
