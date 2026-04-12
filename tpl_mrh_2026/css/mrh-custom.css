@@ -5519,17 +5519,12 @@ a.iframe:hover {
    ============================================================ */
 
 /* ── 20a: Volle Tabelle in Listings/Boxen ausblenden ── */
-/* Samen-Tabellen werden per JS durch Mini-Tabelle ersetzt.
-   Nicht-Samen-Produkte: JS setzt data-mrh-seed="0", Tabelle bleibt sichtbar.
-   Samen-Produkte: JS setzt data-mrh-seed="1", Tabelle wird ausgeblendet. */
-.lb_desc > table.tebals,
-.lr_desc > table.tebals {
+/* Tabelle bleibt standardmaessig sichtbar (Fallback ohne JS).
+   Erst wenn JS data-mrh-seed="1" setzt, wird sie ausgeblendet.
+   Nicht-Samen (data-mrh-seed="0") behalten die Tabelle. */
+.lb_desc[data-mrh-seed="1"] > table.tebals,
+.lr_desc[data-mrh-seed="1"] > table.tebals {
   display: none !important;
-}
-/* Nicht-Samen: Tabelle wieder einblenden wenn JS sie markiert */
-.lb_desc[data-mrh-seed="0"] > table.tebals,
-.lr_desc[data-mrh-seed="0"] > table.tebals {
-  display: table !important;
 }
 
 /* ── 20b: HIERDASICON Platzhalter + .off Elemente ── */
@@ -5539,8 +5534,8 @@ a.iframe:hover {
 }
 
 /* ── 20c: Altes Picto-Div ausblenden (wird durch JS Badge-Row ersetzt) ── */
-.lb_desc .picto.templatestyle,
-.lr_desc .picto.templatestyle {
+.lb_desc[data-mrh-seed="1"] .picto.templatestyle,
+.lr_desc[data-mrh-seed="1"] .picto.templatestyle {
   display: none !important;
 }
 
