@@ -5519,12 +5519,18 @@ a.iframe:hover {
    ============================================================ */
 
 /* ── 20a: Volle Tabelle in Listings/Boxen ausblenden ── */
-/* Tabelle bleibt standardmaessig sichtbar (Fallback ohne JS).
-   Erst wenn JS data-mrh-seed="1" setzt, wird sie ausgeblendet.
-   Nicht-Samen (data-mrh-seed="0") behalten die Tabelle. */
-.lb_desc[data-mrh-seed="1"] > table.tebals,
-.lr_desc[data-mrh-seed="1"] > table.tebals {
+/* Tabelle wird in Listings/Boxen ausgeblendet (Seeds + Non-Seeds).
+   NICHT in Seedfinder/Vergleich (.compare-card) — dort bleibt sie. */
+.lb_desc > table.tebals,
+.lr_desc > table.tebals {
   display: none !important;
+}
+/* Seedfinder/Vergleich: Tabelle bleibt sichtbar */
+.compare-card .lb_desc > table.tebals,
+.seedfinder-card .lb_desc > table.tebals,
+#seedfinder .lb_desc > table.tebals,
+#product_compare .lb_desc > table.tebals {
+  display: table !important;
 }
 
 /* ── 20b: HIERDASICON Platzhalter + .off Elemente ── */
@@ -5534,6 +5540,7 @@ a.iframe:hover {
 }
 
 /* ── 20c: Altes Picto-Div ausblenden (wird durch JS Badge-Row ersetzt) ── */
+/* Nur in normalen Listings, NICHT in Seedfinder/Vergleich */
 .lb_desc[data-mrh-seed="1"] .picto.templatestyle,
 .lr_desc[data-mrh-seed="1"] .picto.templatestyle {
   display: none !important;
@@ -5547,6 +5554,33 @@ a.iframe:hover {
   min-height: 30px; /* Fixer Abstand auch wenn keine Icons */
   margin-bottom: 6px;
 }
+/* Geschlecht-Icons (nur Icon, kein Text, runder Kreis) */
+.mrh-listing-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: default;
+}
+.mrh-icon-fem {
+  background-color: var(--tpl-badge-fem-bg, #fc5b96);
+  color: var(--tpl-badge-fem-text, #fff);
+}
+.mrh-icon-reg {
+  background-color: var(--tpl-badge-reg-bg, #2ea2f0);
+  color: var(--tpl-badge-reg-text, #fff);
+}
+/* Autoflowering-Icon (gruen, kein Wrapper) */
+.mrh-listing-badges .shortfongc {
+  color: var(--tpl-badge-auto-text, #15803d) !important;
+  font-size: var(--tpl-picto-icon-size, 1.1rem) !important;
+}
+/* Photoperiodisch Text-Badge (einziger Badge mit Text) */
 .mrh-listing-badges .mrh-type-badge {
   display: inline-flex;
   align-items: center;
@@ -5559,37 +5593,26 @@ a.iframe:hover {
   line-height: 1.3;
   white-space: nowrap;
   border: 1px solid transparent;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.mrh-listing-badges .mrh-badge-fem {
-  background-color: var(--tpl-badge-fem-bg, #fc5b96) !important;
-  color: var(--tpl-badge-fem-text, #fff) !important;
-  border-color: var(--tpl-badge-fem-border, transparent) !important;
-}
-.mrh-listing-badges .mrh-badge-reg {
-  background-color: var(--tpl-badge-reg-bg, #2ea2f0) !important;
-  color: var(--tpl-badge-reg-text, #fff) !important;
-  border-color: var(--tpl-badge-reg-border, transparent) !important;
 }
 .mrh-listing-badges .mrh-badge-photo {
   background-color: var(--tpl-badge-photo-bg, #6c757d) !important;
   color: var(--tpl-badge-photo-text, #fff) !important;
   border-color: var(--tpl-badge-photo-border, transparent) !important;
 }
-.mrh-listing-badges .shortfongc {
-  color: var(--tpl-badge-auto-text, #15803d) !important;
-  font-size: var(--tpl-picto-icon-size, 1.1rem) !important;
-}
 
 /* ── 20d: Mini-Tabelle (JS-generiert) ── */
+.mrh-mini-table-wrap {
+  max-height: 120px;
+  overflow-y: auto;
+  margin-top: 4px;
+  border-radius: var(--mrh-tbl-radius, 6px);
+  border: 1px solid var(--mrh-tbl-border, #e2e8f0);
+}
 .mrh-mini-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 0.82rem;
-  border-radius: var(--mrh-tbl-radius, 6px);
-  overflow: hidden;
-  margin-top: 4px;
 }
 .mrh-mini-table tr {
   border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0);

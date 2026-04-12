@@ -9,7 +9,7 @@
    Wird automatisch ueber auto_include() in general_bottom.js.php
    geladen und bei COMPRESS_JAVASCRIPT komprimiert.
    
-   Badge v4.9 – 2026-04-12
+   Badge v5.0 – 2026-04-12
    ============================================================ */
 ?>
 <script>
@@ -17,7 +17,7 @@
   'use strict';
 
   var MRH_ListingDesc = {
-    fields: ['Geschlecht', 'THC', 'CBD', 'Kreuzung'],
+    fields: ['THC', 'CBD', 'Kreuzung'],
     seedMarkers: ['Geschlecht', 'THC', 'Sorte', 'Blütezeit Indoor'],
 
     createBadgeRow: function(data, hasAutoIcon) {
@@ -32,10 +32,9 @@
 
       if (isFem || isReg) {
         var icon = document.createElement('span');
-        icon.className = 'mrh-type-badge ' + (isFem ? 'mrh-badge-fem' : 'mrh-badge-reg');
-        icon.innerHTML = '<span class="mrh-badge-icon">' +
-          (isFem ? '\u2640' : '\u2642') + '</span> ' +
-          (isFem ? 'Feminisiert' : 'Regul\u00e4r');
+        icon.className = 'mrh-listing-icon ' + (isFem ? 'mrh-icon-fem' : 'mrh-icon-reg');
+        icon.innerHTML = isFem ? '\u2640' : '\u2642';
+        icon.title = isFem ? 'Feminisiert' : 'Regul\u00e4r';
         row.appendChild(icon);
       }
 
@@ -93,7 +92,7 @@
       var badgeRow = this.createBadgeRow(data, hasAutoIcon);
       desc.insertBefore(badgeRow, desc.firstChild);
 
-      /* Mini-Tabelle erstellen */
+      /* Mini-Tabelle erstellen (in scrollbarem Wrapper) */
       var miniTable = document.createElement('table');
       miniTable.className = 'mrh-mini-table';
       var hasRows = false;
@@ -113,16 +112,23 @@
       }
 
       if (hasRows) {
-        desc.appendChild(miniTable);
+        var wrap = document.createElement('div');
+        wrap.className = 'mrh-mini-table-wrap';
+        wrap.appendChild(miniTable);
+        desc.appendChild(wrap);
       }
     },
 
     init: function() {
       var self = this;
-      /* Alle Listing/Box Beschreibungen verarbeiten */
+      /* Alle Listing/Box Beschreibungen verarbeiten,
+         ABER Seedfinder/Vergleich ausschliessen */
       var descs = document.querySelectorAll('.lb_desc, .lr_desc');
       for (var i = 0; i < descs.length; i++) {
-        self.processDesc(descs[i]);
+        var el = descs[i];
+        /* Skip wenn innerhalb Seedfinder/Vergleich */
+        if (el.closest('.compare-card, .seedfinder-card, #seedfinder, #product_compare, .compare-badge-row')) continue;
+        self.processDesc(el);
       }
     }
   };
