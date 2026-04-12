@@ -211,6 +211,16 @@ $defaults = [
     'tpl-mobile-link-hover-bg'      => '#edf7ee',
     'tpl-mobile-search-border'      => '#2d7a3a',
     'tpl-mobile-search-btn-bg'      => '#2d7a3a',
+    'tpl-mobile-icon-color'         => '#555555',
+    // ── Seedfinder Bottom-Bar Button ──
+    'tpl-bb-sf-bg'                  => 'rgb(74, 140, 42)',
+    'tpl-bb-sf-icon'                => 'rgb(255, 255, 255)',
+    'tpl-bb-sf-text'                => 'rgb(74, 140, 42)',
+    'tpl-bb-sf-hover'               => 'rgb(56, 112, 32)',
+    'tpl-bb-sf-size'                => '40px',
+    'tpl-bb-sf-icon-size'           => '22px',
+    'tpl-bb-sf-shadow'              => 'rgba(74, 140, 42, 0.3)',
+    'tpl-bb-sf-margin-top'          => '-14px',
     // ── Versandkosten-Leiste ──
     'tpl-shipping-bar-bg'          => 'rgb(255, 251, 235)',
     'tpl-shipping-bar-text'        => 'rgb(190, 158, 31)',

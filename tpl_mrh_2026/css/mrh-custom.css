@@ -1253,27 +1253,32 @@ body.mrh-no-scroll {
     letter-spacing: 0.01em;
     font-family: var(--tpl-font-text, sans-serif);
   }
-  /* Seedfinder – Hervorgehobenes mittleres Icon */
+  /* Seedfinder – Hervorgehobenes mittleres Icon (Konfigurator-Variablen) */
   .mrh-bottom-bar li.mrh-bb-center a {
-    color: var(--tpl-main-color, #4a8c2a);
+    color: var(--tpl-bb-sf-text, var(--tpl-main-color, #4a8c2a));
+  }
+  .mrh-bottom-bar li.mrh-bb-center a:hover,
+  .mrh-bottom-bar li.mrh-bb-center a:active {
+    color: var(--tpl-bb-sf-hover, rgb(56, 112, 32));
   }
   .mrh-bottom-bar li.mrh-bb-center a i {
-    font-size: 22px;
-    background: var(--tpl-main-color, #4a8c2a);
-    color: #fff;
-    width: 40px;
-    height: 40px;
+    font-size: var(--tpl-bb-sf-icon-size, 22px);
+    background: var(--tpl-bb-sf-bg, var(--tpl-main-color, #4a8c2a));
+    color: var(--tpl-bb-sf-icon, #fff);
+    width: var(--tpl-bb-sf-size, 40px);
+    height: var(--tpl-bb-sf-size, 40px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -14px;
-    box-shadow: 0 2px 8px rgba(74, 140, 42, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: var(--tpl-bb-sf-margin-top, -14px);
+    box-shadow: 0 2px 8px var(--tpl-bb-sf-shadow, rgba(74, 140, 42, 0.3));
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
   .mrh-bottom-bar li.mrh-bb-center a:active i {
     transform: scale(0.95);
-    box-shadow: 0 1px 4px rgba(74, 140, 42, 0.2);
+    background: var(--tpl-bb-sf-hover, rgb(56, 112, 32));
+    box-shadow: 0 1px 4px var(--tpl-bb-sf-shadow, rgba(74, 140, 42, 0.2));
   }
   /* Badge (Warenkorb/Merkliste Anzahl) */
   .mrh-bb-badge {
@@ -5475,4 +5480,16 @@ a.iframe:hover {
   background: var(--tpl-mobile-link-hover-bg, #dff0e0) !important;
   color: var(--tpl-mobile-link-hover, #1a5c28) !important;
   filter: brightness(0.95);
+}
+
+/* Icon-Farbe in der Sidebar */
+.mrh-mobile-link i,
+.mrh-mobile-link .fa,
+.mrh-mobile-link [class*="fa-"] {
+  color: var(--tpl-mobile-icon-color, #555) !important;
+}
+.mrh-mobile-link:hover i,
+.mrh-mobile-link:hover .fa,
+.mrh-mobile-link:hover [class*="fa-"] {
+  color: var(--tpl-mobile-link-hover, #2d7a3a) !important;
 }

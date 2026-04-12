@@ -199,6 +199,7 @@ $mobile_fields = [
     'tpl-mobile-link-hover-bg' => 'Link Hover-Hintergrund',
     'tpl-mobile-search-border' => 'Suchfeld Rahmenfarbe',
     'tpl-mobile-search-btn-bg' => 'Such-Button Hintergrund',
+    'tpl-mobile-icon-color'    => 'Icon-Farbe',
 ];
 foreach ($mobile_fields as $key => $label) {
     echo '<div class="col-sm-3 mb-3">';
@@ -1743,6 +1744,47 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="col-sm-3 mb-3">
         <label for="tpl-compare-float-mob-font-size"><strong>Icon-Gr&ouml;&szlig;e (Mobil)</strong></label>
         <input id="tpl-compare-float-mob-font-size" type="text" name="tpl-compare-float-mob-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-font-size','1rem'); ?>">
+    </div>
+
+    <!-- ═══ Seedfinder Bottom Bar Button ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-seedling me-1" style="color:#4a8c2a;"></i> Seedfinder Bottom-Bar Button</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Der hervorgehobene Seedfinder-Button in der mobilen Bottom Bar</small></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-bb-sf-bg" type="text" name="tpl-bb-sf-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bb-sf-bg','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bb-sf-bg','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-icon"><strong>Icon-Farbe</strong></label>
+        <input id="tpl-bb-sf-icon" type="text" name="tpl-bb-sf-icon" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bb-sf-icon','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bb-sf-icon','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-bb-sf-text" type="text" name="tpl-bb-sf-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bb-sf-text','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bb-sf-text','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-hover"><strong>Hover-Farbe</strong></label>
+        <input id="tpl-bb-sf-hover" type="text" name="tpl-bb-sf-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bb-sf-hover','rgb(56, 112, 32)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bb-sf-hover','rgb(56, 112, 32)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-size"><strong>Button-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-bb-sf-size" type="text" name="tpl-bb-sf-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-size','40px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-icon-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-bb-sf-icon-size" type="text" name="tpl-bb-sf-icon-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-icon-size','22px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-shadow"><strong>Schatten-Farbe</strong></label>
+        <input id="tpl-bb-sf-shadow" type="text" name="tpl-bb-sf-shadow" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bb-sf-shadow','rgba(74, 140, 42, 0.3)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bb-sf-shadow','rgba(74, 140, 42, 0.3)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-bb-sf-margin-top"><strong>Versatz oben</strong></label>
+        <input id="tpl-bb-sf-margin-top" type="text" name="tpl-bb-sf-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-margin-top','-14px'); ?>">
     </div>
 
     <!-- ═══ Versandkosten-Leiste ═══ -->
