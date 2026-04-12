@@ -254,7 +254,7 @@
                       var title = spans[j].getAttribute('title');
                       if (title) {
                         var iconPill = document.createElement('span');
-                        iconPill.className = 'mrh-cbadge mrh-cbadge-icon';
+                        iconPill.className = 'picto templatestyle';
                         iconPill.setAttribute('title', title);
                         var iconClone = spans[j].cloneNode(true);
                         iconClone.removeAttribute('title');
@@ -269,7 +269,7 @@
                     var autoSpan = descBox.querySelector('.shortfongc');
                     if (autoSpan) {
                       var autoPill = document.createElement('span');
-                      autoPill.className = 'mrh-cbadge mrh-cbadge-icon';
+                      autoPill.className = 'picto templatestyle';
                       autoPill.setAttribute('title', 'Autoflowering');
                       autoPill.appendChild(autoSpan.cloneNode(true));
                       badgeRow.appendChild(autoPill);
