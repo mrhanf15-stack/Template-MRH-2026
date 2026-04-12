@@ -5538,13 +5538,52 @@ a.iframe:hover {
   display: none !important;
 }
 
-/* ── 20c: Picto-Icons in Listings/Boxen ── */
+/* ── 20c: Altes Picto-Div ausblenden (wird durch JS Badge-Row ersetzt) ── */
 .lb_desc .picto.templatestyle,
 .lr_desc .picto.templatestyle {
+  display: none !important;
+}
+
+/* ── 20c2: Badge-Row in Listings/Boxen (JS-generiert) ── */
+.mrh-listing-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 30px; /* Fixer Abstand auch wenn keine Icons */
+  margin-bottom: 6px;
+}
+.mrh-listing-badges .mrh-type-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 0.3rem;
+  padding: var(--tpl-badge-padding, 0.25rem 0.7rem);
+  border-radius: var(--tpl-badge-radius, 50rem);
+  font-size: var(--tpl-badge-font-size, 0.8rem);
+  font-weight: var(--tpl-badge-font-weight, 600);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.mrh-listing-badges .mrh-badge-fem {
+  background-color: var(--tpl-badge-fem-bg, #fc5b96) !important;
+  color: var(--tpl-badge-fem-text, #fff) !important;
+  border-color: var(--tpl-badge-fem-border, transparent) !important;
+}
+.mrh-listing-badges .mrh-badge-reg {
+  background-color: var(--tpl-badge-reg-bg, #2ea2f0) !important;
+  color: var(--tpl-badge-reg-text, #fff) !important;
+  border-color: var(--tpl-badge-reg-border, transparent) !important;
+}
+.mrh-listing-badges .mrh-badge-photo {
+  background-color: var(--tpl-badge-photo-bg, #6c757d) !important;
+  color: var(--tpl-badge-photo-text, #fff) !important;
+  border-color: var(--tpl-badge-photo-border, transparent) !important;
+}
+.mrh-listing-badges .shortfongc {
+  color: var(--tpl-badge-auto-text, #15803d) !important;
+  font-size: var(--tpl-picto-icon-size, 1.1rem) !important;
 }
 
 /* ── 20d: Mini-Tabelle (JS-generiert) ── */

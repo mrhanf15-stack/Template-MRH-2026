@@ -496,12 +496,51 @@ const MRH_ProductOptions = {
   }
 };
 
-/* ── Listing/Box Kurzbeschreibung: Mini-Tabelle ── */
+/* ── Listing/Box Kurzbeschreibung: Badge-Row + Mini-Tabelle ── */
 const MRH_ListingDesc = {
-  /* Felder die extrahiert werden (Reihenfolge = Anzeigereihenfolge) */
+  /* Felder fuer die Mini-Tabelle (Reihenfolge = Anzeigereihenfolge) */
   fields: ['Geschlecht', 'THC', 'CBD', 'Kreuzung'],
   /* Felder die ein Samen-Produkt identifizieren */
   seedMarkers: ['Geschlecht', 'THC', 'Sorte', 'Blütezeit Indoor'],
+
+  /* Badge-Row erstellen: Geschlecht-Icon + Photoperiodisch/Autoflowering */
+  createBadgeRow(data, hasAutoIcon) {
+    const row = document.createElement('div');
+    row.className = 'mrh-listing-badges';
+
+    const geschlecht = (data['Geschlecht'] || '').toLowerCase();
+    if (!geschlecht) return row; /* Kein Geschlecht = keine Badges */
+
+    const isFem = geschlecht.includes('feminis');
+    const isReg = geschlecht.includes('regul');
+
+    /* 1. Geschlecht-Icon (Venus / Mars) */
+    if (isFem || isReg) {
+      const icon = document.createElement('span');
+      icon.className = 'mrh-type-badge ' + (isFem ? 'mrh-badge-fem' : 'mrh-badge-reg');
+      icon.innerHTML = '<span class="mrh-badge-icon">' +
+        (isFem ? '♀' : '♂') + '</span> ' +
+        (isFem ? 'Feminisiert' : 'Regulär');
+      row.appendChild(icon);
+    }
+
+    /* 2. Autoflowering ODER Photoperiodisch */
+    if (hasAutoIcon) {
+      /* Autoflowering: Tachometer-Icon (gruen, ohne Pill) */
+      const auto = document.createElement('span');
+      auto.className = 'fa fa-fw fa-tachometer shortfongc';
+      auto.title = 'Autoflowering';
+      row.appendChild(auto);
+    } else {
+      /* Photoperiodisch: Text-Badge */
+      const photo = document.createElement('span');
+      photo.className = 'mrh-type-badge mrh-badge-photo';
+      photo.textContent = 'Photoperiodisch';
+      row.appendChild(photo);
+    }
+
+    return row;
+  },
 
   init() {
     document.querySelectorAll('.lb_desc, .lr_desc').forEach(desc => {
@@ -525,7 +564,18 @@ const MRH_ListingDesc = {
 
       if (!isSeed) return; /* Nicht-Samen: Tabelle bleibt sichtbar per CSS */
 
-      /* Mini-Tabelle erstellen (NUR fuer Samen) */
+      /* Auto-Icon erkennen (aus dem picto-div) */
+      const picto = desc.querySelector('.picto.templatestyle');
+      const hasAutoIcon = picto ? !!picto.querySelector('.shortfongc') : false;
+
+      /* Altes Picto-Div ausblenden */
+      if (picto) picto.style.display = 'none';
+
+      /* Badge-Row erstellen und einfuegen (VOR der Mini-Tabelle) */
+      const badgeRow = this.createBadgeRow(data, hasAutoIcon);
+      desc.insertBefore(badgeRow, desc.firstChild);
+
+      /* Mini-Tabelle erstellen */
       const miniTable = document.createElement('table');
       miniTable.className = 'mrh-mini-table';
       let hasRows = false;
