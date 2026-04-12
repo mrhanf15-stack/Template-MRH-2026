@@ -549,8 +549,6 @@ a.compare-remove-btn:hover {
         max-height: 250px;
         overflow-y: auto;
         overflow-x: hidden;
-        border-top: 1px solid rgba(0,0,0,0.06);
-        border-bottom: 1px solid rgba(0,0,0,0.06);
     }
     .product-compare-page .compare-desc-box .lr_desc {
         overflow-x: auto;
