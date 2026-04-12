@@ -249,17 +249,26 @@ a.compare-remove-btn:hover {
     display: none;
 }
 
-/* === Badge-Zeile unter Produktname (v5.4.0) === */
+/* === Badge-Zeile unter Produktname (v5.4.0 / v3.3) === */
 .compare-badge-row {
     min-height: var(--tpl-cbadge-row-min-height, 50px);
     display: flex;
     align-items: center;
     gap: var(--tpl-cbadge-row-gap, 5px);
-    padding: var(--tpl-cbadge-row-padding, 2px 12px 4px);
+    padding: var(--tpl-cbadge-row-padding, 6px 12px);
     flex-wrap: wrap;
+    background: var(--tpl-cbadge-row-bg, #f8f9fa);
+    border: 1px solid var(--tpl-cbadge-row-border, rgba(0,0,0,.08));
+    border-radius: var(--tpl-cbadge-row-radius, 50rem);
+    margin: 0 12px 4px;
+}
+/* .off Klasse: immer ausblenden */
+.compare-badge-row .off,
+.compare-badge-row .mrh-type-badge.off {
+    display: none !important;
 }
 
-/* === Badge v3.2: icon_sex.html Styles 1:1 (da icon_sex.html hier nicht included wird) === */
+/* === Badge v3.3: icon_sex.html Styles 1:1 (da icon_sex.html hier nicht included wird) === */
 /* Farben via CSS-Variablen aus Konfigurator Tab 10 */
 .compare-badge-row .mrh-badge-bar {
     display: inline-flex;
