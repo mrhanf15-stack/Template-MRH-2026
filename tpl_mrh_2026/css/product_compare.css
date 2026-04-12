@@ -546,7 +546,7 @@ a.compare-remove-btn:hover {
 
     /* --- Tabelle: fixe Hoehe mit Scrollbalken (v5.6.0) --- */
     .product-compare-page .compare-desc-box {
-        max-height: 250px;
+        max-height: 375px;
         overflow-y: auto;
         overflow-x: hidden;
     }

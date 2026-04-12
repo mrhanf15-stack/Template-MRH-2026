@@ -403,7 +403,7 @@
 
     /* --- Tabelle: fixe Hoehe mit Scrollbalken --- */
     #products-grid .compare-desc-box {
-        max-height: 250px;
+        max-height: 375px;
         overflow-y: auto;
         overflow-x: hidden;
     }
