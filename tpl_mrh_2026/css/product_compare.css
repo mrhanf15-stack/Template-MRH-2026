@@ -263,11 +263,11 @@ a.compare-remove-btn:hover {
 .mrh-cbadge {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 4px;
+    gap: var(--tpl-cbadge-gap, 3px);
+    font-size: var(--tpl-cbadge-font-size, 0.78rem);
+    font-weight: var(--tpl-cbadge-font-weight, 700);
+    padding: var(--tpl-cbadge-padding, 2px 8px);
+    border-radius: var(--tpl-cbadge-radius, 4px);
     white-space: nowrap;
     line-height: 1.4;
     letter-spacing: 0.02em;
@@ -275,11 +275,11 @@ a.compare-remove-btn:hover {
 
 /* Icon-Badge (Autoflowering, etc.): dezenter Hintergrund */
 .mrh-cbadge-icon {
-    background: #f0f0f0;
-    color: #333;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.85rem;
+    background: var(--tpl-cbadge-icon-bg, #f0f0f0);
+    color: var(--tpl-cbadge-icon-text, #333);
+    padding: var(--tpl-cbadge-icon-padding, 2px 6px);
+    border-radius: var(--tpl-cbadge-icon-radius, 4px);
+    font-size: var(--tpl-cbadge-icon-font-size, 0.85rem);
 }
 
 /* === HIDE Legend (stock color dots) inside options === */

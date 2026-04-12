@@ -230,6 +230,17 @@ $defaults = [
     'tpl-bb-sf-mob-size'            => '36px',
     'tpl-bb-sf-mob-icon-size'       => '18px',
     'tpl-bb-sf-mob-margin-top'      => '-10px',
+    // ── Cannabis Badge Pills (mrh-cbadge) ──
+    'tpl-cbadge-font-size'          => '0.78rem',
+    'tpl-cbadge-font-weight'        => '700',
+    'tpl-cbadge-padding'            => '2px 8px',
+    'tpl-cbadge-radius'             => '4px',
+    'tpl-cbadge-gap'                => '3px',
+    'tpl-cbadge-icon-bg'            => '#f0f0f0',
+    'tpl-cbadge-icon-text'          => '#333333',
+    'tpl-cbadge-icon-font-size'     => '0.85rem',
+    'tpl-cbadge-icon-padding'       => '2px 6px',
+    'tpl-cbadge-icon-radius'        => '4px',
     // ── Versandkosten-Leiste ──
     'tpl-shipping-bar-bg'          => 'rgb(255, 251, 235)',
     'tpl-shipping-bar-text'        => 'rgb(190, 158, 31)',

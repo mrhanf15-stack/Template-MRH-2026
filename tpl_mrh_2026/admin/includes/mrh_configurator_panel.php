@@ -1746,6 +1746,56 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-compare-float-mob-font-size" type="text" name="tpl-compare-float-mob-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-font-size','1rem'); ?>">
     </div>
 
+    <!-- ═══ Cannabis Badge Pills (mrh-cbadge) ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-cannabis me-1" style="color:#4a8c2a;"></i> Cannabis Badge Pills (Vergleich/Seedfinder)</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Kleine Badges f&uuml;r Sortentyp-Icons (Autoflowering, Feminisiert etc.) in Vergleich &amp; Seedfinder</small></div>
+    <!-- Basis-Badge (.mrh-cbadge) -->
+    <div class="col-12"><small class="fw-bold text-secondary">Basis-Badge</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-cbadge-font-size"><strong>Schriftgr&ouml;&szlig;e</strong></label>
+        <input id="tpl-cbadge-font-size" type="text" name="tpl-cbadge-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-font-size','0.78rem'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-cbadge-font-weight"><strong>Schriftst&auml;rke</strong></label>
+        <input id="tpl-cbadge-font-weight" type="text" name="tpl-cbadge-font-weight" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-font-weight','700'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-cbadge-padding"><strong>Padding</strong></label>
+        <input id="tpl-cbadge-padding" type="text" name="tpl-cbadge-padding" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-padding','2px 8px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-cbadge-radius"><strong>Radius</strong></label>
+        <input id="tpl-cbadge-radius" type="text" name="tpl-cbadge-radius" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-radius','4px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-cbadge-gap"><strong>Abstand (gap)</strong></label>
+        <input id="tpl-cbadge-gap" type="text" name="tpl-cbadge-gap" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-gap','3px'); ?>">
+    </div>
+    <!-- Icon-Badge (.mrh-cbadge-icon) -->
+    <div class="col-12 mt-2"><small class="fw-bold text-secondary">Icon-Badge (Autoflowering etc.)</small></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-cbadge-icon-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-cbadge-icon-bg" type="text" name="tpl-cbadge-icon-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-cbadge-icon-bg','#f0f0f0'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-cbadge-icon-bg','#f0f0f0'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-cbadge-icon-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-cbadge-icon-text" type="text" name="tpl-cbadge-icon-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-cbadge-icon-text','#333333'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-cbadge-icon-text','#333333'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-cbadge-icon-font-size"><strong>Icon-Schriftgr&ouml;&szlig;e</strong></label>
+        <input id="tpl-cbadge-icon-font-size" type="text" name="tpl-cbadge-icon-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-icon-font-size','0.85rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-cbadge-icon-padding"><strong>Icon-Padding</strong></label>
+        <input id="tpl-cbadge-icon-padding" type="text" name="tpl-cbadge-icon-padding" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-icon-padding','2px 6px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-cbadge-icon-radius"><strong>Icon-Radius</strong></label>
+        <input id="tpl-cbadge-icon-radius" type="text" name="tpl-cbadge-icon-radius" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-cbadge-icon-radius','4px'); ?>">
+    </div>
+
     <!-- ═══ Seedfinder Bottom Bar Button ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-seedling me-1" style="color:#4a8c2a;"></i> Seedfinder Bottom-Bar Button</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Der hervorgehobene Seedfinder-Button in der mobilen Bottom Bar</small></div>
