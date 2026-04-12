@@ -80,6 +80,10 @@ function mrh_sanitize_color($value) {
     if (in_array($value, ['auto', 'none', 'inherit', 'initial', 'unset'], true)) {
         return $value;
     }
+    // Reine Ganzzahl (fuer Toggle-Werte wie 0/1)
+    if (preg_match('/^\d+$/', $value)) {
+        return $value;
+    }
     // CSS-Shorthand (z.B. "8px 0", "10px 20px 10px 20px") – max 4 Teile
     if (preg_match('/^([\d.]+(rem|px|em|%|vw|vh)|0)(\s+([\d.]+(rem|px|em|%|vw|vh)|0)){1,3}$/', $value)) {
         return $value;
@@ -261,6 +265,7 @@ $mrh_color_defaults = [
     // ══════════════════════════════════════════════════
     // ── Floating Seedfinder-Button ──
     // ══════════════════════════════════════════════════
+    'tpl-sf-float-enabled'         => '1',
     'tpl-sf-float-bg'              => 'rgb(74, 140, 42)',
     'tpl-sf-float-text'            => 'rgb(255, 255, 255)',
     'tpl-sf-float-hover-bg'        => 'rgb(56, 112, 32)',
@@ -280,6 +285,23 @@ $mrh_color_defaults = [
     'tpl-sf-float-mob-margin-left' => '10px',
     'tpl-sf-float-mob-size'        => '44px',
     'tpl-sf-float-mob-font-size'   => '1rem',
+
+    // ══════════════════════════════════════════════════
+    // ── Floating Filter-Button (Seedfinder Mobile) ──
+    // ══════════════════════════════════════════════════
+    'tpl-ff-btn-enabled'           => '1',
+    'tpl-ff-btn-bg'                => 'rgb(74, 140, 42)',
+    'tpl-ff-btn-text'              => 'rgb(255, 255, 255)',
+    'tpl-ff-btn-hover-bg'          => 'rgb(56, 112, 32)',
+    'tpl-ff-btn-size'              => '56px',
+    'tpl-ff-btn-font-size'         => '1.3rem',
+    'tpl-ff-btn-radius'            => '50%',
+    'tpl-ff-btn-shadow'            => '0 4px 12px rgba(0,0,0,0.25)',
+    // Abstand (Margin)
+    'tpl-ff-btn-margin-top'        => 'auto',
+    'tpl-ff-btn-margin-right'      => '20px',
+    'tpl-ff-btn-margin-bottom'     => '80px',
+    'tpl-ff-btn-margin-left'       => 'auto',
 
     // ══════════════════════════════════════════════════
     // ── Seedfinder Bottom-Bar Button ──

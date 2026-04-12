@@ -213,6 +213,7 @@ $defaults = [
     'tpl-mobile-search-btn-bg'      => '#2d7a3a',
     'tpl-mobile-icon-color'         => '#555555',
     // ── Floating Seedfinder-Button ──
+    'tpl-sf-float-enabled'         => '1',
     'tpl-sf-float-bg'              => 'rgb(74, 140, 42)',
     'tpl-sf-float-text'            => 'rgb(255, 255, 255)',
     'tpl-sf-float-hover-bg'        => 'rgb(56, 112, 32)',
@@ -230,6 +231,19 @@ $defaults = [
     'tpl-sf-float-mob-margin-left' => '10px',
     'tpl-sf-float-mob-size'        => '44px',
     'tpl-sf-float-mob-font-size'   => '1rem',
+    // ── Floating Filter-Button (Seedfinder Mobile) ──
+    'tpl-ff-btn-enabled'           => '1',
+    'tpl-ff-btn-bg'                => 'rgb(74, 140, 42)',
+    'tpl-ff-btn-text'              => 'rgb(255, 255, 255)',
+    'tpl-ff-btn-hover-bg'          => 'rgb(56, 112, 32)',
+    'tpl-ff-btn-size'              => '56px',
+    'tpl-ff-btn-font-size'         => '1.3rem',
+    'tpl-ff-btn-radius'            => '50%',
+    'tpl-ff-btn-shadow'            => '0 4px 12px rgba(0,0,0,0.25)',
+    'tpl-ff-btn-margin-top'        => 'auto',
+    'tpl-ff-btn-margin-right'      => '20px',
+    'tpl-ff-btn-margin-bottom'     => '80px',
+    'tpl-ff-btn-margin-left'       => 'auto',
     // ── Seedfinder Bottom-Bar Button ──
     'tpl-bb-sf-bg'                  => 'rgb(74, 140, 42)',
     'tpl-bb-sf-icon'                => 'rgb(255, 255, 255)',
@@ -519,6 +533,11 @@ if (empty($json_a)) {
   echo '--mrh-nav-hover:' . htmlspecialchars($json_a['tpl-bg-color-2'] ?? 'rgb(240,253,244)') . ';';
   echo '--mrh-badge-bg:' . htmlspecialchars($json_a['tpl-main-color'] ?? 'rgb(74,140,42)') . ';';
   echo '--mrh-badge-text:' . htmlspecialchars($json_a['tpl-text-button'] ?? 'rgb(255,255,255)') . ';';
+  // Berechnete Display-Variablen fuer Ein/Aus-Toggles
+  $sf_enabled = ($json_a['tpl-sf-float-enabled'] ?? '1') === '1' ? 'block' : 'none';
+  echo '--tpl-sf-float-display:' . $sf_enabled . ';';
+  $ff_enabled = ($json_a['tpl-ff-btn-enabled'] ?? '1') === '1' ? 'flex' : 'none';
+  echo '--tpl-ff-btn-display:' . $ff_enabled . ';';
 ?>
 }
 /* ═══ Button-Overrides: CSS-Variablen → Bootstrap-Buttons ═══ */

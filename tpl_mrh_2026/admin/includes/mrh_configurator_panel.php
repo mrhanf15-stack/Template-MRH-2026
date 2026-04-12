@@ -1750,6 +1750,14 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-seedling me-1" style="color:#4a8c2a;"></i> Floating Seedfinder-Button</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Schwebendes Seedfinder-Icon (fixed positioniert, Link zu /Seedfinder/). Wird auf der Seedfinder-Seite selbst ausgeblendet.</small></div>
     <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-enabled"><strong>Anzeigen (Ein/Aus)</strong></label>
+        <select id="tpl-sf-float-enabled" name="tpl-sf-float-enabled" class="form-control">
+            <?php $sfe = $c['tpl-sf-float-enabled'] ?? '1'; ?>
+            <option value="1" <?php echo $sfe==='1'?'selected':''; ?>>Ja (sichtbar)</option>
+            <option value="0" <?php echo $sfe==='0'?'selected':''; ?>>Nein (ausgeblendet)</option>
+        </select>
+    </div>
+    <div class="col-sm-4 mb-3">
         <label for="tpl-sf-float-bg"><strong>Hintergrund</strong></label>
         <input id="tpl-sf-float-bg" type="text" name="tpl-sf-float-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-float-bg','rgb(74, 140, 42)'); ?>">
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-float-bg','rgb(74, 140, 42)'); ?>"></div>
@@ -1825,6 +1833,68 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="col-sm-3 mb-3">
         <label for="tpl-sf-float-mob-font-size"><strong>Icon-Gr&ouml;&szlig;e (Mobil)</strong></label>
         <input id="tpl-sf-float-mob-font-size" type="text" name="tpl-sf-float-mob-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-font-size','1rem'); ?>">
+    </div>
+
+    <!-- ═══ Floating Filter-Button (Seedfinder Mobile) ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-filter me-1" style="color:#4a8c2a;"></i> Floating Filter-Button (Seedfinder Mobile)</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Schwebender Filter-Button auf der Seedfinder-Seite (nur mobil sichtbar, &ouml;ffnet das Filter-Modal). Klasse: <code>.floating-filter-btn</code></small></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-enabled"><strong>Anzeigen (Ein/Aus)</strong></label>
+        <select id="tpl-ff-btn-enabled" name="tpl-ff-btn-enabled" class="form-control">
+            <?php $ffe = $c['tpl-ff-btn-enabled'] ?? '1'; ?>
+            <option value="1" <?php echo $ffe==='1'?'selected':''; ?>>Ja (sichtbar)</option>
+            <option value="0" <?php echo $ffe==='0'?'selected':''; ?>>Nein (ausgeblendet)</option>
+        </select>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-ff-btn-bg" type="text" name="tpl-ff-btn-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ff-btn-bg','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ff-btn-bg','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-text"><strong>Icon-Farbe</strong></label>
+        <input id="tpl-ff-btn-text" type="text" name="tpl-ff-btn-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ff-btn-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ff-btn-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-hover-bg"><strong>Hover-Hintergrund</strong></label>
+        <input id="tpl-ff-btn-hover-bg" type="text" name="tpl-ff-btn-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ff-btn-hover-bg','rgb(56, 112, 32)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ff-btn-hover-bg','rgb(56, 112, 32)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-size"><strong>Gr&ouml;&szlig;e (Breite/H&ouml;he)</strong></label>
+        <input id="tpl-ff-btn-size" type="text" name="tpl-ff-btn-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-ff-btn-size','56px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-font-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-ff-btn-font-size" type="text" name="tpl-ff-btn-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-ff-btn-font-size','1.3rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-radius"><strong>Rundung</strong></label>
+        <input id="tpl-ff-btn-radius" type="text" name="tpl-ff-btn-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-ff-btn-radius','50%'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-ff-btn-shadow"><strong>Schatten</strong></label>
+        <input id="tpl-ff-btn-shadow" type="text" name="tpl-ff-btn-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-ff-btn-shadow','0 4px 12px rgba(0,0,0,0.25)'); ?>">
+    </div>
+
+    <!-- FF Button Margin -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-arrows-alt me-1"></i> Abstand (Margin) &ndash; Position vom Bildschirmrand</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-ff-btn-margin-top"><strong>Oben</strong></label>
+        <input id="tpl-ff-btn-margin-top" type="text" name="tpl-ff-btn-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-ff-btn-margin-top','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-ff-btn-margin-right"><strong>Rechts</strong></label>
+        <input id="tpl-ff-btn-margin-right" type="text" name="tpl-ff-btn-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-ff-btn-margin-right','20px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-ff-btn-margin-bottom"><strong>Unten</strong></label>
+        <input id="tpl-ff-btn-margin-bottom" type="text" name="tpl-ff-btn-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-ff-btn-margin-bottom','80px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-ff-btn-margin-left"><strong>Links</strong></label>
+        <input id="tpl-ff-btn-margin-left" type="text" name="tpl-ff-btn-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-ff-btn-margin-left','auto'); ?>">
     </div>
 
     <!-- ═══ Cannabis Badge Pills (mrh-cbadge) ═══ -->

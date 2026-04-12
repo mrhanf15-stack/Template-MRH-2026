@@ -680,7 +680,7 @@ a.compare-remove-btn:hover {
 .mrh-seedfinder-float {
     position: fixed;
     z-index: 1049;
-    display: block;
+    display: var(--tpl-sf-float-display, block);
     transition: all 0.3s ease;
 }
 

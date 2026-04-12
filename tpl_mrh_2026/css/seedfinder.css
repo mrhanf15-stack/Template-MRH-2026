@@ -297,28 +297,31 @@
 
 /* ========================================
    FLOATING FILTER BUTTON (Mobile)
+   Konfigurator-gesteuert via --tpl-ff-btn-* Variablen
    ======================================== */
 .floating-filter-btn {
     position: fixed;
-    bottom: 80px;
-    right: 20px;
+    bottom: var(--tpl-ff-btn-margin-bottom, 80px);
+    right: var(--tpl-ff-btn-margin-right, 20px);
+    top: var(--tpl-ff-btn-margin-top, auto);
+    left: var(--tpl-ff-btn-margin-left, auto);
     z-index: 1000;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--sf-primary);
-    color: #fff;
+    width: var(--tpl-ff-btn-size, 56px);
+    height: var(--tpl-ff-btn-size, 56px);
+    border-radius: var(--tpl-ff-btn-radius, 50%);
+    background: var(--tpl-ff-btn-bg, var(--sf-primary));
+    color: var(--tpl-ff-btn-text, #fff);
     border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    display: flex;
+    box-shadow: var(--tpl-ff-btn-shadow, 0 4px 12px rgba(0,0,0,0.25));
+    display: var(--tpl-ff-btn-display, flex);
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: var(--tpl-ff-btn-font-size, 1.3rem);
     transition: var(--sf-transition);
 }
 
 .floating-filter-btn:hover {
-    background: var(--sf-primary-dark);
+    background: var(--tpl-ff-btn-hover-bg, var(--sf-primary-dark));
     transform: scale(1.1);
 }
 
