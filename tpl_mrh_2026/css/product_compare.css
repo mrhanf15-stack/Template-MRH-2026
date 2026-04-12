@@ -684,30 +684,12 @@ a.compare-remove-btn:hover {
     transition: all 0.3s ease;
 }
 
-/* === Position Classes (default: bottom-left) === */
-.mrh-seedfinder-float.sf-pos-bottom-right {
-    bottom: var(--tpl-sf-float-margin-bottom, 80px);
-    right: var(--tpl-sf-float-margin-right, 20px);
-    top: var(--tpl-sf-float-margin-top, auto);
-    left: var(--tpl-sf-float-margin-left, auto);
-}
-.mrh-seedfinder-float.sf-pos-bottom-left {
-    bottom: var(--tpl-sf-float-margin-bottom, 80px);
-    left: var(--tpl-sf-float-margin-left, 20px);
+/* === Position: direkt per CSS-Variablen (alle 4 Seiten konfigurierbar) === */
+.mrh-seedfinder-float {
     top: var(--tpl-sf-float-margin-top, auto);
     right: var(--tpl-sf-float-margin-right, auto);
-}
-.mrh-seedfinder-float.sf-pos-top-right {
-    top: var(--tpl-sf-float-margin-top, 80px);
-    right: var(--tpl-sf-float-margin-right, 20px);
-    bottom: var(--tpl-sf-float-margin-bottom, auto);
-    left: var(--tpl-sf-float-margin-left, auto);
-}
-.mrh-seedfinder-float.sf-pos-top-left {
-    top: var(--tpl-sf-float-margin-top, 80px);
+    bottom: var(--tpl-sf-float-margin-bottom, 80px);
     left: var(--tpl-sf-float-margin-left, 20px);
-    bottom: var(--tpl-sf-float-margin-bottom, auto);
-    right: var(--tpl-sf-float-margin-right, auto);
 }
 
 /* === Seedfinder Float Link === */
@@ -734,29 +716,11 @@ a.compare-remove-btn:hover {
 
 /* === Mobile Responsive (< 768px) === */
 @media (max-width: 767.98px) {
-    .mrh-seedfinder-float.sf-pos-bottom-right {
-        bottom: var(--tpl-sf-float-mob-margin-bottom, 65px);
-        right: var(--tpl-sf-float-mob-margin-right, 10px);
-        top: var(--tpl-sf-float-mob-margin-top, auto);
-        left: var(--tpl-sf-float-mob-margin-left, auto);
-    }
-    .mrh-seedfinder-float.sf-pos-bottom-left {
-        bottom: var(--tpl-sf-float-mob-margin-bottom, 65px);
-        left: var(--tpl-sf-float-mob-margin-left, 10px);
+    .mrh-seedfinder-float {
         top: var(--tpl-sf-float-mob-margin-top, auto);
         right: var(--tpl-sf-float-mob-margin-right, auto);
-    }
-    .mrh-seedfinder-float.sf-pos-top-right {
-        top: var(--tpl-sf-float-mob-margin-top, 65px);
-        right: var(--tpl-sf-float-mob-margin-right, 10px);
-        bottom: var(--tpl-sf-float-mob-margin-bottom, auto);
-        left: var(--tpl-sf-float-mob-margin-left, auto);
-    }
-    .mrh-seedfinder-float.sf-pos-top-left {
-        top: var(--tpl-sf-float-mob-margin-top, 65px);
+        bottom: var(--tpl-sf-float-mob-margin-bottom, 65px);
         left: var(--tpl-sf-float-mob-margin-left, 10px);
-        bottom: var(--tpl-sf-float-mob-margin-bottom, auto);
-        right: var(--tpl-sf-float-mob-margin-right, auto);
     }
     .mrh-seedfinder-float .sf-float-link {
         width: var(--tpl-sf-float-mob-size, 44px);
