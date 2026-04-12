@@ -124,20 +124,12 @@
           badgeRow.appendChild(existingBar.cloneNode(true));
         }
 
-        /* Nur die Icons (span.fa, img, svg) einzeln extrahieren */
+        /* Nur die Icons (span.fa, img, svg) einzeln extrahieren – KEIN Wrapper */
         var icons = picto.querySelectorAll('.fa, img, svg');
-        var looseIcons = [];
         icons.forEach(function(icon) {
           if (icon.closest('.mrh-badge-bar')) return;
-          looseIcons.push(icon.cloneNode(true));
+          badgeRow.appendChild(icon.cloneNode(true));
         });
-        /* Icons in sauberen .picto.templatestyle Wrapper setzen (fuer Konfigurator-CSS) */
-        if (looseIcons.length > 0) {
-          var wrap = document.createElement('span');
-          wrap.className = 'picto templatestyle';
-          looseIcons.forEach(function(ic) { wrap.appendChild(ic); });
-          badgeRow.appendChild(wrap);
-        }
 
         /* Original im Desc-Box ausblenden */
         picto.style.display = 'none';
