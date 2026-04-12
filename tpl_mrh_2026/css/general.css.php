@@ -200,6 +200,8 @@ $defaults = [
     'tpl-compare-float-mob-margin-right'=> '10px',
     'tpl-compare-float-mob-margin-bottom'=> '65px',
     'tpl-compare-float-mob-margin-left' => 'auto',
+    'tpl-compare-float-mob-size'         => '44px',
+    'tpl-compare-float-mob-font-size'    => '1rem',
     // ── Mobile Sidebar Navigation ──
     'tpl-mobile-panel-bg'           => '#fafcfa',
     'tpl-mobile-header-bg'          => '#2d7a3a',

@@ -613,9 +613,9 @@ a.compare-remove-btn:hover {
         right: var(--tpl-compare-float-mob-margin-right, auto);
     }
     .product-compare-badge .compare-badge-link {
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
+        width: var(--tpl-compare-float-mob-size, 44px);
+        height: var(--tpl-compare-float-mob-size, 44px);
+        font-size: var(--tpl-compare-float-mob-font-size, 1rem);
     }
     .compare-toast {
         bottom: 125px;

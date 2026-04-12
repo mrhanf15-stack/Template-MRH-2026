@@ -1736,6 +1736,14 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <label for="tpl-compare-float-mob-margin-left"><strong>Links (Mobil)</strong></label>
         <input id="tpl-compare-float-mob-margin-left" type="text" name="tpl-compare-float-mob-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-margin-left','auto'); ?>">
     </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-mob-size"><strong>Gr&ouml;&szlig;e (Mobil)</strong></label>
+        <input id="tpl-compare-float-mob-size" type="text" name="tpl-compare-float-mob-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-size','44px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-compare-float-mob-font-size"><strong>Icon-Gr&ouml;&szlig;e (Mobil)</strong></label>
+        <input id="tpl-compare-float-mob-font-size" type="text" name="tpl-compare-float-mob-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-font-size','1rem'); ?>">
+    </div>
 
     <!-- ═══ Versandkosten-Leiste ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1" style="color:#be9e1f;"></i> Versandkosten-Leiste</div></div>
