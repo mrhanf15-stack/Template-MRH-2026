@@ -683,3 +683,97 @@ a.compare-remove-btn:hover {
         width: 48px;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Floating Seedfinder Button v1.0.0
+   Schwebendes Seedfinder-Icon (fixed), alle Werte per Konfigurator
+   CSS-Variablen: --tpl-sf-float-*
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.mrh-seedfinder-float {
+    position: fixed;
+    z-index: 1049;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* === Position Classes (default: bottom-left) === */
+.mrh-seedfinder-float.sf-pos-bottom-right {
+    bottom: var(--tpl-sf-float-margin-bottom, 80px);
+    right: var(--tpl-sf-float-margin-right, 20px);
+    top: var(--tpl-sf-float-margin-top, auto);
+    left: var(--tpl-sf-float-margin-left, auto);
+}
+.mrh-seedfinder-float.sf-pos-bottom-left {
+    bottom: var(--tpl-sf-float-margin-bottom, 80px);
+    left: var(--tpl-sf-float-margin-left, 20px);
+    top: var(--tpl-sf-float-margin-top, auto);
+    right: var(--tpl-sf-float-margin-right, auto);
+}
+.mrh-seedfinder-float.sf-pos-top-right {
+    top: var(--tpl-sf-float-margin-top, 80px);
+    right: var(--tpl-sf-float-margin-right, 20px);
+    bottom: var(--tpl-sf-float-margin-bottom, auto);
+    left: var(--tpl-sf-float-margin-left, auto);
+}
+.mrh-seedfinder-float.sf-pos-top-left {
+    top: var(--tpl-sf-float-margin-top, 80px);
+    left: var(--tpl-sf-float-margin-left, 20px);
+    bottom: var(--tpl-sf-float-margin-bottom, auto);
+    right: var(--tpl-sf-float-margin-right, auto);
+}
+
+/* === Seedfinder Float Link === */
+.mrh-seedfinder-float .sf-float-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tpl-sf-float-size, 56px);
+    height: var(--tpl-sf-float-size, 56px);
+    border-radius: var(--tpl-sf-float-radius, 50%);
+    font-size: var(--tpl-sf-float-font-size, 1.4rem);
+    background: var(--tpl-sf-float-bg, rgb(74, 140, 42));
+    color: var(--tpl-sf-float-text, #fff) !important;
+    text-decoration: none !important;
+    box-shadow: var(--tpl-sf-float-shadow, 0 4px 12px rgba(0,0,0,0.3));
+    position: relative;
+    transition: all 0.3s ease;
+}
+.mrh-seedfinder-float .sf-float-link:hover {
+    background: var(--tpl-sf-float-hover-bg, rgb(56, 112, 32));
+    transform: scale(1.1);
+    text-decoration: none !important;
+}
+
+/* === Mobile Responsive (< 768px) === */
+@media (max-width: 767.98px) {
+    .mrh-seedfinder-float.sf-pos-bottom-right {
+        bottom: var(--tpl-sf-float-mob-margin-bottom, 65px);
+        right: var(--tpl-sf-float-mob-margin-right, 10px);
+        top: var(--tpl-sf-float-mob-margin-top, auto);
+        left: var(--tpl-sf-float-mob-margin-left, auto);
+    }
+    .mrh-seedfinder-float.sf-pos-bottom-left {
+        bottom: var(--tpl-sf-float-mob-margin-bottom, 65px);
+        left: var(--tpl-sf-float-mob-margin-left, 10px);
+        top: var(--tpl-sf-float-mob-margin-top, auto);
+        right: var(--tpl-sf-float-mob-margin-right, auto);
+    }
+    .mrh-seedfinder-float.sf-pos-top-right {
+        top: var(--tpl-sf-float-mob-margin-top, 65px);
+        right: var(--tpl-sf-float-mob-margin-right, 10px);
+        bottom: var(--tpl-sf-float-mob-margin-bottom, auto);
+        left: var(--tpl-sf-float-mob-margin-left, auto);
+    }
+    .mrh-seedfinder-float.sf-pos-top-left {
+        top: var(--tpl-sf-float-mob-margin-top, 65px);
+        left: var(--tpl-sf-float-mob-margin-left, 10px);
+        bottom: var(--tpl-sf-float-mob-margin-bottom, auto);
+        right: var(--tpl-sf-float-mob-margin-right, auto);
+    }
+    .mrh-seedfinder-float .sf-float-link {
+        width: var(--tpl-sf-float-mob-size, 44px);
+        height: var(--tpl-sf-float-mob-size, 44px);
+        font-size: var(--tpl-sf-float-mob-font-size, 1rem);
+    }
+}

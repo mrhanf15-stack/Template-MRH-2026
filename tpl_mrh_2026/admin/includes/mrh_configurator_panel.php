@@ -1746,6 +1746,87 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-compare-float-mob-font-size" type="text" name="tpl-compare-float-mob-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-compare-float-mob-font-size','1rem'); ?>">
     </div>
 
+    <!-- ═══ Floating Seedfinder-Button ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-seedling me-1" style="color:#4a8c2a;"></i> Floating Seedfinder-Button</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Schwebendes Seedfinder-Icon (fixed positioniert, Link zu /Seedfinder/). Wird auf der Seedfinder-Seite selbst ausgeblendet.</small></div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-sf-float-bg" type="text" name="tpl-sf-float-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-float-bg','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-float-bg','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-text"><strong>Icon-Farbe</strong></label>
+        <input id="tpl-sf-float-text" type="text" name="tpl-sf-float-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-float-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-float-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-hover-bg"><strong>Hover-Hintergrund</strong></label>
+        <input id="tpl-sf-float-hover-bg" type="text" name="tpl-sf-float-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-float-hover-bg','rgb(56, 112, 32)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-float-hover-bg','rgb(56, 112, 32)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-size"><strong>Gr&ouml;&szlig;e (Breite/H&ouml;he)</strong></label>
+        <input id="tpl-sf-float-size" type="text" name="tpl-sf-float-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-float-size','56px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-font-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+        <input id="tpl-sf-float-font-size" type="text" name="tpl-sf-float-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-float-font-size','1.4rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-radius"><strong>Rundung</strong></label>
+        <input id="tpl-sf-float-radius" type="text" name="tpl-sf-float-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-float-radius','50%'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-sf-float-shadow"><strong>Schatten</strong></label>
+        <input id="tpl-sf-float-shadow" type="text" name="tpl-sf-float-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-float-shadow','0 4px 12px rgba(0,0,0,0.3)'); ?>">
+    </div>
+
+    <!-- SF Float Margin Desktop -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-arrows-alt me-1"></i> Abstand (Margin) &ndash; Abstand vom Bildschirmrand (Desktop)</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-margin-top"><strong>Oben</strong></label>
+        <input id="tpl-sf-float-margin-top" type="text" name="tpl-sf-float-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-margin-top','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-margin-right"><strong>Rechts</strong></label>
+        <input id="tpl-sf-float-margin-right" type="text" name="tpl-sf-float-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-margin-right','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-margin-bottom"><strong>Unten</strong></label>
+        <input id="tpl-sf-float-margin-bottom" type="text" name="tpl-sf-float-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-margin-bottom','80px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-margin-left"><strong>Links</strong></label>
+        <input id="tpl-sf-float-margin-left" type="text" name="tpl-sf-float-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-margin-left','20px'); ?>">
+    </div>
+
+    <!-- SF Float Margin Mobile -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-mobile-screen me-1"></i> Abstand (Margin) &ndash; Mobile (unter 768px)</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-mob-margin-top"><strong>Oben (Mobil)</strong></label>
+        <input id="tpl-sf-float-mob-margin-top" type="text" name="tpl-sf-float-mob-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-margin-top','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-mob-margin-right"><strong>Rechts (Mobil)</strong></label>
+        <input id="tpl-sf-float-mob-margin-right" type="text" name="tpl-sf-float-mob-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-margin-right','auto'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-mob-margin-bottom"><strong>Unten (Mobil)</strong></label>
+        <input id="tpl-sf-float-mob-margin-bottom" type="text" name="tpl-sf-float-mob-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-margin-bottom','65px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-mob-margin-left"><strong>Links (Mobil)</strong></label>
+        <input id="tpl-sf-float-mob-margin-left" type="text" name="tpl-sf-float-mob-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-margin-left','10px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-mob-size"><strong>Gr&ouml;&szlig;e (Mobil)</strong></label>
+        <input id="tpl-sf-float-mob-size" type="text" name="tpl-sf-float-mob-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-size','44px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-sf-float-mob-font-size"><strong>Icon-Gr&ouml;&szlig;e (Mobil)</strong></label>
+        <input id="tpl-sf-float-mob-font-size" type="text" name="tpl-sf-float-mob-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-sf-float-mob-font-size','1rem'); ?>">
+    </div>
+
     <!-- ═══ Cannabis Badge Pills (mrh-cbadge) ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-cannabis me-1" style="color:#4a8c2a;"></i> Cannabis Badge Pills (Vergleich/Seedfinder)</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Kleine Badges f&uuml;r Sortentyp-Icons (Autoflowering, Feminisiert etc.) in Vergleich &amp; Seedfinder</small></div>

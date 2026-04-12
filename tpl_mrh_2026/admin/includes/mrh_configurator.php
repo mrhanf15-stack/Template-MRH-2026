@@ -259,6 +259,29 @@ $mrh_color_defaults = [
     'tpl-mobile-icon-color'            => '#555555',
 
     // ══════════════════════════════════════════════════
+    // ── Floating Seedfinder-Button ──
+    // ══════════════════════════════════════════════════
+    'tpl-sf-float-bg'              => 'rgb(74, 140, 42)',
+    'tpl-sf-float-text'            => 'rgb(255, 255, 255)',
+    'tpl-sf-float-hover-bg'        => 'rgb(56, 112, 32)',
+    'tpl-sf-float-size'            => '56px',
+    'tpl-sf-float-font-size'       => '1.4rem',
+    'tpl-sf-float-radius'          => '50%',
+    'tpl-sf-float-shadow'          => '0 4px 12px rgba(0,0,0,0.3)',
+    // Abstand (Margin) – Desktop
+    'tpl-sf-float-margin-top'      => 'auto',
+    'tpl-sf-float-margin-right'    => 'auto',
+    'tpl-sf-float-margin-bottom'   => '80px',
+    'tpl-sf-float-margin-left'     => '20px',
+    // Abstand (Margin) – Mobile
+    'tpl-sf-float-mob-margin-top'  => 'auto',
+    'tpl-sf-float-mob-margin-right'=> 'auto',
+    'tpl-sf-float-mob-margin-bottom'=> '65px',
+    'tpl-sf-float-mob-margin-left' => '10px',
+    'tpl-sf-float-mob-size'        => '44px',
+    'tpl-sf-float-mob-font-size'   => '1rem',
+
+    // ══════════════════════════════════════════════════
     // ── Seedfinder Bottom-Bar Button ──
     // ══════════════════════════════════════════════════
     'tpl-bb-sf-bg'                     => 'rgb(74, 140, 42)',
