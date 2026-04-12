@@ -85,55 +85,99 @@
 
 </div>
 
-{* -- Badge-Zeile JS v2.1 (v5.5.1) --
-   Verschiebt NUR .picto.templatestyle Icons in die .compare-badge-row.
-   Geschlecht-Zeile bleibt in der Tabelle (Konfigurator-Styling).
+{* -- Badge-Zeile JS v3.0 (icon_sex.html Logik 1:1) --
+   Erzeugt Badges mit Konfigurator-Klassen (mrh-type-badge, mrh-badge-fem/reg/photo).
+   Logik: 1. Erste TR pruefen (Klasse aut/fem/reg)
+          2. Bei Auto: Text pruefen auf femin/regul
+          3. Fem = Venus-Icon (pink) + Photoperiodisch (grau)
+          4. Reg = male.svg + Text (blau), KEIN Photoperiodisch
+          5. Auto = Picto-Icon verschieben, KEIN Photoperiodisch
+          6. Picto .templatestyle wird in Badge-Row verschoben
 *}
 {literal}
 <script>
 (function(){
   'use strict';
 
-  /* initBadges: Nur Picto-Icons als Pills verschieben */
+  var MALE_SVG = '{/literal}{$tpl_path}{literal}/img/badges/male.svg';
+
   function initBadges(scope) {
     var cards = document.querySelectorAll(scope + ' .card.h-100');
     cards.forEach(function(card) {
       var badgeRow = card.querySelector('.compare-badge-row');
-      if (!badgeRow || badgeRow.children.length > 0) return;
+      if (!badgeRow || badgeRow.querySelector('.mrh-badge-bar')) return;
 
       var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
       if (!descBox) return;
 
-      /* Picto-Icons extrahieren (Autoflowering, Feminisiert etc.) */
-      var pictos = descBox.querySelectorAll('.picto.templatestyle');
-      pictos.forEach(function(picto) {
-        var spans = picto.querySelectorAll('[title]');
-        for (var j = 0; j < spans.length; j++) {
-          var title = spans[j].getAttribute('title');
-          if (title) {
-            var iconPill = document.createElement('span');
-            iconPill.className = 'picto templatestyle';
-            iconPill.setAttribute('title', title);
-            var iconClone = spans[j].cloneNode(true);
-            iconClone.removeAttribute('title');
-            iconPill.appendChild(iconClone);
-            badgeRow.appendChild(iconPill);
-          }
-        }
-        picto.parentNode.removeChild(picto);
-      });
+      /* 1. Tabelle + erste Zeile finden */
+      var table = descBox.querySelector('table');
+      if (!table) return;
+      var firstRow = table.querySelector('tr');
+      if (!firstRow) return;
 
-      /* Fallback: Autoflowering via shortfongc Klasse */
-      if (!badgeRow.querySelector('[title="Autoflowering"]')) {
-        var autoSpan = descBox.querySelector('.shortfongc');
-        if (autoSpan) {
-          var autoPill = document.createElement('span');
-          autoPill.className = 'picto templatestyle';
-          autoPill.setAttribute('title', 'Autoflowering');
-          var autoIcon = autoSpan.cloneNode(true);
-          autoPill.appendChild(autoIcon);
-          badgeRow.appendChild(autoPill);
+      var rowClass = (firstRow.className || '').trim().toLowerCase();
+      var isAuto = (rowClass === 'aut');
+      var isFem  = (rowClass === 'fem');
+      var isReg  = (rowClass === 'reg');
+
+      /* Bei Auto: Text der 2. Zelle pruefen */
+      if (isAuto) {
+        var tds = firstRow.querySelectorAll('td');
+        if (tds.length >= 2) {
+          var gText = (tds[1].textContent || '').trim().toLowerCase();
+          if (gText.indexOf('femin') !== -1) isFem = true;
+          else if (gText.indexOf('regul') !== -1) isReg = true;
         }
+      }
+
+      if (!isAuto && !isFem && !isReg) return;
+
+      /* 2. Badge-Container erstellen */
+      var bar = document.createElement('span');
+      bar.className = 'mrh-badge-bar';
+
+      /* 3. Geschlecht-Badge */
+      if (isFem) {
+        var femBadge = document.createElement('span');
+        femBadge.className = 'mrh-type-badge mrh-badge-fem';
+        femBadge.innerHTML = '<span class="fa fa-fw fa-venus"></span>';
+        femBadge.title = 'Feminisiert';
+        bar.appendChild(femBadge);
+      } else if (isReg) {
+        var regBadge = document.createElement('span');
+        regBadge.className = 'mrh-type-badge mrh-badge-reg';
+        regBadge.innerHTML = '<img class="mrh-badge-icon" src="' + MALE_SVG + '" alt="Regul\u00e4r"> Regul\u00e4r';
+        regBadge.title = 'Regul\u00e4r';
+        bar.appendChild(regBadge);
+      }
+
+      /* 4. Photoperiodisch-Badge: NUR wenn NICHT Auto */
+      if (!isAuto) {
+        var photoBadge = document.createElement('span');
+        photoBadge.className = 'mrh-type-badge mrh-badge-photo';
+        photoBadge.textContent = 'Photoperiodisch';
+        photoBadge.title = 'Photoperiodisch';
+        bar.appendChild(photoBadge);
+      }
+
+      /* 5. Picto-Icons verschieben (Autoflowering etc.) */
+      var picto = descBox.querySelector('.picto.templatestyle');
+      if (picto) {
+        /* Existierende mrh-badge-bar aus Picto uebernehmen (falls icon_sex.html schon lief) */
+        var existingBar = picto.querySelector('.mrh-badge-bar');
+        if (existingBar) {
+          badgeRow.appendChild(existingBar);
+        } else {
+          /* Autoflowering-Icon (shortfongc) als Picto-Wrapper verschieben */
+          badgeRow.appendChild(picto.cloneNode(true));
+        }
+        picto.style.display = 'none';
+      }
+
+      /* 6. Badge-Bar einfuegen (vor dem Picto-Wrapper) */
+      if (bar.children.length > 0) {
+        badgeRow.insertBefore(bar, badgeRow.firstChild);
       }
     });
   }

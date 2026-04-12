@@ -259,27 +259,21 @@ a.compare-remove-btn:hover {
     flex-wrap: wrap;
 }
 
-/* === Badge Pills v2.0 (Konfigurator-Farben) === */
-.mrh-cbadge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--tpl-cbadge-gap, 3px);
-    font-size: var(--tpl-cbadge-font-size, 0.78rem);
-    font-weight: var(--tpl-cbadge-font-weight, 700);
-    padding: var(--tpl-cbadge-padding, 2px 8px);
-    border-radius: var(--tpl-cbadge-radius, 4px);
-    white-space: nowrap;
-    line-height: 1.4;
-    letter-spacing: 0.02em;
+/* === Badge v3.0: Konfigurator-Klassen (mrh-type-badge, mrh-badge-fem/reg/photo) === */
+/* Farben/Groessen kommen aus mrh-custom.css via CSS-Variablen (Konfigurator Tab 10) */
+/* Hier nur Layout-Anpassungen fuer den Vergleich/Seedfinder Kontext */
+.compare-badge-row .picto.templatestyle {
+    margin-bottom: 0;
+    padding: 4px 8px;
+    font-size: 0.75rem;
 }
-
-/* Icon-Badge (Autoflowering, etc.): dezenter Hintergrund */
-.mrh-cbadge-icon {
-    background: var(--tpl-cbadge-icon-bg, #f0f0f0);
-    color: var(--tpl-cbadge-icon-text, #333);
-    padding: var(--tpl-cbadge-icon-padding, 2px 6px);
-    border-radius: var(--tpl-cbadge-icon-radius, 4px);
-    font-size: var(--tpl-cbadge-icon-font-size, 0.85rem);
+.compare-badge-row .mrh-type-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+}
+/* Picto im Desc-Box ausblenden (wird in Badge-Row verschoben) */
+.compare-desc-box .picto.templatestyle {
+    display: none !important;
 }
 
 /* === HIDE Legend (stock color dots) inside options === */

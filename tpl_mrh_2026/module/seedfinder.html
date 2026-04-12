@@ -234,49 +234,77 @@
         'use strict';
         
         document.addEventListener('DOMContentLoaded', function() {
-            /* Badge-Init fuer Seedfinder (v33.1.1)
-               Nur Picto-Icons als Pills verschieben */
+            /* Badge-Init fuer Seedfinder (v33.2.0)
+               icon_sex.html Logik 1:1 mit Konfigurator-Klassen */
             function sfInitBadges() {
               if (typeof window.MrhBadgeInit === 'function') {
                 window.MrhBadgeInit('#seedfinder_module');
-              } else {
-                /* Inline-Fallback: Nur Picto-Icons extrahieren */
-                var cards = document.querySelectorAll('#seedfinder_module .card.h-100');
-                cards.forEach(function(card) {
-                  var badgeRow = card.querySelector('.compare-badge-row');
-                  if (!badgeRow || badgeRow.children.length > 0) return;
-                  var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
-                  if (!descBox) return;
-                  var pictos = descBox.querySelectorAll('.picto.templatestyle');
-                  pictos.forEach(function(picto) {
-                    var spans = picto.querySelectorAll('[title]');
-                    for (var j = 0; j < spans.length; j++) {
-                      var title = spans[j].getAttribute('title');
-                      if (title) {
-                        var iconPill = document.createElement('span');
-                        iconPill.className = 'picto templatestyle';
-                        iconPill.setAttribute('title', title);
-                        var iconClone = spans[j].cloneNode(true);
-                        iconClone.removeAttribute('title');
-                        iconPill.appendChild(iconClone);
-                        badgeRow.appendChild(iconPill);
-                      }
-                    }
-                    picto.parentNode.removeChild(picto);
-                  });
-                  /* Fallback: Autoflowering via shortfongc */
-                  if (!badgeRow.querySelector('[title="Autoflowering"]')) {
-                    var autoSpan = descBox.querySelector('.shortfongc');
-                    if (autoSpan) {
-                      var autoPill = document.createElement('span');
-                      autoPill.className = 'picto templatestyle';
-                      autoPill.setAttribute('title', 'Autoflowering');
-                      autoPill.appendChild(autoSpan.cloneNode(true));
-                      badgeRow.appendChild(autoPill);
-                    }
-                  }
-                });
+                return;
               }
+              /* Inline-Fallback: icon_sex.html Logik */
+              var MALE_SVG = document.querySelector('link[href*="tpl_mrh_2026"]');
+              var tplBase = MALE_SVG ? MALE_SVG.href.replace(/\/css\/.*$/, '') : '/templates/tpl_mrh_2026';
+              MALE_SVG = tplBase + '/img/badges/male.svg';
+
+              var cards = document.querySelectorAll('#seedfinder_module .card.h-100');
+              cards.forEach(function(card) {
+                var badgeRow = card.querySelector('.compare-badge-row');
+                if (!badgeRow || badgeRow.querySelector('.mrh-badge-bar')) return;
+                var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
+                if (!descBox) return;
+                var table = descBox.querySelector('table');
+                if (!table) return;
+                var firstRow = table.querySelector('tr');
+                if (!firstRow) return;
+                var rowClass = (firstRow.className || '').trim().toLowerCase();
+                var isAuto = (rowClass === 'aut');
+                var isFem  = (rowClass === 'fem');
+                var isReg  = (rowClass === 'reg');
+                if (isAuto) {
+                  var tds = firstRow.querySelectorAll('td');
+                  if (tds.length >= 2) {
+                    var gText = (tds[1].textContent || '').trim().toLowerCase();
+                    if (gText.indexOf('femin') !== -1) isFem = true;
+                    else if (gText.indexOf('regul') !== -1) isReg = true;
+                  }
+                }
+                if (!isAuto && !isFem && !isReg) return;
+                var bar = document.createElement('span');
+                bar.className = 'mrh-badge-bar';
+                if (isFem) {
+                  var femBadge = document.createElement('span');
+                  femBadge.className = 'mrh-type-badge mrh-badge-fem';
+                  femBadge.innerHTML = '<span class="fa fa-fw fa-venus"></span>';
+                  femBadge.title = 'Feminisiert';
+                  bar.appendChild(femBadge);
+                } else if (isReg) {
+                  var regBadge = document.createElement('span');
+                  regBadge.className = 'mrh-type-badge mrh-badge-reg';
+                  regBadge.innerHTML = '<img class="mrh-badge-icon" src="' + MALE_SVG + '" alt="Regul\u00e4r"> Regul\u00e4r';
+                  regBadge.title = 'Regul\u00e4r';
+                  bar.appendChild(regBadge);
+                }
+                if (!isAuto) {
+                  var photoBadge = document.createElement('span');
+                  photoBadge.className = 'mrh-type-badge mrh-badge-photo';
+                  photoBadge.textContent = 'Photoperiodisch';
+                  photoBadge.title = 'Photoperiodisch';
+                  bar.appendChild(photoBadge);
+                }
+                var picto = descBox.querySelector('.picto.templatestyle');
+                if (picto) {
+                  var existingBar = picto.querySelector('.mrh-badge-bar');
+                  if (existingBar) {
+                    badgeRow.appendChild(existingBar);
+                  } else {
+                    badgeRow.appendChild(picto.cloneNode(true));
+                  }
+                  picto.style.display = 'none';
+                }
+                if (bar.children.length > 0) {
+                  badgeRow.insertBefore(bar, badgeRow.firstChild);
+                }
+              });
             }
             sfInitBadges();
 
