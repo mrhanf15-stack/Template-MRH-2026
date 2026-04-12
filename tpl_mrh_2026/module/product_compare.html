@@ -17,6 +17,7 @@
  * v5.2.1: Badges nur Icons (ausser Photoperiodisch = Text)
  * v5.3.1: Grid-Fix col-12 col-sm-6 (1 Spalte auf Mobile statt 2)
  * v5.4.0: Akkordeon-JS entfernt (Tabelle mit Scrollbalken via CSS stattdessen)
+ * v5.5.0: Badge-JS v2.0: Geschlecht-Zeile aus Tabelle extrahieren + Konfigurator-Styling
  *}
 {assign "dummy" ""}
 
@@ -84,131 +85,105 @@
 
 </div>
 
-{* ── Badge-Zeile JS v1.0 (v5.2.0) ──
-   Verschiebt .picto.templatestyle Badges aus der lr_desc
-   in die .compare-badge-row unter dem Produktnamen.
-   Erzeugt farbige Pill-Labels basierend auf Icon-Klassen/Titles.
+{* ── Badge-Zeile JS v2.0 (v5.5.0) ──
+   Extrahiert Geschlecht-Zeile aus der Tabelle + Picto-Icons.
+   Nutzt Konfigurator-Farben (inline-styles) statt eigene Farben.
+   Verschiebt beides in die .compare-badge-row unter dem Produktnamen.
 *}
 <script>
 (function(){
   'use strict';
 
-  /* Badge-Mapping: Title → Label + Farb-Klasse + Icon + iconOnly Flag
-     iconOnly=true: Nur Icon anzeigen (mit title-Tooltip)
-     iconOnly=false: Text-Label anzeigen */
-  var BADGE_MAP = {
-    'Autoflowering':  { label: 'Autoflowering',  cls: 'mrh-cbadge-auto',  icon: 'fa fa-fw fa-tachometer', iconOnly: true },
-    'Feminisiert':    { label: 'Feminisiert',     cls: 'mrh-cbadge-fem',   icon: 'fa fa-fw fa-venus',      iconOnly: true },
-    'Regulär':        { label: 'Regulär',         cls: 'mrh-cbadge-reg',   icon: 'fa fa-fw fa-mars',       iconOnly: true },
-    'Regular':        { label: 'Regulär',         cls: 'mrh-cbadge-reg',   icon: 'fa fa-fw fa-mars',       iconOnly: true },
-    'Photoperiodisch':{ label: 'Photoperiodisch', cls: 'mrh-cbadge-photo', icon: '',                       iconOnly: false },
-    'CBD':            { label: 'CBD',             cls: 'mrh-cbadge-cbd',   icon: '',                       iconOnly: false }
-  };
-
-  /* Erkennt Badge-Typ aus einem Element (span mit title oder Klasse) */
-  function detectBadges(pictoEl) {
-    var found = [];
-    if (!pictoEl) return found;
-
-    /* Alle spans mit title-Attribut durchsuchen */
-    var spans = pictoEl.querySelectorAll('[title]');
-    for (var i = 0; i < spans.length; i++) {
-      var title = spans[i].getAttribute('title');
-      if (title && BADGE_MAP[title]) {
-        found.push(BADGE_MAP[title]);
-      }
-    }
-
-    /* Fallback: Autoflowering via Klasse shortfongc erkennen */
-    if (found.length === 0 || !found.some(function(b){ return b.cls === 'mrh-cbadge-auto'; })) {
-      var autoSpan = pictoEl.querySelector('.shortfongc');
-      if (autoSpan) {
-        var alreadyHas = found.some(function(b){ return b.cls === 'mrh-cbadge-auto'; });
-        if (!alreadyHas) {
-          found.push(BADGE_MAP['Autoflowering']);
-        }
-      }
-    }
-
-    /* Fallback: Feminisiert via Klasse fa-venus erkennen */
-    if (!found.some(function(b){ return b.cls === 'mrh-cbadge-fem'; })) {
-      if (pictoEl.querySelector('.fa-venus')) {
-        found.push(BADGE_MAP['Feminisiert']);
-      }
-    }
-
-    /* Fallback: Regulaer via Klasse fa-mars erkennen */
-    if (!found.some(function(b){ return b.cls === 'mrh-cbadge-reg'; })) {
-      if (pictoEl.querySelector('.fa-mars')) {
-        found.push(BADGE_MAP['Regulär']);
-      }
-    }
-
-    return found;
-  }
-
-  /* Erstellt ein Pill-Badge HTML-Element
-     iconOnly: Nur Icon mit title-Tooltip
-     sonst: Text-Label */
-  function createPill(badgeInfo) {
-    var pill = document.createElement('span');
-    pill.className = 'mrh-cbadge ' + badgeInfo.cls;
-    pill.setAttribute('title', badgeInfo.label);
-
-    if (badgeInfo.iconOnly && badgeInfo.icon) {
-      var ico = document.createElement('span');
-      ico.className = badgeInfo.icon;
-      pill.appendChild(ico);
-    } else {
-      pill.textContent = badgeInfo.label;
-    }
-    return pill;
-  }
-
-  /* Hauptlogik: Badges verschieben */
-  function initBadges() {
-    var cards = document.querySelectorAll('.product-compare-page .card.h-100');
+  /**
+   * initBadges – Hauptlogik fuer Vergleich + Seedfinder
+   * @param {string} scope – CSS-Selektor fuer den Container (.product-compare-page oder .seedfinder-page)
+   */
+  function initBadges(scope) {
+    var cards = document.querySelectorAll(scope + ' .card.h-100');
     cards.forEach(function(card) {
       var badgeRow = card.querySelector('.compare-badge-row');
-      if (!badgeRow) return;
+      if (!badgeRow || badgeRow.children.length > 0) return;
 
-      /* Finde .picto.templatestyle in der lr_desc */
-      var descBox = card.querySelector('.compare-desc-box .lr_desc');
+      var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
       if (!descBox) return;
 
-      var pictos = descBox.querySelectorAll('.picto.templatestyle');
-      var allBadges = [];
+      /* 1. Geschlecht-Zeile aus Tabelle extrahieren */
+      var rows = descBox.querySelectorAll('tr');
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].querySelectorAll('td');
+        if (cells.length >= 2) {
+          var label = cells[0].textContent.trim();
+          if (label === 'Geschlecht' || label.indexOf('Geschlecht') === 0) {
+            /* Wert-Zelle (letzte td) */
+            var valueCell = cells[cells.length - 1];
+            var text = valueCell.textContent.trim();
+            var color = valueCell.style.color || '';
 
+            /* Badge erstellen mit Konfigurator-Farbe */
+            var pill = document.createElement('span');
+            pill.className = 'mrh-cbadge mrh-cbadge-geschlecht';
+            pill.textContent = text;
+            if (color) {
+              pill.style.color = color;
+              pill.style.borderColor = color;
+            }
+            badgeRow.appendChild(pill);
+
+            /* Zeile aus Tabelle entfernen */
+            rows[i].parentNode.removeChild(rows[i]);
+            break;
+          }
+        }
+      }
+
+      /* 2. Picto-Icons extrahieren (Autoflowering etc.) */
+      var pictos = descBox.querySelectorAll('.picto.templatestyle');
       pictos.forEach(function(picto) {
-        var badges = detectBadges(picto);
-        allBadges = allBadges.concat(badges);
-        /* Picto aus lr_desc entfernen */
+        var spans = picto.querySelectorAll('[title]');
+        for (var j = 0; j < spans.length; j++) {
+          var title = spans[j].getAttribute('title');
+          if (title) {
+            var iconPill = document.createElement('span');
+            iconPill.className = 'mrh-cbadge mrh-cbadge-icon';
+            iconPill.setAttribute('title', title);
+            /* Icon klonen */
+            var iconClone = spans[j].cloneNode(true);
+            iconClone.removeAttribute('title');
+            iconPill.appendChild(iconClone);
+            badgeRow.appendChild(iconPill);
+          }
+        }
+        /* Picto aus Tabelle entfernen */
         picto.parentNode.removeChild(picto);
       });
 
-      /* Deduplizieren */
-      var seen = {};
-      allBadges = allBadges.filter(function(b) {
-        if (seen[b.cls]) return false;
-        seen[b.cls] = true;
-        return true;
-      });
-
-      /* Pills erstellen */
-      if (allBadges.length > 0) {
-        allBadges.forEach(function(b) {
-          badgeRow.appendChild(createPill(b));
-        });
+      /* 3. Fallback: Autoflowering via shortfongc Klasse */
+      if (!badgeRow.querySelector('[title="Autoflowering"]')) {
+        var autoSpan = descBox.querySelector('.shortfongc');
+        if (autoSpan) {
+          var autoPill = document.createElement('span');
+          autoPill.className = 'mrh-cbadge mrh-cbadge-icon';
+          autoPill.setAttribute('title', 'Autoflowering');
+          var autoIcon = autoSpan.cloneNode(true);
+          autoPill.appendChild(autoIcon);
+          badgeRow.appendChild(autoPill);
+        }
       }
-      /* Wenn keine Badges: min-height via CSS sorgt fuer Platzhalter */
     });
   }
 
   /* Ausfuehren wenn DOM bereit */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initBadges);
-  } else {
-    initBadges();
+  function run() {
+    initBadges('.product-compare-page');
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+
+  /* Global verfuegbar machen fuer Seedfinder (AJAX-Nachladen) */
+  window.MrhBadgeInit = initBadges;
 })();
 </script>

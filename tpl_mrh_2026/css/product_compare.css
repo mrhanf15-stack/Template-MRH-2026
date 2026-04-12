@@ -259,48 +259,34 @@ a.compare-remove-btn:hover {
     flex-wrap: wrap;
 }
 
-/* === Badge Pills (farbige Labels) === */
+/* === Badge Pills v2.0 (Konfigurator-Farben) === */
 .mrh-cbadge {
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 700;
     padding: 2px 8px;
-    border-radius: 12px;
+    border-radius: 4px;
     white-space: nowrap;
     line-height: 1.4;
     letter-spacing: 0.02em;
 }
 
-/* Feminisiert - Rosa */
-.mrh-cbadge-fem {
-    background: #e91e8c;
-    color: #fff;
+/* Geschlecht-Badge: Konfigurator-Farbe via inline-style (color + borderColor) */
+.mrh-cbadge-geschlecht {
+    background: transparent;
+    border: 1.5px solid currentColor;
+    /* color + borderColor werden per JS inline gesetzt */
 }
 
-/* Regulaer - Grau/Dunkel */
-.mrh-cbadge-reg {
-    background: #6c757d;
-    color: #fff;
-}
-
-/* Autoflowering - Gruen */
-.mrh-cbadge-auto {
-    background: #28a745;
-    color: #fff;
-}
-
-/* Photoperiodisch - Dunkelgruen/Teal */
-.mrh-cbadge-photo {
-    background: #1a7a5a;
-    color: #fff;
-}
-
-/* CBD - Blau */
-.mrh-cbadge-cbd {
-    background: #17a2b8;
-    color: #fff;
+/* Icon-Badge (Autoflowering, etc.): dezenter Hintergrund */
+.mrh-cbadge-icon {
+    background: #f0f0f0;
+    color: #333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
 }
 
 /* === HIDE Legend (stock color dots) inside options === */

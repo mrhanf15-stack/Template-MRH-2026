@@ -234,6 +234,68 @@
         'use strict';
         
         document.addEventListener('DOMContentLoaded', function() {
+            /* Badge-Init fuer Seedfinder (v33.1.0)
+               Nutzt window.MrhBadgeInit aus product_compare.html
+               Falls nicht verfuegbar: eigene Inline-Version */
+            function sfInitBadges() {
+              if (typeof window.MrhBadgeInit === 'function') {
+                window.MrhBadgeInit('#seedfinder_module');
+              } else {
+                /* Inline-Fallback: Geschlecht-Zeile + Pictos extrahieren */
+                var cards = document.querySelectorAll('#seedfinder_module .card.h-100');
+                cards.forEach(function(card) {
+                  var badgeRow = card.querySelector('.compare-badge-row');
+                  if (!badgeRow || badgeRow.children.length > 0) return;
+                  var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
+                  if (!descBox) return;
+                  var rows = descBox.querySelectorAll('tr');
+                  for (var i = 0; i < rows.length; i++) {
+                    var cells = rows[i].querySelectorAll('td');
+                    if (cells.length >= 2) {
+                      var label = cells[0].textContent.trim();
+                      if (label === 'Geschlecht' || label.indexOf('Geschlecht') === 0) {
+                        var valueCell = cells[cells.length - 1];
+                        var text = valueCell.textContent.trim();
+                        var color = valueCell.style.color || '';
+                        var pill = document.createElement('span');
+                        pill.className = 'mrh-cbadge mrh-cbadge-geschlecht';
+                        pill.textContent = text;
+                        if (color) { pill.style.color = color; pill.style.borderColor = color; }
+                        badgeRow.appendChild(pill);
+                        rows[i].parentNode.removeChild(rows[i]);
+                        break;
+                      }
+                    }
+                  }
+                  var pictos = descBox.querySelectorAll('.picto.templatestyle');
+                  pictos.forEach(function(picto) {
+                    var spans = picto.querySelectorAll('[title]');
+                    for (var j = 0; j < spans.length; j++) {
+                      var title = spans[j].getAttribute('title');
+                      if (title) {
+                        var iconPill = document.createElement('span');
+                        iconPill.className = 'mrh-cbadge mrh-cbadge-icon';
+                        iconPill.setAttribute('title', title);
+                        var iconClone = spans[j].cloneNode(true);
+                        iconClone.removeAttribute('title');
+                        iconPill.appendChild(iconClone);
+                        badgeRow.appendChild(iconPill);
+                      }
+                    }
+                    picto.parentNode.removeChild(picto);
+                  });
+                });
+              }
+            }
+            sfInitBadges();
+
+            /* Re-Init nach AJAX-Nachladen (MutationObserver) */
+            var grid = document.getElementById('products-grid');
+            if (grid) {
+              var observer = new MutationObserver(function() { sfInitBadges(); });
+              observer.observe(grid, { childList: true, subtree: true });
+            }
+
             // Floating Filter Button Handler
             var floatingBtn = document.getElementById('floating-filter-btn');
             var modalBtn = document.getElementById('open-filter-modal');
