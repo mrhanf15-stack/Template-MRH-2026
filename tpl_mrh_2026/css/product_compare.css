@@ -262,9 +262,11 @@ a.compare-remove-btn:hover {
     border-radius: var(--tpl-cbadge-row-radius, 50rem);
     margin: 0 12px 4px;
 }
-/* .off Klasse: immer ausblenden */
+/* .off Klasse: immer ausblenden (hoehere Spezifitaet als .picto.templatestyle) */
 .compare-badge-row .off,
-.compare-badge-row .mrh-type-badge.off {
+.compare-badge-row .mrh-type-badge.off,
+.compare-badge-row .off.picto.templatestyle,
+.compare-badge-row .picto.templatestyle.off {
     display: none !important;
 }
 
