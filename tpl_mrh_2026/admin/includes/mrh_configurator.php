@@ -700,7 +700,8 @@ if (isset($_POST['submit-colorsettings'])) {
         // Nur Keys ueberschreiben die tatsaechlich im POST vorhanden sind
         if (isset($_POST[$key])) {
             $posted = mrh_sanitize_color($_POST[$key]);
-            $save_colors[$key] = !empty($posted) ? $posted : $default;
+            // !== '' statt !empty(), da PHP '0' als empty betrachtet (Toggle-Bug)
+            $save_colors[$key] = ($posted !== '') ? $posted : $default;
         }
         // Fehlende Keys (nicht im POST UND nicht in bestehender JSON) -> Default
         if (!isset($save_colors[$key])) {
