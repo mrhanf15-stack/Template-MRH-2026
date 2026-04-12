@@ -250,17 +250,15 @@ a.compare-remove-btn:hover {
 }
 
 /* === Badge-Zeile unter Produktname (v5.4.0 / v3.3) === */
+/* Badge-Row: nur Layout, kein eigener Hintergrund.
+   Hintergrund kommt von .picto.templatestyle (Konfigurator) */
 .compare-badge-row {
-    min-height: var(--tpl-cbadge-row-min-height, 50px);
+    min-height: var(--tpl-cbadge-row-min-height, 36px);
     display: flex;
     align-items: center;
     gap: var(--tpl-cbadge-row-gap, 5px);
-    padding: var(--tpl-cbadge-row-padding, 6px 12px);
+    padding: var(--tpl-cbadge-row-padding, 4px 12px);
     flex-wrap: wrap;
-    background: var(--tpl-cbadge-row-bg, #f8f9fa);
-    border: 1px solid var(--tpl-cbadge-row-border, rgba(0,0,0,.08));
-    border-radius: var(--tpl-cbadge-row-radius, 50rem);
-    margin: 0 12px 4px;
 }
 /* .off Klasse: immer ausblenden (hoehere Spezifitaet als .picto.templatestyle) */
 .compare-badge-row .off,
@@ -316,6 +314,7 @@ a.compare-remove-btn:hover {
     vertical-align: -.1em;
     filter: brightness(0) invert(1);
 }
+/* picto.templatestyle = Wrapper mit Konfigurator-Hintergrund (hellgruen) */
 .compare-badge-row .picto.templatestyle {
     display: inline-flex !important;
     align-items: center !important;
@@ -323,7 +322,15 @@ a.compare-remove-btn:hover {
     gap: var(--tpl-badge-bar-gap, .4rem) !important;
     background: var(--tpl-badge-auto-bg, #f0fdf4) !important;
     color: var(--tpl-badge-auto-text, #15803d) !important;
-    border-color: var(--tpl-badge-auto-border, rgba(34,197,94,.25)) !important;
+    border: 1px solid var(--tpl-badge-auto-border, rgba(34,197,94,.25)) !important;
+    border-radius: var(--tpl-cbadge-row-radius, 50rem);
+    padding: var(--tpl-cbadge-row-padding, 4px 10px);
+}
+/* Autoflowering-Icon innerhalb picto: keine eigene Umrandung */
+.compare-badge-row .picto.templatestyle .fa,
+.compare-badge-row .picto.templatestyle img {
+    border: none !important;
+    outline: none !important;
 }
 /* Picto im Desc-Box ausblenden (wird per JS in Badge-Row verschoben) */
 .compare-desc-box .picto.templatestyle {
