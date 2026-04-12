@@ -111,31 +111,31 @@
       if (!descBox) return;
 
       /* 1. Existierende .picto.templatestyle suchen */
-      var picto = descBox.querySelector('.picto.templatestyle');
+      var pictos = descBox.querySelectorAll('.picto.templatestyle');
+      pictos.forEach(function(picto) {
+        if (picto.classList.contains('off')) {
+          picto.style.display = 'none';
+          return;
+        }
 
-      if (picto) {
-        /* Pruefe ob icon_sex.html bereits eine mrh-badge-bar erzeugt hat */
+        /* mrh-badge-bar (Fem/Reg/Photo Badges) 1:1 uebernehmen */
         var existingBar = picto.querySelector('.mrh-badge-bar');
         if (existingBar) {
-          /* 1:1 uebernehmen – Konfigurator-Badges sind bereits korrekt */
           badgeRow.appendChild(existingBar.cloneNode(true));
         }
 
-        /* Picto-Wrapper (Autoflowering-Icon) ebenfalls verschieben, aber NICHT wenn .off */
-        if (!picto.classList.contains('off')) {
-          var pictoClone = picto.cloneNode(true);
-          /* Innere mrh-badge-bar entfernen (wurde schon separat uebernommen) */
-          var innerBar = pictoClone.querySelector('.mrh-badge-bar');
-          if (innerBar) innerBar.remove();
-          /* Nur verschieben wenn noch Inhalt uebrig (z.B. Autoflowering-Icon) */
-          if (pictoClone.textContent.trim() || pictoClone.querySelector('img, .fa, svg')) {
-            badgeRow.appendChild(pictoClone);
-          }
-        }
+        /* Nur die Icons (span.fa, img, svg) einzeln extrahieren – NICHT den Wrapper */
+        var icons = picto.querySelectorAll('.fa, img, svg');
+        icons.forEach(function(icon) {
+          /* Icons die bereits in mrh-badge-bar sind ueberspringen */
+          if (icon.closest('.mrh-badge-bar')) return;
+          var iconClone = icon.cloneNode(true);
+          badgeRow.appendChild(iconClone);
+        });
 
         /* Original im Desc-Box ausblenden */
         picto.style.display = 'none';
-      }
+      });
 
       /* 2. Fallback: Wenn KEINE existierende Badge-Bar, aus Tabelle erzeugen */
       if (!badgeRow.querySelector('.mrh-badge-bar')) {

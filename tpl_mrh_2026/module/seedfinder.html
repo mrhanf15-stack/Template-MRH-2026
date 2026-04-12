@@ -255,22 +255,25 @@
                 if (!descBox) return;
 
                 /* 1. Existierende .picto.templatestyle suchen */
-                var picto = descBox.querySelector('.picto.templatestyle');
-                if (picto) {
+                var pictos = descBox.querySelectorAll('.picto.templatestyle');
+                pictos.forEach(function(picto) {
+                  if (picto.classList.contains('off')) {
+                    picto.style.display = 'none';
+                    return;
+                  }
+                  /* mrh-badge-bar (Fem/Reg/Photo) 1:1 uebernehmen */
                   var existingBar = picto.querySelector('.mrh-badge-bar');
                   if (existingBar) {
                     badgeRow.appendChild(existingBar.cloneNode(true));
                   }
-                  if (!picto.classList.contains('off')) {
-                    var pictoClone = picto.cloneNode(true);
-                    var innerBar = pictoClone.querySelector('.mrh-badge-bar');
-                    if (innerBar) innerBar.remove();
-                    if (pictoClone.textContent.trim() || pictoClone.querySelector('img, .fa, svg')) {
-                      badgeRow.appendChild(pictoClone);
-                    }
-                  }
+                  /* Nur Icons (span.fa, img, svg) einzeln extrahieren */
+                  var icons = picto.querySelectorAll('.fa, img, svg');
+                  icons.forEach(function(icon) {
+                    if (icon.closest('.mrh-badge-bar')) return;
+                    badgeRow.appendChild(icon.cloneNode(true));
+                  });
                   picto.style.display = 'none';
-                }
+                });
 
                 /* 2. Fallback: aus Tabelle erzeugen */
                 if (!badgeRow.querySelector('.mrh-badge-bar')) {
