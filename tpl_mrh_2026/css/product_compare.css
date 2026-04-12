@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.5.1 - CSS (tpl_mrh_2026)
+   Product Compare v5.6.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
    
    Nur Compare-spezifische Styles.
@@ -20,9 +20,9 @@
    v5.4.3: card-footer mt-auto (unten fixiert) + max-height 400px
    v5.4.4: compare-options-box (Optionen direkt unter Tabelle, nicht im Footer)
    v5.4.5: form als flex-container (mt-auto auf card-footer wirkt durch form hindurch)
-   v5.5.0: Mobile UX Optimierung – responsive Tabelle, kompakte Karten,
-           Akkordeon-Toggle fuer Beschreibung, kleinere Schriften
-   v5.5.1: Fix Toggle-Button Sichtbarkeit (display:none vor @media verschoben)
+   v5.5.0: Mobile UX Optimierung (ersetzt durch v5.6.0)
+   v5.6.0: Akkordeon entfernt, Tabelle mit fixer Hoehe (250px) + Scrollbalken,
+           Bild natuerliche Hoehe auf Mobile (kein festes Ratio)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -493,12 +493,6 @@ a.compare-remove-btn:hover {
     text-align: center;
 }
 
-/* --- Akkordeon Toggle: nur auf Mobile sichtbar (v5.5.0) --- */
-/* MUSS vor @media stehen, damit die mobile display:flex Regel gewinnt */
-.compare-desc-toggle {
-    display: none;
-}
-
 /* === Responsive === */
 @media (max-width: 991px) {
     .product-compare-page .row.g-3 > .listingbox {
@@ -522,17 +516,24 @@ a.compare-remove-btn:hover {
 }
 
 @media (max-width: 575px) {
-    /* --- Grid: 1 Spalte, max-width begrenzt, zentriert --- */
+    /* --- Grid: 1 Spalte, zentriert --- */
     .product-compare-page .row.g-3 > .listingbox {
         width: 100%;
-        max-width: 420px;
-        margin-left: auto;
-        margin-right: auto;
     }
 
-    /* --- Produktbild: kompakter (4:3 statt 1:1) --- */
+    /* --- Produktbild: natuerliche Hoehe, kein festes Ratio --- */
+    .product-compare-page .card .ratio {
+        --bs-aspect-ratio: auto;
+    }
     .product-compare-page .card .ratio-1x1 {
-        --bs-aspect-ratio: 75%;  /* 4:3 */
+        --bs-aspect-ratio: auto;
+        padding-bottom: 0;
+    }
+    .product-compare-page .card .ratio > img {
+        position: static;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
     /* --- Name + Hersteller: kleinere Schrift --- */
@@ -543,12 +544,13 @@ a.compare-remove-btn:hover {
         font-size: 0.75rem;
     }
 
-    /* --- Tabelle responsive: horizontales Scrollen wenn noetig --- */
+    /* --- Tabelle: fixe Hoehe mit Scrollbalken (v5.6.0) --- */
     .product-compare-page .compare-desc-box {
-        max-height: none;       /* Akkordeon steuert Hoehe */
-        overflow-y: hidden;
+        max-height: 250px;
+        overflow-y: auto;
         overflow-x: hidden;
-        position: relative;
+        border-top: 1px solid rgba(0,0,0,0.06);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
     }
     .product-compare-page .compare-desc-box .lr_desc {
         overflow-x: auto;
@@ -562,51 +564,6 @@ a.compare-remove-btn:hover {
     .product-compare-page .compare-desc-box .lr_desc table th {
         padding: 3px 5px;
         white-space: normal;
-    }
-
-    /* --- Akkordeon: Tabelle eingeklappt (v5.5.0) --- */
-    .product-compare-page .compare-desc-box.collapsed {
-        max-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-    }
-    .product-compare-page .compare-desc-box.expanded {
-        max-height: 600px;
-        overflow-y: auto;
-        transition: max-height 0.3s ease;
-    }
-
-    /* --- Toggle-Button fuer Akkordeon --- */
-    .compare-desc-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        width: 100%;
-        padding: 6px 12px;
-        margin: 0;
-        border: none;
-        border-top: 1px solid rgba(0,0,0,0.08);
-        border-bottom: 1px solid rgba(0,0,0,0.08);
-        background: #f8f9fa;
-        color: #495057;
-        font-size: 0.78rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        flex: 0 0 auto;
-    }
-    .compare-desc-toggle:hover {
-        background: #e9ecef;
-    }
-    .compare-desc-toggle .toggle-icon {
-        transition: transform 0.3s ease;
-        font-size: 0.7rem;
-    }
-    .compare-desc-toggle.open .toggle-icon {
-        transform: rotate(180deg);
     }
 
     /* --- Optionen: kompakter auf Mobile --- */

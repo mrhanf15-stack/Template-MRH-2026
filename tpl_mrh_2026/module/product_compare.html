@@ -1,5 +1,5 @@
 {*
- * Product Compare v5.3.1 - Bootstrap 5.3 Grid Layout (tpl_mrh_2026)
+ * Product Compare v5.4.0 - Bootstrap 5.3 Grid Layout (tpl_mrh_2026)
  *
  * Grid: row g-3 + col-12 col-sm-6 col-md-4 col-lg-3
  *   Desktop (>=992px): 4 Spalten
@@ -10,17 +10,17 @@
  * Card-Design via Include: module/includes/compare_card.html
  * Visuell identisch mit seedfinder_card.html
  *
- * @version   5.3.1
+ * @version   5.4.0
  * @date      2026-04-12
  * v5.1.0: Include-basiert statt inline Card-Struktur
  * v5.2.0: Badge-Zeile JS (Feminisiert, Regulaer, Autoflowering, Photoperiodisch)
  * v5.2.1: Badges nur Icons (ausser Photoperiodisch = Text)
- * v5.3.0: Akkordeon-Toggle JS fuer Mobile (Tabelle ein-/ausklappen)
  * v5.3.1: Grid-Fix col-12 col-sm-6 (1 Spalte auf Mobile statt 2)
+ * v5.4.0: Akkordeon-JS entfernt (Tabelle mit Scrollbalken via CSS stattdessen)
  *}
 {assign "dummy" ""}
 
-<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=5.5.1">
+<link rel="stylesheet" href="{$smarty.const.DIR_WS_CATALOG}templates/{$smarty.const.CURRENT_TEMPLATE}/css/product_compare.css?v=5.6.0">
 
 <div class="product-compare-page">
 
@@ -204,81 +204,11 @@
     });
   }
 
-  /* === Akkordeon-Toggle fuer Mobile (v5.3.0) ===
-     Klappt .compare-desc-box ein/aus wenn Toggle-Button geklickt wird.
-     Nur aktiv auf Mobile (<= 575px), auf Desktop ist der Button via CSS hidden. */
-  function initAccordion() {
-    var isMobile = window.matchMedia('(max-width: 575px)').matches;
-    var cards = document.querySelectorAll('.product-compare-page .card.h-100');
-
-    cards.forEach(function(card) {
-      var toggle = card.querySelector('.compare-desc-toggle');
-      var descBox = card.querySelector('.compare-desc-box');
-      if (!toggle || !descBox) return;
-
-      if (isMobile) {
-        /* Standardmaessig eingeklappt auf Mobile */
-        descBox.classList.add('collapsed');
-        descBox.classList.remove('expanded');
-        toggle.setAttribute('aria-expanded', 'false');
-      } else {
-        /* Desktop: kein Akkordeon, alles sichtbar */
-        descBox.classList.remove('collapsed', 'expanded');
-        toggle.setAttribute('aria-expanded', 'true');
-      }
-
-      toggle.addEventListener('click', function() {
-        var isCollapsed = descBox.classList.contains('collapsed');
-        if (isCollapsed) {
-          descBox.classList.remove('collapsed');
-          descBox.classList.add('expanded');
-          toggle.classList.add('open');
-          toggle.setAttribute('aria-expanded', 'true');
-          toggle.querySelector('.fa-table-list + span:first-of-type, .me-1').nextSibling.textContent = 'Eigenschaften verbergen';
-          /* Fallback: Text direkt setzen */
-          var textNodes = toggle.childNodes;
-          for (var i = 0; i < textNodes.length; i++) {
-            if (textNodes[i].nodeType === 3 && textNodes[i].textContent.trim()) {
-              textNodes[i].textContent = 'Eigenschaften verbergen';
-              break;
-            }
-          }
-        } else {
-          descBox.classList.remove('expanded');
-          descBox.classList.add('collapsed');
-          toggle.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-          var textNodes = toggle.childNodes;
-          for (var i = 0; i < textNodes.length; i++) {
-            if (textNodes[i].nodeType === 3 && textNodes[i].textContent.trim()) {
-              textNodes[i].textContent = 'Eigenschaften anzeigen';
-              break;
-            }
-          }
-        }
-      });
-    });
-  }
-
   /* Ausfuehren wenn DOM bereit */
-  function initAll() {
-    initBadges();
-    initAccordion();
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAll);
+    document.addEventListener('DOMContentLoaded', initBadges);
   } else {
-    initAll();
+    initBadges();
   }
-
-  /* Re-Init bei Resize (Mobile <-> Desktop Wechsel) */
-  var resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      initAccordion();
-    }, 250);
-  });
 })();
 </script>
