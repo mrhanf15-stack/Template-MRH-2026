@@ -1275,6 +1275,9 @@ body.mrh-no-scroll {
     align-items: center;
     justify-content: center;
     margin-top: var(--tpl-bb-sf-margin-top, -14px);
+    margin-right: var(--tpl-bb-sf-margin-right, 0);
+    margin-bottom: var(--tpl-bb-sf-margin-bottom, 0);
+    margin-left: var(--tpl-bb-sf-margin-left, 0);
     box-shadow: 0 2px 8px var(--tpl-bb-sf-shadow, rgba(74, 140, 42, 0.3));
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
@@ -1290,6 +1293,9 @@ body.mrh-no-scroll {
       height: var(--tpl-bb-sf-mob-size, 36px);
       font-size: var(--tpl-bb-sf-mob-icon-size, 18px);
       margin-top: var(--tpl-bb-sf-mob-margin-top, -10px);
+      margin-right: var(--tpl-bb-sf-mob-margin-right, 0);
+      margin-bottom: var(--tpl-bb-sf-mob-margin-bottom, 0);
+      margin-left: var(--tpl-bb-sf-mob-margin-left, 0);
     }
   }
   /* Badge (Warenkorb/Merkliste Anzahl) */

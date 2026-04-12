@@ -1832,9 +1832,21 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-bb-sf-shadow" type="text" name="tpl-bb-sf-shadow" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bb-sf-shadow','rgba(74, 140, 42, 0.3)'); ?>">
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bb-sf-shadow','rgba(74, 140, 42, 0.3)'); ?>"></div>
     </div>
-    <div class="col-sm-4 mb-3">
-        <label for="tpl-bb-sf-margin-top"><strong>Versatz oben</strong></label>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-margin-top"><strong>Margin oben</strong></label>
         <input id="tpl-bb-sf-margin-top" type="text" name="tpl-bb-sf-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-margin-top','-14px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-margin-right"><strong>Margin rechts</strong></label>
+        <input id="tpl-bb-sf-margin-right" type="text" name="tpl-bb-sf-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-margin-right','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-margin-bottom"><strong>Margin unten</strong></label>
+        <input id="tpl-bb-sf-margin-bottom" type="text" name="tpl-bb-sf-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-margin-bottom','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-margin-left"><strong>Margin links</strong></label>
+        <input id="tpl-bb-sf-margin-left" type="text" name="tpl-bb-sf-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-margin-left','0'); ?>">
     </div>
 
     <!-- Bottom Bar Margins -->
@@ -1867,8 +1879,20 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-bb-sf-mob-icon-size" type="text" name="tpl-bb-sf-mob-icon-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-icon-size','18px'); ?>">
     </div>
     <div class="col-sm-3 mb-3">
-        <label for="tpl-bb-sf-mob-margin-top"><strong>Versatz oben (Mobil)</strong></label>
+        <label for="tpl-bb-sf-mob-margin-top"><strong>Margin oben (Mobil)</strong></label>
         <input id="tpl-bb-sf-mob-margin-top" type="text" name="tpl-bb-sf-mob-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-margin-top','-10px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-mob-margin-right"><strong>Margin rechts (Mobil)</strong></label>
+        <input id="tpl-bb-sf-mob-margin-right" type="text" name="tpl-bb-sf-mob-margin-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-margin-right','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-mob-margin-bottom"><strong>Margin unten (Mobil)</strong></label>
+        <input id="tpl-bb-sf-mob-margin-bottom" type="text" name="tpl-bb-sf-mob-margin-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-margin-bottom','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-mob-margin-left"><strong>Margin links (Mobil)</strong></label>
+        <input id="tpl-bb-sf-mob-margin-left" type="text" name="tpl-bb-sf-mob-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-margin-left','0'); ?>">
     </div>
 
     <!-- ═══ Versandkosten-Leiste ═══ -->

@@ -269,6 +269,9 @@ $mrh_color_defaults = [
     'tpl-bb-sf-icon-size'              => '22px',
     'tpl-bb-sf-shadow'                 => 'rgba(74, 140, 42, 0.3)',
     'tpl-bb-sf-margin-top'             => '-14px',
+    'tpl-bb-sf-margin-right'           => '0',
+    'tpl-bb-sf-margin-bottom'          => '0',
+    'tpl-bb-sf-margin-left'            => '0',
     // Bottom Bar Abstände
     'tpl-bb-padding-top'               => '0',
     'tpl-bb-padding-bottom'            => '0',
@@ -278,6 +281,9 @@ $mrh_color_defaults = [
     'tpl-bb-sf-mob-size'               => '36px',
     'tpl-bb-sf-mob-icon-size'          => '18px',
     'tpl-bb-sf-mob-margin-top'         => '-10px',
+    'tpl-bb-sf-mob-margin-right'       => '0',
+    'tpl-bb-sf-mob-margin-bottom'      => '0',
+    'tpl-bb-sf-mob-margin-left'        => '0',
 
     // ══════════════════════════════════════════════════
     // ── Cannabis Badge Pills (mrh-cbadge) ──
