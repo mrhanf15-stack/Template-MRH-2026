@@ -1200,7 +1200,10 @@ body.mrh-no-scroll {
     background: var(--tpl-bg-color, #ffffff);
     border-top: 1px solid var(--tpl-borders-color, #e0e0e0);
     box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-    padding: 0;
+    padding-top: var(--tpl-bb-padding-top, 0);
+    padding-bottom: var(--tpl-bb-padding-bottom, 0);
+    padding-left: var(--tpl-bb-padding-left, 0);
+    padding-right: var(--tpl-bb-padding-right, 0);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.96);
@@ -1279,6 +1282,15 @@ body.mrh-no-scroll {
     transform: scale(0.95);
     background: var(--tpl-bb-sf-hover, rgb(56, 112, 32));
     box-shadow: 0 1px 4px var(--tpl-bb-sf-shadow, rgba(74, 140, 42, 0.2));
+  }
+  /* Seedfinder Mobile Override (unter 480px) */
+  @media (max-width: 480px) {
+    .mrh-bottom-bar li.mrh-bb-center a i {
+      width: var(--tpl-bb-sf-mob-size, 36px);
+      height: var(--tpl-bb-sf-mob-size, 36px);
+      font-size: var(--tpl-bb-sf-mob-icon-size, 18px);
+      margin-top: var(--tpl-bb-sf-mob-margin-top, -10px);
+    }
   }
   /* Badge (Warenkorb/Merkliste Anzahl) */
   .mrh-bb-badge {

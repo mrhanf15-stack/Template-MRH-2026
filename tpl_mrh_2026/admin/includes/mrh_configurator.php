@@ -269,6 +269,15 @@ $mrh_color_defaults = [
     'tpl-bb-sf-icon-size'              => '22px',
     'tpl-bb-sf-shadow'                 => 'rgba(74, 140, 42, 0.3)',
     'tpl-bb-sf-margin-top'             => '-14px',
+    // Bottom Bar Abstände
+    'tpl-bb-padding-top'               => '0',
+    'tpl-bb-padding-bottom'            => '0',
+    'tpl-bb-padding-left'              => '0',
+    'tpl-bb-padding-right'             => '0',
+    // Seedfinder Mobile
+    'tpl-bb-sf-mob-size'               => '36px',
+    'tpl-bb-sf-mob-icon-size'          => '18px',
+    'tpl-bb-sf-mob-margin-top'         => '-10px',
 
     // ══════════════════════════════════════════════════
     // ── Versandkosten-Leiste (#mrh-shipping-bar) ──

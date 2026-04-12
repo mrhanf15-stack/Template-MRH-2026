@@ -1787,6 +1787,40 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-bb-sf-margin-top" type="text" name="tpl-bb-sf-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-margin-top','-14px'); ?>">
     </div>
 
+    <!-- Bottom Bar Margins -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-arrows-alt me-1"></i> Bottom Bar &ndash; Abst&auml;nde (Padding/Margin)</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-padding-top"><strong>Padding oben</strong></label>
+        <input id="tpl-bb-padding-top" type="text" name="tpl-bb-padding-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-padding-top','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-padding-bottom"><strong>Padding unten</strong></label>
+        <input id="tpl-bb-padding-bottom" type="text" name="tpl-bb-padding-bottom" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-padding-bottom','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-padding-left"><strong>Padding links</strong></label>
+        <input id="tpl-bb-padding-left" type="text" name="tpl-bb-padding-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-padding-left','0'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-padding-right"><strong>Padding rechts</strong></label>
+        <input id="tpl-bb-padding-right" type="text" name="tpl-bb-padding-right" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-padding-right','0'); ?>">
+    </div>
+
+    <!-- Seedfinder Mobile Größen -->
+    <div class="col-12"><hr class="my-2"><small class="text-muted"><i class="fa fa-mobile-screen me-1"></i> Seedfinder Button &ndash; Mobile (unter 480px)</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-mob-size"><strong>Gr&ouml;&szlig;e (Mobil)</strong></label>
+        <input id="tpl-bb-sf-mob-size" type="text" name="tpl-bb-sf-mob-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-size','36px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-mob-icon-size"><strong>Icon-Gr&ouml;&szlig;e (Mobil)</strong></label>
+        <input id="tpl-bb-sf-mob-icon-size" type="text" name="tpl-bb-sf-mob-icon-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-icon-size','18px'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-bb-sf-mob-margin-top"><strong>Versatz oben (Mobil)</strong></label>
+        <input id="tpl-bb-sf-mob-margin-top" type="text" name="tpl-bb-sf-mob-margin-top" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-margin-top','-10px'); ?>">
+    </div>
+
     <!-- ═══ Versandkosten-Leiste ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1" style="color:#be9e1f;"></i> Versandkosten-Leiste</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Die Leiste &quot;Noch X EUR bis kostenloser Versand&quot; im Header</small></div>
