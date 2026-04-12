@@ -268,10 +268,18 @@
                   }
                   /* Nur Icons (span.fa, img, svg) einzeln extrahieren */
                   var icons = picto.querySelectorAll('.fa, img, svg');
+                  var looseIcons = [];
                   icons.forEach(function(icon) {
                     if (icon.closest('.mrh-badge-bar')) return;
-                    badgeRow.appendChild(icon.cloneNode(true));
+                    looseIcons.push(icon.cloneNode(true));
                   });
+                  /* Icons in sauberen .picto.templatestyle Wrapper (Konfigurator-CSS) */
+                  if (looseIcons.length > 0) {
+                    var wrap = document.createElement('span');
+                    wrap.className = 'picto templatestyle';
+                    looseIcons.forEach(function(ic) { wrap.appendChild(ic); });
+                    badgeRow.appendChild(wrap);
+                  }
                   picto.style.display = 'none';
                 });
 
