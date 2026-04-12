@@ -5511,3 +5511,92 @@ a.iframe:hover {
 .mrh-mobile-link:hover [class*="fa-"] {
   color: var(--tpl-mobile-link-hover, #2d7a3a) !important;
 }
+
+/* ============================================================
+   20. LISTING/BOX KURZBESCHREIBUNG – Mini-Tabelle
+   Stand: 2026-04-12 | Badge v4.6
+   Zeigt nur Icons + THC/CBD/Kreuzung statt vollem Rohtext
+   ============================================================ */
+
+/* ── 20a: Volle Tabelle + Wrapper in Listings/Boxen ausblenden ── */
+.lb_desc .bg-custom.teabls,
+.lb_desc > .bg-custom,
+.lr_desc .bg-custom.teabls,
+.lr_desc > .bg-custom {
+  display: none !important;
+}
+
+/* ── 20b: HIERDASICON Platzhalter + .off Elemente ── */
+.lb_desc .off,
+.lr_desc .off {
+  display: none !important;
+}
+
+/* ── 20c: Picto-Icons in Listings/Boxen ── */
+.lb_desc .picto.templatestyle,
+.lr_desc .picto.templatestyle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+/* ── 20d: Mini-Tabelle (JS-generiert) ── */
+.mrh-mini-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.82rem;
+  border-radius: var(--mrh-tbl-radius, 6px);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.mrh-mini-table tr {
+  border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0);
+}
+.mrh-mini-table tr:last-child {
+  border-bottom: none;
+}
+.mrh-mini-table tr:nth-child(even) {
+  background-color: var(--mrh-tbl-zebra, #f8fafc);
+}
+.mrh-mini-table td {
+  padding: 5px 8px;
+  vertical-align: middle;
+  border: none !important;
+}
+.mrh-mini-table td:first-child {
+  font-weight: 600;
+  color: var(--mrh-tbl-label, #475569);
+  width: 40%;
+}
+.mrh-mini-table td:last-child {
+  color: var(--mrh-tbl-value, #1e293b);
+  font-weight: 400;
+}
+
+/* ── 20e: Mini-Tabelle in Boxen (Karussell) – kompakter ── */
+.product-carousel .mrh-mini-table {
+  font-size: 0.78rem;
+}
+.product-carousel .mrh-mini-table td {
+  padding: 3px 6px;
+}
+
+/* ── 20f: Responsive ── */
+@media (max-width: 767px) {
+  .mrh-mini-table {
+    font-size: 0.78rem;
+  }
+  .mrh-mini-table td {
+    padding: 4px 6px;
+  }
+}
+@media (max-width: 480px) {
+  .mrh-mini-table {
+    font-size: 0.74rem;
+  }
+  .mrh-mini-table td {
+    padding: 3px 5px;
+  }
+}

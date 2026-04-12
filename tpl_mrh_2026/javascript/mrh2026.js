@@ -496,6 +496,55 @@ const MRH_ProductOptions = {
   }
 };
 
+/* ── Listing/Box Kurzbeschreibung: Mini-Tabelle ── */
+const MRH_ListingDesc = {
+  /* Felder die extrahiert werden (Reihenfolge = Anzeigereihenfolge) */
+  fields: ['Geschlecht', 'THC', 'CBD', 'Kreuzung'],
+
+  init() {
+    document.querySelectorAll('.lb_desc, .lr_desc').forEach(desc => {
+      const table = desc.querySelector('table.tebals');
+      if (!table) return;
+
+      /* Daten aus der Tabelle extrahieren */
+      const data = {};
+      table.querySelectorAll('tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 2) {
+          const label = cells[0].textContent.trim();
+          const value = cells[cells.length - 1].textContent.trim();
+          if (label && value) data[label] = value;
+        }
+      });
+
+      /* Mini-Tabelle erstellen */
+      const miniTable = document.createElement('table');
+      miniTable.className = 'tebals wite mrh-mini-table';
+      let hasRows = false;
+
+      this.fields.forEach(field => {
+        if (!data[field]) return;
+        hasRows = true;
+        const tr = document.createElement('tr');
+        const tdLabel = document.createElement('td');
+        tdLabel.textContent = field;
+        const tdValue = document.createElement('td');
+        tdValue.textContent = data[field];
+        tr.appendChild(tdLabel);
+        tr.appendChild(tdValue);
+        miniTable.appendChild(tr);
+      });
+
+      if (hasRows) {
+        /* Original-Wrapper ausblenden (CSS macht das auch, aber sicher ist sicher) */
+        const wrapper = table.closest('.bg-custom.teabls');
+        if (wrapper) wrapper.style.display = 'none';
+        desc.appendChild(miniTable);
+      }
+    });
+  }
+};
+
 /* === INIT === */
 document.addEventListener('DOMContentLoaded', () => {
   MRH_StickyHeader.init();
@@ -510,4 +559,5 @@ document.addEventListener('DOMContentLoaded', () => {
   MRH_CheckoutStepper.init();
   MRH_Autocomplete.init();
   MRH_ProductOptions.init();
+  MRH_ListingDesc.init();
 });

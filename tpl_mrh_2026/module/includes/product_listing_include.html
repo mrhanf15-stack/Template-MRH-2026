@@ -30,7 +30,7 @@
         </div>
         {* Kurzbeschreibung *}
         {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
-          <div class="lb_desc">{$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:70:"...":true}</div>
+          <div class="lb_desc">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
         {/if}
         {* Lieferzeit *}
         <div class="lb_shipping">
@@ -134,7 +134,7 @@
             {* Kurzbeschreibung (mehr Text als in Boxansicht) *}
             {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
               <div class="lr_desc">
-                {$module_data.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:200:"...":true}
+                {$module_data.PRODUCTS_SHORT_DESCRIPTION}
               </div>
             {/if}
             {* Lieferzeit *}
