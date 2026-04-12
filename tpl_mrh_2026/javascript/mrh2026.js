@@ -500,6 +500,8 @@ const MRH_ProductOptions = {
 const MRH_ListingDesc = {
   /* Felder die extrahiert werden (Reihenfolge = Anzeigereihenfolge) */
   fields: ['Geschlecht', 'THC', 'CBD', 'Kreuzung'],
+  /* Felder die ein Samen-Produkt identifizieren */
+  seedMarkers: ['Geschlecht', 'THC', 'Sorte', 'Blütezeit Indoor'],
 
   init() {
     document.querySelectorAll('.lb_desc, .lr_desc').forEach(desc => {
@@ -517,9 +519,15 @@ const MRH_ListingDesc = {
         }
       });
 
-      /* Mini-Tabelle erstellen */
+      /* Pruefen ob Samen-Produkt (mind. 1 Seed-Marker vorhanden) */
+      const isSeed = this.seedMarkers.some(m => data[m]);
+      desc.setAttribute('data-mrh-seed', isSeed ? '1' : '0');
+
+      if (!isSeed) return; /* Nicht-Samen: Tabelle bleibt sichtbar per CSS */
+
+      /* Mini-Tabelle erstellen (NUR fuer Samen) */
       const miniTable = document.createElement('table');
-      miniTable.className = 'tebals wite mrh-mini-table';
+      miniTable.className = 'mrh-mini-table';
       let hasRows = false;
 
       this.fields.forEach(field => {
@@ -536,9 +544,6 @@ const MRH_ListingDesc = {
       });
 
       if (hasRows) {
-        /* Original-Wrapper ausblenden (CSS macht das auch, aber sicher ist sicher) */
-        const wrapper = table.closest('.bg-custom.teabls');
-        if (wrapper) wrapper.style.display = 'none';
         desc.appendChild(miniTable);
       }
     });
