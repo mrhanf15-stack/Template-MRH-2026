@@ -106,13 +106,13 @@
         {include file="module/includes/icon_sex.html"}
       {/if}
 
-      {* ── Short Description (USA-spezifisch) ── *}
-      {include file="module/includes/usa_list_shortdescription.html"}
-
       {* ── MRH Attribut-Tabelle (serverseitig, Detail-Ansicht) ── *}
       {if isset($mrh_mini_table) && $mrh_mini_table != ''}
         <div class="mrh-detail-table mb-3">{$mrh_mini_table}</div>
       {/if}
+
+      {* ── Short Description + Art.Nr. + Lieferzeit (USA) ── *}
+      {include file="module/includes/usa_list_shortdescription.html"}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
       {if isset($MODULE_product_options) && $MODULE_product_options != ''}

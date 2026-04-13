@@ -94,13 +94,13 @@
         {include file="module/includes/icon_sex.html"}
       {/if}
 
-      {* ── Short Description (Standard) ── *}
-      {include file="module/includes/list_shortdescription.html"}
-
       {* ── MRH Attribut-Tabelle (serverseitig, Detail-Ansicht) ── *}
       {if isset($mrh_mini_table) && $mrh_mini_table != ''}
         <div class="mrh-detail-table mb-3">{$mrh_mini_table}</div>
       {/if}
+
+      {* ── Short Description + Art.Nr. + Lieferzeit ── *}
+      {include file="module/includes/list_shortdescription.html"}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
       {if isset($MODULE_product_options) && $MODULE_product_options != ''}

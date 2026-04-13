@@ -1,5 +1,19 @@
 # MRH 2026 Template – Changelog
 
+## 2026-04-13 – Layout-Fix: MRH Detail-Tabelle vor Art.Nr./Lieferzeit
+
+**Aenderung:** In allen 7 Produktdetail-Templates die Reihenfolge getauscht: MRH Attribut-Tabelle (`$mrh_mini_table`) wird jetzt VOR der Short Description (Art.Nr. + Lieferzeit) angezeigt, nicht danach.
+
+| Datei | Aenderung |
+|-------|----------|
+| `module/product_info/aaa_produkt_info.html` | mrh_mini_table Block vor list_shortdescription.html verschoben |
+| `module/product_info/seeds_info.html` | mrh_mini_table Block vor list_shortdescription.html verschoben |
+| `module/product_info/non_seeds_info.html` | mrh_mini_table Block vor list_shortdescription.html verschoben |
+| `module/product_info/seedling.html` | mrh_mini_table Block vor seedling_list_shortdescription.html verschoben |
+| `module/product_info/usa_STrain-patch.html` | mrh_mini_table Block vor usa_list_shortdescription.html verschoben |
+| `module/product_info/product_info_v1.html` | mrh_mini_table Block vor list_shortdescription.html verschoben |
+| `module/product_info/product_info_v1-.html` | mrh_mini_table Block vor list_shortdescription.html verschoben |
+
 ## 2026-04-10 – ProductCompare v2.0.0: JS-Einbindung gefixt
 
 **Bug:** Vergleichs-Button auf Produktseite sichtbar, aber `window.ProductCompare` undefined → Button ohne Funktion.
