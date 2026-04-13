@@ -1,4 +1,17 @@
-# MRH 2026 Template – Changelog
+# MRH 2026 Template # Changelog
+
+## 2026-04-13 – Photoperiodisch Text-Badge + Globale Badge-Config + CSS-Fix
+
+**Aenderung 1:** Photoperiodisch-Badge zeigt jetzt NUR Text (kein Icon) in allen Sprachen (DE: Photoperiodisch, EN: Photoperiod, FR: Photopériode, ES: Fotoperíodo). Gilt fuer alle Seed-Produkte die nicht Autoflowering sind.
+
+**Aenderung 2:** Badge-System ist jetzt global konfigurierbar im Admin unter Hilfsprogramme → MRH Produkteigenschaften → Einstellungen → Badge-Konfiguration. Icons, Farben und SVG-Pfade koennen dort zentral geaendert werden. Auf der Produkterstellungsseite wird ein Hinweis angezeigt.
+
+**Aenderung 3:** CSS-Fix: `mb-2` / `mb-3` aus `mrh-picto-bar` in allen 8 Templates entfernt fuer korrekten Abstand.
+
+| Datei | Aenderung |
+|-------|----------|
+| `css/mrh-custom.css` | Neuer Abschnitt 21g: `.mrh-badge-textonly` + `.mrh-badge-label` Styles |
+| `module/product_info/*.html` (8 Dateien) | `mrh-picto-bar mb-3` → `mrh-picto-bar` |
 
 ## 2026-04-13 – Layout-Fix: MRH Detail-Tabelle vor Art.Nr./Lieferzeit
 

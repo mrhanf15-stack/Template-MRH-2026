@@ -5780,3 +5780,15 @@ a.iframe:hover {
     width: 40%;
   }
 }
+
+/* ── 21g: Text-Only Badge (Photoperiodisch) ── */
+/* Photoperiodisch wird als reiner Text-Badge angezeigt (kein Icon).
+   Nutzt die bestehende .mrh-badge-photo Hintergrundfarbe. */
+.mrh-badge-textonly {
+  padding: var(--tpl-badge-padding, 0.25rem 0.7rem);
+}
+.mrh-badge-textonly .mrh-badge-label {
+  font-size: var(--tpl-badge-font-size, 0.8rem);
+  font-weight: var(--tpl-badge-font-weight, 600);
+  letter-spacing: 0.02em;
+}
