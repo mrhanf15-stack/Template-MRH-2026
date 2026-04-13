@@ -28,9 +28,17 @@
             </a>
           </strong>
         </div>
+        {* ── MRH Badges (serverseitig via Autoinclude) ── *}
+        {if isset($module_data.MRH_BADGES) && $module_data.MRH_BADGES != ''}
+          <div class="mrh-listing-badges">{$module_data.MRH_BADGES}</div>
+        {/if}
         {* Kurzbeschreibung *}
         {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
           <div class="lb_desc">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
+        {/if}
+        {* ── MRH Mini-Tabelle (serverseitig) ── *}
+        {if isset($module_data.MRH_MINI_TABLE) && $module_data.MRH_MINI_TABLE != ''}
+          <div class="mrh-mini-table-wrap">{$module_data.MRH_MINI_TABLE}</div>
         {/if}
         {* Lieferzeit *}
         <div class="lb_shipping">
@@ -131,11 +139,19 @@
                 </a>
               </strong>
             </div>
+            {* ── MRH Badges (serverseitig via Autoinclude) ── *}
+            {if isset($module_data.MRH_BADGES) && $module_data.MRH_BADGES != ''}
+              <div class="mrh-listing-badges">{$module_data.MRH_BADGES}</div>
+            {/if}
             {* Kurzbeschreibung (mehr Text als in Boxansicht) *}
             {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
               <div class="lr_desc">
                 {$module_data.PRODUCTS_SHORT_DESCRIPTION}
               </div>
+            {/if}
+            {* ── MRH Mini-Tabelle (serverseitig) ── *}
+            {if isset($module_data.MRH_MINI_TABLE) && $module_data.MRH_MINI_TABLE != ''}
+              <div class="mrh-mini-table-wrap">{$module_data.MRH_MINI_TABLE}</div>
             {/if}
             {* Lieferzeit *}
             <div class="lr_shipping">

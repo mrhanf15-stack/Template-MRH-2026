@@ -29,6 +29,11 @@
 
       <div class="lb_title"><strong class="h3"><a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">{$module_data.PRODUCTS_NAME}</a></strong></div>
 
+      {* ── MRH Badges (serverseitig via Autoinclude) ── *}
+      {if isset($module_data.MRH_BADGES) && $module_data.MRH_BADGES != ''}
+        <div class="mrh-listing-badges">{$module_data.MRH_BADGES}</div>
+      {/if}
+
       <div class="lb_shipping">
         {if $module_data.PRODUCTS_SHIPPING_NAME}
           <i class="fa-solid fa-truck-fast mr_5"></i>{#text_shippingtime#} 

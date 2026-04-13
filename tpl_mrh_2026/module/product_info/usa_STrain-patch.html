@@ -99,12 +99,20 @@
         </div>
       {/if}
 
-      {* ── Picto-Leiste ── *}
-      {* ── Typ-Badges (Geschlecht + Auto/Photo) ── *}
-      {include file="module/includes/icon_sex.html"}
+      {* ── Picto-Leiste / MRH Badges ── *}
+      {if isset($mrh_badges) && $mrh_badges != ''}
+        <div class="mrh-picto-bar mb-3">{$mrh_badges}</div>
+      {else}
+        {include file="module/includes/icon_sex.html"}
+      {/if}
 
       {* ── Short Description (USA-spezifisch) ── *}
       {include file="module/includes/usa_list_shortdescription.html"}
+
+      {* ── MRH Attribut-Tabelle (serverseitig, Detail-Ansicht) ── *}
+      {if isset($mrh_mini_table) && $mrh_mini_table != ''}
+        <div class="mrh-detail-table mb-3">{$mrh_mini_table}</div>
+      {/if}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
       {if isset($MODULE_product_options) && $MODULE_product_options != ''}

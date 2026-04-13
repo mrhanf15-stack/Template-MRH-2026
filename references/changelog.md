@@ -137,3 +137,25 @@ Nachher: 1 System – general.css.php liest colors.json und gibt ALLE Farb-Varia
 - `.modal-body img { max-width: 100%; }` – Bilder responsive
 - `.modal-body h2/h3` – Schriftgrößen für Modal-Kontext angepasst
 - `a.iframe` Links: Unterstreichung beibehalten
+
+## 2026-04-13 – Phase 3: MRH Product Attributes – Frontend Badge Integration
+
+**Ziel:** Serverseitige Badges/Pictos aus dem MRH Product Attributes Modul in alle Produktboxen, Listings und Detailseiten integrieren. Ersetzt schrittweise die clientseitige JS-Badge-Erzeugung (icon_sex.html, mrh-listing-desc.js.php) durch PHP-generiertes HTML via `buildBadgeHTML()` und `buildMiniTable()`.
+
+**Smarty-Variablen (bereitgestellt durch Autoincludes in mrh-product-short_table):**
+- Listings: `$module_data.MRH_BADGES`, `$module_data.MRH_MINI_TABLE`, `$module_data.MRH_HAS_ATTRS`
+- Produktdetail: `$mrh_badges`, `$mrh_mini_table`, `$mrh_has_attrs`
+
+| Datei | Aenderung |
+|-------|----------|
+| `module/includes/product_listing_include.html` | MRH_BADGES und MRH_MINI_TABLE in Box- und Listenansicht eingefuegt (nach Produktname, vor Kurzbeschreibung) |
+| `module/includes/product_box.html` | MRH_BADGES nach Produktname eingefuegt (Karussell-Boxen) |
+| `module/product_info.html` | mrh_badges als Primaer-Badge (Fallback: PRODUCTS_PICTO_ICONS), mrh_mini_table als Detail-Tabelle |
+| `module/product_info/seeds_info.html` | mrh_badges als Primaer (Fallback: icon_sex.html), mrh_mini_table eingefuegt |
+| `module/product_info/non_seeds_info.html` | mrh_badges als Primaer (Fallback: PRODUCTS_PICTO_ICONS), mrh_mini_table eingefuegt |
+| `module/product_info/usa_STrain-patch.html` | mrh_badges als Primaer (Fallback: icon_sex.html), mrh_mini_table eingefuegt |
+| `module/product_info/seedling.html` | mrh_badges als Primaer (Fallback: icon_sex.html), mrh_mini_table eingefuegt |
+| `css/mrh-custom.css` | Abschnitt 21 appended: Badge-Styles fuer .mrh-badge-auto, .mrh-badge-picto, .mrh-badge-cup, .mrh-cup-count, .mrh-badge-text, .mrh-detail-table (inkl. Responsive) |
+
+**Hinweis:** Slider-Boxen (box_slider_bestsellers, box_slider_new etc.) verwenden `$box_content`/`$box_data` statt `$module_content` und werden weiterhin durch das bestehende JS-System (mrh-listing-desc.js.php) bedient. Eine Smarty-Plugin-Loesung fuer diese Boxen ist fuer eine spaetere Phase geplant.
+

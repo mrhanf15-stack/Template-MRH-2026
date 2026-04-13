@@ -235,8 +235,12 @@
         </div>
       {/if}
 
-      {* ── Picto-Leiste (Auszeichnungen) ── *}
-      {if isset($PRODUCTS_PICTO_ICONS) && $PRODUCTS_PICTO_ICONS != ''}
+      {* ── Picto-Leiste / MRH Badges (Auszeichnungen) ── *}
+      {if isset($mrh_badges) && $mrh_badges != ''}
+        <div class="mrh-picto-bar mb-3">
+          {$mrh_badges}
+        </div>
+      {elseif isset($PRODUCTS_PICTO_ICONS) && $PRODUCTS_PICTO_ICONS != ''}
         <div class="mrh-picto-bar mb-3">
           {$PRODUCTS_PICTO_ICONS}
         </div>
@@ -256,6 +260,13 @@
             {$PRODUCTS_MRH_CHARACTERISTICS}
           </div>
         {/if}
+      {/if}
+
+      {* ── MRH Attribut-Tabelle (serverseitig, Detail-Ansicht) ── *}
+      {if isset($mrh_mini_table) && $mrh_mini_table != ''}
+        <div class="mrh-detail-table mb-3">
+          {$mrh_mini_table}
+        </div>
       {/if}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
