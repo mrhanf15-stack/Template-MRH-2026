@@ -6004,3 +6004,179 @@ a.iframe:hover {
         width: 40%;
     }
 }
+
+
+/* ========================================================================
+   23g. SEEDFINDER + VERGLEICH – Einheitlicher Style Override
+   Ueberschreibt die alten Styles aus seedfinder-combined.min.css,
+   seedfinder_mrh_scroll.css und product_compare.css mit hoeher
+   Spezifitaet, damit der globale mrh-attr-table Look greift.
+   ======================================================================== */
+
+/* ── Seedfinder: Tabellen-Design wie ueberall ── */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    font-size: 0.82rem !important;
+    font-family: var(--tpl-font-text, inherit), sans-serif !important;
+    background: #fff !important;
+    border: 1px solid var(--mrh-tbl-border, #e2e8f0) !important;
+    border-radius: var(--mrh-tbl-radius, 6px) !important;
+    overflow: hidden !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr {
+    border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0) !important;
+    transition: background-color 0.15s ease !important;
+}
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:last-child {
+    border-bottom: none !important;
+}
+
+/* Zebra */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:nth-child(even) {
+    background-color: var(--mrh-tbl-zebra, #f8fafc) !important;
+}
+
+/* Hover */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:hover {
+    background-color: rgba(45, 122, 58, 0.04) !important;
+}
+
+/* Zellen */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table td {
+    padding: 6px 10px !important;
+    vertical-align: middle !important;
+    border: none !important;
+    border-bottom: none !important;
+    line-height: 1.4 !important;
+}
+
+/* Label-Spalte */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table td:first-child {
+    font-weight: 600 !important;
+    color: var(--mrh-tbl-label, #475569) !important;
+    width: 44% !important;
+    position: relative !important;
+}
+
+/* Wert-Spalte */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table td:last-child {
+    color: var(--mrh-tbl-value, #1e293b) !important;
+    font-weight: 400 !important;
+}
+
+/* Abgerundete Ecken */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:first-child td:first-child {
+    border-top-left-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:first-child td:last-child {
+    border-top-right-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:last-child td:first-child {
+    border-bottom-left-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:last-child td:last-child {
+    border-bottom-right-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+
+/* Scroll-Container: kein eigener Border */
+#seedfinder_module .mrh-sf-scroll {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+
+/* ── Vergleich: Tabellen-Design wie ueberall ── */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    font-size: 0.82rem !important;
+    font-family: var(--tpl-font-text, inherit), sans-serif !important;
+    background: #fff !important;
+    border: 1px solid var(--mrh-tbl-border, #e2e8f0) !important;
+    border-radius: var(--mrh-tbl-radius, 6px) !important;
+    overflow: hidden !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr {
+    border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0) !important;
+    transition: background-color 0.15s ease !important;
+}
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:last-child {
+    border-bottom: none !important;
+}
+
+/* Zebra */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:nth-child(even) {
+    background-color: var(--mrh-tbl-zebra, #f8fafc) !important;
+}
+
+/* Hover */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:hover {
+    background-color: rgba(45, 122, 58, 0.04) !important;
+}
+
+/* Zellen */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table td {
+    padding: 6px 10px !important;
+    vertical-align: middle !important;
+    border: none !important;
+    border-bottom: none !important;
+    line-height: 1.4 !important;
+}
+
+/* Label-Spalte */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table td:first-child {
+    font-weight: 600 !important;
+    color: var(--mrh-tbl-label, #475569) !important;
+    width: 44% !important;
+    position: relative !important;
+}
+
+/* Wert-Spalte */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table td:last-child {
+    color: var(--mrh-tbl-value, #1e293b) !important;
+    font-weight: 400 !important;
+}
+
+/* Abgerundete Ecken */
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:first-child td:first-child {
+    border-top-left-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:first-child td:last-child {
+    border-top-right-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:last-child td:first-child {
+    border-bottom-left-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+.product-compare-page .mrh-sf-scroll .mrh-attr-table tr:last-child td:last-child {
+    border-bottom-right-radius: var(--mrh-tbl-radius, 6px) !important;
+}
+
+/* Scroll-Container: kein eigener Border */
+.product-compare-page .mrh-sf-scroll {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+
+/* ── Responsive Seedfinder + Vergleich ── */
+@media (max-width: 575px) {
+    #seedfinder_module .mrh-sf-scroll .mrh-attr-table {
+        font-size: 0.74rem !important;
+    }
+    #seedfinder_module .mrh-sf-scroll .mrh-attr-table td {
+        padding: 4px 6px !important;
+    }
+    .product-compare-page .mrh-sf-scroll .mrh-attr-table {
+        font-size: 0.74rem !important;
+    }
+    .product-compare-page .mrh-sf-scroll .mrh-attr-table td {
+        padding: 4px 6px !important;
+    }
+}
