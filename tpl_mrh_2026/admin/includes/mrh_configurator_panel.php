@@ -2312,6 +2312,41 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     </div>
 
     <!-- Modal Footer Buttons -->
+    <!-- Filter-Button (Filterbar) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-filter me-1"></i>Filter-Button (Filterbar)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-filter-bg"><strong>Filter BG</strong></label>
+            <input id="tpl-sf-btn-filter-bg" type="text" name="tpl-sf-btn-filter-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-filter-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-filter-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-filter-text"><strong>Filter Text</strong></label>
+            <input id="tpl-sf-btn-filter-text" type="text" name="tpl-sf-btn-filter-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-filter-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-filter-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-filter-border"><strong>Filter Border</strong></label>
+            <input id="tpl-sf-btn-filter-border" type="text" name="tpl-sf-btn-filter-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-filter-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-filter-border','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-filter-hover-bg"><strong>Filter Hover BG</strong></label>
+            <input id="tpl-sf-btn-filter-hover-bg" type="text" name="tpl-sf-btn-filter-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-filter-hover-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-filter-hover-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-filter-hover-text"><strong>Filter Hover Text</strong></label>
+            <input id="tpl-sf-btn-filter-hover-text" type="text" name="tpl-sf-btn-filter-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-filter-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-filter-hover-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-filter-hover-border"><strong>Filter Hover Border</strong></label>
+            <input id="tpl-sf-btn-filter-hover-border" type="text" name="tpl-sf-btn-filter-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-filter-hover-border','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-filter-hover-border','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+    </div>
+
     <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-hand-pointer-o me-1"></i>Modal Buttons</h6>
     <div class="row">
         <div class="col-12 mb-2"><small class="text-muted"><strong>Zur&uuml;cksetzen-Button</strong></small></div>
@@ -2340,6 +2375,11 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             <input id="tpl-sf-btn-reset-hover-text" type="text" name="tpl-sf-btn-reset-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-text','rgb(255, 255, 255)'); ?>">
             <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-reset-hover-border"><strong>Reset Hover Border</strong></label>
+            <input id="tpl-sf-btn-reset-hover-border" type="text" name="tpl-sf-btn-reset-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-border','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-border','rgb(108, 117, 125)'); ?>"></div>
+        </div>
 
         <div class="col-12 mb-2 mt-3"><small class="text-muted"><strong>Suchen-Button</strong></small></div>
         <div class="col-sm-4 mb-3">
@@ -2353,9 +2393,24 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-search-border"><strong>Suchen Border</strong></label>
+            <input id="tpl-sf-btn-search-border" type="text" name="tpl-sf-btn-search-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-border','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
             <label for="tpl-sf-btn-search-hover-bg"><strong>Suchen Hover BG</strong></label>
             <input id="tpl-sf-btn-search-hover-bg" type="text" name="tpl-sf-btn-search-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-bg','rgb(74, 140, 42)'); ?>">
             <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-search-hover-text"><strong>Suchen Hover Text</strong></label>
+            <input id="tpl-sf-btn-search-hover-text" type="text" name="tpl-sf-btn-search-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-search-hover-border"><strong>Suchen Hover Border</strong></label>
+            <input id="tpl-sf-btn-search-hover-border" type="text" name="tpl-sf-btn-search-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-border','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-border','rgb(74, 140, 42)'); ?>"></div>
         </div>
 
         <div class="col-12 mb-2 mt-3"><small class="text-muted"><strong>Schlie&szlig;en-Button</strong></small></div>
@@ -2370,9 +2425,24 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-close-border"><strong>Schlie&szlig;en Border</strong></label>
+            <input id="tpl-sf-btn-close-border" type="text" name="tpl-sf-btn-close-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-border','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-border','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
             <label for="tpl-sf-btn-close-hover-bg"><strong>Schlie&szlig;en Hover BG</strong></label>
             <input id="tpl-sf-btn-close-hover-bg" type="text" name="tpl-sf-btn-close-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-bg','rgb(90, 98, 104)'); ?>">
             <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-bg','rgb(90, 98, 104)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-close-hover-text"><strong>Schlie&szlig;en Hover Text</strong></label>
+            <input id="tpl-sf-btn-close-hover-text" type="text" name="tpl-sf-btn-close-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-close-hover-border"><strong>Schlie&szlig;en Hover Border</strong></label>
+            <input id="tpl-sf-btn-close-hover-border" type="text" name="tpl-sf-btn-close-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-border','rgb(90, 98, 104)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-border','rgb(90, 98, 104)'); ?>"></div>
         </div>
     </div>
 
@@ -2496,6 +2566,16 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <div class="col-sm-4 mb-3">
             <label for="tpl-sf-fab-size"><strong>FAB Gr&ouml;&szlig;e</strong></label>
             <input id="tpl-sf-fab-size" type="text" name="tpl-sf-fab-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-fab-size','56px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-hover-bg"><strong>FAB Hover BG</strong></label>
+            <input id="tpl-sf-fab-hover-bg" type="text" name="tpl-sf-fab-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-fab-hover-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-fab-hover-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-hover-text"><strong>FAB Hover Text</strong></label>
+            <input id="tpl-sf-fab-hover-text" type="text" name="tpl-sf-fab-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-fab-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-fab-hover-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-sm-4 mb-3">
             <label for="tpl-sf-fab-badge-bg"><strong>FAB Badge BG</strong></label>
@@ -2635,6 +2715,17 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             <label for="tpl-sf-icon-btn-search"><strong>Button: Suchen</strong></label>
             <input id="tpl-sf-icon-btn-search" type="text" name="tpl-sf-icon-btn-search" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-btn-search','fa-search'); ?>">
             <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-btn-search','fa-search'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-btn-close"><strong>Button: Schlie&szlig;en</strong></label>
+            <input id="tpl-sf-icon-btn-close" type="text" name="tpl-sf-icon-btn-close" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-btn-close',''); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-btn-close',''); ?> mt-1" style="font-size:1.2rem;"></span>
+            <small class="text-muted">Leer lassen = kein Icon</small>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-btn-filter"><strong>Button: Filter</strong></label>
+            <input id="tpl-sf-icon-btn-filter" type="text" name="tpl-sf-icon-btn-filter" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-btn-filter','fa-sliders'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-btn-filter','fa-sliders'); ?> mt-1" style="font-size:1.2rem;"></span>
         </div>
         <div class="col-sm-4 mb-3">
             <label for="tpl-sf-icon-fab"><strong>FAB-Button</strong></label>

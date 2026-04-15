@@ -459,19 +459,30 @@ $defaults = [
     'tpl-sf-tab-active-text'       => 'rgb(255, 255, 255)',
     'tpl-sf-tab-badge-bg'          => 'rgb(220, 53, 69)',
     'tpl-sf-tab-badge-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-filter-bg'         => 'rgb(93, 178, 51)',
+    'tpl-sf-btn-filter-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-filter-border'     => 'rgb(93, 178, 51)',
+    'tpl-sf-btn-filter-hover-bg'   => 'rgb(74, 140, 42)',
+    'tpl-sf-btn-filter-hover-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-filter-hover-border' => 'rgb(74, 140, 42)',
     'tpl-sf-btn-reset-bg'          => 'transparent',
     'tpl-sf-btn-reset-text'        => 'rgb(108, 117, 125)',
     'tpl-sf-btn-reset-border'      => 'rgb(108, 117, 125)',
     'tpl-sf-btn-reset-hover-bg'    => 'rgb(108, 117, 125)',
     'tpl-sf-btn-reset-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-reset-hover-border' => 'rgb(108, 117, 125)',
     'tpl-sf-btn-search-bg'         => 'rgb(93, 178, 51)',
     'tpl-sf-btn-search-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-border'     => 'rgb(93, 178, 51)',
     'tpl-sf-btn-search-hover-bg'   => 'rgb(74, 140, 42)',
     'tpl-sf-btn-search-hover-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-hover-border' => 'rgb(74, 140, 42)',
     'tpl-sf-btn-close-bg'          => 'rgb(108, 117, 125)',
     'tpl-sf-btn-close-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-border'      => 'rgb(108, 117, 125)',
     'tpl-sf-btn-close-hover-bg'    => 'rgb(90, 98, 104)',
     'tpl-sf-btn-close-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-hover-border' => 'rgb(90, 98, 104)',
     'tpl-sf-chip-bg'               => 'rgb(93, 178, 51)',
     'tpl-sf-chip-text'             => 'rgb(255, 255, 255)',
     'tpl-sf-chip-radius'           => '20px',
@@ -494,6 +505,8 @@ $defaults = [
     'tpl-sf-fab-text'              => 'rgb(255, 255, 255)',
     'tpl-sf-fab-size'              => '56px',
     'tpl-sf-fab-shadow'            => '0 4px 12px rgba(0,0,0,0.3)',
+    'tpl-sf-fab-hover-bg'          => 'rgb(74, 140, 42)',
+    'tpl-sf-fab-hover-text'        => 'rgb(255, 255, 255)',
     'tpl-sf-fab-badge-bg'          => 'rgb(220, 53, 69)',
     'tpl-sf-fab-badge-text'        => 'rgb(255, 255, 255)',
     // Schnellfilter-Dropdowns (sf-quick-filter-bar)
@@ -758,8 +771,10 @@ echo '#sf-quick-filter-bar .sf-dd-toggle.has-active{background:var(--tpl-sf-dd-a
 echo '#sf-quick-filter-bar .sf-dd-menu{background:var(--tpl-sf-dd-menu-bg);border-color:var(--tpl-sf-dd-menu-border);border-radius:var(--tpl-sf-dd-menu-radius);}';
 echo '#sf-quick-filter-bar .sf-quick-badge{background:var(--tpl-sf-dd-badge-bg);color:var(--tpl-sf-dd-badge-text);}';
 echo '#sf-quick-filter-bar .sf-dd-count{color:var(--tpl-sf-dd-count-color);}';
-echo '#sf-quick-filter-bar .mrh-btn-filter{background:var(--tpl-sf-dd-active-bg);color:var(--tpl-sf-dd-active-text);border-color:var(--tpl-sf-dd-active-border);}';
-echo '#sf-quick-filter-bar .mrh-btn-filter:hover{opacity:.9;}';
+// Filter-Button (Filterbar)
+echo '#sf-quick-filter-bar .mrh-btn-filter{background:var(--tpl-sf-btn-filter-bg);color:var(--tpl-sf-btn-filter-text);border-color:var(--tpl-sf-btn-filter-border);}';
+echo '#sf-quick-filter-bar .mrh-btn-filter:hover{background:var(--tpl-sf-btn-filter-hover-bg);color:var(--tpl-sf-btn-filter-hover-text);border-color:var(--tpl-sf-btn-filter-hover-border);}';
+
 // Modal Buttons mit sf-* Klassen (v12.1.0)
 echo '.sf-modal-header{background:var(--tpl-sf-modal-header-bg);color:var(--tpl-sf-modal-header-text);}';
 echo '.sf-modal-header .modal-title{color:var(--tpl-sf-modal-header-text);}';
@@ -768,12 +783,14 @@ echo '.sf-tab-btn:hover{background:var(--tpl-sf-tab-hover-bg);color:var(--tpl-sf
 echo '.sf-tab-btn.active{background:var(--tpl-sf-tab-active-bg);color:var(--tpl-sf-tab-active-text);border-color:var(--tpl-sf-tab-active-bg);}';
 echo '.sf-tab-badge{background:var(--tpl-sf-tab-badge-bg) !important;color:var(--tpl-sf-tab-badge-text) !important;}';
 echo '.sf-btn-reset{background:var(--tpl-sf-btn-reset-bg);color:var(--tpl-sf-btn-reset-text);border-color:var(--tpl-sf-btn-reset-border);}';
-echo '.sf-btn-reset:hover{background:var(--tpl-sf-btn-reset-hover-bg);color:var(--tpl-sf-btn-reset-hover-text);border-color:var(--tpl-sf-btn-reset-hover-bg);}';
-echo '.sf-btn-search{background:var(--tpl-sf-btn-search-bg);color:var(--tpl-sf-btn-search-text);border-color:var(--tpl-sf-btn-search-bg);}';
-echo '.sf-btn-search:hover{background:var(--tpl-sf-btn-search-hover-bg);color:var(--tpl-sf-btn-search-hover-text);border-color:var(--tpl-sf-btn-search-hover-bg);}';
-echo '.sf-btn-close{background:var(--tpl-sf-btn-close-bg);color:var(--tpl-sf-btn-close-text);border-color:var(--tpl-sf-btn-close-bg);}';
-echo '.sf-btn-close:hover{background:var(--tpl-sf-btn-close-hover-bg);color:var(--tpl-sf-btn-close-hover-text);}';
+echo '.sf-btn-reset:hover{background:var(--tpl-sf-btn-reset-hover-bg);color:var(--tpl-sf-btn-reset-hover-text);border-color:var(--tpl-sf-btn-reset-hover-border);}';
+echo '.sf-btn-search{background:var(--tpl-sf-btn-search-bg);color:var(--tpl-sf-btn-search-text);border-color:var(--tpl-sf-btn-search-border);}';
+echo '.sf-btn-search:hover{background:var(--tpl-sf-btn-search-hover-bg);color:var(--tpl-sf-btn-search-hover-text);border-color:var(--tpl-sf-btn-search-hover-border);}';
+echo '.sf-btn-close{background:var(--tpl-sf-btn-close-bg);color:var(--tpl-sf-btn-close-text);border-color:var(--tpl-sf-btn-close-border);}';
+echo '.sf-btn-close:hover{background:var(--tpl-sf-btn-close-hover-bg);color:var(--tpl-sf-btn-close-hover-text);border-color:var(--tpl-sf-btn-close-hover-border);}';
 
+// FAB-Button (Mobile)
+echo '.seedfinder-filter-fab:hover{background:var(--tpl-sf-fab-hover-bg);color:var(--tpl-sf-fab-hover-text);}';
 echo '.fab-badge{background:var(--tpl-sf-fab-badge-bg);color:var(--tpl-sf-fab-badge-text);}';
 ?>
 </style>

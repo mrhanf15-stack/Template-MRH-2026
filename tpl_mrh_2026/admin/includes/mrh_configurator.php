@@ -599,20 +599,33 @@ $mrh_color_defaults = [
     'tpl-sf-tab-badge-bg'          => 'rgb(220, 53, 69)',
     'tpl-sf-tab-badge-text'        => 'rgb(255, 255, 255)',
 
+    // Filter-Button (Filterbar links)
+    'tpl-sf-btn-filter-bg'         => 'rgb(93, 178, 51)',
+    'tpl-sf-btn-filter-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-filter-border'     => 'rgb(93, 178, 51)',
+    'tpl-sf-btn-filter-hover-bg'   => 'rgb(74, 140, 42)',
+    'tpl-sf-btn-filter-hover-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-filter-hover-border' => 'rgb(74, 140, 42)',
+
     // Modal Footer Buttons
     'tpl-sf-btn-reset-bg'          => 'transparent',
     'tpl-sf-btn-reset-text'        => 'rgb(108, 117, 125)',
     'tpl-sf-btn-reset-border'      => 'rgb(108, 117, 125)',
     'tpl-sf-btn-reset-hover-bg'    => 'rgb(108, 117, 125)',
     'tpl-sf-btn-reset-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-reset-hover-border' => 'rgb(108, 117, 125)',
     'tpl-sf-btn-search-bg'         => 'rgb(93, 178, 51)',
     'tpl-sf-btn-search-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-border'     => 'rgb(93, 178, 51)',
     'tpl-sf-btn-search-hover-bg'   => 'rgb(74, 140, 42)',
     'tpl-sf-btn-search-hover-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-hover-border' => 'rgb(74, 140, 42)',
     'tpl-sf-btn-close-bg'          => 'rgb(108, 117, 125)',
     'tpl-sf-btn-close-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-border'      => 'rgb(108, 117, 125)',
     'tpl-sf-btn-close-hover-bg'    => 'rgb(90, 98, 104)',
     'tpl-sf-btn-close-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-hover-border' => 'rgb(90, 98, 104)',
 
     // Filter-Chips (aktive Filter im Modal)
     'tpl-sf-chip-bg'               => 'rgb(93, 178, 51)',
@@ -645,6 +658,8 @@ $mrh_color_defaults = [
     'tpl-sf-fab-text'              => 'rgb(255, 255, 255)',
     'tpl-sf-fab-size'              => '56px',
     'tpl-sf-fab-shadow'            => '0 4px 12px rgba(0,0,0,0.3)',
+    'tpl-sf-fab-hover-bg'          => 'rgb(74, 140, 42)',
+    'tpl-sf-fab-hover-text'        => 'rgb(255, 255, 255)',
     'tpl-sf-fab-badge-bg'          => 'rgb(220, 53, 69)',
     'tpl-sf-fab-badge-text'        => 'rgb(255, 255, 255)',
 
@@ -657,6 +672,8 @@ $mrh_color_defaults = [
     'tpl-sf-icon-modal-header'     => 'fa-sliders',
     'tpl-sf-icon-btn-reset'        => 'fa-undo',
     'tpl-sf-icon-btn-search'       => 'fa-search',
+    'tpl-sf-icon-btn-close'        => '',
+    'tpl-sf-icon-btn-filter'       => 'fa-sliders',
     'tpl-sf-icon-fab'              => 'fa-sliders',
 
     // Schnellfilter-Dropdowns (sf-quick-filter-bar)
