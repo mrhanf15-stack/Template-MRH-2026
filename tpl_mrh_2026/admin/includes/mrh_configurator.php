@@ -559,6 +559,19 @@ $mrh_color_defaults = [
     'tpl-pg-font-size'         => '0.8125rem',
     'tpl-pg-radius'            => '0.375rem',
     'tpl-pg-size'              => '2.25rem',
+
+    // ══════════════════════════════════════════════════
+    // ── Filter-Tags (aktive Filter Chips) ──
+    // ══════════════════════════════════════════════════
+    'tpl-filter-tag-bg'            => 'rgb(240, 240, 240)',
+    'tpl-filter-tag-text'          => 'rgb(51, 51, 51)',
+    'tpl-filter-tag-border'        => 'rgb(222, 226, 230)',
+    'tpl-filter-tag-radius'        => '50rem',
+    'tpl-filter-tag-padding'       => '3px 10px',
+    'tpl-filter-tag-font-size'     => '0.8rem',
+    'tpl-filter-tag-hover-bg'      => 'rgb(74, 140, 42)',
+    'tpl-filter-tag-hover-text'    => 'rgb(255, 255, 255)',
+    'tpl-filter-tag-hover-border'  => 'rgb(74, 140, 42)',
 ];
 
 $mrh_tpl_defaults = [

@@ -5165,19 +5165,19 @@ a.iframe:hover {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 10px;
-  background: var(--tpl-bg-body, #f0f0f0);
-  border: 1px solid var(--tpl-border-color, #dee2e6);
-  border-radius: 50rem;
-  color: var(--tpl-text-standard, #333);
+  padding: var(--tpl-filter-tag-padding, 3px 10px);
+  background: var(--tpl-filter-tag-bg, #f0f0f0);
+  border: 1px solid var(--tpl-filter-tag-border, #dee2e6);
+  border-radius: var(--tpl-filter-tag-radius, 50rem);
+  color: var(--tpl-filter-tag-text, #333);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: var(--tpl-filter-tag-font-size, 0.8rem);
   transition: all 0.2s ease;
 }
 .mrh-filter-tag-item a:hover {
-  background: var(--tpl-btn-primary-bg, #0d9488);
-  color: var(--tpl-btn-primary-text, #fff);
-  border-color: var(--tpl-btn-primary-bg, #0d9488);
+  background: var(--tpl-filter-tag-hover-bg, #4a8c2a);
+  color: var(--tpl-filter-tag-hover-text, #fff);
+  border-color: var(--tpl-filter-tag-hover-border, #4a8c2a);
 }
 .mrh-filter-reset {
   font-size: 0.8rem;

@@ -2046,6 +2046,58 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <input id="tpl-bb-sf-mob-margin-left" type="text" name="tpl-bb-sf-mob-margin-left" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-bb-sf-mob-margin-left','0'); ?>">
     </div>
 
+    <!-- ═══ Filter-Tags (aktive Filter Chips) ═══ -->
+    <div class="col-12"><hr><div class="mrh-sh"><span class="fa fa-tags me-1" style="color:#4a8c2a;"></span> Filter-Tags (aktive Filter Chips)</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Die aktiven Filter-Chips im Seedfinder und Produktlisting (z.B. &quot;Feminisiert &times;&quot;)</small></div>
+
+    <!-- Live-Vorschau -->
+    <div class="col-12 mb-3">
+        <div id="mrh-filter-tag-preview" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:12px;background:#f8f9fa;border-radius:8px;"></div>
+    </div>
+
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-filter-tag-bg" type="text" name="tpl-filter-tag-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-filter-tag-bg','rgb(240, 240, 240)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-filter-tag-bg','rgb(240, 240, 240)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-text"><strong>Textfarbe</strong></label>
+        <input id="tpl-filter-tag-text" type="text" name="tpl-filter-tag-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-filter-tag-text','rgb(51, 51, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-filter-tag-text','rgb(51, 51, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-border"><strong>Rahmenfarbe</strong></label>
+        <input id="tpl-filter-tag-border" type="text" name="tpl-filter-tag-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-filter-tag-border','rgb(222, 226, 230)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-filter-tag-border','rgb(222, 226, 230)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-radius"><strong>Rundung</strong></label>
+        <input id="tpl-filter-tag-radius" type="text" name="tpl-filter-tag-radius" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-filter-tag-radius','50rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-padding"><strong>Padding (innen)</strong></label>
+        <input id="tpl-filter-tag-padding" type="text" name="tpl-filter-tag-padding" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-filter-tag-padding','3px 10px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-font-size"><strong>Schriftgr&ouml;&szlig;e</strong></label>
+        <input id="tpl-filter-tag-font-size" type="text" name="tpl-filter-tag-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-filter-tag-font-size','0.8rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-hover-bg"><strong>Hover-Hintergrund</strong></label>
+        <input id="tpl-filter-tag-hover-bg" type="text" name="tpl-filter-tag-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-filter-tag-hover-bg','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-filter-tag-hover-bg','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-hover-text"><strong>Hover-Textfarbe</strong></label>
+        <input id="tpl-filter-tag-hover-text" type="text" name="tpl-filter-tag-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-filter-tag-hover-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-filter-tag-hover-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-filter-tag-hover-border"><strong>Hover-Rahmenfarbe</strong></label>
+        <input id="tpl-filter-tag-hover-border" type="text" name="tpl-filter-tag-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-filter-tag-hover-border','rgb(74, 140, 42)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-filter-tag-hover-border','rgb(74, 140, 42)'); ?>"></div>
+    </div>
+
     <!-- ═══ Versandkosten-Leiste ═══ -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-truck me-1" style="color:#be9e1f;"></i> Versandkosten-Leiste</div></div>
     <div class="col-12 mb-2"><small class="text-muted">Die Leiste &quot;Noch X EUR bis kostenloser Versand&quot; im Header</small></div>
@@ -2146,6 +2198,43 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </script>
 
 </div>
+
+<!-- Filter-Tag Live-Preview -->
+<script>
+(function(){
+    'use strict';
+    function renderFilterTagPreview() {
+        var preview = document.getElementById('mrh-filter-tag-preview');
+        if (!preview) return;
+        var bg = gv('tpl-filter-tag-bg','rgb(240, 240, 240)');
+        var text = gv('tpl-filter-tag-text','rgb(51, 51, 51)');
+        var border = gv('tpl-filter-tag-border','rgb(222, 226, 230)');
+        var radius = gv('tpl-filter-tag-radius','50rem');
+        var pad = gv('tpl-filter-tag-padding','3px 10px');
+        var fs = gv('tpl-filter-tag-font-size','0.8rem');
+        var hbg = gv('tpl-filter-tag-hover-bg','rgb(74, 140, 42)');
+        var htx = gv('tpl-filter-tag-hover-text','rgb(255, 255, 255)');
+        var hbd = gv('tpl-filter-tag-hover-border','rgb(74, 140, 42)');
+        var tags = ['Feminisiert','Autoflowering','Indoor','THC: Hoch'];
+        var h = '';
+        tags.forEach(function(t, i){
+            var isHover = (i === 1);
+            h += '<a href="#" onclick="return false" style="display:inline-flex;align-items:center;gap:4px;'
+                +'padding:'+pad+';background:'+(isHover?hbg:bg)+';border:1px solid '+(isHover?hbd:border)+';'
+                +'border-radius:'+radius+';color:'+(isHover?htx:text)+';text-decoration:none;font-size:'+fs+';'
+                +'transition:all .2s ease;">'+t+' &times;</a>';
+        });
+        h += '<small style="color:#999;margin-left:4px;">(2. Chip = Hover-Vorschau)</small>';
+        preview.innerHTML = h;
+    }
+    function gv(n,fb){var e=document.getElementById(n);return e?(e.value||fb):fb;}
+    document.querySelectorAll('[id^="tpl-filter-tag"]').forEach(function(el){
+        el.addEventListener('input',renderFilterTagPreview);
+        el.addEventListener('change',renderFilterTagPreview);
+    });
+    renderFilterTagPreview();
+})();
+</script>
 
 </div><!-- /#mrh-configurator-v4 -->
 
