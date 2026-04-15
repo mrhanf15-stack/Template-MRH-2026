@@ -5962,39 +5962,13 @@ a.iframe:hover {
     margin-top: 6px;
 }
 
-/* ── 23e: Detail-Tabelle – 350px mit Scrollbar ── */
+/* ── 23e: Detail-Tabelle – Volle Laenge, KEIN Height-Limit ── */
 .mrh-detail-table {
-    max-height: 350px;
-    overflow-y: auto;
     overflow-x: hidden;
-}
-
-/* Scrollbar – Webkit */
-.mrh-detail-table::-webkit-scrollbar {
-    width: 5px;
-}
-.mrh-detail-table::-webkit-scrollbar-track {
-    background: transparent;
-}
-.mrh-detail-table::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
-}
-.mrh-detail-table::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* Scrollbar – Firefox */
-.mrh-detail-table {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
 
 /* ── 23f: Responsive ── */
 @media (max-width: 991px) {
-    .mrh-detail-table {
-        max-height: 300px;
-    }
     .mrh-attr-table {
         font-size: 0.82rem;
     }
@@ -6004,9 +5978,6 @@ a.iframe:hover {
 }
 
 @media (max-width: 575px) {
-    .mrh-detail-table {
-        max-height: 260px;
-    }
     .mrh-attr-table {
         font-size: 0.78rem;
     }
