@@ -496,6 +496,23 @@ $defaults = [
     'tpl-sf-fab-shadow'            => '0 4px 12px rgba(0,0,0,0.3)',
     'tpl-sf-fab-badge-bg'          => 'rgb(220, 53, 69)',
     'tpl-sf-fab-badge-text'        => 'rgb(255, 255, 255)',
+    // Schnellfilter-Dropdowns (sf-quick-filter-bar)
+    'tpl-sf-dd-bg'                 => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-text'               => 'rgb(51, 51, 51)',
+    'tpl-sf-dd-border'             => 'rgb(222, 226, 230)',
+    'tpl-sf-dd-radius'             => '6px',
+    'tpl-sf-dd-font-size'          => '0.8125rem',
+    'tpl-sf-dd-hover-border'       => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-hover-text'         => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-active-bg'          => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-active-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-active-border'      => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-menu-bg'            => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-menu-border'        => 'rgb(222, 226, 230)',
+    'tpl-sf-dd-menu-radius'        => '8px',
+    'tpl-sf-dd-badge-bg'           => 'rgb(13, 110, 253)',
+    'tpl-sf-dd-badge-text'         => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-count-color'        => 'rgb(153, 153, 153)',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -733,6 +750,30 @@ echo '.sf-accordion-badge{background:var(--tpl-sf-accordion-badge-bg);color:var(
 
 // FAB-Button (Mobile)
 echo '.seedfinder-filter-fab{background:var(--tpl-sf-fab-bg);color:var(--tpl-sf-fab-text);width:var(--tpl-sf-fab-size);height:var(--tpl-sf-fab-size);box-shadow:var(--tpl-sf-fab-shadow);}';
+
+// Schnellfilter-Dropdowns (sf-quick-filter-bar)
+echo '#sf-quick-filter-bar .sf-dd-toggle{background:var(--tpl-sf-dd-bg);color:var(--tpl-sf-dd-text);border-color:var(--tpl-sf-dd-border);border-radius:var(--tpl-sf-dd-radius);font-size:var(--tpl-sf-dd-font-size);}';
+echo '#sf-quick-filter-bar .sf-dd-toggle:hover,#sf-quick-filter-bar .sf-dd-toggle.sf-dd-open{border-color:var(--tpl-sf-dd-hover-border);color:var(--tpl-sf-dd-hover-text);}';
+echo '#sf-quick-filter-bar .sf-dd-toggle.has-active{background:var(--tpl-sf-dd-active-bg);color:var(--tpl-sf-dd-active-text);border-color:var(--tpl-sf-dd-active-border);}';
+echo '#sf-quick-filter-bar .sf-dd-menu{background:var(--tpl-sf-dd-menu-bg);border-color:var(--tpl-sf-dd-menu-border);border-radius:var(--tpl-sf-dd-menu-radius);}';
+echo '#sf-quick-filter-bar .sf-quick-badge{background:var(--tpl-sf-dd-badge-bg);color:var(--tpl-sf-dd-badge-text);}';
+echo '#sf-quick-filter-bar .sf-dd-count{color:var(--tpl-sf-dd-count-color);}';
+echo '#sf-quick-filter-bar .mrh-btn-filter{background:var(--tpl-sf-dd-active-bg);color:var(--tpl-sf-dd-active-text);border-color:var(--tpl-sf-dd-active-border);}';
+echo '#sf-quick-filter-bar .mrh-btn-filter:hover{opacity:.9;}';
+// Modal Buttons mit sf-* Klassen (v12.1.0)
+echo '.sf-modal-header{background:var(--tpl-sf-modal-header-bg);color:var(--tpl-sf-modal-header-text);}';
+echo '.sf-modal-header .modal-title{color:var(--tpl-sf-modal-header-text);}';
+echo '.sf-tab-btn{background:var(--tpl-sf-tab-bg);color:var(--tpl-sf-tab-text);border-color:var(--tpl-sf-tab-border);border-radius:var(--tpl-sf-tab-radius) !important;font-size:var(--tpl-sf-tab-font-size);padding:var(--tpl-sf-tab-padding);}';
+echo '.sf-tab-btn:hover{background:var(--tpl-sf-tab-hover-bg);color:var(--tpl-sf-tab-hover-text);border-color:var(--tpl-sf-tab-hover-bg);}';
+echo '.sf-tab-btn.active{background:var(--tpl-sf-tab-active-bg);color:var(--tpl-sf-tab-active-text);border-color:var(--tpl-sf-tab-active-bg);}';
+echo '.sf-tab-badge{background:var(--tpl-sf-tab-badge-bg) !important;color:var(--tpl-sf-tab-badge-text) !important;}';
+echo '.sf-btn-reset{background:var(--tpl-sf-btn-reset-bg);color:var(--tpl-sf-btn-reset-text);border-color:var(--tpl-sf-btn-reset-border);}';
+echo '.sf-btn-reset:hover{background:var(--tpl-sf-btn-reset-hover-bg);color:var(--tpl-sf-btn-reset-hover-text);border-color:var(--tpl-sf-btn-reset-hover-bg);}';
+echo '.sf-btn-search{background:var(--tpl-sf-btn-search-bg);color:var(--tpl-sf-btn-search-text);border-color:var(--tpl-sf-btn-search-bg);}';
+echo '.sf-btn-search:hover{background:var(--tpl-sf-btn-search-hover-bg);color:var(--tpl-sf-btn-search-hover-text);border-color:var(--tpl-sf-btn-search-hover-bg);}';
+echo '.sf-btn-close{background:var(--tpl-sf-btn-close-bg);color:var(--tpl-sf-btn-close-text);border-color:var(--tpl-sf-btn-close-bg);}';
+echo '.sf-btn-close:hover{background:var(--tpl-sf-btn-close-hover-bg);color:var(--tpl-sf-btn-close-hover-text);}';
+
 echo '.fab-badge{background:var(--tpl-sf-fab-badge-bg);color:var(--tpl-sf-fab-badge-text);}';
 ?>
 </style>

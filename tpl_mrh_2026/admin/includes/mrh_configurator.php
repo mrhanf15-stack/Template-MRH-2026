@@ -658,6 +658,24 @@ $mrh_color_defaults = [
     'tpl-sf-icon-btn-reset'        => 'fa-undo',
     'tpl-sf-icon-btn-search'       => 'fa-search',
     'tpl-sf-icon-fab'              => 'fa-sliders',
+
+    // Schnellfilter-Dropdowns (sf-quick-filter-bar)
+    'tpl-sf-dd-bg'                 => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-text'               => 'rgb(51, 51, 51)',
+    'tpl-sf-dd-border'             => 'rgb(222, 226, 230)',
+    'tpl-sf-dd-radius'             => '6px',
+    'tpl-sf-dd-font-size'          => '0.8125rem',
+    'tpl-sf-dd-hover-border'       => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-hover-text'         => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-active-bg'          => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-active-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-active-border'      => 'rgb(13, 148, 136)',
+    'tpl-sf-dd-menu-bg'            => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-menu-border'        => 'rgb(222, 226, 230)',
+    'tpl-sf-dd-menu-radius'        => '8px',
+    'tpl-sf-dd-badge-bg'           => 'rgb(13, 110, 253)',
+    'tpl-sf-dd-badge-text'         => 'rgb(255, 255, 255)',
+    'tpl-sf-dd-count-color'        => 'rgb(153, 153, 153)',
 ];
 
 $mrh_tpl_defaults = [

@@ -2509,6 +2509,89 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
     </div>
 
+    <!-- Schnellfilter-Dropdowns (sf-quick-filter-bar) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-filter me-1"></i>Schnellfilter-Dropdowns</h6>
+    <p class="text-muted small">Steuert die Dropdown-Buttons in der Filterbar (Hersteller, Genetik, THC, Ertrag).</p>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-bg"><strong>DD Hintergrund</strong></label>
+            <input id="tpl-sf-dd-bg" type="text" name="tpl-sf-dd-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-bg','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-text"><strong>DD Text</strong></label>
+            <input id="tpl-sf-dd-text" type="text" name="tpl-sf-dd-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-text','rgb(51, 51, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-text','rgb(51, 51, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-border"><strong>DD Rahmen</strong></label>
+            <input id="tpl-sf-dd-border" type="text" name="tpl-sf-dd-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-border','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-border','rgb(222, 226, 230)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-radius"><strong>DD Rundung</strong></label>
+            <input id="tpl-sf-dd-radius" type="text" name="tpl-sf-dd-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-dd-radius','6px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-font-size"><strong>DD Schriftgr&ouml;&szlig;e</strong></label>
+            <input id="tpl-sf-dd-font-size" type="text" name="tpl-sf-dd-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-dd-font-size','0.8125rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-hover-border"><strong>DD Hover Rahmen</strong></label>
+            <input id="tpl-sf-dd-hover-border" type="text" name="tpl-sf-dd-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-hover-border','rgb(13, 148, 136)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-hover-border','rgb(13, 148, 136)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-hover-text"><strong>DD Hover Text</strong></label>
+            <input id="tpl-sf-dd-hover-text" type="text" name="tpl-sf-dd-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-hover-text','rgb(13, 148, 136)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-hover-text','rgb(13, 148, 136)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-active-bg"><strong>DD Aktiv Hintergrund</strong></label>
+            <input id="tpl-sf-dd-active-bg" type="text" name="tpl-sf-dd-active-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-active-bg','rgb(13, 148, 136)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-active-bg','rgb(13, 148, 136)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-active-text"><strong>DD Aktiv Text</strong></label>
+            <input id="tpl-sf-dd-active-text" type="text" name="tpl-sf-dd-active-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-active-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-active-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-active-border"><strong>DD Aktiv Rahmen</strong></label>
+            <input id="tpl-sf-dd-active-border" type="text" name="tpl-sf-dd-active-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-active-border','rgb(13, 148, 136)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-active-border','rgb(13, 148, 136)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-menu-bg"><strong>Men&uuml; Hintergrund</strong></label>
+            <input id="tpl-sf-dd-menu-bg" type="text" name="tpl-sf-dd-menu-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-menu-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-menu-bg','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-menu-border"><strong>Men&uuml; Rahmen</strong></label>
+            <input id="tpl-sf-dd-menu-border" type="text" name="tpl-sf-dd-menu-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-menu-border','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-menu-border','rgb(222, 226, 230)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-menu-radius"><strong>Men&uuml; Rundung</strong></label>
+            <input id="tpl-sf-dd-menu-radius" type="text" name="tpl-sf-dd-menu-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-dd-menu-radius','8px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-badge-bg"><strong>Badge Hintergrund</strong></label>
+            <input id="tpl-sf-dd-badge-bg" type="text" name="tpl-sf-dd-badge-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-badge-bg','rgb(13, 110, 253)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-badge-bg','rgb(13, 110, 253)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-badge-text"><strong>Badge Text</strong></label>
+            <input id="tpl-sf-dd-badge-text" type="text" name="tpl-sf-dd-badge-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-badge-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-badge-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-dd-count-color"><strong>Count Farbe</strong></label>
+            <input id="tpl-sf-dd-count-color" type="text" name="tpl-sf-dd-count-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-dd-count-color','rgb(153, 153, 153)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-dd-count-color','rgb(153, 153, 153)'); ?>"></div>
+        </div>
+    </div>
+
     <!-- Icons -->
     <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-icons me-1"></i>Icons (Font Awesome Klassen)</h6>
     <p class="text-muted small">Gib die FA-Klasse ohne "fa " Pr&auml;fix ein, z.B. <code>fa-star</code>, <code>fa-dna</code>, <code>fa-leaf</code></p>

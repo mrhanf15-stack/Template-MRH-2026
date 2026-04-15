@@ -1,148 +1,138 @@
+{config_load file="$language/lang_$language.conf" section="seedfinder"}
 {config_load file="lang_`$language`.custom"}
+{config_load file="lang_`$language`.section" section="seedfinder"}
 
 {*
- * Seedfinder Filters – Modal + Haupt-Filter v9.0.0 (tpl_mrh_2026)
- * Datum: 2026-04-09
+ * Seedfinder Filters – Filterbar + Modal v12.1.0 (tpl_mrh_2026)
+ * Datum: 2026-04-15
+ * Smarty 2 kompatibel – KEIN Popper.js noetig!
  *
- * 1:1 Nachbau des Live-Systems (mr-hanf.de) fuer Bootstrap 5
- * - Haupt-Filter Cards (Desktop ≥768px, immer sichtbar)
- * - "Alle Filter" Button → oeffnet Modal (Desktop: modal-xl, Mobile: fullscreen)
- * - Im Modal: Tab-Navigation (Desktop) / Accordion (Mobile)
- * - 5 Kategorien: Haupt, Genetik, Anbau, Geschmack, Erweitert
- *
- * Smarty-Variablen (aus seedfinder.php):
- *   $FILTERS[n].OPTIONS_ID / .OPTIONS_NAME / .VALUES[n].VALUES_ID / .VALUES_NAME / .COUNT / .ACTIVE
- *   $MANUFACTURERS[n].values_id / .manufacturer_name / .product_count / .selected
- *   $CATEGORIES, $TOTAL_PRODUCTS
- *
- * DOM-Hooks fuer seedfinder_ajax.js:
- *   .filter-checkbox, #search-filters-desktop, #reset-filters-desktop,
- *   #search-filters-mobile, #reset-filters-mobile, #filter-accordion-desktop,
- *   #filter-accordion-mobile, data-filter-id, data-value-id
+ * v12.1.0: Bootstrap-Klassen durch sf-* Klassen ersetzt + Inline-CSS auf var(--tpl-sf-*)
+ * v12.0.0: onclick-Handler direkt im HTML (unblockierbar)
+ * - Schnellfilter: Hersteller(73), Genetik(12), THC(11), Ertrag(8)
+ * - Filter-Button oeffnet Modal mit ALLEN Filtern
+ * - Dropdowns via onclick="sfToggle(this)" – kein Event-Listener noetig
  *}
 
-{if isset($FILTERS) && $FILTERS|@count > 0}
+{if isset($FILTERS)}
 
 {* ============================================================
-   Haupt-Filter Prioritaeten
-   11=THC, 12=Genetik, 55=Ertrag, 7=Wirkung, 15=Bluetezeit,
-   8=Geschlecht, 64=Geschmack, 65=Aroma
+   FILTERBAR-LEISTE
    ============================================================ *}
-{assign var="main_filter_ids" value=[11, 12, 55, 7, 15, 8]}
+<div class="mrh-filter-bar mt-3" id="sf-quick-filter-bar"
+     data-category-id="{$smarty.get.category|default:0}"
+     data-stage="{$smarty.get.stage|default:2}">
+  <div class="mrh-filter-bar-inner">
 
-{* ============================================================
-   HAUPT-FILTER SECTION – nur Desktop (≥768px)
-   ============================================================ *}
-<div class="row mb-3 d-none d-md-flex">
-    <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between">
-            <h3 class="h5 mb-0">
-                <i class="fa fa-filter text-primary me-2"></i>Schnellfilter
-            </h3>
-            {if isset($TOTAL_PRODUCTS)}
-            <span class="text-muted" id="total-products-count-desktop">{$TOTAL_PRODUCTS} Produkte gefunden</span>
-            {/if}
-        </div>
+    {* === Links: Filter-Button (oeffnet Modal) === *}
+    <div class="mrh-filter-bar-left">
+      <button type="button" class="btn mrh-btn-filter" onclick="sfOpenModal();return false;"
+              aria-label="Alle Filter oeffnen">
+        <span class="fa-solid fa-sliders me-1"></span>
+        <span class="d-none d-sm-inline">Filter</span>
+        <span class="badge bg-light text-dark ms-1 sf-active-count" id="sf-bar-filter-count" style="display:none;">0</span>
+      </button>
     </div>
-</div>
 
-<div class="row mb-3 d-none d-md-flex" id="main-filters-container">
+    {* === Mitte: Schnellfilter-Dropdowns (onclick) === *}
+    <div class="mrh-filter-bar-center">
 
-    {* Hersteller-Box *}
-    {if isset($MANUFACTURERS) && $MANUFACTURERS|@count > 0}
-    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
-        <div class="card h-100 shadow-sm main-filter-card">
-            <div class="card-header bg-light py-2">
-                <h6 class="mb-0 fw-bold">Hersteller</h6>
-            </div>
-            <div class="card-body py-2 filter-options-scrollable">
-                {foreach from=$MANUFACTURERS item=mfr}
-                <div class="form-check mb-1">
-                    <input type="checkbox"
-                           class="form-check-input filter-checkbox main-filter-checkbox manufacturer-checkbox"
-                           id="main-mfr-{$mfr.values_id}"
-                           name="filter[73][]"
-                           value="{$mfr.values_id}"
-                           data-filter-id="73"
-                           data-value-id="{$mfr.values_id}"
-                           {if $mfr.selected}checked{/if}>
-                    <label class="form-check-label small" for="main-mfr-{$mfr.values_id}">
-                        {$mfr.manufacturer_name}
-                        <span class="text-muted">({$mfr.product_count})</span>
-                    </label>
-                </div>
-                {/foreach}
-            </div>
+      {* --- Hersteller Dropdown (options_id 73) --- *}
+      {if isset($MANUFACTURERS) && $MANUFACTURERS|@count > 0}
+      <div class="sf-dd-wrap" id="sf-wrap-73">
+        <button class="btn btn-sm sf-dd-toggle sf-quick-btn" type="button" id="sf-quick-btn-73"
+                onclick="sfToggle('73');return false;">
+          Hersteller
+          <span class="badge sf-quick-badge" id="sf-quick-badge-73" style="display:none;">0</span>
+          <i class="fa fa-chevron-down ms-1" style="font-size:.6em;"></i>
+        </button>
+        <div class="sf-dd-menu" id="sf-quick-dd-73">
+          <div class="sf-dd-search-wrap">
+            <input type="text" class="form-control form-control-sm sf-dd-search" placeholder="Suchen..."
+                   oninput="sfSearchDD(this,'sf-quick-dd-73')">
+          </div>
+          <div class="sf-dd-items">
+            {foreach name=mfr_loop item=mfr from=$MANUFACTURERS}
+            <label class="sf-dd-item" onclick="event.stopPropagation();">
+              <input type="checkbox"
+                     class="form-check-input sf-quick-checkbox filter-checkbox manufacturer-checkbox"
+                     name="filter[73][]"
+                     value="{$mfr.values_id}"
+                     data-filter-id="73"
+                     data-value-id="{$mfr.values_id}"
+                     onchange="sfCheckboxChanged(this)"
+                     {if $mfr.selected}checked{/if}>
+              <span class="sf-dd-label">{$mfr.manufacturer_name}</span>
+              <span class="sf-dd-count sf-quick-count" id="sf-qc-73-{$mfr.values_id}">({$mfr.product_count})</span>
+            </label>
+            {/foreach}
+          </div>
         </div>
-    </div>
-    {/if}
+      </div>
+      {/if}
 
-    {* Haupt-Filter Cards *}
-    {foreach from=$FILTERS item=filter}
-        {if in_array($filter.OPTIONS_ID, $main_filter_ids)}
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
-            <div class="card h-100 shadow-sm main-filter-card">
-                <div class="card-header bg-light py-2">
-                    <h6 class="mb-0 fw-bold">{$filter.OPTIONS_NAME}</h6>
-                </div>
-                <div class="card-body py-2 filter-options-scrollable">
-                    {foreach from=$filter.VALUES item=value}
-                    <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
-                        <input type="checkbox"
-                               class="form-check-input filter-checkbox main-filter-checkbox"
-                               id="main-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
-                               name="filter[{$filter.OPTIONS_ID}][]"
-                               value="{$value.VALUES_ID}"
-                               data-filter-id="{$filter.OPTIONS_ID}"
-                               data-value-id="{$value.VALUES_ID}"
-                               {if $value.ACTIVE}checked{/if}
-                               {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
-                        <label class="form-check-label small" for="main-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                            {$value.VALUES_NAME}
-                            {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
-                        </label>
-                    </div>
-                    {/foreach}
-                </div>
+      {* --- Genetik (12) / THC (11) / Ertrag (8) Dropdowns --- *}
+      {foreach name=filter_loop item=filter from=$FILTERS}
+        {if $filter.OPTIONS_ID == 12 || $filter.OPTIONS_ID == 11 || $filter.OPTIONS_ID == 8}
+        <div class="sf-dd-wrap" id="sf-wrap-{$filter.OPTIONS_ID}">
+          <button class="btn btn-sm sf-dd-toggle sf-quick-btn" type="button" id="sf-quick-btn-{$filter.OPTIONS_ID}"
+                  onclick="sfToggle('{$filter.OPTIONS_ID}');return false;">
+            {$filter.OPTIONS_NAME}
+            <span class="badge sf-quick-badge" id="sf-quick-badge-{$filter.OPTIONS_ID}" style="display:none;">0</span>
+            <i class="fa fa-chevron-down ms-1" style="font-size:.6em;"></i>
+          </button>
+          <div class="sf-dd-menu" id="sf-quick-dd-{$filter.OPTIONS_ID}">
+            <div class="sf-dd-items">
+              {foreach name=val_loop item=value from=$filter.VALUES}
+              <label class="sf-dd-item{if $value.COUNT == 0 && !$value.ACTIVE} sf-dd-disabled{/if}"
+                     onclick="event.stopPropagation();">
+                <input type="checkbox"
+                       class="form-check-input sf-quick-checkbox filter-checkbox"
+                       name="filter[{$filter.OPTIONS_ID}][]"
+                       value="{$value.VALUES_ID}"
+                       data-filter-id="{$filter.OPTIONS_ID}"
+                       data-value-id="{$value.VALUES_ID}"
+                       onchange="sfCheckboxChanged(this)"
+                       {if $value.ACTIVE}checked{/if}
+                       {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                <span class="sf-dd-label">{$value.VALUES_NAME}</span>
+                <span class="sf-dd-count sf-quick-count" id="sf-qc-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">{if $value.COUNT > 0}({$value.COUNT}){/if}</span>
+              </label>
+              {/foreach}
             </div>
+          </div>
         </div>
         {/if}
-    {/foreach}
-</div>
+      {/foreach}
 
-{* Haupt-Filter Buttons (Desktop) *}
-<div class="row mb-3 d-none d-md-flex">
-    <div class="col-12 d-flex gap-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary" id="reset-main-filters">
-            <i class="fa fa-undo me-1"></i>Zuruecksetzen
-        </button>
-        <button type="button" class="btn btn-sm btn-primary" id="apply-main-filters">
-            <i class="fa fa-check me-1"></i>Filter anwenden
-        </button>
     </div>
-</div>
 
-{* ============================================================
-   "ALLE FILTER" BUTTON
-   ============================================================ *}
-<div class="row mb-3">
-    <div class="col-12 text-center">
-        {* Desktop *}
-        <button type="button" class="btn sf-btn-open-modal d-none d-md-inline-block" id="open-filter-modal">
-            <i class="fa fa-sliders me-2"></i>Alle Filter anzeigen
-        </button>
+    {* === Rechts: Produkt-Count === *}
+    <div class="mrh-filter-bar-right">
+      {if isset($TOTAL_PRODUCTS)}
+      <span class="text-muted small" id="total-products-count-desktop">
+        <strong id="sf-product-count-value">{$TOTAL_PRODUCTS}</strong> Produkte
+      </span>
+      {/if}
     </div>
+
+  </div>
+
+  {* === Aktive Filter-Tags (Chips) === *}
+  <div class="sf-filter-tags" id="sf-active-tags" style="display:none;">
+    <div class="sf-filter-tags-inner d-flex flex-wrap gap-1 py-2" id="sf-active-tags-list">
+    </div>
+  </div>
 </div>
 
 {* Mobile FAB *}
-<button type="button" class="seedfinder-filter-fab d-md-none" id="open-filter-modal-mobile" aria-label="Filter oeffnen">
+<button type="button" class="seedfinder-filter-fab d-md-none" onclick="sfOpenModal();return false;" aria-label="Filter oeffnen">
     <i class="fa fa-sliders"></i>
     <span class="fab-badge" id="active-filter-count-fab" style="display: none;">0</span>
 </button>
 
 {* ============================================================
-   MODAL – Alle Filter
-   Desktop: modal-xl | Mobile: fullscreen
+   MODAL – Alle Filter (Bootstrap Modal – KEIN Popper noetig)
    ============================================================ *}
 <div class="modal fade" id="seedfinder-filter-modal" tabindex="-1" aria-labelledby="sfFilterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
@@ -150,15 +140,17 @@
 
             {* Modal Header *}
             <div class="modal-header sf-modal-header">
-                <h5 class="modal-title" id="sfFilterModalLabel">
+                <h5 class="modal-title text-white" id="sfFilterModalLabel">
                     <i class="fa fa-sliders me-2"></i>Alle Filter
+                    <span class="badge bg-light text-dark ms-2" id="sf-modal-product-count">{$TOTAL_PRODUCTS|default:0}</span>
+                    <small class="ms-1" style="opacity:.8;">Produkte</small>
                 </h5>
 
-                {* Kategorie-Dropdown *}
                 {if isset($CATEGORIES) && $CATEGORIES|@count > 0}
                 <div class="mx-auto" style="max-width: 280px;">
-                    <select class="form-select form-select-sm" id="modal-category-selector">
-                        {foreach from=$CATEGORIES item=cat}
+                    <select class="form-select form-select-sm" id="modal-category-selector"
+                            onchange="sfCategoryChange(this.value)">
+                        {foreach name=cat_loop item=cat from=$CATEGORIES}
                             <option value="{$cat.id}"
                                 {if isset($smarty.get.category) && $smarty.get.category == $cat.id}selected{/if}
                             >{$cat.name}{if isset($cat.count)} ({$cat.count}){/if}</option>
@@ -173,34 +165,31 @@
             {* Modal Body *}
             <div class="modal-body">
 
-                {* Aktive Filter Chips *}
-                <div class="mb-3" id="active-filters-card" style="display: none;">
-                    <div class="d-flex align-items-center flex-wrap gap-2" id="active-filters-list"></div>
+                <div class="mb-3" id="modal-active-filters-card" style="display: none;">
+                    <div class="d-flex align-items-center flex-wrap gap-2" id="modal-active-filters-list"></div>
                 </div>
 
-                {* ============================================
-                 * DESKTOP: Tab-Navigation (5 Kategorien)
-                 * ============================================ *}
+                {* DESKTOP: Tab-Navigation *}
                 <div class="row mb-3 d-none d-md-flex" id="filter-category-nav-desktop">
                     <div class="col-12">
                         <div class="btn-group w-100" role="group">
-                            <button type="button" class="btn sf-tab-btn filter-category-btn active" data-category="main">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn active" data-category="main" onclick="sfSwitchTab('main')">
                                 <i class="fa fa-star me-1"></i> Haupt
                                 <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="main" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="genetics">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="genetics" onclick="sfSwitchTab('genetics')">
                                 <i class="fa fa-dna me-1"></i> Genetik
                                 <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="genetics" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="cultivation">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="cultivation" onclick="sfSwitchTab('cultivation')">
                                 <i class="fa fa-seedling me-1"></i> Anbau
                                 <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="cultivation" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="taste">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="taste" onclick="sfSwitchTab('taste')">
                                 <i class="fa fa-leaf me-1"></i> Geschmack
                                 <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="taste" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="advanced">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="advanced" onclick="sfSwitchTab('advanced')">
                                 <i class="fa fa-cog me-1"></i> Erweitert
                                 <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="advanced" style="display:none;"></span>
                             </button>
@@ -208,77 +197,66 @@
                     </div>
                 </div>
 
-                {* ============================================
-                 * MOBILE: Accordion-Navigation (im Modal)
-                 * ============================================ *}
+                {* MOBILE: Accordion-Navigation *}
                 <div class="d-md-none" id="filter-accordion-mobile">
-
-                    {foreach from=['main' => 'Haupt', 'genetics' => 'Genetik', 'cultivation' => 'Anbau', 'taste' => 'Geschmack', 'advanced' => 'Erweitert'] key=catKey item=catLabel}
-                    <div class="sf-accordion-item" data-accordion-category="{$catKey}">
-                        <div class="sf-accordion-header" data-toggle-accordion="{$catKey}">
-                            <span class="sf-accordion-title fw-bold">{$catLabel}</span>
-                            <span class="sf-accordion-badge category-filter-badge" data-category-badge="{$catKey}-mobile" style="display:none;"></span>
-                            <span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span>
-                        </div>
-                        <div class="sf-accordion-body" id="accordion-body-{$catKey}"></div>
+                    <div class="sf-accordion-item" data-accordion-category="main">
+                        <div class="sf-accordion-header" onclick="sfToggleAccordion(this)"><span class="sf-accordion-title fw-bold">Haupt</span><span class="sf-accordion-badge category-filter-badge" data-category-badge="main-mobile" style="display:none;"></span><span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span></div>
+                        <div class="sf-accordion-body" id="accordion-body-main" style="display:none;"></div>
                     </div>
-                    {/foreach}
-
+                    <div class="sf-accordion-item" data-accordion-category="genetics">
+                        <div class="sf-accordion-header" onclick="sfToggleAccordion(this)"><span class="sf-accordion-title fw-bold">Genetik</span><span class="sf-accordion-badge category-filter-badge" data-category-badge="genetics-mobile" style="display:none;"></span><span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span></div>
+                        <div class="sf-accordion-body" id="accordion-body-genetics" style="display:none;"></div>
+                    </div>
+                    <div class="sf-accordion-item" data-accordion-category="cultivation">
+                        <div class="sf-accordion-header" onclick="sfToggleAccordion(this)"><span class="sf-accordion-title fw-bold">Anbau</span><span class="sf-accordion-badge category-filter-badge" data-category-badge="cultivation-mobile" style="display:none;"></span><span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span></div>
+                        <div class="sf-accordion-body" id="accordion-body-cultivation" style="display:none;"></div>
+                    </div>
+                    <div class="sf-accordion-item" data-accordion-category="taste">
+                        <div class="sf-accordion-header" onclick="sfToggleAccordion(this)"><span class="sf-accordion-title fw-bold">Geschmack</span><span class="sf-accordion-badge category-filter-badge" data-category-badge="taste-mobile" style="display:none;"></span><span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span></div>
+                        <div class="sf-accordion-body" id="accordion-body-taste" style="display:none;"></div>
+                    </div>
+                    <div class="sf-accordion-item" data-accordion-category="advanced">
+                        <div class="sf-accordion-header" onclick="sfToggleAccordion(this)"><span class="sf-accordion-title fw-bold">Erweitert</span><span class="sf-accordion-badge category-filter-badge" data-category-badge="advanced-mobile" style="display:none;"></span><span class="sf-accordion-chevron ms-auto"><i class="fa fa-chevron-down"></i></span></div>
+                        <div class="sf-accordion-body" id="accordion-body-advanced" style="display:none;"></div>
+                    </div>
                 </div>
 
-                {* ============================================
-                 * DESKTOP: Filter-Kategorie-Inhalte
-                 * ============================================ *}
+                {* DESKTOP: Filter-Kategorie-Inhalte *}
                 <div id="filter-categories-desktop">
 
-                    {* === Kategorie: Haupt === *}
+                    {* Haupt (11=THC, 12=Genetik, 8=Ertrag, 7=Wirkung, 15=Bluetezeit) *}
                     <div id="category-main" class="filter-category-content">
                         <div class="row" id="filter-accordion-desktop">
-                            {* Hersteller *}
                             {if isset($MANUFACTURERS) && $MANUFACTURERS|@count > 0}
                             <div class="col-12 col-md-4 mb-3">
                                 <h6 class="border-bottom pb-2 fw-bold">Hersteller</h6>
                                 <div class="filter-options manufacturer-filter-options filter-options-scrollable">
-                                    {foreach from=$MANUFACTURERS item=mfr}
+                                    {foreach name=mfr_modal item=mfr from=$MANUFACTURERS}
                                     <div class="form-check mb-1">
-                                        <input type="checkbox"
-                                               class="form-check-input filter-checkbox modal-filter-checkbox manufacturer-checkbox"
-                                               id="modal-filter-73-{$mfr.values_id}"
-                                               name="filter[73][]"
-                                               value="{$mfr.values_id}"
-                                               data-filter-id="73"
-                                               data-value-id="{$mfr.values_id}"
+                                        <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox manufacturer-checkbox"
+                                               id="modal-filter-73-{$mfr.values_id}" name="filter[73][]" value="{$mfr.values_id}"
+                                               data-filter-id="73" data-value-id="{$mfr.values_id}"
+                                               onchange="sfCheckboxChanged(this)"
                                                {if $mfr.selected}checked{/if}>
-                                        <label class="form-check-label small" for="modal-filter-73-{$mfr.values_id}">
-                                            {$mfr.manufacturer_name}
-                                            <span class="text-muted">({$mfr.product_count})</span>
-                                        </label>
+                                        <label class="form-check-label small" for="modal-filter-73-{$mfr.values_id}">{$mfr.manufacturer_name} <span class="text-muted filter-value-count">({$mfr.product_count})</span></label>
                                     </div>
                                     {/foreach}
                                 </div>
                             </div>
                             {/if}
-                            {* Haupt-Filter *}
-                            {foreach from=$FILTERS item=filter}
-                                {if in_array($filter.OPTIONS_ID, $main_filter_ids)}
+                            {foreach name=main_loop item=filter from=$FILTERS}
+                                {if $filter.OPTIONS_ID == 11 || $filter.OPTIONS_ID == 12 || $filter.OPTIONS_ID == 8 || $filter.OPTIONS_ID == 7 || $filter.OPTIONS_ID == 15}
                                 <div class="col-12 col-md-4 mb-3">
                                     <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
                                     <div class="filter-options filter-options-scrollable">
-                                        {foreach from=$filter.VALUES item=value}
+                                        {foreach name=val_main item=value from=$filter.VALUES}
                                         <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
-                                            <input type="checkbox"
-                                                   class="form-check-input filter-checkbox modal-filter-checkbox"
-                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
-                                                   name="filter[{$filter.OPTIONS_ID}][]"
-                                                   value="{$value.VALUES_ID}"
-                                                   data-filter-id="{$filter.OPTIONS_ID}"
-                                                   data-value-id="{$value.VALUES_ID}"
-                                                   {if $value.ACTIVE}checked{/if}
-                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
-                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                                                {$value.VALUES_NAME}
-                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
-                                            </label>
+                                            <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
+                                                   onchange="sfCheckboxChanged(this)"
+                                                   {if $value.ACTIVE}checked{/if} {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">{$value.VALUES_NAME} <span class="text-muted filter-value-count">({$value.COUNT})</span></label>
                                         </div>
                                         {/foreach}
                                     </div>
@@ -288,27 +266,22 @@
                         </div>
                     </div>
 
-                    {* === Kategorie: Genetik === *}
-                    {assign var="genetics_filters" value=[12, 59, 71, 72, 31, 9]}
+                    {* Genetik (12, 59, 71, 72, 31, 9) *}
                     <div id="category-genetics" class="filter-category-content sf-filter-category-hidden">
                         <div class="row">
-                            {foreach from=$FILTERS item=filter}
-                                {if in_array($filter.OPTIONS_ID, $genetics_filters)}
+                            {foreach name=gen_loop item=filter from=$FILTERS}
+                                {if $filter.OPTIONS_ID == 12 || $filter.OPTIONS_ID == 59 || $filter.OPTIONS_ID == 71 || $filter.OPTIONS_ID == 72 || $filter.OPTIONS_ID == 31 || $filter.OPTIONS_ID == 9}
                                 <div class="col-12 col-md-4 mb-3">
                                     <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
                                     <div class="filter-options filter-options-scrollable">
-                                        {foreach from=$filter.VALUES item=value}
+                                        {foreach name=val_gen item=value from=$filter.VALUES}
                                         <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
                                             <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
-                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
-                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
                                                    data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
-                                                   {if $value.ACTIVE}checked{/if}
-                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
-                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                                                {$value.VALUES_NAME}
-                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
-                                            </label>
+                                                   onchange="sfCheckboxChanged(this)"
+                                                   {if $value.ACTIVE}checked{/if} {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">{$value.VALUES_NAME} <span class="text-muted filter-value-count">({$value.COUNT})</span></label>
                                         </div>
                                         {/foreach}
                                     </div>
@@ -318,27 +291,22 @@
                         </div>
                     </div>
 
-                    {* === Kategorie: Anbau === *}
-                    {assign var="cultivation_filters" value=[15, 60, 34, 27]}
+                    {* Anbau (15, 60, 34, 27) *}
                     <div id="category-cultivation" class="filter-category-content sf-filter-category-hidden">
                         <div class="row">
-                            {foreach from=$FILTERS item=filter}
-                                {if in_array($filter.OPTIONS_ID, $cultivation_filters)}
+                            {foreach name=cult_loop item=filter from=$FILTERS}
+                                {if $filter.OPTIONS_ID == 15 || $filter.OPTIONS_ID == 60 || $filter.OPTIONS_ID == 34 || $filter.OPTIONS_ID == 27}
                                 <div class="col-12 col-md-4 mb-3">
                                     <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
                                     <div class="filter-options filter-options-scrollable">
-                                        {foreach from=$filter.VALUES item=value}
+                                        {foreach name=val_cult item=value from=$filter.VALUES}
                                         <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
                                             <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
-                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
-                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
                                                    data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
-                                                   {if $value.ACTIVE}checked{/if}
-                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
-                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                                                {$value.VALUES_NAME}
-                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
-                                            </label>
+                                                   onchange="sfCheckboxChanged(this)"
+                                                   {if $value.ACTIVE}checked{/if} {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">{$value.VALUES_NAME} <span class="text-muted filter-value-count">({$value.COUNT})</span></label>
                                         </div>
                                         {/foreach}
                                     </div>
@@ -348,27 +316,22 @@
                         </div>
                     </div>
 
-                    {* === Kategorie: Geschmack/Aroma === *}
-                    {assign var="taste_filters" value=[64, 65]}
+                    {* Geschmack/Aroma (64, 65) *}
                     <div id="category-taste" class="filter-category-content sf-filter-category-hidden">
                         <div class="row">
-                            {foreach from=$FILTERS item=filter}
-                                {if in_array($filter.OPTIONS_ID, $taste_filters)}
+                            {foreach name=taste_loop item=filter from=$FILTERS}
+                                {if $filter.OPTIONS_ID == 64 || $filter.OPTIONS_ID == 65}
                                 <div class="col-12 col-md-4 mb-3">
                                     <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
                                     <div class="filter-options filter-options-scrollable">
-                                        {foreach from=$filter.VALUES item=value}
+                                        {foreach name=val_taste item=value from=$filter.VALUES}
                                         <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
                                             <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
-                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
-                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
                                                    data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
-                                                   {if $value.ACTIVE}checked{/if}
-                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
-                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                                                {$value.VALUES_NAME}
-                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
-                                            </label>
+                                                   onchange="sfCheckboxChanged(this)"
+                                                   {if $value.ACTIVE}checked{/if} {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">{$value.VALUES_NAME} <span class="text-muted filter-value-count">({$value.COUNT})</span></label>
                                         </div>
                                         {/foreach}
                                     </div>
@@ -378,27 +341,22 @@
                         </div>
                     </div>
 
-                    {* === Kategorie: Erweitert (alle nicht zugeordneten) === *}
-                    {assign var="known_filters" value=[11, 15, 12, 8, 10, 64, 7, 55, 65, 59, 60, 34, 71, 72, 27, 31, 9]}
+                    {* Erweitert (alle nicht in obigen Gruppen) *}
                     <div id="category-advanced" class="filter-category-content sf-filter-category-hidden">
                         <div class="row">
-                            {foreach from=$FILTERS item=filter}
-                                {if !in_array($filter.OPTIONS_ID, $known_filters)}
+                            {foreach name=adv_loop item=filter from=$FILTERS}
+                                {if $filter.OPTIONS_ID != 11 && $filter.OPTIONS_ID != 12 && $filter.OPTIONS_ID != 8 && $filter.OPTIONS_ID != 7 && $filter.OPTIONS_ID != 15 && $filter.OPTIONS_ID != 59 && $filter.OPTIONS_ID != 71 && $filter.OPTIONS_ID != 72 && $filter.OPTIONS_ID != 31 && $filter.OPTIONS_ID != 9 && $filter.OPTIONS_ID != 60 && $filter.OPTIONS_ID != 34 && $filter.OPTIONS_ID != 27 && $filter.OPTIONS_ID != 64 && $filter.OPTIONS_ID != 65 && $filter.OPTIONS_ID != 10}
                                 <div class="col-12 col-md-4 mb-3">
                                     <h6 class="border-bottom pb-2 fw-bold">{$filter.OPTIONS_NAME}</h6>
                                     <div class="filter-options filter-options-scrollable">
-                                        {foreach from=$filter.VALUES item=value}
+                                        {foreach name=val_adv item=value from=$filter.VALUES}
                                         <div class="form-check mb-1{if $value.COUNT == 0 && !$value.ACTIVE} filter-disabled{/if}">
                                             <input type="checkbox" class="form-check-input filter-checkbox modal-filter-checkbox"
-                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}"
-                                                   name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
+                                                   id="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}" name="filter[{$filter.OPTIONS_ID}][]" value="{$value.VALUES_ID}"
                                                    data-filter-id="{$filter.OPTIONS_ID}" data-value-id="{$value.VALUES_ID}"
-                                                   {if $value.ACTIVE}checked{/if}
-                                                   {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
-                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">
-                                                {$value.VALUES_NAME}
-                                                {if $value.COUNT > 0}<span class="text-muted">({$value.COUNT})</span>{/if}
-                                            </label>
+                                                   onchange="sfCheckboxChanged(this)"
+                                                   {if $value.ACTIVE}checked{/if} {if $value.COUNT == 0 && !$value.ACTIVE}disabled{/if}>
+                                            <label class="form-check-label small" for="modal-filter-{$filter.OPTIONS_ID}-{$value.VALUES_ID}">{$value.VALUES_NAME} <span class="text-muted filter-value-count">({$value.COUNT})</span></label>
                                         </div>
                                         {/foreach}
                                     </div>
@@ -413,11 +371,12 @@
 
             {* Modal Footer *}
             <div class="modal-footer">
-                <button type="button" class="btn sf-btn-reset" id="reset-filters-desktop">
+                <button type="button" class="btn sf-btn-reset" onclick="sfResetFilters()">
                     <i class="fa fa-undo me-1"></i>Zuruecksetzen
                 </button>
-                <button type="button" class="btn sf-btn-search" id="search-filters-desktop">
+                <button type="button" class="btn sf-btn-search" onclick="sfApplyFilters()">
                     <i class="fa fa-search me-1"></i>Suchen
+                    <span class="badge bg-light text-dark ms-1" id="sf-modal-apply-count">{$TOTAL_PRODUCTS|default:0}</span>
                 </button>
                 <button type="button" class="btn sf-btn-close" data-bs-dismiss="modal">Schliessen</button>
             </div>
@@ -426,9 +385,72 @@
     </div>
 </div>
 
-{* CSS *}
-<link rel="stylesheet" href="{$tpl_path}css/seedfinder_accordion.css?v=9.0.1">
+{* ============================================================
+   INLINE CSS – Filterbar + Custom Dropdowns
+   ============================================================ *}
+<style>
+/* Filterbar Layout */
+#sf-quick-filter-bar .mrh-filter-bar-inner {
+    display:flex; align-items:center; gap:.5rem; flex-wrap:nowrap; padding:.5rem 0;
+}
+#sf-quick-filter-bar .mrh-filter-bar-left { flex-shrink:0; }
+#sf-quick-filter-bar .mrh-filter-bar-center {
+    display:flex; align-items:center; gap:.5rem; flex:1; overflow-x:auto; overflow-y:visible;
+    -webkit-overflow-scrolling:touch;
+}
+#sf-quick-filter-bar .mrh-filter-bar-right { flex-shrink:0; white-space:nowrap; }
 
-{* JavaScript: seedfinder_modal.js + seedfinder_ajax.js werden in seedfinder.html geladen (defer) *}
+/* Custom Dropdown (kein Popper noetig) */
+.sf-dd-wrap { position:relative; display:inline-block; flex-shrink:0; }
+.sf-dd-toggle {
+    white-space:nowrap; font-size:var(--tpl-sf-dd-font-size,.8125rem); border:1px solid var(--tpl-sf-dd-border,#dee2e6); background:var(--tpl-sf-dd-bg,#fff);
+    color:var(--tpl-sf-dd-text,#333); border-radius:var(--tpl-sf-dd-radius,6px); padding:.35rem .75rem; cursor:pointer; transition:all .15s;
+}
+.sf-dd-toggle:hover, .sf-dd-toggle.sf-dd-open { border-color:var(--tpl-sf-dd-hover-border,#0d9488); color:var(--tpl-sf-dd-hover-text,#0d9488); }
+.sf-dd-toggle.has-active { border-color:var(--tpl-sf-dd-active-border,#0d9488); color:var(--tpl-sf-dd-active-text,#fff); font-weight:600; background:var(--tpl-sf-dd-active-bg,#0d9488); }
+
+.sf-dd-menu {
+    display:none; position:absolute; top:100%; left:0; z-index:1050;
+    min-width:260px; max-height:360px; overflow-y:auto;
+    background:var(--tpl-sf-dd-menu-bg,#fff); border:1px solid var(--tpl-sf-dd-menu-border,#dee2e6); border-radius:var(--tpl-sf-dd-menu-radius,8px);
+    box-shadow:0 4px 16px rgba(0,0,0,.12); padding:.5rem; margin-top:4px;
+}
+.sf-dd-menu.sf-dd-visible { display:block; }
+
+.sf-dd-search-wrap { margin-bottom:.5rem; }
+.sf-dd-search { font-size:.8125rem; }
+
+.sf-dd-items { max-height:280px; overflow-y:auto; }
+.sf-dd-item {
+    display:flex; align-items:center; gap:.5rem; padding:.3rem .4rem;
+    border-radius:4px; cursor:pointer; font-size:.8125rem; transition:background .1s;
+}
+.sf-dd-item:hover { background:rgba(0,0,0,.04); }
+.sf-dd-disabled { opacity:.35; pointer-events:none; }
+.sf-dd-label { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sf-dd-count { color:var(--tpl-sf-dd-count-color,#999); font-size:.75rem; flex-shrink:0; }
+
+.sf-quick-badge { font-size:.65rem; background:var(--tpl-sf-dd-badge-bg,#0d6efd); color:var(--tpl-sf-dd-badge-text,#fff); margin-left:.25rem; }
+
+/* Filter Tags */
+.sf-filter-tags { border-top:1px solid rgba(0,0,0,.1); }
+.sf-filter-tags .badge { font-size:.75rem; cursor:pointer; }
+
+/* Modal Tabs */
+.sf-filter-category-hidden { display:none !important; }
+.filter-options-scrollable { max-height:250px; overflow-y:auto; }
+.filter-disabled { opacity:.4; }
+
+/* Mobile Accordion */
+.sf-accordion-item { border-bottom:1px solid #eee; }
+.sf-accordion-header { display:flex; align-items:center; padding:.75rem 0; cursor:pointer; }
+.sf-accordion-open .sf-accordion-chevron i { transform:rotate(180deg); }
+
+@media (max-width:767.98px) {
+    #sf-quick-filter-bar .mrh-filter-bar-center { gap:.25rem; }
+    #sf-quick-filter-bar .mrh-filter-bar-right { display:none; }
+    .sf-dd-menu { min-width:220px; left:auto; right:0; }
+}
+</style>
 
 {/if}
