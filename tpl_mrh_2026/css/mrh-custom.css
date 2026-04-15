@@ -5977,6 +5977,10 @@ a.iframe:hover {
 /* ── 23e: Detail-Tabelle – Volle Laenge, KEIN Height-Limit ── */
 .mrh-detail-table {
     overflow-x: hidden;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    background: transparent;
 }
 
 /* ── 23f: Responsive ── */
