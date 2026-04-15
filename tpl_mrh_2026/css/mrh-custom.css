@@ -5803,3 +5803,135 @@ a.iframe:hover {
   font-weight: var(--tpl-badge-font-weight, 600);
   letter-spacing: 0.02em;
 }
+
+/* ========================================================================
+   22. MRH LISTING-TABELLE – Marker-Styling (v1.10.0)
+   Ersetzt die Inline <style> Bloecke aus der PHP-Klasse.
+   Nutzt mrh-mark-* Klassen auf TD-Ebene (wie von PHP generiert).
+   ======================================================================== */
+
+/* ── 22a: Gemeinsamer Balken-Stil fuer mrh-mark-* ── */
+.mrh-attr-table td.mrh-mark-thc,
+.mrh-attr-table td.mrh-mark-cbd,
+.mrh-attr-table td.mrh-mark-fem,
+.mrh-attr-table td.mrh-mark-reg {
+    position: relative;
+    padding-left: 22px;
+}
+
+.mrh-attr-table td.mrh-mark-thc::before,
+.mrh-attr-table td.mrh-mark-cbd::before,
+.mrh-attr-table td.mrh-mark-fem::before,
+.mrh-attr-table td.mrh-mark-reg::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    min-height: 18px;
+    border-radius: 0 2px 2px 0;
+}
+
+/* ── 22b: THC – Dunkelblau ── */
+.mrh-attr-table td.mrh-mark-thc::before {
+    background: #1a3a5c;
+}
+
+/* ── 22c: CBD – Weinrot ── */
+.mrh-attr-table td.mrh-mark-cbd::before {
+    background: #8b1a2b;
+}
+
+/* ── 22d: Gender Feminisiert/Autoflower – Pink ── */
+.mrh-attr-table td.mrh-mark-fem::before {
+    background: var(--tpl-badge-fem-bg, #fc5b96);
+}
+
+/* ── 22e: Gender Regulaer – Blau ── */
+.mrh-attr-table td.mrh-mark-reg::before {
+    background: var(--tpl-badge-reg-bg, #2ea2f0);
+}
+
+/* ── 22f: Listing-Tabelle Basis-Design ── */
+.mrh-attr-listing {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+    font-family: var(--tpl-font-text, inherit), sans-serif;
+    background: #fff;
+    border: 1px solid var(--mrh-tbl-border, #e2e8f0);
+    border-radius: var(--mrh-tbl-radius, 6px);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    margin-top: 6px;
+}
+
+.mrh-attr-listing tr {
+    border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0);
+    transition: background-color 0.15s ease;
+}
+.mrh-attr-listing tr:last-child {
+    border-bottom: none;
+}
+
+/* Zebra */
+.mrh-attr-listing tr:nth-child(even) {
+    background-color: var(--mrh-tbl-zebra, #f8fafc);
+}
+
+/* Hover */
+.mrh-attr-listing tr:hover {
+    background-color: rgba(45, 122, 58, 0.04);
+}
+
+/* Zellen */
+.mrh-attr-listing td {
+    padding: 6px 10px;
+    vertical-align: middle;
+    border: none !important;
+    line-height: 1.4;
+}
+
+/* Label-Spalte */
+.mrh-attr-listing td:first-child {
+    font-weight: 600;
+    color: var(--mrh-tbl-label, #475569);
+    width: 44%;
+    position: relative;
+}
+
+/* Wert-Spalte */
+.mrh-attr-listing td:last-child {
+    color: var(--mrh-tbl-value, #1e293b);
+    font-weight: 400;
+}
+
+/* Abgerundete Ecken */
+.mrh-attr-listing tr:first-child td:first-child {
+    border-top-left-radius: var(--mrh-tbl-radius, 6px);
+}
+.mrh-attr-listing tr:first-child td:last-child {
+    border-top-right-radius: var(--mrh-tbl-radius, 6px);
+}
+.mrh-attr-listing tr:last-child td:first-child {
+    border-bottom-left-radius: var(--mrh-tbl-radius, 6px);
+}
+.mrh-attr-listing tr:last-child td:last-child {
+    border-bottom-right-radius: var(--mrh-tbl-radius, 6px);
+}
+
+/* ── 22g: Listing Responsive ── */
+@media (max-width: 575px) {
+    .mrh-attr-listing {
+        font-size: 0.78rem;
+    }
+    .mrh-attr-listing td {
+        padding: 5px 8px;
+    }
+    .mrh-attr-listing td:first-child {
+        width: 40%;
+    }
+}
