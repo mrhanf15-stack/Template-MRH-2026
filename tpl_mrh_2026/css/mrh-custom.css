@@ -5962,6 +5962,18 @@ a.iframe:hover {
     margin-top: 6px;
 }
 
+/* ── 23d-fix: Alte tebals.wite Tabelle in Short Description ausblenden ── */
+.lb_desc .tebals.wite,
+.lr_desc .tebals.wite {
+    display: none !important;
+}
+
+/* ── 23d-fix: tebals-Border auf mrh-attr-table neutralisieren ── */
+.mrh-attr-table.tebals {
+    border: 1px solid var(--mrh-tbl-border, #e2e8f0) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
 /* ── 23e: Detail-Tabelle – Volle Laenge, KEIN Height-Limit ── */
 .mrh-detail-table {
     overflow-x: hidden;
