@@ -2572,9 +2572,26 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 (function(){
     'use strict';
     function gv(n,fb){var e=document.getElementById(n);return e?(e.value||fb):fb;}
+
+    // Snapshot aller aktuellen Werte fuer Aenderungserkennung
+    var _sfSnapshot = {};
+    function sfTakeSnapshot() {
+        var els = document.querySelectorAll('#tab-seedfinder input, #tab-seedfinder select');
+        els.forEach(function(el){ if(el.id) _sfSnapshot[el.id] = el.value; });
+    }
+    function sfHasChanged() {
+        var els = document.querySelectorAll('#tab-seedfinder input, #tab-seedfinder select');
+        for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (el.id && _sfSnapshot[el.id] !== el.value) return true;
+        }
+        return false;
+    }
+
     function renderSfModalPreview() {
         var p = document.getElementById('mrh-sf-modal-preview');
         if (!p) return;
+        sfTakeSnapshot();
         var hbg = gv('tpl-sf-modal-header-bg','rgb(93, 178, 51)');
         var htx = gv('tpl-sf-modal-header-text','rgb(255, 255, 255)');
         var bbg = gv('tpl-sf-modal-body-bg','rgb(255, 255, 255)');
@@ -2655,13 +2672,59 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         h += '</div>';
         p.innerHTML = h;
     }
+    // 1. Standard-Events (input/change) fuer manuelle Eingaben
     document.querySelectorAll('#tab-seedfinder input, #tab-seedfinder select').forEach(function(el){
         el.addEventListener('input',renderSfModalPreview);
         el.addEventListener('change',renderSfModalPreview);
     });
-    // Auch beim Tab-Wechsel rendern (Colorpicker werden erst dann initialisiert)
+
+    // 2. MutationObserver fuer Colorpicker (Spectrum/Pickr setzen value-Attribut per JS)
+    var sfPane = document.getElementById('tab-seedfinder');
+    if (sfPane && typeof MutationObserver !== 'undefined') {
+        var sfObserver = new MutationObserver(function(mutations) {
+            var needsRender = false;
+            mutations.forEach(function(m) {
+                if (m.type === 'attributes' && m.attributeName === 'value') {
+                    needsRender = true;
+                }
+            });
+            if (needsRender) renderSfModalPreview();
+        });
+        sfObserver.observe(sfPane, { attributes: true, attributeFilter: ['value'], subtree: true });
+    }
+
+    // 3. Polling als Fallback (Colorpicker die nur .value Property setzen, nicht das Attribut)
+    var _sfPollTimer = null;
+    function sfStartPolling() {
+        if (_sfPollTimer) return;
+        _sfPollTimer = setInterval(function() {
+            if (sfHasChanged()) renderSfModalPreview();
+        }, 250);
+    }
+    function sfStopPolling() {
+        if (_sfPollTimer) { clearInterval(_sfPollTimer); _sfPollTimer = null; }
+    }
+
+    // 4. Tab-Wechsel: Polling starten/stoppen + Preview rendern
     var sfTab = document.querySelector('[data-tab="seedfinder"]');
-    if (sfTab) sfTab.addEventListener('click', function(){ setTimeout(renderSfModalPreview, 100); });
+    if (sfTab) {
+        sfTab.addEventListener('click', function(){
+            setTimeout(function(){
+                renderSfModalPreview();
+                sfStartPolling();
+            }, 150);
+        });
+    }
+    // Polling stoppen wenn anderer Tab geklickt wird
+    document.querySelectorAll('#mrh-config-tabs .mrh-tab:not([data-tab="seedfinder"])').forEach(function(tab){
+        tab.addEventListener('click', sfStopPolling);
+    });
+
+    // 5. Globale Funktion fuer externen Aufruf (z.B. vom Colorpicker-Callback)
+    window.mrhRenderSfPreview = renderSfModalPreview;
+
+    // Initial rendern + Snapshot
+    sfTakeSnapshot();
     renderSfModalPreview();
 })();
 </script>
