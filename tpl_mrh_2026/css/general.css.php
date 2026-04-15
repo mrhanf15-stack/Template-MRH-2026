@@ -723,6 +723,16 @@ echo '.pagination .page-link{background:var(--tpl-pg-bg);color:var(--tpl-pg-text
 echo '.pagination .page-link:hover{background-color:var(--tpl-pg-hover-bg);color:var(--tpl-pg-hover-text);border-color:var(--tpl-pg-hover-border);}';
 echo '.pagination .page-item.active .page-link{background-color:var(--tpl-pg-active-bg) !important;color:var(--tpl-pg-active-text) !important;border-color:var(--tpl-pg-active-border) !important;}';
 echo '.pagination .page-item.disabled .page-link{color:var(--tpl-pg-disabled-text);border-color:var(--tpl-pg-disabled-border);}';
+// Seedfinder Pagination Layout (Zähler links, Pagination rechts + Abstände)
+echo '.seedfinder-pagination-bar{display:flex !important;justify-content:space-between !important;align-items:center !important;margin-top:0.5rem !important;margin-bottom:0.5rem !important;flex-wrap:wrap;gap:0.5rem;}';
+echo '.seedfinder-pagination-count{margin:0 !important;padding:0.5rem 0 !important;order:1 !important;}';
+echo '.seedfinder-pagination-links{margin:0 !important;order:2 !important;}';
+echo '.seedfinder-pagination-links .pagination{margin-bottom:0 !important;}';
+// Abstände zwischen Page-Items (Seedfinder + Standard)
+echo '.pagination{gap:4px;}';
+echo '.pagination .page-item .page-link{margin:0;}';
+// Responsive: Mobile → untereinander
+echo '@media(max-width:575px){.seedfinder-pagination-bar{flex-direction:column !important;align-items:flex-start !important;}.seedfinder-pagination-count{margin-bottom:0.5rem !important;order:1 !important;}.seedfinder-pagination-links{order:2 !important;}}';
 
 // ═══ Seedfinder Modal-Overrides: --tpl-sf-* → #seedfinder-filter-modal + #filter-category-nav-desktop ═══
 // Modal Grundstruktur
