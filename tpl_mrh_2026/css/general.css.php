@@ -792,6 +792,49 @@ echo '.sf-btn-close:hover{background:var(--tpl-sf-btn-close-hover-bg);color:var(
 // FAB-Button (Mobile)
 echo '.seedfinder-filter-fab:hover{background:var(--tpl-sf-fab-hover-bg);color:var(--tpl-sf-fab-hover-text);}';
 echo '.fab-badge{background:var(--tpl-sf-fab-badge-bg);color:var(--tpl-sf-fab-badge-text);}';
+
+// ═══ Standard-Listing-Filter → gleiche Seedfinder-Variablen (tpl-sf-*) ═══
+// Filter-Button (Standard-Listing: .mrh-btn-filter OHNE #sf-quick-filter-bar Kontext)
+echo '.mrh-btn-filter{background:var(--tpl-sf-btn-filter-bg);color:var(--tpl-sf-btn-filter-text);border-color:var(--tpl-sf-btn-filter-border);border-radius:var(--tpl-sf-tab-radius) !important;}';
+echo '.mrh-btn-filter:hover{background:var(--tpl-sf-btn-filter-hover-bg);color:var(--tpl-sf-btn-filter-hover-text);border-color:var(--tpl-sf-btn-filter-hover-border);}';
+
+// Standard-Filtermodal Header (#mrhFilterModal)
+echo '#mrhFilterModal .mrh-filter-modal-header{background:var(--tpl-sf-modal-header-bg);color:var(--tpl-sf-modal-header-text);}';
+echo '#mrhFilterModal .mrh-filter-modal-header .modal-title{color:var(--tpl-sf-modal-header-text);}';
+echo '#mrhFilterModal .mrh-filter-modal-header .btn-close{filter:var(--tpl-sf-modal-header-close-filter,invert(1));}';
+echo '#mrhFilterModal .mrh-filter-modal-header .badge{background:var(--tpl-sf-tab-badge-bg) !important;color:var(--tpl-sf-tab-badge-text) !important;}';
+
+// Standard-Filtermodal Body
+echo '#mrhFilterModal .modal-body{background:var(--tpl-sf-modal-body-bg);}';
+
+// Standard-Filtermodal Footer
+echo '#mrhFilterModal .mrh-filter-modal-footer{background:var(--tpl-sf-modal-footer-bg);border-top-color:var(--tpl-sf-modal-footer-border);}';
+echo '#mrhFilterModal .mrh-filter-modal-apply{background:var(--tpl-sf-btn-search-bg) !important;color:var(--tpl-sf-btn-search-text) !important;border-color:var(--tpl-sf-btn-search-bg) !important;}';
+echo '#mrhFilterModal .mrh-filter-modal-apply:hover{background:var(--tpl-sf-btn-search-hover-bg) !important;color:var(--tpl-sf-btn-search-hover-text) !important;border-color:var(--tpl-sf-btn-search-hover-bg) !important;}';
+
+// Standard-Filtermodal Checkboxen
+echo '#mrhFilterModal .form-check-input:checked{background-color:var(--tpl-sf-checkbox-checked-bg);border-color:var(--tpl-sf-checkbox-checked-border);}';
+
+// Standard-Filtermodal Gruppen-Badges
+echo '#mrhFilterModal .mrh-filter-group-badge{background:var(--tpl-sf-tab-badge-bg) !important;color:var(--tpl-sf-tab-badge-text) !important;}';
+
+// Standard-Filtermodal Filter-Wert-Count
+echo '#mrhFilterModal .mrh-filter-value-count{background:var(--tpl-sf-chip-bg) !important;color:var(--tpl-sf-chip-text) !important;}';
+
+// Details-Button (Produkt-Listing)
+echo '.mrh-btn-details{background:var(--tpl-sf-btn-search-bg);color:var(--tpl-sf-btn-search-text);border-color:var(--tpl-sf-btn-search-bg);}';
+echo '.mrh-btn-details:hover{background:var(--tpl-sf-btn-search-hover-bg);color:var(--tpl-sf-btn-search-hover-text);border-color:var(--tpl-sf-btn-search-hover-bg);}';
+
+// View-Toggle (Kachel/Liste)
+echo '.mrh-view-btn.active{color:var(--tpl-sf-tab-active-bg);}';
+echo '.mrh-view-btn:hover{color:var(--tpl-sf-tab-hover-bg);}';
+
+// Active Filter Count Badge (am Filter-Button)
+echo '#active-filter-count{background:var(--tpl-sf-tab-badge-bg) !important;color:var(--tpl-sf-tab-badge-text) !important;}';
+
+// Produkt-Badges (Typ-Badges fem/auto/photo/reg)
+// Diese nutzen eigene Konfigurator-Variablen (tpl-badge-*), nicht sf-*
+// Daher hier kein Override nötig
 ?>
 </style>
 <style>
