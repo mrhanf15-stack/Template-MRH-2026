@@ -128,7 +128,7 @@
 <div class="row mb-3">
     <div class="col-12 text-center">
         {* Desktop *}
-        <button type="button" class="btn btn-outline-primary d-none d-md-inline-block" id="open-filter-modal">
+        <button type="button" class="btn sf-btn-open-modal d-none d-md-inline-block" id="open-filter-modal">
             <i class="fa fa-sliders me-2"></i>Alle Filter anzeigen
         </button>
     </div>
@@ -149,8 +149,8 @@
         <div class="modal-content">
 
             {* Modal Header *}
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title text-white" id="sfFilterModalLabel">
+            <div class="modal-header sf-modal-header">
+                <h5 class="modal-title" id="sfFilterModalLabel">
                     <i class="fa fa-sliders me-2"></i>Alle Filter
                 </h5>
 
@@ -184,25 +184,25 @@
                 <div class="row mb-3 d-none d-md-flex" id="filter-category-nav-desktop">
                     <div class="col-12">
                         <div class="btn-group w-100" role="group">
-                            <button type="button" class="btn btn-outline-primary filter-category-btn active" data-category="main">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn active" data-category="main">
                                 <i class="fa fa-star me-1"></i> Haupt
-                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="main" style="display:none;"></span>
+                                <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="main" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="genetics">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="genetics">
                                 <i class="fa fa-dna me-1"></i> Genetik
-                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="genetics" style="display:none;"></span>
+                                <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="genetics" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="cultivation">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="cultivation">
                                 <i class="fa fa-seedling me-1"></i> Anbau
-                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="cultivation" style="display:none;"></span>
+                                <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="cultivation" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="taste">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="taste">
                                 <i class="fa fa-leaf me-1"></i> Geschmack
-                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="taste" style="display:none;"></span>
+                                <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="taste" style="display:none;"></span>
                             </button>
-                            <button type="button" class="btn btn-outline-primary filter-category-btn" data-category="advanced">
+                            <button type="button" class="btn sf-tab-btn filter-category-btn" data-category="advanced">
                                 <i class="fa fa-cog me-1"></i> Erweitert
-                                <span class="badge bg-danger rounded-pill ms-1 category-filter-badge" data-category-badge="advanced" style="display:none;"></span>
+                                <span class="badge sf-tab-badge rounded-pill ms-1 category-filter-badge" data-category-badge="advanced" style="display:none;"></span>
                             </button>
                         </div>
                     </div>
@@ -413,13 +413,13 @@
 
             {* Modal Footer *}
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" id="reset-filters-desktop">
+                <button type="button" class="btn sf-btn-reset" id="reset-filters-desktop">
                     <i class="fa fa-undo me-1"></i>Zuruecksetzen
                 </button>
-                <button type="button" class="btn btn-success" id="search-filters-desktop">
+                <button type="button" class="btn sf-btn-search" id="search-filters-desktop">
                     <i class="fa fa-search me-1"></i>Suchen
                 </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
+                <button type="button" class="btn sf-btn-close" data-bs-dismiss="modal">Schliessen</button>
             </div>
 
         </div>

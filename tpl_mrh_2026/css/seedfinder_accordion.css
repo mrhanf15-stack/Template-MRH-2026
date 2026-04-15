@@ -1,6 +1,6 @@
 /**
- * Seedfinder Filters CSS v9.0.0 (tpl_mrh_2026 / Bootstrap 5)
- * Datum: 2026-04-09
+ * Seedfinder Filters CSS v9.1.0 (tpl_mrh_2026 / Bootstrap 5)
+ * Datum: 2026-04-15
  *
  * 1. Haupt-Filter Cards (Desktop, immer sichtbar)
  * 2. Filter-Modal (Desktop: modal-xl, Mobile: fullscreen)
@@ -16,12 +16,12 @@
    CSS-VARIABLEN (Seedfinder-spezifisch)
    ============================================================ */
 :root {
-    --sf-accordion-bg: var(--tpl-bg-section, var(--bs-light, #f8f9fa));
-    --sf-accordion-border: var(--tpl-border-color, var(--bs-border-color, #dee2e6));
-    --sf-accordion-hover: var(--bs-gray-200, #e9ecef);
-    --sf-accordion-active: var(--tpl-primary, var(--mrh-primary, #5db233));
-    --sf-chip-bg: var(--tpl-primary, var(--bs-primary, #0d6efd));
-    --sf-chip-text: #fff;
+    --sf-accordion-bg: var(--tpl-sf-modal-footer-bg, var(--tpl-bg-section, var(--bs-light, #f8f9fa)));
+    --sf-accordion-border: var(--tpl-sf-modal-footer-border, var(--tpl-border-color, var(--bs-border-color, #dee2e6)));
+    --sf-accordion-hover: var(--tpl-sf-accordion-hover-bg, var(--bs-gray-200, #e9ecef));
+    --sf-accordion-active: var(--tpl-sf-tab-active-bg, var(--tpl-primary, var(--mrh-primary, #5db233)));
+    --sf-chip-bg: var(--tpl-sf-chip-bg, var(--tpl-primary, var(--bs-primary, #0d6efd)));
+    --sf-chip-text: var(--tpl-sf-chip-text, #fff);
     --sf-disabled-opacity: 0.4;
     --sf-text-muted: #6c757d;
 }
@@ -58,24 +58,27 @@
 #seedfinder-filter-modal {
     z-index: 50001 !important;
 }
-#seedfinder-filter-modal .modal-header {
-    background: var(--sf-accordion-active);
+#seedfinder-filter-modal .modal-header,
+.sf-modal-header {
+    background: var(--tpl-sf-modal-header-bg, var(--sf-accordion-active)) !important;
+    color: var(--tpl-sf-modal-header-text, #fff) !important;
     border-bottom: none;
     padding: 12px 20px;
 }
-#seedfinder-filter-modal .modal-title {
+#seedfinder-filter-modal .modal-title,
+.sf-modal-header .modal-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--tpl-sf-modal-header-text, #fff) !important;
     font-family: var(--tpl-font-heading, sans-serif);
 }
 #seedfinder-filter-modal .modal-body {
     padding: 16px 20px;
-    background: var(--tpl-bg-body, #fff);
+    background: var(--tpl-sf-modal-body-bg, var(--tpl-bg-body, #fff));
 }
 #seedfinder-filter-modal .modal-footer {
-    background: var(--sf-accordion-bg);
-    border-top: 1px solid var(--sf-accordion-border);
+    background: var(--tpl-sf-modal-footer-bg, var(--sf-accordion-bg));
+    border-top: 1px solid var(--tpl-sf-modal-footer-border, var(--sf-accordion-border));
     padding: 10px 20px;
     gap: 8px;
 }
@@ -87,30 +90,40 @@
     flex-wrap: wrap;
     gap: 4px;
 }
+/* sf-tab-btn: Konfigurator-gesteuerte Tab-Buttons */
+.sf-tab-btn,
 #filter-category-nav-desktop .filter-category-btn {
-    font-size: 0.85rem;
+    font-size: var(--tpl-sf-tab-font-size, 0.85rem);
     font-weight: 500;
-    padding: 6px 14px;
-    border-radius: var(--tpl-border-radius, 6px) !important;
+    padding: var(--tpl-sf-tab-padding, 6px 14px);
+    border-radius: var(--tpl-sf-tab-radius, var(--tpl-border-radius, 6px)) !important;
     transition: all 0.2s ease;
     white-space: nowrap;
-    border-color: var(--sf-accordion-active);
-    color: var(--sf-accordion-active);
+    background: var(--tpl-sf-tab-bg, transparent) !important;
+    border-color: var(--tpl-sf-tab-border, var(--sf-accordion-active)) !important;
+    color: var(--tpl-sf-tab-text, var(--sf-accordion-active)) !important;
 }
+.sf-tab-btn:hover,
 #filter-category-nav-desktop .filter-category-btn:hover {
-    background: var(--sf-accordion-active);
-    color: #fff;
-    border-color: var(--sf-accordion-active);
+    background: var(--tpl-sf-tab-hover-bg, var(--sf-accordion-active)) !important;
+    color: var(--tpl-sf-tab-hover-text, #fff) !important;
+    border-color: var(--tpl-sf-tab-hover-bg, var(--sf-accordion-active)) !important;
 }
+.sf-tab-btn.active,
 #filter-category-nav-desktop .filter-category-btn.active {
-    background: var(--sf-accordion-active);
-    color: #fff;
-    border-color: var(--sf-accordion-active);
+    background: var(--tpl-sf-tab-active-bg, var(--sf-accordion-active)) !important;
+    color: var(--tpl-sf-tab-active-text, #fff) !important;
+    border-color: var(--tpl-sf-tab-active-bg, var(--sf-accordion-active)) !important;
 }
+
+/* sf-tab-badge: Konfigurator-gesteuerte Tab-Badges */
+.sf-tab-badge,
 .category-filter-badge {
     font-size: 0.65rem;
     min-width: 18px;
     padding: 2px 5px;
+    background: var(--tpl-sf-tab-badge-bg, var(--bs-danger, #dc3545)) !important;
+    color: var(--tpl-sf-tab-badge-text, #fff) !important;
 }
 
 /* Filter-Kategorie-Inhalte */
@@ -210,8 +223,8 @@
     cursor: pointer;
 }
 .filter-checkbox:checked {
-    background-color: var(--sf-accordion-active);
-    border-color: var(--sf-accordion-active);
+    background-color: var(--tpl-sf-checkbox-checked-bg, var(--sf-accordion-active)) !important;
+    border-color: var(--tpl-sf-checkbox-checked-border, var(--sf-accordion-active)) !important;
 }
 .form-check-label {
     cursor: pointer;
@@ -232,6 +245,72 @@
     opacity: 0.3 !important;
 }
 
+/* ============================================================
+   5b. MODAL BUTTONS (Konfigurator-gesteuert)
+   ============================================================ */
+.sf-btn-reset {
+    background: var(--tpl-sf-btn-reset-bg, transparent) !important;
+    color: var(--tpl-sf-btn-reset-text, #6c757d) !important;
+    border: 1px solid var(--tpl-sf-btn-reset-border, #6c757d) !important;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+.sf-btn-reset:hover {
+    background: var(--tpl-sf-btn-reset-hover-bg, var(--tpl-sf-btn-reset-bg, #6c757d)) !important;
+    color: var(--tpl-sf-btn-reset-hover-text, #fff) !important;
+    border-color: var(--tpl-sf-btn-reset-hover-bg, #6c757d) !important;
+}
+.sf-btn-search {
+    background: var(--tpl-sf-btn-search-bg, var(--sf-accordion-active)) !important;
+    color: var(--tpl-sf-btn-search-text, #fff) !important;
+    border: none !important;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+.sf-btn-search:hover {
+    background: var(--tpl-sf-btn-search-hover-bg, var(--tpl-sf-btn-search-bg, var(--sf-accordion-active))) !important;
+    filter: brightness(0.9);
+}
+.sf-btn-close {
+    background: var(--tpl-sf-btn-close-bg, #6c757d) !important;
+    color: var(--tpl-sf-btn-close-text, #fff) !important;
+    border: none !important;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+.sf-btn-close:hover {
+    background: var(--tpl-sf-btn-close-hover-bg, var(--tpl-sf-btn-close-bg, #6c757d)) !important;
+    filter: brightness(0.9);
+}
+.sf-btn-open-modal {
+    background: var(--tpl-sf-tab-bg, transparent) !important;
+    color: var(--tpl-sf-tab-text, var(--sf-accordion-active)) !important;
+    border: 1px solid var(--tpl-sf-tab-border, var(--sf-accordion-active)) !important;
+    padding: 6px 14px;
+    border-radius: var(--tpl-sf-tab-radius, 6px);
+    transition: all 0.2s ease;
+}
+.sf-btn-open-modal:hover {
+    background: var(--tpl-sf-tab-hover-bg, var(--sf-accordion-active)) !important;
+    color: var(--tpl-sf-tab-hover-text, #fff) !important;
+    border-color: var(--tpl-sf-tab-hover-bg, var(--sf-accordion-active)) !important;
+}
+
+/* sf-filter-tag: Konfigurator-gesteuerte Filter-Tags */
+.sf-filter-tag {
+    background: var(--tpl-sf-filter-tag-bg, var(--bs-primary, #0d6efd)) !important;
+    color: var(--tpl-sf-filter-tag-text, #fff) !important;
+    border-radius: var(--tpl-sf-filter-tag-radius, 4px) !important;
+    font-size: var(--tpl-sf-filter-tag-font-size, 0.75rem) !important;
+    padding: var(--tpl-sf-filter-tag-padding, 2px 6px) !important;
+}
+
 /* Filter-Gruppen im Modal */
 #filter-categories-desktop h6 {
     font-size: 0.85rem;
@@ -246,11 +325,11 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 56px;
-    height: 56px;
+    width: var(--tpl-sf-fab-size, 56px);
+    height: var(--tpl-sf-fab-size, 56px);
     border-radius: 50%;
-    background: var(--sf-accordion-active);
-    color: #fff;
+    background: var(--tpl-sf-fab-bg, var(--sf-accordion-active));
+    color: var(--tpl-sf-fab-icon-color, #fff);
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -272,8 +351,8 @@
     position: absolute;
     top: -4px;
     right: -4px;
-    background: var(--bs-danger, #dc3545);
-    color: #fff;
+    background: var(--tpl-sf-fab-badge-bg, var(--bs-danger, #dc3545));
+    color: var(--tpl-sf-fab-badge-text, #fff);
     font-size: 0.65rem;
     min-width: 20px;
     height: 20px;
@@ -301,13 +380,13 @@
     gap: 6px;
 }
 #active-filters-list .badge {
-    font-size: 0.78rem;
+    font-size: var(--tpl-sf-chip-font-size, 0.78rem);
     font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 20px;
+    padding: var(--tpl-sf-chip-padding, 5px 10px);
+    border-radius: var(--tpl-sf-chip-radius, 20px);
     cursor: pointer;
-    background: var(--sf-chip-bg);
-    color: var(--sf-chip-text);
+    background: var(--sf-chip-bg) !important;
+    color: var(--sf-chip-text) !important;
     transition: opacity 0.2s ease;
 }
 #active-filters-list .badge:hover {
