@@ -5804,19 +5804,24 @@ a.iframe:hover {
   letter-spacing: 0.02em;
 }
 
+
+
 /* ========================================================================
-   22. MRH LISTING-TABELLE – Marker-Styling (v1.10.0)
-   Ersetzt die Inline <style> Bloecke aus der PHP-Klasse.
-   Nutzt mrh-mark-* Klassen auf TD-Ebene (wie von PHP generiert).
+   23. EINHEITLICHES TABELLEN-DESIGN – Marker + Basis-Style (v1.10.0)
+   Gilt global fuer ALLE mrh-attr-table Kontexte:
+   Listing, Detail, Seedfinder, Vergleich.
    ======================================================================== */
 
-/* ── 22a: Gemeinsamer Balken-Stil fuer mrh-mark-* ── */
+/* ── 23a: Globale mrh-mark-* Marker-Balken (TD-basiert) ──
+   Werden von PHP auf TD gesetzt: mrh-mark-thc, mrh-mark-cbd,
+   mrh-mark-fem, mrh-mark-reg. Funktioniert in allen Kontexten. */
+
 .mrh-attr-table td.mrh-mark-thc,
 .mrh-attr-table td.mrh-mark-cbd,
 .mrh-attr-table td.mrh-mark-fem,
 .mrh-attr-table td.mrh-mark-reg {
     position: relative;
-    padding-left: 22px;
+    padding-left: 22px !important;
 }
 
 .mrh-attr-table td.mrh-mark-thc::before,
@@ -5834,28 +5839,31 @@ a.iframe:hover {
     border-radius: 0 2px 2px 0;
 }
 
-/* ── 22b: THC – Dunkelblau ── */
+/* THC – Dunkelblau */
 .mrh-attr-table td.mrh-mark-thc::before {
     background: #1a3a5c;
 }
 
-/* ── 22c: CBD – Weinrot ── */
+/* CBD – Weinrot */
 .mrh-attr-table td.mrh-mark-cbd::before {
     background: #8b1a2b;
 }
 
-/* ── 22d: Gender Feminisiert/Autoflower – Pink ── */
+/* Gender Feminisiert/Autoflower – Pink */
 .mrh-attr-table td.mrh-mark-fem::before {
     background: var(--tpl-badge-fem-bg, #fc5b96);
 }
 
-/* ── 22e: Gender Regulaer – Blau ── */
+/* Gender Regulaer – Blau */
 .mrh-attr-table td.mrh-mark-reg::before {
     background: var(--tpl-badge-reg-bg, #2ea2f0);
 }
 
-/* ── 22f: Listing-Tabelle Basis-Design ── */
-.mrh-attr-listing {
+/* ── 23b: Globaler Tabellen-Grundstyle fuer .mrh-attr-table ──
+   Einheitliche Farben, Zebra, Hover, Schrift – ueberall gleich.
+   Spezifischere Kontexte (Seedfinder, Compare) koennen ueberschreiben. */
+
+.mrh-attr-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -5866,92 +5874,102 @@ a.iframe:hover {
     border-radius: var(--mrh-tbl-radius, 6px);
     overflow: hidden;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    margin-top: 6px;
 }
 
-.mrh-attr-listing tr {
+.mrh-attr-table tr {
     border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0);
     transition: background-color 0.15s ease;
 }
-.mrh-attr-listing tr:last-child {
+.mrh-attr-table tr:last-child {
     border-bottom: none;
 }
 
-/* Zebra */
-.mrh-attr-listing tr:nth-child(even) {
+/* Zebra-Streifen */
+.mrh-attr-table tr:nth-child(even) {
     background-color: var(--mrh-tbl-zebra, #f8fafc);
 }
 
 /* Hover */
-.mrh-attr-listing tr:hover {
+.mrh-attr-table tr:hover {
     background-color: rgba(45, 122, 58, 0.04);
 }
 
 /* Zellen */
-.mrh-attr-listing td {
-    padding: 6px 10px;
+.mrh-attr-table td {
+    padding: 7px 10px;
     vertical-align: middle;
     border: none !important;
     line-height: 1.4;
 }
 
-/* Label-Spalte */
-.mrh-attr-listing td:first-child {
+/* Label-Spalte (links) */
+.mrh-attr-table td:first-child {
     font-weight: 600;
     color: var(--mrh-tbl-label, #475569);
     width: 44%;
     position: relative;
 }
 
-/* Wert-Spalte */
-.mrh-attr-listing td:last-child {
+/* Wert-Spalte (rechts) */
+.mrh-attr-table td:last-child {
     color: var(--mrh-tbl-value, #1e293b);
     font-weight: 400;
 }
 
 /* Abgerundete Ecken */
-.mrh-attr-listing tr:first-child td:first-child {
+.mrh-attr-table tr:first-child td:first-child {
     border-top-left-radius: var(--mrh-tbl-radius, 6px);
 }
-.mrh-attr-listing tr:first-child td:last-child {
+.mrh-attr-table tr:first-child td:last-child {
     border-top-right-radius: var(--mrh-tbl-radius, 6px);
 }
-.mrh-attr-listing tr:last-child td:first-child {
+.mrh-attr-table tr:last-child td:first-child {
     border-bottom-left-radius: var(--mrh-tbl-radius, 6px);
 }
-.mrh-attr-listing tr:last-child td:last-child {
+.mrh-attr-table tr:last-child td:last-child {
     border-bottom-right-radius: var(--mrh-tbl-radius, 6px);
 }
 
-/* ── 22g: Listing Responsive ── */
-@media (max-width: 575px) {
-    .mrh-attr-listing {
-        font-size: 0.78rem;
-    }
-    .mrh-attr-listing td {
-        padding: 5px 8px;
-    }
-    .mrh-attr-listing td:first-child {
-        width: 40%;
-    }
+/* ── 23c: Spezial-Zeilen (global) ── */
+
+/* Geschmack – Kursiv */
+.mrh-attr-table tr.geschmack td:last-child,
+.mrh-attr-table tr.g_aroma td:last-child {
+    font-style: italic;
+    color: #475569;
 }
 
+/* Wirkung – Kursiv */
+.mrh-attr-table tr.wirkung td:last-child,
+.mrh-attr-table tr.effekt td:last-child {
+    font-style: italic;
+    color: #475569;
+}
 
-/* ========================================================================
-   23. MRH DETAIL-TABLE – Einheitliches Tabellen-Design (v1.1.0)
-   Aus mrh-detail-table.css hierher verschoben, da die CSS-Datei
-   nicht im Template eingebunden war.
-   Gilt fuer: Produktseite, Seedfinder, Vergleich, Listings, Boxen.
-   ======================================================================== */
+/* Custom Fields – Dezenter Stil */
+.mrh-attr-table tr.custom td:first-child {
+    font-weight: 500;
+    color: #64748b;
+}
 
-/* ── 23a: Scroll-Container (.mrh-detail-table) ── */
+/* Ausgeblendete Zeilen */
+.mrh-attr-table tr.off {
+    display: none !important;
+}
+
+/* ── 23d: Listing-Tabelle – Volle Laenge, KEIN Height-Limit ── */
+.mrh-attr-listing {
+    margin-top: 6px;
+}
+
+/* ── 23e: Detail-Tabelle – 350px mit Scrollbar ── */
 .mrh-detail-table {
     max-height: 350px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Scrollbar – Webkit (Chrome, Safari, Edge) */
+/* Scrollbar – Webkit */
 .mrh-detail-table::-webkit-scrollbar {
     width: 5px;
 }
@@ -5972,191 +5990,16 @@ a.iframe:hover {
     scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
 
-/* ── 23b: Tabelle (.mrh-attr-table innerhalb .mrh-detail-table) ── */
-.mrh-detail-table .mrh-attr-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: 0.88rem;
-    font-family: var(--tpl-font-text, inherit), sans-serif;
-    background: #fff;
-    border: 1px solid var(--mrh-tbl-border, #e2e8f0);
-    border-radius: var(--mrh-tbl-radius, 6px);
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-/* Zeilen */
-.mrh-detail-table .mrh-attr-table tr {
-    border-bottom: 1px solid var(--mrh-tbl-border, #e2e8f0);
-    transition: background-color 0.15s ease;
-}
-.mrh-detail-table .mrh-attr-table tr:last-child {
-    border-bottom: none;
-}
-
-/* Zebra-Streifen */
-.mrh-detail-table .mrh-attr-table tr:nth-child(even) {
-    background-color: var(--mrh-tbl-zebra, #f8fafc);
-}
-
-/* Hover-Effekt */
-.mrh-detail-table .mrh-attr-table tr:hover {
-    background-color: rgba(45, 122, 58, 0.04);
-}
-
-/* Zellen */
-.mrh-detail-table .mrh-attr-table td {
-    padding: 10px 14px;
-    vertical-align: middle;
-    border: none !important;
-    line-height: 1.5;
-}
-
-/* Label-Spalte (links) */
-.mrh-detail-table .mrh-attr-table td:first-child {
-    font-weight: 600;
-    color: var(--mrh-tbl-label, #475569);
-    width: 44%;
-    position: relative;
-}
-
-/* Wert-Spalte (rechts) */
-.mrh-detail-table .mrh-attr-table td:last-child {
-    color: var(--mrh-tbl-value, #1e293b);
-    font-weight: 400;
-}
-
-/* Abgerundete Ecken */
-.mrh-detail-table .mrh-attr-table tr:first-child td:first-child {
-    border-top-left-radius: var(--mrh-tbl-radius, 6px);
-}
-.mrh-detail-table .mrh-attr-table tr:first-child td:last-child {
-    border-top-right-radius: var(--mrh-tbl-radius, 6px);
-}
-.mrh-detail-table .mrh-attr-table tr:last-child td:first-child {
-    border-bottom-left-radius: var(--mrh-tbl-radius, 6px);
-}
-.mrh-detail-table .mrh-attr-table tr:last-child td:last-child {
-    border-bottom-right-radius: var(--mrh-tbl-radius, 6px);
-}
-
-/* ── 23c: Farbige Seitenbalken (TR-basiert) ── */
-.mrh-detail-table .mrh-attr-table tr.gender td:first-child,
-.mrh-detail-table .mrh-attr-table tr.thc td:first-child,
-.mrh-detail-table .mrh-attr-table tr.cbd td:first-child,
-.mrh-detail-table .mrh-attr-table tr.cbd_w td:first-child,
-.mrh-detail-table .mrh-attr-table tr.flowering td:first-child {
-    padding-left: 22px;
-}
-
-.mrh-detail-table .mrh-attr-table tr.gender td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.thc td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.cbd td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.cbd_w td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.flowering td:first-child::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 60%;
-    min-height: 18px;
-    border-radius: 0 2px 2px 0;
-}
-
-/* Feminisiert – Pink */
-.mrh-detail-table .mrh-attr-table tr.gender.mrh-val-feminized td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.fem td:first-child::before {
-    background: var(--mrh-tbl-fem, #ec4899);
-}
-.mrh-detail-table .mrh-attr-table tr.gender.mrh-val-feminized td:last-child,
-.mrh-detail-table .mrh-attr-table tr.fem td:last-child {
-    font-weight: 700;
-    color: var(--mrh-tbl-fem, #ec4899);
-}
-
-/* Regulaer – Blau */
-.mrh-detail-table .mrh-attr-table tr.gender.mrh-val-regular td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.reg td:first-child::before {
-    background: var(--mrh-tbl-reg, #2ea2f0);
-}
-.mrh-detail-table .mrh-attr-table tr.gender.mrh-val-regular td:last-child,
-.mrh-detail-table .mrh-attr-table tr.reg td:last-child {
-    font-weight: 700;
-    color: var(--mrh-tbl-reg, #2ea2f0);
-}
-
-/* Autoflowering – Gruen */
-.mrh-detail-table .mrh-attr-table tr.gender.mrh-val-autoflower td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.flowering.mrh-val-autoflower td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.aut td:first-child::before {
-    background: var(--mrh-tbl-aut, #22c55e);
-}
-.mrh-detail-table .mrh-attr-table tr.gender.mrh-val-autoflower td:last-child,
-.mrh-detail-table .mrh-attr-table tr.flowering.mrh-val-autoflower td:last-child,
-.mrh-detail-table .mrh-attr-table tr.aut td:last-child {
-    font-weight: 700;
-    color: var(--mrh-tbl-aut, #22c55e);
-}
-
-/* THC – Dunkelblau */
-.mrh-detail-table .mrh-attr-table tr.thc td:first-child::before {
-    background: var(--mrh-tbl-thc, #1e3a5f);
-}
-.mrh-detail-table .mrh-attr-table tr.thc td:last-child {
-    font-weight: 700;
-    color: var(--mrh-tbl-thc, #1e3a5f);
-}
-
-/* CBD – Weinrot */
-.mrh-detail-table .mrh-attr-table tr.cbd td:first-child::before,
-.mrh-detail-table .mrh-attr-table tr.cbd_w td:first-child::before {
-    background: var(--mrh-tbl-cbd, #8b1a2b);
-}
-.mrh-detail-table .mrh-attr-table tr.cbd td:last-child,
-.mrh-detail-table .mrh-attr-table tr.cbd_w td:last-child {
-    font-weight: 600;
-    color: var(--mrh-tbl-cbd, #8b1a2b);
-}
-
-/* ── 23d: Spezial-Zeilen ── */
-/* Geschmack – Kursiv */
-.mrh-detail-table .mrh-attr-table tr.geschmack td:last-child,
-.mrh-detail-table .mrh-attr-table tr.g_aroma td:last-child {
-    font-style: italic;
-    color: #475569;
-}
-
-/* Wirkung – Kursiv */
-.mrh-detail-table .mrh-attr-table tr.wirkung td:last-child,
-.mrh-detail-table .mrh-attr-table tr.effekt td:last-child {
-    font-style: italic;
-    color: #475569;
-}
-
-/* Custom Fields – Dezenter Stil */
-.mrh-detail-table .mrh-attr-table tr.custom td:first-child {
-    font-weight: 500;
-    color: #64748b;
-}
-
-/* Ausgeblendete Zeilen */
-.mrh-detail-table .mrh-attr-table tr.off {
-    display: none !important;
-}
-
-/* ── 23e: Detail-Table Responsive ── */
+/* ── 23f: Responsive ── */
 @media (max-width: 991px) {
     .mrh-detail-table {
         max-height: 300px;
     }
-    .mrh-detail-table .mrh-attr-table {
-        font-size: 0.84rem;
+    .mrh-attr-table {
+        font-size: 0.82rem;
     }
-    .mrh-detail-table .mrh-attr-table td {
-        padding: 8px 12px;
+    .mrh-attr-table td {
+        padding: 6px 8px;
     }
 }
 
@@ -6164,41 +6007,13 @@ a.iframe:hover {
     .mrh-detail-table {
         max-height: 260px;
     }
-    .mrh-detail-table .mrh-attr-table {
+    .mrh-attr-table {
         font-size: 0.78rem;
     }
-    .mrh-detail-table .mrh-attr-table td {
-        padding: 7px 8px;
+    .mrh-attr-table td {
+        padding: 5px 6px;
     }
-    .mrh-detail-table .mrh-attr-table td:first-child {
+    .mrh-attr-table td:first-child {
         width: 40%;
     }
-}
-
-/* ── 23f: Seedfinder – KEINE feste Hoehe, KEIN Scroll ── */
-#seedfinder_module .mrh-detail-table {
-    max-height: none;
-    overflow-y: visible;
-}
-
-#seedfinder_module .mrh-detail-table .mrh-attr-table {
-    font-size: 0.82rem;
-}
-#seedfinder_module .mrh-detail-table .mrh-attr-table td {
-    padding: 6px 10px;
-}
-
-@media (max-width: 575px) {
-    #seedfinder_module .mrh-detail-table .mrh-attr-table {
-        font-size: 0.74rem;
-    }
-    #seedfinder_module .mrh-detail-table .mrh-attr-table td {
-        padding: 4px 6px;
-    }
-}
-
-/* ── 23g: Vergleich – 350px MIT Scrollbar ── */
-.mrh-attr-compare-wrap .mrh-detail-table {
-    max-height: 350px;
-    overflow-y: auto;
 }
