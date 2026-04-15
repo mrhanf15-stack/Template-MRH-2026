@@ -74,6 +74,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="presets"><i class="fa fa-magic me-1"></i>Presets</div>
     <div class="mrh-tab" data-tab="icons"><i class="fa fa-icons me-1"></i>Icons</div>
     <div class="mrh-tab" data-tab="badges"><i class="fa fa-certificate me-1"></i>Badges</div>
+    <div class="mrh-tab" data-tab="seedfinder"><i class="fa fa-cannabis me-1"></i>Seedfinder</div>
 </div>
 
 <!-- ================================================================== -->
@@ -2198,6 +2199,474 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </script>
 
 </div>
+
+<!-- ================================================================== -->
+<!-- TAB 11: SEEDFINDER MODAL -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-seedfinder">
+<h5 class="mb-3"><i class="fa fa-cannabis me-2"></i>Seedfinder Modal</h5>
+<p class="text-muted small mb-3">Steuert das Aussehen des Seedfinder Filter-Modals, der Tab-Navigation, Buttons, Filter-Chips und des mobilen FAB-Buttons.</p>
+
+<!-- Live-Vorschau -->
+<div class="card mb-4">
+    <div class="card-header"><strong>Live-Vorschau</strong></div>
+    <div class="card-body" id="mrh-sf-modal-preview" style="background:#f5f5f5;padding:20px;"></div>
+</div>
+
+<form method="post" action="">
+
+    <!-- Modal Grundstruktur -->
+    <h6 class="border-bottom pb-2 mb-3"><i class="fa fa-window-maximize me-1"></i>Modal Grundstruktur</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-modal-header-bg"><strong>Header Hintergrund</strong></label>
+            <input id="tpl-sf-modal-header-bg" type="text" name="tpl-sf-modal-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-modal-header-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-modal-header-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-modal-header-text"><strong>Header Text</strong></label>
+            <input id="tpl-sf-modal-header-text" type="text" name="tpl-sf-modal-header-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-modal-header-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-modal-header-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-modal-body-bg"><strong>Body Hintergrund</strong></label>
+            <input id="tpl-sf-modal-body-bg" type="text" name="tpl-sf-modal-body-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-modal-body-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-modal-body-bg','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-modal-footer-bg"><strong>Footer Hintergrund</strong></label>
+            <input id="tpl-sf-modal-footer-bg" type="text" name="tpl-sf-modal-footer-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-modal-footer-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-modal-footer-bg','rgb(248, 249, 250)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-modal-footer-border"><strong>Footer Border</strong></label>
+            <input id="tpl-sf-modal-footer-border" type="text" name="tpl-sf-modal-footer-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-modal-footer-border','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-modal-footer-border','rgb(222, 226, 230)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-modal-radius"><strong>Modal Rundung</strong></label>
+            <input id="tpl-sf-modal-radius" type="text" name="tpl-sf-modal-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-modal-radius','12px'); ?>">
+        </div>
+    </div>
+
+    <!-- Tab-Navigation -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-folder-open me-1"></i>Tab-Navigation (Desktop)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-bg"><strong>Tab Hintergrund</strong></label>
+            <input id="tpl-sf-tab-bg" type="text" name="tpl-sf-tab-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-bg','transparent'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-bg','transparent'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-text"><strong>Tab Text</strong></label>
+            <input id="tpl-sf-tab-text" type="text" name="tpl-sf-tab-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-text','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-text','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-border"><strong>Tab Border</strong></label>
+            <input id="tpl-sf-tab-border" type="text" name="tpl-sf-tab-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-border','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-radius"><strong>Tab Rundung</strong></label>
+            <input id="tpl-sf-tab-radius" type="text" name="tpl-sf-tab-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-tab-radius','6px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-font-size"><strong>Tab Schriftgr&ouml;&szlig;e</strong></label>
+            <input id="tpl-sf-tab-font-size" type="text" name="tpl-sf-tab-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-tab-font-size','0.85rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-padding"><strong>Tab Padding</strong></label>
+            <input id="tpl-sf-tab-padding" type="text" name="tpl-sf-tab-padding" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-tab-padding','6px 14px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-hover-bg"><strong>Tab Hover BG</strong></label>
+            <input id="tpl-sf-tab-hover-bg" type="text" name="tpl-sf-tab-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-hover-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-hover-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-hover-text"><strong>Tab Hover Text</strong></label>
+            <input id="tpl-sf-tab-hover-text" type="text" name="tpl-sf-tab-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-hover-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-active-bg"><strong>Tab Aktiv BG</strong></label>
+            <input id="tpl-sf-tab-active-bg" type="text" name="tpl-sf-tab-active-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-active-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-active-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-active-text"><strong>Tab Aktiv Text</strong></label>
+            <input id="tpl-sf-tab-active-text" type="text" name="tpl-sf-tab-active-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-active-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-active-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-badge-bg"><strong>Tab Badge BG</strong></label>
+            <input id="tpl-sf-tab-badge-bg" type="text" name="tpl-sf-tab-badge-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-badge-bg','rgb(220, 53, 69)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-badge-bg','rgb(220, 53, 69)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-tab-badge-text"><strong>Tab Badge Text</strong></label>
+            <input id="tpl-sf-tab-badge-text" type="text" name="tpl-sf-tab-badge-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-tab-badge-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-tab-badge-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- Modal Footer Buttons -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-hand-pointer-o me-1"></i>Modal Buttons</h6>
+    <div class="row">
+        <div class="col-12 mb-2"><small class="text-muted"><strong>Zur&uuml;cksetzen-Button</strong></small></div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-reset-bg"><strong>Reset BG</strong></label>
+            <input id="tpl-sf-btn-reset-bg" type="text" name="tpl-sf-btn-reset-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-bg','transparent'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-bg','transparent'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-reset-text"><strong>Reset Text</strong></label>
+            <input id="tpl-sf-btn-reset-text" type="text" name="tpl-sf-btn-reset-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-text','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-text','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-reset-border"><strong>Reset Border</strong></label>
+            <input id="tpl-sf-btn-reset-border" type="text" name="tpl-sf-btn-reset-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-border','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-border','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-reset-hover-bg"><strong>Reset Hover BG</strong></label>
+            <input id="tpl-sf-btn-reset-hover-bg" type="text" name="tpl-sf-btn-reset-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-bg','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-bg','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-reset-hover-text"><strong>Reset Hover Text</strong></label>
+            <input id="tpl-sf-btn-reset-hover-text" type="text" name="tpl-sf-btn-reset-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-reset-hover-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+
+        <div class="col-12 mb-2 mt-3"><small class="text-muted"><strong>Suchen-Button</strong></small></div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-search-bg"><strong>Suchen BG</strong></label>
+            <input id="tpl-sf-btn-search-bg" type="text" name="tpl-sf-btn-search-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-search-text"><strong>Suchen Text</strong></label>
+            <input id="tpl-sf-btn-search-text" type="text" name="tpl-sf-btn-search-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-search-hover-bg"><strong>Suchen Hover BG</strong></label>
+            <input id="tpl-sf-btn-search-hover-bg" type="text" name="tpl-sf-btn-search-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-search-hover-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+
+        <div class="col-12 mb-2 mt-3"><small class="text-muted"><strong>Schlie&szlig;en-Button</strong></small></div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-close-bg"><strong>Schlie&szlig;en BG</strong></label>
+            <input id="tpl-sf-btn-close-bg" type="text" name="tpl-sf-btn-close-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-bg','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-bg','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-close-text"><strong>Schlie&szlig;en Text</strong></label>
+            <input id="tpl-sf-btn-close-text" type="text" name="tpl-sf-btn-close-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-btn-close-hover-bg"><strong>Schlie&szlig;en Hover BG</strong></label>
+            <input id="tpl-sf-btn-close-hover-bg" type="text" name="tpl-sf-btn-close-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-bg','rgb(90, 98, 104)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-btn-close-hover-bg','rgb(90, 98, 104)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- Filter-Chips -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-tags me-1"></i>Filter-Chips (aktive Filter)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-chip-bg"><strong>Chip BG</strong></label>
+            <input id="tpl-sf-chip-bg" type="text" name="tpl-sf-chip-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-chip-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-chip-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-chip-text"><strong>Chip Text</strong></label>
+            <input id="tpl-sf-chip-text" type="text" name="tpl-sf-chip-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-chip-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-chip-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-chip-radius"><strong>Chip Rundung</strong></label>
+            <input id="tpl-sf-chip-radius" type="text" name="tpl-sf-chip-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-chip-radius','20px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-chip-font-size"><strong>Chip Schriftgr&ouml;&szlig;e</strong></label>
+            <input id="tpl-sf-chip-font-size" type="text" name="tpl-sf-chip-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-chip-font-size','0.78rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-chip-padding"><strong>Chip Padding</strong></label>
+            <input id="tpl-sf-chip-padding" type="text" name="tpl-sf-chip-padding" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-chip-padding','5px 10px'); ?>">
+        </div>
+    </div>
+
+    <!-- sf-filter-tag -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-tag me-1"></i>Product Card Filter Tags (.sf-filter-tag)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-filter-tag-bg"><strong>Tag BG</strong></label>
+            <input id="tpl-sf-filter-tag-bg" type="text" name="tpl-sf-filter-tag-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-filter-tag-bg','rgb(13, 110, 253)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-filter-tag-bg','rgb(13, 110, 253)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-filter-tag-text"><strong>Tag Text</strong></label>
+            <input id="tpl-sf-filter-tag-text" type="text" name="tpl-sf-filter-tag-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-filter-tag-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-filter-tag-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-filter-tag-radius"><strong>Tag Rundung</strong></label>
+            <input id="tpl-sf-filter-tag-radius" type="text" name="tpl-sf-filter-tag-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-filter-tag-radius','4px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-filter-tag-font-size"><strong>Tag Schriftgr&ouml;&szlig;e</strong></label>
+            <input id="tpl-sf-filter-tag-font-size" type="text" name="tpl-sf-filter-tag-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-filter-tag-font-size','0.75rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-filter-tag-padding"><strong>Tag Padding</strong></label>
+            <input id="tpl-sf-filter-tag-padding" type="text" name="tpl-sf-filter-tag-padding" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-filter-tag-padding','2px 6px'); ?>">
+        </div>
+    </div>
+
+    <!-- Checkbox -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-check-square me-1"></i>Checkbox (Filter-Optionen)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-checkbox-checked-bg"><strong>Checked BG</strong></label>
+            <input id="tpl-sf-checkbox-checked-bg" type="text" name="tpl-sf-checkbox-checked-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-checkbox-checked-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-checkbox-checked-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-checkbox-checked-border"><strong>Checked Border</strong></label>
+            <input id="tpl-sf-checkbox-checked-border" type="text" name="tpl-sf-checkbox-checked-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-checkbox-checked-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-checkbox-checked-border','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- Accordion (Mobile) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-bars me-1"></i>Accordion (Mobile)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-accordion-bg"><strong>Accordion BG</strong></label>
+            <input id="tpl-sf-accordion-bg" type="text" name="tpl-sf-accordion-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-accordion-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-accordion-bg','rgb(248, 249, 250)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-accordion-hover-bg"><strong>Accordion Hover BG</strong></label>
+            <input id="tpl-sf-accordion-hover-bg" type="text" name="tpl-sf-accordion-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-accordion-hover-bg','rgb(233, 236, 239)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-accordion-hover-bg','rgb(233, 236, 239)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-accordion-active-bg"><strong>Accordion Aktiv BG</strong></label>
+            <input id="tpl-sf-accordion-active-bg" type="text" name="tpl-sf-accordion-active-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-accordion-active-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-accordion-active-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-accordion-active-text"><strong>Accordion Aktiv Text</strong></label>
+            <input id="tpl-sf-accordion-active-text" type="text" name="tpl-sf-accordion-active-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-accordion-active-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-accordion-active-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-accordion-badge-bg"><strong>Accordion Badge BG</strong></label>
+            <input id="tpl-sf-accordion-badge-bg" type="text" name="tpl-sf-accordion-badge-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-accordion-badge-bg','rgb(220, 53, 69)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-accordion-badge-bg','rgb(220, 53, 69)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-accordion-badge-text"><strong>Accordion Badge Text</strong></label>
+            <input id="tpl-sf-accordion-badge-text" type="text" name="tpl-sf-accordion-badge-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-accordion-badge-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-accordion-badge-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- FAB-Button (Mobile) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-circle me-1"></i>FAB-Button (Mobile)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-bg"><strong>FAB Hintergrund</strong></label>
+            <input id="tpl-sf-fab-bg" type="text" name="tpl-sf-fab-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-fab-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-fab-bg','rgb(93, 178, 51)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-text"><strong>FAB Icon-Farbe</strong></label>
+            <input id="tpl-sf-fab-text" type="text" name="tpl-sf-fab-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-fab-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-fab-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-size"><strong>FAB Gr&ouml;&szlig;e</strong></label>
+            <input id="tpl-sf-fab-size" type="text" name="tpl-sf-fab-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-fab-size','56px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-badge-bg"><strong>FAB Badge BG</strong></label>
+            <input id="tpl-sf-fab-badge-bg" type="text" name="tpl-sf-fab-badge-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-fab-badge-bg','rgb(220, 53, 69)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-fab-badge-bg','rgb(220, 53, 69)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-fab-badge-text"><strong>FAB Badge Text</strong></label>
+            <input id="tpl-sf-fab-badge-text" type="text" name="tpl-sf-fab-badge-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-fab-badge-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-fab-badge-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- Icons -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-icons me-1"></i>Icons (Font Awesome Klassen)</h6>
+    <p class="text-muted small">Gib die FA-Klasse ohne "fa " Pr&auml;fix ein, z.B. <code>fa-star</code>, <code>fa-dna</code>, <code>fa-leaf</code></p>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-tab-main"><strong>Tab: Haupt</strong></label>
+            <input id="tpl-sf-icon-tab-main" type="text" name="tpl-sf-icon-tab-main" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-tab-main','fa-star'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-tab-main','fa-star'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-tab-genetics"><strong>Tab: Genetik</strong></label>
+            <input id="tpl-sf-icon-tab-genetics" type="text" name="tpl-sf-icon-tab-genetics" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-tab-genetics','fa-dna'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-tab-genetics','fa-dna'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-tab-cultivation"><strong>Tab: Anbau</strong></label>
+            <input id="tpl-sf-icon-tab-cultivation" type="text" name="tpl-sf-icon-tab-cultivation" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-tab-cultivation','fa-seedling'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-tab-cultivation','fa-seedling'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-tab-taste"><strong>Tab: Geschmack</strong></label>
+            <input id="tpl-sf-icon-tab-taste" type="text" name="tpl-sf-icon-tab-taste" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-tab-taste','fa-leaf'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-tab-taste','fa-leaf'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-tab-advanced"><strong>Tab: Erweitert</strong></label>
+            <input id="tpl-sf-icon-tab-advanced" type="text" name="tpl-sf-icon-tab-advanced" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-tab-advanced','fa-cog'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-tab-advanced','fa-cog'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-modal-header"><strong>Modal Header</strong></label>
+            <input id="tpl-sf-icon-modal-header" type="text" name="tpl-sf-icon-modal-header" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-modal-header','fa-sliders'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-modal-header','fa-sliders'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-btn-reset"><strong>Button: Reset</strong></label>
+            <input id="tpl-sf-icon-btn-reset" type="text" name="tpl-sf-icon-btn-reset" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-btn-reset','fa-undo'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-btn-reset','fa-undo'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-btn-search"><strong>Button: Suchen</strong></label>
+            <input id="tpl-sf-icon-btn-search" type="text" name="tpl-sf-icon-btn-search" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-btn-search','fa-search'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-btn-search','fa-search'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-sf-icon-fab"><strong>FAB-Button</strong></label>
+            <input id="tpl-sf-icon-fab" type="text" name="tpl-sf-icon-fab" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-icon-fab','fa-sliders'); ?>">
+            <span class="fa <?php echo mrh_cv($c,'tpl-sf-icon-fab','fa-sliders'); ?> mt-1" style="font-size:1.2rem;"></span>
+        </div>
+    </div>
+
+    <!-- Speichern -->
+    <div class="col-12 mt-3 mb-3">
+        <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Seedfinder speichern">
+    </div>
+
+</form>
+
+<!-- Seedfinder Modal Live-Preview -->
+<script>
+(function(){
+    'use strict';
+    function gv(n,fb){var e=document.getElementById(n);return e?(e.value||fb):fb;}
+    function renderSfModalPreview() {
+        var p = document.getElementById('mrh-sf-modal-preview');
+        if (!p) return;
+        var hbg = gv('tpl-sf-modal-header-bg','rgb(93, 178, 51)');
+        var htx = gv('tpl-sf-modal-header-text','rgb(255, 255, 255)');
+        var bbg = gv('tpl-sf-modal-body-bg','rgb(255, 255, 255)');
+        var fbg = gv('tpl-sf-modal-footer-bg','rgb(248, 249, 250)');
+        var fbd = gv('tpl-sf-modal-footer-border','rgb(222, 226, 230)');
+        var rad = gv('tpl-sf-modal-radius','12px');
+        var tbg = gv('tpl-sf-tab-bg','transparent');
+        var ttx = gv('tpl-sf-tab-text','rgb(93, 178, 51)');
+        var tbd = gv('tpl-sf-tab-border','rgb(93, 178, 51)');
+        var trad = gv('tpl-sf-tab-radius','6px');
+        var tfs = gv('tpl-sf-tab-font-size','0.85rem');
+        var tpad = gv('tpl-sf-tab-padding','6px 14px');
+        var tabg = gv('tpl-sf-tab-active-bg','rgb(93, 178, 51)');
+        var tatx = gv('tpl-sf-tab-active-text','rgb(255, 255, 255)');
+        var rbg = gv('tpl-sf-btn-reset-bg','transparent');
+        var rtx = gv('tpl-sf-btn-reset-text','rgb(108, 117, 125)');
+        var rbd = gv('tpl-sf-btn-reset-border','rgb(108, 117, 125)');
+        var sbg = gv('tpl-sf-btn-search-bg','rgb(93, 178, 51)');
+        var stx = gv('tpl-sf-btn-search-text','rgb(255, 255, 255)');
+        var cbg = gv('tpl-sf-btn-close-bg','rgb(108, 117, 125)');
+        var ctx = gv('tpl-sf-btn-close-text','rgb(255, 255, 255)');
+        var chipbg = gv('tpl-sf-chip-bg','rgb(93, 178, 51)');
+        var chiptx = gv('tpl-sf-chip-text','rgb(255, 255, 255)');
+        var chiprad = gv('tpl-sf-chip-radius','20px');
+        var chipfs = gv('tpl-sf-chip-font-size','0.78rem');
+        var chippad = gv('tpl-sf-chip-padding','5px 10px');
+        var chkbg = gv('tpl-sf-checkbox-checked-bg','rgb(93, 178, 51)');
+        var ftbg = gv('tpl-sf-filter-tag-bg','rgb(13, 110, 253)');
+        var fttx = gv('tpl-sf-filter-tag-text','rgb(255, 255, 255)');
+        var ftrad = gv('tpl-sf-filter-tag-radius','4px');
+        var ftfs = gv('tpl-sf-filter-tag-font-size','0.75rem');
+        var ftpad = gv('tpl-sf-filter-tag-padding','2px 6px');
+        var iMain = gv('tpl-sf-icon-tab-main','fa-star');
+        var iGen = gv('tpl-sf-icon-tab-genetics','fa-dna');
+        var iCult = gv('tpl-sf-icon-tab-cultivation','fa-seedling');
+        var iTaste = gv('tpl-sf-icon-tab-taste','fa-leaf');
+        var iAdv = gv('tpl-sf-icon-tab-advanced','fa-cog');
+        var iHeader = gv('tpl-sf-icon-modal-header','fa-sliders');
+        var iReset = gv('tpl-sf-icon-btn-reset','fa-undo');
+        var iSearch = gv('tpl-sf-icon-btn-search','fa-search');
+
+        var tabStyle = 'display:inline-block;padding:'+tpad+';font-size:'+tfs+';border:1px solid '+tbd+';border-radius:'+trad+';margin-right:4px;cursor:pointer;';
+        var h = '';
+        // Modal Header
+        h += '<div style="background:'+hbg+';color:'+htx+';padding:12px 20px;border-radius:'+rad+' '+rad+' 0 0;font-weight:600;"><span class="fa '+iHeader+'" style="margin-right:8px;"></span>Alle Filter</div>';
+        // Modal Body
+        h += '<div style="background:'+bbg+';padding:16px 20px;">';
+        // Chips
+        h += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">';
+        h += '<span style="background:'+chipbg+';color:'+chiptx+';border-radius:'+chiprad+';font-size:'+chipfs+';padding:'+chippad+';cursor:pointer;">Feminisiert &times;</span>';
+        h += '<span style="background:'+chipbg+';color:'+chiptx+';border-radius:'+chiprad+';font-size:'+chipfs+';padding:'+chippad+';cursor:pointer;">Indoor &times;</span>';
+        h += '</div>';
+        // Tabs
+        h += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">';
+        h += '<span style="'+tabStyle+'background:'+tabg+';color:'+tatx+';border-color:'+tabg+';"><span class="fa '+iMain+'" style="margin-right:4px;"></span>Haupt</span>';
+        h += '<span style="'+tabStyle+'background:'+tbg+';color:'+ttx+';"><span class="fa '+iGen+'" style="margin-right:4px;"></span>Genetik</span>';
+        h += '<span style="'+tabStyle+'background:'+tbg+';color:'+ttx+';"><span class="fa '+iCult+'" style="margin-right:4px;"></span>Anbau</span>';
+        h += '<span style="'+tabStyle+'background:'+tbg+';color:'+ttx+';"><span class="fa '+iTaste+'" style="margin-right:4px;"></span>Geschmack</span>';
+        h += '<span style="'+tabStyle+'background:'+tbg+';color:'+ttx+';"><span class="fa '+iAdv+'" style="margin-right:4px;"></span>Erweitert</span>';
+        h += '</div>';
+        // Checkboxen
+        h += '<div style="margin-bottom:12px;">';
+        h += '<span style="display:inline-block;width:16px;height:16px;background:'+chkbg+';border-radius:3px;margin-right:6px;vertical-align:middle;"></span><span style="font-size:0.9rem;">Feminisiert (42)</span><br>';
+        h += '<span style="display:inline-block;width:16px;height:16px;border:1px solid #dee2e6;border-radius:3px;margin-right:6px;vertical-align:middle;margin-top:4px;"></span><span style="font-size:0.9rem;">Autoflowering (28)</span>';
+        h += '</div>';
+        // Filter Tags
+        h += '<div style="margin-bottom:8px;"><small style="color:#999;">Product Card Filter Tags:</small><br>';
+        h += '<span style="display:inline-block;background:'+ftbg+';color:'+fttx+';border-radius:'+ftrad+';font-size:'+ftfs+';padding:'+ftpad+';margin:2px;">Indoor</span>';
+        h += '<span style="display:inline-block;background:'+ftbg+';color:'+fttx+';border-radius:'+ftrad+';font-size:'+ftfs+';padding:'+ftpad+';margin:2px;">Feminisiert</span>';
+        h += '<span style="display:inline-block;background:'+ftbg+';color:'+fttx+';border-radius:'+ftrad+';font-size:'+ftfs+';padding:'+ftpad+';margin:2px;">THC: Hoch</span>';
+        h += '</div>';
+        h += '</div>';
+        // Modal Footer
+        h += '<div style="background:'+fbg+';border-top:1px solid '+fbd+';padding:10px 20px;border-radius:0 0 '+rad+' '+rad+';display:flex;gap:8px;">';
+        h += '<span style="background:'+rbg+';color:'+rtx+';border:1px solid '+rbd+';padding:6px 14px;border-radius:4px;font-size:0.85rem;cursor:pointer;"><span class="fa '+iReset+'" style="margin-right:4px;"></span>Zur\u00fccksetzen</span>';
+        h += '<span style="background:'+sbg+';color:'+stx+';border:none;padding:6px 14px;border-radius:4px;font-size:0.85rem;cursor:pointer;"><span class="fa '+iSearch+'" style="margin-right:4px;"></span>Suchen</span>';
+        h += '<span style="background:'+cbg+';color:'+ctx+';border:none;padding:6px 14px;border-radius:4px;font-size:0.85rem;cursor:pointer;">Schlie\u00dfen</span>';
+        h += '</div>';
+        p.innerHTML = h;
+    }
+    document.querySelectorAll('#tab-seedfinder input, #tab-seedfinder select').forEach(function(el){
+        el.addEventListener('input',renderSfModalPreview);
+        el.addEventListener('change',renderSfModalPreview);
+    });
+    // Auch beim Tab-Wechsel rendern (Colorpicker werden erst dann initialisiert)
+    var sfTab = document.querySelector('[data-tab="seedfinder"]');
+    if (sfTab) sfTab.addEventListener('click', function(){ setTimeout(renderSfModalPreview, 100); });
+    renderSfModalPreview();
+})();
+</script>
+
+</div><!-- /#tab-seedfinder -->
 
 <!-- Filter-Tag Live-Preview -->
 <script>

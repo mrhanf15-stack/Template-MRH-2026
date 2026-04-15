@@ -438,6 +438,64 @@ $defaults = [
     'tpl-filter-tag-hover-bg'      => 'rgb(74, 140, 42)',
     'tpl-filter-tag-hover-text'    => 'rgb(255, 255, 255)',
     'tpl-filter-tag-hover-border'  => 'rgb(74, 140, 42)',
+
+    // ── Seedfinder Modal ──
+    'tpl-sf-modal-header-bg'       => 'rgb(93, 178, 51)',
+    'tpl-sf-modal-header-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-modal-body-bg'         => 'rgb(255, 255, 255)',
+    'tpl-sf-modal-footer-bg'       => 'rgb(248, 249, 250)',
+    'tpl-sf-modal-footer-border'   => 'rgb(222, 226, 230)',
+    'tpl-sf-modal-radius'          => '12px',
+    'tpl-sf-modal-shadow'          => '0 10px 40px rgba(0,0,0,0.2)',
+    'tpl-sf-tab-bg'                => 'transparent',
+    'tpl-sf-tab-text'              => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-border'            => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-radius'            => '6px',
+    'tpl-sf-tab-font-size'         => '0.85rem',
+    'tpl-sf-tab-padding'           => '6px 14px',
+    'tpl-sf-tab-hover-bg'          => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-hover-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-tab-active-bg'         => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-active-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-tab-badge-bg'          => 'rgb(220, 53, 69)',
+    'tpl-sf-tab-badge-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-reset-bg'          => 'transparent',
+    'tpl-sf-btn-reset-text'        => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-reset-border'      => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-reset-hover-bg'    => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-reset-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-bg'         => 'rgb(93, 178, 51)',
+    'tpl-sf-btn-search-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-hover-bg'   => 'rgb(74, 140, 42)',
+    'tpl-sf-btn-search-hover-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-bg'          => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-close-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-hover-bg'    => 'rgb(90, 98, 104)',
+    'tpl-sf-btn-close-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-chip-bg'               => 'rgb(93, 178, 51)',
+    'tpl-sf-chip-text'             => 'rgb(255, 255, 255)',
+    'tpl-sf-chip-radius'           => '20px',
+    'tpl-sf-chip-font-size'        => '0.78rem',
+    'tpl-sf-chip-padding'          => '5px 10px',
+    'tpl-sf-filter-tag-bg'         => 'rgb(13, 110, 253)',
+    'tpl-sf-filter-tag-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-filter-tag-radius'     => '4px',
+    'tpl-sf-filter-tag-font-size'  => '0.75rem',
+    'tpl-sf-filter-tag-padding'    => '2px 6px',
+    'tpl-sf-checkbox-checked-bg'   => 'rgb(93, 178, 51)',
+    'tpl-sf-checkbox-checked-border' => 'rgb(93, 178, 51)',
+    'tpl-sf-accordion-bg'          => 'rgb(248, 249, 250)',
+    'tpl-sf-accordion-hover-bg'    => 'rgb(233, 236, 239)',
+    'tpl-sf-accordion-active-bg'   => 'rgb(93, 178, 51)',
+    'tpl-sf-accordion-active-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-accordion-badge-bg'    => 'rgb(220, 53, 69)',
+    'tpl-sf-accordion-badge-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-fab-bg'                => 'rgb(93, 178, 51)',
+    'tpl-sf-fab-text'              => 'rgb(255, 255, 255)',
+    'tpl-sf-fab-size'              => '56px',
+    'tpl-sf-fab-shadow'            => '0 4px 12px rgba(0,0,0,0.3)',
+    'tpl-sf-fab-badge-bg'          => 'rgb(220, 53, 69)',
+    'tpl-sf-fab-badge-text'        => 'rgb(255, 255, 255)',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -635,6 +693,47 @@ echo '.pagination .page-link{background:var(--tpl-pg-bg);color:var(--tpl-pg-text
 echo '.pagination .page-link:hover{background-color:var(--tpl-pg-hover-bg);color:var(--tpl-pg-hover-text);border-color:var(--tpl-pg-hover-border);}';
 echo '.pagination .page-item.active .page-link{background-color:var(--tpl-pg-active-bg) !important;color:var(--tpl-pg-active-text) !important;border-color:var(--tpl-pg-active-border) !important;}';
 echo '.pagination .page-item.disabled .page-link{color:var(--tpl-pg-disabled-text);border-color:var(--tpl-pg-disabled-border);}';
+
+// ═══ Seedfinder Modal-Overrides: --tpl-sf-* → #seedfinder-filter-modal + #filter-category-nav-desktop ═══
+// Modal Grundstruktur
+echo '#seedfinder-filter-modal .modal-content{border-radius:var(--tpl-sf-modal-radius);box-shadow:var(--tpl-sf-modal-shadow);}';
+echo '#seedfinder-filter-modal .modal-header{background:var(--tpl-sf-modal-header-bg);color:var(--tpl-sf-modal-header-text);border-radius:var(--tpl-sf-modal-radius) var(--tpl-sf-modal-radius) 0 0;}';
+echo '#seedfinder-filter-modal .modal-title{color:var(--tpl-sf-modal-header-text);}';
+echo '#seedfinder-filter-modal .modal-body{background:var(--tpl-sf-modal-body-bg);}';
+echo '#seedfinder-filter-modal .modal-footer{background:var(--tpl-sf-modal-footer-bg);border-top-color:var(--tpl-sf-modal-footer-border);border-radius:0 0 var(--tpl-sf-modal-radius) var(--tpl-sf-modal-radius);}';
+
+// Tab-Navigation
+echo '#filter-category-nav-desktop .filter-category-btn{background:var(--tpl-sf-tab-bg);color:var(--tpl-sf-tab-text);border-color:var(--tpl-sf-tab-border);border-radius:var(--tpl-sf-tab-radius) !important;font-size:var(--tpl-sf-tab-font-size);padding:var(--tpl-sf-tab-padding);}';
+echo '#filter-category-nav-desktop .filter-category-btn:hover{background:var(--tpl-sf-tab-hover-bg);color:var(--tpl-sf-tab-hover-text);border-color:var(--tpl-sf-tab-hover-bg);}';
+echo '#filter-category-nav-desktop .filter-category-btn.active{background:var(--tpl-sf-tab-active-bg);color:var(--tpl-sf-tab-active-text);border-color:var(--tpl-sf-tab-active-bg);}';
+echo '.category-filter-badge{background:var(--tpl-sf-tab-badge-bg) !important;color:var(--tpl-sf-tab-badge-text) !important;}';
+
+// Modal Footer Buttons
+echo '#seedfinder-filter-modal #reset-filters-desktop{background:var(--tpl-sf-btn-reset-bg);color:var(--tpl-sf-btn-reset-text);border-color:var(--tpl-sf-btn-reset-border);}';
+echo '#seedfinder-filter-modal #reset-filters-desktop:hover{background:var(--tpl-sf-btn-reset-hover-bg);color:var(--tpl-sf-btn-reset-hover-text);border-color:var(--tpl-sf-btn-reset-hover-bg);}';
+echo '#seedfinder-filter-modal #search-filters-desktop{background:var(--tpl-sf-btn-search-bg);color:var(--tpl-sf-btn-search-text);border-color:var(--tpl-sf-btn-search-bg);}';
+echo '#seedfinder-filter-modal #search-filters-desktop:hover{background:var(--tpl-sf-btn-search-hover-bg);color:var(--tpl-sf-btn-search-hover-text);border-color:var(--tpl-sf-btn-search-hover-bg);}';
+echo '#seedfinder-filter-modal .modal-footer .btn-secondary:not(#reset-filters-desktop):not(#search-filters-desktop){background:var(--tpl-sf-btn-close-bg);color:var(--tpl-sf-btn-close-text);border-color:var(--tpl-sf-btn-close-bg);}';
+echo '#seedfinder-filter-modal .modal-footer .btn-secondary:not(#reset-filters-desktop):not(#search-filters-desktop):hover{background:var(--tpl-sf-btn-close-hover-bg);color:var(--tpl-sf-btn-close-hover-text);}';
+
+// Filter-Chips (aktive Filter im Modal)
+echo '#active-filters-list .badge{background:var(--tpl-sf-chip-bg) !important;color:var(--tpl-sf-chip-text);border-radius:var(--tpl-sf-chip-radius);font-size:var(--tpl-sf-chip-font-size);padding:var(--tpl-sf-chip-padding);}';
+
+// sf-filter-tag (Product Card Filter Tags)
+echo '.sf-filter-tag .badge{background:var(--tpl-sf-filter-tag-bg) !important;color:var(--tpl-sf-filter-tag-text) !important;border-radius:var(--tpl-sf-filter-tag-radius);font-size:var(--tpl-sf-filter-tag-font-size);padding:var(--tpl-sf-filter-tag-padding);}';
+
+// Checkbox
+echo '#seedfinder-filter-modal .form-check-input:checked{background-color:var(--tpl-sf-checkbox-checked-bg);border-color:var(--tpl-sf-checkbox-checked-border);}';
+
+// Accordion (Mobile)
+echo '.sf-accordion-header{background:var(--tpl-sf-accordion-bg);}';
+echo '.sf-accordion-header:hover{background:var(--tpl-sf-accordion-hover-bg);}';
+echo '.sf-accordion-item.sf-open .sf-accordion-header{background:var(--tpl-sf-accordion-active-bg);color:var(--tpl-sf-accordion-active-text);}';
+echo '.sf-accordion-badge{background:var(--tpl-sf-accordion-badge-bg);color:var(--tpl-sf-accordion-badge-text);}';
+
+// FAB-Button (Mobile)
+echo '.seedfinder-filter-fab{background:var(--tpl-sf-fab-bg);color:var(--tpl-sf-fab-text);width:var(--tpl-sf-fab-size);height:var(--tpl-sf-fab-size);box-shadow:var(--tpl-sf-fab-shadow);}';
+echo '.fab-badge{background:var(--tpl-sf-fab-badge-bg);color:var(--tpl-sf-fab-badge-text);}';
 ?>
 </style>
 <style>

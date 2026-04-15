@@ -572,6 +572,92 @@ $mrh_color_defaults = [
     'tpl-filter-tag-hover-bg'      => 'rgb(74, 140, 42)',
     'tpl-filter-tag-hover-text'    => 'rgb(255, 255, 255)',
     'tpl-filter-tag-hover-border'  => 'rgb(74, 140, 42)',
+
+    // ══════════════════════════════════════════════════
+    // ── Seedfinder Modal ──
+    // ══════════════════════════════════════════════════
+    // Modal Grundstruktur
+    'tpl-sf-modal-header-bg'       => 'rgb(93, 178, 51)',
+    'tpl-sf-modal-header-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-modal-body-bg'         => 'rgb(255, 255, 255)',
+    'tpl-sf-modal-footer-bg'       => 'rgb(248, 249, 250)',
+    'tpl-sf-modal-footer-border'   => 'rgb(222, 226, 230)',
+    'tpl-sf-modal-radius'          => '12px',
+    'tpl-sf-modal-shadow'          => '0 10px 40px rgba(0,0,0,0.2)',
+
+    // Tab-Navigation (filter-category-nav-desktop)
+    'tpl-sf-tab-bg'                => 'transparent',
+    'tpl-sf-tab-text'              => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-border'            => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-radius'            => '6px',
+    'tpl-sf-tab-font-size'         => '0.85rem',
+    'tpl-sf-tab-padding'           => '6px 14px',
+    'tpl-sf-tab-hover-bg'          => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-hover-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-tab-active-bg'         => 'rgb(93, 178, 51)',
+    'tpl-sf-tab-active-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-tab-badge-bg'          => 'rgb(220, 53, 69)',
+    'tpl-sf-tab-badge-text'        => 'rgb(255, 255, 255)',
+
+    // Modal Footer Buttons
+    'tpl-sf-btn-reset-bg'          => 'transparent',
+    'tpl-sf-btn-reset-text'        => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-reset-border'      => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-reset-hover-bg'    => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-reset-hover-text'  => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-bg'         => 'rgb(93, 178, 51)',
+    'tpl-sf-btn-search-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-search-hover-bg'   => 'rgb(74, 140, 42)',
+    'tpl-sf-btn-search-hover-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-bg'          => 'rgb(108, 117, 125)',
+    'tpl-sf-btn-close-text'        => 'rgb(255, 255, 255)',
+    'tpl-sf-btn-close-hover-bg'    => 'rgb(90, 98, 104)',
+    'tpl-sf-btn-close-hover-text'  => 'rgb(255, 255, 255)',
+
+    // Filter-Chips (aktive Filter im Modal)
+    'tpl-sf-chip-bg'               => 'rgb(93, 178, 51)',
+    'tpl-sf-chip-text'             => 'rgb(255, 255, 255)',
+    'tpl-sf-chip-radius'           => '20px',
+    'tpl-sf-chip-font-size'        => '0.78rem',
+    'tpl-sf-chip-padding'          => '5px 10px',
+
+    // sf-filter-tag (Product Card Filter Tags)
+    'tpl-sf-filter-tag-bg'         => 'rgb(13, 110, 253)',
+    'tpl-sf-filter-tag-text'       => 'rgb(255, 255, 255)',
+    'tpl-sf-filter-tag-radius'     => '4px',
+    'tpl-sf-filter-tag-font-size'  => '0.75rem',
+    'tpl-sf-filter-tag-padding'    => '2px 6px',
+
+    // Checkbox
+    'tpl-sf-checkbox-checked-bg'   => 'rgb(93, 178, 51)',
+    'tpl-sf-checkbox-checked-border' => 'rgb(93, 178, 51)',
+
+    // Accordion (Mobile)
+    'tpl-sf-accordion-bg'          => 'rgb(248, 249, 250)',
+    'tpl-sf-accordion-hover-bg'    => 'rgb(233, 236, 239)',
+    'tpl-sf-accordion-active-bg'   => 'rgb(93, 178, 51)',
+    'tpl-sf-accordion-active-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-accordion-badge-bg'    => 'rgb(220, 53, 69)',
+    'tpl-sf-accordion-badge-text'  => 'rgb(255, 255, 255)',
+
+    // FAB-Button (Mobile)
+    'tpl-sf-fab-bg'                => 'rgb(93, 178, 51)',
+    'tpl-sf-fab-text'              => 'rgb(255, 255, 255)',
+    'tpl-sf-fab-size'              => '56px',
+    'tpl-sf-fab-shadow'            => '0 4px 12px rgba(0,0,0,0.3)',
+    'tpl-sf-fab-badge-bg'          => 'rgb(220, 53, 69)',
+    'tpl-sf-fab-badge-text'        => 'rgb(255, 255, 255)',
+
+    // Icons (Font Awesome Klassen)
+    'tpl-sf-icon-tab-main'         => 'fa-star',
+    'tpl-sf-icon-tab-genetics'     => 'fa-dna',
+    'tpl-sf-icon-tab-cultivation'  => 'fa-seedling',
+    'tpl-sf-icon-tab-taste'        => 'fa-leaf',
+    'tpl-sf-icon-tab-advanced'     => 'fa-cog',
+    'tpl-sf-icon-modal-header'     => 'fa-sliders',
+    'tpl-sf-icon-btn-reset'        => 'fa-undo',
+    'tpl-sf-icon-btn-search'       => 'fa-search',
+    'tpl-sf-icon-fab'              => 'fa-sliders',
 ];
 
 $mrh_tpl_defaults = [
