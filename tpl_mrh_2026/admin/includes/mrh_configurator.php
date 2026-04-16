@@ -810,6 +810,8 @@ $mrh_color_defaults = [
     'tpl-blog-btn-more-border'           => 'rgb(93, 178, 51)',
     'tpl-blog-btn-more-hover-bg'         => 'rgb(93, 178, 51)',
     'tpl-blog-btn-more-hover-text'       => 'rgb(255, 255, 255)',
+    'tpl-blog-btn-more-label'            => '"Weiterlesen"',
+    'tpl-blog-btn-more-icon'             => '"\\f061"',
 
     // ═══ Blog – Kategorie-Cards ═══
     'tpl-blog-cat-bg'                    => 'rgb(255, 255, 255)',

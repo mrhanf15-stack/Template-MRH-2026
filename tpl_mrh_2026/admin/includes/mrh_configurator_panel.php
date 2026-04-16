@@ -3653,6 +3653,18 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-btn-more-hover-text','rgb(255, 255, 255)'); ?>"></div>
     </div>
 </div>
+<div class="row mt-2">
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-blog-btn-more-label"><strong>Button-Text</strong></label>
+        <input id="tpl-blog-btn-more-label" type="text" name="tpl-blog-btn-more-label" class="form-control" value="<?php echo htmlspecialchars(mrh_cv($c,'tpl-blog-btn-more-label','"Weiterlesen"')); ?>">
+        <small class="text-muted">Text in Anführungszeichen, z.B. "Weiterlesen" oder "Mehr lesen"</small>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label for="tpl-blog-btn-more-icon"><strong>Button-Icon (FA Unicode)</strong></label>
+        <input id="tpl-blog-btn-more-icon" type="text" name="tpl-blog-btn-more-icon" class="form-control" value="<?php echo htmlspecialchars(mrh_cv($c,'tpl-blog-btn-more-icon','"\\f061"')); ?>">
+        <small class="text-muted">Font Awesome Unicode, z.B. "\f061" (Pfeil), "\f105" (Chevron), "\f054" (Winkel). Leer lassen für kein Icon.</small>
+    </div>
+</div>
 
 <!-- ═══ Kategorie-Cards ═══ -->
 <h6 class="border-bottom pb-2 mb-3"><i class="fa fa-folder me-1"></i>Kategorie-Cards</h6>
@@ -3769,6 +3781,8 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         var btnBorder  = gv('tpl-blog-btn-more-border','rgb(93,178,51)');
         var btnHBg     = gv('tpl-blog-btn-more-hover-bg','rgb(93,178,51)');
         var btnHTx     = gv('tpl-blog-btn-more-hover-text','rgb(255,255,255)');
+        var btnLabel   = gv('tpl-blog-btn-more-label','"Weiterlesen"').replace(/"/g,'');
+        var btnIcon    = gv('tpl-blog-btn-more-icon','"\\f061"').replace(/"/g,'');
         var catCardBg  = gv('tpl-blog-cat-bg','rgb(255,255,255)');
         var catCardBd  = gv('tpl-blog-cat-border','rgb(222,226,230)');
         var catCardRd  = gv('tpl-blog-cat-radius','8px');
@@ -3807,7 +3821,8 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             h += '</div>';
             h += '<div style="font-weight:bold;font-size:11px;color:'+titleC+';margin-bottom:3px;">'+posts[j]+'</div>';
             h += '<div style="font-size:10px;color:'+descC+';margin-bottom:6px;">'+descs[j]+'</div>';
-            h += '<a href="#" onclick="return false" style="display:inline-block;background:'+btnBg+';color:'+btnText+';border:1px solid '+btnBorder+';font-size:9px;padding:2px 8px;border-radius:3px;text-decoration:none;">Weiterlesen</a>';
+            var iconHtml = btnIcon ? '<i class="fa" style="margin-right:3px;">&#x'+btnIcon.replace('\\f','f').replace('\f','f')+';</i>' : '';
+            h += '<a href="#" onclick="return false" style="display:inline-block;background:'+btnBg+';color:'+btnText+';border:1px solid '+btnBorder+';font-size:9px;padding:2px 8px;border-radius:3px;text-decoration:none;">'+iconHtml+btnLabel+'</a>';
             h += '</div></div>';
         }
         h += '</div>';
