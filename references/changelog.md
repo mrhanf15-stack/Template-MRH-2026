@@ -1,18 +1,23 @@
 # MRH 2026 Template # Changelog
 
-## 2026-04-16 – Slider max-width 1320px + Banner Lazy Loading Fix
+## 2026-04-16 – Slider max-width 1320px + Banner Bilder-Fix (data-src → src)
 
 **Aenderung 1:** Slider-Section in `index.html` bekommt `max-width:1320px;margin:0 auto;` statt `container-fluid px-0` (User-Vorgabe: exakt 1320px).
 
-**Aenderung 2:** `tpl_parts/banners.html` (BANNER1+BANNER2) und `tpl_parts/banners2.html` (BANNER3-6) verwenden jetzt direkt `src=` mit `loading="lazy"` statt `data-src=`. Kein JS-Lazy-Load mehr noetig fuer Banner. Alle Banner-Bilder bekommen `class="img-fluid"`.
+**Aenderung 2 (Bilder-Fix):** Shop-PHP gibt Banner-HTML mit `src="data:,"` und `data-src="URL"` aus. Die Smarty-Filter in `banners.html`, `banners2.html` und `BANNERHOME` (index.html) wandeln jetzt `data-src` in `src` um und entfernen `src="data:,"`. Klasse `lazyload` wird durch `img-fluid lazyloaded` ersetzt. Kein JS-Lazy-Load mehr noetig fuer Banner.
+
+Smarty-Replace-Kette:
+```
+|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''
+```
 
 **Aenderung 3:** `MRH_LazyLoad` in `javascript/mrh2026.js` erweitert: Behandelt jetzt auch `<source data-srcset>` Elemente innerhalb von `<picture>` Tags (fuer zukuenftige Lazy-Load-Faelle).
 
 | Datei | Repo | Aenderung |
 |-------|------|----------|
-| `index.html` | modified-shop-dev | Slider: `max-width:1320px;margin:0 auto;` |
-| `tpl_parts/banners.html` | beide | BANNER1+2: direkt src, img-fluid, container wrapper |
-| `tpl_parts/banners2.html` | beide | BANNER3-6: direkt src statt data-src, img-fluid |
+| `index.html` | modified-shop-dev | Slider: `max-width:1320px`, BANNERHOME: data-src→src Fix |
+| `tpl_parts/banners.html` | beide | BANNER1+2: data-src→src, img-fluid lazyloaded |
+| `tpl_parts/banners2.html` | beide | BANNER3-6: data-src→src, img-fluid lazyloaded |
 | `javascript/mrh2026.js` | Template-MRH-2026 | MRH_LazyLoad: `<source data-srcset>` Handling |
 
 ## 2026-04-13 – Photoperiodisch Text-Badge + Globale Badge-Config + CSS-Fix
