@@ -6198,7 +6198,10 @@ a.iframe:hover {
    ═══════════════════════════════════════════════════════════════ */
 /* Die Bestseller-Box im Footer zeigt Produkte mit mrh-badge-bar
    (feminisiert/autoflowering/photoperiodisch Icons). Diese sind
-   im Footer-Kontext unerwünscht und werden hier versteckt. */
-footer .mrh-badge-bar {
+   im Footer-Kontext unerwünscht und werden hier versteckt.
+   Der Parent-Container .picto.templatestyle hat einen eigenen
+   Hintergrund (rgb(240,253,244)) der ebenfalls ausgeblendet wird. */
+footer .mrh-badge-bar,
+footer .picto.templatestyle {
     display: none !important;
 }
