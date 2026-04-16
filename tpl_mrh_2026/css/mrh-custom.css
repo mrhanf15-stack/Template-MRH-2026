@@ -6205,3 +6205,48 @@ footer .mrh-badge-bar,
 footer .picto.templatestyle {
     display: none !important;
 }
+/* ═══════════════════════════════════════════════════════════════
+   SEKTION 26 – Startseiten-Slider: Boxen gleiche Höhe
+   Stand: 16.04.2026
+   ═══════════════════════════════════════════════════════════════ */
+/* Anforderungen:
+   1. Short Description in Slider-Boxen ausblenden
+   2. Titel-Bereich: Feste Mindesthöhe für 2 Zeilen reservieren
+   3. Badge-Bereich: Feste Mindesthöhe als Platzhalter (auch ohne Badges)
+   4. Alle Boxen im Track gleich hoch (align-items: stretch)
+*/
+
+/* 1. Short Description ausblenden */
+.product-carousel .lb_desc {
+    display: none !important;
+}
+
+/* 2. Titel: Mindesthöhe für 2 Zeilen */
+.product-carousel .lb_title {
+    min-height: 3em;
+    line-height: 1.4;
+}
+
+/* 3. Badge-Bereich: Platzhalter-Höhe reservieren */
+.product-carousel .picto.templatestyle {
+    min-height: 36px;
+    display: inline-flex !important;
+    align-items: center;
+}
+
+/* 4. Track: Alle Boxen gleich hoch durch stretch */
+.product-carousel .mrh-as-track {
+    align-items: stretch !important;
+}
+
+/* 5. Boxen: Volle Track-Höhe nutzen */
+.product-carousel .mrh-as-track > .listingbox {
+    height: auto !important;
+    align-self: stretch !important;
+}
+
+/* 6. Bild+Titel+Badge-Wrapper füllt restlichen Platz */
+.product-carousel .lb_inner_wrap_image_title {
+    flex: 1 1 auto;
+}
+
