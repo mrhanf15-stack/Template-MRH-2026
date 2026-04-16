@@ -1,17 +1,19 @@
 {*
- * compare_card.html v1.7.0 – Include fuer Vergleichsseite
- * tpl_mrh_2026 – Bootstrap 5.3
- * @version   1.7.0
- * @date      2026-04-12
+ * compare_card.html v2.0.0 – Smart Compare Card (tpl_mrh_2026)
+ * Bootstrap 5.3 – Kundenoptimiertes Vergleichslayout
+ * @version   2.0.0
+ * @date      2026-04-16
  * v1.2.0: Merken+Details IMMER anzeigen (auch bei ausverkauft)
  * v1.3.0: Badge-Zeile unter Produktname
  * v1.4.0: card-body auf desc-box durch px-3 pb-1 ersetzt
  * v1.4.1: card-body auf Hersteller+Name durch compare-name-box ersetzt
  * v1.5.0: Optionen direkt unter Tabelle, Preis+Buttons unten fixiert
  * v1.7.0: Akkordeon-Toggle entfernt, Tabelle mit Scrollbalken stattdessen
+ * v2.0.0: Smart Redesign – Produktbild in geschlossenem Accordion,
+ *         Vergleichsdaten sofort sichtbar, kundenoptimiertes Layout
  *}
 
-<div class="card h-100 d-flex flex-column position-relative">
+<div class="card h-100 d-flex flex-column position-relative compare-smart-card">
 
   {* ── Remove Button ── *}
   <a href="{$module_data.PRODUCTS_REMOVE_LINK}" class="compare-remove-btn" title="{$PC_REMOVE_BUTTON}"
@@ -19,19 +21,7 @@
     <span class="fa-solid fa-xmark"></span>
   </a>
 
-  {* ── Produktbild ── *}
-  {if $module_data.PRODUCTS_IMAGE != ''}
-    <a href="{$module_data.PRODUCTS_LINK}" class="d-block overflow-hidden">
-      <div class="ratio ratio-1x1 bg-light">
-        <img class="w-100 h-100 object-fit-cover" loading="lazy"
-             src="{$module_data.PRODUCTS_IMAGE}"
-             alt="{$module_data.PRODUCTS_NAME|onlytext}"
-             title="{$module_data.PRODUCTS_NAME|onlytext}">
-      </div>
-    </a>
-  {/if}
-
-  {* ── Hersteller + Produktname ── *}
+  {* ── Hersteller + Produktname (oben, sofort sichtbar) ── *}
   <div class="compare-name-box px-3 pt-3 pb-1">
     {if !empty($module_data.MANUFACTURER)}
       <p class="small text-secondary mb-0">{$module_data.MANUFACTURER}</p>
@@ -46,12 +36,53 @@
   {* ── Badge-Zeile (v1.3.0) ── *}
   <div class="compare-badge-row" data-product-id="{$module_data.PRODUCTS_ID}"></div>
 
-  {* ── Kurzbeschreibung (scrollbar, fixe Hoehe auf Mobile) ── *}
-  {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
+  {* ── Produktbild im Accordion (geschlossen, v2.0.0) ── *}
+  {if $module_data.PRODUCTS_IMAGE != ''}
+    <div class="compare-img-accordion px-3 pb-1">
+      <div class="accordion" id="imgAcc{$module_data.PRODUCTS_ID}">
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header" id="imgHead{$module_data.PRODUCTS_ID}">
+            <button class="accordion-button collapsed compare-img-toggle" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#imgBody{$module_data.PRODUCTS_ID}"
+                    aria-expanded="false"
+                    aria-controls="imgBody{$module_data.PRODUCTS_ID}">
+              <span class="fa-solid fa-image me-2"></span>Produktbild anzeigen
+            </button>
+          </h2>
+          <div id="imgBody{$module_data.PRODUCTS_ID}" class="accordion-collapse collapse"
+               aria-labelledby="imgHead{$module_data.PRODUCTS_ID}">
+            <div class="accordion-body p-0">
+              <a href="{$module_data.PRODUCTS_LINK}" class="d-block overflow-hidden">
+                <div class="ratio ratio-1x1 bg-light p-3">
+                  <img class="w-100 h-100 object-fit-contain" loading="lazy"
+                       src="{$module_data.PRODUCTS_IMAGE}"
+                       alt="{$module_data.PRODUCTS_NAME|onlytext}"
+                       title="{$module_data.PRODUCTS_NAME|onlytext}">
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  {* ── Attribut-Tabelle (Kernstück, sofort sichtbar mit Scrollbalken) ── *}
+  {if $module_data.MRH_FULL_TABLE}
+  <div class="card-body pt-0 pb-1">
+    <div class="mrh-sf-scroll mrh-detail-table mb-2">
+      {$module_data.MRH_FULL_TABLE}
+    </div>
+  </div>
+  {/if}
+
+  {* ── Kurzbeschreibung (ausgeblendet – Tabelle ist primaer) ── *}
+  {* if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
     <div class="compare-desc-box px-3 pb-1{if $module_data.PRODUCT_ATTRIBUTES} has-options{/if}">
       <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
     </div>
-  {/if}
+  {/if*}
 
   {* ── FORM oeffnen (umschliesst Optionen + Footer) ── *}
   {$module_data.FORM_ACTION}

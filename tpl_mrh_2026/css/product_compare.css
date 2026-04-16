@@ -1,7 +1,7 @@
 /* =========================================================================
-   Product Compare v5.6.0 - CSS (tpl_mrh_2026)
+   Product Compare v5.7.0 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
-   
+
    Nur Compare-spezifische Styles.
    Grid wird komplett ueber Bootstrap 5.3 row/col gesteuert.
    Kein eigenes Grid-System, kein !important.
@@ -23,6 +23,9 @@
    v5.5.0: Mobile UX Optimierung (ersetzt durch v5.6.0)
    v5.6.0: Akkordeon entfernt, Tabelle mit fixer Hoehe (250px) + Scrollbalken,
            Bild natuerliche Hoehe auf Mobile (kein festes Ratio)
+   v5.7.0: Smart Redesign – Produktbild in geschlossenem BS5-Accordion,
+           Name+Badges oben, Vergleichsdaten sofort sichtbar,
+           kundenoptimiertes Layout (compare_card.html v2.0.0)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -81,7 +84,7 @@ a.compare-remove-btn:hover {
     transform: scale(1.15);
 }
 
-/* === Product Image Box (landscape, object-cover, like .de) === */
+/* === Product Image Box (legacy, kept for backwards compat) === */
 .compare-img-box {
     position: relative;
     overflow: hidden;
@@ -91,8 +94,64 @@ a.compare-remove-btn:hover {
 .compare-product-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
+}
+
+/* === Smart Card Wrapper (v5.7.0) === */
+.compare-smart-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+.compare-smart-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* === Bild-Accordion (v5.7.0): geschlossen, kompakt === */
+.compare-img-accordion {
+    flex: 0 0 auto;
+}
+.compare-img-accordion .accordion-item {
+    background: transparent;
+}
+.compare-img-accordion .accordion-button.compare-img-toggle {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--tpl-compare-img-toggle-text, #555);
+    background: var(--tpl-compare-img-toggle-bg, rgba(0, 0, 0, 0.03));
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    box-shadow: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.compare-img-accordion .accordion-button.compare-img-toggle:not(.collapsed) {
+    color: var(--tpl-compare-img-toggle-active-text, #333);
+    background: var(--tpl-compare-img-toggle-active-bg, rgba(0, 0, 0, 0.06));
+    box-shadow: none;
+}
+.compare-img-accordion .accordion-button.compare-img-toggle::after {
+    width: 0.85rem;
+    height: 0.85rem;
+    background-size: 0.85rem;
+}
+.compare-img-accordion .accordion-button.compare-img-toggle:focus {
+    box-shadow: none;
+    border-color: rgba(0, 0, 0, 0.15);
+}
+.compare-img-accordion .accordion-body {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+}
+/* Bild innerhalb Accordion: contain + Padding */
+.compare-img-accordion .ratio {
+    background: #fafafa;
+}
+.compare-img-accordion .ratio img {
+    object-fit: contain;
 }
 
 /* === Hersteller + Produktname Box (kein flex-grow) === */
@@ -533,6 +592,12 @@ a.compare-remove-btn:hover {
     .product-compare-page .compare-desc-box .lr_desc table th {
         padding: 3px 5px;
         white-space: normal;
+    }
+
+    /* --- Bild-Accordion: kompakter auf Mobile (v5.7.0) --- */
+    .compare-img-accordion .accordion-button.compare-img-toggle {
+        font-size: 0.72rem;
+        padding: 0.3rem 0.5rem;
     }
 
     /* --- Badges: kleiner auf Mobile (Overrides fuer compare-badge-row) --- */
