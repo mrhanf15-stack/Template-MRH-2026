@@ -32,6 +32,8 @@
            direkt anschliessend ohne Luecke, card-footer kein mt-auto
    v5.7.3: Fix Luecke – card-footer mt-auto zurueck, card-body flex-grow
            absorbiert Leerraum, Optionen+Footer kleben zusammen
+   v5.7.4: Tabelle fixe max-height zurueck, Optionen-Box flex-grow
+           absorbiert Restplatz, Footer klebt unten
    ========================================================================= */
 
 /* === Page Layout === */
@@ -172,9 +174,9 @@ a.compare-remove-btn:hover {
     flex: 1 1 auto;
 }
 
-/* === Optionen-Box: direkt unter Tabelle, kompakt (v5.7.2) === */
+/* === Optionen-Box: flex-grow, absorbiert Restplatz (v5.7.4) === */
 .compare-options-box {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
@@ -191,16 +193,11 @@ a.compare-remove-btn:hover {
     border-radius: 3px;
 }
 
-/* === Tabellen-Container: flex-grow, absorbiert Leerraum (v5.7.3) === */
+/* === Tabellen-Container: kein flex-grow, fixe Hoehe (v5.7.4) === */
 .product-compare-page .card-body {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-/* Scroll-Container in card-body: flex-grow damit Tabelle den Platz fuellt */
-.product-compare-page .card-body .mrh-sf-scroll {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
+    padding-top: 0;
+    padding-bottom: 0.25rem;
 }
 
 /* === Short Description - Full Height, Scrollable on Overflow === */
