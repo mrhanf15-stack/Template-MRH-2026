@@ -6,7 +6,7 @@
       <a href="{$data.LINK}" class="mrh-blog-cat-card card h-100 text-decoration-none" title="{$data.NAME|onlytext}">
         {if !empty($data.IMAGE_LIST) || !empty($data.IMAGE)}
           <div class="mrh-blog-cat-img-wrap overflow-hidden">
-            <img class="card-img-top lazyload" src="data:," data-src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" loading="lazy">
+            <img class="card-img-top img-fluid lazyloaded" src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" loading="lazy">
           </div>
         {/if}
         <div class="card-body text-center">

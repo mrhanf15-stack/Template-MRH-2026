@@ -17,7 +17,7 @@
         {/if}
         {if !empty($data.IMAGE_LIST) || !empty($data.IMAGE)}
           <a href="{$data.LINK}" title="{$data.NAME|onlytext}" class="mrh-blog-card-img-wrap d-block overflow-hidden">
-            <img class="card-img-top lazyload" src="data:," data-src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" itemprop="image" loading="lazy">
+            <img class="card-img-top img-fluid lazyloaded" src="{if !empty($data.IMAGE_LIST)}{$data.IMAGE_LIST}{else}{$data.IMAGE}{/if}" alt="{$data.NAME|onlytext}" itemprop="image" loading="lazy">
           </a>
         {/if}
         <div class="card-body d-flex flex-column p-2 p-md-3">
