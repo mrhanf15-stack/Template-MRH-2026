@@ -100,7 +100,9 @@
       {/if}
 
       {* ── Short Description + Art.Nr. + Lieferzeit ── *}
-      {include file="module/includes/list_shortdescription.html"}
+      {if !isset($mrh_has_attrs) || !$mrh_has_attrs}
+        {include file="module/includes/list_shortdescription.html"}
+      {/if}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
       {if isset($MODULE_product_options) && $MODULE_product_options != ''}
@@ -248,6 +250,7 @@
 
   {$FORM_END}
 
+
   {* ══════════════════════════════════════════════════════════════
      3. BESCHREIBUNG (volle Breite)
      ══════════════════════════════════════════════════════════════ *}
@@ -256,6 +259,7 @@
       {$PRODUCTS_DESCRIPTION}
     </div>
   {/if}
+  {if isset($MODULE_product_tags) && $MODULE_product_tags != ""}{$MODULE_product_tags}{/if}
 
   {* ══════════════════════════════════════════════════════════════
      4. ACCORDION: Bewertungen + Hersteller-Info

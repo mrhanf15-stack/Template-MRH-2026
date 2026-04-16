@@ -68,11 +68,11 @@
 
       {* Produktname – USA-Akzent *}
       <h1 class="h3 mb-2" itemprop="name" style="border-left: 4px solid #BF0A30; padding-left: 0.75rem;">
-        {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}
+    {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_NAME}{else}{$PRODUCTS_HEADING_TITLE}{/if}
       </h1>
 
       {* Bewertungen (Sterne) *}
-      {if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
+      {*if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
         <div class="mrh-rating mb-3" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
           {if isset($MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT) && $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
             <span class="d-inline">
@@ -97,7 +97,7 @@
           <meta itemprop="bestRating" content="5" />
           <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}" />
         </div>
-      {/if}
+      {*/if}
 
       {* ── Picto-Leiste / MRH Badges ── *}
       {if isset($mrh_badges) && $mrh_badges != ''}
@@ -112,7 +112,9 @@
       {/if}
 
       {* ── Short Description + Art.Nr. + Lieferzeit (USA) ── *}
-      {include file="module/includes/usa_list_shortdescription.html"}
+      {if !isset($mrh_has_attrs) || !$mrh_has_attrs}
+        {include file="module/includes/usa_list_shortdescription.html"}
+      {/if}
 
       {* ── Lagerbestand-Legende + Optionen ── *}
       {if isset($MODULE_product_options) && $MODULE_product_options != ''}
@@ -270,6 +272,7 @@
       {$PRODUCTS_DESCRIPTION}
     </div>
   {/if}
+  {if isset($MODULE_product_tags) && $MODULE_product_tags != ""}{$MODULE_product_tags}{/if}
 
   {* ══════════════════════════════════════════════════════════════
      4. ACCORDION: Bewertungen + Hersteller-Info
