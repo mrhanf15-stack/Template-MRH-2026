@@ -1,5 +1,20 @@
 # MRH 2026 Template # Changelog
 
+## 2026-04-16 – Slider max-width 1320px + Banner Lazy Loading Fix
+
+**Aenderung 1:** Slider-Section in `index.html` bekommt `max-width:1320px;margin:0 auto;` statt `container-fluid px-0` (User-Vorgabe: exakt 1320px).
+
+**Aenderung 2:** `tpl_parts/banners.html` (BANNER1+BANNER2) und `tpl_parts/banners2.html` (BANNER3-6) verwenden jetzt direkt `src=` mit `loading="lazy"` statt `data-src=`. Kein JS-Lazy-Load mehr noetig fuer Banner. Alle Banner-Bilder bekommen `class="img-fluid"`.
+
+**Aenderung 3:** `MRH_LazyLoad` in `javascript/mrh2026.js` erweitert: Behandelt jetzt auch `<source data-srcset>` Elemente innerhalb von `<picture>` Tags (fuer zukuenftige Lazy-Load-Faelle).
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `index.html` | modified-shop-dev | Slider: `max-width:1320px;margin:0 auto;` |
+| `tpl_parts/banners.html` | beide | BANNER1+2: direkt src, img-fluid, container wrapper |
+| `tpl_parts/banners2.html` | beide | BANNER3-6: direkt src statt data-src, img-fluid |
+| `javascript/mrh2026.js` | Template-MRH-2026 | MRH_LazyLoad: `<source data-srcset>` Handling |
+
 ## 2026-04-13 – Photoperiodisch Text-Badge + Globale Badge-Config + CSS-Fix
 
 **Aenderung 1:** Photoperiodisch-Badge zeigt jetzt NUR Text (kein Icon) in allen Sprachen (DE: Photoperiodisch, EN: Photoperiod, FR: Photopériode, ES: Fotoperíodo). Gilt fuer alle Seed-Produkte die nicht Autoflowering sind.
