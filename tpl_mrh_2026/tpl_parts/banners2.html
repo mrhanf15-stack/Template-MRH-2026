@@ -1,18 +1,21 @@
-{* MRH 2026: banners2.html – BANNER3-6 (kein data-src, direkt src mit loading=lazy) *}
+{* MRH 2026: banners2.html – BANNER3-6
+   Fix: Shop-PHP gibt src="data:," data-src="URL" aus.
+   Wir entfernen src="data:,", wandeln data-src in src um,
+   und ersetzen lazyload durch img-fluid lazyloaded. *}
 <div class="container-fluid home-banners">
 	<div class="container">
 		<div class="row banners banners-lone g-3">
 			<div class="col-md-3">
-				{if isset($BANNER3)}{$BANNER3|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/290x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+				{if isset($BANNER3)}{$BANNER3|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/290x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
 			</div>
 			<div class="col-md-9">
-				{if isset($BANNER4)}{$BANNER4|replace:' src=':' class="img-fluid" width="930" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/930x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+				{if isset($BANNER4)}{$BANNER4|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/930x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
 			</div>
 			<div class="col-md-9">
-				{if isset($BANNER5)}{$BANNER5|replace:' src=':' class="img-fluid" width="930" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/930x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+				{if isset($BANNER5)}{$BANNER5|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/930x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
 			</div>
 			<div class="col-md-3">
-				{if isset($BANNER6)}{$BANNER6|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/290x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+				{if isset($BANNER6)}{$BANNER6|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/290x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
 			</div>
 		</div>
 	</div>

@@ -1,17 +1,20 @@
-{* MRH 2026: banners.html – BANNER1+BANNER2 (direkt src mit loading=lazy) *}
+{* MRH 2026: banners.html – BANNER1+BANNER2
+   Fix: Shop-PHP gibt src="data:," data-src="URL" aus.
+   Wir entfernen src="data:,", wandeln data-src in src um,
+   und ersetzen lazyload durch img-fluid lazyloaded. *}
 <div class="container-fluid home-banners">
 	<div class="container">
 		<div class="row banners g-3">
 			<div class="col-sm-6">
 				{if isset($BANNER1)}
-					{$BANNER1|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}
+					{$BANNER1|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''}
 				{else}
 					<a href="#"><img src="{$tpl_path}img/400x400.jpg" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>
 				{/if}
 			</div>
 			<div class="col-sm-6">
 				{if isset($BANNER2)}
-					{$BANNER2|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}
+					{$BANNER2|replace:'src="data:,"':''|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded'|replace:' role="banner"':''}
 				{else}
 					<a href="#"><img src="{$tpl_path}img/400x400.jpg" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>
 				{/if}
