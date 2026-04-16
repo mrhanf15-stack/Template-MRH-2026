@@ -21,19 +21,19 @@
   {* Beitragsbild *}
   {if !empty($IMAGE)}
     <div class="mrh-blog-post-image mb-4">
-      <img class="img-fluid rounded" src="{$IMAGE}" alt="{$NAME|onlytext}" itemprop="image" loading="lazy">
+      <img class="img-fluid" src="{$IMAGE}" alt="{$NAME|onlytext}" itemprop="image" loading="lazy">
     </div>
   {/if}
   {* Titel *}
-  <h1 class="mrh-page-title" itemprop="headline">{if !empty($TITLE)}{$TITLE}{else}{$NAME}{/if}</h1>
+  <h1 class="mrh-blog-post-title" itemprop="headline">{if !empty($TITLE)}{$TITLE}{else}{$NAME}{/if}</h1>
   {* Meta-Informationen *}
-  <div class="d-flex flex-wrap gap-3 mb-4 small text-body-secondary">
+  <div class="mrh-blog-post-meta d-flex flex-wrap gap-3 mb-4 small">
     <span>
       <span class="fa fa-calendar me-1" aria-hidden="true"></span>
       <time itemprop="datePublished" datetime="{$DATE_ADDED.C}">{$DATE_ADDED.LONG}</time>
     </span>
     {if !empty($CATEGORIES_NAME)}
-      <a href="{$CATEGORIES_LINK}" class="text-decoration-none" title="{$CATEGORIES_NAME|onlytext}">
+      <a href="{$CATEGORIES_LINK}" class="mrh-blog-post-meta-link text-decoration-none" title="{$CATEGORIES_NAME|onlytext}">
         <span class="fa fa-folder me-1" aria-hidden="true"></span>{$CATEGORIES_NAME}
       </a>
     {/if}

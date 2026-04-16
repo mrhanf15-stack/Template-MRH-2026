@@ -790,6 +790,44 @@ $mrh_color_defaults = [
     'tpl-sf-page-mfr-btn-hover-bg'       => 'rgb(93, 178, 51)',
     'tpl-sf-page-mfr-btn-hover-text'     => 'rgb(255, 255, 255)',
     'tpl-sf-page-mfr-price-color'        => 'rgb(93, 178, 51)',
+
+    // ═══ Blog – Post-Cards ═══
+    'tpl-blog-card-bg'                   => 'rgb(255, 255, 255)',
+    'tpl-blog-card-border'               => 'rgb(222, 226, 230)',
+    'tpl-blog-card-radius'               => '8px',
+    'tpl-blog-card-shadow'               => '0 2px 8px rgba(0,0,0,0.06)',
+    'tpl-blog-card-hover-shadow'         => '0 4px 16px rgba(0,0,0,0.12)',
+    'tpl-blog-card-img-height'           => '180px',
+    'tpl-blog-card-title-color'          => 'rgb(51, 51, 51)',
+    'tpl-blog-card-title-hover'          => 'rgb(93, 178, 51)',
+    'tpl-blog-card-desc-color'           => 'rgb(108, 117, 125)',
+    'tpl-blog-badge-date-bg'             => 'rgb(248, 249, 250)',
+    'tpl-blog-badge-date-text'           => 'rgb(108, 117, 125)',
+    'tpl-blog-badge-cat-bg'              => 'rgb(93, 178, 51)',
+    'tpl-blog-badge-cat-text'            => 'rgb(255, 255, 255)',
+    'tpl-blog-btn-more-bg'               => 'rgba(0,0,0,0)',
+    'tpl-blog-btn-more-text'             => 'rgb(93, 178, 51)',
+    'tpl-blog-btn-more-border'           => 'rgb(93, 178, 51)',
+    'tpl-blog-btn-more-hover-bg'         => 'rgb(93, 178, 51)',
+    'tpl-blog-btn-more-hover-text'       => 'rgb(255, 255, 255)',
+
+    // ═══ Blog – Kategorie-Cards ═══
+    'tpl-blog-cat-bg'                    => 'rgb(255, 255, 255)',
+    'tpl-blog-cat-border'                => 'rgb(222, 226, 230)',
+    'tpl-blog-cat-radius'                => '8px',
+    'tpl-blog-cat-shadow'                => '0 2px 8px rgba(0,0,0,0.06)',
+    'tpl-blog-cat-hover-shadow'          => '0 4px 16px rgba(0,0,0,0.12)',
+    'tpl-blog-cat-name-color'            => 'rgb(68, 68, 68)',
+    'tpl-blog-cat-name-hover'            => 'rgb(93, 178, 51)',
+
+    // ═══ Blog – Post-Einzelansicht ═══
+    'tpl-blog-post-title-color'          => 'rgb(33, 37, 41)',
+    'tpl-blog-post-meta-color'           => 'rgb(108, 117, 125)',
+    'tpl-blog-post-meta-link-color'      => 'rgb(93, 178, 51)',
+    'tpl-blog-post-img-radius'           => '8px',
+    'tpl-blog-post-content-color'        => 'rgb(51, 51, 51)',
+    'tpl-blog-post-h2-color'             => 'rgb(33, 37, 41)',
+    'tpl-blog-post-link-color'           => 'rgb(93, 178, 51)',
 ];
 
 $mrh_tpl_defaults = [

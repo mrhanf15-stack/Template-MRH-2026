@@ -18,6 +18,8 @@
      9. Icons        – Icon-Tausch, Farbe, Groesse, Stil, Bereichs-Overrides
    v4.2 (2026-04-11): Tab 10 Badge-Konfigurator hinzugefuegt
     10. Badges       – Produkt-Typ-Badges: Farbe, Groesse, Rundung, Hover, Umrandung
+   v4.3 (2026-04-16): Tab 12 Blog-Konfigurator hinzugefuegt
+    12. Blog         – Post-Cards, Kategorie-Cards, Badges, Buttons, Einzelansicht
    
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
    ===================================================================== */
@@ -75,6 +77,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="icons"><i class="fa fa-icons me-1"></i>Icons</div>
     <div class="mrh-tab" data-tab="badges"><i class="fa fa-certificate me-1"></i>Badges</div>
     <div class="mrh-tab" data-tab="seedfinder"><i class="fa fa-cannabis me-1"></i>Seedfinder</div>
+    <div class="mrh-tab" data-tab="blog"><i class="fa fa-newspaper me-1"></i>Blog</div>
 </div>
 
 <!-- ================================================================== -->
@@ -3529,6 +3532,313 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     renderFilterTagPreview();
 })();
 </script>
+
+<!-- ================================================================== -->
+<!-- TAB 12: BLOG -->
+<div class="mrh-tab-pane" id="tab-blog">
+<h5 class="mb-3"><i class="fa fa-newspaper me-2"></i>Blog</h5>
+<p class="text-muted small mb-3">Steuert das Aussehen der Blog-Hauptseite, Kategorie-Ansicht und Post-Einzelansicht (4-Spalten-Layout).</p>
+
+<!-- Live-Vorschau -->
+<div class="card mb-4">
+    <div class="card-header"><strong>Live-Vorschau</strong></div>
+    <div class="card-body" id="mrh-blog-preview" style="background:#f5f5f5;padding:20px;"></div>
+</div>
+
+<form method="post" action="">
+
+<!-- ═══ Post-Cards ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-th-large me-1"></i>Post-Cards (Listing)</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-bg"><strong>Karten-Hintergrund</strong></label>
+        <input id="tpl-blog-card-bg" type="text" name="tpl-blog-card-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-card-bg','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-card-bg','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-border"><strong>Karten-Rahmen</strong></label>
+        <input id="tpl-blog-card-border" type="text" name="tpl-blog-card-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-card-border','rgb(222, 226, 230)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-card-border','rgb(222, 226, 230)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-radius"><strong>Rundung</strong></label>
+        <input id="tpl-blog-card-radius" type="text" name="tpl-blog-card-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-card-radius','8px'); ?>">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-shadow"><strong>Schatten</strong></label>
+        <input id="tpl-blog-card-shadow" type="text" name="tpl-blog-card-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-card-shadow','0 2px 8px rgba(0,0,0,0.06)'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-hover-shadow"><strong>Hover-Schatten</strong></label>
+        <input id="tpl-blog-card-hover-shadow" type="text" name="tpl-blog-card-hover-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-card-hover-shadow','0 4px 16px rgba(0,0,0,0.12)'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-img-height"><strong>Bild-H&ouml;he</strong></label>
+        <input id="tpl-blog-card-img-height" type="text" name="tpl-blog-card-img-height" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-card-img-height','180px'); ?>">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-title-color"><strong>Titel-Farbe</strong></label>
+        <input id="tpl-blog-card-title-color" type="text" name="tpl-blog-card-title-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-card-title-color','rgb(51, 51, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-card-title-color','rgb(51, 51, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-title-hover"><strong>Titel Hover</strong></label>
+        <input id="tpl-blog-card-title-hover" type="text" name="tpl-blog-card-title-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-card-title-hover','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-card-title-hover','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-card-desc-color"><strong>Beschreibung</strong></label>
+        <input id="tpl-blog-card-desc-color" type="text" name="tpl-blog-card-desc-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-card-desc-color','rgb(108, 117, 125)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-card-desc-color','rgb(108, 117, 125)'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Badges ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-tag me-1"></i>Badges (Datum / Kategorie)</h6>
+<div class="row">
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-blog-badge-date-bg"><strong>Datum BG</strong></label>
+        <input id="tpl-blog-badge-date-bg" type="text" name="tpl-blog-badge-date-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-badge-date-bg','rgb(248, 249, 250)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-badge-date-bg','rgb(248, 249, 250)'); ?>"></div>
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-blog-badge-date-text"><strong>Datum Text</strong></label>
+        <input id="tpl-blog-badge-date-text" type="text" name="tpl-blog-badge-date-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-badge-date-text','rgb(108, 117, 125)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-badge-date-text','rgb(108, 117, 125)'); ?>"></div>
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-blog-badge-cat-bg"><strong>Kategorie BG</strong></label>
+        <input id="tpl-blog-badge-cat-bg" type="text" name="tpl-blog-badge-cat-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-badge-cat-bg','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-badge-cat-bg','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-blog-badge-cat-text"><strong>Kategorie Text</strong></label>
+        <input id="tpl-blog-badge-cat-text" type="text" name="tpl-blog-badge-cat-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-badge-cat-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-badge-cat-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Weiterlesen-Button ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-arrow-right me-1"></i>Weiterlesen-Button</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-btn-more-bg"><strong>Button BG</strong></label>
+        <input id="tpl-blog-btn-more-bg" type="text" name="tpl-blog-btn-more-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-btn-more-bg','rgba(0,0,0,0)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-btn-more-bg','rgba(0,0,0,0)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-btn-more-text"><strong>Button Text</strong></label>
+        <input id="tpl-blog-btn-more-text" type="text" name="tpl-blog-btn-more-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-btn-more-text','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-btn-more-text','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-btn-more-border"><strong>Button Rahmen</strong></label>
+        <input id="tpl-blog-btn-more-border" type="text" name="tpl-blog-btn-more-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-btn-more-border','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-btn-more-border','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-btn-more-hover-bg"><strong>Hover BG</strong></label>
+        <input id="tpl-blog-btn-more-hover-bg" type="text" name="tpl-blog-btn-more-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-btn-more-hover-bg','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-btn-more-hover-bg','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-btn-more-hover-text"><strong>Hover Text</strong></label>
+        <input id="tpl-blog-btn-more-hover-text" type="text" name="tpl-blog-btn-more-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-btn-more-hover-text','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-btn-more-hover-text','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Kategorie-Cards ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-folder me-1"></i>Kategorie-Cards</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-bg"><strong>Karten-Hintergrund</strong></label>
+        <input id="tpl-blog-cat-bg" type="text" name="tpl-blog-cat-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-cat-bg','rgb(255, 255, 255)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-cat-bg','rgb(255, 255, 255)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-border"><strong>Rahmen</strong></label>
+        <input id="tpl-blog-cat-border" type="text" name="tpl-blog-cat-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-cat-border','rgb(222, 226, 230)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-cat-border','rgb(222, 226, 230)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-radius"><strong>Rundung</strong></label>
+        <input id="tpl-blog-cat-radius" type="text" name="tpl-blog-cat-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-cat-radius','8px'); ?>">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-shadow"><strong>Schatten</strong></label>
+        <input id="tpl-blog-cat-shadow" type="text" name="tpl-blog-cat-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-cat-shadow','0 2px 8px rgba(0,0,0,0.06)'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-hover-shadow"><strong>Hover-Schatten</strong></label>
+        <input id="tpl-blog-cat-hover-shadow" type="text" name="tpl-blog-cat-hover-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-cat-hover-shadow','0 4px 16px rgba(0,0,0,0.12)'); ?>">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-name-color"><strong>Name Farbe</strong></label>
+        <input id="tpl-blog-cat-name-color" type="text" name="tpl-blog-cat-name-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-cat-name-color','rgb(68, 68, 68)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-cat-name-color','rgb(68, 68, 68)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-cat-name-hover"><strong>Name Hover</strong></label>
+        <input id="tpl-blog-cat-name-hover" type="text" name="tpl-blog-cat-name-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-cat-name-hover','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-cat-name-hover','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Post-Einzelansicht ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-file-text me-1"></i>Post-Einzelansicht</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-title-color"><strong>Titel-Farbe</strong></label>
+        <input id="tpl-blog-post-title-color" type="text" name="tpl-blog-post-title-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-post-title-color','rgb(33, 37, 41)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-post-title-color','rgb(33, 37, 41)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-meta-color"><strong>Meta-Farbe</strong></label>
+        <input id="tpl-blog-post-meta-color" type="text" name="tpl-blog-post-meta-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-post-meta-color','rgb(108, 117, 125)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-post-meta-color','rgb(108, 117, 125)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-meta-link-color"><strong>Meta-Link</strong></label>
+        <input id="tpl-blog-post-meta-link-color" type="text" name="tpl-blog-post-meta-link-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-post-meta-link-color','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-post-meta-link-color','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-img-radius"><strong>Bild-Rundung</strong></label>
+        <input id="tpl-blog-post-img-radius" type="text" name="tpl-blog-post-img-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-blog-post-img-radius','8px'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-content-color"><strong>Inhalt-Farbe</strong></label>
+        <input id="tpl-blog-post-content-color" type="text" name="tpl-blog-post-content-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-post-content-color','rgb(51, 51, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-post-content-color','rgb(51, 51, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-h2-color"><strong>&Uuml;berschriften (H2/H3)</strong></label>
+        <input id="tpl-blog-post-h2-color" type="text" name="tpl-blog-post-h2-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-post-h2-color','rgb(33, 37, 41)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-post-h2-color','rgb(33, 37, 41)'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-blog-post-link-color"><strong>Link-Farbe</strong></label>
+        <input id="tpl-blog-post-link-color" type="text" name="tpl-blog-post-link-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-blog-post-link-color','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-blog-post-link-color','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+</div>
+
+<div class="text-end mt-3">
+    <button type="submit" name="mrh_save_colors" class="btn btn-sm btn-success"><i class="fa fa-save me-1"></i>Speichern</button>
+</div>
+</form>
+
+<!-- Blog Live-Preview Script -->
+<script>
+(function(){
+    'use strict';
+    function gv(n,fb){var e=document.getElementById(n);return e?(e.value||fb):fb;}
+
+    function renderBlogPreview(){
+        var p = document.getElementById('mrh-blog-preview');
+        if(!p) return;
+        var cardBg     = gv('tpl-blog-card-bg','rgb(255,255,255)');
+        var cardBorder = gv('tpl-blog-card-border','rgb(222,226,230)');
+        var cardRadius = gv('tpl-blog-card-radius','8px');
+        var cardShadow = gv('tpl-blog-card-shadow','0 2px 8px rgba(0,0,0,0.06)');
+        var imgH       = gv('tpl-blog-card-img-height','180px');
+        var titleC     = gv('tpl-blog-card-title-color','rgb(51,51,51)');
+        var titleH     = gv('tpl-blog-card-title-hover','rgb(93,178,51)');
+        var descC      = gv('tpl-blog-card-desc-color','rgb(108,117,125)');
+        var dateBg     = gv('tpl-blog-badge-date-bg','rgb(248,249,250)');
+        var dateText   = gv('tpl-blog-badge-date-text','rgb(108,117,125)');
+        var catBg      = gv('tpl-blog-badge-cat-bg','rgb(93,178,51)');
+        var catText    = gv('tpl-blog-badge-cat-text','rgb(255,255,255)');
+        var btnBg      = gv('tpl-blog-btn-more-bg','rgba(0,0,0,0)');
+        var btnText    = gv('tpl-blog-btn-more-text','rgb(93,178,51)');
+        var btnBorder  = gv('tpl-blog-btn-more-border','rgb(93,178,51)');
+        var btnHBg     = gv('tpl-blog-btn-more-hover-bg','rgb(93,178,51)');
+        var btnHTx     = gv('tpl-blog-btn-more-hover-text','rgb(255,255,255)');
+        var catCardBg  = gv('tpl-blog-cat-bg','rgb(255,255,255)');
+        var catCardBd  = gv('tpl-blog-cat-border','rgb(222,226,230)');
+        var catCardRd  = gv('tpl-blog-cat-radius','8px');
+        var catNameC   = gv('tpl-blog-cat-name-color','rgb(68,68,68)');
+        var postTitleC = gv('tpl-blog-post-title-color','rgb(33,37,41)');
+        var postMetaC  = gv('tpl-blog-post-meta-color','rgb(108,117,125)');
+        var postMetaL  = gv('tpl-blog-post-meta-link-color','rgb(93,178,51)');
+        var postImgR   = gv('tpl-blog-post-img-radius','8px');
+        var postContC  = gv('tpl-blog-post-content-color','rgb(51,51,51)');
+
+        var h = '';
+        // Kategorie-Cards Vorschau
+        h += '<div style="margin-bottom:16px;"><strong style="font-size:13px;color:#666;">Kategorie-Cards:</strong></div>';
+        h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">';
+        var cats = ['Anbau-Tipps','Sorten-Guide','News','Rezepte'];
+        for(var i=0;i<4;i++){
+            h += '<div style="background:'+catCardBg+';border:1px solid '+catCardBd+';border-radius:'+catCardRd+';overflow:hidden;text-align:center;">';
+            h += '<div style="height:60px;background:linear-gradient(135deg,#e0e0e0,#c0c0c0);"></div>';
+            h += '<div style="padding:8px;font-weight:bold;font-size:12px;color:'+catNameC+';">'+cats[i]+'</div>';
+            h += '</div>';
+        }
+        h += '</div>';
+
+        // Post-Cards Vorschau (4-spaltig)
+        h += '<div style="margin-bottom:16px;"><strong style="font-size:13px;color:#666;">Post-Cards (4-spaltig):</strong></div>';
+        h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">';
+        var posts = ['Cannabis richtig gie&szlig;en','Top 10 Sorten 2026','Indoor vs Outdoor','Ernte-Tipps f&uuml;r Anf&auml;nger'];
+        var descs = ['Alles &uuml;ber die richtige Bew&auml;sserung...','Die beliebtesten Sorten im &Uuml;berblick...','Vor- und Nachteile beider Methoden...','So erntest du zum perfekten Zeitpunkt...'];
+        for(var j=0;j<4;j++){
+            h += '<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+cardRadius+';box-shadow:'+cardShadow+';overflow:hidden;">';
+            h += '<div style="height:'+imgH+';max-height:80px;background:linear-gradient(135deg,#d4edda,#a8d5a2);display:flex;align-items:center;justify-content:center;"><i class="fa fa-image" style="font-size:20px;color:#6c757d;"></i></div>';
+            h += '<div style="padding:8px;">';
+            h += '<div style="display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap;">';
+            h += '<span style="background:'+dateBg+';color:'+dateText+';font-size:9px;padding:1px 5px;border-radius:3px;"><i class="fa fa-calendar" style="margin-right:2px;"></i>15. Apr</span>';
+            h += '<span style="background:'+catBg+';color:'+catText+';font-size:9px;padding:1px 5px;border-radius:3px;"><i class="fa fa-folder" style="margin-right:2px;"></i>Tipps</span>';
+            h += '</div>';
+            h += '<div style="font-weight:bold;font-size:11px;color:'+titleC+';margin-bottom:3px;">'+posts[j]+'</div>';
+            h += '<div style="font-size:10px;color:'+descC+';margin-bottom:6px;">'+descs[j]+'</div>';
+            h += '<a href="#" onclick="return false" style="display:inline-block;background:'+btnBg+';color:'+btnText+';border:1px solid '+btnBorder+';font-size:9px;padding:2px 8px;border-radius:3px;text-decoration:none;">Weiterlesen</a>';
+            h += '</div></div>';
+        }
+        h += '</div>';
+
+        // Post-Einzelansicht Vorschau
+        h += '<div style="margin-bottom:16px;"><strong style="font-size:13px;color:#666;">Post-Einzelansicht:</strong></div>';
+        h += '<div style="background:#fff;border:1px solid #dee2e6;border-radius:8px;padding:16px;">';
+        h += '<div style="height:80px;background:linear-gradient(135deg,#d4edda,#a8d5a2);border-radius:'+postImgR+';margin-bottom:12px;display:flex;align-items:center;justify-content:center;"><i class="fa fa-image" style="font-size:24px;color:#6c757d;"></i></div>';
+        h += '<h3 style="color:'+postTitleC+';margin:0 0 8px;font-size:16px;">Cannabis richtig gie&szlig;en: Der ultimative Guide</h3>';
+        h += '<div style="color:'+postMetaC+';font-size:11px;margin-bottom:12px;"><i class="fa fa-calendar" style="margin-right:4px;"></i>15. April 2026 &nbsp; <a href="#" onclick="return false" style="color:'+postMetaL+';text-decoration:none;"><i class="fa fa-folder" style="margin-right:4px;"></i>Anbau-Tipps</a> &nbsp; <i class="fa fa-user" style="margin-right:4px;"></i>Mr. Hanf</div>';
+        h += '<p style="color:'+postContC+';font-size:12px;line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>';
+        h += '</div>';
+
+        p.innerHTML = h;
+    }
+
+    // Event-Listener fuer alle Blog-Felder
+    document.querySelectorAll('[id^="tpl-blog-"]').forEach(function(el){
+        el.addEventListener('input', renderBlogPreview);
+        el.addEventListener('change', renderBlogPreview);
+    });
+    // Initial rendern wenn Tab sichtbar
+    var blogTab = document.querySelector('[data-tab="blog"]');
+    if(blogTab){
+        blogTab.addEventListener('click', function(){ setTimeout(renderBlogPreview, 50); });
+    }
+    renderBlogPreview();
+})();
+</script>
+
+</div><!-- /#tab-blog -->
 
 </div><!-- /#mrh-configurator-v4 -->
 
