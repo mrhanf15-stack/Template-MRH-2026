@@ -89,7 +89,7 @@
 
   {* ── Attribute/Optionen: direkt unter Tabelle (v1.5.0) ── *}
   {if $module_data.PRODUCT_ATTRIBUTES}
-    <div class="compare-options-box px-3 pb-1">
+    <div class="compare-options-box px-3 pb-0">
       <div id="options{$module_data.PRODUCTS_ID}" class="cf">
         {$module_data.PRODUCT_ATTRIBUTES|replace:' p-2':''}
       </div>
@@ -109,7 +109,7 @@
     </div>
 
     {* ── Preis ── *}
-    <div class="text-end mt-1 mb-2">
+    <div class="text-end mt-0 mb-1">
       {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
         {include file="module/includes/price_box.html"}
       {/foreach}
