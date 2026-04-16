@@ -693,6 +693,52 @@ $mrh_color_defaults = [
     'tpl-sf-dd-badge-bg'           => 'rgb(13, 110, 253)',
     'tpl-sf-dd-badge-text'         => 'rgb(255, 255, 255)',
     'tpl-sf-dd-count-color'        => 'rgb(153, 153, 153)',
+
+    // ══════════════════════════════════════════════════
+    // ── Seedfinder Seite (Hauptseite / Kategorie-Karten) ──
+    // ══════════════════════════════════════════════════
+    // Kategorie-Karten
+    'tpl-sf-page-card-bg'            => 'rgb(255, 255, 255)',
+    'tpl-sf-page-card-border'        => 'rgb(222, 226, 230)',
+    'tpl-sf-page-card-hover-border'  => 'rgb(93, 178, 51)',
+    'tpl-sf-page-card-radius'        => '12px',
+    'tpl-sf-page-card-shadow'        => '0 2px 8px rgba(0,0,0,0.08)',
+    'tpl-sf-page-card-hover-shadow'  => '0 6px 20px rgba(0,0,0,0.12)',
+
+    // Kategorie-Button (Auswählen)
+    'tpl-sf-page-btn-bg'             => 'rgb(93, 178, 51)',
+    'tpl-sf-page-btn-text'           => 'rgb(255, 255, 255)',
+    'tpl-sf-page-btn-hover-bg'       => 'rgb(74, 140, 42)',
+    'tpl-sf-page-btn-hover-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-page-btn-radius'         => '6px',
+
+    // Badge (X Produkte)
+    'tpl-sf-page-badge-bg'           => 'rgb(93, 178, 51)',
+    'tpl-sf-page-badge-text'         => 'rgb(255, 255, 255)',
+
+    // Icon-Container
+    'tpl-sf-page-icon-bg'            => 'rgb(248, 249, 250)',
+    'tpl-sf-page-icon-color'         => 'rgb(93, 178, 51)',
+
+    // Info-Card (So funktioniert der Seedfinder)
+    'tpl-sf-page-info-bg'            => 'rgb(248, 255, 245)',
+    'tpl-sf-page-info-border'        => 'rgb(93, 178, 51)',
+    'tpl-sf-page-info-text'          => 'rgb(33, 37, 41)',
+
+    // Benefit-Icons
+    'tpl-sf-page-benefit-color'      => 'rgb(93, 178, 51)',
+
+    // Step-Badges (1, 2, 3)
+    'tpl-sf-page-step-bg'            => 'rgb(93, 178, 51)',
+    'tpl-sf-page-step-text'          => 'rgb(255, 255, 255)',
+
+    // Wizard (Anfänger-Finder)
+    'tpl-sf-page-wizard-header-bg'   => 'rgb(93, 178, 51)',
+    'tpl-sf-page-wizard-header-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-page-wizard-btn-bg'      => 'rgb(93, 178, 51)',
+    'tpl-sf-page-wizard-btn-text'    => 'rgb(255, 255, 255)',
+    'tpl-sf-page-wizard-btn-hover-bg' => 'rgb(74, 140, 42)',
+    'tpl-sf-page-wizard-progress-bg' => 'rgb(93, 178, 51)',
 ];
 
 $mrh_tpl_defaults = [

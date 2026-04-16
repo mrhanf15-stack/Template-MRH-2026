@@ -526,6 +526,34 @@ $defaults = [
     'tpl-sf-dd-badge-bg'           => 'rgb(13, 110, 253)',
     'tpl-sf-dd-badge-text'         => 'rgb(255, 255, 255)',
     'tpl-sf-dd-count-color'        => 'rgb(153, 153, 153)',
+    // Seedfinder Seite (Hauptseite / Kategorie-Karten)
+    'tpl-sf-page-card-bg'            => 'rgb(255, 255, 255)',
+    'tpl-sf-page-card-border'        => 'rgb(222, 226, 230)',
+    'tpl-sf-page-card-hover-border'  => 'rgb(93, 178, 51)',
+    'tpl-sf-page-card-radius'        => '12px',
+    'tpl-sf-page-card-shadow'        => '0 2px 8px rgba(0,0,0,0.08)',
+    'tpl-sf-page-card-hover-shadow'  => '0 6px 20px rgba(0,0,0,0.12)',
+    'tpl-sf-page-btn-bg'             => 'rgb(93, 178, 51)',
+    'tpl-sf-page-btn-text'           => 'rgb(255, 255, 255)',
+    'tpl-sf-page-btn-hover-bg'       => 'rgb(74, 140, 42)',
+    'tpl-sf-page-btn-hover-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-page-btn-radius'         => '6px',
+    'tpl-sf-page-badge-bg'           => 'rgb(93, 178, 51)',
+    'tpl-sf-page-badge-text'         => 'rgb(255, 255, 255)',
+    'tpl-sf-page-icon-bg'            => 'rgb(248, 249, 250)',
+    'tpl-sf-page-icon-color'         => 'rgb(93, 178, 51)',
+    'tpl-sf-page-info-bg'            => 'rgb(248, 255, 245)',
+    'tpl-sf-page-info-border'        => 'rgb(93, 178, 51)',
+    'tpl-sf-page-info-text'          => 'rgb(33, 37, 41)',
+    'tpl-sf-page-benefit-color'      => 'rgb(93, 178, 51)',
+    'tpl-sf-page-step-bg'            => 'rgb(93, 178, 51)',
+    'tpl-sf-page-step-text'          => 'rgb(255, 255, 255)',
+    'tpl-sf-page-wizard-header-bg'   => 'rgb(93, 178, 51)',
+    'tpl-sf-page-wizard-header-text' => 'rgb(255, 255, 255)',
+    'tpl-sf-page-wizard-btn-bg'      => 'rgb(93, 178, 51)',
+    'tpl-sf-page-wizard-btn-text'    => 'rgb(255, 255, 255)',
+    'tpl-sf-page-wizard-btn-hover-bg' => 'rgb(74, 140, 42)',
+    'tpl-sf-page-wizard-progress-bg' => 'rgb(93, 178, 51)',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -845,6 +873,55 @@ echo '#active-filter-count{background:var(--tpl-sf-tab-badge-bg) !important;colo
 // Produkt-Badges (Typ-Badges fem/auto/photo/reg)
 // Diese nutzen eigene Konfigurator-Variablen (tpl-badge-*), nicht sf-*
 // Daher hier kein Override nötig
+
+// ═══ Seedfinder Seite (Hauptseite / Kategorie-Karten) ═══
+// Kategorie-Karten
+echo '#seedfinder_module .seedfinder-card{background:var(--tpl-sf-page-card-bg);border-color:var(--tpl-sf-page-card-border);border-radius:var(--tpl-sf-page-card-radius);box-shadow:var(--tpl-sf-page-card-shadow);}';
+echo '#seedfinder_module .seedfinder-card:hover{border-color:var(--tpl-sf-page-card-hover-border);box-shadow:var(--tpl-sf-page-card-hover-shadow);}';
+
+// Kategorie-Button (Auswählen)
+echo '#seedfinder_module .seedfinder-category-btn{background:var(--tpl-sf-page-btn-bg);color:var(--tpl-sf-page-btn-text);border-radius:var(--tpl-sf-page-btn-radius);}';
+echo '#seedfinder_module .seedfinder-category-btn:hover{background:var(--tpl-sf-page-btn-hover-bg);color:var(--tpl-sf-page-btn-hover-text);}';
+
+// Badge (X Produkte)
+echo '#seedfinder_module .seedfinder-badge{background:var(--tpl-sf-page-badge-bg) !important;color:var(--tpl-sf-page-badge-text) !important;}';
+
+// Icon-Container + Icon-Farbe
+echo '#seedfinder_module .seedfinder-icon-container{background:var(--tpl-sf-page-icon-bg);}';
+echo '#seedfinder_module .seedfinder-category-icon{color:var(--tpl-sf-page-icon-color);}';
+
+// Info-Card (So funktioniert der Seedfinder)
+echo '#seedfinder_module .seedfinder-info-card{background:var(--tpl-sf-page-info-bg) !important;border-left-color:var(--tpl-sf-page-info-border) !important;color:var(--tpl-sf-page-info-text);}';
+echo '#seedfinder_module .seedfinder-info-card .fa-circle-info{color:var(--tpl-sf-page-info-border);}';
+
+// Benefit-Icons
+echo '#seedfinder_module .seedfinder-benefit-icon{color:var(--tpl-sf-page-benefit-color);}';
+
+// Step-Badges (1, 2, 3)
+echo '#seedfinder_module .step-badge{background:var(--tpl-sf-page-step-bg) !important;color:var(--tpl-sf-page-step-text) !important;}';
+
+// Wizard (Anfänger-Finder)
+echo '#seedfinder_module .wizard-header-gradient{background:var(--tpl-sf-page-wizard-header-bg) !important;color:var(--tpl-sf-page-wizard-header-text);}';
+echo '#seedfinder_module .wizard-main-title{color:var(--tpl-sf-page-wizard-header-text);}';
+echo '#seedfinder_module .wizard-subtitle{color:var(--tpl-sf-page-wizard-header-text);opacity:0.9;}';
+echo '#seedfinder_module .wizard-option-card-style:hover{border-color:var(--tpl-sf-page-wizard-btn-bg);}';
+echo '#seedfinder_module .wizard-progress-fill{background:var(--tpl-sf-page-wizard-progress-bg) !important;}';
+echo '#seedfinder_module .wizard-footer .btn-success,#seedfinder_module .wizard-footer .btn-primary{background:var(--tpl-sf-page-wizard-btn-bg) !important;color:var(--tpl-sf-page-wizard-btn-text) !important;border-color:var(--tpl-sf-page-wizard-btn-bg) !important;}';
+echo '#seedfinder_module .wizard-footer .btn-success:hover,#seedfinder_module .wizard-footer .btn-primary:hover{background:var(--tpl-sf-page-wizard-btn-hover-bg) !important;border-color:var(--tpl-sf-page-wizard-btn-hover-bg) !important;}';
+echo '#seedfinder_module .wizard-back-btn{color:var(--tpl-sf-page-wizard-btn-bg);border-color:var(--tpl-sf-page-wizard-btn-bg);}';
+echo '#seedfinder_module .wizard-back-btn:hover{background:var(--tpl-sf-page-wizard-btn-bg);color:var(--tpl-sf-page-wizard-btn-text);}';
+echo '#seedfinder_module .wizard-reset-btn{color:var(--tpl-sf-page-wizard-btn-bg);}';
+
+// Beginner/Profi Cards
+echo '#seedfinder_module #beginner-finder-btn{background:var(--tpl-sf-page-wizard-btn-bg) !important;color:var(--tpl-sf-page-wizard-btn-text) !important;border-color:var(--tpl-sf-page-wizard-btn-bg) !important;}';
+echo '#seedfinder_module #beginner-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-hover-bg) !important;border-color:var(--tpl-sf-page-wizard-btn-hover-bg) !important;}';
+echo '#seedfinder_module #pro-finder-btn{color:var(--tpl-sf-page-wizard-btn-bg);border-color:var(--tpl-sf-page-wizard-btn-bg);}';
+echo '#seedfinder_module #pro-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-bg);color:var(--tpl-sf-page-wizard-btn-text);}';
+
+// Option-Cards (Kategorie-Auswahl im Wizard)
+echo '#seedfinder_module .option-badge{background:var(--tpl-sf-page-badge-bg) !important;color:var(--tpl-sf-page-badge-text) !important;}';
+echo '#seedfinder_module .finder-card:hover{border-color:var(--tpl-sf-page-card-hover-border);}';
+echo '#seedfinder_module .filter-card:hover{border-color:var(--tpl-sf-page-card-hover-border);}';
 ?>
 </style>
 <style>

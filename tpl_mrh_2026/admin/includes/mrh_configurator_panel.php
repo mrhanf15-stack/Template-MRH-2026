@@ -2734,6 +2734,157 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
     </div>
 
+    <!-- ═══ Seedfinder Seite (Hauptseite / Kategorie-Karten) ═══ -->
+    <h5 class="border-bottom pb-2 mb-3 mt-5" style="color:#198754;"><i class="fa fa-home me-2"></i>Seedfinder Seite (Hauptseite)</h5>
+
+    <!-- Live-Vorschau Seedfinder Seite -->
+    <div class="col-12 mb-3">
+        <div id="mrh-sf-page-preview" style="border:1px solid #dee2e6;border-radius:8px;overflow:hidden;background:#f8f9fa;padding:16px;"></div>
+    </div>
+
+    <!-- Kategorie-Karten -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-th-large me-1"></i>Kategorie-Karten</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-card-bg"><strong>Karten-Hintergrund</strong></label>
+            <input id="tpl-sf-page-card-bg" type="text" name="tpl-sf-page-card-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-card-bg','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-card-border"><strong>Karten-Rahmen</strong></label>
+            <input id="tpl-sf-page-card-border" type="text" name="tpl-sf-page-card-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-card-border','rgb(222, 226, 230)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-card-hover-border"><strong>Hover-Rahmen</strong></label>
+            <input id="tpl-sf-page-card-hover-border" type="text" name="tpl-sf-page-card-hover-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-card-hover-border','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-card-radius"><strong>Rundung</strong></label>
+            <input id="tpl-sf-page-card-radius" type="text" name="tpl-sf-page-card-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-card-radius','12px'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-card-shadow"><strong>Schatten</strong></label>
+            <input id="tpl-sf-page-card-shadow" type="text" name="tpl-sf-page-card-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-card-shadow','0 2px 8px rgba(0,0,0,0.08)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-card-hover-shadow"><strong>Hover-Schatten</strong></label>
+            <input id="tpl-sf-page-card-hover-shadow" type="text" name="tpl-sf-page-card-hover-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-card-hover-shadow','0 6px 20px rgba(0,0,0,0.12)'); ?>">
+        </div>
+    </div>
+
+    <!-- Kategorie-Button (Auswählen) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-hand-pointer me-1"></i>Kategorie-Button (Auswählen)</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-btn-bg"><strong>Button-Hintergrund</strong></label>
+            <input id="tpl-sf-page-btn-bg" type="text" name="tpl-sf-page-btn-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-btn-text"><strong>Button-Text</strong></label>
+            <input id="tpl-sf-page-btn-text" type="text" name="tpl-sf-page-btn-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-btn-hover-bg"><strong>Hover-Hintergrund</strong></label>
+            <input id="tpl-sf-page-btn-hover-bg" type="text" name="tpl-sf-page-btn-hover-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-bg','rgb(74, 140, 42)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-btn-hover-text"><strong>Hover-Text</strong></label>
+            <input id="tpl-sf-page-btn-hover-text" type="text" name="tpl-sf-page-btn-hover-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-btn-radius"><strong>Button-Rundung</strong></label>
+            <input id="tpl-sf-page-btn-radius" type="text" name="tpl-sf-page-btn-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-radius','6px'); ?>">
+        </div>
+    </div>
+
+    <!-- Badge (X Produkte) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-tag me-1"></i>Badge (X Produkte)</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-badge-bg"><strong>Badge-Hintergrund</strong></label>
+            <input id="tpl-sf-page-badge-bg" type="text" name="tpl-sf-page-badge-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-badge-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-badge-text"><strong>Badge-Text</strong></label>
+            <input id="tpl-sf-page-badge-text" type="text" name="tpl-sf-page-badge-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-badge-text','rgb(255, 255, 255)'); ?>">
+        </div>
+    </div>
+
+    <!-- Icon-Container -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-circle me-1"></i>Icon-Container</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-icon-bg"><strong>Icon-Hintergrund</strong></label>
+            <input id="tpl-sf-page-icon-bg" type="text" name="tpl-sf-page-icon-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-icon-bg','rgb(248, 249, 250)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-icon-color"><strong>Icon-Farbe</strong></label>
+            <input id="tpl-sf-page-icon-color" type="text" name="tpl-sf-page-icon-color" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-icon-color','rgb(93, 178, 51)'); ?>">
+        </div>
+    </div>
+
+    <!-- Info-Card -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-info-circle me-1"></i>Info-Card (So funktioniert...)</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-info-bg"><strong>Info-Hintergrund</strong></label>
+            <input id="tpl-sf-page-info-bg" type="text" name="tpl-sf-page-info-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-info-bg','rgb(248, 255, 245)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-info-border"><strong>Info-Rahmen (links)</strong></label>
+            <input id="tpl-sf-page-info-border" type="text" name="tpl-sf-page-info-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-info-border','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-info-text"><strong>Info-Text</strong></label>
+            <input id="tpl-sf-page-info-text" type="text" name="tpl-sf-page-info-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-info-text','rgb(33, 37, 41)'); ?>">
+        </div>
+    </div>
+
+    <!-- Benefit-Icons + Step-Badges -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-check-circle me-1"></i>Benefit-Icons &amp; Step-Badges</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-color"><strong>Benefit-Icon-Farbe</strong></label>
+            <input id="tpl-sf-page-benefit-color" type="text" name="tpl-sf-page-benefit-color" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-color','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-step-bg"><strong>Step-Badge BG</strong></label>
+            <input id="tpl-sf-page-step-bg" type="text" name="tpl-sf-page-step-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-step-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-step-text"><strong>Step-Badge Text</strong></label>
+            <input id="tpl-sf-page-step-text" type="text" name="tpl-sf-page-step-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-step-text','rgb(255, 255, 255)'); ?>">
+        </div>
+    </div>
+
+    <!-- Wizard (Anfänger-Finder) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-magic me-1"></i>Wizard (Anfänger-Finder)</h6>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-wizard-header-bg"><strong>Header-Hintergrund</strong></label>
+            <input id="tpl-sf-page-wizard-header-bg" type="text" name="tpl-sf-page-wizard-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-wizard-header-text"><strong>Header-Text</strong></label>
+            <input id="tpl-sf-page-wizard-header-text" type="text" name="tpl-sf-page-wizard-header-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-wizard-btn-bg"><strong>Button-Hintergrund</strong></label>
+            <input id="tpl-sf-page-wizard-btn-bg" type="text" name="tpl-sf-page-wizard-btn-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-wizard-btn-text"><strong>Button-Text</strong></label>
+            <input id="tpl-sf-page-wizard-btn-text" type="text" name="tpl-sf-page-wizard-btn-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-wizard-btn-hover-bg"><strong>Button-Hover</strong></label>
+            <input id="tpl-sf-page-wizard-btn-hover-bg" type="text" name="tpl-sf-page-wizard-btn-hover-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-hover-bg','rgb(74, 140, 42)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-wizard-progress-bg"><strong>Fortschrittsbalken</strong></label>
+            <input id="tpl-sf-page-wizard-progress-bg" type="text" name="tpl-sf-page-wizard-progress-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-progress-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+    </div>
+
     <!-- Speichern -->
     <div class="col-12 mt-3 mb-3">
         <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Seedfinder speichern">
@@ -2846,10 +2997,13 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         h += '</div>';
         p.innerHTML = h;
     }
+    // Kombinierte Render-Funktion
+    function renderAllSfPreviews(){ renderSfModalPreview(); renderSfPagePreview(); }
+
     // 1. Standard-Events (input/change) fuer manuelle Eingaben
     document.querySelectorAll('#tab-seedfinder input, #tab-seedfinder select').forEach(function(el){
-        el.addEventListener('input',renderSfModalPreview);
-        el.addEventListener('change',renderSfModalPreview);
+        el.addEventListener('input',renderAllSfPreviews);
+        el.addEventListener('change',renderAllSfPreviews);
     });
 
     // 2. MutationObserver fuer Colorpicker (Spectrum/Pickr setzen value-Attribut per JS)
@@ -2862,7 +3016,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
                     needsRender = true;
                 }
             });
-            if (needsRender) renderSfModalPreview();
+            if (needsRender) renderAllSfPreviews();
         });
         sfObserver.observe(sfPane, { attributes: true, attributeFilter: ['value'], subtree: true });
     }
@@ -2872,7 +3026,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     function sfStartPolling() {
         if (_sfPollTimer) return;
         _sfPollTimer = setInterval(function() {
-            if (sfHasChanged()) renderSfModalPreview();
+            if (sfHasChanged()) renderAllSfPreviews();
         }, 250);
     }
     function sfStopPolling() {
@@ -2884,7 +3038,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     if (sfTab) {
         sfTab.addEventListener('click', function(){
             setTimeout(function(){
-                renderSfModalPreview();
+                renderAllSfPreviews();
                 sfStartPolling();
             }, 150);
         });
@@ -2894,12 +3048,82 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         tab.addEventListener('click', sfStopPolling);
     });
 
+    // ═══ Seedfinder Seite Live-Preview ═══
+    function renderSfPagePreview() {
+        var p = document.getElementById('mrh-sf-page-preview');
+        if (!p) return;
+        var cbg = gv('tpl-sf-page-card-bg','rgb(255, 255, 255)');
+        var cbd = gv('tpl-sf-page-card-border','rgb(222, 226, 230)');
+        var chbd = gv('tpl-sf-page-card-hover-border','rgb(93, 178, 51)');
+        var crad = gv('tpl-sf-page-card-radius','12px');
+        var csh = gv('tpl-sf-page-card-shadow','0 2px 8px rgba(0,0,0,0.08)');
+        var bbg = gv('tpl-sf-page-btn-bg','rgb(93, 178, 51)');
+        var btx = gv('tpl-sf-page-btn-text','rgb(255, 255, 255)');
+        var brad = gv('tpl-sf-page-btn-radius','6px');
+        var bgbg = gv('tpl-sf-page-badge-bg','rgb(93, 178, 51)');
+        var bgtx = gv('tpl-sf-page-badge-text','rgb(255, 255, 255)');
+        var ibg = gv('tpl-sf-page-icon-bg','rgb(248, 249, 250)');
+        var icl = gv('tpl-sf-page-icon-color','rgb(93, 178, 51)');
+        var infbg = gv('tpl-sf-page-info-bg','rgb(248, 255, 245)');
+        var infbd = gv('tpl-sf-page-info-border','rgb(93, 178, 51)');
+        var inftx = gv('tpl-sf-page-info-text','rgb(33, 37, 41)');
+        var bencl = gv('tpl-sf-page-benefit-color','rgb(93, 178, 51)');
+        var stbg = gv('tpl-sf-page-step-bg','rgb(93, 178, 51)');
+        var sttx = gv('tpl-sf-page-step-text','rgb(255, 255, 255)');
+        var wbg = gv('tpl-sf-page-wizard-header-bg','rgb(93, 178, 51)');
+        var wtx = gv('tpl-sf-page-wizard-header-text','rgb(255, 255, 255)');
+        var wbbg = gv('tpl-sf-page-wizard-btn-bg','rgb(93, 178, 51)');
+        var wbtx = gv('tpl-sf-page-wizard-btn-text','rgb(255, 255, 255)');
+        var wpbg = gv('tpl-sf-page-wizard-progress-bg','rgb(93, 178, 51)');
+
+        var h = '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">';
+        // 3 Kategorie-Karten
+        var cats = [{icon:'fa-cannabis',name:'Feminisiert',count:'1.250'},{icon:'fa-bolt',name:'Autoflowering',count:'890'},{icon:'fa-sun',name:'Outdoor',count:'320'}];
+        for(var i=0;i<cats.length;i++){
+            var isHover = (i===1);
+            h += '<div style="flex:1;min-width:140px;background:'+cbg+';border:2px solid '+(isHover?chbd:cbd)+';border-radius:'+crad+';box-shadow:'+csh+';padding:16px;text-align:center;">';
+            h += '<div style="width:48px;height:48px;border-radius:50%;background:'+ibg+';display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;"><span class="fa '+cats[i].icon+'" style="font-size:1.2rem;color:'+icl+';"></span></div>';
+            h += '<div style="font-weight:600;font-size:0.95rem;">'+cats[i].name+'</div>';
+            h += '<span style="display:inline-block;background:'+bgbg+';color:'+bgtx+';font-size:0.7rem;padding:2px 8px;border-radius:10px;margin:6px 0;">'+cats[i].count+' Produkte</span>';
+            h += '<div><span style="display:inline-block;background:'+bbg+';color:'+btx+';padding:6px 16px;border-radius:'+brad+';font-size:0.8rem;cursor:pointer;margin-top:4px;">Ausw\u00e4hlen</span></div>';
+            h += '</div>';
+        }
+        h += '</div>';
+
+        // Info-Card
+        h += '<div style="background:'+infbg+';border-left:4px solid '+infbd+';padding:12px 16px;border-radius:6px;margin-bottom:12px;color:'+inftx+';font-size:0.85rem;">';
+        h += '<span class="fa fa-circle-info" style="color:'+infbd+';margin-right:8px;"></span>So funktioniert der Mr. Hanf Seedfinder';
+        h += '</div>';
+
+        // Benefits + Steps
+        h += '<div style="display:flex;gap:16px;margin-bottom:12px;">';
+        var steps = ['Kategorie w\u00e4hlen','Filter setzen','Ergebnisse erhalten'];
+        for(var s=0;s<steps.length;s++){
+            h += '<div style="flex:1;text-align:center;">';
+            h += '<span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:'+stbg+';color:'+sttx+';font-size:0.75rem;font-weight:700;">'+(s+1)+'</span>';
+            h += '<div style="font-size:0.78rem;margin-top:4px;"><span class="fa fa-check-circle" style="color:'+bencl+';margin-right:4px;"></span>'+steps[s]+'</div>';
+            h += '</div>';
+        }
+        h += '</div>';
+
+        // Wizard Mini-Preview
+        h += '<div style="border-radius:8px;overflow:hidden;border:1px solid #dee2e6;">';
+        h += '<div style="background:'+wbg+';color:'+wtx+';padding:10px 16px;font-weight:600;font-size:0.85rem;"><span class="fa fa-magic" style="margin-right:6px;"></span>Anf\u00e4nger-Finder</div>';
+        h += '<div style="padding:12px 16px;">';
+        h += '<div style="height:6px;background:#e9ecef;border-radius:3px;margin-bottom:10px;"><div style="width:60%;height:100%;background:'+wpbg+';border-radius:3px;"></div></div>';
+        h += '<span style="display:inline-block;background:'+wbbg+';color:'+wbtx+';padding:6px 14px;border-radius:4px;font-size:0.8rem;cursor:pointer;">Weiter</span>';
+        h += '</div></div>';
+
+        p.innerHTML = h;
+    }
+
     // 5. Globale Funktion fuer externen Aufruf (z.B. vom Colorpicker-Callback)
-    window.mrhRenderSfPreview = renderSfModalPreview;
+    window.mrhRenderSfPreview = function(){ renderSfModalPreview(); renderSfPagePreview(); };
 
     // Initial rendern + Snapshot
     sfTakeSnapshot();
     renderSfModalPreview();
+    renderSfPagePreview();
 })();
 </script>
 
