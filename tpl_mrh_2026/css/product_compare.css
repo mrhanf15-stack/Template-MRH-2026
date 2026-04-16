@@ -28,6 +28,8 @@
            kundenoptimiertes Layout (compare_card.html v2.0.0)
    v5.7.1: Kompakter Footer – Abstände reduziert, Optionen scrollbar,
            einheitliche Kartenhöhe, Preis/Buttons enger zusammen
+   v5.7.2: Einheitliche Karten – Tabelle flex-grow, Optionen+Footer
+           direkt anschliessend ohne Luecke, card-footer kein mt-auto
    ========================================================================= */
 
 /* === Page Layout === */
@@ -168,10 +170,9 @@ a.compare-remove-btn:hover {
     flex: 1 1 auto;
 }
 
-/* === Optionen-Box: direkt unter Tabelle, scrollbar bei vielen Optionen (v5.7.1) === */
+/* === Optionen-Box: direkt unter Tabelle, kompakt (v5.7.2) === */
 .compare-options-box {
     flex: 0 0 auto;
-    max-height: 180px;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
@@ -188,9 +189,15 @@ a.compare-remove-btn:hover {
     border-radius: 3px;
 }
 
+/* === Tabellen-Container: flex-grow, fuellt den Platz zwischen Accordion und Footer (v5.7.2) === */
+.product-compare-page .card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 /* === Short Description - Full Height, Scrollable on Overflow === */
-/* flex: 0 0 auto ueberschreibt Bootstrap .card-body flex:1 1 auto,
-   damit die Tabelle oben anliegt statt vertikal zentriert zu werden */
 .compare-desc-box {
     max-height: 400px;
     overflow-y: auto;
@@ -231,15 +238,15 @@ a.compare-remove-btn:hover {
     width: 25%;
 }
 
-/* === Card Footer Flex Fix (v5.7.1): Kompakt, Abstände reduziert === */
+/* === Card Footer Flex Fix (v5.7.2): Kompakt, kein mt-auto, direkt anschliessend === */
 .product-compare-page .card-footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     background: transparent;
-    margin-top: auto;
-    padding: 0.4rem 0.75rem 0.5rem;
+    margin-top: 0;
+    padding: 0.35rem 0.75rem 0.4rem;
 }
 /* Lieferzeit + Steuer-Info kompakter (v5.7.1) */
 .product-compare-page .card-footer .lb_shipping {
