@@ -1,23 +1,19 @@
-{*
-  MRH 2026 – Banners2 (tpl_parts/banners2.html)
-  Bootstrap 5.3.0 | Marketing-Banner Reihe 2
-  Wireframe Sektion 10a: {$MAREKTINGQB} + {$MAREKTINGQC}
-*}
-{if (isset($MAREKTINGQB) && $MAREKTINGQB != '') || (isset($MAREKTINGQC) && $MAREKTINGQC != '')}
-<section class="mrh-marketing-row-2 py-3">
-  <div class="container">
-    <div class="row g-3">
-      {if isset($MAREKTINGQB) && $MAREKTINGQB != ''}
-        <div class="col-md-9">
-          {$MAREKTINGQB}
-        </div>
-      {/if}
-      {if isset($MAREKTINGQC) && $MAREKTINGQC != ''}
-        <div class="col-md-3">
-          {$MAREKTINGQC}
-        </div>
-      {/if}
-    </div>
-  </div>
-</section>
-{/if}
+{* MRH 2026: banners2.html – BANNER3-6 (kein data-src, direkt src mit loading=lazy) *}
+<div class="container-fluid home-banners">
+	<div class="container">
+		<div class="row banners banners-lone g-3">
+			<div class="col-md-3">
+				{if isset($BANNER3)}{$BANNER3|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/290x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+			</div>
+			<div class="col-md-9">
+				{if isset($BANNER4)}{$BANNER4|replace:' src=':' class="img-fluid" width="930" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/930x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+			</div>
+			<div class="col-md-9">
+				{if isset($BANNER5)}{$BANNER5|replace:' src=':' class="img-fluid" width="930" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/930x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+			</div>
+			<div class="col-md-3">
+				{if isset($BANNER6)}{$BANNER6|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}{else}<a href="#"><img src="{$tpl_path}img/290x290.png" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>{/if}
+			</div>
+		</div>
+	</div>
+</div>

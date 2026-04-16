@@ -190,7 +190,7 @@ const MRH_MegaMenu = {
   }
 };
 
-/* === LAZY LOAD IMAGES (native + fallback) === */
+/* === LAZY LOAD IMAGES (native + fallback + <source data-srcset>) === */
 const MRH_LazyLoad = {
   init() {
     /* Bilder mit class="lazyload" und data-src (lazysizes-Pattern) */
@@ -200,6 +200,14 @@ const MRH_LazyLoad = {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
+            /* Auch <source data-srcset> im selben <picture> aktivieren */
+            const pic = img.closest('picture');
+            if (pic) {
+              pic.querySelectorAll('source[data-srcset]').forEach(src => {
+                src.srcset = src.dataset.srcset;
+                src.removeAttribute('data-srcset');
+              });
+            }
             img.src = img.dataset.src;
             img.removeAttribute('data-src');
             img.classList.remove('lazyload');
@@ -219,6 +227,13 @@ const MRH_LazyLoad = {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const img = entry.target;
+              const pic = img.closest('picture');
+              if (pic) {
+                pic.querySelectorAll('source[data-srcset]').forEach(src => {
+                  src.srcset = src.dataset.srcset;
+                  src.removeAttribute('data-srcset');
+                });
+              }
               img.src = img.dataset.src;
               img.removeAttribute('data-src');
               obs.unobserve(img);

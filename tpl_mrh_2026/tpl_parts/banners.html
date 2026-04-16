@@ -1,10 +1,21 @@
-{*
-  MRH 2026 – Banners (tpl_parts/banners.html)
-  Bootstrap 5.3.0 | Banner-Manager Position: Sidebar
-  Wird nur angezeigt wenn horizontales Menu aktiv ist
-*}
-{if isset($box_BANNER_SIDEBAR) && $box_BANNER_SIDEBAR != ''}
-  <div class="mrh-banner-sidebar mb-3">
-    {$box_BANNER_SIDEBAR}
-  </div>
-{/if}
+{* MRH 2026: banners.html – BANNER1+BANNER2 (direkt src mit loading=lazy) *}
+<div class="container-fluid home-banners">
+	<div class="container">
+		<div class="row banners g-3">
+			<div class="col-sm-6">
+				{if isset($BANNER1)}
+					{$BANNER1|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}
+				{else}
+					<a href="#"><img src="{$tpl_path}img/400x400.jpg" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>
+				{/if}
+			</div>
+			<div class="col-sm-6">
+				{if isset($BANNER2)}
+					{$BANNER2|replace:' src=':' class="img-fluid" width="290" height="290" loading="lazy" src='|replace:' role="banner"':''}
+				{else}
+					<a href="#"><img src="{$tpl_path}img/400x400.jpg" alt="Platzhalter Banner" class="img-fluid" loading="lazy"></a>
+				{/if}
+			</div>
+		</div>
+	</div>
+</div>
