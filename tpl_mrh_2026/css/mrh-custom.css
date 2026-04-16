@@ -6180,3 +6180,15 @@ a.iframe:hover {
         padding: 4px 6px !important;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SEKTION 24 – USP-Box: Kein Abstand zum Footer
+   Stand: 16.04.2026
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Bootstrap .alert setzt margin-bottom: 1rem (16px).
+   Für die USP-Box (#usp-blog) am Seitenende soll kein Abstand
+   zum Footer bestehen. */
+#usp-blog {
+    margin-bottom: 0 !important;
+}
