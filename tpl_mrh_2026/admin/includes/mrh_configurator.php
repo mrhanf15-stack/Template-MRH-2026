@@ -739,6 +739,57 @@ $mrh_color_defaults = [
     'tpl-sf-page-wizard-btn-text'    => 'rgb(255, 255, 255)',
     'tpl-sf-page-wizard-btn-hover-bg' => 'rgb(74, 140, 42)',
     'tpl-sf-page-wizard-progress-bg' => 'rgb(93, 178, 51)',
+
+    // Finder-Cards (Anfänger/Profi)
+    'tpl-sf-page-finder-bg'              => 'rgb(255, 255, 255)',
+    'tpl-sf-page-finder-radius'          => '16px',
+    'tpl-sf-page-finder-shadow'          => '0 4px 20px rgba(0,0,0,0.1)',
+    'tpl-sf-page-finder-hover-shadow'    => '0 8px 30px rgba(0,0,0,0.15)',
+    'tpl-sf-page-finder-header-bg'       => 'rgb(93, 178, 51)',
+    'tpl-sf-page-finder-header-bg2'      => 'rgb(109, 144, 44)',
+    'tpl-sf-page-finder-header-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-page-profi-header-bg'        => 'rgb(23, 162, 184)',
+    'tpl-sf-page-profi-header-bg2'       => 'rgb(17, 122, 139)',
+
+    // Benefit-Cards (im Finder)
+    'tpl-sf-page-benefit-card-bg'        => 'rgb(248, 249, 250)',
+    'tpl-sf-page-benefit-card-border'    => 'rgb(233, 236, 239)',
+    'tpl-sf-page-benefit-card-radius'    => '12px',
+    'tpl-sf-page-benefit-icon-bg'        => 'rgb(93, 178, 51)',
+    'tpl-sf-page-benefit-icon-bg2'       => 'rgb(109, 144, 44)',
+    'tpl-sf-page-benefit-icon-text'      => 'rgb(255, 255, 255)',
+    'tpl-sf-page-profi-icon-bg'          => 'rgb(23, 162, 184)',
+    'tpl-sf-page-profi-icon-bg2'         => 'rgb(17, 122, 139)',
+
+    // Trust-Section
+    'tpl-sf-page-trust-bg'               => 'rgb(240, 248, 240)',
+    'tpl-sf-page-trust-border'           => 'rgb(93, 178, 51)',
+    'tpl-sf-page-trust-stars'            => 'rgb(255, 193, 7)',
+    'tpl-sf-page-trust-text'             => 'rgb(51, 51, 51)',
+    'tpl-sf-page-profi-trust-bg'         => 'rgb(232, 244, 248)',
+    'tpl-sf-page-profi-trust-border'     => 'rgb(23, 162, 184)',
+
+    // CTA-Buttons (Finder)
+    'tpl-sf-page-cta-bg'                 => 'rgb(93, 178, 51)',
+    'tpl-sf-page-cta-bg2'                => 'rgb(109, 144, 44)',
+    'tpl-sf-page-cta-text'               => 'rgb(255, 255, 255)',
+    'tpl-sf-page-cta-radius'             => '50px',
+    'tpl-sf-page-cta-shadow'             => '0 4px 12px rgba(93,178,51,0.3)',
+    'tpl-sf-page-profi-cta-bg'           => 'rgb(23, 162, 184)',
+    'tpl-sf-page-profi-cta-bg2'          => 'rgb(17, 122, 139)',
+
+    // Guarantee-Text
+    'tpl-sf-page-guarantee-text'         => 'rgb(136, 136, 136)',
+    'tpl-sf-page-guarantee-icon'         => 'rgb(109, 144, 44)',
+
+    // Hersteller-Cards
+    'tpl-sf-page-mfr-header-bg'          => 'rgb(248, 249, 250)',
+    'tpl-sf-page-mfr-border'             => 'rgb(222, 226, 230)',
+    'tpl-sf-page-mfr-btn-border'         => 'rgb(93, 178, 51)',
+    'tpl-sf-page-mfr-btn-text'           => 'rgb(93, 178, 51)',
+    'tpl-sf-page-mfr-btn-hover-bg'       => 'rgb(93, 178, 51)',
+    'tpl-sf-page-mfr-btn-hover-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-page-mfr-price-color'        => 'rgb(93, 178, 51)',
 ];
 
 $mrh_tpl_defaults = [

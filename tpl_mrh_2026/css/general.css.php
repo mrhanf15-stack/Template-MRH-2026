@@ -554,6 +554,57 @@ $defaults = [
     'tpl-sf-page-wizard-btn-text'    => 'rgb(255, 255, 255)',
     'tpl-sf-page-wizard-btn-hover-bg' => 'rgb(74, 140, 42)',
     'tpl-sf-page-wizard-progress-bg' => 'rgb(93, 178, 51)',
+
+    // Finder-Cards (Anfänger/Profi)
+    'tpl-sf-page-finder-bg'              => 'rgb(255, 255, 255)',
+    'tpl-sf-page-finder-radius'          => '16px',
+    'tpl-sf-page-finder-shadow'          => '0 4px 20px rgba(0,0,0,0.1)',
+    'tpl-sf-page-finder-hover-shadow'    => '0 8px 30px rgba(0,0,0,0.15)',
+    'tpl-sf-page-finder-header-bg'       => 'rgb(93, 178, 51)',
+    'tpl-sf-page-finder-header-bg2'      => 'rgb(109, 144, 44)',
+    'tpl-sf-page-finder-header-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-page-profi-header-bg'        => 'rgb(23, 162, 184)',
+    'tpl-sf-page-profi-header-bg2'       => 'rgb(17, 122, 139)',
+
+    // Benefit-Cards (im Finder)
+    'tpl-sf-page-benefit-card-bg'        => 'rgb(248, 249, 250)',
+    'tpl-sf-page-benefit-card-border'    => 'rgb(233, 236, 239)',
+    'tpl-sf-page-benefit-card-radius'    => '12px',
+    'tpl-sf-page-benefit-icon-bg'        => 'rgb(93, 178, 51)',
+    'tpl-sf-page-benefit-icon-bg2'       => 'rgb(109, 144, 44)',
+    'tpl-sf-page-benefit-icon-text'      => 'rgb(255, 255, 255)',
+    'tpl-sf-page-profi-icon-bg'          => 'rgb(23, 162, 184)',
+    'tpl-sf-page-profi-icon-bg2'         => 'rgb(17, 122, 139)',
+
+    // Trust-Section
+    'tpl-sf-page-trust-bg'               => 'rgb(240, 248, 240)',
+    'tpl-sf-page-trust-border'           => 'rgb(93, 178, 51)',
+    'tpl-sf-page-trust-stars'            => 'rgb(255, 193, 7)',
+    'tpl-sf-page-trust-text'             => 'rgb(51, 51, 51)',
+    'tpl-sf-page-profi-trust-bg'         => 'rgb(232, 244, 248)',
+    'tpl-sf-page-profi-trust-border'     => 'rgb(23, 162, 184)',
+
+    // CTA-Buttons (Finder)
+    'tpl-sf-page-cta-bg'                 => 'rgb(93, 178, 51)',
+    'tpl-sf-page-cta-bg2'                => 'rgb(109, 144, 44)',
+    'tpl-sf-page-cta-text'               => 'rgb(255, 255, 255)',
+    'tpl-sf-page-cta-radius'             => '50px',
+    'tpl-sf-page-cta-shadow'             => '0 4px 12px rgba(93,178,51,0.3)',
+    'tpl-sf-page-profi-cta-bg'           => 'rgb(23, 162, 184)',
+    'tpl-sf-page-profi-cta-bg2'          => 'rgb(17, 122, 139)',
+
+    // Guarantee-Text
+    'tpl-sf-page-guarantee-text'         => 'rgb(136, 136, 136)',
+    'tpl-sf-page-guarantee-icon'         => 'rgb(109, 144, 44)',
+
+    // Hersteller-Cards
+    'tpl-sf-page-mfr-header-bg'          => 'rgb(248, 249, 250)',
+    'tpl-sf-page-mfr-border'             => 'rgb(222, 226, 230)',
+    'tpl-sf-page-mfr-btn-border'         => 'rgb(93, 178, 51)',
+    'tpl-sf-page-mfr-btn-text'           => 'rgb(93, 178, 51)',
+    'tpl-sf-page-mfr-btn-hover-bg'       => 'rgb(93, 178, 51)',
+    'tpl-sf-page-mfr-btn-hover-text'     => 'rgb(255, 255, 255)',
+    'tpl-sf-page-mfr-price-color'        => 'rgb(93, 178, 51)',
 ];
 // Defaults nur setzen wenn Key noch nicht in JSON vorhanden
 foreach ($defaults as $dk => $dv) {
@@ -922,6 +973,60 @@ echo '#seedfinder_module #pro-finder-btn:hover{background:var(--tpl-sf-page-wiza
 echo '#seedfinder_module .option-badge{background:var(--tpl-sf-page-badge-bg) !important;color:var(--tpl-sf-page-badge-text) !important;}';
 echo '#seedfinder_module .finder-card:hover{border-color:var(--tpl-sf-page-card-hover-border);}';
 echo '#seedfinder_module .filter-card:hover{border-color:var(--tpl-sf-page-card-hover-border);}';
+
+// ═══ Finder-Cards (Anfänger/Profi Hero-Cards) ═══
+echo '#seedfinder_module .finder-card{background:var(--tpl-sf-page-finder-bg);border-radius:var(--tpl-sf-page-finder-radius);box-shadow:var(--tpl-sf-page-finder-shadow);overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease;height:100%;display:flex;flex-direction:column;}';
+echo '#seedfinder_module .finder-card:hover{transform:translateY(-8px);box-shadow:var(--tpl-sf-page-finder-hover-shadow);}';
+// Card-Header (Beginner = grün Gradient)
+echo '#seedfinder_module .card-header-custom{background:linear-gradient(135deg,var(--tpl-sf-page-finder-header-bg) 0%,var(--tpl-sf-page-finder-header-bg2) 100%);color:var(--tpl-sf-page-finder-header-text);padding:40px 0;text-align:center;}';
+echo '#seedfinder_module .card-header-custom .badge-top{background:rgba(255,255,255,0.25);color:var(--tpl-sf-page-finder-header-text);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-bottom:16px;}';
+echo '#seedfinder_module .card-header-custom h2{color:var(--tpl-sf-page-finder-header-text);margin:0 0 12px 0;font-size:28px;font-weight:bold;line-height:1.3;}';
+echo '#seedfinder_module .card-header-custom .subtitle{color:var(--tpl-sf-page-finder-header-text);font-size:16px;opacity:0.95;line-height:1.5;}';
+// Card-Header (Profi = blau Gradient)
+echo '#seedfinder_module .profi-header{background:linear-gradient(135deg,var(--tpl-sf-page-profi-header-bg) 0%,var(--tpl-sf-page-profi-header-bg2) 100%) !important;}';
+// Card-Body
+echo '#seedfinder_module .card-body-custom{padding:30px;flex:1;display:flex;flex-direction:column;}';
+
+// ═══ Benefits-Grid (Feature-Icons in Finder-Cards) ═══
+echo '#seedfinder_module .benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}';
+echo '#seedfinder_module .benefit-card{background:linear-gradient(135deg,var(--tpl-sf-page-benefit-card-bg) 0%,rgb(255,255,255) 100%);border:2px solid var(--tpl-sf-page-benefit-card-border);border-radius:var(--tpl-sf-page-benefit-card-radius);padding:20px;text-align:center;transition:all 0.3s ease;min-height:140px;display:flex;flex-direction:column;justify-content:flex-start;}';
+echo '#seedfinder_module .benefit-card:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(93,178,51,0.2);border-color:var(--tpl-sf-page-trust-border);}';
+echo '#seedfinder_module .profi-benefit:hover{box-shadow:0 6px 16px rgba(23,162,184,0.2) !important;border-color:var(--tpl-sf-page-profi-trust-border) !important;}';
+echo '#seedfinder_module .benefit-card .icon{width:50px;height:50px;background:linear-gradient(135deg,var(--tpl-sf-page-benefit-icon-bg) 0%,var(--tpl-sf-page-benefit-icon-bg2) 100%);color:var(--tpl-sf-page-benefit-icon-text);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px;}';
+echo '#seedfinder_module .profi-icon{background:linear-gradient(135deg,var(--tpl-sf-page-profi-icon-bg) 0%,var(--tpl-sf-page-profi-icon-bg2) 100%) !important;}';
+echo '#seedfinder_module .benefit-card h6{margin:0 0 8px 0;font-size:14px;font-weight:600;}';
+echo '#seedfinder_module .benefit-card p{margin:0;font-size:12px;color:#666;line-height:1.5;}';
+
+// ═══ Trust-Section (Bewertungen in Finder-Cards) ═══
+echo '#seedfinder_module .trust-section{background:linear-gradient(135deg,var(--tpl-sf-page-trust-bg) 0%,rgb(255,255,255) 100%);border:2px solid var(--tpl-sf-page-trust-border);border-radius:12px;padding:20px;margin:24px 0;text-align:center;}';
+echo '#seedfinder_module .profi-trust{background:linear-gradient(135deg,var(--tpl-sf-page-profi-trust-bg) 0%,rgb(255,255,255) 100%) !important;border-color:var(--tpl-sf-page-profi-trust-border) !important;}';
+echo '#seedfinder_module .trust-section .stars{color:var(--tpl-sf-page-trust-stars);font-size:22px;margin-bottom:12px;}';
+echo '#seedfinder_module .trust-section h5{margin:0 0 8px 0;font-size:17px;font-weight:600;color:var(--tpl-sf-page-trust-text);}';
+echo '#seedfinder_module .trust-section p{margin:0;font-size:14px;color:#666;font-style:italic;}';
+
+// ═══ CTA-Buttons (Anfänger/Profi Finder) ═══
+echo '#seedfinder_module .cta-button{background:linear-gradient(135deg,var(--tpl-sf-page-cta-bg) 0%,var(--tpl-sf-page-cta-bg2) 100%);color:var(--tpl-sf-page-cta-text);border:none;border-radius:var(--tpl-sf-page-cta-radius);padding:16px 32px;font-size:17px;font-weight:600;width:100%;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;box-shadow:var(--tpl-sf-page-cta-shadow);}';
+echo '#seedfinder_module .cta-button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(93,178,51,0.4);background:linear-gradient(135deg,var(--tpl-sf-page-cta-bg2) 0%,var(--tpl-sf-page-cta-bg) 100%);color:var(--tpl-sf-page-cta-text);}';
+echo '#seedfinder_module .cta-button i{margin-left:10px;transition:transform 0.3s ease;}';
+echo '#seedfinder_module .cta-button:hover i{transform:translateX(4px);}';
+echo '#seedfinder_module .profi-cta{background:linear-gradient(135deg,var(--tpl-sf-page-profi-cta-bg) 0%,var(--tpl-sf-page-profi-cta-bg2) 100%) !important;box-shadow:0 4px 12px rgba(23,162,184,0.3) !important;}';
+echo '#seedfinder_module .profi-cta:hover{background:linear-gradient(135deg,var(--tpl-sf-page-profi-cta-bg2) 0%,var(--tpl-sf-page-profi-cta-bg) 100%) !important;box-shadow:0 6px 20px rgba(23,162,184,0.4) !important;}';
+
+// ═══ Guarantee-Text ═══
+echo '#seedfinder_module .guarantee-text{text-align:center;margin-top:16px;font-size:13px;color:var(--tpl-sf-page-guarantee-text);}';
+echo '#seedfinder_module .guarantee-text i{color:var(--tpl-sf-page-guarantee-icon);margin-right:6px;}';
+echo '#seedfinder_module .profi-card .guarantee-text i{color:var(--tpl-sf-page-profi-header-bg);}';
+
+// ═══ Hersteller-Cards (Top Hersteller) ═══
+echo '#seedfinder_module .card .card-header.bg-light{background:var(--tpl-sf-page-mfr-header-bg) !important;}';
+echo '#seedfinder_module .card.h-100.shadow-sm{border-color:var(--tpl-sf-page-mfr-border);}';
+echo '#seedfinder_module .mrh-btn-outline{color:var(--tpl-sf-page-mfr-btn-text);border-color:var(--tpl-sf-page-mfr-btn-border);}';
+echo '#seedfinder_module .mrh-btn-outline:hover{background:var(--tpl-sf-page-mfr-btn-hover-bg);color:var(--tpl-sf-page-mfr-btn-hover-text);border-color:var(--tpl-sf-page-mfr-btn-hover-bg);}';
+echo '#seedfinder_module .seedfinder-product-name+.text-primary{color:var(--tpl-sf-page-mfr-price-color) !important;}';
+echo '#seedfinder_module .text-primary.fw-bold{color:var(--tpl-sf-page-mfr-price-color) !important;}';
+
+// ═══ Responsive Finder-Cards ═══
+echo '@media (max-width:576px){#seedfinder_module .benefits-grid{grid-template-columns:1fr;}#seedfinder_module .card-header-custom{padding:30px 20px;}#seedfinder_module .card-body-custom{padding:20px;}#seedfinder_module .card-header-custom h2{font-size:22px;}#seedfinder_module .benefit-card{min-height:auto;}}';
 ?>
 </style>
 <style>

@@ -2885,6 +2885,192 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
     </div>
 
+    <!-- ═══ Finder-Cards (Anfänger/Profi Hero-Cards) ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-id-card me-1"></i>Finder-Cards (Anfänger/Profi)</h6>
+    <div class="row g-2 mb-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-bg"><strong>Karten-Hintergrund</strong></label>
+            <input id="tpl-sf-page-finder-bg" type="text" name="tpl-sf-page-finder-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-bg','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-radius"><strong>Rundung</strong></label>
+            <input id="tpl-sf-page-finder-radius" type="text" name="tpl-sf-page-finder-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-radius','16px'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-shadow"><strong>Schatten</strong></label>
+            <input id="tpl-sf-page-finder-shadow" type="text" name="tpl-sf-page-finder-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-shadow','0 4px 20px rgba(0,0,0,0.1)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-hover-shadow"><strong>Hover-Schatten</strong></label>
+            <input id="tpl-sf-page-finder-hover-shadow" type="text" name="tpl-sf-page-finder-hover-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-hover-shadow','0 8px 30px rgba(0,0,0,0.15)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-header-bg"><strong>Anfänger Header BG</strong></label>
+            <input id="tpl-sf-page-finder-header-bg" type="text" name="tpl-sf-page-finder-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-header-bg2"><strong>Anfänger Header BG2</strong></label>
+            <input id="tpl-sf-page-finder-header-bg2" type="text" name="tpl-sf-page-finder-header-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg2','rgb(109, 144, 44)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-finder-header-text"><strong>Header-Text</strong></label>
+            <input id="tpl-sf-page-finder-header-text" type="text" name="tpl-sf-page-finder-header-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-header-bg"><strong>Profi Header BG</strong></label>
+            <input id="tpl-sf-page-profi-header-bg" type="text" name="tpl-sf-page-profi-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg','rgb(23, 162, 184)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-header-bg2"><strong>Profi Header BG2</strong></label>
+            <input id="tpl-sf-page-profi-header-bg2" type="text" name="tpl-sf-page-profi-header-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg2','rgb(17, 122, 139)'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ Benefit-Cards (Feature-Icons) ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-th me-1"></i>Benefit-Cards (Feature-Icons)</h6>
+    <div class="row g-2 mb-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-card-bg"><strong>Karten-Hintergrund</strong></label>
+            <input id="tpl-sf-page-benefit-card-bg" type="text" name="tpl-sf-page-benefit-card-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-bg','rgb(248, 249, 250)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-card-border"><strong>Karten-Rahmen</strong></label>
+            <input id="tpl-sf-page-benefit-card-border" type="text" name="tpl-sf-page-benefit-card-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-border','rgb(233, 236, 239)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-card-radius"><strong>Rundung</strong></label>
+            <input id="tpl-sf-page-benefit-card-radius" type="text" name="tpl-sf-page-benefit-card-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-radius','12px'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-icon-bg"><strong>Anfänger Icon BG</strong></label>
+            <input id="tpl-sf-page-benefit-icon-bg" type="text" name="tpl-sf-page-benefit-icon-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-icon-bg2"><strong>Anfänger Icon BG2</strong></label>
+            <input id="tpl-sf-page-benefit-icon-bg2" type="text" name="tpl-sf-page-benefit-icon-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg2','rgb(109, 144, 44)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-benefit-icon-text"><strong>Icon-Text</strong></label>
+            <input id="tpl-sf-page-benefit-icon-text" type="text" name="tpl-sf-page-benefit-icon-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-icon-bg"><strong>Profi Icon BG</strong></label>
+            <input id="tpl-sf-page-profi-icon-bg" type="text" name="tpl-sf-page-profi-icon-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg','rgb(23, 162, 184)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-icon-bg2"><strong>Profi Icon BG2</strong></label>
+            <input id="tpl-sf-page-profi-icon-bg2" type="text" name="tpl-sf-page-profi-icon-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg2','rgb(17, 122, 139)'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ Trust-Section (Bewertungen) ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-star me-1"></i>Trust-Section (Bewertungen)</h6>
+    <div class="row g-2 mb-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-trust-bg"><strong>Anfänger BG</strong></label>
+            <input id="tpl-sf-page-trust-bg" type="text" name="tpl-sf-page-trust-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-bg','rgb(240, 248, 240)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-trust-border"><strong>Anfänger Rahmen</strong></label>
+            <input id="tpl-sf-page-trust-border" type="text" name="tpl-sf-page-trust-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-border','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-trust-stars"><strong>Sterne-Farbe</strong></label>
+            <input id="tpl-sf-page-trust-stars" type="text" name="tpl-sf-page-trust-stars" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-stars','rgb(255, 193, 7)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-trust-text"><strong>Text-Farbe</strong></label>
+            <input id="tpl-sf-page-trust-text" type="text" name="tpl-sf-page-trust-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-text','rgb(51, 51, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-trust-bg"><strong>Profi BG</strong></label>
+            <input id="tpl-sf-page-profi-trust-bg" type="text" name="tpl-sf-page-profi-trust-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-bg','rgb(232, 244, 248)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-trust-border"><strong>Profi Rahmen</strong></label>
+            <input id="tpl-sf-page-profi-trust-border" type="text" name="tpl-sf-page-profi-trust-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-border','rgb(23, 162, 184)'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ CTA-Buttons (Finder) ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-play-circle me-1"></i>CTA-Buttons (Finder)</h6>
+    <div class="row g-2 mb-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-cta-bg"><strong>Anfänger BG</strong></label>
+            <input id="tpl-sf-page-cta-bg" type="text" name="tpl-sf-page-cta-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-cta-bg2"><strong>Anfänger BG2 (Gradient)</strong></label>
+            <input id="tpl-sf-page-cta-bg2" type="text" name="tpl-sf-page-cta-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-bg2','rgb(109, 144, 44)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-cta-text"><strong>Text-Farbe</strong></label>
+            <input id="tpl-sf-page-cta-text" type="text" name="tpl-sf-page-cta-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-cta-radius"><strong>Rundung</strong></label>
+            <input id="tpl-sf-page-cta-radius" type="text" name="tpl-sf-page-cta-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-radius','50px'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-cta-shadow"><strong>Schatten</strong></label>
+            <input id="tpl-sf-page-cta-shadow" type="text" name="tpl-sf-page-cta-shadow" class="form-control" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-shadow','0 4px 12px rgba(93,178,51,0.3)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-cta-bg"><strong>Profi BG</strong></label>
+            <input id="tpl-sf-page-profi-cta-bg" type="text" name="tpl-sf-page-profi-cta-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg','rgb(23, 162, 184)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-profi-cta-bg2"><strong>Profi BG2 (Gradient)</strong></label>
+            <input id="tpl-sf-page-profi-cta-bg2" type="text" name="tpl-sf-page-profi-cta-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg2','rgb(17, 122, 139)'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ Guarantee-Text ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-check-circle me-1"></i>Guarantee-Text</h6>
+    <div class="row g-2 mb-3">
+        <div class="col-md-6">
+            <label for="tpl-sf-page-guarantee-text"><strong>Text-Farbe</strong></label>
+            <input id="tpl-sf-page-guarantee-text" type="text" name="tpl-sf-page-guarantee-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-guarantee-text','rgb(136, 136, 136)'); ?>">
+        </div>
+        <div class="col-md-6">
+            <label for="tpl-sf-page-guarantee-icon"><strong>Icon-Farbe</strong></label>
+            <input id="tpl-sf-page-guarantee-icon" type="text" name="tpl-sf-page-guarantee-icon" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-guarantee-icon','rgb(109, 144, 44)'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ Hersteller-Cards (Top Hersteller) ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-industry me-1"></i>Hersteller-Cards</h6>
+    <div class="row g-2 mb-3">
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-header-bg"><strong>Header-Hintergrund</strong></label>
+            <input id="tpl-sf-page-mfr-header-bg" type="text" name="tpl-sf-page-mfr-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-header-bg','rgb(248, 249, 250)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-border"><strong>Karten-Rahmen</strong></label>
+            <input id="tpl-sf-page-mfr-border" type="text" name="tpl-sf-page-mfr-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-border','rgb(222, 226, 230)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-btn-border"><strong>Button-Rahmen</strong></label>
+            <input id="tpl-sf-page-mfr-btn-border" type="text" name="tpl-sf-page-mfr-btn-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-border','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-btn-text"><strong>Button-Text</strong></label>
+            <input id="tpl-sf-page-mfr-btn-text" type="text" name="tpl-sf-page-mfr-btn-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-text','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-btn-hover-bg"><strong>Button Hover BG</strong></label>
+            <input id="tpl-sf-page-mfr-btn-hover-bg" type="text" name="tpl-sf-page-mfr-btn-hover-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-bg','rgb(93, 178, 51)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-btn-hover-text"><strong>Button Hover Text</strong></label>
+            <input id="tpl-sf-page-mfr-btn-hover-text" type="text" name="tpl-sf-page-mfr-btn-hover-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-text','rgb(255, 255, 255)'); ?>">
+        </div>
+        <div class="col-md-4">
+            <label for="tpl-sf-page-mfr-price-color"><strong>Preis-Farbe</strong></label>
+            <input id="tpl-sf-page-mfr-price-color" type="text" name="tpl-sf-page-mfr-price-color" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-price-color','rgb(93, 178, 51)'); ?>">
+        </div>
+    </div>
+
     <!-- Speichern -->
     <div class="col-12 mt-3 mb-3">
         <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Seedfinder speichern">
@@ -3076,7 +3262,115 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         var wbtx = gv('tpl-sf-page-wizard-btn-text','rgb(255, 255, 255)');
         var wpbg = gv('tpl-sf-page-wizard-progress-bg','rgb(93, 178, 51)');
 
-        var h = '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">';
+        // Finder-Cards Variablen
+        var fbg = gv('tpl-sf-page-finder-bg','rgb(255, 255, 255)');
+        var frad = gv('tpl-sf-page-finder-radius','16px');
+        var fsh = gv('tpl-sf-page-finder-shadow','0 4px 20px rgba(0,0,0,0.1)');
+        var fhbg = gv('tpl-sf-page-finder-header-bg','rgb(93, 178, 51)');
+        var fhbg2 = gv('tpl-sf-page-finder-header-bg2','rgb(109, 144, 44)');
+        var fhtx = gv('tpl-sf-page-finder-header-text','rgb(255, 255, 255)');
+        var phbg = gv('tpl-sf-page-profi-header-bg','rgb(23, 162, 184)');
+        var phbg2 = gv('tpl-sf-page-profi-header-bg2','rgb(17, 122, 139)');
+        // Benefit-Cards
+        var bcbg = gv('tpl-sf-page-benefit-card-bg','rgb(248, 249, 250)');
+        var bcbd = gv('tpl-sf-page-benefit-card-border','rgb(233, 236, 239)');
+        var bcrad = gv('tpl-sf-page-benefit-card-radius','12px');
+        var bibg = gv('tpl-sf-page-benefit-icon-bg','rgb(93, 178, 51)');
+        var bibg2 = gv('tpl-sf-page-benefit-icon-bg2','rgb(109, 144, 44)');
+        var bitx = gv('tpl-sf-page-benefit-icon-text','rgb(255, 255, 255)');
+        var pibg = gv('tpl-sf-page-profi-icon-bg','rgb(23, 162, 184)');
+        var pibg2 = gv('tpl-sf-page-profi-icon-bg2','rgb(17, 122, 139)');
+        // Trust
+        var trbg = gv('tpl-sf-page-trust-bg','rgb(240, 248, 240)');
+        var trbd = gv('tpl-sf-page-trust-border','rgb(93, 178, 51)');
+        var trst = gv('tpl-sf-page-trust-stars','rgb(255, 193, 7)');
+        var trtx = gv('tpl-sf-page-trust-text','rgb(51, 51, 51)');
+        var ptbg = gv('tpl-sf-page-profi-trust-bg','rgb(232, 244, 248)');
+        var ptbd = gv('tpl-sf-page-profi-trust-border','rgb(23, 162, 184)');
+        // CTA
+        var ctbg = gv('tpl-sf-page-cta-bg','rgb(93, 178, 51)');
+        var ctbg2 = gv('tpl-sf-page-cta-bg2','rgb(109, 144, 44)');
+        var cttx = gv('tpl-sf-page-cta-text','rgb(255, 255, 255)');
+        var ctrad = gv('tpl-sf-page-cta-radius','50px');
+        var pctbg = gv('tpl-sf-page-profi-cta-bg','rgb(23, 162, 184)');
+        var pctbg2 = gv('tpl-sf-page-profi-cta-bg2','rgb(17, 122, 139)');
+        // Guarantee
+        var gutx = gv('tpl-sf-page-guarantee-text','rgb(136, 136, 136)');
+        var guic = gv('tpl-sf-page-guarantee-icon','rgb(109, 144, 44)');
+        // Hersteller
+        var mhbg = gv('tpl-sf-page-mfr-header-bg','rgb(248, 249, 250)');
+        var mbd = gv('tpl-sf-page-mfr-border','rgb(222, 226, 230)');
+        var mbbd = gv('tpl-sf-page-mfr-btn-border','rgb(93, 178, 51)');
+        var mbtx = gv('tpl-sf-page-mfr-btn-text','rgb(93, 178, 51)');
+        var mbhbg = gv('tpl-sf-page-mfr-btn-hover-bg','rgb(93, 178, 51)');
+        var mbhtx = gv('tpl-sf-page-mfr-btn-hover-text','rgb(255, 255, 255)');
+        var mpc = gv('tpl-sf-page-mfr-price-color','rgb(93, 178, 51)');
+
+        var h = '';
+
+        // ===== Finder-Cards (Anf\u00e4nger + Profi) =====
+        h += '<div style="display:flex;gap:12px;margin-bottom:16px;">';
+        // Anf\u00e4nger Card
+        h += '<div style="flex:1;background:'+fbg+';border-radius:'+frad+';box-shadow:'+fsh+';overflow:hidden;display:flex;flex-direction:column;">';
+        h += '<div style="background:linear-gradient(135deg,'+fhbg+' 0%,'+fhbg2+' 100%);color:'+fhtx+';padding:16px 12px;text-align:center;">';
+        h += '<span style="background:rgba(255,255,255,0.25);color:'+fhtx+';padding:3px 10px;border-radius:10px;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Anf\u00e4nger</span>';
+        h += '<div style="font-size:0.95rem;font-weight:700;margin-top:6px;">Beginner Finder</div>';
+        h += '<div style="font-size:0.7rem;opacity:0.9;margin-top:2px;">Perfekt f\u00fcr Einsteiger</div>';
+        h += '</div>';
+        h += '<div style="padding:12px;flex:1;display:flex;flex-direction:column;">';
+        // Mini Benefits Grid
+        h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">';
+        var bIcons = ['fa-shield-alt','fa-clock','fa-chart-line','fa-leaf'];
+        for(var bi=0;bi<4;bi++){
+            h += '<div style="background:linear-gradient(135deg,'+bcbg+' 0%,#fff 100%);border:1px solid '+bcbd+';border-radius:'+bcrad+';padding:8px;text-align:center;">';
+            h += '<div style="width:24px;height:24px;background:linear-gradient(135deg,'+bibg+' 0%,'+bibg2+' 100%);color:'+bitx+';border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.55rem;margin-bottom:4px;"><span class="fa '+bIcons[bi]+'"></span></div>';
+            h += '<div style="font-size:0.55rem;font-weight:600;">Vorteil '+(bi+1)+'</div>';
+            h += '</div>';
+        }
+        h += '</div>';
+        // Trust
+        h += '<div style="background:linear-gradient(135deg,'+trbg+' 0%,#fff 100%);border:1px solid '+trbd+';border-radius:6px;padding:6px;text-align:center;margin-bottom:8px;">';
+        h += '<div style="color:'+trst+';font-size:0.65rem;"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
+        h += '<div style="font-size:0.6rem;font-weight:600;color:'+trtx+';margin-top:2px;">Kundenbewertung</div>';
+        h += '</div>';
+        // CTA
+        h += '<div style="background:linear-gradient(135deg,'+ctbg+' 0%,'+ctbg2+' 100%);color:'+cttx+';border-radius:'+ctrad+';padding:8px;text-align:center;font-size:0.75rem;font-weight:600;cursor:pointer;">Jetzt starten <span class="fa fa-arrow-right" style="margin-left:4px;"></span></div>';
+        // Guarantee
+        h += '<div style="text-align:center;margin-top:6px;font-size:0.55rem;color:'+gutx+';"><span class="fa fa-check-circle" style="color:'+guic+';margin-right:3px;"></span>100% Zufriedenheit</div>';
+        h += '</div></div>';
+
+        // Profi Card
+        h += '<div style="flex:1;background:'+fbg+';border-radius:'+frad+';box-shadow:'+fsh+';overflow:hidden;display:flex;flex-direction:column;">';
+        h += '<div style="background:linear-gradient(135deg,'+phbg+' 0%,'+phbg2+' 100%);color:'+fhtx+';padding:16px 12px;text-align:center;">';
+        h += '<span style="background:rgba(255,255,255,0.25);color:'+fhtx+';padding:3px 10px;border-radius:10px;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Profi</span>';
+        h += '<div style="font-size:0.95rem;font-weight:700;margin-top:6px;">Pro Finder</div>';
+        h += '<div style="font-size:0.7rem;opacity:0.9;margin-top:2px;">F\u00fcr erfahrene Grower</div>';
+        h += '</div>';
+        h += '<div style="padding:12px;flex:1;display:flex;flex-direction:column;">';
+        // Mini Benefits Grid (Profi)
+        h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">';
+        var pIcons = ['fa-filter','fa-th-large','fa-star','fa-chart-bar'];
+        for(var pi=0;pi<4;pi++){
+            h += '<div style="background:linear-gradient(135deg,'+bcbg+' 0%,#fff 100%);border:1px solid '+bcbd+';border-radius:'+bcrad+';padding:8px;text-align:center;">';
+            h += '<div style="width:24px;height:24px;background:linear-gradient(135deg,'+pibg+' 0%,'+pibg2+' 100%);color:'+bitx+';border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.55rem;margin-bottom:4px;"><span class="fa '+pIcons[pi]+'"></span></div>';
+            h += '<div style="font-size:0.55rem;font-weight:600;">Feature '+(pi+1)+'</div>';
+            h += '</div>';
+        }
+        h += '</div>';
+        // Trust (Profi)
+        h += '<div style="background:linear-gradient(135deg,'+ptbg+' 0%,#fff 100%);border:1px solid '+ptbd+';border-radius:6px;padding:6px;text-align:center;margin-bottom:8px;">';
+        h += '<div style="color:'+trst+';font-size:0.65rem;"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
+        h += '<div style="font-size:0.6rem;font-weight:600;color:'+trtx+';margin-top:2px;">Profi-Bewertung</div>';
+        h += '</div>';
+        // CTA (Profi)
+        h += '<div style="background:linear-gradient(135deg,'+pctbg+' 0%,'+pctbg2+' 100%);color:'+cttx+';border-radius:'+ctrad+';padding:8px;text-align:center;font-size:0.75rem;font-weight:600;cursor:pointer;">Profi-Suche <span class="fa fa-arrow-right" style="margin-left:4px;"></span></div>';
+        // Guarantee (Profi)
+        h += '<div style="text-align:center;margin-top:6px;font-size:0.55rem;color:'+gutx+';"><span class="fa fa-info-circle" style="color:'+phbg+';margin-right:3px;"></span>Erweiterte Filter</div>';
+        h += '</div></div>';
+        h += '</div>';
+
+        // ===== Kategorie-Karten =====
+        h += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">';
         // 3 Kategorie-Karten
         var cats = [{icon:'fa-cannabis',name:'Feminisiert',count:'1.250'},{icon:'fa-bolt',name:'Autoflowering',count:'890'},{icon:'fa-sun',name:'Outdoor',count:'320'}];
         for(var i=0;i<cats.length;i++){
@@ -3113,6 +3407,20 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         h += '<div style="height:6px;background:#e9ecef;border-radius:3px;margin-bottom:10px;"><div style="width:60%;height:100%;background:'+wpbg+';border-radius:3px;"></div></div>';
         h += '<span style="display:inline-block;background:'+wbbg+';color:'+wbtx+';padding:6px 14px;border-radius:4px;font-size:0.8rem;cursor:pointer;">Weiter</span>';
         h += '</div></div>';
+
+        // ===== Hersteller-Cards =====
+        h += '<div style="display:flex;gap:10px;margin-top:12px;">';
+        var mfrs = ['Royal Queen Seeds','Dutch Passion','Barney\'s Farm'];
+        for(var mi=0;mi<3;mi++){
+            var isH = (mi===1);
+            h += '<div style="flex:1;border:1px solid '+mbd+';border-radius:8px;overflow:hidden;">';
+            h += '<div style="background:'+mhbg+';padding:8px;text-align:center;font-size:0.7rem;font-weight:600;">'+mfrs[mi]+'</div>';
+            h += '<div style="padding:8px;text-align:center;">';
+            h += '<div style="font-size:0.6rem;color:#666;margin-bottom:4px;">ab <span style="color:'+mpc+';font-weight:700;">8,90 \u20ac</span></div>';
+            h += '<span style="display:inline-block;border:1px solid '+(isH?mbhbg:mbbd)+';color:'+(isH?mbhtx:mbtx)+';background:'+(isH?mbhbg:'transparent')+';padding:4px 10px;border-radius:4px;font-size:0.6rem;cursor:pointer;">Ansehen</span>';
+            h += '</div></div>';
+        }
+        h += '</div>';
 
         p.innerHTML = h;
     }
