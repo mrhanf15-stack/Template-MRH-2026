@@ -1008,8 +1008,8 @@ echo '#seedfinder_module .wizard-reset-btn{color:var(--tpl-sf-page-wizard-btn-bg
 // Beginner/Profi Cards
 echo '#seedfinder_module #beginner-finder-btn{background:var(--tpl-sf-page-wizard-btn-bg) !important;color:var(--tpl-sf-page-wizard-btn-text) !important;border-color:var(--tpl-sf-page-wizard-btn-bg) !important;}';
 echo '#seedfinder_module #beginner-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-hover-bg) !important;border-color:var(--tpl-sf-page-wizard-btn-hover-bg) !important;}';
-echo '#seedfinder_module #pro-finder-btn{color:var(--tpl-sf-page-wizard-btn-bg);border-color:var(--tpl-sf-page-wizard-btn-bg);}';
-echo '#seedfinder_module #pro-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-bg);color:var(--tpl-sf-page-wizard-btn-text);}';
+echo '#seedfinder_module #pro-finder-btn{color:var(--tpl-sf-page-wizard-btn-bg) !important;border-color:var(--tpl-sf-page-wizard-btn-bg) !important;}';
+echo '#seedfinder_module #pro-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-bg) !important;color:var(--tpl-sf-page-wizard-btn-text) !important;}';
 
 // Option-Cards (Kategorie-Auswahl im Wizard)
 echo '#seedfinder_module .option-badge{background:var(--tpl-sf-page-badge-bg) !important;color:var(--tpl-sf-page-badge-text) !important;}';
@@ -1047,8 +1047,8 @@ echo '#seedfinder_module .trust-section h5{margin:0 0 8px 0;font-size:17px;font-
 echo '#seedfinder_module .trust-section p{margin:0;font-size:14px;color:#666;font-style:italic;}';
 
 // ═══ CTA-Buttons (Anfänger/Profi Finder) ═══
-echo '#seedfinder_module .cta-button{background:linear-gradient(135deg,var(--tpl-sf-page-cta-bg) 0%,var(--tpl-sf-page-cta-bg2) 100%);color:var(--tpl-sf-page-cta-text);border:none;border-radius:var(--tpl-sf-page-cta-radius);padding:16px 32px;font-size:17px;font-weight:600;width:100%;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;box-shadow:var(--tpl-sf-page-cta-shadow);}';
-echo '#seedfinder_module .cta-button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(93,178,51,0.4);background:linear-gradient(135deg,var(--tpl-sf-page-cta-bg2) 0%,var(--tpl-sf-page-cta-bg) 100%);color:var(--tpl-sf-page-cta-text);}';
+echo '#seedfinder_module .cta-button{background:linear-gradient(135deg,var(--tpl-sf-page-cta-bg) 0%,var(--tpl-sf-page-cta-bg2) 100%) !important;color:var(--tpl-sf-page-cta-text) !important;border:none;border-radius:var(--tpl-sf-page-cta-radius);padding:16px 32px;font-size:17px;font-weight:600;width:100%;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;box-shadow:var(--tpl-sf-page-cta-shadow);}';
+echo '#seedfinder_module .cta-button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(93,178,51,0.4);background:linear-gradient(135deg,var(--tpl-sf-page-cta-bg2) 0%,var(--tpl-sf-page-cta-bg) 100%) !important;color:var(--tpl-sf-page-cta-text) !important;}';
 echo '#seedfinder_module .cta-button i{margin-left:10px;transition:transform 0.3s ease;}';
 echo '#seedfinder_module .cta-button:hover i{transform:translateX(4px);}';
 echo '#seedfinder_module .profi-cta{background:linear-gradient(135deg,var(--tpl-sf-page-profi-cta-bg) 0%,var(--tpl-sf-page-profi-cta-bg2) 100%) !important;box-shadow:0 4px 12px rgba(23,162,184,0.3) !important;}';
