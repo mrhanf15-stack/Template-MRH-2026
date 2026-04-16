@@ -30,6 +30,8 @@
            einheitliche Kartenhöhe, Preis/Buttons enger zusammen
    v5.7.2: Einheitliche Karten – Tabelle flex-grow, Optionen+Footer
            direkt anschliessend ohne Luecke, card-footer kein mt-auto
+   v5.7.3: Fix Luecke – card-footer mt-auto zurueck, card-body flex-grow
+           absorbiert Leerraum, Optionen+Footer kleben zusammen
    ========================================================================= */
 
 /* === Page Layout === */
@@ -189,12 +191,16 @@ a.compare-remove-btn:hover {
     border-radius: 3px;
 }
 
-/* === Tabellen-Container: flex-grow, fuellt den Platz zwischen Accordion und Footer (v5.7.2) === */
+/* === Tabellen-Container: flex-grow, absorbiert Leerraum (v5.7.3) === */
 .product-compare-page .card-body {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+}
+/* Scroll-Container in card-body: flex-grow damit Tabelle den Platz fuellt */
+.product-compare-page .card-body .mrh-sf-scroll {
+    flex: 1 1 auto;
 }
 
 /* === Short Description - Full Height, Scrollable on Overflow === */
@@ -238,14 +244,14 @@ a.compare-remove-btn:hover {
     width: 25%;
 }
 
-/* === Card Footer Flex Fix (v5.7.2): Kompakt, kein mt-auto, direkt anschliessend === */
+/* === Card Footer Flex Fix (v5.7.3): mt-auto zurueck, kompaktes Padding === */
 .product-compare-page .card-footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     background: transparent;
-    margin-top: 0;
+    margin-top: auto;
     padding: 0.35rem 0.75rem 0.4rem;
 }
 /* Lieferzeit + Steuer-Info kompakter (v5.7.1) */
