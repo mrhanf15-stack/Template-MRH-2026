@@ -1008,8 +1008,8 @@ echo '#seedfinder_module .wizard-reset-btn{color:var(--tpl-sf-page-wizard-btn-bg
 // Beginner/Profi Cards
 echo '#seedfinder_module #beginner-finder-btn{background:var(--tpl-sf-page-wizard-btn-bg) !important;color:var(--tpl-sf-page-wizard-btn-text) !important;border-color:var(--tpl-sf-page-wizard-btn-bg) !important;}';
 echo '#seedfinder_module #beginner-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-hover-bg) !important;border-color:var(--tpl-sf-page-wizard-btn-hover-bg) !important;}';
-echo '#seedfinder_module #pro-finder-btn{color:var(--tpl-sf-page-wizard-btn-bg) !important;border-color:var(--tpl-sf-page-wizard-btn-bg) !important;}';
-echo '#seedfinder_module #pro-finder-btn:hover{background:var(--tpl-sf-page-wizard-btn-bg) !important;color:var(--tpl-sf-page-wizard-btn-text) !important;}';
+echo '#seedfinder_module #pro-finder-btn{color:var(--tpl-sf-page-cta-text) !important;border:none !important;}';
+echo '#seedfinder_module #pro-finder-btn:hover{color:var(--tpl-sf-page-cta-text) !important;}';
 
 // Option-Cards (Kategorie-Auswahl im Wizard)
 echo '#seedfinder_module .option-badge{background:var(--tpl-sf-page-badge-bg) !important;color:var(--tpl-sf-page-badge-text) !important;}';
