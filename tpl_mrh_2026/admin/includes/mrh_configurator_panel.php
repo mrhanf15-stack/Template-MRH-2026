@@ -2747,15 +2747,18 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-card-bg"><strong>Karten-Hintergrund</strong></label>
-            <input id="tpl-sf-page-card-bg" type="text" name="tpl-sf-page-card-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-card-bg','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-card-bg" type="text" name="tpl-sf-page-card-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-card-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-card-bg','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-card-border"><strong>Karten-Rahmen</strong></label>
-            <input id="tpl-sf-page-card-border" type="text" name="tpl-sf-page-card-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-card-border','rgb(222, 226, 230)'); ?>">
+            <input id="tpl-sf-page-card-border" type="text" name="tpl-sf-page-card-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-card-border','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-card-border','rgb(222, 226, 230)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-card-hover-border"><strong>Hover-Rahmen</strong></label>
-            <input id="tpl-sf-page-card-hover-border" type="text" name="tpl-sf-page-card-hover-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-card-hover-border','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-card-hover-border" type="text" name="tpl-sf-page-card-hover-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-card-hover-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-card-hover-border','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-card-radius"><strong>Rundung</strong></label>
@@ -2776,19 +2779,23 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-btn-bg"><strong>Button-Hintergrund</strong></label>
-            <input id="tpl-sf-page-btn-bg" type="text" name="tpl-sf-page-btn-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-btn-bg" type="text" name="tpl-sf-page-btn-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-btn-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-btn-text"><strong>Button-Text</strong></label>
-            <input id="tpl-sf-page-btn-text" type="text" name="tpl-sf-page-btn-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-btn-text" type="text" name="tpl-sf-page-btn-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-btn-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-btn-hover-bg"><strong>Hover-Hintergrund</strong></label>
-            <input id="tpl-sf-page-btn-hover-bg" type="text" name="tpl-sf-page-btn-hover-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-bg','rgb(74, 140, 42)'); ?>">
+            <input id="tpl-sf-page-btn-hover-bg" type="text" name="tpl-sf-page-btn-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-bg','rgb(74, 140, 42)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-btn-hover-text"><strong>Hover-Text</strong></label>
-            <input id="tpl-sf-page-btn-hover-text" type="text" name="tpl-sf-page-btn-hover-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-btn-hover-text" type="text" name="tpl-sf-page-btn-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-btn-hover-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-btn-radius"><strong>Button-Rundung</strong></label>
@@ -2801,11 +2808,13 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-badge-bg"><strong>Badge-Hintergrund</strong></label>
-            <input id="tpl-sf-page-badge-bg" type="text" name="tpl-sf-page-badge-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-badge-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-badge-bg" type="text" name="tpl-sf-page-badge-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-badge-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-badge-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-badge-text"><strong>Badge-Text</strong></label>
-            <input id="tpl-sf-page-badge-text" type="text" name="tpl-sf-page-badge-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-badge-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-badge-text" type="text" name="tpl-sf-page-badge-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-badge-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-badge-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
     </div>
 
@@ -2814,11 +2823,13 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-icon-bg"><strong>Icon-Hintergrund</strong></label>
-            <input id="tpl-sf-page-icon-bg" type="text" name="tpl-sf-page-icon-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-icon-bg','rgb(248, 249, 250)'); ?>">
+            <input id="tpl-sf-page-icon-bg" type="text" name="tpl-sf-page-icon-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-icon-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-icon-bg','rgb(248, 249, 250)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-icon-color"><strong>Icon-Farbe</strong></label>
-            <input id="tpl-sf-page-icon-color" type="text" name="tpl-sf-page-icon-color" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-icon-color','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-icon-color" type="text" name="tpl-sf-page-icon-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-icon-color','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-icon-color','rgb(93, 178, 51)'); ?>"></div>
         </div>
     </div>
 
@@ -2827,15 +2838,18 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-info-bg"><strong>Info-Hintergrund</strong></label>
-            <input id="tpl-sf-page-info-bg" type="text" name="tpl-sf-page-info-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-info-bg','rgb(248, 255, 245)'); ?>">
+            <input id="tpl-sf-page-info-bg" type="text" name="tpl-sf-page-info-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-info-bg','rgb(248, 255, 245)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-info-bg','rgb(248, 255, 245)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-info-border"><strong>Info-Rahmen (links)</strong></label>
-            <input id="tpl-sf-page-info-border" type="text" name="tpl-sf-page-info-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-info-border','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-info-border" type="text" name="tpl-sf-page-info-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-info-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-info-border','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-info-text"><strong>Info-Text</strong></label>
-            <input id="tpl-sf-page-info-text" type="text" name="tpl-sf-page-info-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-info-text','rgb(33, 37, 41)'); ?>">
+            <input id="tpl-sf-page-info-text" type="text" name="tpl-sf-page-info-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-info-text','rgb(33, 37, 41)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-info-text','rgb(33, 37, 41)'); ?>"></div>
         </div>
     </div>
 
@@ -2844,15 +2858,18 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-color"><strong>Benefit-Icon-Farbe</strong></label>
-            <input id="tpl-sf-page-benefit-color" type="text" name="tpl-sf-page-benefit-color" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-color','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-benefit-color" type="text" name="tpl-sf-page-benefit-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-color','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-benefit-color','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-step-bg"><strong>Step-Badge BG</strong></label>
-            <input id="tpl-sf-page-step-bg" type="text" name="tpl-sf-page-step-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-step-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-step-bg" type="text" name="tpl-sf-page-step-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-step-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-step-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-step-text"><strong>Step-Badge Text</strong></label>
-            <input id="tpl-sf-page-step-text" type="text" name="tpl-sf-page-step-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-step-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-step-text" type="text" name="tpl-sf-page-step-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-step-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-step-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
     </div>
 
@@ -2861,27 +2878,33 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-wizard-header-bg"><strong>Header-Hintergrund</strong></label>
-            <input id="tpl-sf-page-wizard-header-bg" type="text" name="tpl-sf-page-wizard-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-wizard-header-bg" type="text" name="tpl-sf-page-wizard-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-wizard-header-text"><strong>Header-Text</strong></label>
-            <input id="tpl-sf-page-wizard-header-text" type="text" name="tpl-sf-page-wizard-header-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-wizard-header-text" type="text" name="tpl-sf-page-wizard-header-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-wizard-header-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-wizard-btn-bg"><strong>Button-Hintergrund</strong></label>
-            <input id="tpl-sf-page-wizard-btn-bg" type="text" name="tpl-sf-page-wizard-btn-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-wizard-btn-bg" type="text" name="tpl-sf-page-wizard-btn-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-wizard-btn-text"><strong>Button-Text</strong></label>
-            <input id="tpl-sf-page-wizard-btn-text" type="text" name="tpl-sf-page-wizard-btn-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-wizard-btn-text" type="text" name="tpl-sf-page-wizard-btn-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-wizard-btn-hover-bg"><strong>Button-Hover</strong></label>
-            <input id="tpl-sf-page-wizard-btn-hover-bg" type="text" name="tpl-sf-page-wizard-btn-hover-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-hover-bg','rgb(74, 140, 42)'); ?>">
+            <input id="tpl-sf-page-wizard-btn-hover-bg" type="text" name="tpl-sf-page-wizard-btn-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-hover-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-wizard-btn-hover-bg','rgb(74, 140, 42)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-wizard-progress-bg"><strong>Fortschrittsbalken</strong></label>
-            <input id="tpl-sf-page-wizard-progress-bg" type="text" name="tpl-sf-page-wizard-progress-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-progress-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-wizard-progress-bg" type="text" name="tpl-sf-page-wizard-progress-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-wizard-progress-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-wizard-progress-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
     </div>
 
@@ -2890,7 +2913,8 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-2 mb-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-finder-bg"><strong>Karten-Hintergrund</strong></label>
-            <input id="tpl-sf-page-finder-bg" type="text" name="tpl-sf-page-finder-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-bg','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-finder-bg" type="text" name="tpl-sf-page-finder-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-finder-bg','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-finder-radius"><strong>Rundung</strong></label>
@@ -2906,23 +2930,28 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-finder-header-bg"><strong>Anfänger Header BG</strong></label>
-            <input id="tpl-sf-page-finder-header-bg" type="text" name="tpl-sf-page-finder-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-finder-header-bg" type="text" name="tpl-sf-page-finder-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-finder-header-bg2"><strong>Anfänger Header BG2</strong></label>
-            <input id="tpl-sf-page-finder-header-bg2" type="text" name="tpl-sf-page-finder-header-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg2','rgb(109, 144, 44)'); ?>">
+            <input id="tpl-sf-page-finder-header-bg2" type="text" name="tpl-sf-page-finder-header-bg2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg2','rgb(109, 144, 44)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-finder-header-bg2','rgb(109, 144, 44)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-finder-header-text"><strong>Header-Text</strong></label>
-            <input id="tpl-sf-page-finder-header-text" type="text" name="tpl-sf-page-finder-header-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-finder-header-text" type="text" name="tpl-sf-page-finder-header-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-finder-header-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-finder-header-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-header-bg"><strong>Profi Header BG</strong></label>
-            <input id="tpl-sf-page-profi-header-bg" type="text" name="tpl-sf-page-profi-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg','rgb(23, 162, 184)'); ?>">
+            <input id="tpl-sf-page-profi-header-bg" type="text" name="tpl-sf-page-profi-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg','rgb(23, 162, 184)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg','rgb(23, 162, 184)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-header-bg2"><strong>Profi Header BG2</strong></label>
-            <input id="tpl-sf-page-profi-header-bg2" type="text" name="tpl-sf-page-profi-header-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg2','rgb(17, 122, 139)'); ?>">
+            <input id="tpl-sf-page-profi-header-bg2" type="text" name="tpl-sf-page-profi-header-bg2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg2','rgb(17, 122, 139)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-header-bg2','rgb(17, 122, 139)'); ?>"></div>
         </div>
     </div>
 
@@ -2931,11 +2960,13 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-2 mb-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-card-bg"><strong>Karten-Hintergrund</strong></label>
-            <input id="tpl-sf-page-benefit-card-bg" type="text" name="tpl-sf-page-benefit-card-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-bg','rgb(248, 249, 250)'); ?>">
+            <input id="tpl-sf-page-benefit-card-bg" type="text" name="tpl-sf-page-benefit-card-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-bg','rgb(248, 249, 250)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-card-border"><strong>Karten-Rahmen</strong></label>
-            <input id="tpl-sf-page-benefit-card-border" type="text" name="tpl-sf-page-benefit-card-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-border','rgb(233, 236, 239)'); ?>">
+            <input id="tpl-sf-page-benefit-card-border" type="text" name="tpl-sf-page-benefit-card-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-border','rgb(233, 236, 239)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-benefit-card-border','rgb(233, 236, 239)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-card-radius"><strong>Rundung</strong></label>
@@ -2943,23 +2974,28 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-icon-bg"><strong>Anfänger Icon BG</strong></label>
-            <input id="tpl-sf-page-benefit-icon-bg" type="text" name="tpl-sf-page-benefit-icon-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-benefit-icon-bg" type="text" name="tpl-sf-page-benefit-icon-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-icon-bg2"><strong>Anfänger Icon BG2</strong></label>
-            <input id="tpl-sf-page-benefit-icon-bg2" type="text" name="tpl-sf-page-benefit-icon-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg2','rgb(109, 144, 44)'); ?>">
+            <input id="tpl-sf-page-benefit-icon-bg2" type="text" name="tpl-sf-page-benefit-icon-bg2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg2','rgb(109, 144, 44)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-bg2','rgb(109, 144, 44)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-benefit-icon-text"><strong>Icon-Text</strong></label>
-            <input id="tpl-sf-page-benefit-icon-text" type="text" name="tpl-sf-page-benefit-icon-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-benefit-icon-text" type="text" name="tpl-sf-page-benefit-icon-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-benefit-icon-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-icon-bg"><strong>Profi Icon BG</strong></label>
-            <input id="tpl-sf-page-profi-icon-bg" type="text" name="tpl-sf-page-profi-icon-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg','rgb(23, 162, 184)'); ?>">
+            <input id="tpl-sf-page-profi-icon-bg" type="text" name="tpl-sf-page-profi-icon-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg','rgb(23, 162, 184)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg','rgb(23, 162, 184)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-icon-bg2"><strong>Profi Icon BG2</strong></label>
-            <input id="tpl-sf-page-profi-icon-bg2" type="text" name="tpl-sf-page-profi-icon-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg2','rgb(17, 122, 139)'); ?>">
+            <input id="tpl-sf-page-profi-icon-bg2" type="text" name="tpl-sf-page-profi-icon-bg2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg2','rgb(17, 122, 139)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-icon-bg2','rgb(17, 122, 139)'); ?>"></div>
         </div>
     </div>
 
@@ -2968,27 +3004,33 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-2 mb-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-trust-bg"><strong>Anfänger BG</strong></label>
-            <input id="tpl-sf-page-trust-bg" type="text" name="tpl-sf-page-trust-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-bg','rgb(240, 248, 240)'); ?>">
+            <input id="tpl-sf-page-trust-bg" type="text" name="tpl-sf-page-trust-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-bg','rgb(240, 248, 240)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-trust-bg','rgb(240, 248, 240)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-trust-border"><strong>Anfänger Rahmen</strong></label>
-            <input id="tpl-sf-page-trust-border" type="text" name="tpl-sf-page-trust-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-border','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-trust-border" type="text" name="tpl-sf-page-trust-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-trust-border','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-trust-stars"><strong>Sterne-Farbe</strong></label>
-            <input id="tpl-sf-page-trust-stars" type="text" name="tpl-sf-page-trust-stars" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-stars','rgb(255, 193, 7)'); ?>">
+            <input id="tpl-sf-page-trust-stars" type="text" name="tpl-sf-page-trust-stars" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-stars','rgb(255, 193, 7)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-trust-stars','rgb(255, 193, 7)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-trust-text"><strong>Text-Farbe</strong></label>
-            <input id="tpl-sf-page-trust-text" type="text" name="tpl-sf-page-trust-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-text','rgb(51, 51, 51)'); ?>">
+            <input id="tpl-sf-page-trust-text" type="text" name="tpl-sf-page-trust-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-trust-text','rgb(51, 51, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-trust-text','rgb(51, 51, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-trust-bg"><strong>Profi BG</strong></label>
-            <input id="tpl-sf-page-profi-trust-bg" type="text" name="tpl-sf-page-profi-trust-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-bg','rgb(232, 244, 248)'); ?>">
+            <input id="tpl-sf-page-profi-trust-bg" type="text" name="tpl-sf-page-profi-trust-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-bg','rgb(232, 244, 248)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-bg','rgb(232, 244, 248)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-trust-border"><strong>Profi Rahmen</strong></label>
-            <input id="tpl-sf-page-profi-trust-border" type="text" name="tpl-sf-page-profi-trust-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-border','rgb(23, 162, 184)'); ?>">
+            <input id="tpl-sf-page-profi-trust-border" type="text" name="tpl-sf-page-profi-trust-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-border','rgb(23, 162, 184)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-trust-border','rgb(23, 162, 184)'); ?>"></div>
         </div>
     </div>
 
@@ -2997,15 +3039,18 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-2 mb-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-cta-bg"><strong>Anfänger BG</strong></label>
-            <input id="tpl-sf-page-cta-bg" type="text" name="tpl-sf-page-cta-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-cta-bg" type="text" name="tpl-sf-page-cta-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-cta-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-cta-bg2"><strong>Anfänger BG2 (Gradient)</strong></label>
-            <input id="tpl-sf-page-cta-bg2" type="text" name="tpl-sf-page-cta-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-bg2','rgb(109, 144, 44)'); ?>">
+            <input id="tpl-sf-page-cta-bg2" type="text" name="tpl-sf-page-cta-bg2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-bg2','rgb(109, 144, 44)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-cta-bg2','rgb(109, 144, 44)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-cta-text"><strong>Text-Farbe</strong></label>
-            <input id="tpl-sf-page-cta-text" type="text" name="tpl-sf-page-cta-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-cta-text" type="text" name="tpl-sf-page-cta-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-cta-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-cta-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-cta-radius"><strong>Rundung</strong></label>
@@ -3017,11 +3062,13 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-cta-bg"><strong>Profi BG</strong></label>
-            <input id="tpl-sf-page-profi-cta-bg" type="text" name="tpl-sf-page-profi-cta-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg','rgb(23, 162, 184)'); ?>">
+            <input id="tpl-sf-page-profi-cta-bg" type="text" name="tpl-sf-page-profi-cta-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg','rgb(23, 162, 184)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg','rgb(23, 162, 184)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-profi-cta-bg2"><strong>Profi BG2 (Gradient)</strong></label>
-            <input id="tpl-sf-page-profi-cta-bg2" type="text" name="tpl-sf-page-profi-cta-bg2" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg2','rgb(17, 122, 139)'); ?>">
+            <input id="tpl-sf-page-profi-cta-bg2" type="text" name="tpl-sf-page-profi-cta-bg2" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg2','rgb(17, 122, 139)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-profi-cta-bg2','rgb(17, 122, 139)'); ?>"></div>
         </div>
     </div>
 
@@ -3030,11 +3077,13 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-2 mb-3">
         <div class="col-md-6">
             <label for="tpl-sf-page-guarantee-text"><strong>Text-Farbe</strong></label>
-            <input id="tpl-sf-page-guarantee-text" type="text" name="tpl-sf-page-guarantee-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-guarantee-text','rgb(136, 136, 136)'); ?>">
+            <input id="tpl-sf-page-guarantee-text" type="text" name="tpl-sf-page-guarantee-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-guarantee-text','rgb(136, 136, 136)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-guarantee-text','rgb(136, 136, 136)'); ?>"></div>
         </div>
         <div class="col-md-6">
             <label for="tpl-sf-page-guarantee-icon"><strong>Icon-Farbe</strong></label>
-            <input id="tpl-sf-page-guarantee-icon" type="text" name="tpl-sf-page-guarantee-icon" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-guarantee-icon','rgb(109, 144, 44)'); ?>">
+            <input id="tpl-sf-page-guarantee-icon" type="text" name="tpl-sf-page-guarantee-icon" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-guarantee-icon','rgb(109, 144, 44)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-guarantee-icon','rgb(109, 144, 44)'); ?>"></div>
         </div>
     </div>
 
@@ -3043,31 +3092,38 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
     <div class="row g-2 mb-3">
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-header-bg"><strong>Header-Hintergrund</strong></label>
-            <input id="tpl-sf-page-mfr-header-bg" type="text" name="tpl-sf-page-mfr-header-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-header-bg','rgb(248, 249, 250)'); ?>">
+            <input id="tpl-sf-page-mfr-header-bg" type="text" name="tpl-sf-page-mfr-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-header-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-header-bg','rgb(248, 249, 250)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-border"><strong>Karten-Rahmen</strong></label>
-            <input id="tpl-sf-page-mfr-border" type="text" name="tpl-sf-page-mfr-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-border','rgb(222, 226, 230)'); ?>">
+            <input id="tpl-sf-page-mfr-border" type="text" name="tpl-sf-page-mfr-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-border','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-border','rgb(222, 226, 230)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-btn-border"><strong>Button-Rahmen</strong></label>
-            <input id="tpl-sf-page-mfr-btn-border" type="text" name="tpl-sf-page-mfr-btn-border" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-border','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-mfr-btn-border" type="text" name="tpl-sf-page-mfr-btn-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-border','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-border','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-btn-text"><strong>Button-Text</strong></label>
-            <input id="tpl-sf-page-mfr-btn-text" type="text" name="tpl-sf-page-mfr-btn-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-text','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-mfr-btn-text" type="text" name="tpl-sf-page-mfr-btn-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-text','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-text','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-btn-hover-bg"><strong>Button Hover BG</strong></label>
-            <input id="tpl-sf-page-mfr-btn-hover-bg" type="text" name="tpl-sf-page-mfr-btn-hover-bg" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-bg','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-mfr-btn-hover-bg" type="text" name="tpl-sf-page-mfr-btn-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-bg','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-bg','rgb(93, 178, 51)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-btn-hover-text"><strong>Button Hover Text</strong></label>
-            <input id="tpl-sf-page-mfr-btn-hover-text" type="text" name="tpl-sf-page-mfr-btn-hover-text" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-text','rgb(255, 255, 255)'); ?>">
+            <input id="tpl-sf-page-mfr-btn-hover-text" type="text" name="tpl-sf-page-mfr-btn-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-btn-hover-text','rgb(255, 255, 255)'); ?>"></div>
         </div>
         <div class="col-md-4">
             <label for="tpl-sf-page-mfr-price-color"><strong>Preis-Farbe</strong></label>
-            <input id="tpl-sf-page-mfr-price-color" type="text" name="tpl-sf-page-mfr-price-color" class="form-control mrh-color-input" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-price-color','rgb(93, 178, 51)'); ?>">
+            <input id="tpl-sf-page-mfr-price-color" type="text" name="tpl-sf-page-mfr-price-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-sf-page-mfr-price-color','rgb(93, 178, 51)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-sf-page-mfr-price-color','rgb(93, 178, 51)'); ?>"></div>
         </div>
     </div>
 
