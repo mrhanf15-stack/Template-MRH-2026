@@ -1062,10 +1062,14 @@ echo '#seedfinder_module .profi-card .guarantee-text i{color:var(--tpl-sf-page-p
 // ═══ Hersteller-Cards (Top Hersteller) ═══
 echo '#seedfinder_module .card .card-header.bg-light{background:var(--tpl-sf-page-mfr-header-bg) !important;}';
 echo '#seedfinder_module .card.h-100.shadow-sm{border-color:var(--tpl-sf-page-mfr-border);}';
-echo '#seedfinder_module .mrh-btn-outline{color:var(--tpl-sf-page-mfr-btn-text);border-color:var(--tpl-sf-page-mfr-btn-border);}';
-echo '#seedfinder_module .mrh-btn-outline:hover{background:var(--tpl-sf-page-mfr-btn-hover-bg);color:var(--tpl-sf-page-mfr-btn-hover-text);border-color:var(--tpl-sf-page-mfr-btn-hover-bg);}';
+echo '#seedfinder_module .mrh-btn-outline{color:var(--tpl-sf-page-mfr-btn-text) !important;border-color:var(--tpl-sf-page-mfr-btn-border) !important;}';
+echo '#seedfinder_module .mrh-btn-outline:hover{background:var(--tpl-sf-page-mfr-btn-hover-bg) !important;color:var(--tpl-sf-page-mfr-btn-hover-text) !important;border-color:var(--tpl-sf-page-mfr-btn-hover-bg) !important;}';
 echo '#seedfinder_module .seedfinder-product-name+.text-primary{color:var(--tpl-sf-page-mfr-price-color) !important;}';
 echo '#seedfinder_module .text-primary.fw-bold{color:var(--tpl-sf-page-mfr-price-color) !important;}';
+echo '#seedfinder_module .card-body a.text-decoration-none{color:inherit !important;text-decoration:none !important;}';
+echo '#seedfinder_module .seedfinder-product-name{color:#333 !important;}';
+echo '#seedfinder_module .card-header.bg-light{color:inherit !important;}';
+echo '#seedfinder_module .card-footer .mrh-btn-outline{color:var(--tpl-sf-page-mfr-btn-text) !important;border-color:var(--tpl-sf-page-mfr-btn-border) !important;text-decoration:none !important;}';
 
 // ═══ Responsive Finder-Cards ═══
 echo '@media (max-width:576px){#seedfinder_module .benefits-grid{grid-template-columns:1fr;}#seedfinder_module .card-header-custom{padding:30px 20px;}#seedfinder_module .card-body-custom{padding:20px;}#seedfinder_module .card-header-custom h2{font-size:22px;}#seedfinder_module .benefit-card{min-height:auto;}}';  
