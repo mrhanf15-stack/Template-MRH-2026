@@ -37,7 +37,7 @@
           {if !empty($data.SHORT_DESCRIPTION)}
             <p class="mrh-blog-card-desc small flex-grow-1" itemprop="description">{$data.SHORT_DESCRIPTION|truncate:120}</p>
           {/if}
-          <a href="{$data.LINK}" class="btn btn-sm mrh-blog-btn-more mt-auto align-self-start">{#read_more#}</a>
+          <a href="{$data.LINK}" class="btn btn-sm mrh-blog-btn-more mt-auto align-self-start"><span class="fa fa-arrow-right me-1" aria-hidden="true"></span>Weiterlesen</a>
         </div>
       </article>
     </div>
