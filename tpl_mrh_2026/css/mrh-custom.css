@@ -6250,3 +6250,8 @@ footer .picto.templatestyle {
     flex: 1 1 auto;
 }
 
+/* 7. Details-Button: Abstand zum Merkzettel-Icon (ml-2) */
+.product-carousel .mrh-btn-details {
+    margin-left: 0.5rem !important;
+}
+
