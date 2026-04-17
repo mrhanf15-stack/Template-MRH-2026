@@ -331,3 +331,36 @@ Badges passen sich an alle Display-Groessen an. Betrifft: `.mrh-type-badge`, `.m
 | Datei | Aenderung |
 |-------|----------|
 | `css/product_compare.css` | v5.7.5: inline-flex + margin-bottom |
+
+## 2026-04-17 – product_compare.css v5.7.6: Badge-Row align-self
+
+### Fix 9: product_compare.css v5.7.6 – Badge-Row Ausrichtung
+- `align-self: flex-start` auf `.compare-badge-row` hinzugefuegt
+  → Badge-Row nimmt nur die noetige Breite ein (nicht volle Kartenbreite)
+- Cache-Buster in `product_compare.html` von `v=5.7.4` auf `v=5.7.6` aktualisiert
+
+| Datei | Aenderung |
+|-------|----------|
+| `css/product_compare.css` | v5.7.6: align-self: flex-start |
+| `module/product_compare.html` | Cache-Buster v=5.7.6 |
+
+## 2026-04-17 – Fix 10: Kategoriebild lazyload → natives loading="lazy"
+
+### Problem
+Kategoriebilder auf Listing-Seiten wurden nicht angezeigt, weil das Template das
+lazysizes.js-Pattern (`src="data:,"` + `data-src="..."` + Klasse `lazyload`) nutzte,
+aber lazysizes.js nicht geladen war.
+
+### Loesung
+Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
+- `class="lazyload"` → `class="img-fluid lazyloaded"`
+- `src="data:,"` → `src="{$CATEGORIES_IMAGE}"`
+- `data-src="..."` entfernt
+- `loading="lazy"` Attribut hinzugefuegt
+- `<noscript>` Fallbacks entfernt (nicht mehr noetig)
+
+| Datei | Aenderung |
+|-------|----------|
+| `module/product_listing/product_listing_v1.html` | lazyload → loading="lazy" |
+| `module/product_listing/us_gentics_v1.html` | lazyload → loading="lazy" |
+| `module/product_listing/promotion_product_listing_v1 - Kopie.html` | lazyload → loading="lazy" |

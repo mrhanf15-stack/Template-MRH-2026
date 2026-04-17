@@ -20,24 +20,19 @@
   <div class="cat_description p-2 mb-2"> 
     {* //BOF - Kategorieerweiterungen (Zweites Kategoriebild) - fivebytes 08.02.2020 *}
     {if !empty($CATEGORIES_IMAGE_2)}
-      <img class="lazyload cat_image img-fluid float-start mt-3 me-4" src="data:," data-src="{$CATEGORIES_IMAGE_2}" title="{$CATEGORIES_IMAGE_2|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+      <img class="cat_image img-fluid lazyloaded float-start mt-3 me-4" loading="lazy" src="{$CATEGORIES_IMAGE_2}" title="{$CATEGORIES_IMAGE_2|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
     {/if}
     {* //EOF - Kategorieerweiterungen (Zweites Kategoriebild) - fivebytes *}
     {if !empty($CATEGORIES_IMAGE)}
       <div {if !empty($CATEGORIES_DESCRIPTION) || !empty($CATEGORIES_SHORT_DESCRIPTION)}class="col-4"{/if}> 
         {if isset($CATEGORIES_IMAGE_MOBILE) && $CATEGORIES_IMAGE_MOBILE != ''}
           <picture>
-            <source media="(max-width:600px)" srcset="data:,1w" data-srcset="{$CATEGORIES_IMAGE_MOBILE}">
-            <source srcset="data:,1w" data-srcset="{$CATEGORIES_IMAGE}">
-            <img class="lazyload cat_image img-fluid float-start mb-2 me-2" src="data:," data-src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" /> </picture>
-          <noscript>
-          <img class="cat_image img-fluid float-start mb-2 me-4" src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
-          </noscript>
+            <source media="(max-width:600px)" srcset="{$CATEGORIES_IMAGE_MOBILE}">
+            <source srcset="{$CATEGORIES_IMAGE}">
+            <img class="cat_image img-fluid lazyloaded float-start mb-2 me-2" loading="lazy" src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+          </picture>
         {else}
-          <img class="lazyload cat_image img-fluid float-start mb-2 me-2" src="data:," data-src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
-          <noscript>
-          <img class="cat_image img-fluid float-start mb-2 me-2" src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" />
-          </noscript>
+          <img class="cat_image img-fluid lazyloaded float-start mb-2 me-2" loading="lazy" src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
         {/if} 
       </div>
     {/if}
