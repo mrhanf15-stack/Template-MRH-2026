@@ -364,3 +364,18 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 | `module/product_listing/product_listing_v1.html` | lazyload → loading="lazy" |
 | `module/product_listing/us_gentics_v1.html` | lazyload → loading="lazy" |
 | `module/product_listing/promotion_product_listing_v1 - Kopie.html` | lazyload → loading="lazy" |
+
+## 2026-04-17 – Top-Produkte: Animierter Bokeh-Hintergrund (Sektion 29)
+
+**Aenderung:** Das alte Boutique-Schaufenster-Bild (`bg_top-produkte.jpg`) wird per CSS ueberschrieben durch einen animierten Bokeh-Hintergrund:
+- Dunkler Gradient (#111115 → #19191e → #1a1f16) als Basis
+- Zwei Schichten animierter Bokeh-Lichtpunkte in Gold (rgba(195,167,88)) und Gruen (rgba(74,140,42))
+- Sanfte Drift-Animation (18s/22s Zyklen, ease-in-out, alternate)
+- Dezente Gold-Trennlinie ueber dem Heading
+- Heading mit Gold-Glow text-shadow
+- `prefers-reduced-motion` Support
+- Mobile: Reduzierte Bokeh-Anzahl fuer Performance
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Sektion 29: Zeile 6534-6670 |
