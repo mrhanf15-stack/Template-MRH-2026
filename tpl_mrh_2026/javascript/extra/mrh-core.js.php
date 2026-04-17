@@ -1060,4 +1060,27 @@
   }
 
 })();
+
+/* === MRH Offcanvas z-index Fix v1.0 === */
+/* Setzt body.offcanvas-open Klasse fuer z-index Steuerung via CSS */
+(function() {
+  'use strict';
+  function initOffcanvasFix() {
+    document.querySelectorAll('.offcanvas').forEach(function(oc) {
+      oc.addEventListener('show.bs.offcanvas', function() {
+        document.body.classList.add('offcanvas-open');
+      });
+      oc.addEventListener('hidden.bs.offcanvas', function() {
+        if (!document.querySelector('.offcanvas.show')) {
+          document.body.classList.remove('offcanvas-open');
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOffcanvasFix);
+  } else {
+    initOffcanvasFix();
+  }
+})();
 </script>
