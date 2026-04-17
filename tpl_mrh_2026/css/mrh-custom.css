@@ -2266,7 +2266,7 @@ table.tebals.wite tr:last-child td:last-child {
   transform: translateY(-2px);
 }
 
-/* Responsive: 4 Spalten ab 1200px, 3 ab 992px, 2 ab 576px, 1 darunter */
+/* Responsive: 5→4→3→2→1 Spalten je nach Viewport */
 @media (max-width: 1400px) {
   .listingcontainer { grid-template-columns: repeat(4, 1fr); }
 }
@@ -2274,7 +2274,12 @@ table.tebals.wite tr:last-child td:last-child {
   .listingcontainer { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 576px) {
-  .listingcontainer { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .listingcontainer { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .listingcontainer .listingbox { overflow: hidden; }
+  .listingcontainer .listingbox .lb_inner { font-size: 0.85rem; }
+}
+@media (max-width: 399px) {
+  .listingcontainer { grid-template-columns: 1fr; gap: 8px; }
 }
 
 /* ============================================================
@@ -6623,5 +6628,18 @@ footer .picto.templatestyle {
         font-size: 0.65rem;
         padding: 3px 6px;
     }
+}
+
+/* ============================================================
+   28 MOBILE OVERFLOW FIX
+   Verhindert horizontales Scrollen auf Mobilgeräten.
+   Ursache: Offcanvas-Elemente und mrh-mobile-overlay > 100vw.
+   ============================================================ */
+html, body {
+  overflow-x: hidden;
+}
+.offcanvas,
+.mrh-mobile-overlay {
+  max-width: 100vw;
 }
 

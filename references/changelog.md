@@ -1,5 +1,17 @@
 # MRH 2026 Template # Changelog
 
+## 2026-04-17 – Mobile Overflow Fix + Listing Grid Breakpoints
+
+**Aenderung 1 (Grid Breakpoints):** Listing-Grid auf Mobil verbessert:
+- 576px: 2 Spalten mit `overflow: hidden` und `font-size: 0.85rem` auf Cards
+- 399px: 1 Spalte (volle Breite) – verhindert abgeschnittene Cards
+
+**Aenderung 2 (Overflow Fix):** Globaler `overflow-x: hidden` auf `html, body` und `max-width: 100vw` auf `.offcanvas` und `.mrh-mobile-overlay`. Verhindert horizontales Scrollen auf Mobilgeraeten (Ursache: Offcanvas-Elemente ragten ueber Viewport).
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Zeile 2276-2283: Grid Breakpoints, Zeile 6633-6644: Overflow Fix |
+
 ## 2026-04-16 – Slider max-width 1320px + Banner Bilder-Fix (data-src → src)
 
 **Aenderung 1:** Slider-Section in `index.html` bekommt `max-width:1320px;margin:0 auto;` statt `container-fluid px-0` (User-Vorgabe: exakt 1320px).
