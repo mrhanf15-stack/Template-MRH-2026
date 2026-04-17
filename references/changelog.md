@@ -283,3 +283,25 @@ Badges passen sich an alle Display-Groessen an. Betrifft: `.mrh-type-badge`, `.m
 | `javascript/extra/mrh-badge-init.js.php` | v1.1.0: Server-Badge-Erkennung |
 | `module/includes/product_row.html` | v1.1.0: Badge-Zeile hinzugefuegt |
 | `css/mrh-custom.css` | Sektion 21d v2: Gruener Container wiederhergestellt |
+
+## 2026-04-17 – Badge-Fixes: Vergleichsseite + Responsive
+
+### Fix 5: mrh-badge-init.js.php v1.2.0 – Lose Icons in Badge-Wrapper
+- Lose Icons (shortfongc, shortfongc0 = Autoflowering, Medical, Cup) werden jetzt
+  in `.mrh-type-badge .mrh-badge-{type}` Wrapper gepackt statt nackt eingefuegt
+- Neues Icon-zu-Typ-Mapping: fa-gauge-high→auto, fa-venus→fem, fa-trophy→cup, etc.
+- Autoflowering-Fallback: Wenn aus Tabelle erzeugt, wird jetzt auch `.mrh-badge-auto` erstellt
+- Ergebnis: Alle Icons bekommen korrekte Hintergrundfarben aus dem Konfigurator
+
+### Fix 6: product_compare.css v5.7.1 – Gruener Container auf Badge-Row
+- `.compare-badge-row` bekommt direkt den gruenen Container-Hintergrund
+  (da `.picto.templatestyle` per JS nicht uebertragen wird)
+- `background: var(--tpl-picto-bg, var(--tpl-badge-auto-bg, #f0fdf4))`
+- `border: 1px solid var(--tpl-picto-border-color, rgba(34,197,94,0.25))`
+- `border-radius: var(--tpl-picto-border-radius, 10px)`
+- Leere Badge-Row wird per `:empty` ausgeblendet
+
+| Datei | Aenderung |
+|-------|----------|
+| `javascript/extra/mrh-badge-init.js.php` | v1.2.0: Lose Icons in Badge-Wrapper |
+| `css/product_compare.css` | v5.7.1: Gruener Container auf Badge-Row |

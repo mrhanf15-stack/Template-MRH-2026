@@ -1,6 +1,6 @@
 <?php
 /* ═══════════════════════════════════════════════════════════════════════
-   MRH Badge-Init v1.1.0 – Zentrale Badge-Logik
+   MRH Badge-Init v1.2.0 – Zentrale Badge-Logik
    
    Einheitliche Badge-Erstellung fuer Vergleich + Seedfinder.
    Ersetzt die duplizierte Badge-Logik in product_compare.html und
@@ -9,6 +9,10 @@
    Icons: FA6 Pro (fa-solid fa-venus), male.svg fuer Regulaer.
    Farben/Groessen: CSS-Variablen aus Konfigurator (--tpl-badge-*).
    CSS: mrh-custom.css ist Single Source of Truth.
+   
+   v1.2.0: Lose Icons (shortfongc, shortfongc0) werden in
+   .mrh-type-badge Wrapper gepackt. Gruener Container wird
+   um die Badge-Row gelegt.
    ═══════════════════════════════════════════════════════════════════════ */
 if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !== 'true') return;
 ?>
@@ -20,6 +24,41 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
   var tplLink = document.querySelector('link[href*="tpl_mrh_2026"]');
   var tplBase = tplLink ? tplLink.href.replace(/\/css\/.*$/, '') : '/templates/tpl_mrh_2026';
   var MALE_SVG = tplBase + '/img/badges/male.svg';
+
+  /* v1.2.0: Icon-Klasse zu Badge-Typ Mapping */
+  var ICON_TYPE_MAP = {
+    'fa-gauge-high': 'auto',
+    'fa-tachometer': 'auto',
+    'fa-venus': 'fem',
+    'fa-mars': 'reg',
+    'fa-sun': 'photo',
+    'fa-trophy': 'cup',
+    'fa-medkit': 'medical',
+    'fa-kit-medical': 'medical'
+  };
+
+  /**
+   * v1.2.0: Detect badge type from an icon element's classes
+   */
+  function detectBadgeType(iconEl) {
+    var cls = iconEl.className || '';
+    for (var iconClass in ICON_TYPE_MAP) {
+      if (cls.indexOf(iconClass) !== -1) return ICON_TYPE_MAP[iconClass];
+    }
+    return 'legacy';
+  }
+
+  /**
+   * v1.2.0: Wrap a loose icon in a .mrh-type-badge container
+   */
+  function wrapIconInBadge(iconEl) {
+    var type = detectBadgeType(iconEl);
+    var wrapper = document.createElement('span');
+    wrapper.className = 'mrh-type-badge mrh-badge-' + type;
+    wrapper.title = iconEl.title || iconEl.getAttribute('title') || '';
+    wrapper.appendChild(iconEl.cloneNode(true));
+    return wrapper;
+  }
 
   /**
    * initBadges(scope) – Badge-Zeile in .compare-badge-row befuellen
@@ -50,11 +89,13 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
         if (existingBar) {
           badgeRow.appendChild(existingBar.cloneNode(true));
         }
-        /* Nur Icons (span.fa, span.fa-solid, img, svg) einzeln extrahieren */
+        /* v1.2.0: Lose Icons in .mrh-type-badge Wrapper packen */
         var icons = picto.querySelectorAll('.fa, .fa-solid, img, svg');
         icons.forEach(function(icon) {
           if (icon.closest('.mrh-badge-bar')) return;
-          badgeRow.appendChild(icon.cloneNode(true));
+          /* Statt nacktes Icon: in Badge-Wrapper packen */
+          var wrapped = wrapIconInBadge(icon);
+          badgeRow.appendChild(wrapped);
         });
         picto.style.display = 'none';
       });
@@ -97,6 +138,14 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
           regBadge.innerHTML = '<img class="mrh-badge-icon" src="' + MALE_SVG + '" alt="Regul\u00e4r"> Regul\u00e4r';
           regBadge.title = 'Regul\u00e4r';
           bar.appendChild(regBadge);
+        }
+
+        if (isAuto) {
+          var autoBadge = document.createElement('span');
+          autoBadge.className = 'mrh-type-badge mrh-badge-auto';
+          autoBadge.innerHTML = '<span class="fa-solid fa-fw fa-gauge-high"></span>';
+          autoBadge.title = 'Autoflowering';
+          bar.appendChild(autoBadge);
         }
 
         if (!isAuto) {
