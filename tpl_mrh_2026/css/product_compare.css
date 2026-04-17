@@ -1,5 +1,5 @@
 /* =========================================================================
-   Product Compare v5.7.5 - CSS (tpl_mrh_2026)
+   Product Compare v5.7.6 - CSS (tpl_mrh_2026)
    Referenz: mr-hanf.de product_compare v2.0.3
 
    Nur Compare-spezifische Styles.
@@ -36,6 +36,8 @@
            absorbiert Restplatz, Footer klebt unten
    v5.7.5: Badge-Row inline-flex (passt sich an Badge-Breite an),
            margin-bottom 0.5rem fuer Abstand zum Akkordeon
+   v5.7.6: align-self: flex-start auf Badge-Row (verhindert Stretch
+           auf volle Kartenbreite im flex-column Parent)
    ========================================================================= */
 
 /* === Page Layout === */
@@ -356,6 +358,7 @@ a.compare-remove-btn:hover {
     min-height: var(--tpl-cbadge-row-min-height, 36px);
     display: inline-flex;
     align-items: center;
+    align-self: flex-start; /* v5.7.6: Nicht auf volle Kartenbreite strecken */
     gap: var(--tpl-cbadge-row-gap, 5px);
     padding: var(--tpl-cbadge-row-padding, 6px 12px);
     flex-wrap: wrap;
