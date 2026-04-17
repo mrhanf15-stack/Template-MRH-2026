@@ -319,3 +319,15 @@ Badges passen sich an alle Display-Groessen an. Betrifft: `.mrh-type-badge`, `.m
 | Datei | Aenderung |
 |-------|----------|
 | `javascript/extra/mrh-badge-init.js.php` | v1.3.0: Duplikat-Vermeidung |
+
+## 2026-04-17 – product_compare.css v5.7.5: Badge-Row Sizing + Abstand
+
+### Fix 8: product_compare.css v5.7.5 – Badge-Row Breite und Abstand
+- `.compare-badge-row` von `display: flex` auf `display: inline-flex` geaendert
+  → Container passt sich an die Breite der enthaltenen Badges an (nicht volle Kartenbreite)
+- `margin-bottom: 0.5rem` hinzugefuegt fuer Abstand zum Bild-Akkordeon
+- Leere Badge-Row (`:empty`): `margin-bottom: 0` um unnoetige Luecke zu vermeiden
+
+| Datei | Aenderung |
+|-------|----------|
+| `css/product_compare.css` | v5.7.5: inline-flex + margin-bottom |
