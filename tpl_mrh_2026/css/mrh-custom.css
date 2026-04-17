@@ -3178,143 +3178,9 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 /* ============================================================
-   FAQ Accordion (Checkbox-basiert, aeltere Version)
+   FAQ Accordion (Checkbox-basiert) – ENTFERNT v2.0 (2026-04-17)
+   Ersetzt durch FAQ Accordion v3 mit CSS-Variablen + BS5
    ============================================================ */
-.faq_list {
-  width: 100% !important;
-  max-width: 100% !important;
-  padding: 10px !important;
-  box-sizing: border-box !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-.faq_list h2.card {
-  background: #2c5530;
-  color: white;
-  padding: 20px;
-  margin: 40px 0 20px 0;
-  border-radius: 8px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  border: none;
-  text-align: center;
-}
-.faq_list ol.oval {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.faq_list li.faq_click {
-  margin-bottom: 12px;
-  border: 1px solid #e1e5e9;
-  border-radius: 6px;
-  overflow: hidden;
-  background: white;
-  transition: all 0.2s ease;
-}
-.faq_list li.faq_click:hover {
-  border-color: #2c5530;
-  box-shadow: 0 2px 8px rgba(44, 85, 48, 0.1);
-}
-.faq_list li.faq_click input[type="checkbox"] {
-  display: none;
-}
-.faq_list li.faq_click label.d-block.w-100 {
-  display: block !important;
-  width: 100% !important;
-  padding: 18px 50px 18px 20px;
-  margin: 0;
-  background: #f8f9fa;
-  color: #2c5530;
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
-  border: none;
-  border-bottom: 1px solid #e1e5e9;
-}
-.faq_list li.faq_click label.d-block.w-100:hover {
-  background: #f1f3f4;
-  color: #1a3d1f;
-}
-.faq_list li.faq_click label.d-block.w-100::after {
-  content: "+";
-  position: absolute;
-  right: 20px; top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2c5530;
-  transition: transform 0.2s ease;
-}
-.faq_list li.faq_click input[type="checkbox"]:checked + label.d-block.w-100::after {
-  content: "\2212";
-  transform: translateY(-50%);
-}
-.faq_list li.faq_click input[type="checkbox"]:checked + label.d-block.w-100 {
-  background: #2c5530;
-  color: white;
-  border-bottom-color: #2c5530;
-}
-.faq_list li.faq_click input[type="checkbox"]:checked + label.d-block.w-100::after {
-  color: white;
-}
-.faq_list li.faq_click div.block {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  background: white;
-  padding: 0 20px;
-}
-.faq_list li.faq_click input[type="checkbox"]:checked ~ div.block {
-  max-height: 500px;
-  padding: 20px;
-}
-.faq_list li.faq_click div.block span[itemprop="text"] p {
-  margin: 0;
-  color: #4a5568;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-.faq_list li.faq_click div.block span[itemprop="text"] p + p {
-  margin-top: 12px;
-}
-.faq_list li.faq_click div.block span[itemprop="text"] strong {
-  color: #2c5530;
-  font-weight: 600;
-}
-.faq_list li.faq_click label.d-block.w-100:focus {
-  outline: 2px solid #2c5530;
-  outline-offset: 2px;
-}
-html {
-  scroll-behavior: smooth;
-}
-@media print {
-  .faq_list li.faq_click div.block {
-    max-height: none !important;
-    padding: 15px 20px !important;
-  }
-  .faq_list li.faq_click label.d-block.w-100::after {
-    display: none;
-  }
-  .faq_list li.faq_click {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    break-inside: avoid;
-  }
-}
-@media (max-width: 768px) {
-  .faq_list { padding: 15px; }
-  .faq_list h2.card { padding: 15px; font-size: 1.2rem; margin: 30px 0 15px 0; }
-  .faq_list li.faq_click label.d-block.w-100 { padding: 15px 45px 15px 15px; font-size: 0.95rem; }
-  .faq_list li.faq_click label.d-block.w-100::after { right: 15px; font-size: 1.3rem; }
-  .faq_list li.faq_click input[type="checkbox"]:checked ~ div.block { padding: 15px; }
-}
-@media (max-width: 480px) {
-  .faq_list li.faq_click label.d-block.w-100 { padding: 12px 40px 12px 12px; font-size: 0.9rem; }
-  .faq_list li.faq_click input[type="checkbox"]:checked ~ div.block { padding: 12px; }
-}
 
 /* ============================================================
    Info Box / Badge Styles (Barneys / Content)
@@ -4653,22 +4519,23 @@ i.blokquottitle + br {
 }
 
 /* ============================================================
-   FAQ Accordion v2 (Bootstrap 4 + FA6 Solid)
+   FAQ Accordion v3.0 – BS5 + FA6 + CSS-Variablen (2026-04-17)
+   Alle Farben/Radien ueber --tpl-faq-* Konfigurator-Variablen
    ============================================================ */
 .faq-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: var(--tpl-faq-grid-gap, 8px);
 }
 @media (min-width: 768px) {
-  .faq-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .faq-grid { grid-template-columns: repeat(var(--tpl-faq-grid-cols, 2), 1fr); gap: var(--tpl-faq-grid-gap-md, 12px); }
 }
 .faq-category-header {
-  background: linear-gradient(135deg, #2C5530, #3a7d40);
-  color: #fff;
+  background: linear-gradient(135deg, var(--tpl-faq-header-bg, #2C5530), var(--tpl-faq-header-gradient, #3a7d40));
+  color: var(--tpl-faq-header-text, #ffffff);
   text-align: center;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--tpl-faq-header-radius, 8px);
   padding: 14px 16px;
   margin: 20px 0 12px;
   font-size: 1.15rem;
@@ -4679,15 +4546,30 @@ i.blokquottitle + br {
   gap: 10px;
 }
 .faq-category-header:first-child { margin-top: 0; }
+.faq-subcategory-header {
+  background: linear-gradient(135deg, var(--tpl-faq-subheader-bg, #3a7d40), var(--tpl-faq-subheader-gradient, #4a9d50));
+  color: var(--tpl-faq-subheader-text, #ffffff);
+  text-align: center;
+  border: none;
+  border-radius: var(--tpl-faq-header-radius, 8px);
+  padding: 10px 14px;
+  margin: 16px 0 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 .faq-card {
-  border: 1px solid #e1e5e9;
-  border-radius: 8px;
+  border: 1px solid var(--tpl-faq-card-border, #e1e5e9);
+  border-radius: var(--tpl-faq-card-radius, 8px);
   overflow: hidden;
-  background: #fff;
+  background: var(--tpl-faq-card-bg, #ffffff);
   transition: border-color .25s ease, box-shadow .25s ease;
 }
 .faq-card:hover {
-  border-color: #28a745;
+  border-color: var(--tpl-faq-accent, #28a745);
   box-shadow: 0 4px 16px rgba(44, 85, 48, .12);
 }
 .faq-button::after,
@@ -4706,8 +4588,8 @@ button.faq-button:not(.collapsed)::after {
   width: 100%;
   padding: 14px !important;
   border: none !important;
-  background: none !important;
-  color: #495057 !important;
+  background: var(--tpl-faq-btn-bg, transparent) !important;
+  color: var(--tpl-faq-btn-text, #495057) !important;
   font-size: .9rem;
   font-weight: 500;
   text-align: left;
@@ -4721,26 +4603,26 @@ button.faq-button:not(.collapsed)::after {
 .faq-button:hover,
 .faq-button:focus {
   text-decoration: none !important;
-  background: #f8f9fa !important;
-  color: #2C5530 !important;
+  background: var(--tpl-faq-btn-hover-bg, #f8f9fa) !important;
+  color: var(--tpl-faq-btn-hover-text, #2C5530) !important;
   outline: none;
   box-shadow: none !important;
 }
 .faq-button:not(.collapsed) {
-  background: #2C5530 !important;
-  color: #fff !important;
+  background: var(--tpl-faq-btn-active-bg, #2C5530) !important;
+  color: var(--tpl-faq-btn-active-text, #ffffff) !important;
 }
 .faq-button:not(.collapsed):hover {
-  background: #1a3a1f !important;
+  background: var(--tpl-faq-btn-active-hover, #1a3a1f) !important;
 }
 .faq-button:not(.collapsed) .faq-icon {
-  color: rgba(255, 255, 255, .8);
+  color: var(--tpl-faq-icon-active, rgba(255, 255, 255, .8));
 }
 .faq-button:not(.collapsed) .faq-question {
-  color: #fff !important;
+  color: var(--tpl-faq-btn-active-text, #ffffff) !important;
 }
 .faq-icon {
-  color: #28a745;
+  color: var(--tpl-faq-icon-color, #28a745);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -4753,19 +4635,21 @@ button.faq-button:not(.collapsed)::after {
   flex-shrink: 0;
   margin-left: 8px;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: var(--tpl-faq-chevron-bg, #f0f0f0);
   font-size: .7rem;
-  color: #28a745;
+  color: var(--tpl-faq-chevron-color, #28a745);
   transition: transform .3s ease, background .25s ease;
 }
 .faq-button:not(.collapsed) .faq-chevron {
   transform: rotate(180deg);
-  background: rgba(255, 255, 255, .2);
-  color: #fff;
+  background: var(--tpl-faq-chevron-active-bg, rgba(255, 255, 255, .2));
+  color: var(--tpl-faq-chevron-active-color, #ffffff);
 }
 .faq-body {
   padding: 14px;
-  border-top: 1px solid #e1e5e9;
+  border-top: 1px solid var(--tpl-faq-body-border, #e1e5e9);
+  background: var(--tpl-faq-body-bg, #ffffff);
+  color: var(--tpl-faq-body-text, #495057);
 }
 .faq-body img {
   max-width: 100% !important;

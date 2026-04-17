@@ -78,6 +78,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="badges"><i class="fa fa-certificate me-1"></i>Badges</div>
     <div class="mrh-tab" data-tab="seedfinder"><i class="fa fa-cannabis me-1"></i>Seedfinder</div>
     <div class="mrh-tab" data-tab="blog"><i class="fa fa-newspaper me-1"></i>Blog</div>
+    <div class="mrh-tab" data-tab="faq"><i class="fa fa-circle-question me-1"></i>FAQ</div>
 </div>
 
 <!-- ================================================================== -->
@@ -3854,6 +3855,292 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </script>
 
 </div><!-- /#tab-blog -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     Tab 13: FAQ Accordion v3.0
+     ═══════════════════════════════════════════════════════════ -->
+<div class="mrh-tab-pane" id="tab-faq">
+<h5 class="mb-3"><i class="fa fa-circle-question me-2"></i>FAQ Accordion</h5>
+<p class="text-muted small mb-3">Steuert das Aussehen des FAQ-Akkordeons (Kategorie-Header, Frage-Cards, Chevron, Antwort-Body). Alle Werte werden als CSS-Variablen <code>--tpl-faq-*</code> gesetzt.</p>
+
+<!-- Live-Vorschau -->
+<div class="card mb-4">
+    <div class="card-header"><strong>Live-Vorschau</strong></div>
+    <div class="card-body" id="mrh-faq-preview" style="background:#f5f5f5;padding:20px;"></div>
+</div>
+
+<form method="post" action="">
+
+<!-- ═══ Kategorie-Header ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-folder-open me-1"></i>Kategorie-Header</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-header-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-faq-header-bg" type="text" name="tpl-faq-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-header-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-header-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-header-gradient"><strong>Gradient-Ende</strong></label>
+        <input id="tpl-faq-header-gradient" type="text" name="tpl-faq-header-gradient" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-header-gradient'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-header-gradient'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-header-text"><strong>Text-Farbe</strong></label>
+        <input id="tpl-faq-header-text" type="text" name="tpl-faq-header-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-header-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-header-text'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-header-radius"><strong>Rundung</strong></label>
+        <input id="tpl-faq-header-radius" type="text" name="tpl-faq-header-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-faq-header-radius'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-subheader-bg"><strong>Sub-Header BG</strong></label>
+        <input id="tpl-faq-subheader-bg" type="text" name="tpl-faq-subheader-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-subheader-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-subheader-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-subheader-gradient"><strong>Sub-Header Gradient</strong></label>
+        <input id="tpl-faq-subheader-gradient" type="text" name="tpl-faq-subheader-gradient" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-subheader-gradient'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-subheader-gradient'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ FAQ Cards ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-square me-1"></i>FAQ Cards</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-card-bg"><strong>Karten-Hintergrund</strong></label>
+        <input id="tpl-faq-card-bg" type="text" name="tpl-faq-card-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-card-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-card-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-card-border"><strong>Karten-Rahmen</strong></label>
+        <input id="tpl-faq-card-border" type="text" name="tpl-faq-card-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-card-border'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-card-border'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-card-radius"><strong>Rundung</strong></label>
+        <input id="tpl-faq-card-radius" type="text" name="tpl-faq-card-radius" class="form-control" value="<?php echo mrh_cv($c,'tpl-faq-card-radius'); ?>">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-accent"><strong>Akzent-Farbe (Hover)</strong></label>
+        <input id="tpl-faq-accent" type="text" name="tpl-faq-accent" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-accent'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-accent'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Frage-Button ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-hand-pointer me-1"></i>Frage-Button</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-faq-btn-bg" type="text" name="tpl-faq-btn-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-text"><strong>Text-Farbe</strong></label>
+        <input id="tpl-faq-btn-text" type="text" name="tpl-faq-btn-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-text'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-hover-bg"><strong>Hover BG</strong></label>
+        <input id="tpl-faq-btn-hover-bg" type="text" name="tpl-faq-btn-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-hover-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-hover-bg'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-hover-text"><strong>Hover Text</strong></label>
+        <input id="tpl-faq-btn-hover-text" type="text" name="tpl-faq-btn-hover-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-hover-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-hover-text'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-active-bg"><strong>Aktiv BG</strong></label>
+        <input id="tpl-faq-btn-active-bg" type="text" name="tpl-faq-btn-active-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-active-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-active-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-active-text"><strong>Aktiv Text</strong></label>
+        <input id="tpl-faq-btn-active-text" type="text" name="tpl-faq-btn-active-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-active-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-active-text'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-btn-active-hover"><strong>Aktiv Hover BG</strong></label>
+        <input id="tpl-faq-btn-active-hover" type="text" name="tpl-faq-btn-active-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-btn-active-hover'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-btn-active-hover'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Icon + Chevron ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-chevron-down me-1"></i>Icon &amp; Chevron</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-icon-color"><strong>Icon-Farbe</strong></label>
+        <input id="tpl-faq-icon-color" type="text" name="tpl-faq-icon-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-icon-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-icon-color'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-icon-active"><strong>Icon Aktiv</strong></label>
+        <input id="tpl-faq-icon-active" type="text" name="tpl-faq-icon-active" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-icon-active'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-icon-active'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-chevron-bg"><strong>Chevron BG</strong></label>
+        <input id="tpl-faq-chevron-bg" type="text" name="tpl-faq-chevron-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-chevron-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-chevron-bg'); ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-chevron-color"><strong>Chevron Farbe</strong></label>
+        <input id="tpl-faq-chevron-color" type="text" name="tpl-faq-chevron-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-chevron-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-chevron-color'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-chevron-active-bg"><strong>Chevron Aktiv BG</strong></label>
+        <input id="tpl-faq-chevron-active-bg" type="text" name="tpl-faq-chevron-active-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-chevron-active-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-chevron-active-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-chevron-active-color"><strong>Chevron Aktiv Farbe</strong></label>
+        <input id="tpl-faq-chevron-active-color" type="text" name="tpl-faq-chevron-active-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-chevron-active-color'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-chevron-active-color'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Antwort-Body ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-align-left me-1"></i>Antwort-Body</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-body-bg"><strong>Hintergrund</strong></label>
+        <input id="tpl-faq-body-bg" type="text" name="tpl-faq-body-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-body-bg'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-body-bg'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-body-border"><strong>Trennlinie</strong></label>
+        <input id="tpl-faq-body-border" type="text" name="tpl-faq-body-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-body-border'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-body-border'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-body-text"><strong>Text-Farbe</strong></label>
+        <input id="tpl-faq-body-text" type="text" name="tpl-faq-body-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-faq-body-text'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-faq-body-text'); ?>"></div>
+    </div>
+</div>
+
+<!-- ═══ Grid-Layout ═══ -->
+<h6 class="border-bottom pb-2 mb-3"><i class="fa fa-th-large me-1"></i>Grid-Layout</h6>
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-grid-cols"><strong>Spalten (Desktop)</strong></label>
+        <select id="tpl-faq-grid-cols" name="tpl-faq-grid-cols" class="form-control">
+            <option value="1" <?php if(mrh_cv($c,'tpl-faq-grid-cols')=='1') echo 'selected'; ?>>1 Spalte</option>
+            <option value="2" <?php if(mrh_cv($c,'tpl-faq-grid-cols')!='1') echo 'selected'; ?>>2 Spalten</option>
+        </select>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-grid-gap"><strong>Abstand (Mobil)</strong></label>
+        <input id="tpl-faq-grid-gap" type="text" name="tpl-faq-grid-gap" class="form-control" value="<?php echo mrh_cv($c,'tpl-faq-grid-gap'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label for="tpl-faq-grid-gap-md"><strong>Abstand (Desktop)</strong></label>
+        <input id="tpl-faq-grid-gap-md" type="text" name="tpl-faq-grid-gap-md" class="form-control" value="<?php echo mrh_cv($c,'tpl-faq-grid-gap-md'); ?>">
+    </div>
+</div>
+
+<div class="text-end mt-3">
+    <button type="submit" name="mrh_save_colors" class="btn btn-sm btn-success"><i class="fa fa-save me-1"></i>Speichern</button>
+</div>
+</form>
+
+<!-- FAQ Live-Preview Script -->
+<script>
+(function(){
+    'use strict';
+    function gv(n,fb){var e=document.getElementById(n);return e?(e.value||fb):fb;}
+
+    function renderFaqPreview(){
+        var p = document.getElementById('mrh-faq-preview');
+        if(!p) return;
+
+        var hdrBg    = gv('tpl-faq-header-bg','#2C5530');
+        var hdrGrad  = gv('tpl-faq-header-gradient','#3a7d40');
+        var hdrText  = gv('tpl-faq-header-text','#ffffff');
+        var hdrRad   = gv('tpl-faq-header-radius','8px');
+        var cardBg   = gv('tpl-faq-card-bg','#ffffff');
+        var cardBd   = gv('tpl-faq-card-border','#e1e5e9');
+        var cardRad  = gv('tpl-faq-card-radius','8px');
+        var accent   = gv('tpl-faq-accent','#28a745');
+        var btnBg    = gv('tpl-faq-btn-bg','transparent');
+        var btnText  = gv('tpl-faq-btn-text','#495057');
+        var actBg    = gv('tpl-faq-btn-active-bg','#2C5530');
+        var actText  = gv('tpl-faq-btn-active-text','#ffffff');
+        var iconC    = gv('tpl-faq-icon-color','#28a745');
+        var chevBg   = gv('tpl-faq-chevron-bg','#f0f0f0');
+        var chevC    = gv('tpl-faq-chevron-color','#28a745');
+        var chevABg  = gv('tpl-faq-chevron-active-bg','rgba(255,255,255,.2)');
+        var chevAC   = gv('tpl-faq-chevron-active-color','#ffffff');
+        var bodyBg   = gv('tpl-faq-body-bg','#ffffff');
+        var bodyBd   = gv('tpl-faq-body-border','#e1e5e9');
+        var bodyText = gv('tpl-faq-body-text','#495057');
+
+        var h = '';
+
+        // Kategorie-Header
+        h += '<div style="background:linear-gradient(135deg,'+hdrBg+','+hdrGrad+');color:'+hdrText+';text-align:center;border-radius:'+hdrRad+';padding:14px 16px;margin-bottom:12px;font-size:1.15rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;">';
+        h += '<i class="fa-solid fa-folder-open"></i> Allgemeine Fragen';
+        h += '</div>';
+
+        // FAQ Grid (2 Spalten)
+        h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">';
+
+        var questions = [
+            {q: 'Wie funktioniert die Bestellung?', a: 'Einfach das gew&uuml;nschte Produkt ausw&auml;hlen, in den Warenkorb legen und zur Kasse gehen. Wir akzeptieren verschiedene Zahlungsmethoden.', open: false},
+            {q: 'Wie lange dauert der Versand?', a: '&Ouml;sterreich: 2-3 Werktage, Deutschland: 3-5 Werktage, EU: 5-7 Werktage. Express-Versand ist ebenfalls verf&uuml;gbar.', open: true},
+            {q: 'Gibt es eine Keimgarantie?', a: 'Ja! Wir bieten eine Keimgarantie auf alle Samen. Bei Problemen kontaktiere unseren Support.', open: false},
+            {q: 'Welche Zahlungsarten gibt es?', a: 'Vorkasse, Kreditkarte, Apple Pay, Google Pay, Lastschrift und Rechnung.', open: false}
+        ];
+
+        for(var i=0; i<questions.length; i++){
+            var isOpen = questions[i].open;
+            h += '<div style="border:1px solid '+(isOpen?accent:cardBd)+';border-radius:'+cardRad+';overflow:hidden;background:'+cardBg+';">';
+            // Button
+            h += '<div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:'+(isOpen?actBg:btnBg)+';color:'+(isOpen?actText:btnText)+';font-size:.9rem;font-weight:500;cursor:pointer;">';
+            h += '<span style="display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-circle-question" style="color:'+(isOpen?'rgba(255,255,255,.8)':iconC)+';flex-shrink:0;"></i>'+questions[i].q+'</span>';
+            h += '<span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;min-width:28px;border-radius:50%;background:'+(isOpen?chevABg:chevBg)+';font-size:.7rem;color:'+(isOpen?chevAC:chevC)+';margin-left:8px;'+(isOpen?'transform:rotate(180deg);':'')+'">';
+            h += '<i class="fa-solid fa-chevron-down"></i></span>';
+            h += '</div>';
+            // Body (nur bei offener Frage)
+            if(isOpen){
+                h += '<div style="padding:14px;border-top:1px solid '+bodyBd+';background:'+bodyBg+';color:'+bodyText+';font-size:.85rem;line-height:1.6;">'+questions[i].a+'</div>';
+            }
+            h += '</div>';
+        }
+        h += '</div>';
+
+        p.innerHTML = h;
+    }
+
+    // Event-Listener fuer alle FAQ-Felder
+    document.querySelectorAll('[id^="tpl-faq-"]').forEach(function(el){
+        el.addEventListener('input', renderFaqPreview);
+        el.addEventListener('change', renderFaqPreview);
+    });
+    var faqTab = document.querySelector('[data-tab="faq"]');
+    if(faqTab){
+        faqTab.addEventListener('click', function(){ setTimeout(renderFaqPreview, 50); });
+    }
+    renderFaqPreview();
+})();
+</script>
+
+</div><!-- /#tab-faq -->
 
 </div><!-- /#mrh-configurator-v4 -->
 
