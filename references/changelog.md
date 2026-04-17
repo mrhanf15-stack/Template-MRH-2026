@@ -206,3 +206,35 @@ Nachher: 1 System – general.css.php liest colors.json und gibt ALLE Farb-Varia
 
 **Hinweis:** Slider-Boxen (box_slider_bestsellers, box_slider_new etc.) verwenden `$box_content`/`$box_data` statt `$module_content` und werden weiterhin durch das bestehende JS-System (mrh-listing-desc.js.php) bedient. Eine Smarty-Plugin-Loesung fuer diese Boxen ist fuer eine spaetere Phase geplant.
 
+## 2026-04-17 – Sektion 21c-2 + Sektion 27: Legacy-Badge Farben + Responsive Badge-Sizing
+
+**Ziel:** Zwei fehlende CSS-Sektionen ergaenzen, die im lokalen Repo vorhanden aber noch nicht auf dem Live-Server deployed sind.
+
+### Sektion 21c-2: Legacy-Badge Farbzuordnung (Zeilen 5711-5759)
+Die Funktion `mrh_extract_legacy_badges()` erzeugt Klassen `mrh-badge-picto-{type}` fuer Badges aus der `short_description`. Diese Klassen hatten bisher keine eigenen Farbregeln und waren daher ohne Hintergrund/Border.
+
+| Klasse | Farbe | Quelle |
+|--------|-------|--------|
+| `.mrh-badge-picto-cup` | Gold-Gradient (#fbbf24 → #f59e0b) | = `.mrh-badge-cup` |
+| `.mrh-badge-picto-fem` | Pink (#fc5b96) | = `.mrh-badge-fem` |
+| `.mrh-badge-picto-auto` | Gruen (#f0fdf4 / #15803d) | = `.mrh-badge-auto` |
+| `.mrh-badge-picto-reg` | Blau (#2ea2f0) | = `.mrh-badge-reg` |
+| `.mrh-badge-picto-photo` | Grau (#6c757d) | = `.mrh-badge-photo` |
+| `.mrh-badge-picto-medical` | Rot (#dc2626) | Neu |
+| `.mrh-badge-picto-legacy` | Hellgrau (#f1f5f9) | = `.mrh-badge-picto` |
+
+### Sektion 27: Responsive Badge-Sizing v1.0.0 (Zeilen 6309-6627)
+Badges passen sich an alle Display-Groessen an. Betrifft: `.mrh-type-badge`, `.mrh-badge-bar`, `.mrh-badge-svg`, `.mrh-badge-icon`, `.mrh-badge-label`, `.mrh-listing-icon`, `.picto.templatestyle`, `.mrh-cup-count`, `.mrh-badge-text`.
+
+| Breakpoint | Media Query | Beschreibung |
+|-----------|-------------|---------------|
+| 27a: Desktop XL | `min-width: 1401px` | Badges etwas groesser (font-size: 0.88rem) |
+| 27b: Desktop Standard | 992-1400px | Basis (keine Overrides) |
+| 27c: Tablet | `max-width: 991px` | Leicht kompakter (font-size: 0.75rem) |
+| 27d: Mobile | `max-width: 767px` | Kompakt (font-size: 0.7rem, border-radius: 8px) |
+| 27e: Mobile XS | `max-width: 480px` | Minimal (font-size: 0.65rem, border-radius: 6px) |
+
+| Datei | Aenderung |
+|-------|----------|
+| `css/mrh-custom.css` | Sektion 21c-2 (Legacy-Badge Farben) + Sektion 27 (Responsive Badge-Sizing) appended |
+
