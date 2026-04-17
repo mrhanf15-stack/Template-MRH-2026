@@ -1,6 +1,6 @@
 <?php
 /* ═══════════════════════════════════════════════════════════════════════
-   MRH Badge-Init v1.2.0 – Zentrale Badge-Logik
+   MRH Badge-Init v1.3.0 – Zentrale Badge-Logik
    
    Einheitliche Badge-Erstellung fuer Vergleich + Seedfinder.
    Ersetzt die duplizierte Badge-Logik in product_compare.html und
@@ -13,6 +13,8 @@
    v1.2.0: Lose Icons (shortfongc, shortfongc0) werden in
    .mrh-type-badge Wrapper gepackt. Gruener Container wird
    um die Badge-Row gelegt.
+   v1.3.0: Duplikat-Vermeidung: Bereits vorhandene Badge-Typen
+   (aus mrh-badge-bar) werden nicht nochmal als lose Icons hinzugefuegt.
    ═══════════════════════════════════════════════════════════════════════ */
 if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !== 'true') return;
 ?>
@@ -79,6 +81,8 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
 
       /* 1. Existierende .picto.templatestyle suchen und uebernehmen */
       var pictos = descBox.querySelectorAll('.picto.templatestyle');
+      /* v1.3.0: Bereits vorhandene Badge-Typen tracken (Duplikat-Vermeidung) */
+      var existingTypes = {};
       pictos.forEach(function(picto) {
         if (picto.classList.contains('off')) {
           picto.style.display = 'none';
@@ -87,15 +91,24 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
         /* mrh-badge-bar (Fem/Reg/Photo Badges) 1:1 uebernehmen */
         var existingBar = picto.querySelector('.mrh-badge-bar');
         if (existingBar) {
-          badgeRow.appendChild(existingBar.cloneNode(true));
+          var clonedBar = existingBar.cloneNode(true);
+          badgeRow.appendChild(clonedBar);
+          /* v1.3.0: Typen aus geklonter Bar registrieren */
+          clonedBar.querySelectorAll('.mrh-type-badge').forEach(function(b) {
+            var m = (b.className || '').match(/mrh-badge-(fem|auto|reg|photo|cup|medical)/);
+            if (m) existingTypes[m[1]] = true;
+          });
         }
-        /* v1.2.0: Lose Icons in .mrh-type-badge Wrapper packen */
+        /* v1.2.0+v1.3.0: Lose Icons in .mrh-type-badge Wrapper packen,
+           aber nur wenn der Typ noch nicht vorhanden ist */
         var icons = picto.querySelectorAll('.fa, .fa-solid, img, svg');
         icons.forEach(function(icon) {
           if (icon.closest('.mrh-badge-bar')) return;
-          /* Statt nacktes Icon: in Badge-Wrapper packen */
+          var type = detectBadgeType(icon);
+          if (existingTypes[type]) return; /* v1.3.0: Duplikat vermeiden */
           var wrapped = wrapIconInBadge(icon);
           badgeRow.appendChild(wrapped);
+          existingTypes[type] = true;
         });
         picto.style.display = 'none';
       });

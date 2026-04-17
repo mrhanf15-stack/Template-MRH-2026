@@ -305,3 +305,17 @@ Badges passen sich an alle Display-Groessen an. Betrifft: `.mrh-type-badge`, `.m
 |-------|----------|
 | `javascript/extra/mrh-badge-init.js.php` | v1.2.0: Lose Icons in Badge-Wrapper |
 | `css/product_compare.css` | v5.7.1: Gruener Container auf Badge-Row |
+
+## 2026-04-17 – Badge-Init v1.3.0: Duplikat-Vermeidung
+
+### Fix 7: mrh-badge-init.js.php v1.3.0 – Duplikat-Vermeidung
+- Problem: Wenn `mrh-badge-bar` bereits ein `mrh-badge-auto` enthaelt UND
+  ein loses `shortfongc` Icon existiert, wurde Autoflowering doppelt angezeigt
+- Fix: Nach dem Klonen der `mrh-badge-bar` werden alle vorhandenen Badge-Typen
+  in `existingTypes` registriert (fem, auto, reg, photo, cup, medical)
+- Lose Icons werden nur noch als Badge gewrappt, wenn ihr Typ NICHT bereits existiert
+- Ergebnis: Jeder Badge-Typ erscheint maximal einmal pro Produkt
+
+| Datei | Aenderung |
+|-------|----------|
+| `javascript/extra/mrh-badge-init.js.php` | v1.3.0: Duplikat-Vermeidung |
