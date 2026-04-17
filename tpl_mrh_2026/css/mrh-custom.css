@@ -4530,9 +4530,10 @@ i.blokquottitle + br {
 @media (min-width: 768px) {
   .faq-grid { grid-template-columns: repeat(var(--tpl-faq-grid-cols, 2), 1fr); gap: var(--tpl-faq-grid-gap-md, 12px); }
 }
+h2.faq-category-header,
 .faq-category-header {
-  background: linear-gradient(135deg, var(--tpl-faq-header-bg, #2C5530), var(--tpl-faq-header-gradient, #3a7d40));
-  color: var(--tpl-faq-header-text, #ffffff);
+  background: linear-gradient(135deg, var(--tpl-faq-header-bg, #2C5530), var(--tpl-faq-header-gradient, #3a7d40)) !important;
+  color: var(--tpl-faq-header-text, #ffffff) !important;
   text-align: center;
   border: none;
   border-radius: var(--tpl-faq-header-radius, 8px);
@@ -4546,9 +4547,10 @@ i.blokquottitle + br {
   gap: 10px;
 }
 .faq-category-header:first-child { margin-top: 0; }
+h3.faq-subcategory-header,
 .faq-subcategory-header {
-  background: linear-gradient(135deg, var(--tpl-faq-subheader-bg, #3a7d40), var(--tpl-faq-subheader-gradient, #4a9d50));
-  color: var(--tpl-faq-subheader-text, #ffffff);
+  background: linear-gradient(135deg, var(--tpl-faq-subheader-bg, #3a7d40), var(--tpl-faq-subheader-gradient, #4a9d50)) !important;
+  color: var(--tpl-faq-subheader-text, #ffffff) !important;
   text-align: center;
   border: none;
   border-radius: var(--tpl-faq-header-radius, 8px);
