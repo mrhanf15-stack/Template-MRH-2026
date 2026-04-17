@@ -3752,7 +3752,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </div>
 
 <div class="text-end mt-3">
-    <button type="submit" name="mrh_save_colors" class="btn btn-sm btn-success"><i class="fa fa-save me-1"></i>Speichern</button>
+    <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Blog speichern">
 </div>
 </form>
 
@@ -4041,7 +4041,8 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         <label for="tpl-faq-grid-cols"><strong>Spalten (Desktop)</strong></label>
         <select id="tpl-faq-grid-cols" name="tpl-faq-grid-cols" class="form-control">
             <option value="1" <?php if(mrh_cv($c,'tpl-faq-grid-cols')=='1') echo 'selected'; ?>>1 Spalte</option>
-            <option value="2" <?php if(mrh_cv($c,'tpl-faq-grid-cols')!='1') echo 'selected'; ?>>2 Spalten</option>
+            <option value="2" <?php if(mrh_cv($c,'tpl-faq-grid-cols')=='2' || mrh_cv($c,'tpl-faq-grid-cols')=='') echo 'selected'; ?>>2 Spalten</option>
+            <option value="3" <?php if(mrh_cv($c,'tpl-faq-grid-cols')=='3') echo 'selected'; ?>>3 Spalten</option>
         </select>
     </div>
     <div class="col-sm-4 mb-3">
@@ -4055,7 +4056,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </div>
 
 <div class="text-end mt-3">
-    <button type="submit" name="mrh_save_colors" class="btn btn-sm btn-success"><i class="fa fa-save me-1"></i>Speichern</button>
+    <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="FAQ speichern">
 </div>
 </form>
 
