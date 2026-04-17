@@ -5766,13 +5766,15 @@ a.iframe:hover {
 /* ── 21d: Badges in Listings (serverseitig) ── */
 /* Wenn buildBadgeHTML() die .picto.templatestyle Wrapper erzeugt,
    passen die bestehenden Styles (15b). Zusätzlich:
-   In .mrh-listing-badges Container (Template) */
+   In .mrh-listing-badges Container (Template)
+   v2: Gruener Container wieder sichtbar (User-Wunsch 2026-04-17) */
 .mrh-listing-badges .picto.templatestyle {
   margin-bottom: 0;
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  padding: var(--tpl-picto-padding, 6px 10px);
+  background: var(--tpl-picto-bg, var(--tpl-badge-auto-bg, #f0fdf4));
+  border: var(--tpl-picto-border-width, 1px) solid var(--tpl-picto-border-color, rgba(34, 197, 94, 0.25));
+  border-radius: var(--tpl-picto-border-radius, 10px);
+  box-shadow: var(--tpl-picto-shadow, none);
 }
 .mrh-listing-badges .mrh-badge-bar {
   margin-left: 0;

@@ -1,6 +1,6 @@
 <?php
 /* ═══════════════════════════════════════════════════════════════════════
-   MRH Badge-Init v1.0.0 – Zentrale Badge-Logik
+   MRH Badge-Init v1.1.0 – Zentrale Badge-Logik
    
    Einheitliche Badge-Erstellung fuer Vergleich + Seedfinder.
    Ersetzt die duplizierte Badge-Logik in product_compare.html und
@@ -31,6 +31,9 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
       var badgeRow = card.querySelector('.compare-badge-row');
       if (!badgeRow || badgeRow.dataset.badgesDone) return;
       badgeRow.dataset.badgesDone = '1';
+
+      /* v1.1.0: Skip wenn bereits server-seitig gerenderte Badges vorhanden */
+      if (badgeRow.querySelector('.mrh-badge-bar, .mrh-type-badge, .picto.templatestyle')) return;
 
       var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
       if (!descBox) return;

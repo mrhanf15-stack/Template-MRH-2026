@@ -11,6 +11,8 @@
  * v1.7.0: Akkordeon-Toggle entfernt, Tabelle mit Scrollbalken stattdessen
  * v2.0.0: Smart Redesign – Produktbild in geschlossenem Accordion,
  *         Vergleichsdaten sofort sichtbar, kundenoptimiertes Layout
+ * v2.1.0: Badge-Zeile: MRH_BADGES direkt einbinden + desc-box als
+ *         versteckte Datenquelle fuer MrhBadgeInit-Fallback
  *}
 
 <div class="card h-100 d-flex flex-column position-relative compare-smart-card">
@@ -33,8 +35,12 @@
     </h2>
   </div>
 
-  {* ── Badge-Zeile (v1.3.0) ── *}
-  <div class="compare-badge-row" data-product-id="{$module_data.PRODUCTS_ID}"></div>
+  {* ── Badge-Zeile (v1.3.0, v2.1.0: MRH_BADGES direkt) ── *}
+  <div class="compare-badge-row" data-product-id="{$module_data.PRODUCTS_ID}">
+    {if isset($module_data.MRH_BADGES) && $module_data.MRH_BADGES != ''}
+      {$module_data.MRH_BADGES}
+    {/if}
+  </div>
 
   {* ── Produktbild im Accordion (geschlossen, v2.0.0) ── *}
   {if $module_data.PRODUCTS_IMAGE != ''}
@@ -77,12 +83,12 @@
   </div>
   {/if}
 
-  {* ── Kurzbeschreibung (ausgeblendet – Tabelle ist primaer) ── *}
-  {* if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
-    <div class="compare-desc-box px-3 pb-1{if $module_data.PRODUCT_ATTRIBUTES} has-options{/if}">
+  {* ── Kurzbeschreibung (versteckt, Datenquelle fuer MrhBadgeInit-Fallback v2.1.0) ── *}
+  {if !empty($module_data.PRODUCTS_SHORT_DESCRIPTION)}
+    <div class="compare-desc-box px-3 pb-1 d-none{if $module_data.PRODUCT_ATTRIBUTES} has-options{/if}">
       <div class="lr_desc teabls table-striped">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>
     </div>
-  {/if*}
+  {/if}
 
   {* ── FORM oeffnen (umschliesst Optionen + Footer) ── *}
   {$module_data.FORM_ACTION}

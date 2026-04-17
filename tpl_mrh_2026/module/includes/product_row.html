@@ -1,4 +1,4 @@
-  {* ROWANSICHT *}
+  {* ROWANSICHT v1.1.0 – Badge-Zeile hinzugefuegt *}
 
   <div class="listingrow">
 
@@ -38,6 +38,11 @@
           <span class="lr_rating_count">({$module_data.PRODUCTS_REVIEWS_COUNT})</span>
         </div>
       {/if} 
+
+      {* Badge-Zeile (v1.1.0) *}
+      {if isset($module_data.MRH_BADGES) && $module_data.MRH_BADGES != ''}
+        <div class="mrh-listing-badges mb-1">{$module_data.MRH_BADGES}</div>
+      {/if}
 
       {if $module_data.PRODUCTS_SHORT_DESCRIPTION}
         <div class="lr_desc">{$module_data.PRODUCTS_SHORT_DESCRIPTION}</div>

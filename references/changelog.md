@@ -250,3 +250,36 @@ Badges passen sich an alle Display-Groessen an. Betrifft: `.mrh-type-badge`, `.m
 |-------|----------|
 | `css/mrh-custom.css` | Sektion 21c-2 (Legacy-Badge Farben) + Sektion 27 (Responsive Badge-Sizing) appended |
 
+
+---
+
+## 2026-04-17 – Badge-Fixes: Vergleichsseite + Listenansicht + Gruener Container
+
+**Ziel:** Drei Badge-Probleme beheben: 1) Vergleichsseite zeigt keine Badges, 2) Listenansicht (product_row.html) hat keine Badge-Ausgabe, 3) Gruener Container um Badges im Listing fehlt.
+
+### Fix 1: compare_card.html v2.1.0 – Badge-Zeile befuellt
+- `{$module_data.MRH_BADGES}` direkt in `.compare-badge-row` eingebunden
+- `compare-desc-box` wieder aktiviert (mit `d-none`) als versteckte Datenquelle fuer MrhBadgeInit-Fallback
+- Wenn MRH_BADGES server-seitig verfuegbar: direkte Anzeige
+- Wenn nicht: MrhBadgeInit extrahiert Badges aus der short_description
+
+### Fix 2: mrh-badge-init.js.php v1.1.0 – Server-Badge-Erkennung
+- Neue Pruefung: Wenn `.compare-badge-row` bereits server-seitig gerenderte Badges enthaelt (`.mrh-badge-bar`, `.mrh-type-badge`, `.picto.templatestyle`), wird die JS-Extraktion uebersprungen
+- Verhindert doppelte Badge-Anzeige
+
+### Fix 3: product_row.html v1.1.0 – Badge-Zeile in Listenansicht
+- `{$module_data.MRH_BADGES}` zwischen Bewertungs-Sternen und Kurzbeschreibung eingefuegt
+- Wrapper: `.mrh-listing-badges mb-1` (nutzt bestehende Listing-Badge-Styles)
+
+### Fix 4: mrh-custom.css Sektion 21d v2 – Gruener Container wiederhergestellt
+- `.mrh-listing-badges .picto.templatestyle` bekommt wieder den gruenen Hintergrund
+- Vorher: `background: transparent; border: none; box-shadow: none;`
+- Nachher: `background: var(--tpl-picto-bg); border: 1px solid var(--tpl-picto-border-color); border-radius: 10px;`
+- Padding kompakter als auf der Detailseite (6px 10px statt 8px 16px)
+
+| Datei | Aenderung |
+|-------|----------|
+| `module/includes/compare_card.html` | v2.1.0: MRH_BADGES + desc-box Fallback |
+| `javascript/extra/mrh-badge-init.js.php` | v1.1.0: Server-Badge-Erkennung |
+| `module/includes/product_row.html` | v1.1.0: Badge-Zeile hinzugefuegt |
+| `css/mrh-custom.css` | Sektion 21d v2: Gruener Container wiederhergestellt |
