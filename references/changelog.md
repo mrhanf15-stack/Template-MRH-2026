@@ -379,3 +379,9 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 | Datei | Repo | Aenderung |
 |-------|------|----------|
 | `css/mrh-custom.css` | Template-MRH-2026 | Sektion 29: Zeile 6534-6670 |
+
+### Fix 12 – Offcanvas z-index Konflikt (Sektion 30)
+- **Problem:** `.offcanvas-backdrop { z-index: 50000 !important }` in Sektion 22 (Filter) betraf ALLE Offcanvas-Panels. Konto, Einstellungen, Warenkorb (z-index: 1045) lagen unter dem Backdrop → unbedienbar auf Mobile.
+- **Lösung:** Generischen `.offcanvas-backdrop` Override entfernt. Stattdessen nur Filter-Offcanvas per `#mrhFilterOffcanvas.offcanvas.show ~ .offcanvas-backdrop.show` gezielt hochgesetzt.
+- **Dateien:** `css/mrh-custom.css` (Sektion 22 bereinigt + Sektion 30 neu)
+- **Commit:** $(date +%Y-%m-%d)

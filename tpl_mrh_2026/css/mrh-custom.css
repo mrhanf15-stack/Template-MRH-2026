@@ -5301,10 +5301,9 @@ a.iframe:hover {
     gap: 12px;
   }
 
-  /* Offcanvas Backdrop */
-  .offcanvas-backdrop {
-    z-index: 50000 !important;
-  }
+  /* Offcanvas Backdrop – NUR für Filter-Offcanvas!
+     ACHTUNG: Generischer .offcanvas-backdrop darf NICHT überschrieben werden,
+     sonst blockiert er Konto/Einstellungen/Warenkorb-Panels (Bug Fix 12). */
 }
 
 /* --- Filter-Buttons (Suchen / Zurücksetzen) --- */
@@ -6666,5 +6665,34 @@ html, body {
     background:
       radial-gradient(40px at 30% 55%, rgba(74,140,42,0.08) 0%, transparent 70%),
       radial-gradient(50px at 65% 35%, rgba(195,167,88,0.06) 0%, transparent 70%);
+  }
+}
+
+/* ============================================================
+   30 OFFCANVAS Z-INDEX FIX (Bug Fix 12)
+   Problem: .offcanvas-backdrop { z-index: 50000 } in Sektion 22
+   (Filter) betraf ALLE Offcanvas-Panels. Konto, Einstellungen,
+   Warenkorb-Panels (z-index: 1045) lagen UNTER dem Backdrop
+   (z-index: 50000) → unbedienbar.
+   Lösung: Generischen Backdrop-Override entfernt. Stattdessen
+   nur Filter-Offcanvas und sein Backdrop gezielt hochsetzen.
+   ============================================================ */
+
+/* --- Alle Standard-Offcanvas: Bootstrap-Defaults beibehalten --- */
+/* Bootstrap 5 Default: .offcanvas = 1045, .offcanvas-backdrop = 1040 */
+/* Kein Override nötig – funktioniert out-of-the-box */
+
+/* --- Filter-Offcanvas: Muss über template.css modal-backdrop (50000) liegen --- */
+@media (max-width: 991px) {
+  #mrhFilterOffcanvas {
+    z-index: 50001 !important;
+  }
+  /* Backdrop nur für Filter-Offcanvas hochsetzen:
+     Bootstrap erstellt den Backdrop als Sibling NACH dem Offcanvas-Element.
+     Da wir den Filter-Offcanvas per ID targeten, setzen wir den
+     allgemeinen Sibling-Selektor ein. */
+  #mrhFilterOffcanvas.offcanvas.show ~ .offcanvas-backdrop.show,
+  #mrhFilterOffcanvas.offcanvas.showing ~ .offcanvas-backdrop {
+    z-index: 50000 !important;
   }
 }
