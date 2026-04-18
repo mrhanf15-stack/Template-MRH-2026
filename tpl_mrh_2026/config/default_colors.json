@@ -6,6 +6,7 @@
     "tpl-bg-color-2": "rgb(245, 245, 245)",
     "tpl-bg-productbox": "rgb(255, 255, 255)",
     "tpl-bg-footer": "rgb(25, 25, 30)",
+    "tpl-bg-contentpage": "rgb(255, 255, 255)",
     "tpl-text-standard": "rgb(10, 10, 10)",
     "tpl-text-headings": "rgb(51, 51, 51)",
     "tpl-text-button": "rgb(255, 255, 255)",

@@ -385,3 +385,14 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Lösung:** Generischen `.offcanvas-backdrop` Override entfernt. Stattdessen nur Filter-Offcanvas per `#mrhFilterOffcanvas.offcanvas.show ~ .offcanvas-backdrop.show` gezielt hochgesetzt.
 - **Dateien:** `css/mrh-custom.css` (Sektion 22 bereinigt + Sektion 30 neu)
 - **Commit:** $(date +%Y-%m-%d)
+
+### Feature: Content-Page Hintergrundfarbe im Konfigurator (Sektion 31)
+- **Neuer Key:** `tpl-bg-contentpage` – Hintergrundfarbe für `.contentpage-content` (Impressum, AGB, Datenschutz etc.)
+- **Konfigurator:** Im Allgemein-Tab unter "Hintergrundfarben" als "Content-Seiten Hintergrund" sichtbar
+- **Dateien:**
+  - `source/boxes/templateconfig.php` – validColorKeys erweitert
+  - `admin/includes/mrh_configurator_panel.php` – Farbfeld im Allgemein-Tab
+  - `css/general.css.php` – Default + mrh-Alias
+  - `config/default_colors.json` – Default-Wert (#fff)
+  - `css/mrh-custom.css` – Sektion 31: `.contentpage-content` Styling
+- **Commit:** $(date +%Y-%m-%d)

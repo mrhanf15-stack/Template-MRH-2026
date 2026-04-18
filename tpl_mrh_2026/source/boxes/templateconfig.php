@@ -52,6 +52,7 @@ if (stristr($_SERVER['SERVER_NAME'], 'modifiedtemplate.de') || (isset($_SESSION[
                 'tpl-bg-color-2',
                 'tpl-bg-productbox',
                 'tpl-bg-footer',
+                'tpl-bg-contentpage',
                 'tpl-text-standard',
                 'tpl-text-headings',
                 'tpl-text-button',

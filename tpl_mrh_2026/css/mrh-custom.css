@@ -6696,3 +6696,15 @@ html, body {
     z-index: 50000 !important;
   }
 }
+
+/* ============================================================
+   31 CONTENT-PAGE HINTERGRUNDFARBE (Konfigurator: Allgemein-Tab)
+   Variable: --tpl-bg-contentpage (aus colors.json / general.css.php)
+   Betrifft: Impressum, AGB, Datenschutz, Widerrufsbelehrung,
+   Versandkosten, Zahlungsarten und alle popup_content-Seiten.
+   ============================================================ */
+.contentpage-content {
+  background-color: var(--tpl-bg-contentpage, var(--tpl-bg-color, #fff));
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+}

@@ -123,6 +123,7 @@ $bg_fields = [
     'tpl-bg-color-2'    => 'Hintergrundfarbe 2',
     'tpl-bg-productbox' => 'Produktboxen Hintergrund',
     'tpl-bg-footer'     => 'Footer Hintergrund',
+    'tpl-bg-contentpage' => 'Content-Seiten Hintergrund',
 ];
 foreach ($bg_fields as $key => $label) {
     echo '<div class="col-sm-6 mb-3">';
