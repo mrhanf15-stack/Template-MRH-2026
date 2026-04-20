@@ -7085,3 +7085,33 @@ html.mrh-smooth-scroll {
   background: rgba(0,0,0,0.15);
   border-radius: 3px;
 }
+
+/* ==========================================================================
+   ACCESSIBILITY WIDGET SCHUTZ – Icon-Fonts v1.0
+   Verhindert, dass das Fietz Accessibility Widget (Dyslexie-Schrift)
+   die FontAwesome und Simple-Line-Icons Schriftarten ueberschreibt.
+   ========================================================================== */
+.fa,
+.fas,
+.far,
+.fab,
+.fal,
+.fat,
+.fad,
+.fa-solid,
+.fa-regular,
+.fa-brands,
+.fa-light,
+.fa-thin,
+.fa-duotone,
+[class*=" fa-"]::before,
+[class*=" fa-"]::after,
+[class^="fa-"]::before,
+[class^="fa-"]::after {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 6 Pro", "FontAwesome" !important;
+}
+/* Simple Line Icons Schutz */
+[class*=" icon-"]::before,
+[class^="icon-"]::before {
+  font-family: "Simple-Line-Icons" !important;
+}
