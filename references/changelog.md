@@ -469,3 +469,8 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Datum:** 2026-04-20
 - **Datei:** `tpl_mrh_2026/css/mrh-custom.css`
 - **Aenderung:** Neues CSS fuer die offene FAQ-Struktur mit `dl/dt/dd` (`.product-faq > .faq-item > dl > dt.faq-question + dd.faq-answer`). Alle Fragen sind immer sichtbar, kein Accordion, kein JavaScript noetig. Farben ueber bestehende `--tpl-faq-*` Konfigurator-Variablen. Schema.org FAQPage Markup bleibt erhalten. Responsive, Print-optimiert.
+
+### Fix 18 – Block-Level FA-Icons in Content-Sektionen zentrieren
+- **Datum:** 2026-04-20
+- **Datei:** `tpl_mrh_2026/css/mrh-custom.css`
+- **Aenderung:** FA-Icons mit `d-block` Klasse (z.B. `.fa.d-block`, `.fa-solid.d-block`) in Content-Bereichen (.contentpage-content, .content_body, .hub-card, .text-center) werden jetzt mit `margin-left:auto; margin-right:auto` zentriert. Vorher waren sie links ausgerichtet, weil `text-align:center` nur Inline-Kinder zentriert, nicht Block-Elemente mit fester Breite.

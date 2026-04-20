@@ -6997,3 +6997,32 @@ html, body {
     page-break-inside: avoid;
   }
 }
+
+/* =================================================================
+   Fix 18 – Block-Level FA-Icons in Content-Sektionen zentrieren
+   Problem: FA-Icons mit .d-block haben display:block und feste Breite,
+   werden aber nicht zentriert weil text-align:center nur Inline-Kinder
+   zentriert. Block-Kinder brauchen margin:auto.
+   Betrifft: .hub-card Icons, Content-Seiten mit grossen FA-Icons
+   Datum: 2026-04-20
+   ================================================================= */
+
+/* Globale Zentrierung fuer Block-Level FA-Icons in Content-Bereichen */
+.contentpage-content .d-block[class*="fa"],
+.contentpage-content .d-block[class*="fa-"],
+.content_body .d-block[class*="fa"],
+.content_body .d-block[class*="fa-"],
+.faq-section .d-block[class*="fa"],
+.faq-section .d-block[class*="fa-"],
+.hub-card .d-block[class*="fa"],
+.hub-card .d-block[class*="fa-"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Auch fuer .text-center Container mit Block-Icons */
+.text-center .d-block[class*="fa"],
+.text-center .d-block[class*="fa-"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
