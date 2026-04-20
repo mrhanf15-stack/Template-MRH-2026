@@ -436,3 +436,10 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
   2. Click-Handler manuell binden (toggle + collapsed-Klasse + aria-expanded)
   3. Init-Logik: Sofort ausführen wenn DOM ready, statt auf DOMContentLoaded zu warten
   4. Unterstützt auch Modal und Tab Konvertierung
+
+### Fix 15c – Vanilla JS Accordion (kein Bootstrap nötig)
+- **Datum:** 2026-04-20
+- **Dateien:** `tpl_mrh_2026/javascript/mrh_core.js`
+- **Problem:** BS4→BS5 Bridge funktionierte nicht, da Bootstrap 5 Collapse die nachträglich konvertierten Attribute nicht erkannte
+- **Lösung:** Komplett neuer Vanilla JS Collapse-Handler (`MRH.Collapse`), der direkt auf `data-toggle="collapse"` reagiert – ohne jegliche Bootstrap-Abhängigkeit
+- **Features:** Slide-Animation (350ms), Accordion-Verhalten (data-parent), collapsed-Klasse, aria-expanded, Event-Delegation
