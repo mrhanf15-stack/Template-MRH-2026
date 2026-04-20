@@ -418,3 +418,11 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Problem:** Content-Seiten (z.B. /samen-shop/) nutzen altes BS4-Accordion-HTML (card, card-header, data-toggle). Im BS5-Template werden diese nicht korrekt gestylt.
 - **Lösung:** CSS-Compatibility-Layer mappt BS4-Klassen (.card.faq-card, .card-header.faq-header, .card-body.faq-body) auf MRH-2026 FAQ-Design-Variablen (--tpl-faq-*). Inline font-size und color Overrides werden neutralisiert. BS4 .mr-* Utilities als Fallback definiert.
 - **Commit:** $(date +%Y-%m-%d)
+
+### Fix 15: BS4 Accordion Fix – mrh_core.js eingebunden + CSS-Selektoren erweitert
+- **Datum:** 2026-04-20
+- **Dateien:** `javascript/mrh_core.js` (NEU), `javascript/general_bottom.js.php`, `css/mrh-custom.css`
+- **Problem:** mrh_core.js war nicht im Template eingebunden → BS4→BS5 Bridge lief nicht → Accordions ohne Funktion. CSS-Selektoren griffen nur auf `.contentpage-content` und `.content_body`, nicht auf `.faq-section`.
+- **Lösung:**
+  1. mrh_core.js ins Template-Repo kopiert und in general_bottom.js.php registriert
+  2. Alle CSS-Selektoren in Sektion 32 um `.faq-section` erweitert

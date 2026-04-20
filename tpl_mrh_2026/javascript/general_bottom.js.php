@@ -28,6 +28,8 @@ defined('DIR_TMPL_JS') OR define('DIR_TMPL_JS', DIR_TMPL.'javascript/');
 $script_array = array(
   // Bootstrap 5.3.0 Bundle (inkl. Popper.js) - KEINE separaten Dateien noetig
   DIR_TMPL_JS.'bootstrap.bundle.min.js',
+  // MRH Core: Namespace, Event-System, BS4-Bridge, Utilities
+  DIR_TMPL_JS.'mrh_core.js',
   // MRH2026 Vanilla JS Hauptmodul
   DIR_TMPL_JS.'mrh2026.js'
 );

@@ -6720,21 +6720,24 @@ html, body {
 
 /* --- Container --- */
 .contentpage-content .accordion,
-.content_body .accordion {
+.content_body .accordion,
+.faq-section .accordion {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 @media (max-width: 768px) {
   .contentpage-content .accordion,
-  .content_body .accordion {
+  .content_body .accordion,
+  .faq-section .accordion {
     grid-template-columns: 1fr;
   }
 }
 
 /* --- Karte (BS4: .card.faq-card) --- */
 .contentpage-content .accordion > .card.faq-card,
-.content_body .accordion > .card.faq-card {
+.content_body .accordion > .card.faq-card,
+.faq-section .accordion > .card.faq-card {
   border: 1px solid var(--tpl-faq-card-border, #e1e5e9) !important;
   border-radius: var(--tpl-faq-card-radius, 8px) !important;
   overflow: hidden;
@@ -6743,14 +6746,16 @@ html, body {
   margin-bottom: 0 !important;
 }
 .contentpage-content .accordion > .card.faq-card:hover,
-.content_body .accordion > .card.faq-card:hover {
+.content_body .accordion > .card.faq-card:hover,
+.faq-section .accordion > .card.faq-card:hover {
   border-color: var(--tpl-faq-accent, #28a745) !important;
   box-shadow: 0 4px 16px rgba(44, 85, 48, .12);
 }
 
 /* --- Header (BS4: .card-header.faq-header) --- */
 .contentpage-content .card-header.faq-header,
-.content_body .card-header.faq-header {
+.content_body .card-header.faq-header,
+.faq-section .card-header.faq-header {
   padding: 0 !important;
   border-bottom: none !important;
   background: transparent !important;
@@ -6759,8 +6764,10 @@ html, body {
 /* --- Button (BS4: .btn.btn-link.faq-button) --- */
 .contentpage-content .faq-button,
 .content_body .faq-button,
+.faq-section .faq-button,
 .contentpage-content .btn-link.faq-button,
-.content_body .btn-link.faq-button {
+.content_body .btn-link.faq-button,
+.faq-section .btn-link.faq-button {
   display: flex !important;
   align-items: center;
   justify-content: space-between;
@@ -6782,7 +6789,9 @@ html, body {
 .contentpage-content .faq-button:hover,
 .contentpage-content .faq-button:focus,
 .content_body .faq-button:hover,
-.content_body .faq-button:focus {
+.content_body .faq-button:focus,
+.faq-section .faq-button:hover,
+.faq-section .faq-button:focus {
   text-decoration: none !important;
   background: var(--tpl-faq-btn-hover-bg, #f8f9fa) !important;
   color: var(--tpl-faq-btn-hover-text, #2C5530) !important;
@@ -6791,23 +6800,27 @@ html, body {
 }
 /* Aktiver (geöffneter) Button */
 .contentpage-content .faq-button:not(.collapsed),
-.content_body .faq-button:not(.collapsed) {
+.content_body .faq-button:not(.collapsed),
+.faq-section .faq-button:not(.collapsed) {
   background: var(--tpl-faq-btn-active-bg, #2C5530) !important;
   color: var(--tpl-faq-btn-active-text, #ffffff) !important;
 }
 .contentpage-content .faq-button:not(.collapsed):hover,
-.content_body .faq-button:not(.collapsed):hover {
+.content_body .faq-button:not(.collapsed):hover,
+.faq-section .faq-button:not(.collapsed):hover {
   background: var(--tpl-faq-btn-active-hover, #1a3a1f) !important;
 }
 /* Icon-Farbe im aktiven Button */
 .contentpage-content .faq-button:not(.collapsed) span[class*="fa-"],
-.content_body .faq-button:not(.collapsed) span[class*="fa-"] {
+.content_body .faq-button:not(.collapsed) span[class*="fa-"],
+.faq-section .faq-button:not(.collapsed) span[class*="fa-"] {
   color: rgba(255, 255, 255, .8) !important;
 }
 
 /* --- Body (BS4: .card-body.faq-body) --- */
 .contentpage-content .card-body.faq-body,
-.content_body .card-body.faq-body {
+.content_body .card-body.faq-body,
+.faq-section .card-body.faq-body {
   padding: 14px !important;
   border-top: 1px solid var(--tpl-faq-body-border, #e1e5e9) !important;
   background: var(--tpl-faq-body-bg, #ffffff) !important;
@@ -6816,14 +6829,16 @@ html, body {
   line-height: 1.6;
 }
 .contentpage-content .card-body.faq-body img,
-.content_body .card-body.faq-body img {
+.content_body .card-body.faq-body img,
+.faq-section .card-body.faq-body img {
   max-width: 100% !important;
   height: auto !important;
 }
 
 /* --- Inline font-size Override (data-faw-orgfontsize) --- */
 .contentpage-content .accordion [data-faw-orgfontsize],
-.content_body .accordion [data-faw-orgfontsize] {
+.content_body .accordion [data-faw-orgfontsize],
+.faq-section .accordion [data-faw-orgfontsize] {
   font-size: inherit !important;
 }
 
@@ -6831,18 +6846,22 @@ html, body {
 .contentpage-content .faq-button[style*="color"],
 .contentpage-content .faq-button span[style*="color"],
 .content_body .faq-button[style*="color"],
-.content_body .faq-button span[style*="color"] {
+.content_body .faq-button span[style*="color"],
+.faq-section .faq-button[style*="color"],
+.faq-section .faq-button span[style*="color"] {
   color: inherit !important;
 }
 /* Icon-Farben beibehalten (nur die kleinen FA-Icons im span) */
 .contentpage-content .faq-button span[class*="fa-"][style*="color"],
-.content_body .faq-button span[class*="fa-"][style*="color"] {
+.content_body .faq-button span[class*="fa-"][style*="color"],
+.faq-section .faq-button span[class*="fa-"][style*="color"] {
   color: var(--tpl-faq-icon-color, #28a745) !important;
 }
 
 /* --- Blog-Link im FAQ --- */
 .contentpage-content .faq-blog-link,
-.content_body .faq-blog-link {
+.content_body .faq-blog-link,
+.faq-section .faq-blog-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -6850,26 +6869,32 @@ html, body {
   font-size: .85rem;
 }
 .contentpage-content .faq-blog-link a,
-.content_body .faq-blog-link a {
+.content_body .faq-blog-link a,
+.faq-section .faq-blog-link a {
   color: var(--tpl-faq-accent, #28a745);
   text-decoration: underline;
 }
 .contentpage-content .faq-blog-link a:hover,
-.content_body .faq-blog-link a:hover {
+.content_body .faq-blog-link a:hover,
+.faq-section .faq-blog-link a:hover {
   color: var(--tpl-faq-btn-active-bg, #2C5530);
 }
 
 /* --- BS4 Margin-Utilities Fallback (mr-* → margin-right) --- */
 .contentpage-content .mr-1,
-.content_body .mr-1 { margin-right: 0.25rem !important; }
+.content_body .mr-1,
+.faq-section .mr-1 { margin-right: 0.25rem !important; }
 .contentpage-content .mr-2,
-.content_body .mr-2 { margin-right: 0.5rem !important; }
+.content_body .mr-2,
+.faq-section .mr-2 { margin-right: 0.5rem !important; }
 .contentpage-content .mr-3,
-.content_body .mr-3 { margin-right: 1rem !important; }
+.content_body .mr-3,
+.faq-section .mr-3 { margin-right: 1rem !important; }
 
 /* --- h6 im Accordion-Header: Reset --- */
 .contentpage-content .card-header.faq-header h6,
-.content_body .card-header.faq-header h6 {
+.content_body .card-header.faq-header h6,
+.faq-section .card-header.faq-header h6 {
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
@@ -6877,6 +6902,8 @@ html, body {
 
 /* --- Print: Alle Accordions offen --- */
 @media print {
-  .contentpage-content .accordion { display: block !important; }
-  .contentpage-content .collapse { display: block !important; height: auto !important; }
+  .contentpage-content .accordion,
+  .faq-section .accordion { display: block !important; }
+  .contentpage-content .collapse,
+  .faq-section .collapse { display: block !important; height: auto !important; }
 }
