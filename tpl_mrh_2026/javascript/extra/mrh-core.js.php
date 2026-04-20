@@ -150,7 +150,7 @@
      ---------------------------------------------------------- */
   MRH.StickyHeader = {
     lastScroll: 0,
-    headerHeight: 0,
+    initialHeight: 0,
     isSticky: false,
     ticking: false,
     spacer: null,
@@ -159,13 +159,22 @@
       var header = MRH.Utils.qs('#main-header');
       if (!header) return;
       this.header = header;
-      this.headerHeight = header.offsetHeight;
+      // Initiale Hoehe einmalig speichern (173px) – aendert sich nicht
+      this.initialHeight = header.offsetHeight;
+
+      // GPU-Layer vorbereiten fuer fluessige transform-Animation
+      header.style.willChange = 'transform';
 
       // Spacer-Element erstellen (verhindert Content-Sprung)
       this.spacer = document.createElement('div');
       this.spacer.id = 'mrh-sticky-spacer';
-      this.spacer.style.cssText = 'display:none;height:0;margin:0;padding:0;border:0;';
+      this.spacer.style.cssText = 'display:none;height:' + this.initialHeight + 'px;margin:0;padding:0;border:0;';
       header.parentNode.insertBefore(this.spacer, header.nextSibling);
+
+      // Grosse Hysterese: Aktivierung weit unter Header, Deaktivierung erst ganz oben
+      // activateAt = initialHeight * 2 (~346px), deactivateAt = 50px
+      this.activateAt = Math.round(this.initialHeight * 2);
+      this.deactivateAt = 50;
 
       // Scroll via requestAnimationFrame fuer fluessige Darstellung
       var self = this;
@@ -179,27 +188,25 @@
         }
       }, { passive: true });
 
-      // Header-Hoehe bei Resize neu berechnen
+      // Initiale Hoehe bei Resize nur wenn nicht sticky
       window.addEventListener('resize', MRH.Utils.throttle(function() {
         if (!self.isSticky) {
-          self.headerHeight = header.offsetHeight;
+          self.initialHeight = header.offsetHeight;
+          self.spacer.style.height = self.initialHeight + 'px';
+          self.activateAt = Math.round(self.initialHeight * 2);
         }
       }, 250), { passive: true });
     },
 
     onScroll: function() {
       var st = window.pageYOffset || document.documentElement.scrollTop;
-      // Hysterese: Aktivierung bei headerHeight + 80, Deaktivierung bei headerHeight + 20
-      var activateAt = this.headerHeight + 80;
-      var deactivateAt = this.headerHeight + 20;
 
-      if (!this.isSticky && st > activateAt) {
+      if (!this.isSticky && st > this.activateAt) {
         // Sticky aktivieren + Spacer einblenden
         this.spacer.style.display = 'block';
-        this.spacer.style.height = this.headerHeight + 'px';
         this.header.classList.add('mrh-sticky');
         this.isSticky = true;
-      } else if (this.isSticky && st <= deactivateAt) {
+      } else if (this.isSticky && st <= this.deactivateAt) {
         // Sticky deaktivieren + Spacer ausblenden
         this.header.classList.remove('mrh-sticky', 'mrh-sticky-hidden');
         this.spacer.style.display = 'none';
@@ -208,11 +215,9 @@
 
       // Show/Hide basierend auf Scroll-Richtung (nur wenn sticky)
       if (this.isSticky) {
-        if (st > this.lastScroll && st > activateAt + 120) {
-          // Scroll Down -> Header verstecken
+        if (st > this.lastScroll && st > this.activateAt + 120) {
           this.header.classList.add('mrh-sticky-hidden');
         } else {
-          // Scroll Up -> Header zeigen
           this.header.classList.remove('mrh-sticky-hidden');
         }
       }
