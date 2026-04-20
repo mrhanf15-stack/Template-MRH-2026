@@ -517,3 +517,11 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
   - Restore nach 5s, damit nachfolgende scroll-Listener nicht betroffen
   - Ursache: FAW iteriert nach jedem Scroll-Stop über 4600+ Elemente
     und ruft getComputedStyle auf jedem auf (Kontrast, ARIA, Landmarks, Alt-Text)
+
+## 2026-04-20 – FAW Performance-Throttle v1.2 (Hotfix)
+- **index.html**: v1.0 hat den StickyHeader scroll-Listener abgefangen
+  weil er als erster registriert wurde (mrh-core.js laedt VOR dem Widget)
+- v1.2 erkennt FAW-Kontext ueber `FIETZ_ACCESSIBILITY_CONFIG` Existenz
+  - Config wird am Anfang des Widget-Scripts definiert, BEVOR scroll-Listener
+  - Alle Listener die VOR dem Widget registriert werden passieren ungehindert
+  - StickyHeader funktioniert wieder korrekt

@@ -387,22 +387,29 @@
 
 
 {if $tpl_cfg_barrierefreiTool && $tpl_cfg_barrierefreiTool == 'on'}
-	{* ── FAW Performance-Throttle v1.0 ──
+	{* ── FAW Performance-Throttle v1.2 ──
 	   Fietz Widget registriert 4 scroll-Listener die nach jedem Scroll-Stop
 	   getComputedStyle auf 4600+ Elementen aufrufen (10.000+ Aufrufe/Sek).
 	   Dieser Patch faengt addEventListener('scroll') ab und ersetzt die
 	   Widget-Callbacks durch eine stark gedrosselte Version (2s idle-Debounce).
-	   Muss VOR dem Widget-Script geladen werden (synchron, kein async). *}
+	   v1.2: Erkennung via FIETZ_ACCESSIBILITY_CONFIG Existenz —
+	   die Config wird am Anfang des Widget-Scripts definiert, BEVOR die
+	   scroll-Listener registriert werden. Dadurch wird der StickyHeader
+	   scroll-Listener (registriert VOR dem Widget) nicht abgefangen. *}
 	<script>
 	(function() {
-	  /* FAW Performance-Throttle v1.0
-	     Patcht addEventListener um die 4 Fietz-Widget scroll-Listener
-	     mit 2s idle-Debounce zu versehen statt 200-400ms.
-	     Restore nach 5s (Widget ist async, braucht ~1-2s zum Laden+Init). */
+	  /* FAW Performance-Throttle v1.2
+	     Erkennt FAW-Kontext ueber FIETZ_ACCESSIBILITY_CONFIG.
+	     Das Widget definiert diese Variable am Script-Anfang, noch bevor
+	     es seine scroll-Listener registriert. Alle scroll-Listener die
+	     VOR dem Widget registriert werden (z.B. StickyHeader) passieren
+	     den Patch ungehindert. */
 	  var origAdd = EventTarget.prototype.addEventListener;
 	  var fawScrollCount = 0;
 	  EventTarget.prototype.addEventListener = function(type, fn, opts) {
-	    if (type === 'scroll' && this === window && fawScrollCount < 4) {
+	    if (type === 'scroll' && this === window
+	        && typeof FIETZ_ACCESSIBILITY_CONFIG !== 'undefined'
+	        && fawScrollCount < 4) {
 	      fawScrollCount++;
 	      var timer = null;
 	      var wrapped = function() {
@@ -413,10 +420,10 @@
 	    }
 	    return origAdd.call(this, type, fn, opts);
 	  };
-	  /* Restore nach 5 Sekunden — Widget ist dann sicher geladen */
+	  /* Restore nach 8 Sekunden — Widget ist dann sicher geladen+initialisiert */
 	  setTimeout(function() {
 	    EventTarget.prototype.addEventListener = origAdd;
-	  }, 5000);
+	  }, 8000);
 	})();
 	</script>
 	<script async src="{$tpl_path}assets/fietz-accessibility-widget/fietz-accessibility-widget.min.js"></script>
