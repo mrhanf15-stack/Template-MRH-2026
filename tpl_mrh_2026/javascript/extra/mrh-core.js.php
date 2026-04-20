@@ -151,6 +151,9 @@
   MRH.StickyHeader = {
     lastScroll: 0,
     headerHeight: 0,
+    isSticky: false,
+    ticking: false,
+    spacer: null,
 
     init: function() {
       var header = MRH.Utils.qs('#main-header');
@@ -158,30 +161,62 @@
       this.header = header;
       this.headerHeight = header.offsetHeight;
 
-      // Sticky-Klasse nur bei Scroll nach unten > Headerhöhe
-      window.addEventListener('scroll', MRH.Utils.throttle(this.onScroll.bind(this), 100), { passive: true });
+      // Spacer-Element erstellen (verhindert Content-Sprung)
+      this.spacer = document.createElement('div');
+      this.spacer.id = 'mrh-sticky-spacer';
+      this.spacer.style.cssText = 'display:none;height:0;margin:0;padding:0;border:0;';
+      header.parentNode.insertBefore(this.spacer, header.nextSibling);
+
+      // Scroll via requestAnimationFrame fuer fluessige Darstellung
+      var self = this;
+      window.addEventListener('scroll', function() {
+        if (!self.ticking) {
+          window.requestAnimationFrame(function() {
+            self.onScroll();
+            self.ticking = false;
+          });
+          self.ticking = true;
+        }
+      }, { passive: true });
+
+      // Header-Hoehe bei Resize neu berechnen
+      window.addEventListener('resize', MRH.Utils.throttle(function() {
+        if (!self.isSticky) {
+          self.headerHeight = header.offsetHeight;
+        }
+      }, 250), { passive: true });
     },
 
     onScroll: function() {
       var st = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (st > this.headerHeight + 100) {
-        // Scrolled past header
-        if (!this.header.classList.contains('mrh-sticky')) {
-          this.header.classList.add('mrh-sticky');
-        }
-        // Show/Hide basierend auf Scroll-Richtung
-        if (st > this.lastScroll && st > this.headerHeight + 200) {
-          // Scroll Down → Header verstecken
+      // Hysterese: Aktivierung bei headerHeight + 80, Deaktivierung bei headerHeight + 20
+      var activateAt = this.headerHeight + 80;
+      var deactivateAt = this.headerHeight + 20;
+
+      if (!this.isSticky && st > activateAt) {
+        // Sticky aktivieren + Spacer einblenden
+        this.spacer.style.display = 'block';
+        this.spacer.style.height = this.headerHeight + 'px';
+        this.header.classList.add('mrh-sticky');
+        this.isSticky = true;
+      } else if (this.isSticky && st <= deactivateAt) {
+        // Sticky deaktivieren + Spacer ausblenden
+        this.header.classList.remove('mrh-sticky', 'mrh-sticky-hidden');
+        this.spacer.style.display = 'none';
+        this.isSticky = false;
+      }
+
+      // Show/Hide basierend auf Scroll-Richtung (nur wenn sticky)
+      if (this.isSticky) {
+        if (st > this.lastScroll && st > activateAt + 120) {
+          // Scroll Down -> Header verstecken
           this.header.classList.add('mrh-sticky-hidden');
         } else {
-          // Scroll Up → Header zeigen
+          // Scroll Up -> Header zeigen
           this.header.classList.remove('mrh-sticky-hidden');
         }
-      } else {
-        this.header.classList.remove('mrh-sticky', 'mrh-sticky-hidden');
       }
-      
+
       this.lastScroll = st;
     }
   };
