@@ -457,3 +457,10 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Datei:** `tpl_mrh_2026/javascript/mrh_core.js`
 - **Problem:** `MRH.Utils.initLazyLoad is not a function` TypeError bricht die gesamte init()-Funktion ab. Dadurch wird `MRH.Collapse.init()` zwar aufgerufen (Zeile davor), aber `MRH.Events.emit('mrh:ready')` läuft nicht mehr. Bei bestimmten Cache-Konstellationen kann auch Collapse betroffen sein.
 - **Lösung:** Jeder init()-Aufruf einzeln in try-catch gewrappt. Collapse läuft immer, LazyLoad wird nur aufgerufen wenn die Funktion existiert, Ready-Event hat eigenen try-catch. Version auf 1.1.1 erhöht.
+
+### Fix 15e – mrh_core.js v1.2.0: jQuery BS4-Collapse-Konflikt behoben
+- **Datum:** 2026-04-20
+- **Datei:** `tpl_mrh_2026/javascript/mrh_core.js`
+- **Problem:** jQuery 3.6.0 ist auf der Seite geladen und hat ein BS4-Collapse-Plugin (`$.fn.collapse`). Dieses registriert einen eigenen Click-Handler auf `[data-toggle="collapse"]` via `$(document).on('click.bs.collapse.data-api', ...)`. Wenn der User auf einen FAQ-Button klickt, feuern BEIDE Handler gleichzeitig: MRH.Collapse öffnet das Panel, jQuery-Collapse sieht es als offen und schließt es sofort wieder. Netto-Ergebnis: nichts passiert visuell.
+- **Lösung:** In `init()` wird vor `MRH.Collapse.init()` der jQuery-Collapse-Handler entfernt: `jQuery(document).off('click.bs.collapse.data-api')`. Dadurch ist nur noch MRH.Collapse aktiv. Version auf 1.2.0 erhöht.
+- **Verifizierung:** Auf der Live-Seite getestet – nach Entfernen des jQuery-Handlers öffnen sich alle FAQ-Accordions korrekt.

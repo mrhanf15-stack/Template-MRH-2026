@@ -22,7 +22,7 @@ window.MRH = MRH;
 /**
  * Versionsinformation
  */
-MRH.version = '1.1.1';
+MRH.version = '1.2.0';
 
 // ---------------------------------------------------------------
 // 2. Event-System (Pub/Sub)
@@ -440,6 +440,16 @@ MRH.Collapse = {
 // Init: Sofort ausfuehren wenn DOM bereits ready, sonst auf DOMContentLoaded warten
 (function() {
   function init() {
+    // jQuery BS4 Collapse-Handler deaktivieren (Konflikt mit MRH.Collapse)
+    // jQuery $.fn.collapse registriert einen eigenen Click-Handler auf
+    // [data-toggle="collapse"], der mit unserem Vanilla-JS-Handler kollidiert.
+    // Beide feuern gleichzeitig: MRH oeffnet, jQuery schliesst -> netto passiert nichts.
+    try {
+      if (window.jQuery) {
+        jQuery(document).off('click.bs.collapse.data-api');
+      }
+    } catch(e) { console.warn('[MRH] jQuery collapse cleanup skipped:', e); }
+
     // Collapse MUSS immer laufen (FAQ-Accordion)
     try { MRH.Collapse.init(); } catch(e) { console.error('[MRH] Collapse init error:', e); }
     // LazyLoad ist optional
