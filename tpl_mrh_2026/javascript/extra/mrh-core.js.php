@@ -198,15 +198,19 @@
       }, 250), { passive: true });
     },
 
-    // Klassen-Aenderung gebatcht: className direkt setzen statt classList
-    // Reduziert MutationObserver-Callbacks (Fietz Widget) auf 1 statt N
-    setHeaderClass: function(sticky, hidden) {
-      var base = 'container-fluid';
-      if (sticky) base += ' mrh-sticky';
-      if (hidden) base += ' mrh-sticky-hidden';
-      // Nur aendern wenn sich der Wert tatsaechlich unterscheidet
-      if (this.header.className !== base) {
-        this.header.className = base;
+    // Data-Attribute statt CSS-Klassen: Fietz Widget MutationObserver
+    // ueberwacht nur class/style Aenderungen, nicht data-* Attribute.
+    // Dadurch werden 0 getComputedStyle-Aufrufe beim Sticky-Wechsel ausgeloest.
+    setHeaderState: function(sticky, hidden) {
+      if (sticky) {
+        if (! this.header.hasAttribute('data-sticky')) this.header.setAttribute('data-sticky', '');
+      } else {
+        if (this.header.hasAttribute('data-sticky')) this.header.removeAttribute('data-sticky');
+      }
+      if (hidden) {
+        if (! this.header.hasAttribute('data-sticky-hidden')) this.header.setAttribute('data-sticky-hidden', '');
+      } else {
+        if (this.header.hasAttribute('data-sticky-hidden')) this.header.removeAttribute('data-sticky-hidden');
       }
     },
 
@@ -235,9 +239,9 @@
         }
       }
 
-      // Nur 1x className setzen pro Frame (batched)
+      // Nur aendern wenn sich der State tatsaechlich aendert
       if (this.isSticky !== this._prevSticky || nowHidden !== this.wasHidden) {
-        this.setHeaderClass(this.isSticky, nowHidden);
+        this.setHeaderState(this.isSticky, nowHidden);
         this._prevSticky = this.isSticky;
         this.wasHidden = nowHidden;
       }

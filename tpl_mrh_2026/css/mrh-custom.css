@@ -693,7 +693,7 @@ div.navibar,
 /* ============================================================
    05 STICKY HEADER
    ============================================================ */
-#main-header.mrh-sticky {
+#main-header[data-sticky] {
   position: fixed;
   top: 0;
   left: 0;
@@ -703,39 +703,39 @@ div.navibar,
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: transform 0.3s ease;
 }
-#main-header.mrh-sticky .header-wrapper {
+#main-header[data-sticky] .header-wrapper {
   padding: 4px 0;
 }
-#main-header.mrh-sticky .logo-top {
+#main-header[data-sticky] .logo-top {
   max-height: 52px !important;
 }
 
 /* Sticky Header: Navigation-Row ausblenden um Platz zu sparen */
-#main-header.mrh-sticky .main-header-menu-row {
+#main-header[data-sticky] .main-header-menu-row {
   display: none;
 }
 /* Sticky Header: Hamburger-Menü auf Desktop anzeigen (Navigation ist ausgeblendet) */
-#main-header.mrh-sticky #toggle_mobilemenu {
+#main-header[data-sticky] #toggle_mobilemenu {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer;
 }
-#main-header.mrh-sticky #toggle_mobilemenu .fa-solid {
+#main-header[data-sticky] #toggle_mobilemenu .fa-solid {
   font-size: 20px;
   color: var(--mrh-sticky-text, var(--tpl-text-standard));
   transition: color 0.2s ease;
 }
-#main-header.mrh-sticky #toggle_mobilemenu:hover .fa-solid,
-#main-header.mrh-sticky #toggle_mobilemenu:hover .btn-desc {
+#main-header[data-sticky] #toggle_mobilemenu:hover .fa-solid,
+#main-header[data-sticky] #toggle_mobilemenu:hover .btn-desc {
   color: var(--tpl-main-color);
 }
-#main-header.mrh-sticky #toggle_mobilemenu .btn-desc {
+#main-header[data-sticky] #toggle_mobilemenu .btn-desc {
   font-size: 10px !important;
   margin-top: 2px !important;
 }
-#main-header.mrh-sticky-hidden {
+#main-header[data-sticky-hidden] {
   transform: translateY(-100%);
 }
 @keyframes mrh-slideDown {
@@ -7057,31 +7057,31 @@ html.mrh-smooth-scroll {
 }
 
 /* --- B) Mega-Menü im Sticky-Header begrenzen --- */
-#main-header.mrh-sticky .mrh-mega-dropdown {
+#main-header[data-sticky] .mrh-mega-dropdown {
   max-height: calc(100vh - 80px);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 /* Mega-Menü-Dropdown im Sticky: Schatten anpassen */
-#main-header.mrh-sticky .mrh-mega-dropdown.open {
+#main-header[data-sticky] .mrh-mega-dropdown.open {
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 /* Mega-Menü schliessen bei Sticky-Uebergang */
-#main-header:not(.mrh-sticky) .mrh-mega-dropdown,
-#main-header.mrh-sticky-hidden .mrh-mega-dropdown {
+#main-header:not([data-sticky]) .mrh-mega-dropdown,
+#main-header[data-sticky-hidden] .mrh-mega-dropdown {
   display: none !important;
 }
 
 /* Scrollbar-Styling im Mega-Menü (Webkit) */
-#main-header.mrh-sticky .mrh-mega-dropdown::-webkit-scrollbar {
+#main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar {
   width: 6px;
 }
-#main-header.mrh-sticky .mrh-mega-dropdown::-webkit-scrollbar-track {
+#main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar-track {
   background: transparent;
 }
-#main-header.mrh-sticky .mrh-mega-dropdown::-webkit-scrollbar-thumb {
+#main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar-thumb {
   background: rgba(0,0,0,0.15);
   border-radius: 3px;
 }
