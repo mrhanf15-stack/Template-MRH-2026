@@ -443,3 +443,12 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Problem:** BS4→BS5 Bridge funktionierte nicht, da Bootstrap 5 Collapse die nachträglich konvertierten Attribute nicht erkannte
 - **Lösung:** Komplett neuer Vanilla JS Collapse-Handler (`MRH.Collapse`), der direkt auf `data-toggle="collapse"` reagiert – ohne jegliche Bootstrap-Abhängigkeit
 - **Features:** Slide-Animation (350ms), Accordion-Verhalten (data-parent), collapsed-Klasse, aria-expanded, Event-Delegation
+### Fix 16 – FAQ-Farben im Konfigurator (Defaults hinzugefügt)
+- **Datum:** 2026-04-20
+- **Dateien:** `config/default_colors.json`, `css/general.css.php`
+- **Problem:** FAQ-Farbfelder im Konfigurator-Panel (Tab 13) waren zwar als UI-Felder vorhanden, aber die Default-Werte fehlten in `default_colors.json` und im `$defaults`-Array von `general.css.php`. Dadurch wurden die `--tpl-faq-*` CSS-Variablen nie gesetzt und die Farben konnten nicht live bearbeitet werden.
+- **Lösung:**
+  1. 30 FAQ-Keys mit passenden Defaults in `default_colors.json` hinzugefügt
+  2. 30 FAQ-Keys mit identischen Defaults im `$defaults`-Array von `general.css.php` hinzugefügt
+  3. Konfigurator-Panel (Tab 13) und `validColorKeys` in `templateconfig.php` waren bereits korrekt vorhanden
+- **Betroffene Variablen:** `--tpl-faq-header-bg`, `--tpl-faq-header-gradient`, `--tpl-faq-header-text`, `--tpl-faq-header-radius`, `--tpl-faq-subheader-bg/gradient/text`, `--tpl-faq-card-bg/border/radius`, `--tpl-faq-accent`, `--tpl-faq-btn-bg/text/hover-bg/hover-text/active-bg/active-text/active-hover`, `--tpl-faq-icon-color/active`, `--tpl-faq-chevron-bg/color/active-bg/active-color`, `--tpl-faq-body-bg/border/text`, `--tpl-faq-grid-cols/gap/gap-md`
