@@ -412,3 +412,9 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
   - `config/content-snippets/faq-samen-shop.html` – BS5 FAQ HTML
 - **Funktionsweise:** Jede `.html`-Datei in `config/content-snippets/` erscheint automatisch im Content-Tab mit Vorschau, Code-Anzeige und Kopier-Button
 - **Commit:** $(date +%Y-%m-%d)
+
+### Fix 14 – BS4 Accordion Compatibility Layer (Sektion 32)
+- **Datei:** `tpl_mrh_2026/css/mrh-custom.css`
+- **Problem:** Content-Seiten (z.B. /samen-shop/) nutzen altes BS4-Accordion-HTML (card, card-header, data-toggle). Im BS5-Template werden diese nicht korrekt gestylt.
+- **Lösung:** CSS-Compatibility-Layer mappt BS4-Klassen (.card.faq-card, .card-header.faq-header, .card-body.faq-body) auf MRH-2026 FAQ-Design-Variablen (--tpl-faq-*). Inline font-size und color Overrides werden neutralisiert. BS4 .mr-* Utilities als Fallback definiert.
+- **Commit:** $(date +%Y-%m-%d)
