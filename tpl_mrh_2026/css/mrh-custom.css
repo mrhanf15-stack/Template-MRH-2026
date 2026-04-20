@@ -6907,3 +6907,93 @@ html, body {
   .contentpage-content .collapse,
   .faq-section .collapse { display: block !important; height: auto !important; }
 }
+
+/* =================================================================
+   Fix 17 – Offenes FAQ-Design (.product-faq)
+   Kein Accordion, kein JS – alle Fragen immer sichtbar.
+   Verwendet dl/dt/dd Struktur mit Schema.org FAQPage Markup.
+   Farben ueber --tpl-faq-* Konfigurator-Variablen.
+   Datum: 2026-04-20
+   ================================================================= */
+
+/* --- Container --- */
+.product-faq {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+.product-faq h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--tpl-faq-header-text, #2C5530);
+  margin-bottom: 1.5rem;
+}
+.product-faq h2 .fa,
+.product-faq h2 .text-primary {
+  color: var(--tpl-faq-accent, #28a745);
+  margin-right: 0.5rem;
+}
+
+/* --- Einzelne FAQ-Karte --- */
+.product-faq .faq-item {
+  border: 1px solid var(--tpl-faq-card-border, #e8e8e8);
+  border-radius: var(--tpl-faq-card-radius, 8px);
+  background: var(--tpl-faq-card-bg, #ffffff);
+  margin-bottom: 1rem;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.product-faq .faq-item:hover {
+  border-color: var(--tpl-faq-accent, #28a745);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* --- dl Reset --- */
+.product-faq .faq-item dl {
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Frage (dt) --- */
+.product-faq .faq-question {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tpl-faq-btn-text, #333333);
+  margin: 0 0 0.65rem;
+  padding: 0;
+  line-height: 1.45;
+}
+
+/* --- Antwort (dd) --- */
+.product-faq .faq-answer {
+  margin: 0;
+  padding: 0;
+}
+.product-faq .faq-answer div[itemprop="text"],
+.product-faq .faq-answer p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--tpl-faq-body-text, #555555);
+  margin: 0;
+}
+.product-faq .faq-answer p + p {
+  margin-top: 0.75rem;
+}
+
+/* --- Responsive: volle Breite ab md --- */
+@media (min-width: 768px) {
+  .product-faq {
+    max-width: 100%;
+  }
+  .product-faq .faq-item {
+    padding: 1.5rem 1.75rem;
+  }
+}
+
+/* --- Print: Alles sichtbar, kein Schatten --- */
+@media print {
+  .product-faq .faq-item {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}

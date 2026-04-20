@@ -464,3 +464,8 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Problem:** jQuery 3.6.0 ist auf der Seite geladen und hat ein BS4-Collapse-Plugin (`$.fn.collapse`). Dieses registriert einen eigenen Click-Handler auf `[data-toggle="collapse"]` via `$(document).on('click.bs.collapse.data-api', ...)`. Wenn der User auf einen FAQ-Button klickt, feuern BEIDE Handler gleichzeitig: MRH.Collapse öffnet das Panel, jQuery-Collapse sieht es als offen und schließt es sofort wieder. Netto-Ergebnis: nichts passiert visuell.
 - **Lösung:** In `init()` wird vor `MRH.Collapse.init()` der jQuery-Collapse-Handler entfernt: `jQuery(document).off('click.bs.collapse.data-api')`. Dadurch ist nur noch MRH.Collapse aktiv. Version auf 1.2.0 erhöht.
 - **Verifizierung:** Auf der Live-Seite getestet – nach Entfernen des jQuery-Handlers öffnen sich alle FAQ-Accordions korrekt.
+
+### Fix 17 – Offenes FAQ-Design (.product-faq) – Kein Accordion, kein JS
+- **Datum:** 2026-04-20
+- **Datei:** `tpl_mrh_2026/css/mrh-custom.css`
+- **Aenderung:** Neues CSS fuer die offene FAQ-Struktur mit `dl/dt/dd` (`.product-faq > .faq-item > dl > dt.faq-question + dd.faq-answer`). Alle Fragen sind immer sichtbar, kein Accordion, kein JavaScript noetig. Farben ueber bestehende `--tpl-faq-*` Konfigurator-Variablen. Schema.org FAQPage Markup bleibt erhalten. Responsive, Print-optimiert.
