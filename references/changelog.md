@@ -1,5 +1,21 @@
 # MRH Template Changelog
 
+## 2026-04-20 – Fix: MRH_BADGES in product_info_include.html (Cross-Sell)
+
+**Problem:** Cross-Sell-Boxen ("Kunden kauften auch") zeigten alte Text-Badges ("Feminisiert", "Photoperiodisch") statt der neuen serverseitigen Icon-Badges. Das Template `product_info_include.html` gab `MRH_BADGES` nicht aus.
+
+**Fix:**
+- `{$module_data.MRH_BADGES}` zwischen `lb_title` und `lb_desc` eingefuegt
+- PHP-Enrichment in `also_purchased_products.php` hinzugefuegt (Repo: mrh-modified-autoinclude)
+- JS-Skip in `mrh2026.js` fuer Listings mit vorhandenen serverseitigen Badges
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `module/includes/product_info_include.html` | Template-MRH-2026 | MRH_BADGES Ausgabe hinzugefuegt |
+| `includes/modules/also_purchased_products.php` | mrh-modified-autoinclude | Badge-Enrichment fuer Cross-Sell |
+| `admin/mrh_product_attributes.php` | mrh-modified-autoinclude | bgcolor/bordercolor im Save-Handler |
+| `javascript/mrh2026.js` | Server-direkt | v7.1 Skip wenn serverseitige Badges vorhanden |
+
 ## 2026-04-20 – HOTFIX: Icon Font Protection v2.0 (FA7-kompatibel)
 
 **Problem:** FontAwesome-Icons wurden nicht angezeigt oder getauscht. Die Icon Font Protection v1.0/v1.1 setzte `font-family: "Font Awesome 6 Free" ... !important` auf alle FA-Klassen. Aber der Shop nutzt **FontAwesome 7** (`fontawesome-7.css`), das CSS Custom Properties (`--fa-family-classic = 'Font Awesome 7 Pro'`) fuer die Schriftart verwendet. Der `!important`-Override mit FA6-Schriftnamen ueberschrieb die FA7-Variablen mit nicht-existierenden Fonts.
