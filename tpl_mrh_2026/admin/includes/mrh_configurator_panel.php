@@ -79,6 +79,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="seedfinder"><i class="fa fa-cannabis me-1"></i>Seedfinder</div>
     <div class="mrh-tab" data-tab="blog"><i class="fa fa-newspaper me-1"></i>Blog</div>
     <div class="mrh-tab" data-tab="faq"><i class="fa fa-circle-question me-1"></i>FAQ</div>
+    <div class="mrh-tab" data-tab="content"><i class="fa fa-file-code me-1"></i>Content</div>
 </div>
 
 <!-- ================================================================== -->
@@ -4143,6 +4144,64 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </script>
 
 </div><!-- /#tab-faq -->
+
+<!-- ================================================================== -->
+<!-- TAB 14: CONTENT (HTML-Snippets) -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-content">
+<h5 class="mb-3"><i class="fa fa-file-code me-2"></i>Content-Bausteine (BS5)</h5>
+<p class="text-muted small mb-3">Fertige HTML-Snippets f&uuml;r Content-Seiten. Code kopieren und im Content-Manager einf&uuml;gen. Alle Snippets nutzen Bootstrap 5 und die MRH-2026 CSS-Klassen.</p>
+
+<?php
+// Content-Snippets aus config/content-snippets/ laden
+$snippetDir = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/config/content-snippets/';
+if (is_dir($snippetDir)) {
+    $snippetFiles = glob($snippetDir . '*.html');
+    if (!empty($snippetFiles)) {
+        sort($snippetFiles);
+        foreach ($snippetFiles as $idx => $file) {
+            $basename = basename($file, '.html');
+            $label = ucwords(str_replace('-', ' ', $basename));
+            $content = file_get_contents($file);
+            $snippetId = 'snippet-' . $idx;
+?>
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="document.getElementById('<?php echo $snippetId; ?>').classList.toggle('d-none')">
+        <strong><i class="fa fa-code me-2"></i><?php echo htmlspecialchars($label); ?></strong>
+        <span class="badge bg-success">BS5</span>
+    </div>
+    <div id="<?php echo $snippetId; ?>" class="d-none">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Vorschau:</label>
+                <div class="border rounded p-3" style="background:#f8f9fa;max-height:400px;overflow-y:auto;">
+                    <?php echo $content; ?>
+                </div>
+            </div>
+            <div class="mb-2">
+                <label class="form-label fw-bold">HTML-Code:</label>
+                <textarea class="form-control" rows="12" readonly onclick="this.select()" style="font-family:monospace;font-size:12px;"><?php echo htmlspecialchars($content); ?></textarea>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-success" onclick="var ta=this.previousElementSibling.querySelector('textarea');ta.select();document.execCommand('copy');this.textContent='Kopiert!';var b=this;setTimeout(function(){b.textContent='Code kopieren';},2000);">
+                <i class="fa fa-copy me-1"></i>Code kopieren
+            </button>
+        </div>
+    </div>
+</div>
+<?php
+        }
+    } else {
+        echo '<div class="alert alert-info"><i class="fa fa-info-circle me-2"></i>Keine Content-Snippets vorhanden. Lege HTML-Dateien in <code>config/content-snippets/</code> ab.</div>';
+    }
+} else {
+    echo '<div class="alert alert-warning"><i class="fa fa-exclamation-triangle me-2"></i>Verzeichnis <code>config/content-snippets/</code> nicht gefunden.</div>';
+}
+?>
+
+<div class="alert alert-secondary mt-3">
+    <i class="fa fa-lightbulb me-2"></i><strong>Tipp:</strong> Neue Snippets als <code>.html</code>-Datei in <code>templates/tpl_mrh_2026/config/content-snippets/</code> ablegen. Sie erscheinen automatisch hier.
+</div>
+</div><!-- /#tab-content -->
 
 </div><!-- /#mrh-configurator-v4 -->
 

@@ -396,3 +396,19 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
   - `config/default_colors.json` – Default-Wert (#fff)
   - `css/mrh-custom.css` – Sektion 31: `.contentpage-content` Styling
 - **Commit:** $(date +%Y-%m-%d)
+
+### Feature: Content-Tab im Konfigurator + BS5 FAQ-Snippet (Tab 14)
+- **Neuer Tab:** "Content" im TPL-Konfigurator – zeigt HTML-Snippets aus `config/content-snippets/`
+- **Erstes Snippet:** `faq-samen-shop.html` – BS5-Accordion FAQ für /samen-shop/
+- **Änderungen am BS4→BS5 Accordion:**
+  - `data-toggle` → `data-bs-toggle`, `data-target` → `data-bs-target`, `data-parent` → `data-bs-parent`
+  - `card` + `card-header` + `card-body` → flaches `.faq-card` + `.faq-button` + `.faq-body`
+  - `mr-2` → `me-2` (BS5 Margin-Utilities)
+  - Alle `data-faw-*` Attribute und inline `style="font-size:16px"` entfernt
+  - Schema.org FAQPage Markup beibehalten
+  - Nutzt bestehende FAQ v3 CSS-Klassen (Sektion 4522 in mrh-custom.css)
+- **Dateien:**
+  - `admin/includes/mrh_configurator_panel.php` – Tab 14 "Content" + Tab-Navigation
+  - `config/content-snippets/faq-samen-shop.html` – BS5 FAQ HTML
+- **Funktionsweise:** Jede `.html`-Datei in `config/content-snippets/` erscheint automatisch im Content-Tab mit Vorschau, Code-Anzeige und Kopier-Button
+- **Commit:** $(date +%Y-%m-%d)
