@@ -7153,3 +7153,52 @@ html.mrh-smooth-scroll {
 [class^="icon-"]::before {
   font-family: "Simple-Line-Icons" !important;
 }
+
+/* ==========================================================================
+   SEEDFINDER FILTER MODAL – Checkbox-Layout Fix
+   Stellt sicher, dass Filter-Checkboxen untereinander (vertikal) statt
+   nebeneinander (horizontal) angezeigt werden.
+   
+   Problem: Das JS generiert .mrh-filter-checkbox Labels mit
+   display: inline-block → sie fliessen horizontal nebeneinander.
+   Fix: Container auf flex-column setzen, Labels auf display: flex.
+   Stand: 2026-04-20
+   ========================================================================== */
+
+/* Container: Checkboxen vertikal stapeln */
+.mrh-filter-values {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+/* Einzelne Checkbox-Labels: flex für Ausrichtung */
+.mrh-filter-checkbox {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 4px 0 !important;
+}
+
+/* Checkbox-Input Styling innerhalb mrh-filter */
+.mrh-filter-checkbox .form-check-input,
+.mrh-filter-checkbox .mrh-filter-cb {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Value-Name und Count */
+.mrh-filter-checkbox .mrh-filter-value-name {
+  flex: 1 1 auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.mrh-filter-checkbox .mrh-filter-value-count {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: #999;
+  margin-left: auto;
+}

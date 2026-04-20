@@ -18,6 +18,19 @@ FA7-Icons haben NICHT die Klasse `.fa`, sondern `.fa-solid`, `.fa-regular` etc. 
 | `css/mrh-custom.css` | Template-MRH-2026 | Icon Font Protection v3.0: ::before Schutz fuer alle FA7-Stile + SLI |
 
 
+## 2026-04-20 – Fix: Seedfinder Filter-Checkboxen Layout
+
+**Problem:** Die Filter-Checkboxen im Seedfinder-Modal (`.mrh-filter-checkbox`) hatten `display: inline-block` und wurden nebeneinander statt untereinander angezeigt.
+
+**Fix:** CSS-Override in `mrh-custom.css`:
+- `.mrh-filter-values` auf `display: flex; flex-direction: column` gesetzt
+- `.mrh-filter-checkbox` auf `display: flex; align-items: center` gesetzt
+- Checkbox-Input, Value-Name und Count korrekt ausgerichtet
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Seedfinder Filter Checkbox Layout Fix (vertikal statt horizontal) |
+
 # MRH Template Changelog
 
 ## 2026-04-20 – Fix: MRH_BADGES in product_info_include.html (Cross-Sell)
