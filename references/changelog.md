@@ -1,5 +1,15 @@
 # MRH Template Changelog
 
+## 2026-04-20 – HOTFIX: Icon Font Protection v2.0 (FA7-kompatibel)
+
+**Problem:** FontAwesome-Icons wurden nicht angezeigt oder getauscht. Die Icon Font Protection v1.0/v1.1 setzte `font-family: "Font Awesome 6 Free" ... !important` auf alle FA-Klassen. Aber der Shop nutzt **FontAwesome 7** (`fontawesome-7.css`), das CSS Custom Properties (`--fa-family-classic = 'Font Awesome 7 Pro'`) fuer die Schriftart verwendet. Der `!important`-Override mit FA6-Schriftnamen ueberschrieb die FA7-Variablen mit nicht-existierenden Fonts.
+
+**Fix:** FA6-font-family-Block komplett entfernt. FA7 darf NICHT mit hardcoded font-family ueberschrieben werden. Nur Simple-Line-Icons Schutz beibehalten.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Icon Font Protection v2.0: FA6-Block entfernt, nur SLI-Schutz |
+
 ## 2026-04-20 – Fix: Icon Font Protection v1.1 (FA-Icons sichtbar)
 
 **Problem:** FontAwesome-Icons wurden nicht angezeigt. Der `::before`-Block im Icon Font Protection CSS (v1.0) setzte `font-family: inherit !important` auf alle FA-Pseudo-Elemente. Da FA-Icons ueber `::before` mit spezifischer `font-family` gerendert werden, vererbte `inherit` stattdessen die Dyslexie-Schrift.
