@@ -1,3 +1,23 @@
+## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
+
+**Problem:** Wenn im Fietz Accessibility Widget die Dyslexie-Schrift aktiviert wird, injiziert das Widget:
+```css
+html *:not(.material-icons,.fa) { font-family: OpenDyslexic3,...  !important }
+```
+FA7-Icons haben NICHT die Klasse `.fa`, sondern `.fa-solid`, `.fa-regular` etc. Dadurch greift die `:not(.fa)` Ausnahme nicht und die Icon-Fonts werden durch OpenDyslexic3 ueberschrieben → Icons verschwinden.
+
+**Fix:** CSS-Regeln die `font-family` auf den `::before` Pseudo-Elementen aller FA7-Klassen mit `!important` zuruecksetzen. Nutzt FA7 CSS Custom Properties als Werte (`var(--fa-family-classic, "Font Awesome 7 Pro")`). Deckt ab:
+- FA7 Classic (Solid, Regular, Light, Thin)
+- FA7 Brands
+- FA7 Duotone (::before + ::after)
+- FA7 Sharp
+- Simple-Line-Icons (::before hinzugefuegt)
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Icon Font Protection v3.0: ::before Schutz fuer alle FA7-Stile + SLI |
+
+
 # MRH Template Changelog
 
 ## 2026-04-20 – Fix: MRH_BADGES in product_info_include.html (Cross-Sell)
