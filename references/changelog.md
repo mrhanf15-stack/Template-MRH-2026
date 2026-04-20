@@ -426,3 +426,13 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Lösung:**
   1. mrh_core.js ins Template-Repo kopiert und in general_bottom.js.php registriert
   2. Alle CSS-Selektoren in Sektion 32 um `.faq-section` erweitert
+
+### Fix 15b: BS4 Bridge – Bootstrap manuell initialisieren nach Konvertierung
+- **Datum:** 2026-04-20
+- **Dateien:** `javascript/mrh_core.js`
+- **Problem:** Bridge konvertierte Attribute korrekt, aber Bootstrap 5 hatte sich bereits initialisiert → konvertierte Elemente wurden nicht erkannt → Accordion ohne Funktion
+- **Lösung:**
+  1. Nach Attribut-Konvertierung: `bootstrap.Collapse` manuell auf konvertierte Elemente initialisieren
+  2. Click-Handler manuell binden (toggle + collapsed-Klasse + aria-expanded)
+  3. Init-Logik: Sofort ausführen wenn DOM ready, statt auf DOMContentLoaded zu warten
+  4. Unterstützt auch Modal und Tab Konvertierung
