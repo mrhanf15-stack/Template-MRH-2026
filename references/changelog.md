@@ -1,3 +1,19 @@
+# MRH Template Changelog
+
+## 2026-04-20 – Fix: Icon Font Protection v1.1 (FA-Icons sichtbar)
+
+**Problem:** FontAwesome-Icons wurden nicht angezeigt. Der `::before`-Block im Icon Font Protection CSS (v1.0) setzte `font-family: inherit !important` auf alle FA-Pseudo-Elemente. Da FA-Icons ueber `::before` mit spezifischer `font-family` gerendert werden, vererbte `inherit` stattdessen die Dyslexie-Schrift.
+
+**Fix:**
+- `::before`-Block komplett entfernt (Zeilen 7124-7135 alt)
+- Basis-Klassen-Block (.fa, .fas, .fa-solid etc.) beibehalten — schuetzt korrekt
+- Simple-Line-Icons Schutz von `::before` auf Basis-Klassen geaendert
+- Version v1.0 → v1.1
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Icon Font Protection v1.1: ::before-Block entfernt, SLI-Schutz korrigiert |
+
 # MRH 2026 Template # Changelog
 
 ## 2026-04-17 – Mobile Overflow Fix + Listing Grid Breakpoints
