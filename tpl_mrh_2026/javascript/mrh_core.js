@@ -1,6 +1,6 @@
 /**
  * MRH Core JavaScript
- * Version: 1.1.0
+ * Version: 1.1.1
  * Datum: 2026-04-20
  * Abhaengigkeiten: KEINE (reines Vanilla JS)
  *
@@ -22,7 +22,7 @@ window.MRH = MRH;
 /**
  * Versionsinformation
  */
-MRH.version = '1.1.0';
+MRH.version = '1.1.1';
 
 // ---------------------------------------------------------------
 // 2. Event-System (Pub/Sub)
@@ -440,9 +440,12 @@ MRH.Collapse = {
 // Init: Sofort ausfuehren wenn DOM bereits ready, sonst auf DOMContentLoaded warten
 (function() {
   function init() {
-    MRH.Collapse.init();
-    MRH.Utils.initLazyLoad();
-    MRH.Events.emit('mrh:ready');
+    // Collapse MUSS immer laufen (FAQ-Accordion)
+    try { MRH.Collapse.init(); } catch(e) { console.error('[MRH] Collapse init error:', e); }
+    // LazyLoad ist optional
+    try { if (MRH.Utils && typeof MRH.Utils.initLazyLoad === 'function') MRH.Utils.initLazyLoad(); } catch(e) { console.warn('[MRH] LazyLoad init skipped:', e); }
+    // Ready-Event
+    try { MRH.Events.emit('mrh:ready'); } catch(e) { console.warn('[MRH] Ready event error:', e); }
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

@@ -452,3 +452,8 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
   2. 30 FAQ-Keys mit identischen Defaults im `$defaults`-Array von `general.css.php` hinzugefügt
   3. Konfigurator-Panel (Tab 13) und `validColorKeys` in `templateconfig.php` waren bereits korrekt vorhanden
 - **Betroffene Variablen:** `--tpl-faq-header-bg`, `--tpl-faq-header-gradient`, `--tpl-faq-header-text`, `--tpl-faq-header-radius`, `--tpl-faq-subheader-bg/gradient/text`, `--tpl-faq-card-bg/border/radius`, `--tpl-faq-accent`, `--tpl-faq-btn-bg/text/hover-bg/hover-text/active-bg/active-text/active-hover`, `--tpl-faq-icon-color/active`, `--tpl-faq-chevron-bg/color/active-bg/active-color`, `--tpl-faq-body-bg/border/text`, `--tpl-faq-grid-cols/gap/gap-md`
+### Fix 15d – mrh_core.js v1.1.1: Defensive init() mit try-catch
+- **Datum:** 2026-04-20
+- **Datei:** `tpl_mrh_2026/javascript/mrh_core.js`
+- **Problem:** `MRH.Utils.initLazyLoad is not a function` TypeError bricht die gesamte init()-Funktion ab. Dadurch wird `MRH.Collapse.init()` zwar aufgerufen (Zeile davor), aber `MRH.Events.emit('mrh:ready')` läuft nicht mehr. Bei bestimmten Cache-Konstellationen kann auch Collapse betroffen sein.
+- **Lösung:** Jeder init()-Aufruf einzeln in try-catch gewrappt. Collapse läuft immer, LazyLoad wird nur aufgerufen wenn die Funktion existiert, Ready-Event hat eigenen try-catch. Version auf 1.1.1 erhöht.
