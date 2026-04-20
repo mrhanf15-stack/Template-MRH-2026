@@ -152,34 +152,34 @@
     lastScroll: 0,
     initialHeight: 0,
     isSticky: false,
+    wasHidden: false,
     ticking: false,
     spacer: null,
 
     init: function() {
       var header = MRH.Utils.qs('#main-header');
-      if (!header) return;
+      if (! header) return;
       this.header = header;
-      // Initiale Hoehe einmalig speichern (173px) – aendert sich nicht
       this.initialHeight = header.offsetHeight;
 
-      // GPU-Layer vorbereiten fuer fluessige transform-Animation
+      // CSS containment: begrenzt Layout-Neuberechnungen auf den Header
+      header.style.contain = 'layout style';
       header.style.willChange = 'transform';
 
-      // Spacer-Element erstellen (verhindert Content-Sprung)
+      // Spacer-Element (verhindert Content-Sprung)
       this.spacer = document.createElement('div');
       this.spacer.id = 'mrh-sticky-spacer';
       this.spacer.style.cssText = 'display:none;height:' + this.initialHeight + 'px;margin:0;padding:0;border:0;';
       header.parentNode.insertBefore(this.spacer, header.nextSibling);
 
-      // Grosse Hysterese: Aktivierung weit unter Header, Deaktivierung erst ganz oben
-      // activateAt = initialHeight * 2 (~346px), deactivateAt = 50px
+      // Grosse Hysterese gegen Oszillation
       this.activateAt = Math.round(this.initialHeight * 2);
       this.deactivateAt = 50;
 
-      // Scroll via requestAnimationFrame fuer fluessige Darstellung
+      // Scroll via requestAnimationFrame
       var self = this;
       window.addEventListener('scroll', function() {
-        if (!self.ticking) {
+        if (! self.ticking) {
           window.requestAnimationFrame(function() {
             self.onScroll();
             self.ticking = false;
@@ -188,9 +188,9 @@
         }
       }, { passive: true });
 
-      // Initiale Hoehe bei Resize nur wenn nicht sticky
+      // Resize: Hoehe neu berechnen wenn nicht sticky
       window.addEventListener('resize', MRH.Utils.throttle(function() {
-        if (!self.isSticky) {
+        if (! self.isSticky) {
           self.initialHeight = header.offsetHeight;
           self.spacer.style.height = self.initialHeight + 'px';
           self.activateAt = Math.round(self.initialHeight * 2);
@@ -198,28 +198,48 @@
       }, 250), { passive: true });
     },
 
+    // Klassen-Aenderung gebatcht: className direkt setzen statt classList
+    // Reduziert MutationObserver-Callbacks (Fietz Widget) auf 1 statt N
+    setHeaderClass: function(sticky, hidden) {
+      var base = 'container-fluid';
+      if (sticky) base += ' mrh-sticky';
+      if (hidden) base += ' mrh-sticky-hidden';
+      // Nur aendern wenn sich der Wert tatsaechlich unterscheidet
+      if (this.header.className !== base) {
+        this.header.className = base;
+      }
+    },
+
     onScroll: function() {
       var st = window.pageYOffset || document.documentElement.scrollTop;
+      var nowHidden = this.wasHidden;
 
-      if (!this.isSticky && st > this.activateAt) {
-        // Sticky aktivieren + Spacer einblenden
+      if (! this.isSticky && st > this.activateAt) {
+        // Sticky aktivieren
         this.spacer.style.display = 'block';
-        this.header.classList.add('mrh-sticky');
         this.isSticky = true;
+        nowHidden = false;
       } else if (this.isSticky && st <= this.deactivateAt) {
-        // Sticky deaktivieren + Spacer ausblenden
-        this.header.classList.remove('mrh-sticky', 'mrh-sticky-hidden');
+        // Sticky deaktivieren
         this.spacer.style.display = 'none';
         this.isSticky = false;
+        nowHidden = false;
       }
 
       // Show/Hide basierend auf Scroll-Richtung (nur wenn sticky)
       if (this.isSticky) {
         if (st > this.lastScroll && st > this.activateAt + 120) {
-          this.header.classList.add('mrh-sticky-hidden');
-        } else {
-          this.header.classList.remove('mrh-sticky-hidden');
+          nowHidden = true;
+        } else if (st < this.lastScroll) {
+          nowHidden = false;
         }
+      }
+
+      // Nur 1x className setzen pro Frame (batched)
+      if (this.isSticky !== this._prevSticky || nowHidden !== this.wasHidden) {
+        this.setHeaderClass(this.isSticky, nowHidden);
+        this._prevSticky = this.isSticky;
+        this.wasHidden = nowHidden;
       }
 
       this.lastScroll = st;
