@@ -508,3 +508,12 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
   - **Scroll-Fix:** Bootstrap `scroll-behavior:smooth` auf `:root` deaktiviert (verursachte ruckeliges Mausrad-Scrollen). Smooth Scroll jetzt nur noch fuer Anchor-Links via neues `MRH.SmoothAnchor`-Modul in mrh_core.js.
   - **Mega-Menü-Fix:** Im Sticky-Header bekommt `.mrh-mega-dropdown` jetzt `max-height: calc(100vh - 80px)` und `overflow-y:auto`, damit es nicht ueber den Viewport hinausragt. Neues `MRH.ScrollGuard`-Modul schliesst das Mega-Menü automatisch beim Wechsel zwischen sticky und nicht-sticky Zustand.
   - mrh_core.js Version 1.3.0
+
+## 2026-04-20 – FAW Performance-Throttle v1.0
+- **index.html**: Inline-Script VOR Fietz Widget eingefügt
+  - Patcht addEventListener('scroll') um die 4 FAW scroll-Listener
+    mit 2s idle-Debounce zu versehen (statt 200-400ms)
+  - Reduziert getComputedStyle-Aufrufe von 10.000+/s auf ~5.000/2s-Burst
+  - Restore nach 5s, damit nachfolgende scroll-Listener nicht betroffen
+  - Ursache: FAW iteriert nach jedem Scroll-Stop über 4600+ Elemente
+    und ruft getComputedStyle auf jedem auf (Kontrast, ARIA, Landmarks, Alt-Text)
