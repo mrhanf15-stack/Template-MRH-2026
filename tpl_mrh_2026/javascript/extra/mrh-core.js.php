@@ -162,14 +162,12 @@
       this.header = header;
       this.initialHeight = header.offsetHeight;
 
-      // CSS containment: begrenzt Layout-Neuberechnungen auf den Header
-      header.style.contain = 'layout style';
-      header.style.willChange = 'transform';
-
       // Spacer-Element (verhindert Content-Sprung)
+      // Hoehe wird per CSS-Variable gesetzt, Sichtbarkeit per data-Attribut
+      // Kein inline-style = kein Fietz Widget style-Mutation Trigger
       this.spacer = document.createElement('div');
       this.spacer.id = 'mrh-sticky-spacer';
-      this.spacer.style.cssText = 'display:none;height:' + this.initialHeight + 'px;margin:0;padding:0;border:0;';
+      this.spacer.style.height = this.initialHeight + 'px';
       header.parentNode.insertBefore(this.spacer, header.nextSibling);
 
       // Grosse Hysterese gegen Oszillation
@@ -220,12 +218,12 @@
 
       if (! this.isSticky && st > this.activateAt) {
         // Sticky aktivieren
-        this.spacer.style.display = 'block';
+        this.spacer.setAttribute('data-active', '');
         this.isSticky = true;
         nowHidden = false;
       } else if (this.isSticky && st <= this.deactivateAt) {
         // Sticky deaktivieren
-        this.spacer.style.display = 'none';
+        this.spacer.removeAttribute('data-active');
         this.isSticky = false;
         nowHidden = false;
       }

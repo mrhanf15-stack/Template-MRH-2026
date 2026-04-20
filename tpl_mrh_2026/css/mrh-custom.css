@@ -693,6 +693,21 @@ div.navibar,
 /* ============================================================
    05 STICKY HEADER
    ============================================================ */
+/* Spacer: verhindert Content-Sprung beim Sticky-Wechsel */
+#mrh-sticky-spacer {
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+#mrh-sticky-spacer[data-active] {
+  display: block;
+}
+/* Header: contain + willChange per CSS statt JS (verhindert Fietz style-Mutation) */
+#main-header {
+  contain: layout style;
+  will-change: transform;
+}
 #main-header[data-sticky] {
   position: fixed;
   top: 0;
@@ -7103,12 +7118,20 @@ html.mrh-smooth-scroll {
 .fa-brands,
 .fa-light,
 .fa-thin,
-.fa-duotone,
-[class*=" fa-"]::before,
-[class*=" fa-"]::after,
-[class^="fa-"]::before,
-[class^="fa-"]::after {
+.fa-duotone {
   font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 6 Pro", "FontAwesome" !important;
+}
+.fa-solid::before,
+.fa-regular::before,
+.fa-brands::before,
+.fa-light::before,
+.fa-thin::before,
+.fa-duotone::before,
+.fas::before,
+.far::before,
+.fab::before,
+.fal::before {
+  font-family: inherit !important;
 }
 /* Simple Line Icons Schutz */
 [class*=" icon-"]::before,
