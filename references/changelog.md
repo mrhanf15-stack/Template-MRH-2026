@@ -474,3 +474,11 @@ Alle drei Listing-Templates auf natives Browser-Lazyloading umgestellt:
 - **Datum:** 2026-04-20
 - **Datei:** `tpl_mrh_2026/css/mrh-custom.css`
 - **Aenderung:** FA-Icons mit `d-block` Klasse (z.B. `.fa.d-block`, `.fa-solid.d-block`) in Content-Bereichen (.contentpage-content, .content_body, .hub-card, .text-center) werden jetzt mit `margin-left:auto; margin-right:auto` zentriert. Vorher waren sie links ausgerichtet, weil `text-align:center` nur Inline-Kinder zentriert, nicht Block-Elemente mit fester Breite.
+
+### Fix 19 – Scroll-Erlebnis + Mega-Menü im Sticky-Header
+- **Datum:** 2026-04-20
+- **Dateien:** `tpl_mrh_2026/css/mrh-custom.css`, `tpl_mrh_2026/javascript/mrh_core.js`
+- **Aenderungen:**
+  - **Scroll-Fix:** Bootstrap `scroll-behavior:smooth` auf `:root` deaktiviert (verursachte ruckeliges Mausrad-Scrollen). Smooth Scroll jetzt nur noch fuer Anchor-Links via neues `MRH.SmoothAnchor`-Modul in mrh_core.js.
+  - **Mega-Menü-Fix:** Im Sticky-Header bekommt `.mrh-mega-dropdown` jetzt `max-height: calc(100vh - 80px)` und `overflow-y:auto`, damit es nicht ueber den Viewport hinausragt. Neues `MRH.ScrollGuard`-Modul schliesst das Mega-Menü automatisch beim Wechsel zwischen sticky und nicht-sticky Zustand.
+  - mrh_core.js Version 1.3.0

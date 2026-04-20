@@ -7026,3 +7026,59 @@ html, body {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* =================================================================
+   Fix 19 – Scroll-Erlebnis verbessern + Mega-Menü im Sticky-Header
+   
+   A) Bootstrap setzt scroll-behavior:smooth auf :root, was JEDES
+      Scrollen (auch Mausrad) animiert und "hackig" wirken laesst.
+      Fix: Auf auto zuruecksetzen, smooth nur fuer Anchor-Links.
+   
+   B) Mega-Menü im Sticky-Header hat kein max-height und ragt
+      ueber den Viewport hinaus.
+      Fix: max-height + overflow-y:auto im Sticky-Modus.
+   
+   Datum: 2026-04-20
+   ================================================================= */
+
+/* --- A) Scroll-Behavior Fix --- */
+/* Bootstrap smooth scroll deaktivieren (verursacht Mausrad-Ruckeln) */
+html,
+:root {
+  scroll-behavior: auto !important;
+}
+
+/* Smooth scroll NUR fuer programmatische Anchor-Navigation */
+html.mrh-smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* --- B) Mega-Menü im Sticky-Header begrenzen --- */
+#main-header.mrh-sticky .mrh-mega-dropdown {
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Mega-Menü-Dropdown im Sticky: Schatten anpassen */
+#main-header.mrh-sticky .mrh-mega-dropdown.open {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Mega-Menü schliessen bei Sticky-Uebergang */
+#main-header:not(.mrh-sticky) .mrh-mega-dropdown,
+#main-header.mrh-sticky-hidden .mrh-mega-dropdown {
+  display: none !important;
+}
+
+/* Scrollbar-Styling im Mega-Menü (Webkit) */
+#main-header.mrh-sticky .mrh-mega-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+#main-header.mrh-sticky .mrh-mega-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+#main-header.mrh-sticky .mrh-mega-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 3px;
+}

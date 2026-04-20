@@ -1,6 +1,6 @@
 /**
  * MRH Core JavaScript
- * Version: 1.1.1
+ * Version: 1.3.0
  * Datum: 2026-04-20
  * Abhaengigkeiten: KEINE (reines Vanilla JS)
  *
@@ -22,7 +22,7 @@ window.MRH = MRH;
 /**
  * Versionsinformation
  */
-MRH.version = '1.2.0';
+MRH.version = '1.3.0';
 
 // ---------------------------------------------------------------
 // 2. Event-System (Pub/Sub)
@@ -435,7 +435,82 @@ MRH.Collapse = {
 };
 
 // ---------------------------------------------------------------
-// 8. Init
+// 8. Smooth Anchor Scroll (ersetzt Bootstrap scroll-behavior:smooth)
+// ---------------------------------------------------------------
+// Bootstrap setzt scroll-behavior:smooth auf :root, was JEDES Scrollen
+// (auch Mausrad) animiert. Wir deaktivieren das per CSS (Fix 19) und
+// implementieren smooth scroll NUR fuer Anchor-Links per JS.
+// ---------------------------------------------------------------
+MRH.SmoothAnchor = {
+  init: function() {
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href*="#"]');
+      if (!link) return;
+
+      var href = link.getAttribute('href');
+      if (!href || href === '#' || href.startsWith('#!')) return;
+
+      // Nur Anchor-Links auf derselben Seite
+      var hashIdx = href.indexOf('#');
+      if (hashIdx < 0) return;
+
+      var path = href.substring(0, hashIdx);
+      // Wenn Pfad angegeben und nicht aktuelle Seite -> normal navigieren
+      if (path && path !== window.location.pathname && path !== window.location.href.split('#')[0]) return;
+
+      var hash = href.substring(hashIdx);
+      var target;
+      try { target = document.querySelector(hash); } catch(err) { return; }
+      if (!target) return;
+
+      e.preventDefault();
+
+      // Sticky-Header-Hoehe beruecksichtigen
+      var header = document.querySelector('#main-header');
+      var offset = header ? header.offsetHeight + 16 : 16;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+      window.scrollTo({ top: top, behavior: 'smooth' });
+
+      // Hash in URL setzen ohne Scroll
+      if (history.pushState) {
+        history.pushState(null, '', hash);
+      }
+    });
+  }
+};
+
+// ---------------------------------------------------------------
+// 9. ScrollGuard – Mega-Menue bei Sticky-Uebergang schliessen
+// ---------------------------------------------------------------
+// Wenn der Header zwischen sticky und nicht-sticky wechselt,
+// muss das Mega-Menue geschlossen werden, sonst oeffnet es sich
+// in falscher Groesse.
+// ---------------------------------------------------------------
+MRH.ScrollGuard = {
+  lastStickyState: false,
+
+  init: function() {
+    var self = this;
+    var header = document.querySelector('#main-header');
+    if (!header) return;
+
+    window.addEventListener('scroll', MRH.Utils.throttle(function() {
+      var isSticky = header.classList.contains('mrh-sticky');
+
+      // Bei Sticky-Wechsel: Mega-Menue schliessen
+      if (isSticky !== self.lastStickyState) {
+        self.lastStickyState = isSticky;
+        if (MRH.MegaMenu && typeof MRH.MegaMenu.closeAll === 'function') {
+          MRH.MegaMenu.closeAll();
+        }
+      }
+    }, 50), { passive: true });
+  }
+};
+
+// ---------------------------------------------------------------
+// 10. Init
 // ---------------------------------------------------------------
 // Init: Sofort ausfuehren wenn DOM bereits ready, sonst auf DOMContentLoaded warten
 (function() {
@@ -454,6 +529,10 @@ MRH.Collapse = {
     try { MRH.Collapse.init(); } catch(e) { console.error('[MRH] Collapse init error:', e); }
     // LazyLoad ist optional
     try { if (MRH.Utils && typeof MRH.Utils.initLazyLoad === 'function') MRH.Utils.initLazyLoad(); } catch(e) { console.warn('[MRH] LazyLoad init skipped:', e); }
+    // Smooth Scroll fuer Anchor-Links (ersetzt Bootstrap scroll-behavior:smooth)
+    try { MRH.SmoothAnchor.init(); } catch(e) { console.warn('[MRH] SmoothAnchor init skipped:', e); }
+    // Mega-Menü bei Sticky-Uebergang schliessen
+    try { MRH.ScrollGuard.init(); } catch(e) { console.warn('[MRH] ScrollGuard init skipped:', e); }
     // Ready-Event
     try { MRH.Events.emit('mrh:ready'); } catch(e) { console.warn('[MRH] Ready event error:', e); }
   }
