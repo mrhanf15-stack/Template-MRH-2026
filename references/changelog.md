@@ -1,5 +1,20 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Fix: FAW getComputedStyle-Flood beim Sticky-Wechsel
+
+**Problem:** Das Fietz Accessibility Widget (FAW) ueberwacht 2671 Elemente auf der Seite. Beim Sticky-Wechsel (position:relative → fixed) loest der Browser ein Layout-Recalc aus. Das FAW reagiert darauf mit 6000-9000 getComputedStyle-Aufrufen pro Sekunde, was Scroll-Ruckler ("Hacken") verursacht. Haupttrigger: Die Free Shipping Bar Progress Fill hat `transition:width 0.5s` und der Track hat `transition:all` – diese Transitions loesen bei jedem Layout-Wechsel eine Kaskade von FAW-Rescans aus.
+
+**Fix:**
+1. **CSS:** Shipping Bar Transitions deaktiviert waehrend sticky (`body[data-sticky-active]`)
+2. **CSS:** `contain:layout style paint` auf `#mrh-shipping-bar` und `#main-header[data-sticky]`
+3. **CSS:** `contain:strict` + `will-change:transform` auf `.mrh-progress-track`
+4. **CSS:** `isolation:isolate` auf sticky Header fuer eigenen Stacking Context
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | FAW Isolation CSS-Regeln |
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | Kommentare erweitert |
+
 ## 2026-04-21 – Fix: Sticky Header Scroll-Hang (Topbar/ShippingBar Kompensation)
 
 **Problem:** Beim Scrollen "haengt" die Seite manchmal an der Topbar. Ursache: Topbar (27px) + ShippingBar (37px) = 64px sitzen UEBER dem Header im DOM-Flow. Wenn der Header sticky wird (position:fixed, top:0), verschwinden diese 64px aus dem Flow, aber der Spacer kompensiert nur die Header-Hoehe (173px). Zusaetzlich schrumpft der Header im Sticky-Modus auf 108px (NavRow ausgeblendet, Logo verkleinert), was einen 65px Content-Sprung verursacht.
