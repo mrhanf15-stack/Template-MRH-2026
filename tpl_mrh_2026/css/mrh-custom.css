@@ -1973,7 +1973,7 @@ table.tebals.wite tr:last-child td:last-child {
   display: inline-flex;
   flex-wrap: wrap;
   gap: var(--tpl-badge-bar-gap, 0.4rem);
-  margin-left: var(--tpl-badge-bar-margin, 0.4rem);
+  margin-left: 0;
   vertical-align: middle;
 }
 
