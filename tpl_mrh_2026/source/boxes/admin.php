@@ -335,6 +335,8 @@ function mrhToggleConfigurator(){
         o.classList.remove("open");
     } else {
         p.classList.add("open");
+        p.style.height="calc(100vh - 36px)";
+        p.style.overflowY="auto";
         o.classList.add("open");
     }
 }
