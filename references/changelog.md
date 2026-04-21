@@ -1,5 +1,19 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Feat: Mobile Menu Icons, Promos & Telefonnummer
+
+**Erweiterung:** Mobile Offcanvas-Menü zeigt jetzt Dashboard-Daten an:
+1. **Kategorie-Icons:** FA6 Icons aus dem Dashboard (Mobile Menü Tab) werden vor den Kategorienamen angezeigt
+2. **Promo-Banner:** HTML-Content oder Banner aus dem Dashboard, Position oben/unten konfigurierbar
+3. **Telefonnummer:** +43 512 312 411 als klickbarer Link im Offcanvas-Header
+4. **mrh-megamenu-config.js.php v1.4.0:** Gibt `MRH_MOBILE_ICONS` und `MRH_MOBILE_PROMOS` ans Frontend aus
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.4.0: mobile_icons + mobile_promos Output |
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | MobileMenu: applyIcons(), insertPromos(), phoneBar |
+| `css/mrh-custom.css` | Template-MRH-2026 | Phone-Bar, Cat-Icons, Promo-Bereiche Styling |
+
 ## 2026-04-21 – Feat: Mobile Menu Offcanvas
 
 **Problem:** Das Burger-Menü (öffnet sich nicht. `#toggle_mobilemenu` hat keine `data-bs-toggle` Attribute und `#mobiles_menu` ist ein einfaches `<nav>` ohne Bootstrap Offcanvas-Klassen. Das RevPlus-Template nutzte `mmenu.js` (jQuery Plugin), das nicht mehr geladen wird.
