@@ -366,7 +366,88 @@
   };
 
   /* ----------------------------------------------------------
-     08 MEGA-MENÜ: Vanilla JS Navigation
+     08 MOBILE MENÜ: Bootstrap Offcanvas für #mobiles_menu
+     Das Modified-Shop rendert #mobiles_menu als einfaches <nav>.
+     RevPlus nutzte mmenu.js (nicht mehr geladen).
+     Dieser Code wrappt das <nav> in Bootstrap Offcanvas-Markup
+     und verbindet den Toggle-Button.
+     ---------------------------------------------------------- */
+  MRH.MobileMenu = {
+    init: function() {
+      var nav = document.getElementById('mobiles_menu');
+      var toggle = document.getElementById('toggle_mobilemenu');
+      if (!nav || !toggle) return;
+      // Pruefen ob Bootstrap Offcanvas verfuegbar ist
+      if (typeof bootstrap === 'undefined' || !bootstrap.Offcanvas) return;
+
+      // 1. Offcanvas-Wrapper erstellen
+      var wrapper = document.createElement('div');
+      wrapper.className = 'offcanvas offcanvas-start';
+      wrapper.id = 'offcanvasMobileMenu';
+      wrapper.setAttribute('tabindex', '-1');
+      wrapper.setAttribute('aria-labelledby', 'offcanvasMobileMenuLabel');
+
+      // 2. Header mit Close-Button
+      var header = document.createElement('div');
+      header.className = 'offcanvas-header';
+      header.innerHTML = '<strong class="h3 offcanvas-title" id="offcanvasMobileMenuLabel">Men\u00fc</strong>' +
+        '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Schlie\u00dfen">' +
+        '<span class="visually-hidden">Schlie\u00dfen</span></button>';
+      wrapper.appendChild(header);
+
+      // 3. Body mit dem originalen Nav-Inhalt
+      var body = document.createElement('div');
+      body.className = 'offcanvas-body';
+      body.setAttribute('role', 'region');
+      // Nav sichtbar machen und in den Body verschieben
+      nav.style.display = 'block';
+      body.appendChild(nav);
+      wrapper.appendChild(body);
+
+      // 4. Wrapper ins DOM einfügen (vor </body>)
+      document.body.appendChild(wrapper);
+
+      // 5. Toggle-Button konfigurieren
+      toggle.setAttribute('data-bs-toggle', 'offcanvas');
+      toggle.setAttribute('href', '#offcanvasMobileMenu');
+      toggle.setAttribute('role', 'button');
+      toggle.setAttribute('aria-controls', 'offcanvasMobileMenu');
+      toggle.removeAttribute('aria-hidden');
+
+      // 6. Submenu Toggle: Klick auf Pfeil-Icons klappt Untermenues auf/zu
+      var self = this;
+      body.addEventListener('click', function(e) {
+        var arrow = e.target.closest('.icon-arrow-down, .icon-arrow-up, i[class*="icon-arrow"]');
+        if (!arrow) return;
+        e.preventDefault();
+        e.stopPropagation();
+        var li = arrow.closest('li.hassubmenu');
+        if (!li) return;
+        var sub = li.querySelector(':scope > ul');
+        if (!sub) return;
+        if (sub.style.display === 'block') {
+          sub.style.display = 'none';
+          arrow.className = arrow.className.replace('icon-arrow-up', 'icon-arrow-down');
+        } else {
+          sub.style.display = 'block';
+          arrow.className = arrow.className.replace('icon-arrow-down', 'icon-arrow-up');
+        }
+      });
+
+      // 7. Offcanvas-Events fuer body-Klasse (z-index Steuerung)
+      wrapper.addEventListener('show.bs.offcanvas', function() {
+        document.body.classList.add('offcanvas-open');
+      });
+      wrapper.addEventListener('hidden.bs.offcanvas', function() {
+        if (!document.querySelector('.offcanvas.show')) {
+          document.body.classList.remove('offcanvas-open');
+        }
+      });
+    }
+  };
+
+  /* ----------------------------------------------------------
+     09 MEGA-MENÜ: Vanilla JS Navigation
      ---------------------------------------------------------- */
   MRH.MegaMenu = {
     hoverDelay: 150,
@@ -973,6 +1054,7 @@
     MRH.LazyLoad.init();
     MRH.A11y.init();
     MRH.Performance.init();
+    MRH.MobileMenu.init();
     MRH.MegaMenu.init();
 
     // Suchleisten-Placeholder anpassen (Core liefert nur "Suchen")

@@ -7307,3 +7307,77 @@ html.mrh-smooth-scroll {
    und es gibt keine getComputedStyle-Floods mehr.
    Stand: 2026-04-21
    ============================================================ */
+
+
+/* ============================================================
+   MOBILE MENU OFFCANVAS – Styling fuer #offcanvasMobileMenu
+   Das JS wrappt #mobiles_menu in Bootstrap Offcanvas.
+   Hier: Styling fuer die Kategorie-Navigation im Offcanvas.
+   Stand: 2026-04-21
+   ============================================================ */
+
+/* Nav im Offcanvas sichtbar machen (JS setzt display:block) */
+#offcanvasMobileMenu #mobiles_menu {
+  display: block !important;
+}
+
+/* Kategorie-Liste: Reset und Basis-Styling */
+#offcanvasMobileMenu .CatNavi {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Level 1: Hauptkategorien */
+#offcanvasMobileMenu .CatNavi > li {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+#offcanvasMobileMenu .CatNavi > li > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  color: var(--tpl-text-standard, #333);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+#offcanvasMobileMenu .CatNavi > li > a:hover {
+  color: var(--tpl-main-color, #83b123);
+}
+
+/* Pfeil-Icons: Tap-Target vergroessern */
+#offcanvasMobileMenu .CatNavi i[class*="icon-arrow"] {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #999;
+  transition: transform 0.2s ease;
+}
+#offcanvasMobileMenu .CatNavi .icon-arrow-up {
+  transform: rotate(180deg);
+}
+
+/* Level 2+: Unterkategorien (standardmaessig versteckt) */
+#offcanvasMobileMenu .CatNavi ul {
+  display: none;
+  list-style: none;
+  padding: 0 0 0 16px;
+  margin: 0;
+}
+#offcanvasMobileMenu .CatNavi ul li a {
+  display: block;
+  padding: 8px 0;
+  color: var(--tpl-text-standard, #555);
+  text-decoration: none;
+  font-size: 14px;
+}
+#offcanvasMobileMenu .CatNavi ul li a:hover {
+  color: var(--tpl-main-color, #83b123);
+}
+
+/* Offcanvas-Breite auf Mobile */
+#offcanvasMobileMenu {
+  width: 300px;
+  max-width: 85vw;
+}
