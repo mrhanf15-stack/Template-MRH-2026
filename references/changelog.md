@@ -1,6 +1,26 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
-## 2026-04-21 – Fix: FAW getComputedStyle-Flood beim Sticky-Wechsel
+## 2026-04-21 – Feat: FAW Widget v1.1.0 + StickyHeader FAW_SCROLL_PAUSED
+
+**Problem:** Das FAW Widget hat 4 Scroll-Event-Handler die bei jedem Scroll-Event debounced Rescans aller ~2671 Elemente ausloesen (D/q Contrast, T Accessible Names, U Landmarks, L Alt-Text). Beim Sticky-Wechsel fuehrt das zu 6000-9000 getComputedStyle-Aufrufen/s.
+
+**Fix (FAW Widget v1.1.0):**
+1. **`window.FAW_SCROLL_PAUSED` API** – Globales Flag das externe Scripts setzen koennen
+2. **Alle 4 Scroll-Handler** pruefen `FAW_SCROLL_PAUSED` vor Rescan
+3. **Optimierte Selektoren** – D(), q() verwenden `:not([data-faw-*-processed])` im querySelectorAll
+4. **Font-Size Shortcut** – o() bei fontSize=1 nur neue Elemente ohne data-faw-orgFontSize
+
+**Fix (StickyHeader):**
+- `setHeaderState()` setzt `FAW_SCROLL_PAUSED=true` vor DOM-Aenderungen
+- Nach 2 requestAnimationFrame Frames wird `FAW_SCROLL_PAUSED=false` gesetzt
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `fietz-accessibility-widget.js` | fietz-accessibility-widget | FAW_SCROLL_PAUSED + optimierte Selektoren |
+| `fietz-accessibility-widget.min.js` | fietz-accessibility-widget | Minifizierte Produktionsversion |
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | FAW_SCROLL_PAUSED Integration in setHeaderState() |
+
+## 2026-04-21 – Fix: FAW getComputedStyle-Flood beim Sticky-Wechsel (CSS-Versuch)
 
 **Problem:** Das Fietz Accessibility Widget (FAW) ueberwacht 2671 Elemente auf der Seite. Beim Sticky-Wechsel (position:relative → fixed) loest der Browser ein Layout-Recalc aus. Das FAW reagiert darauf mit 6000-9000 getComputedStyle-Aufrufen pro Sekunde, was Scroll-Ruckler ("Hacken") verursacht. Haupttrigger: Die Free Shipping Bar Progress Fill hat `transition:width 0.5s` und der Track hat `transition:all` – diese Transitions loesen bei jedem Layout-Wechsel eine Kaskade von FAW-Rescans aus.
 
