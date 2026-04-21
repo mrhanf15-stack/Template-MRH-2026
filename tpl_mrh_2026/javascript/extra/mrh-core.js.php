@@ -387,7 +387,7 @@
       wrapper.setAttribute('tabindex', '-1');
       wrapper.setAttribute('aria-labelledby', 'offcanvasMobileMenuLabel');
 
-      // 2. Header mit Close-Button
+      // 2. Header mit Close-Button + Telefonnummer
       var header = document.createElement('div');
       header.className = 'offcanvas-header';
       header.innerHTML = '<strong class="h3 offcanvas-title" id="offcanvasMobileMenuLabel">Men\u00fc</strong>' +
@@ -395,16 +395,33 @@
         '<span class="visually-hidden">Schlie\u00dfen</span></button>';
       wrapper.appendChild(header);
 
-      // 3. Body mit dem originalen Nav-Inhalt
+      // 2b. Telefonnummer unter dem Header
+      var phoneBar = document.createElement('div');
+      phoneBar.className = 'mrh-mobile-phone';
+      phoneBar.innerHTML = '<a href="tel:+43512312411"><i class="fa-solid fa-phone"></i> +43 512 312 411</a>';
+      wrapper.appendChild(phoneBar);
+
+      // 3. Body
       var body = document.createElement('div');
       body.className = 'offcanvas-body';
       body.setAttribute('role', 'region');
+
+      // 3a. Promo-Banner OBEN (position: top)
+      this.insertPromos(body, 'top');
+
+      // 3b. Kategorie-Icons auf die Nav-Items anwenden
+      this.applyIcons(nav);
+
       // Nav sichtbar machen und in den Body verschieben
       nav.style.display = 'block';
       body.appendChild(nav);
+
+      // 3c. Promo-Banner UNTEN (position: bottom)
+      this.insertPromos(body, 'bottom');
+
       wrapper.appendChild(body);
 
-      // 4. Wrapper ins DOM einfügen (vor </body>)
+      // 4. Wrapper ins DOM einfuegen (vor </body>)
       document.body.appendChild(wrapper);
 
       // 5. Toggle-Button konfigurieren
@@ -415,7 +432,6 @@
       toggle.removeAttribute('aria-hidden');
 
       // 6. Submenu Toggle: Klick auf Pfeil-Icons klappt Untermenues auf/zu
-      var self = this;
       body.addEventListener('click', function(e) {
         var arrow = e.target.closest('.icon-arrow-down, .icon-arrow-up, i[class*="icon-arrow"]');
         if (!arrow) return;
@@ -441,6 +457,74 @@
       wrapper.addEventListener('hidden.bs.offcanvas', function() {
         if (!document.querySelector('.offcanvas.show')) {
           document.body.classList.remove('offcanvas-open');
+        }
+      });
+    },
+
+    /**
+     * Kategorie-Icons aus Dashboard (MRH_MOBILE_ICONS) auf die Nav-Items anwenden
+     * Format: { "catId": "fa-solid fa-icon-name", ... }
+     */
+    applyIcons: function(nav) {
+      var icons = window.MRH_MOBILE_ICONS;
+      if (!icons || typeof icons !== 'object') return;
+
+      var catLinks = nav.querySelectorAll('.CatNavi > li > a');
+      catLinks.forEach(function(link) {
+        // Kategorie-ID aus dem href extrahieren (cPath=X oder cat/cXX)
+        var href = link.getAttribute('href') || '';
+        var catId = null;
+
+        // Versuch 1: cPath=XXX
+        var match = href.match(/cPath=(\d+)/);
+        if (match) catId = match[1];
+
+        // Versuch 2: data-cat-id Attribut (falls vorhanden)
+        if (!catId) catId = link.getAttribute('data-cat-id');
+
+        // Versuch 3: Parent <li> data-cat-id
+        if (!catId) {
+          var li = link.closest('li');
+          if (li) catId = li.getAttribute('data-cat-id');
+        }
+
+        if (catId && icons[catId]) {
+          // Icon vor dem Text einfuegen
+          var iconEl = document.createElement('i');
+          iconEl.className = icons[catId] + ' mrh-mobile-cat-icon';
+          link.insertBefore(iconEl, link.firstChild);
+          // Leerzeichen nach dem Icon
+          link.insertBefore(document.createTextNode(' '), iconEl.nextSibling);
+        }
+      });
+    },
+
+    /**
+     * Promo-Banner aus Dashboard (MRH_MOBILE_PROMOS) einfuegen
+     * Position: 'top' (ueber Navigation) oder 'bottom' (unter Navigation)
+     */
+    insertPromos: function(container, position) {
+      var promos = window.MRH_MOBILE_PROMOS;
+      if (!promos || !Array.isArray(promos)) return;
+
+      promos.forEach(function(promo) {
+        if (promo.promo_position !== position) return;
+
+        var promoEl = document.createElement('div');
+        promoEl.className = 'mrh-mobile-promo mrh-mobile-promo-' + position;
+
+        if (promo.promo_type === 'html' && promo.html_content) {
+          promoEl.innerHTML = promo.html_content;
+        } else if (promo.promo_type === 'banner' && promo.banner_html) {
+          promoEl.innerHTML = promo.banner_html;
+        } else if (promo.promo_type === 'banner' && promo.banner_image) {
+          promoEl.innerHTML = '<a href="' + (promo.banner_url || '#') + '">' +
+            '<img src="/' + promo.banner_image + '" alt="" style="max-width:100%;">' +
+            '</a>';
+        }
+
+        if (promoEl.innerHTML) {
+          container.appendChild(promoEl);
         }
       });
     }

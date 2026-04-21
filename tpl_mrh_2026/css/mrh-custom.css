@@ -7381,3 +7381,50 @@ html.mrh-smooth-scroll {
   width: 300px;
   max-width: 85vw;
 }
+
+/* ── Mobile Menu: Telefonnummer ── */
+.mrh-mobile-phone {
+  padding: 8px 16px;
+  background: var(--mrh-green-accent, #83b123);
+  text-align: center;
+}
+.mrh-mobile-phone a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mrh-mobile-phone a:hover {
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* ── Mobile Menu: Kategorie-Icons ── */
+.mrh-mobile-cat-icon {
+  width: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--mrh-green-accent, #83b123);
+}
+
+/* ── Mobile Menu: Promo-Banner ── */
+.mrh-mobile-promo {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--tpl-borders-color, #e2e8f0);
+}
+.mrh-mobile-promo-top {
+  border-bottom: 1px solid var(--tpl-borders-color, #e2e8f0);
+}
+.mrh-mobile-promo-bottom {
+  border-top: 1px solid var(--tpl-borders-color, #e2e8f0);
+  border-bottom: none;
+  margin-top: 8px;
+}
+.mrh-mobile-promo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
