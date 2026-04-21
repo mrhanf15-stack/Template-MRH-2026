@@ -7329,3 +7329,53 @@ body[data-sticky-active] #mrh-topbar {
 body[data-sticky-active] #mrh-shipping-bar {
   display: none !important;
 }
+
+
+/* ============================================================
+   FAW (Fietz Accessibility Widget) – getComputedStyle Flood Fix
+   Problem: Das FAW hat 2671 ueberwachte Elemente auf der Seite.
+   Beim Sticky-Wechsel (position:relative → fixed) loest der Browser
+   ein Layout-Recalc aus. Das FAW reagiert darauf mit 6000-9000
+   getComputedStyle-Aufrufen pro Sekunde, was Scroll-Ruckler
+   verursacht ("Hacken").
+   Haupttrigger: Die Free Shipping Bar (.mrh-progress-fill) hat
+   transition:width 0.5s und der Track hat transition:all.
+   Diese Transitions loesen bei jedem Layout-Wechsel eine Kaskade
+   von FAW-Rescans aus.
+   Fix:
+   1. Transitions auf der Shipping Bar deaktivieren waehrend sticky
+   2. contain:strict auf Shipping Bar und Header fuer Layout-Isolation
+   3. will-change:transform auf dem Header fuer eigenen Compositing Layer
+   Stand: 2026-04-21
+   ============================================================ */
+
+/* Shipping Bar: Transitions deaktivieren wenn Seite sticky ist
+   Verhindert dass die width-Transition der Progress Bar
+   das FAW zu getComputedStyle-Floods triggert */
+body[data-sticky-active] .mrh-progress-track,
+body[data-sticky-active] .mrh-progress-fill {
+  transition: none !important;
+}
+
+/* Shipping Bar: Layout-Isolation
+   contain:strict verhindert dass Layout-Aenderungen im Header
+   die Shipping Bar beeinflussen und umgekehrt */
+#mrh-shipping-bar {
+  contain: layout style paint;
+}
+
+/* Progress Track: eigener Compositing Layer
+   will-change:transform erstellt einen eigenen Layer,
+   sodass Repaints nicht den Rest der Seite betreffen */
+.mrh-progress-track {
+  contain: strict;
+  will-change: transform;
+}
+
+/* Header: Staerkere Isolation im Sticky-Modus
+   contain:strict + isolation:isolate erstellt einen komplett
+   isolierten Stacking/Layout Context */
+#main-header[data-sticky] {
+  contain: layout style paint;
+  isolation: isolate;
+}

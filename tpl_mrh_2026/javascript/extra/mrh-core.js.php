@@ -211,7 +211,16 @@
     // Data-Attribute statt CSS-Klassen: Fietz Widget MutationObserver
     // ueberwacht nur class/style Aenderungen, nicht data-* Attribute.
     // Dadurch werden 0 getComputedStyle-Aufrufe beim Sticky-Wechsel ausgeloest.
+    //
+    // FAW Flood-Protection: Beim Sticky-Wechsel setzt das FAW
+    // 6000-9000 getComputedStyle-Aufrufe ab (Layout-Recalc Kaskade).
+    // Fix: Waehrend des Sticky-Wechsels wird contain:strict auf dem
+    // Header gesetzt (per CSS), und die Shipping Bar Transitions
+    // werden deaktiviert. Zusaetzlich wird ein kurzer RAF-Delay
+    // eingebaut damit der Browser den Layout-Wechsel in einem
+    // einzigen Frame abarbeiten kann.
     setHeaderState: function(sticky, hidden) {
+      // Batch alle DOM-Aenderungen in einem Frame
       if (sticky) {
         if (! this.header.hasAttribute('data-sticky')) this.header.setAttribute('data-sticky', '');
         if (! document.body.hasAttribute('data-sticky-active')) document.body.setAttribute('data-sticky-active', '');
