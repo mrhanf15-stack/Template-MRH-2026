@@ -7309,3 +7309,23 @@ html.mrh-smooth-scroll {
 .offcanvas-backdrop.fade.show {
   z-index: 99998 !important;
 }
+
+
+/* ============================================================
+   STICKY HEADER – Topbar/ShippingBar Ausblenden
+   Problem: Topbar (27px) + ShippingBar (37px) = 64px sitzen UEBER
+   dem Header im Flow. Wenn der Header sticky wird (position:fixed,
+   top:0), ueberlappt er diese Bars. Beim Zurueckscrollen entsteht
+   ein visueller Sprung/Haengen weil der Spacer nur die Header-Hoehe
+   kompensiert, nicht die Bars darueber.
+   Fix: Topbar + ShippingBar per CSS ausblenden sobald Header sticky
+   ist. Die Bars werden per body[data-sticky-active] gesteuert
+   (gesetzt/entfernt vom JS zusammen mit dem Sticky-Wechsel).
+   Stand: 2026-04-21
+   ============================================================ */
+body[data-sticky-active] #mrh-topbar {
+  display: none !important;
+}
+body[data-sticky-active] #mrh-shipping-bar {
+  display: none !important;
+}

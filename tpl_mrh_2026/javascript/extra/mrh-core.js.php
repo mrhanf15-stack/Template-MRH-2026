@@ -151,6 +151,7 @@
   MRH.StickyHeader = {
     lastScroll: 0,
     initialHeight: 0,
+    barsHeight: 0,
     isSticky: false,
     wasHidden: false,
     ticking: false,
@@ -162,16 +163,23 @@
       this.header = header;
       this.initialHeight = header.offsetHeight;
 
+      // Hoehe der Bars UEBER dem Header (Topbar + ShippingBar)
+      // Diese werden per CSS ausgeblendet wenn sticky aktiv ist,
+      // daher muss der Spacer ihre Hoehe mit kompensieren.
+      var topbar = MRH.Utils.qs('#mrh-topbar');
+      var shippingBar = MRH.Utils.qs('#mrh-shipping-bar');
+      this.barsHeight = (topbar ? topbar.offsetHeight : 0)
+                      + (shippingBar ? shippingBar.offsetHeight : 0);
+
       // Spacer-Element (verhindert Content-Sprung)
-      // Hoehe wird per CSS-Variable gesetzt, Sichtbarkeit per data-Attribut
-      // Kein inline-style = kein Fietz Widget style-Mutation Trigger
+      // Hoehe = Header + Bars darueber (werden beim Sticky ausgeblendet)
       this.spacer = document.createElement('div');
       this.spacer.id = 'mrh-sticky-spacer';
-      this.spacer.style.height = this.initialHeight + 'px';
+      this.spacer.style.height = (this.initialHeight + this.barsHeight) + 'px';
       header.parentNode.insertBefore(this.spacer, header.nextSibling);
 
       // Grosse Hysterese gegen Oszillation
-      this.activateAt = Math.round(this.initialHeight * 2);
+      this.activateAt = Math.round(this.initialHeight + this.barsHeight);
       this.deactivateAt = 50;
 
       // Scroll via requestAnimationFrame
@@ -190,8 +198,12 @@
       window.addEventListener('resize', MRH.Utils.throttle(function() {
         if (! self.isSticky) {
           self.initialHeight = header.offsetHeight;
-          self.spacer.style.height = self.initialHeight + 'px';
-          self.activateAt = Math.round(self.initialHeight * 2);
+          var tb = MRH.Utils.qs('#mrh-topbar');
+          var sb = MRH.Utils.qs('#mrh-shipping-bar');
+          self.barsHeight = (tb ? tb.offsetHeight : 0)
+                          + (sb ? sb.offsetHeight : 0);
+          self.spacer.style.height = (self.initialHeight + self.barsHeight) + 'px';
+          self.activateAt = Math.round(self.initialHeight + self.barsHeight);
         }
       }, 250), { passive: true });
     },
@@ -202,8 +214,10 @@
     setHeaderState: function(sticky, hidden) {
       if (sticky) {
         if (! this.header.hasAttribute('data-sticky')) this.header.setAttribute('data-sticky', '');
+        if (! document.body.hasAttribute('data-sticky-active')) document.body.setAttribute('data-sticky-active', '');
       } else {
         if (this.header.hasAttribute('data-sticky')) this.header.removeAttribute('data-sticky');
+        if (document.body.hasAttribute('data-sticky-active')) document.body.removeAttribute('data-sticky-active');
       }
       if (hidden) {
         if (! this.header.hasAttribute('data-sticky-hidden')) this.header.setAttribute('data-sticky-hidden', '');
