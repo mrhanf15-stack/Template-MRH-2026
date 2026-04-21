@@ -1,5 +1,18 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Fix: MRH Core JS Syntax-Fehler (fehlende Klammer in MegaMenu)
+
+**Problem:** `MRH.MegaMenu.buildDropdown()` hatte eine fehlende schliessende `}` fuer den aeusseren `else`-Block (Fallback auf getCategoryConfig). Dadurch waren alle nachfolgenden Methoden (`assignToColumns`, `bindEvents`, `open`, `closeAll`, `markActive`) syntaktisch innerhalb von `buildDropdown` verschachtelt. Der JS-Parser meldete `Unexpected token ','` und das gesamte `window.MRH` Namespace wurde nie erstellt → StickyHeader, MegaMenu, ShippingBar, BackToTop etc. funktionierten nicht.
+
+**Fix:** Fehlende `}` nach dem inneren `if/else`-Block (Modus A/B) eingefuegt, um den aeusseren `else`-Block korrekt zu schliessen. Syntax-Check mit `node --check` bestanden.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | Fehlende `}` in buildDropdown eingefuegt (Zeile 755) |
+
+
+## 2026-04-20 – Fix: Icon Font Protection v3.0 (FA7 Dyslexie-Schutz)
+
 **Problem:** Wenn im Fietz Accessibility Widget die Dyslexie-Schrift aktiviert wird, injiziert das Widget:
 ```css
 html *:not(.material-icons,.fa) { font-family: OpenDyslexic3,...  !important }

@@ -752,6 +752,7 @@
           content.appendChild(col);
         });
       }
+      } // Ende else-Block (Fallback auf getCategoryConfig)
 
       // Promo-Spalte hinzufügen
       var promoData = MRH.Utils.qs('#mrhMegaPromoData');
