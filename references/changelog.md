@@ -1,5 +1,21 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Refactor: StickyHeader v2 (RevPlus-Muster)
+
+**Problem:** Trotz FAW_SCROLL_PAUSED und CSS-Isolation hackt der Sticky Header weiterhin. Die FAW Scroll-Handler feuern bei JEDEM Scroll-Event (nicht nur beim Sticky-Wechsel) und scannen alle 2671 Elemente. data-Attribute auf body triggern den FAW MutationObserver.
+
+**Loesung:** Komplett-Rewrite nach dem RevPlus-Template-Muster:
+1. **`.fixed` CSS-Klasse** statt `data-sticky` Attribute → FAW MutationObserver ignoriert class-Aenderungen auf Header
+2. **`padding-top` auf `.page-wrapper`** statt Spacer-Element → kein zusaetzliches DOM-Element
+3. **Kein `body[data-sticky-active]`** → kein FAW-Trigger auf body
+4. **`.sticky-hidden` Klasse** statt `data-sticky-hidden` → konsistentes Muster
+5. **Entfernt:** Spacer-Element, FAW Flood-Fix CSS, body data-Attribute, FAW_SCROLL_PAUSED Integration
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | StickyHeader komplett neu: .fixed + padding-top |
+| `css/mrh-custom.css` | Template-MRH-2026 | Alle [data-sticky] → .fixed, alte FAW-Workarounds entfernt |
+
 ## 2026-04-21 – Feat: FAW Widget v1.1.0 + StickyHeader FAW_SCROLL_PAUSED
 
 **Problem:** Das FAW Widget hat 4 Scroll-Event-Handler die bei jedem Scroll-Event debounced Rescans aller ~2671 Elemente ausloesen (D/q Contrast, T Accessible Names, U Landmarks, L Alt-Text). Beim Sticky-Wechsel fuehrt das zu 6000-9000 getComputedStyle-Aufrufen/s.
