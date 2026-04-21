@@ -1,5 +1,20 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Feat: Mobile Menu Offcanvas
+
+**Problem:** Das Burger-Menü (öffnet sich nicht. `#toggle_mobilemenu` hat keine `data-bs-toggle` Attribute und `#mobiles_menu` ist ein einfaches `<nav>` ohne Bootstrap Offcanvas-Klassen. Das RevPlus-Template nutzte `mmenu.js` (jQuery Plugin), das nicht mehr geladen wird.
+
+**Loesung:** `MRH.MobileMenu.init()` in `mrh-core.js.php`:
+1. Wrappt `#mobiles_menu` in Bootstrap Offcanvas-Struktur (Header + Close-Button + Body)
+2. Setzt `data-bs-toggle="offcanvas"` + `href` auf den Toggle-Button
+3. Submenu-Toggle per Klick auf Pfeil-Icons (auf/zu)
+4. CSS: Kategorie-Navigation Styling im Offcanvas
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | MRH.MobileMenu Modul hinzugefügt |
+| `css/mrh-custom.css` | Template-MRH-2026 | Mobile Menu Offcanvas Styling |
+
 ## 2026-04-21 – Refactor: StickyHeader v2 (RevPlus-Muster)
 
 **Problem:** Trotz FAW_SCROLL_PAUSED und CSS-Isolation hackt der Sticky Header weiterhin. Die FAW Scroll-Handler feuern bei JEDEM Scroll-Event (nicht nur beim Sticky-Wechsel) und scannen alle 2671 Elemente. data-Attribute auf body triggern den FAW MutationObserver.
