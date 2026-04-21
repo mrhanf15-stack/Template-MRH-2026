@@ -8,7 +8,7 @@
 
 1. **mrh_product_attributes.php v1.11.0** – `buildMiniTable()` prueft im Listing/Box-Kontext das `is_seed` Flag: Wenn `is_seed === 0`, wird ein leerer String zurueckgegeben (keine Mini-Tabelle).
 
-2. **mrh_product_attributes_listing.php v1.7.0** – Kategorie-basierte Auto-Erkennung fuer Produkte die NICHT in der DB sind: Wenn die aktuelle URL einen Non-Seed Pfad enthaelt (`/growshop/`, `/headshop/`, `/cannabispflanzen/`, `/duenger/` etc.), wird die Mini-Tabelle uebersprungen. Kein manuelles Produkt-Editing noetig.
+2. **mrh_product_attributes_listing.php v1.7.0** – Kategorie-basierte Auto-Erkennung fuer Produkte die NICHT in der DB sind: Wenn die aktuelle URL einen Non-Seed Pfad enthaelt (`/growshop/`, `/headshop/`, `/duenger/` etc.) — `/cannabispflanzen/` bewusst ausgenommen (Pflanzen haben THC/CBD/Sorte), wird die Mini-Tabelle uebersprungen. Kein manuelles Produkt-Editing noetig.
 
 | Datei | Repo | Aenderung |
 |-------|------|----------|
