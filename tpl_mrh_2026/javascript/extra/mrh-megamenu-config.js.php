@@ -1,21 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-megamenu-config.js.php 1.4.0 2026-04-21 Mr. Hanf $
+   $Id: mrh-megamenu-config.js.php 1.4.1 2026-04-21 Mr. Hanf $
 
    MRH Mega-Menu Config - Frontend JavaScript Output
    Autoinclude Hook: ~/templates/YOUR_TEMPLATE/javascript/extra/
 
    Liest Cache-Datei und gibt NUR eingetragene Links als JS-Objekt aus.
    Unterstuetzt DE/EN/FR/ES + Nav-Links mit MRH_-Sprachkonstanten.
+   v1.4.1: Fix MODULE_MRH_DASHBOARD_STATUS Check → nur Cache-Datei pruefen
    v1.4.0: Mobile-Icons + Mobile-Promos + Telefonnummer ans Frontend
    -----------------------------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
-// Pruefen ob Modul aktiv
-if (!defined('MODULE_MRH_DASHBOARD_STATUS') || MODULE_MRH_DASHBOARD_STATUS !== 'true') {
-    return;
-}
 
 // Sprach-Mapping: language_id => code
 $lang_map = array(2 => 'de', 1 => 'en', 5 => 'fr', 4 => 'es');

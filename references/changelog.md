@@ -1,7 +1,16 @@
-## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
+# Changelog
+
+## 2026-04-21 – Fix: mrh-megamenu-config.js.php MODULE_MRH_DASHBOARD_STATUS
+
+**Problem:** `MODULE_MRH_DASHBOARD_STATUS` ist zwar in der DB `true`, aber die Konstante wird im Frontend-Kontext (auto_include) nicht definiert. Der Check in Zeile 16 blockierte daher die gesamte Ausgabe → `MRH_MOBILE_ICONS` und `MRH_MOBILE_PROMOS` blieben `undefined`.
+
+**Fix (v1.4.1):** Den `MODULE_MRH_DASHBOARD_STATUS`-Check komplett entfernt. Die Existenz der Cache-Datei (`megamenu_config.json`) ist ein ausreichender Beweis, dass das Dashboard-Modul aktiv ist und die Datei geschrieben hat.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.4.1: MODULE_MRH_DASHBOARD_STATUS Check entfernt |
 
 ## 2026-04-21 – Feat: Mobile Menu Icons, Promos & Telefonnummer
-
 **Erweiterung:** Mobile Offcanvas-Menü zeigt jetzt Dashboard-Daten an:
 1. **Kategorie-Icons:** FA6 Icons aus dem Dashboard (Mobile Menü Tab) werden vor den Kategorienamen angezeigt
 2. **Promo-Banner:** HTML-Content oder Banner aus dem Dashboard, Position oben/unten konfigurierbar
