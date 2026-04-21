@@ -6,9 +6,9 @@
 
 **Fix (2 Dateien, Repo: mrh-modified-autoinclude):**
 
-1. **mrh_product_attributes.php v1.11.0** – `buildMiniTable()` prueft im Listing/Box-Kontext das `is_seed` Flag: Wenn `is_seed === 0`, wird ein leerer String zurueckgegeben (keine Mini-Tabelle).
+1. **mrh_product_attributes.php v1.12.0** – `buildMiniTable()` Listing/Box-Kontext fuer `is_seed=0`: Zeigt die ersten 3 Custom Fields in der per Drag & Drop gespeicherten Reihenfolge aus dem Backend. Fallback auf Standard-Felder in gespeicherter `field_order`. Seeds-Listing bleibt unveraendert (Sorte/THC/CBD).
 
-2. **mrh_product_attributes.php v1.11.1** – `buildBadgeHTML()` unterdrueckt Seeds-spezifische Badges (Gender: fem/reg/auto, Flowering: autoflower/photoperiod) fuer Non-Seed Produkte (`is_seed=0`). Manuell vergebene Pictos und Cannabis Cup Badges werden weiterhin angezeigt.
+2. **mrh_product_attributes.php v1.12.0** – `buildBadgeHTML()` unterdrueckt Seeds-spezifische Badges (Gender: fem/reg/auto, Flowering: autoflower/photoperiod) fuer Non-Seed Produkte (`is_seed=0`). Manuell vergebene Pictos und Cannabis Cup Badges werden weiterhin angezeigt.
 
 3. **mrh_product_attributes_listing.php v1.7.0** – Kategorie-basierte Auto-Erkennung fuer Produkte die NICHT in der DB sind: Wenn die aktuelle URL einen Non-Seed Pfad enthaelt (`/growshop/`, `/headshop/`, `/duenger/` etc.) — `/cannabispflanzen/` bewusst ausgenommen (Pflanzen haben THC/CBD/Sorte), wird die Mini-Tabelle uebersprungen. Kein manuelles Produkt-Editing noetig.
 
