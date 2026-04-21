@@ -7212,3 +7212,100 @@ html.mrh-smooth-scroll {
   color: #999;
   margin-left: auto;
 }
+
+
+/* ============================================================
+   BOTTOM BAR – Landscape Fix v2 (kompakt, Seedfinder angepasst)
+   Problem: Im Landscape-Modus auf Mobilgeraeten nimmt die
+   Bottom Bar zu viel Platz ein. Seedfinder-Kreis ragt heraus.
+   Fix: Kompakte Darstellung mit max-height statt max-width,
+   da Handys im Landscape oft breiter als 768px sind.
+   Stand: 2026-04-21
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .mrh-bottom-bar {
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .mrh-bottom-bar ul {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .mrh-bottom-bar li {
+    flex: 1 !important;
+    min-height: 0 !important;
+  }
+  .mrh-bottom-bar li a {
+    flex-direction: row !important;
+    padding: 5px 2px !important;
+    gap: 4px !important;
+    justify-content: center !important;
+  }
+  .mrh-bottom-bar li a i {
+    font-size: 16px !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+  .mrh-bottom-bar li a span {
+    font-size: 9px !important;
+    line-height: 1 !important;
+  }
+  /* Seedfinder center – kein herausragender Kreis, kompakt inline */
+  .mrh-bottom-bar li.mrh-bb-center {
+    flex: 1 !important;
+    position: relative !important;
+  }
+  .mrh-bottom-bar li.mrh-bb-center a {
+    margin-top: 0 !important;
+    padding: 5px 2px !important;
+    flex-direction: row !important;
+    gap: 4px !important;
+  }
+  .mrh-bottom-bar li.mrh-bb-center a i {
+    font-size: 16px !important;
+    width: 24px !important;
+    height: 24px !important;
+    line-height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    position: static !important;
+    transform: none !important;
+    top: auto !important;
+  }
+  .mrh-bottom-bar li.mrh-bb-center a span {
+    font-size: 9px !important;
+  }
+  /* Body padding unten reduzieren */
+  body {
+    padding-bottom: 40px !important;
+  }
+}
+
+/* ============================================================
+   OFFCANVAS KONTO/WARENKORB/WISHLIST – z-index Fix
+   Problem: Offcanvas-Panels liegen hinter der Navbar (z-index: 9999)
+   weil sie innerhalb des #main-header Stacking Context verschachtelt sind.
+   Fix: Alle Offcanvas-Panels und Backdrop auf hoechsten z-index setzen.
+   Zusammen mit dem JS-Fix in mrh-core.js.php (verschiebt Offcanvas an body).
+   Stand: 2026-04-21
+   ============================================================ */
+.offcanvas.show,
+.offcanvas.showing,
+.offcanvas.offcanvas-end.show,
+.offcanvas.offcanvas-start.show,
+#offcanvasAccount.show,
+#offcanvasCart.show,
+#offcanvasSettings.show,
+#offcanvasWishlist.show {
+  z-index: 99999 !important;
+}
+.offcanvas-backdrop.show,
+.offcanvas-backdrop.fade.show {
+  z-index: 99998 !important;
+}
