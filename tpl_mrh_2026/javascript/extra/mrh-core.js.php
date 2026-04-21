@@ -146,46 +146,29 @@
   };
 
   /* ----------------------------------------------------------
-     03 STICKY HEADER
+     03 STICKY HEADER (RevPlus-Muster, Vanilla JS)
+     Einfaches Muster: .fixed Klasse + padding-top auf .page-wrapper.
+     Kein Spacer-Element, kein data-Attribut auf body.
+     Dadurch wird der FAW MutationObserver NICHT getriggert
+     und es gibt keine getComputedStyle-Floods.
      ---------------------------------------------------------- */
   MRH.StickyHeader = {
     lastScroll: 0,
-    initialHeight: 0,
-    barsHeight: 0,
+    headerHeight: 0,
     isSticky: false,
     wasHidden: false,
     ticking: false,
-    spacer: null,
 
     init: function() {
       var header = MRH.Utils.qs('#main-header');
-      if (! header) return;
+      if (!header) return;
       this.header = header;
-      this.initialHeight = header.offsetHeight;
+      this.wrapper = MRH.Utils.qs('.page-wrapper') || MRH.Utils.qs('#wrapper') || document.body;
+      this.headerHeight = header.offsetHeight;
 
-      // Hoehe der Bars UEBER dem Header (Topbar + ShippingBar)
-      // Diese werden per CSS ausgeblendet wenn sticky aktiv ist,
-      // daher muss der Spacer ihre Hoehe mit kompensieren.
-      var topbar = MRH.Utils.qs('#mrh-topbar');
-      var shippingBar = MRH.Utils.qs('#mrh-shipping-bar');
-      this.barsHeight = (topbar ? topbar.offsetHeight : 0)
-                      + (shippingBar ? shippingBar.offsetHeight : 0);
-
-      // Spacer-Element (verhindert Content-Sprung)
-      // Hoehe = Header + Bars darueber (werden beim Sticky ausgeblendet)
-      this.spacer = document.createElement('div');
-      this.spacer.id = 'mrh-sticky-spacer';
-      this.spacer.style.height = (this.initialHeight + this.barsHeight) + 'px';
-      header.parentNode.insertBefore(this.spacer, header.nextSibling);
-
-      // Grosse Hysterese gegen Oszillation
-      this.activateAt = Math.round(this.initialHeight + this.barsHeight);
-      this.deactivateAt = 50;
-
-      // Scroll via requestAnimationFrame
       var self = this;
       window.addEventListener('scroll', function() {
-        if (! self.ticking) {
+        if (!self.ticking) {
           window.requestAnimationFrame(function() {
             self.onScroll();
             self.ticking = false;
@@ -196,78 +179,34 @@
 
       // Resize: Hoehe neu berechnen wenn nicht sticky
       window.addEventListener('resize', MRH.Utils.throttle(function() {
-        if (! self.isSticky) {
-          self.initialHeight = header.offsetHeight;
-          var tb = MRH.Utils.qs('#mrh-topbar');
-          var sb = MRH.Utils.qs('#mrh-shipping-bar');
-          self.barsHeight = (tb ? tb.offsetHeight : 0)
-                          + (sb ? sb.offsetHeight : 0);
-          self.spacer.style.height = (self.initialHeight + self.barsHeight) + 'px';
-          self.activateAt = Math.round(self.initialHeight + self.barsHeight);
+        if (!self.isSticky) {
+          self.headerHeight = header.offsetHeight;
         }
       }, 250), { passive: true });
-    },
-
-    // Data-Attribute statt CSS-Klassen: Fietz Widget MutationObserver
-    // ueberwacht nur class/style Aenderungen, nicht data-* Attribute.
-    // Dadurch werden 0 getComputedStyle-Aufrufe beim Sticky-Wechsel ausgeloest.
-    //
-    // FAW Flood-Protection: Beim Sticky-Wechsel setzt das FAW
-    // 6000-9000 getComputedStyle-Aufrufe ab (Layout-Recalc Kaskade).
-    // Fix: Waehrend des Sticky-Wechsels wird contain:strict auf dem
-    // Header gesetzt (per CSS), und die Shipping Bar Transitions
-    // werden deaktiviert. Zusaetzlich wird ein kurzer RAF-Delay
-    // eingebaut damit der Browser den Layout-Wechsel in einem
-    // einzigen Frame abarbeiten kann.
-    setHeaderState: function(sticky, hidden) {
-      // FAW Scroll-Pause: Waehrend des Sticky-Wechsels die FAW
-      // Scroll-Handler pausieren, damit keine getComputedStyle-Floods
-      // ausgeloest werden (6000-9000 Aufrufe/s ohne Pause).
-      if (window.FAW_SCROLL_PAUSED !== undefined) window.FAW_SCROLL_PAUSED = true;
-
-      // Batch alle DOM-Aenderungen in einem Frame
-      if (sticky) {
-        if (! this.header.hasAttribute('data-sticky')) this.header.setAttribute('data-sticky', '');
-        if (! document.body.hasAttribute('data-sticky-active')) document.body.setAttribute('data-sticky-active', '');
-      } else {
-        if (this.header.hasAttribute('data-sticky')) this.header.removeAttribute('data-sticky');
-        if (document.body.hasAttribute('data-sticky-active')) document.body.removeAttribute('data-sticky-active');
-      }
-      if (hidden) {
-        if (! this.header.hasAttribute('data-sticky-hidden')) this.header.setAttribute('data-sticky-hidden', '');
-      } else {
-        if (this.header.hasAttribute('data-sticky-hidden')) this.header.removeAttribute('data-sticky-hidden');
-      }
-
-      // FAW Scroll-Pause aufheben nach naechstem Frame
-      // (gibt dem Browser Zeit den Layout-Wechsel abzuschliessen)
-      var self = this;
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          if (window.FAW_SCROLL_PAUSED !== undefined) window.FAW_SCROLL_PAUSED = false;
-        });
-      });
     },
 
     onScroll: function() {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       var nowHidden = this.wasHidden;
 
-      if (! this.isSticky && st > this.activateAt) {
+      if (!this.isSticky && st >= this.headerHeight) {
         // Sticky aktivieren
-        this.spacer.setAttribute('data-active', '');
+        this.header.classList.add('fixed');
+        this.wrapper.style.paddingTop = this.headerHeight + 'px';
         this.isSticky = true;
         nowHidden = false;
-      } else if (this.isSticky && st <= this.deactivateAt) {
+      } else if (this.isSticky && st < 50) {
         // Sticky deaktivieren
-        this.spacer.removeAttribute('data-active');
+        this.header.classList.remove('fixed');
+        this.header.classList.remove('sticky-hidden');
+        this.wrapper.style.paddingTop = '';
         this.isSticky = false;
         nowHidden = false;
       }
 
       // Show/Hide basierend auf Scroll-Richtung (nur wenn sticky)
       if (this.isSticky) {
-        if (st > this.lastScroll && st > this.activateAt + 120) {
+        if (st > this.lastScroll && st > this.headerHeight + 120) {
           nowHidden = true;
         } else if (st < this.lastScroll) {
           nowHidden = false;
@@ -275,9 +214,12 @@
       }
 
       // Nur aendern wenn sich der State tatsaechlich aendert
-      if (this.isSticky !== this._prevSticky || nowHidden !== this.wasHidden) {
-        this.setHeaderState(this.isSticky, nowHidden);
-        this._prevSticky = this.isSticky;
+      if (nowHidden !== this.wasHidden) {
+        if (nowHidden) {
+          this.header.classList.add('sticky-hidden');
+        } else {
+          this.header.classList.remove('sticky-hidden');
+        }
         this.wasHidden = nowHidden;
       }
 

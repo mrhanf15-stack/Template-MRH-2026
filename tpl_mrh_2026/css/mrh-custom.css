@@ -693,22 +693,9 @@ div.navibar,
 /* ============================================================
    05 STICKY HEADER
    ============================================================ */
-/* Spacer: verhindert Content-Sprung beim Sticky-Wechsel */
-#mrh-sticky-spacer {
-  display: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-#mrh-sticky-spacer[data-active] {
-  display: block;
-}
-/* Header: contain + willChange per CSS statt JS (verhindert Fietz style-Mutation) */
-#main-header {
-  contain: layout style;
-  will-change: transform;
-}
-#main-header[data-sticky] {
+/* RevPlus-Muster: .fixed Klasse + padding-top auf .page-wrapper
+   Kein Spacer, kein data-Attribut auf body → kein FAW-Trigger */
+#main-header.fixed {
   position: fixed;
   top: 0;
   left: 0;
@@ -718,39 +705,39 @@ div.navibar,
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: transform 0.3s ease;
 }
-#main-header[data-sticky] .header-wrapper {
+#main-header.fixed .header-wrapper {
   padding: 4px 0;
 }
-#main-header[data-sticky] .logo-top {
+#main-header.fixed .logo-top {
   max-height: 52px !important;
 }
 
 /* Sticky Header: Navigation-Row ausblenden um Platz zu sparen */
-#main-header[data-sticky] .main-header-menu-row {
+#main-header.fixed .main-header-menu-row {
   display: none;
 }
 /* Sticky Header: Hamburger-Menü auf Desktop anzeigen (Navigation ist ausgeblendet) */
-#main-header[data-sticky] #toggle_mobilemenu {
+#main-header.fixed #toggle_mobilemenu {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer;
 }
-#main-header[data-sticky] #toggle_mobilemenu .fa-solid {
+#main-header.fixed #toggle_mobilemenu .fa-solid {
   font-size: 20px;
   color: var(--mrh-sticky-text, var(--tpl-text-standard));
   transition: color 0.2s ease;
 }
-#main-header[data-sticky] #toggle_mobilemenu:hover .fa-solid,
-#main-header[data-sticky] #toggle_mobilemenu:hover .btn-desc {
+#main-header.fixed #toggle_mobilemenu:hover .fa-solid,
+#main-header.fixed #toggle_mobilemenu:hover .btn-desc {
   color: var(--tpl-main-color);
 }
-#main-header[data-sticky] #toggle_mobilemenu .btn-desc {
+#main-header.fixed #toggle_mobilemenu .btn-desc {
   font-size: 10px !important;
   margin-top: 2px !important;
 }
-#main-header[data-sticky-hidden] {
+#main-header.sticky-hidden {
   transform: translateY(-100%);
 }
 @keyframes mrh-slideDown {
@@ -7072,25 +7059,25 @@ html.mrh-smooth-scroll {
 }
 
 /* --- B) Mega-Menü im Sticky-Header begrenzen --- */
-#main-header[data-sticky] .mrh-mega-dropdown {
+#main-header.fixed .mrh-mega-dropdown {
   max-height: calc(100vh - 80px);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 /* Mega-Menü-Dropdown im Sticky: Schatten anpassen */
-#main-header[data-sticky] .mrh-mega-dropdown.open {
+#main-header.fixed .mrh-mega-dropdown.open {
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 /* Mega-Menü schliessen bei Sticky-Uebergang */
-#main-header:not([data-sticky]) .mrh-mega-dropdown,
-#main-header[data-sticky-hidden] .mrh-mega-dropdown {
+#main-header:not(.fixed) .mrh-mega-dropdown,
+#main-header.sticky-hidden .mrh-mega-dropdown {
   display: none !important;
 }
 /* Override: Dropdown mit .open MUSS sichtbar sein (gleiche Spezifitaet + !important) */
-#main-header:not([data-sticky]) .mrh-mega-dropdown.open,
-#main-header[data-sticky-hidden] .mrh-mega-dropdown.open {
+#main-header:not(.fixed) .mrh-mega-dropdown.open,
+#main-header.sticky-hidden .mrh-mega-dropdown.open {
   display: block !important;
 }
 
@@ -7100,13 +7087,13 @@ html.mrh-smooth-scroll {
 }
 
 /* Scrollbar-Styling im Mega-Menü (Webkit) */
-#main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar {
+#main-header.fixed .mrh-mega-dropdown::-webkit-scrollbar {
   width: 6px;
 }
-#main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar-track {
+#main-header.fixed .mrh-mega-dropdown::-webkit-scrollbar-track {
   background: transparent;
 }
-#main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar-thumb {
+#main-header.fixed .mrh-mega-dropdown::-webkit-scrollbar-thumb {
   background: rgba(0,0,0,0.15);
   border-radius: 3px;
 }
@@ -7312,70 +7299,11 @@ html.mrh-smooth-scroll {
 
 
 /* ============================================================
-   STICKY HEADER – Topbar/ShippingBar Ausblenden
-   Problem: Topbar (27px) + ShippingBar (37px) = 64px sitzen UEBER
-   dem Header im Flow. Wenn der Header sticky wird (position:fixed,
-   top:0), ueberlappt er diese Bars. Beim Zurueckscrollen entsteht
-   ein visueller Sprung/Haengen weil der Spacer nur die Header-Hoehe
-   kompensiert, nicht die Bars darueber.
-   Fix: Topbar + ShippingBar per CSS ausblenden sobald Header sticky
-   ist. Die Bars werden per body[data-sticky-active] gesteuert
-   (gesetzt/entfernt vom JS zusammen mit dem Sticky-Wechsel).
+   STICKY HEADER v2 – RevPlus-Muster mit .fixed Klasse
+   Kein body[data-sticky-active], kein Spacer-Element.
+   JS setzt nur .fixed/.sticky-hidden auf #main-header
+   und padding-top auf .page-wrapper.
+   Dadurch wird der FAW MutationObserver NICHT getriggert
+   und es gibt keine getComputedStyle-Floods mehr.
    Stand: 2026-04-21
    ============================================================ */
-body[data-sticky-active] #mrh-topbar {
-  display: none !important;
-}
-body[data-sticky-active] #mrh-shipping-bar {
-  display: none !important;
-}
-
-
-/* ============================================================
-   FAW (Fietz Accessibility Widget) – getComputedStyle Flood Fix
-   Problem: Das FAW hat 2671 ueberwachte Elemente auf der Seite.
-   Beim Sticky-Wechsel (position:relative → fixed) loest der Browser
-   ein Layout-Recalc aus. Das FAW reagiert darauf mit 6000-9000
-   getComputedStyle-Aufrufen pro Sekunde, was Scroll-Ruckler
-   verursacht ("Hacken").
-   Haupttrigger: Die Free Shipping Bar (.mrh-progress-fill) hat
-   transition:width 0.5s und der Track hat transition:all.
-   Diese Transitions loesen bei jedem Layout-Wechsel eine Kaskade
-   von FAW-Rescans aus.
-   Fix:
-   1. Transitions auf der Shipping Bar deaktivieren waehrend sticky
-   2. contain:strict auf Shipping Bar und Header fuer Layout-Isolation
-   3. will-change:transform auf dem Header fuer eigenen Compositing Layer
-   Stand: 2026-04-21
-   ============================================================ */
-
-/* Shipping Bar: Transitions deaktivieren wenn Seite sticky ist
-   Verhindert dass die width-Transition der Progress Bar
-   das FAW zu getComputedStyle-Floods triggert */
-body[data-sticky-active] .mrh-progress-track,
-body[data-sticky-active] .mrh-progress-fill {
-  transition: none !important;
-}
-
-/* Shipping Bar: Layout-Isolation
-   contain:strict verhindert dass Layout-Aenderungen im Header
-   die Shipping Bar beeinflussen und umgekehrt */
-#mrh-shipping-bar {
-  contain: layout style paint;
-}
-
-/* Progress Track: eigener Compositing Layer
-   will-change:transform erstellt einen eigenen Layer,
-   sodass Repaints nicht den Rest der Seite betreffen */
-.mrh-progress-track {
-  contain: strict;
-  will-change: transform;
-}
-
-/* Header: Staerkere Isolation im Sticky-Modus
-   contain:strict + isolation:isolate erstellt einen komplett
-   isolierten Stacking/Layout Context */
-#main-header[data-sticky] {
-  contain: layout style paint;
-  isolation: isolate;
-}
