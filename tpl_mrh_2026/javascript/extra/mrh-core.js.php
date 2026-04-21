@@ -220,6 +220,11 @@
     // eingebaut damit der Browser den Layout-Wechsel in einem
     // einzigen Frame abarbeiten kann.
     setHeaderState: function(sticky, hidden) {
+      // FAW Scroll-Pause: Waehrend des Sticky-Wechsels die FAW
+      // Scroll-Handler pausieren, damit keine getComputedStyle-Floods
+      // ausgeloest werden (6000-9000 Aufrufe/s ohne Pause).
+      if (window.FAW_SCROLL_PAUSED !== undefined) window.FAW_SCROLL_PAUSED = true;
+
       // Batch alle DOM-Aenderungen in einem Frame
       if (sticky) {
         if (! this.header.hasAttribute('data-sticky')) this.header.setAttribute('data-sticky', '');
@@ -233,6 +238,15 @@
       } else {
         if (this.header.hasAttribute('data-sticky-hidden')) this.header.removeAttribute('data-sticky-hidden');
       }
+
+      // FAW Scroll-Pause aufheben nach naechstem Frame
+      // (gibt dem Browser Zeit den Layout-Wechsel abzuschliessen)
+      var self = this;
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          if (window.FAW_SCROLL_PAUSED !== undefined) window.FAW_SCROLL_PAUSED = false;
+        });
+      });
     },
 
     onScroll: function() {
