@@ -1,5 +1,17 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Fix: MegaMenu Dropdown nicht sichtbar + Mobile-Menü im Footer
+
+**Problem 1:** Die CSS-Regel `#main-header:not([data-sticky]) .mrh-mega-dropdown { display: none !important }` blockiert das Dropdown auch wenn `.open` gesetzt ist, weil die `.open`-Regel niedrigere Spezifitaet hat und kein `!important` nutzt. Dadurch oeffnet sich das MegaMenu bei Mouseover nicht.
+
+**Problem 2:** `#mobiles_menu` (Offcanvas-Mobilmenue) ist `display: block` und zeigt alle Kategorie-Links als LI-Liste unter dem Footer an (y=8779px).
+
+**Fix:** Override-Regel mit gleicher Spezifitaet + `!important` fuer `.mrh-mega-dropdown.open`. `#mobiles_menu` standardmaessig auf `display: none` gesetzt.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Override fuer `.mrh-mega-dropdown.open` + `#mobiles_menu { display: none }` |
+
 ## 2026-04-21 – Fix: MRH Core JS Syntax-Fehler (fehlende Klammer in MegaMenu)
 
 **Problem:** `MRH.MegaMenu.buildDropdown()` hatte eine fehlende schliessende `}` fuer den aeusseren `else`-Block (Fallback auf getCategoryConfig). Dadurch waren alle nachfolgenden Methoden (`assignToColumns`, `bindEvents`, `open`, `closeAll`, `markActive`) syntaktisch innerhalb von `buildDropdown` verschachtelt. Der JS-Parser meldete `Unexpected token ','` und das gesamte `window.MRH` Namespace wurde nie erstellt → StickyHeader, MegaMenu, ShippingBar, BackToTop etc. funktionierten nicht.

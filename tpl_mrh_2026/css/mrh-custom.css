@@ -7088,6 +7088,16 @@ html.mrh-smooth-scroll {
 #main-header[data-sticky-hidden] .mrh-mega-dropdown {
   display: none !important;
 }
+/* Override: Dropdown mit .open MUSS sichtbar sein (gleiche Spezifitaet + !important) */
+#main-header:not([data-sticky]) .mrh-mega-dropdown.open,
+#main-header[data-sticky-hidden] .mrh-mega-dropdown.open {
+  display: block !important;
+}
+
+/* Mobile Offcanvas-Menü: standardmaessig versteckt, nur per Offcanvas-Toggle sichtbar */
+#mobiles_menu {
+  display: none;
+}
 
 /* Scrollbar-Styling im Mega-Menü (Webkit) */
 #main-header[data-sticky] .mrh-mega-dropdown::-webkit-scrollbar {
