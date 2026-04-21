@@ -1,5 +1,21 @@
 ## 2026-04-20 – HOTFIX: Icon Font Protection v3.0 (FA7 Dyslexie-Fix)
 
+## 2026-04-21 – Fix: Sticky Header Scroll-Hang (Topbar/ShippingBar Kompensation)
+
+**Problem:** Beim Scrollen "haengt" die Seite manchmal an der Topbar. Ursache: Topbar (27px) + ShippingBar (37px) = 64px sitzen UEBER dem Header im DOM-Flow. Wenn der Header sticky wird (position:fixed, top:0), verschwinden diese 64px aus dem Flow, aber der Spacer kompensiert nur die Header-Hoehe (173px). Zusaetzlich schrumpft der Header im Sticky-Modus auf 108px (NavRow ausgeblendet, Logo verkleinert), was einen 65px Content-Sprung verursacht.
+
+**Fix:**
+1. **CSS:** `body[data-sticky-active]` blendet `#mrh-topbar` + `#mrh-shipping-bar` aus (display:none)
+2. **JS:** Spacer-Hoehe = Header (173px) + Bars (64px) = 237px – kompensiert den gesamten Bereich
+3. **JS:** `activateAt` = Header + Bars (statt 2x Header) – frueherer, praeziserer Sticky-Wechsel
+4. **JS:** `body[data-sticky-active]` Attribut wird gesetzt/entfernt beim Sticky-Wechsel
+5. **JS:** Resize-Handler berechnet Bars-Hoehe dynamisch mit
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | `body[data-sticky-active]` Regeln fuer Topbar/ShippingBar |
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | StickyHeader: barsHeight, activateAt, body-Attribut |
+
 ## 2026-04-21 – Feature: Phase 1 Non-Seeds – Mini-Table fuer Non-Seed Produkte unterdrueckt
 
 **Problem:** In Listing-Karten (Kategorie-Uebersichten) zeigen Non-Seed Produkte (Duenger, Growshop, Headshop, Cannabispflanzen etc.) die Seeds-spezifische Mini-Tabelle mit Sorte/THC/CBD an – Felder die fuer diese Produkte keine Bedeutung haben.
