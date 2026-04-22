@@ -1,24 +1,21 @@
 # Changelog
 
-## 2026-04-22 – Fix: mrh-megamenu-config.js.php Script-Block gebrochen
+## 2026-04-22 – Fix v1.5.0: megamenu-config + core Icon-Rendering (3 Bugs in 1 Release)
 
-**Problem:** Die `product_compare.js.php` (oder eine andere extra-Datei) gibt `</script><link rel="stylesheet" ...>` aus, was den von `general_bottom.js.php` per `ob_start()`/`ob_get_clean()` gesammelten Inline-Script-Block vorzeitig schliesst. Dadurch landete der Output von `mrh-megamenu-config.js.php` als reiner Text im HTML statt als JavaScript → alle Variablen (`MRH_MEGAMENU_CONFIG`, `MRH_MOBILE_ICONS`, `MRH_MOBILE_PROMOS`, `MRH_MEGAMENU_LANG`) blieben `undefined`.
+**Bugs (alle seit v1.4.0 vorhanden):**
+1. `MODULE_MRH_DASHBOARD_STATUS` Konstante im Frontend nicht verfuegbar → Datei gab nichts aus
+2. Admin-Sprachdatei `mrh_dashboard.php` hat `die()` wenn `_VALID_XTC` nicht definiert → killte gesamten PHP-Output
+3. `mrh-listing-desc.js.php` gibt eigene `</script>` Tags aus → nachfolgender Output von megamenu-config landete ausserhalb des Script-Blocks
+4. `mrh-core.js.php` Zeile 788: Dashboard-Icons wurden als Text statt als `<i>` Tags gerendert
 
-**Fix (v1.4.3):** Der JavaScript-Output wird jetzt in eigene `<script>...</script>` Tags gewrappt, damit er unabhängig vom Kontext des umgebenden Script-Blocks funktioniert.
-
-| Datei | Repo | Aenderung |
-|-------|------|----------|
-| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.4.3: Output in eigene script-Tags wrappen |
-
-## 2026-04-22 – Fix: mrh-megamenu-config.js.php die() in Admin-Sprachdatei
-
-**Problem:** Die Admin-Sprachdatei `lang/german/extra/admin/mrh_dashboard.php` enthält `defined('_VALID_XTC') or die(...)`. Beim Include im Frontend-Kontext (auto_include in general_bottom.js.php) war `_VALID_XTC` nicht definiert, wodurch `die()` den gesamten PHP-Output der Datei killte. Ergebnis: `MRH_MOBILE_ICONS`, `MRH_MOBILE_PROMOS`, `MRH_MEGAMENU_CONFIG` und `MRH_MEGAMENU_LANG` blieben alle `undefined`.
-
-**Fix (v1.4.2):** Vor dem `@include_once` der Sprachdatei wird `_VALID_XTC` definiert, falls es noch nicht existiert: `if (!defined('_VALID_XTC')) define('_VALID_XTC', true);`
+**Fixes:**
+- `mrh-megamenu-config.js.php` v1.5.0: MODULE_MRH_DASHBOARD_STATUS durch Cache-Datei-Check ersetzt + `_VALID_XTC` vor Admin-Lang-Include definiert + Output in eigenen `</script><script>` Block gewrappt
+- `mrh-core.js.php`: Icon-HTML von `<span>column.icon</span>` zu `<span><i class="column.icon"></i></span>` geaendert
 
 | Datei | Repo | Aenderung |
 |-------|------|----------|
-| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.4.2: _VALID_XTC vor Admin-Sprachdatei-Include definieren |
+| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.5.0: 3 Bugs gefixt (Status-Check, die()-Bug, Script-Block) |
+| `javascript/extra/mrh-core.js.php` | Template-MRH-2026 | Icon-Rendering: `<i class>` statt Text |
 
 ## 2026-04-21 – Fix: mrh-megamenu-config.js.php MODULE_MRH_DASHBOARD_STATUS
 

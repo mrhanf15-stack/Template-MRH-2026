@@ -785,7 +785,7 @@
           // Spalten-Titel
           var title = document.createElement('div');
           title.className = 'mrh-mega-col-title';
-          var iconHtml = column.icon ? '<span class="mrh-mega-col-icon">' + column.icon + '</span> ' : '';
+          var iconHtml = column.icon ? '<span class="mrh-mega-col-icon"><i class="' + column.icon + '"></i></span> ' : '';
           title.innerHTML = iconHtml + (column.title || 'Spalte ' + (idx + 1));
           col.appendChild(title);
 
