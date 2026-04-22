@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-22 – Feature: Seedfinder Row Equalizer (Karten-Alignment)
+
+**Problem:** Im Seedfinder-Listing starten Badges und Eigenschafts-Tabelle auf unterschiedlicher Hoehe, wenn Produktnamen unterschiedlich lang sind (z.B. "Purple Urkle x Blue Pyramid (Gold Line)" vs. "Papayton").
+
+**Loesung:** Neuer JS-Equalizer (`mrh-sf-equalizer.js.php`) gleicht die Hoehe des Name-Bereichs und Badge-Bereichs pro Kartenreihe automatisch an. Reagiert auf Resize und AJAX-Nachladen (Seedfinder-Filter).
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-sf-equalizer.js.php` | Template-MRH-2026 | NEU: Row Equalizer v1.0.0 |
+
 ## 2026-04-22 – Fix: picto.templatestyle @media 1401px ueberschreibt TPL-Konfigurator
 
 **Problem:** Im `@media (min-width: 1401px)` Block (Sektion 27a) wurden `padding`, `font-size` und `gap` fuer `.picto.templatestyle` mit festen Werten ueberschrieben. Dadurch griff der TPL-Konfigurator (5px 5px) nicht auf Bildschirmen >1400px.
