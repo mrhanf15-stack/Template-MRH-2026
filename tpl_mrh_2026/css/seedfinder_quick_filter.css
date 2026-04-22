@@ -1,0 +1,257 @@
+/**
+ * Seedfinder Quick-Filter-Bar - Dropdown Layout CSS
+ * Version: 1.0.0
+ * Datum: 2026-04-22
+ *
+ * Diese Datei enthält die BASE-LAYOUT-CSS für die sf-dd-* Dropdown-Klassen.
+ * Die FARB-Overrides kommen aus general.css.php (CSS-Variablen).
+ *
+ * Fehlte in seedfinder-combined.min.css - daher als separate Datei.
+ */
+
+/* ========================================
+   DROPDOWN WRAPPER
+   ======================================== */
+#sf-quick-filter-bar .sf-dd-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+/* ========================================
+   TOGGLE BUTTON
+   ======================================== */
+#sf-quick-filter-bar .sf-dd-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    line-height: 1.4;
+}
+
+#sf-quick-filter-bar .sf-dd-toggle:hover,
+#sf-quick-filter-bar .sf-dd-toggle.sf-dd-open {
+    border-color: var(--tpl-sf-dd-hover-border, #0d9488);
+    color: var(--tpl-sf-dd-hover-text, #0d9488);
+}
+
+#sf-quick-filter-bar .sf-dd-toggle.has-active {
+    background: var(--tpl-sf-dd-active-bg, #0d9488);
+    color: var(--tpl-sf-dd-active-text, #fff);
+    border-color: var(--tpl-sf-dd-active-border, #0d9488);
+}
+
+#sf-quick-filter-bar .sf-dd-toggle .fa-chevron-down {
+    transition: transform 0.2s ease;
+}
+
+#sf-quick-filter-bar .sf-dd-toggle.sf-dd-open .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   DROPDOWN MENU
+   ======================================== */
+#sf-quick-filter-bar .sf-dd-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 1050;
+    min-width: 220px;
+    max-width: 320px;
+    max-height: 350px;
+    overflow-y: auto;
+    background: var(--tpl-sf-dd-menu-bg, #fff);
+    border: 1px solid var(--tpl-sf-dd-menu-border, #dee2e6);
+    border-radius: var(--tpl-sf-dd-menu-radius, 8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    display: none;
+}
+
+/* KRITISCH: sf-dd-visible überschreibt display:none */
+#sf-quick-filter-bar .sf-dd-menu.sf-dd-visible {
+    display: block !important;
+}
+
+/* ========================================
+   SEARCH FIELD IN DROPDOWN
+   ======================================== */
+#sf-quick-filter-bar .sf-dd-search-wrap {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+}
+
+#sf-quick-filter-bar .sf-dd-search-wrap input {
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 0.8125rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+#sf-quick-filter-bar .sf-dd-search-wrap input:focus {
+    outline: none;
+    border-color: var(--tpl-sf-dd-hover-border, #0d9488);
+    box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.15);
+}
+
+/* ========================================
+   DROPDOWN ITEMS
+   ======================================== */
+#sf-quick-filter-bar .sf-dd-items {
+    padding: 6px 0;
+}
+
+#sf-quick-filter-bar .sf-dd-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    transition: background 0.1s ease;
+    white-space: nowrap;
+}
+
+#sf-quick-filter-bar .sf-dd-item:hover {
+    background: #f5f5f5;
+}
+
+#sf-quick-filter-bar .sf-dd-item .form-check-input {
+    margin: 0;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+#sf-quick-filter-bar .sf-dd-item .form-check-input:checked {
+    background-color: var(--tpl-sf-dd-active-bg, #0d9488);
+    border-color: var(--tpl-sf-dd-active-border, #0d9488);
+}
+
+#sf-quick-filter-bar .sf-dd-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8125rem;
+    color: #333;
+}
+
+#sf-quick-filter-bar .sf-dd-count,
+#sf-quick-filter-bar .sf-quick-count {
+    color: var(--tpl-sf-dd-count-color, #999);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   DISABLED ITEMS
+   ======================================== */
+#sf-quick-filter-bar .sf-dd-item.sf-dd-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+#sf-quick-filter-bar .sf-dd-item.sf-dd-disabled .form-check-input {
+    cursor: not-allowed;
+}
+
+/* ========================================
+   BADGE (Active Count)
+   ======================================== */
+#sf-quick-filter-bar .sf-quick-badge {
+    background: var(--tpl-sf-dd-badge-bg, #0d6efd);
+    color: var(--tpl-sf-dd-badge-text, #fff);
+    font-size: 0.625rem;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-weight: 600;
+    line-height: 1;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* ========================================
+   FILTER BUTTON (links in der Bar)
+   ======================================== */
+#sf-quick-filter-bar .mrh-btn-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--tpl-sf-btn-filter-border, #5db233);
+    border-radius: 6px;
+    background: var(--tpl-sf-btn-filter-bg, #5db233);
+    color: var(--tpl-sf-btn-filter-text, #fff);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+#sf-quick-filter-bar .mrh-btn-filter:hover {
+    background: var(--tpl-sf-btn-filter-hover-bg, #4a9229);
+    color: var(--tpl-sf-btn-filter-hover-text, #fff);
+    border-color: var(--tpl-sf-btn-filter-hover-border, #4a9229);
+}
+
+#sf-quick-filter-bar .mrh-btn-filter .badge {
+    font-size: 0.6875rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+/* ========================================
+   PRODUCT COUNT (rechts in der Bar)
+   ======================================== */
+#sf-quick-filter-bar .mrh-filter-bar-right {
+    font-size: 0.875rem;
+    color: #666;
+    font-weight: 500;
+}
+
+#sf-quick-filter-bar .mrh-filter-bar-right strong {
+    color: #333;
+    font-weight: 700;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 767px) {
+    #sf-quick-filter-bar .sf-dd-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        max-height: 60vh;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #sf-quick-filter-bar .sf-dd-toggle {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    #sf-quick-filter-bar .mrh-btn-filter {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+}
