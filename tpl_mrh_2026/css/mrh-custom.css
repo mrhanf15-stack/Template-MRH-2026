@@ -7806,7 +7806,7 @@ html.mrh-smooth-scroll {
 /* Herz-Icon per ::before einfügen */
 .mrh-cart-btn-wishlist-wrap a.cart_to_wishlist::before,
 .mrh-cart-btn-wishlist-wrap a::before {
-  font-family: "Font Awesome 6 Free";
+  font-family: "Font Awesome 7 Pro";
   font-weight: 900;
   content: "\f004";
   font-size: 0.75rem;
