@@ -1,9 +1,10 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-sf-equalizer.js.php 1.0.0 2026-04-22 Mr. Hanf $
+   $Id: mrh-sf-equalizer.js.php 1.1.0 2026-04-22 Mr. Hanf $
    MRH Seedfinder Row Equalizer
-   Gleicht die Hoehe von Produktname, Badges und Tabelle in Seedfinder-Listings an,
-   damit alle Karten in einer Reihe auf gleicher Hoehe starten.
+   Gleicht die Hoehe von Produktname, Badges, Tabelle und Footer
+   in Seedfinder-Listings an, damit alle Karten in einer Reihe
+   strukturiert auf gleicher Hoehe starten.
    Wird per auto_include() in general_bottom.js.php geladen.
    -----------------------------------------------------------------------------------------
    Released under the GNU General Public License
@@ -16,8 +17,13 @@ if (!$is_seedfinder) return;
 ?>
 <script>
 /* ============================================================
-   MRH Seedfinder Row Equalizer v1.0.0
-   Gleicht card-body (Name) Hoehen pro Kartenreihe an.
+   MRH Seedfinder Row Equalizer v1.1.0
+   Gleicht alle Karten-Sektionen pro Reihe an:
+   1. Produktname (.card-body.pb-1)
+   2. Badges (.mrh-sf-badge-row)
+   3. Tabelle (.card-body.pt-0)
+   4. Footer (.card-footer) – via mt-auto bereits unten,
+      aber Tabellen-Hoehe muss angeglichen werden.
    ============================================================ */
 (function() {
   'use strict';
@@ -49,6 +55,8 @@ if (!$is_seedfinder) return;
 
   /**
    * Setzt min-height auf alle Elemente in einer Reihe basierend auf dem hoechsten Element.
+   * @param {Array} elements - Die Karten-Elemente (.card)
+   * @param {string} selector - CSS-Selektor fuer das Ziel-Element innerhalb der Karte
    */
   function equalizeRow(elements, selector) {
     // Reset
@@ -67,7 +75,7 @@ if (!$is_seedfinder) return;
       }
     });
 
-    // Anwenden (nur wenn Unterschied > 5px)
+    // Anwenden (nur wenn sinnvoller Unterschied)
     if (maxH > 0) {
       elements.forEach(function(card) {
         var el = card.querySelector(selector);
@@ -89,10 +97,19 @@ if (!$is_seedfinder) return;
 
     rows.forEach(function(rowCards) {
       if (rowCards.length < 2) return;
-      // 1. Produktname-Bereich (erster .card-body)
+
+      // 1. Produktname-Bereich (Hersteller + Name)
       equalizeRow(rowCards, '.card-body.pb-1');
+
       // 2. Badge-Bereich
       equalizeRow(rowCards, '.mrh-sf-badge-row');
+
+      // 3. Tabellen-Bereich (Eigenschaften)
+      //    Selector: zweiter .card-body (der mit .pt-0)
+      equalizeRow(rowCards, '.card-body.pt-0');
+
+      // 4. Footer-Bereich (Preis + Lager + Buttons)
+      equalizeRow(rowCards, '.card-footer');
     });
   }
 
