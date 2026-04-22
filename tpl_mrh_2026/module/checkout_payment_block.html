@@ -10,7 +10,7 @@
     {/foreach}
 
     {foreach name=outer item=module_data from=$module_content}
-      <li class="checkout-method"><label><span class="payment_radio">{$module_data.selection}</span><span class="payment_title">{$module_data.module|onlytext}</span>
+      <li class="checkout-method"><label><span class="payment_radio">{$module_data.selection}</span><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span><span class="payment_title">{$module_data.module|onlytext}</span>
 
         {if $module_data.description}<small>{$module_data.description}</small><br />{/if}
         <span class="payment_costs badge rounded-pill bg-warning text-dark float-end mx-3 my-3">{$module_data.module_cost}</span>

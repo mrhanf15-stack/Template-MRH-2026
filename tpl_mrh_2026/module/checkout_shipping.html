@@ -12,10 +12,10 @@
 {/literal}
 
 <ul id="checkoutnavigation" class="cf">
-  <li class="active"><span class="title">1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
-  <li class="inactive"><span class="title">2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-  <li class="inactive"><span class="title">3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-  <li class="inactive last"><span class="title">4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+  <li class="active"><span class="title"><span class="fa-solid fa-truck me-1" aria-hidden="true"></span> 1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+  <li class="inactive last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
 </ul>
 
 <h1 class="checkout">{#heading_shipping#}</h1>
@@ -25,7 +25,7 @@
 <div class="row">
   <div class="col-md-6">
     <div class="highlightbox">
-      <h4>{#title_shipping#}</h4>
+      <h4><span class="fa-solid fa-truck-fast me-1" aria-hidden="true"></span> {#title_shipping#}</h4>
       <p>{#text_shipping#}</p>
       <div>{$SHIPPING_BLOCK}</div>
     </div>
@@ -33,7 +33,7 @@
 
   <div class="col-md-6">
     <div class="highlightbox">
-      <h4>{#title_address#}</h4>
+      <h4><span class="fa-solid fa-location-dot me-1" aria-hidden="true"></span> {#title_address#}</h4>
       <p class="cf"><span class="checkout_button_right">{$BUTTON_ADDRESS}</span>{$ADDRESS_LABEL}</p>
     </div>
   </div>

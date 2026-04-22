@@ -4,7 +4,7 @@
 {config_load file="lang_`$language`.section" section="address_book_process"}
 {config_load file="lang_`$language`.section" section="checkout_new_address"}
 <div class="highlightbox cf">
-  <h4>{if isset($smarty.get.action) && $smarty.get.action == 'edit'}{#title_edit_address#}{else}{#title_new_address#}{/if} <span class="pflicht">({#text_must#})</span></h4>
+  <h4><span class="fa-solid fa-location-dot me-1" aria-hidden="true"></span> {if isset($smarty.get.action) && $smarty.get.action == 'edit'}<span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#title_edit_address#}{else}<span class="fa-solid fa-plus me-1" aria-hidden="true"></span>{#title_new_address#}{/if} <span class="pflicht">({#text_must#})</span></h4>
   {if !isset($smarty.get.action) || $smarty.get.action == 'new'}<p>{#text_new_address#}</p>{/if}
 
   <div class="twoColumsInner">

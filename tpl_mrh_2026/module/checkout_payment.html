@@ -14,14 +14,14 @@
 
 <ul id="checkoutnavigation" class="cf row">
   {if isset($NO_SHIPPING)}
-    <li class="active no_shipping"><span class="title">1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-    <li class="inactive no_shipping"><span class="title">2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-    <li class="inactive no_shipping last"><span class="title">3. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+    <li class="active no_shipping"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+    <li class="inactive no_shipping"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+    <li class="inactive no_shipping last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 3. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
   {else}
-    <li class="inactive"><span class="title">1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
-    <li class="active"><span class="title">2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-    <li class="inactive"><span class="title">3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-    <li class="inactive last"><span class="title">4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+    <li class="inactive"><span class="title"><span class="fa-solid fa-truck me-1" aria-hidden="true"></span> 1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
+    <li class="active"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+    <li class="inactive"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+    <li class="inactive last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
   {/if}
 </ul>
 
@@ -32,7 +32,7 @@
 <div class="row">
 <div class="col-sm-6">
   <div class="highlightbox">
-    <h4 class="checkout">{#title_payment#}</h4>
+    <h4 class="checkout"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> {#title_payment#}</h4>
     {if (!isset($GV_COVER) || $GV_COVER != 'true') && (!isset($NO_PAYMENT) || $NO_PAYMENT != 'true')}
       <p>{#text_payment#}</p>
       {$PAYMENT_BLOCK}{$module_gift}
@@ -48,7 +48,7 @@
 <div class="col-sm-6">
   {if $step2 != 'true'}
   <div class="highlightbox">
-    <h4 class="checkout">{#title_address#}</h4>
+    <h4 class="checkout"><span class="fa-solid fa-location-dot me-1" aria-hidden="true"></span> {#title_address#}</h4>
     <p class="cf"><span class="checkout_button_right">{$BUTTON_ADDRESS}</span>{$ADDRESS_LABEL}</p>
   </div>
   {/if}
@@ -58,12 +58,12 @@
   <div class="highlightbox mt-4">
     {if "SIGN_CONDITIONS_ON_CHECKOUT"|defined}
     <div>
-        <h4 class="checkout">{#title_comments_short#}</h4>
+        <h4 class="checkout"><span class="fa-solid fa-comment me-1" aria-hidden="true"></span> {#title_comments_short#}</h4>
         <div class="card-body">
             {$COMMENTS}
         </div>
 
-        <h4 class="checkout mt-3">{#title_agb#}</h4>
+        <h4 class="checkout mt-3"><span class="fa-solid fa-file-contract me-1" aria-hidden="true"></span> {#title_agb#}</h4>
         <div class="card-body">
           {$AGB}
         </div>
@@ -83,7 +83,7 @@
         </div>
       {/if}
     {else}
-      <h4 class="checkout">{#title_comments_short#}</h4>
+      <h4 class="checkout"><span class="fa-solid fa-comment me-1" aria-hidden="true"></span> {#title_comments_short#}</h4>
       <div class="checkoutcomment">{$COMMENTS}</div>
       {if isset($REVOCATION_checkbox)}
         <div class="checkoutconditions form-check">

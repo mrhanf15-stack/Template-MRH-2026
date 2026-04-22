@@ -4,14 +4,14 @@
 {config_load file="lang_`$language`.section" section="checkout_success"}
 <ul id="checkoutnavigation" class="cf">
   {if isset($NO_SHIPPING)}
-    <li class="inactive no_shipping"><span class="title">1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-    <li class="inactive no_shipping"><span class="title">2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-    <li class="active no_shipping last"><span class="title">3. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+    <li class="inactive no_shipping"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+    <li class="inactive no_shipping"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+    <li class="active no_shipping last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 3. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
   {else}
-  <li class="inactive"><span class="title">1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
-  <li class="inactive"><span class="title">2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-  <li class="inactive"><span class="title">3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-  <li class="active last"><span class="title">4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-truck me-1" aria-hidden="true"></span> 1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+  <li class="active last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
   {/if}
 </ul>
 
@@ -19,7 +19,7 @@
 
 <div class="twoColums">
   <div class="highlightbox plainleft">
-    <h4>{#title_printorder#}</h4>
+    <h4><span class="fa-solid fa-print me-1" aria-hidden="true"></span> {#title_printorder#}</h4>
     <p>{#text_printorder#}<br />
     <strong>{#text_thankyou#}</strong></p>
   </div>
@@ -27,7 +27,7 @@
 
 <div class="twoColums last">
   <div class="highlightbox plainright">
-    <h4>{#heading_success#}</h4>
+    <h4><span class="fa-solid fa-circle-check me-1 text-success" aria-hidden="true"></span> {#heading_success#}</h4>
     <p>{#text_success#}</p>
   </div>
 </div>

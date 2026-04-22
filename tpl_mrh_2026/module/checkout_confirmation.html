@@ -5,14 +5,14 @@
 {config_load file="lang_`$language`.section" section="checkout_confirmation"}
 <ul id="checkoutnavigation" class="cf">
   {if isset($NO_SHIPPING)}
-    <li class="inactive no_shipping"><span class="title">1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-    <li class="active no_shipping"><span class="title">2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-    <li class="inactive no_shipping last"><span class="title">3. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+    <li class="inactive no_shipping"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+    <li class="active no_shipping"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+    <li class="inactive no_shipping last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 3. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
   {else}
-  <li class="inactive"><span class="title">1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
-  <li class="inactive"><span class="title">2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
-  <li class="active"><span class="title">3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
-  <li class="inactive last"><span class="title">4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-truck me-1" aria-hidden="true"></span> 1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
+  <li class="inactive"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+  <li class="active"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+  <li class="inactive last"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
   {/if}
 </ul>
   <div class="checkout-confirmation">
@@ -63,7 +63,7 @@
   {if $DELIVERY_LABEL}
 
     <div class="highlightbox">
-      <h4>{#text_shipping_address#} <a class="btn btn-secondary btn-sm float-end" href="{$SHIPPING_ADDRESS_EDIT}">{#text_edit#}</a></h4>
+      <h4><span class="fa-solid fa-location-dot me-1" aria-hidden="true"></span> {#text_shipping_address#} <a class="btn btn-secondary btn-sm float-end" href="{$SHIPPING_ADDRESS_EDIT}"><span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#text_edit#}</a></h4>
       {$DELIVERY_LABEL}
     </div>
 
@@ -72,7 +72,7 @@
   {if $BILLING_LABEL}
 
     <div class="highlightbox">
-      <h4 class="checkout">{#text_payment_address#} <a class="btn btn-secondary btn-sm float-end" href="{$BILLING_ADDRESS_EDIT}">{#text_edit#}</a></h4>
+      <h4 class="checkout"><span class="fa-solid fa-location-dot me-1" aria-hidden="true"></span> {#text_payment_address#} <a class="btn btn-secondary btn-sm float-end" href="{$BILLING_ADDRESS_EDIT}"><span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#text_edit#}</a></h4>
       {$BILLING_LABEL}
     </div>
 
@@ -82,7 +82,7 @@
   {if $SHIPPING_METHOD}
 
     <div class="highlightbox ">
-      <h4 class="checkout">{#text_shipping_method#}{if isset($SHIPPING_EDIT)} <a class="btn btn-secondary btn-sm float-end" href="{$SHIPPING_EDIT}">{#text_edit#}</a>{/if}</h4>
+      <h4 class="checkout"><span class="fa-solid fa-truck-fast me-1" aria-hidden="true"></span> {#text_shipping_method#}{if isset($SHIPPING_EDIT)} <a class="btn btn-secondary btn-sm float-end" href="{$SHIPPING_EDIT}"><span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#text_edit#}</a>{/if}</h4>
       {$SHIPPING_METHOD}
     </div>
 
@@ -91,7 +91,7 @@
   {if $PAYMENT_METHOD != ''}
 
       <div class="highlightbox">
-        <h4 class="checkout">{#text_payment_method#}{if isset($PAYMENT_EDIT)} <a class="btn btn-secondary btn-sm float-end" href="{$PAYMENT_EDIT}">{#text_edit#}</a>{/if}</h4>
+        <h4 class="checkout"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> {#text_payment_method#}{if isset($PAYMENT_EDIT)} <a class="btn btn-secondary btn-sm float-end" href="{$PAYMENT_EDIT}"><span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#text_edit#}</a>{/if}</h4>
         {$PAYMENT_METHOD}
       </div>
 
@@ -109,7 +109,7 @@
     {if $ORDER_COMMENTS != ''}
 
       <div class="highlightbox">
-        <h4 class="checkout">{#text_comments#}{if isset($PAYMENT_EDIT)} <a class="btn btn-secondary btn-sm float-end" href="{$PAYMENT_EDIT}">{#text_edit#}</a>{/if}</h4>
+        <h4 class="checkout"><span class="fa-solid fa-comment me-1" aria-hidden="true"></span> {#text_comments#}{if isset($PAYMENT_EDIT)} <a class="btn btn-secondary btn-sm float-end" href="{$PAYMENT_EDIT}"><span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#text_edit#}</a>{/if}</h4>
         {$ORDER_COMMENTS}
       </div>
 
@@ -117,7 +117,7 @@
     {if $PAYMENT_INFORMATION != ''}
 
       <div class="highlightbox ">
-        <h4 class="checkout">{#text_payment_info#}</h4>
+        <h4 class="checkout"><span class="fa-solid fa-circle-info me-1" aria-hidden="true"></span> {#text_payment_info#}</h4>
         <table class="paymentinfotable">
           {foreach name=aussen item=data from=$PAYMENT_INFORMATION}
             <tr>
@@ -132,7 +132,7 @@
 
 
   <div class="highlightbox checkoutborder cf row mt-0">
-    <h3 class="checkout px-0">{#text_products#} <a class="btn btn-secondary btn-sm float-end" href="{$PRODUCTS_EDIT}">{#text_edit#}</a></h4>
+    <h3 class="checkout px-0"><span class="fa-solid fa-box me-1" aria-hidden="true"></span> {#text_products#} <a class="btn btn-secondary btn-sm float-end" href="{$PRODUCTS_EDIT}"><span class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></span>{#text_edit#}</a></h3>
 
 
     <div class="col-md-12 px-0">

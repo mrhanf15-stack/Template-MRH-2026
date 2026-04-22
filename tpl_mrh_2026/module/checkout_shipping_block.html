@@ -12,7 +12,7 @@
             <div class="alert alert-danger py-1">{$module_data.error|onlytext}</div></li>
         {else}
           {foreach name=inner item=method_data from=$module_data.methods}
-            <li class="checkout-method"><label>{$method_data.radio_field}{$module_data.module|onlytext}<br><small>{$method_data.title}</small><span class="shipping_costs badge rounded-pill bg-warning text-dark float-end mx-3 my-3">&nbsp;{$method_data.price}</span></label></li>
+            <li class="checkout-method"><label>{$method_data.radio_field}<span class="fa-solid fa-truck-fast me-1" aria-hidden="true"></span>{$module_data.module|onlytext}<br><small>{$method_data.title}</small><span class="shipping_costs badge rounded-pill bg-warning text-dark float-end mx-3 my-3">&nbsp;{$method_data.price}</span></label></li>
           {/foreach}
         {/if}
       {/foreach}

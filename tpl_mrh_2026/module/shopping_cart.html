@@ -8,7 +8,7 @@
 {if $cart_empty == true}
   <div class="card mb-4">
     <div class="card-body text-center py-5">
-      <span class="fa fa-shopping-cart fa-3x text-body-secondary mb-3 d-block" aria-hidden="true"></span>
+      <span class="fa-solid fa-cart-shopping fa-3x text-body-secondary mb-3 d-block" aria-hidden="true"></span>
       <p class="mb-3">{#text_empty#}</p>
       {$BUTTON_CONTINUE}
     </div>
@@ -27,7 +27,7 @@
       <a href="{$ACTIVATE_EXPRESS_LINK}" class="btn mrh-btn-express">{#checkout_express_activate#}</a>
     {/if}
     {if isset($MODULE_gift_cart)}
-      <a id="gift_link" href="#gift_coupon" class="btn btn-outline-secondary"><span class="fa fa-gift me-1" aria-hidden="true"></span> {#text_gift_coupon#}</a>
+      <a id="gift_link" href="#gift_coupon" class="btn btn-outline-secondary"><span class="fa-solid fa-gift me-1" aria-hidden="true"></span> {#text_gift_coupon#}</a>
     {/if}
     {if isset($BUTTON_CHECKOUT_EXPRESS) && !$PAYPALPLAN}
       <span>{$BUTTON_CHECKOUT_EXPRESS}</span>

@@ -4,16 +4,16 @@
 {config_load file="lang_`$language`.section" section="checkout_payment_address"}
 {if isset($NO_SHIPPING)}
   <ul id="checkoutnavigation" class="cn_no_shipping cf">
-    <li><span class="active cf"><span class="title">1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></span></li>
-    <li><span class="inactive cf"><span class="title">2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></span></li>
-    <li><span class="inactive cf"><span class="title">3. {#title_success#}</span><span class="description">{#desc_success#}</span></span></li>
+    <li><span class="active cf"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 1. {#title_payment#}</span><span class="description">{#desc_payment#}</span></span></li>
+    <li><span class="inactive cf"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 2. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></span></li>
+    <li><span class="inactive cf"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 3. {#title_success#}</span><span class="description">{#desc_success#}</span></span></li>
   </ul>
 {else}
   <ul id="checkoutnavigation" class="cf">
-    <li><span class="inactive cf"><span class="title">1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></span></li>
-    <li><span class="active cf"><span class="title">2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></span></li>
-    <li><span class="inactive cf"><span class="title">3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></span></li>
-    <li><span class="inactive cf"><span class="title">4. {#title_success#}</span><span class="description">{#desc_success#}</span></span></li>
+    <li><span class="inactive cf"><span class="title"><span class="fa-solid fa-truck me-1" aria-hidden="true"></span> 1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></span></li>
+    <li><span class="active cf"><span class="title"><span class="fa-solid fa-credit-card me-1" aria-hidden="true"></span> 2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></span></li>
+    <li><span class="inactive cf"><span class="title"><span class="fa-solid fa-clipboard-check me-1" aria-hidden="true"></span> 3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></span></li>
+    <li><span class="inactive cf"><span class="title"><span class="fa-solid fa-circle-check me-1" aria-hidden="true"></span> 4. {#title_success#}</span><span class="description">{#desc_success#}</span></span></li>
   </ul>
 {/if}
 
@@ -22,7 +22,7 @@
 
 {if !isset($NEW_ADDRESS)}
   <div class="highlightbox">
-    <h4>{#title_old_addresses#}</h4>
+    <h4><span class="fa-solid fa-location-dot me-1" aria-hidden="true"></span> {#title_old_addresses#}</h4>
     <p>{#text_old_addresses#}</p>
     <ol id="address_block_new">
       {foreach item=module_data from=$BLOCK_ADDRESS_ARRAY}
