@@ -2,9 +2,9 @@
  * Seedfinder AJAX Handler - v7.0.1 (korrigiert)
  * Datum: 10. Februar 2026
  * Autor: Mr. Hanf / Manus AI
- * 
+ *
  * Basiert auf: Meilenstein v6.9.3
- * 
+ *
  * NEU in v7.0.1:
  * - KEIN Auto-Update beim Checkbox-Change
  * - Update NUR bei Klick auf "Suchen" Button
@@ -60,7 +60,7 @@
          */
         function bindSearchButtons() {
             console.log('🔗 bindSearchButtons() aufgerufen');
-            
+
             // ⭐ NEU: Event Delegation für dynamisch geladene Buttons
             document.addEventListener('click', function(e) {
                 // Desktop Suchen Button
@@ -69,7 +69,7 @@
                     console.log('🔍 Desktop: Suchen Button geklickt (Event Delegation)');
                     loadProducts(1); // Immer Seite 1 bei neuer Suche
                 }
-                
+
                 // Mobile Suchen Button
                 if (e.target && (e.target.id === 'search-filters-mobile' || e.target.closest('#search-filters-mobile'))) {
                     e.preventDefault();
@@ -82,9 +82,9 @@
                     }
                 }
             });
-            
+
             console.log('✅ Event Delegation für Suchen Buttons aktiviert');
-            
+
             // Prüfe ob Buttons existieren
             var searchDesktop = document.getElementById('search-filters-desktop');
             var searchMobile = document.getElementById('search-filters-mobile');
@@ -228,7 +228,7 @@
             var newProducts = temp.querySelector('#products-container');
             console.log('📦 newProducts gefunden:', newProducts ? '✅ JA' : '❌ NEIN');
             console.log('📦 productsContainer existiert:', productsContainer ? '✅ JA' : '❌ NEIN');
-            
+
             if (newProducts && productsContainer) {
                 productsContainer.innerHTML = newProducts.innerHTML;
                 console.log('✅ Produkte aktualisiert');
@@ -242,7 +242,7 @@
             var currentPaginationTop = document.getElementById('pagination-top'); // ⭐ NEU: Immer aktuell aus DOM holen
             console.log('📄 newPaginationTop gefunden:', newPaginationTop ? '✅ JA' : '❌ NEIN');
             console.log('📄 currentPaginationTop existiert:', currentPaginationTop ? '✅ JA' : '❌ NEIN');
-            
+
             if (newPaginationTop && currentPaginationTop) {
                 currentPaginationTop.innerHTML = newPaginationTop.innerHTML;
                 console.log('✅ Pagination oben aktualisiert');
@@ -256,7 +256,7 @@
             var currentPaginationBottom = document.getElementById('pagination-bottom'); // ⭐ NEU: Immer aktuell aus DOM holen
             console.log('📄 newPaginationBottom gefunden:', newPaginationBottom ? '✅ JA' : '❌ NEIN');
             console.log('📄 currentPaginationBottom existiert:', currentPaginationBottom ? '✅ JA' : '❌ NEIN');
-            
+
             if (newPaginationBottom && currentPaginationBottom) {
                 currentPaginationBottom.innerHTML = newPaginationBottom.innerHTML;
                 console.log('✅ Pagination unten aktualisiert');
@@ -288,16 +288,16 @@
          */
         function attachPaginationListeners() {
             console.log('--- attachPaginationListeners() ---');
-            
+
             var paginationLinks = document.querySelectorAll(
                 '.pagination a, #pagination-top a, #pagination-bottom a'
             );
-            
+
             console.log('Pagination Links gefunden:', paginationLinks.length);
 
             var attachedCount = 0;
             var skippedCount = 0;
-            
+
             paginationLinks.forEach(function(link, index) {
                 var href = link.getAttribute('href');
                 var text = link.textContent.trim();
@@ -312,7 +312,7 @@
                 // Event-Listener anhängen
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
+
                     console.log('=== PAGINATION-LINK GEKLICKT ===');
                     console.log('Text:', text);
                     console.log('href:', href);
@@ -331,10 +331,10 @@
                         loadProducts(1);
                     }
                 });
-                
+
                 attachedCount++;
             });
-            
+
             console.log('Event-Listener Status:');
             console.log(' - Angehängt:', attachedCount);
             console.log(' - Übersprungen:', skippedCount);
@@ -375,12 +375,12 @@
 
             xhr.onreadystatechange = function() {
                 console.log('📡 XHR State:', xhr.readyState, 'Status:', xhr.status);
-                
+
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         console.log('✅ AJAX Response erhalten');
                         console.log('📝 Response Text (erste 500 Zeichen):', xhr.responseText.substring(0, 500));
-                        
+
                         try {
                             var response = JSON.parse(xhr.responseText);
                             console.log('✅ JSON Parse erfolgreich');
@@ -409,15 +409,15 @@
         function updateFilterCounts(response) {
             console.log('\n=== updateFilterCounts() START ===');
             console.log('📊 Response:', response);
-            
+
             // ⭐ FIX: Response heißt 'available_filters' nicht 'filters'
             var filters = response.available_filters || response.filters;
-            
+
             if (!response || !filters) {
                 console.warn('⚠️ Keine Filter-Daten in Response!');
                 return;
             }
-            
+
             console.log('📊 Filter-Daten vorhanden:', Object.keys(filters).length, 'Filter');
 
             // Alle Checkboxen durchgehen
@@ -480,12 +480,12 @@
 
             // ⭐ NEU: URL komplett neu aufbauen statt zu modifizieren
             var params = new URLSearchParams();
-            
+
             // Stage und Category aus aktueller URL
             var currentParams = new URLSearchParams(window.location.search);
             var stage = currentParams.get('stage');
             var category = currentParams.get('category');
-            
+
             if (stage) params.set('stage', stage);
             if (category) params.set('category', category);
 
@@ -494,7 +494,7 @@
             checkboxes.forEach(function(checkbox) {
                 params.append(checkbox.name, checkbox.value);
             });
-            
+
             // Page hinzufügen (falls vorhanden)
             if (page) params.set('page', page);
 
