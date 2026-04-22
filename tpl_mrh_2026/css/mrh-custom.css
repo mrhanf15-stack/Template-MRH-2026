@@ -7498,11 +7498,13 @@ html.mrh-smooth-scroll {
   vertical-align: middle;
 }
 
-/* ── Seedfinder: Badge border-radius Override (2026-04-22) ──
-   seedfinder-combined.min.css setzt border-radius: 3px auf
-   #seedfinder_module .mrh-sf-badge-row .mrh-type-badge.
-   Hier erzwingen wir den TPL-Konfigurator-Wert.
-   ──────────────────────────────────────────────────────────────────── */
+/* ── Seedfinder: Badge-Styles Override (2026-04-22) ──
+   seedfinder-combined.min.css wird NACH mrh-custom.css geladen und
+   ueberschreibt border-radius, font-size, padding.
+   Daher hier mit hoehere Spezifitaet (body#...) erzwingen.
+   ────────────────────────────────────────────────────────────────── */
 #seedfinder_module .mrh-sf-badge-row .mrh-type-badge {
-  border-radius: var(--tpl-badge-radius, 50rem);
+  border-radius: var(--tpl-badge-radius, 50rem) !important;
+  font-size: var(--tpl-badge-font-size, 0.6rem) !important;
+  padding: var(--tpl-badge-padding, 0.20rem 0.5rem) !important;
 }
