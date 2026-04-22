@@ -1,11 +1,13 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-sf-equalizer.js.php 1.3.0 2026-04-22 Mr. Hanf $
+   $Id: mrh-sf-equalizer.js.php 1.4.0 2026-04-22 Mr. Hanf $
    MRH Seedfinder Row Equalizer
    Gleicht die Hoehe von Produktname, Badges und Footer in Seedfinder-Listings an,
    damit alle Karten in einer Reihe strukturiert aussehen.
    Tabelle bleibt flexibel (unterschiedliche Zeilenanzahl OK).
    Footer (Preis/Lager/Buttons) wird angeglichen, damit Buttons auf gleicher Hoehe.
+   v1.4.0 – Fix: Wartet auf Bilder-Laden (lazy loading) bevor gemessen wird.
+            Selektor auf #products-grid beschraenkt (keine Kategorie-Karten).
    Wird per auto_include() in general_bottom.js.php geladen.
    -----------------------------------------------------------------------------------------
    Released under the GNU General Public License
@@ -18,16 +20,20 @@ if (!$is_seedfinder) return;
 ?>
 <script>
 /* ============================================================
-   MRH Seedfinder Row Equalizer v1.3.0
+   MRH Seedfinder Row Equalizer v1.4.0
    Gleicht pro Kartenreihe an:
    1. Produktname (.card-body.pb-1) – immer gleiche Hoehe
    2. Badges (.mrh-sf-badge-row)   – immer gleiche Hoehe
    3. Footer (.card-footer)        – immer gleiche Hoehe
       (Lager-Info macht manche Footer hoeher)
    Tabelle bleibt flexibel.
+   v1.4.0 – Wartet auf Bilder-Laden, Selektor auf #products-grid.
    ============================================================ */
 (function() {
   'use strict';
+
+  /* Karten-Selektor: nur innerhalb #products-grid */
+  var CARD_SEL = '#products-grid .card.h-100';
 
   function groupByRow(elements, tolerance) {
     tolerance = tolerance || 15;
@@ -51,13 +57,13 @@ if (!$is_seedfinder) return;
   }
 
   function equalizeRow(elements, selector) {
-    // Reset
+    /* Reset */
     elements.forEach(function(card) {
       var el = card.querySelector(selector);
       if (el) el.style.minHeight = '';
     });
 
-    // Messen
+    /* Messen */
     var maxH = 0;
     elements.forEach(function(card) {
       var el = card.querySelector(selector);
@@ -67,7 +73,7 @@ if (!$is_seedfinder) return;
       }
     });
 
-    // Anwenden
+    /* Anwenden */
     if (maxH > 0) {
       elements.forEach(function(card) {
         var el = card.querySelector(selector);
@@ -79,18 +85,18 @@ if (!$is_seedfinder) return;
   }
 
   function equalize() {
-    var cards = Array.from(document.querySelectorAll('.card.h-100'));
+    var cards = Array.from(document.querySelectorAll(CARD_SEL));
     if (cards.length < 2) return;
 
     var rows = groupByRow(cards);
 
     rows.forEach(function(rowCards) {
       if (rowCards.length < 2) return;
-      // 1. Produktname-Bereich (Hersteller + Name)
+      /* 1. Produktname-Bereich (Hersteller + Name) */
       equalizeRow(rowCards, '.card-body.pb-1');
-      // 2. Badge-Bereich
+      /* 2. Badge-Bereich */
       equalizeRow(rowCards, '.mrh-sf-badge-row');
-      // 3. Footer (Preis/Lager/Buttons) – damit Buttons auf gleicher Hoehe
+      /* 3. Footer (Preis/Lager/Buttons) – damit Buttons auf gleicher Hoehe */
       equalizeRow(rowCards, '.card-footer');
     });
   }
@@ -103,15 +109,89 @@ if (!$is_seedfinder) return;
     };
   }
 
+  var debouncedEqualize = debounce(equalize, 150);
+
+  /**
+   * Wartet bis alle sichtbaren Bilder in den Karten geladen sind,
+   * dann fuehrt equalize() aus.
+   */
+  function equalizeAfterImages() {
+    var cards = document.querySelectorAll(CARD_SEL);
+    if (!cards.length) return;
+
+    var imgs = [];
+    cards.forEach(function(c) {
+      var img = c.querySelector('img');
+      if (img) imgs.push(img);
+    });
+
+    var pending = 0;
+    imgs.forEach(function(img) {
+      if (!img.complete) {
+        pending++;
+        img.addEventListener('load', function onLoad() {
+          img.removeEventListener('load', onLoad);
+          pending--;
+          if (pending <= 0) equalize();
+        });
+        img.addEventListener('error', function onErr() {
+          img.removeEventListener('error', onErr);
+          pending--;
+          if (pending <= 0) equalize();
+        });
+      }
+    });
+
+    /* Falls alle Bilder bereits geladen sind */
+    if (pending === 0) {
+      equalize();
+    }
+  }
+
   function init() {
+    /* Sofort versuchen */
     equalize();
-    window.addEventListener('load', equalize);
+
+    /* Nach kurzem Delay nochmal (fuer lazy-loaded Bilder) */
+    setTimeout(equalize, 300);
+    setTimeout(equalize, 800);
+
+    /* Bei window.load nochmal + Bilder-Check */
+    window.addEventListener('load', function() {
+      equalize();
+      equalizeAfterImages();
+      /* Sicherheits-Delays nach load */
+      setTimeout(equalize, 500);
+      setTimeout(equalize, 1500);
+    });
+
+    /* Bei Resize */
     window.addEventListener('resize', debounce(equalize, 200));
-    var container = document.getElementById('sf-results') ||
+
+    /* MutationObserver fuer AJAX-Nachladen (Seedfinder-Filter) */
+    var container = document.getElementById('products-grid') ||
+                    document.getElementById('sf-results') ||
                     document.querySelector('.row');
     if (container) {
-      var observer = new MutationObserver(debounce(equalize, 150));
+      var observer = new MutationObserver(function() {
+        debouncedEqualize();
+        /* Nach Mutation nochmal mit Delay (Bilder laden nach) */
+        setTimeout(equalize, 500);
+        setTimeout(equalizeAfterImages, 200);
+      });
       observer.observe(container, { childList: true, subtree: true });
+    }
+
+    /* IntersectionObserver: equalize wenn Karten sichtbar werden */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        var anyVisible = entries.some(function(e) { return e.isIntersecting; });
+        if (anyVisible) debouncedEqualize();
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll(CARD_SEL).forEach(function(card) {
+        io.observe(card);
+      });
     }
   }
 

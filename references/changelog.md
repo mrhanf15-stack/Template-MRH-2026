@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-04-22 – Fix: Seedfinder Row Equalizer v1.4.0 (Timing-Bug bei lazy-loaded Bildern)
+
+**Problem:** Der Equalizer v1.3.0 lief bei DOMContentLoaded und window.load, aber zu diesem Zeitpunkt waren die Bilder (lazy loading) noch nicht geladen. Dadurch hatten die Karten beim Messen noch keine korrekte Hoehe, die Reihen-Gruppierung schlug fehl, und die Footer-Hoehen wurden nicht angeglichen. Karten mit Lager-Info (attribute-text-list) hatten einen 70px hoeheren Footer als Karten ohne.
+
+**Loesung:** Equalizer v1.4.0 mit verbessertem Timing:
+- Selektor auf `#products-grid .card.h-100` beschraenkt (keine Kategorie-Karten mehr)
+- Mehrere Delay-Stufen nach DOMContentLoaded (300ms, 800ms) und nach window.load (500ms, 1500ms)
+- Bilder-Laden-Abwartung: Jedes Bild in den Karten bekommt onload-Listener
+- IntersectionObserver: equalize wenn Karten sichtbar werden (fuer lazy loading)
+- MutationObserver: equalize bei AJAX-Nachladen (Seedfinder-Filter)
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-sf-equalizer.js.php` | Template-MRH-2026 | v1.4.0: Timing-Bug gefixt, Selektor auf #products-grid beschraenkt |
+
 ## 2026-04-22 – Feature: Seedfinder Row Equalizer (Karten-Alignment)
 
 **Problem:** Im Seedfinder-Listing starten Badges und Eigenschafts-Tabelle auf unterschiedlicher Hoehe, wenn Produktnamen unterschiedlich lang sind (z.B. "Purple Urkle x Blue Pyramid (Gold Line)" vs. "Papayton").
