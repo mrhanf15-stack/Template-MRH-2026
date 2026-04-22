@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-22 – Fix: picto.templatestyle @media 1401px ueberschreibt TPL-Konfigurator
+
+**Problem:** Im `@media (min-width: 1401px)` Block (Sektion 27a) wurden `padding`, `font-size` und `gap` fuer `.picto.templatestyle` mit festen Werten ueberschrieben. Dadurch griff der TPL-Konfigurator (5px 5px) nicht auf Bildschirmen >1400px.
+
+**Fix:** Feste Werte durch CSS-Variablen mit Fallback ersetzt: `var(--tpl-picto-padding, 10px 18px)` etc.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Sektion 27a: picto.templatestyle nutzt jetzt CSS-Variablen |
+
 ## 2026-04-22 – Fix v1.5.0: megamenu-config + core Icon-Rendering (3 Bugs in 1 Release)
 
 **Bugs (alle seit v1.4.0 vorhanden):**

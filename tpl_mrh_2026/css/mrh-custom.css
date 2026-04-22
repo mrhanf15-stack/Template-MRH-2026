@@ -1633,8 +1633,8 @@ table.tebals.wite tr:last-child td:last-child {
     width: 42%;
   }
   .picto.templatestyle {
-    font-size: 0.75rem;
-    padding: 6px 12px;
+    font-size: var(--tpl-badge-font-size, 0.75rem);
+    padding: var(--tpl-picto-padding, 6px 12px);
   }
 }
 @media (max-width: 480px) {
@@ -6264,11 +6264,11 @@ footer .picto.templatestyle {
         font-size: 1.2rem !important;
     }
 
-    /* Picto-Wrapper (Detailseite) */
+    /* Picto-Wrapper (Detailseite) – TPL-Konfigurator-Werte respektieren */
     .picto.templatestyle {
-        font-size: 0.88rem;
-        padding: 10px 18px;
-        gap: 10px;
+        font-size: var(--tpl-badge-font-size, 0.88rem);
+        padding: var(--tpl-picto-padding, 10px 18px);
+        gap: var(--tpl-badge-bar-gap, 10px);
     }
     .picto.templatestyle .fa,
     .picto.templatestyle .fa-solid,
@@ -6340,9 +6340,9 @@ footer .picto.templatestyle {
     }
 
     .picto.templatestyle {
-        font-size: 0.75rem;
-        padding: 6px 12px;
-        gap: 6px;
+        font-size: var(--tpl-badge-font-size, 0.75rem);
+        padding: var(--tpl-picto-padding, 6px 12px);
+        gap: var(--tpl-badge-bar-gap, 6px);
     }
     .picto.templatestyle .fa,
     .picto.templatestyle .fa-solid,
@@ -6412,11 +6412,11 @@ footer .picto.templatestyle {
 
     /* Picto-Wrapper: kompakter */
     .picto.templatestyle {
-        font-size: 0.7rem;
-        padding: 5px 10px;
-        gap: 5px;
-        margin-bottom: 0.5rem;
-        border-radius: 8px;
+        font-size: var(--tpl-badge-font-size, 0.7rem);
+        padding: var(--tpl-picto-padding, 5px 10px);
+        gap: var(--tpl-badge-bar-gap, 5px);
+        margin-bottom: var(--tpl-picto-margin-bottom, 0.5rem);
+        border-radius: var(--tpl-picto-border-radius, 8px);
     }
     .picto.templatestyle .fa,
     .picto.templatestyle .fa-solid,
@@ -6492,11 +6492,11 @@ footer .picto.templatestyle {
     }
 
     .picto.templatestyle {
-        font-size: 0.65rem;
-        padding: 4px 8px;
-        gap: 4px;
-        margin-bottom: 0.35rem;
-        border-radius: 6px;
+        font-size: var(--tpl-badge-font-size, 0.65rem);
+        padding: var(--tpl-picto-padding, 4px 8px);
+        gap: var(--tpl-badge-bar-gap, 4px);
+        margin-bottom: var(--tpl-picto-margin-bottom, 0.35rem);
+        border-radius: var(--tpl-picto-border-radius, 6px);
     }
     .picto.templatestyle .fa,
     .picto.templatestyle .fa-solid,
