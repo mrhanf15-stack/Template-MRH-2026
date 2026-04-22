@@ -1,12 +1,13 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-megamenu-config.js.php 1.4.1 2026-04-21 Mr. Hanf $
+   $Id: mrh-megamenu-config.js.php 1.4.2 2026-04-22 Mr. Hanf $
 
    MRH Mega-Menu Config - Frontend JavaScript Output
    Autoinclude Hook: ~/templates/YOUR_TEMPLATE/javascript/extra/
 
    Liest Cache-Datei und gibt NUR eingetragene Links als JS-Objekt aus.
    Unterstuetzt DE/EN/FR/ES + Nav-Links mit MRH_-Sprachkonstanten.
+   v1.4.2: Fix die() in Admin-Sprachdatei → _VALID_XTC vor include definieren
    v1.4.1: Fix MODULE_MRH_DASHBOARD_STATUS Check → nur Cache-Datei pruefen
    v1.4.0: Mobile-Icons + Mobile-Promos + Telefonnummer ans Frontend
    -----------------------------------------------------------------------------------------
@@ -138,6 +139,7 @@ foreach ($megamenu_entries as $entry) {
 // Nav-Links aufbereiten - MRH_-Konstanten aufloesen
 // Die MRH_NAV_* Konstanten werden in lang/{sprache}/extra/admin/mrh_dashboard.php definiert.
 // Diese Datei wird im Admin automatisch geladen, im Frontend muessen wir sie manuell einbinden.
+// WICHTIG: Die Sprachdatei hat "defined('_VALID_XTC') or die(...)" → _VALID_XTC muss definiert sein!
 $_mrh_lang_file_map = array(
     'de' => 'lang/german/extra/admin/mrh_dashboard.php',
     'en' => 'lang/english/extra/admin/mrh_dashboard.php',
@@ -147,6 +149,7 @@ $_mrh_lang_file_map = array(
 if (isset($_mrh_lang_file_map[$active_lang])) {
     $_mrh_lang_path = DIR_FS_CATALOG . $_mrh_lang_file_map[$active_lang];
     if (file_exists($_mrh_lang_path) && !defined('MRH_NAV_ANGEBOTE')) {
+        if (!defined('_VALID_XTC')) define('_VALID_XTC', true);
         @include_once($_mrh_lang_path);
     }
 }

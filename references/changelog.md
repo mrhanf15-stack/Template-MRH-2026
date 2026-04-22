@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-22 – Fix: mrh-megamenu-config.js.php die() in Admin-Sprachdatei
+
+**Problem:** Die Admin-Sprachdatei `lang/german/extra/admin/mrh_dashboard.php` enthält `defined('_VALID_XTC') or die(...)`. Beim Include im Frontend-Kontext (auto_include in general_bottom.js.php) war `_VALID_XTC` nicht definiert, wodurch `die()` den gesamten PHP-Output der Datei killte. Ergebnis: `MRH_MOBILE_ICONS`, `MRH_MOBILE_PROMOS`, `MRH_MEGAMENU_CONFIG` und `MRH_MEGAMENU_LANG` blieben alle `undefined`.
+
+**Fix (v1.4.2):** Vor dem `@include_once` der Sprachdatei wird `_VALID_XTC` definiert, falls es noch nicht existiert: `if (!defined('_VALID_XTC')) define('_VALID_XTC', true);`
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.4.2: _VALID_XTC vor Admin-Sprachdatei-Include definieren |
+
 ## 2026-04-21 – Fix: mrh-megamenu-config.js.php MODULE_MRH_DASHBOARD_STATUS
 
 **Problem:** `MODULE_MRH_DASHBOARD_STATUS` ist zwar in der DB `true`, aber die Konstante wird im Frontend-Kontext (auto_include) nicht definiert. Der Check in Zeile 16 blockierte daher die gesamte Ausgabe → `MRH_MOBILE_ICONS` und `MRH_MOBILE_PROMOS` blieben `undefined`.
