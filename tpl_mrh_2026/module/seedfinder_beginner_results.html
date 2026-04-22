@@ -1,5 +1,3 @@
-{config_load file="$language/lang_$language.conf" section="seedfinder"}
-{config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="seedfinder"}
 
 {* Stage 3: Beginner Results Template v4.0 - Live Filter Updates *}
@@ -29,7 +27,7 @@
 <script src="{$tpl_path}javascript/seedfinder-beginner-results.js" defer></script>
 
 <div id="seedfinder_module">
-    
+
     {* Header *}
     <div class="mb-4">
         <div class="col-14">
@@ -39,7 +37,7 @@
             </div>
         </div>
     </div>
-    
+
     {* Info Card *}
     <div class="row mb-4">
         <div class="col-12">
@@ -49,7 +47,7 @@
             </div>
         </div>
     </div>
-    
+
     {* Back Button + Filter Title + Products Count *}
     <div class="row mb-4">
         <div class="col-12">
@@ -66,7 +64,7 @@
             </div>
         </div>
     </div>
-    
+
     {* Filter Section (direkt auf der Seite, keine Modal) *}
     {if $FILTERS && count($FILTERS) > 0}
     <div class="row mb-4" id="beginner-filters-container">
@@ -79,11 +77,11 @@
                 <div class="card-body filter-options-main beginner-filter-group" data-filter-id="{$filter.options_id}">
                     {foreach from=$filter.values item=value}
                         <label class="custom-control custom-checkbox mb-2{if !$value.enabled && !$value.selected} filter-disabled{/if}">
-                            <input 
-                                type="checkbox" 
-                                class="custom-control-input filter-checkbox beginner-filter-checkbox" 
+                            <input
+                                type="checkbox"
+                                class="custom-control-input filter-checkbox beginner-filter-checkbox"
                                 id="beginner-filter-{$filter.options_id}-{$value.values_id}"
-                                name="filter[{$filter.options_id}][]" 
+                                name="filter[{$filter.options_id}][]"
                                 value="{$value.values_id}"
                                 data-filter-id="{$filter.options_id}"
                                 data-value-id="{$value.values_id}"
@@ -103,7 +101,7 @@
         </div>
         {/foreach}
     </div>
-    
+
     {* Filter Buttons *}
     <div class="row mb-4">
         <div class="col-12">
@@ -117,16 +115,16 @@
             </button>
         </div>
     </div>
-    
+
     <hr class="my-4">
     {/if}
-    
+
     {* Products Section *}
     <div id="products-container">
         {if isset($PAGINATION) && $PAGINATION != ''}
             {$PAGINATION}
         {/if}
-        
+
         <div class="row" id="products-grid">
             {if $PRODUCTS && count($PRODUCTS) > 0}
                 {include file="module/seedfinder_product_cards.html"}
@@ -139,22 +137,22 @@
                 </div>
             {/if}
         </div>
-        
+
         {if isset($PAGINATION) && $PAGINATION != ''}
             <div class="mt-4">
                 {$PAGINATION}
             </div>
         {/if}
     </div>
-    
+
     {* Back Button - Öffnet Wizard Modal *}
     <div class="text-center mt-4">
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#beginnerWizardModal">
             <i class="fas fa-arrow-left mr-1"></i> {#beginner_results_back_to_selection#}
         </button>
     </div>
-    
+
     {* Wizard Modal einbinden *}
     {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_beginner-wizard-modal-with-results.html"}
-    
-</div>
+
+</div>cat: /home/www/doc/28856/dcp288560004/mr-hanf.at/www/templates/tpl_mrh_2026/javascript/seedfinder-beginner-results.js: No such file or directory

@@ -2,7 +2,7 @@
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="seedfinder"}
 
-<link rel="stylesheet" href="{$tpl_path}css/b4.css">
+{* v34.0.0: b4.css entfernt (404/301), seedfinder_mobile_reset.js entfernt (404) *}
 <link rel="stylesheet" href="{$tpl_path}/css/seedfinder-combined.min.css">
 <script src="{$tpl_path}javascript/seedfinder_colors.js" defer></script>
 <script src="{$tpl_path}javascript/seedfinder-cards.js" defer></script>
@@ -14,19 +14,18 @@
 {if $STAGE == 2}
 <script src="{$tpl_path}javascript/seedfinder_ajax.js?v=9.0.1" defer></script>
 <script src="{$tpl_path}javascript/seedfinder_modal.js?v=9.0.1" defer></script>
-<script src="{$tpl_path}javascript/seedfinder_mobile_reset.js" defer></script>
 {/if}
 
 <div id="seedfinder_module">
 
 {if $STAGE == 1}
     <h1>{#title#}</h1>
-    
-   
-    
+
+
+
     {if $STAGE == 1}{1003279|contentAnywhere|inserttags}{/if}
-    
-    
+
+
     <!-- ============================================================ -->
     <!-- ANFÄNGER/PROFI FINDER CARDS (NUR FÜR ADMINS - IN ENTWICKLUNG) -->
     <!-- ============================================================ -->
@@ -35,41 +34,41 @@
     {if $STAGE == 1}
     {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_beginner-wizard-modal-with-results.html"}
     {/if}
-    
-    
+
+
     <div class="row">
         {foreach name=categories item=category from=$CATEGORIES}
-        
+
         <div class="col-14 col-sm-6 mb-4">
             <a href="{$category.LINK}" class="seedfinder-card text-decoration-none" title="{$category.NAME}">
                 <div class="h-100">
                     <div class="text-center p-3 position-relative">
-                        
+
                         <div class="d-flex align-items-center justify-content-center mb-3 seedfinder-icon-container">
                             <span class="fa-solid {$category.ICON} seedfinder-category-icon" data-color="{$category.COLOR}"></span>
                         </div>
-                        
+
                         {if $category.PRODUCTS_COUNT > 0}
                         <span class="badge bg-dark position-absolute seedfinder-badge">
                             {$category.PRODUCTS_COUNT} {#products_label#}
                         </span>
                         {/if}
-                        
+
                         <h5 class="card-title fw-bold mb-2 text-dark">
                             {$category.NAME}
                         </h5>
-                        
+
                         <p class="card-text text-muted small mb-3">{$category.DESCRIPTION}</p>
-                        
+
                         <span class="btn btn-sm w-100 seedfinder-category-btn" data-color="{$category.COLOR}">
                             {#select_category#} <span class="fa-solid fa-arrow-right ms-1"></span>
                         </span>
-                        
+
                     </div>
                 </div>
             </a>
         </div>
-        
+
         {/foreach}
     </div>
 
@@ -122,7 +121,7 @@
             </h3>
         </div>
     </div>
-    
+
     <div class="row">
         {foreach from=$MANUFACTURERS item=manufacturer}
         <div class="col-14 col-md-6 col-lg-3 mb-4">
@@ -155,7 +154,7 @@
                     {/foreach}
                 </div>
                 <div class="card-footer text-center">
-                    <a href="{$manufacturer.LINK}" class="btn btn-sm mrh-btn-outline">
+                    <a href="{$manufacturer.LINK}" class="btn btn-sm btn-outline-primary">
                         {#manufacturer_all_products#} <span class="fa-solid fa-arrow-right ms-1"></span>
                     </a>
                 </div>
@@ -168,27 +167,28 @@
 {else}
     {* ========================================== *}
     {* STUFE 2: Produkte mit Filtern              *}
-    {* v32.1.0-bs5: BS5.3 + FA7 Pro Migration    *}
+    {* v34.0.0: Serverseitige MRH-Badges/Tabelle *}
+    {* sfInitBadges() entfernt – nicht mehr noetig *}
     {* ========================================== *}
     <div class="mb-4">
         <div class="col-14">
-            
+
             <div class="text-center">
                 <h2 class="h1 mb-2">{$CATEGORY_NAME}</h2>
-                              
-               
+
+
             </div>
         </div>
     </div>
-    
+
     {if $FILTERS && count($FILTERS) > 0}
         {include file="`$smarty.const.CURRENT_TEMPLATE`/module/seedfinder_filters_accordion.html"}
     {/if}
-    
+
     <button type="button" class="floating-filter-btn d-md-none open-filters-btn" id="floating-filter-btn" title="{#filter_open_button#}">
         <span class="fa-solid fa-filter"></span>
     </button>
-    
+
     <div class="row mb-3 d-none" id="active-filters-card">
         <div class="col-14">
             <div class="card shadow-sm border-primary">
@@ -204,12 +204,12 @@
             </div>
         </div>
     </div>
-    
+
     <div id="products-container">
         {if isset($PAGINATION) && $PAGINATION != ''}
             {$PAGINATION}
         {/if}
-        
+
         <div class="row" id="products-grid">
             {if $PRODUCTS && count($PRODUCTS) > 0}
                 {include file="module/seedfinder_product_cards.html"}
@@ -223,61 +223,37 @@
                 </div>
             {/if}
         </div>
-        
+
         {if isset($PAGINATION) && $PAGINATION != ''}
             {$PAGINATION}
         {/if}
     </div>
-    
+
     <script>
     (function() {
         'use strict';
-        
         document.addEventListener('DOMContentLoaded', function() {
-            /* Badge-Init v5.0: Zentrale Logik aus mrh-badge-init.js.php */
-            function sfInitBadges() {
-              if (typeof window.MrhBadgeInit === 'function') {
-                window.MrhBadgeInit('#seedfinder_module');
-              }
-            }
-            sfInitBadges();
-
-            /* Re-Init nach AJAX-Nachladen (MutationObserver) */
-            var grid = document.getElementById('products-grid');
-            if (grid) {
-              var observer = new MutationObserver(function() { sfInitBadges(); });
-              observer.observe(grid, { childList: true, subtree: true });
-            }
 
             // Floating Filter Button Handler
             var floatingBtn = document.getElementById('floating-filter-btn');
             var modalBtn = document.getElementById('open-filter-modal');
-            
+
             if (floatingBtn && modalBtn) {
                 floatingBtn.addEventListener('click', function() {
                     modalBtn.click();
                 });
             }
-            
+
             // Auto-Open Filter Modal wenn URL Parameter open_filters=1
             var urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('open_filters') === '1') {
-                console.log('URL Parameter open_filters=1 erkannt');
-                console.log('Oeffne Filter-Modal automatisch...');
-                
-                // Warte kurz damit Seite vollstaendig geladen ist
                 setTimeout(function() {
                     if (modalBtn) {
-                        console.log('Filter-Modal Button gefunden, klicke...');
                         modalBtn.click();
-                        
-                        // FIX: Entferne NUR open_filters Parameter, behalte stage und category!
                         var newParams = new URLSearchParams(window.location.search);
                         newParams.delete('open_filters');
                         var newUrl = window.location.pathname + '?' + newParams.toString();
                         window.history.replaceState({}, document.title, newUrl);
-                    } else {
-                        console.error('Filter-Modal Button nicht gefunden!');
                     }
                 }, 500);
             }
@@ -288,5 +264,5 @@
 
 {if $STAGE == 1}{1003280|contentAnywhere|inserttags}{/if}
 {if $STAGE == 2}{1003281|contentAnywhere|inserttags}{/if}
- 
+
 </div>
