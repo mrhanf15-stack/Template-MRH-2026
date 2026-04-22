@@ -148,6 +148,7 @@ checkout_express_activate = 'Activate my quick purchase'
 order_text_each = 'each'
 products_basket_quantity = 'Quantity'
 text_cart_or = 'or'
+text_model = 'Item No.'
 
 
 [new_password]

@@ -76,6 +76,7 @@ text_gv_code = 'C&oacute;digo de vale'
 [newsletter]
 
 [shopping_cart]
+text_model = 'N&uacute;m. art.'
 
 [new_password]
 

@@ -148,6 +148,7 @@ checkout_express_activate = 'Mein Schnellkauf aktivieren'
 order_text_each = 'je'
 products_basket_quantity = 'Anzahl'
 text_cart_or = 'oder'
+text_model = 'Artikelnr.'
 
 
 [new_password]

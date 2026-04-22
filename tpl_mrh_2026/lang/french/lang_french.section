@@ -148,6 +148,7 @@ checkout_express_activate = 'Activer mon achat rapide'
 order_text_each = 'par'
 products_basket_quantity = 'Nombre'
 text_cart_or = 'ou'
+text_model = 'R&eacute;f.'
 
 
 [new_password]
