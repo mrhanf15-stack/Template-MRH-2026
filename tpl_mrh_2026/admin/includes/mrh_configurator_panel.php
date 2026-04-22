@@ -4075,6 +4075,56 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
     </div>
 
+    <!-- ═══ Warenkorb Artikel-Buttons ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-pen-to-square me-1"></i>Warenkorb Artikel-Buttons</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-update-bg"><strong>Aktualisieren BG</strong></label>
+            <input id="tpl-co-cart-btn-update-bg" type="text" name="tpl-co-cart-btn-update-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-update-bg','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-update-bg','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-update-text"><strong>Aktualisieren Text</strong></label>
+            <input id="tpl-co-cart-btn-update-text" type="text" name="tpl-co-cart-btn-update-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-update-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-update-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-update-icon"><strong>Aktualisieren Icon</strong></label>
+            <input id="tpl-co-cart-btn-update-icon" type="text" name="tpl-co-cart-btn-update-icon" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-update-icon','fa-solid fa-rotate'); ?>" placeholder="z.B. fa-solid fa-rotate">
+            <small class="text-muted">FA7-Klasse, z.B. fa-solid fa-rotate</small>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-delete-bg"><strong>Löschen BG</strong></label>
+            <input id="tpl-co-cart-btn-delete-bg" type="text" name="tpl-co-cart-btn-delete-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-delete-bg','rgb(220, 53, 69)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-delete-bg','rgb(220, 53, 69)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-delete-text"><strong>Löschen Text</strong></label>
+            <input id="tpl-co-cart-btn-delete-text" type="text" name="tpl-co-cart-btn-delete-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-delete-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-delete-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-delete-icon"><strong>Löschen Icon</strong></label>
+            <input id="tpl-co-cart-btn-delete-icon" type="text" name="tpl-co-cart-btn-delete-icon" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-delete-icon','fa-solid fa-trash'); ?>" placeholder="z.B. fa-solid fa-trash">
+            <small class="text-muted">FA7-Klasse, z.B. fa-solid fa-trash</small>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-wishlist-bg"><strong>Merkzettel BG</strong></label>
+            <input id="tpl-co-cart-btn-wishlist-bg" type="text" name="tpl-co-cart-btn-wishlist-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-wishlist-bg','rgb(233, 30, 99)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-wishlist-bg','rgb(233, 30, 99)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-wishlist-text"><strong>Merkzettel Text</strong></label>
+            <input id="tpl-co-cart-btn-wishlist-text" type="text" name="tpl-co-cart-btn-wishlist-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-wishlist-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-wishlist-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-wishlist-icon"><strong>Merkzettel Icon</strong></label>
+            <input id="tpl-co-cart-btn-wishlist-icon" type="text" name="tpl-co-cart-btn-wishlist-icon" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-wishlist-icon','fa-solid fa-heart'); ?>" placeholder="z.B. fa-solid fa-heart">
+            <small class="text-muted">FA7-Klasse, z.B. fa-solid fa-heart</small>
+        </div>
+    </div>
+
     <!-- ═══ Checkout-Buttons ═══ -->
     <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-square me-1"></i>Checkout-Buttons</h6>
     <div class="row">

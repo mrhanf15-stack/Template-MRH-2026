@@ -47,9 +47,11 @@
               <div class="d-flex align-items-center gap-1">
                 {$module_data.PRODUCTS_QTY|replace:'size="':'class="form-control form-control-sm text-center" style="width:60px" '}
                 {$module_data.BUTTON_DELETE}
-                {$smarty.const.IMAGE_BUTTON_UPDATE_CART|bs4button:'button_update_cart.gif':'':true}
+                <button type="submit" name="cart_quantity_update" class="btn btn-sm mrh-cart-btn-update" title="Aktualisieren">
+                  <span class="fa-solid fa-rotate" aria-hidden="true"></span>
+                </button>
                 {if $module_data.BUTTON_WISHLIST != ''}
-                  {$module_data.BUTTON_WISHLIST|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'button_wishlist_now'}<"}
+                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST}</span>
                 {/if}
               </div>
             </div>

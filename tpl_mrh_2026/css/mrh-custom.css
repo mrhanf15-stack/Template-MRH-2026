@@ -7759,3 +7759,37 @@ html.mrh-smooth-scroll {
   background: rgba(0,0,0,.2);
   border-radius: 2px;
 }
+
+/* ── Warenkorb: Aktualisieren + Wishlist Buttons ── */
+.mrh-cart-btn-update {
+  background-color: var(--tpl-co-cart-btn-update-bg, rgb(108, 117, 125));
+  color: var(--tpl-co-cart-btn-update-text, #fff);
+  border: none;
+  border-radius: var(--tpl-co-cart-btn-radius, 6px);
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.2s ease;
+}
+.mrh-cart-btn-update:hover {
+  opacity: 0.8;
+  color: var(--tpl-co-cart-btn-update-text, #fff);
+}
+.mrh-cart-btn-wishlist-wrap a,
+.mrh-cart-btn-wishlist-wrap input[type="image"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--tpl-co-cart-btn-wishlist-bg, rgb(233, 30, 99));
+  color: var(--tpl-co-cart-btn-wishlist-text, #fff);
+  border: none;
+  border-radius: var(--tpl-co-cart-btn-radius, 6px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  width: 28px;
+  height: 28px;
+}
+.mrh-cart-btn-wishlist-wrap a:hover,
+.mrh-cart-btn-wishlist-wrap input[type="image"]:hover {
+  opacity: 0.8;
+}
