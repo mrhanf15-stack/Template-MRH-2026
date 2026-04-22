@@ -7742,3 +7742,20 @@ html.mrh-smooth-scroll {
 .mrh-cart-shipping-info .fw-bold {
   color: var(--tpl-co-cart-total-text, rgb(33, 37, 41));
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   Seedfinder-Karten: Eigenschafts-Tabelle Höhe begrenzen
+   Datum: 2026-04-22
+   ══════════════════════════════════════════════════════════════════ */
+#seedfinder_module .mrh-sf-scroll.mrh-detail-table {
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+#seedfinder_module .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar {
+  width: 4px;
+}
+#seedfinder_module .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.2);
+  border-radius: 2px;
+}
