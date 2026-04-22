@@ -7776,8 +7776,9 @@ html.mrh-smooth-scroll {
   opacity: 0.8;
   color: var(--tpl-co-cart-btn-update-text, #fff);
 }
+/* Wishlist-Button im Warenkorb: generierter HTML = <a><span class="btn mrh-btn-wishlist ..."><span class="fa fa-heart"></span><span>&nbsp;&nbsp;Text</span></span></a> */
 .mrh-cart-btn-wishlist-wrap a,
-.mrh-cart-btn-wishlist-wrap input[type="image"] {
+.mrh-cart-btn-wishlist-wrap > .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7791,8 +7792,36 @@ html.mrh-smooth-scroll {
   transition: opacity 0.2s ease;
   width: 28px;
   height: 28px;
+  overflow: hidden;
 }
 .mrh-cart-btn-wishlist-wrap a:hover,
-.mrh-cart-btn-wishlist-wrap input[type="image"]:hover {
+.mrh-cart-btn-wishlist-wrap > .btn:hover {
   opacity: 0.8;
+  color: var(--tpl-co-cart-btn-wishlist-text, #fff);
+}
+/* Text im Wishlist-Button verstecken – nur Icon zeigen */
+.mrh-cart-btn-wishlist-wrap .btn > span:not([class*="fa-"]) {
+  display: none;
+}
+/* Delete-Button im Warenkorb: generierter HTML = <a><span class="btn btn-danger ..."><span class="fa fa-trash"></span></span></a> */
+.mrh-cart-btn-delete-wrap a,
+.mrh-cart-btn-delete-wrap > .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--tpl-co-cart-btn-delete-bg, rgb(220, 53, 69));
+  color: var(--tpl-co-cart-btn-delete-text, #fff);
+  border: none;
+  border-radius: var(--tpl-co-cart-btn-radius, 6px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  width: 28px;
+  height: 28px;
+}
+.mrh-cart-btn-delete-wrap a:hover,
+.mrh-cart-btn-delete-wrap > .btn:hover {
+  opacity: 0.8;
+  color: var(--tpl-co-cart-btn-delete-text, #fff);
 }

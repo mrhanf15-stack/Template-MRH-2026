@@ -46,7 +46,7 @@
               <strong class="small">{#text_qty#}:</strong>
               <div class="d-flex align-items-center gap-1">
                 {$module_data.PRODUCTS_QTY|replace:'size="':'class="form-control form-control-sm text-center" style="width:60px" '}
-                {$module_data.BUTTON_DELETE}
+                <span class="mrh-cart-btn-delete-wrap">{$module_data.BUTTON_DELETE}</span>
                 <button type="submit" name="cart_quantity_update" class="btn btn-sm mrh-cart-btn-update" title="Aktualisieren">
                   <span class="fa-solid fa-rotate" aria-hidden="true"></span>
                 </button>
