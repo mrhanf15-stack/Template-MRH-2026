@@ -7744,18 +7744,21 @@ html.mrh-smooth-scroll {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   Seedfinder-Karten: Eigenschafts-Tabelle Höhe begrenzen
+   Seedfinder + Vergleichsliste: Eigenschafts-Tabelle Höhe begrenzen
    Datum: 2026-04-22
    ══════════════════════════════════════════════════════════════════ */
-#seedfinder_module .mrh-sf-scroll.mrh-detail-table {
+#seedfinder_module .mrh-sf-scroll.mrh-detail-table,
+.product-compare-page .mrh-sf-scroll.mrh-detail-table {
   max-height: 220px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
-#seedfinder_module .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar {
+#seedfinder_module .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar,
+.product-compare-page .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar {
   width: 4px;
 }
-#seedfinder_module .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar-thumb {
+#seedfinder_module .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar-thumb,
+.product-compare-page .mrh-sf-scroll.mrh-detail-table::-webkit-scrollbar-thumb {
   background: rgba(0,0,0,.2);
   border-radius: 2px;
 }
