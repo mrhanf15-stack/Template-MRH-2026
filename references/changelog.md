@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-22 – Fix: Eigenschafts-Tabelle Hoehe begrenzen (Seedfinder + Vergleichsliste)
+
+**Problem:** Die Eigenschafts-Tabellen (Geschlecht, THC, Bluetezeit etc.) in den Produkt-Karten auf der Seedfinder-Seite und der Vergleichsliste hatten keine Hoehenbegrenzung. Bei Produkten mit vielen Attributen wurden die Karten extrem lang und ungleichmaessig.
+
+**Loesung:** CSS max-height 220px mit Scrollbar fuer beide Seiten:
+- `#seedfinder_module .mrh-sf-scroll.mrh-detail-table` (Seedfinder)
+- `.product-compare-page .mrh-sf-scroll.mrh-detail-table` (Vergleichsliste)
+- overflow-y: auto, scrollbar-width: thin, 4px Webkit-Scrollbar
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | max-height 220px + Scrollbar fuer Seedfinder + Vergleichsliste |
+
 ## 2026-04-22 – Rewrite: Altersverifizierung v2.0.0 (BS5.3 + Vanilla JS)
 
 **Problem:** Das Altersverifizierung-Modal (age_verification.php v1.0.3) nutzte BS4-Klassen (ml-4, btn-block, center-block), jQuery-abhaengige Modal-API ($().modal("show")), und einen falschen Bild-Pfad (/templates/bootstrap4/img/logo_head.png statt /templates/tpl_mrh_2026/img/logo_head.png). Dadurch fehlte das Bild und das Modal funktionierte nicht korrekt mit BS5.3.
