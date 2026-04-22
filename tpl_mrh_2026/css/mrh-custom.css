@@ -7749,7 +7749,7 @@ html.mrh-smooth-scroll {
    ══════════════════════════════════════════════════════════════════ */
 #seedfinder_module .mrh-sf-scroll.mrh-detail-table,
 .product-compare-page .mrh-sf-scroll.mrh-detail-table {
-  max-height: 220px;
+  max-height: 300px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
