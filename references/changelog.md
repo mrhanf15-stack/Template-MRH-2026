@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-04-22 – Rewrite: Altersverifizierung v2.0.0 (BS5.3 + Vanilla JS)
+
+**Problem:** Das Altersverifizierung-Modal (age_verification.php v1.0.3) nutzte BS4-Klassen (ml-4, btn-block, center-block), jQuery-abhaengige Modal-API ($().modal("show")), und einen falschen Bild-Pfad (/templates/bootstrap4/img/logo_head.png statt /templates/tpl_mrh_2026/img/logo_head.png). Dadurch fehlte das Bild und das Modal funktionierte nicht korrekt mit BS5.3.
+
+**Loesung:** Kompletter Rewrite des bootstrap-Modus:
+- BS5.3 Modal mit data-bs-* Attributen und modal-dialog-centered
+- Vanilla JS statt jQuery ($().modal → new bootstrap.Modal())
+- Dynamischer Bild-Pfad ueber CURRENT_TEMPLATE Konstante
+- Wireframe-Design: Zentriert, shadow-lg, border-radius 1rem, clean Typography
+- SameSite=Lax Cookie-Attribut fuer moderne Browser
+- Legacy default-Modus (modalBox) bleibt unveraendert fuer Abwaertskompatibilitaet
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `includes/extra/application_bottom/age_verification.php` | Template-MRH-2026 | v2.0.0: BS5.3 + Vanilla JS Rewrite |
+
 ## 2026-04-22 – Fix: Seedfinder Badge border-radius Override
 
 **Problem:** `seedfinder-combined.min.css` setzt `border-radius: 3px` auf `#seedfinder_module .mrh-sf-badge-row .mrh-type-badge` und ueberschreibt damit den TPL-Konfigurator-Wert `var(--tpl-badge-radius, 50rem)`.
