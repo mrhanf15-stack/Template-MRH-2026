@@ -3,50 +3,76 @@
 {config_load file="$language/lang_$language.conf" section="wishlist"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="wishlist"}
-{* MRH 2026: Wunschliste – BS5.3 *}
+{* MRH 2026: Wunschliste / Merkzettel – gleiches Layout wie Produktlisten *}
+<div id="wishlist-box">
 {if isset($BUTTON_CONTINUE)}
-  <h1 class="mrh-page-title">{#heading_wishlist#}</h1>
-  <div class="card mb-4">
-    <div class="card-body text-center py-5">
-      <span class="fa-solid fa-heart fa-3x text-body-secondary mb-3 d-block" aria-hidden="true"></span>
-      <p>{#text_empty_wishlist#}</p>
-      {$BUTTON_CONTINUE}
-    </div>
-  </div>
+  <div class="headline_big">{#heading_wishlist#}</div>
+  <p>{#text_empty_wishlist#}</p>
+  <div class="button_right">{$BUTTON_CONTINUE}</div>
 {elseif isset($module_content)}
-  <h1 class="mrh-page-title">{#heading_wishlist#}</h1>
-  <div class="row g-3 mb-4">
+  <div class="headline_big">{#heading_wishlist#}</div>
+  <div class="listingcontainer cf">
     {foreach name=aussen item=module_data from=$module_content}
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="mrh-product-card">
-          <a href="{$module_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$module_data.PRODUCTS_NAME|onlytext}">
-            {if $smarty.const.MRH_FLAG_SPECIAL_SHOW == 'true' && $module_data.PRODUCTS_PRICE_SAVE_PERCENT != ''}
-              <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-special">{#MRH_special#}</span></div>
-            {elseif $smarty.const.MRH_FLAG_TOP_SHOW == 'true' && $module_data.PRODUCTS_STARTPAGE == '1'}
-              <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-top">{#MRH_top#}</span></div>
-            {elseif $smarty.const.MRH_FLAG_NEW_SHOW == 'true' && $module_data.PRODUCTS_OLDNEW == '1'}
-              <div class="mrh-flag"><span class="mrh-flag-badge mrh-flag-new">{#MRH_new#}</span></div>
-            {/if}
+      <div class="listingbox lb_inner p-3 d-flex flex-column justify-content-between">
+        <div class="lb_inner_wrap_image_title pt-3">
+          <div class="lb_image">
             {if $module_data.PRODUCTS_IMAGE != ''}
-              <img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}" loading="lazy" width="300" height="300">
+              <a href="{$module_data.PRODUCTS_LINK}" aria-label="{#view_product#} {$module_data.PRODUCTS_NAME|onlytext}">
+                <img loading="lazy" src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME|onlytext}">
+              </a>
+            {else}
+              &nbsp;
             {/if}
-          </a>
-          <div class="mrh-product-card-body">
-            <h2 class="mrh-product-card-title">
-              <a href="{$module_data.PRODUCTS_LINK}">{$module_data.PRODUCTS_NAME}</a>
-            </h2>
-            <div class="mrh-product-card-price">
-              <span class="mrh-price-current">{$module_data.PRODUCTS_PRICE}</span>
-              {if $module_data.PRODUCTS_VPE}<div class="small text-body-secondary">{$module_data.PRODUCTS_VPE}</div>{/if}
-              <div class="small text-body-secondary">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
-            </div>
-            <div class="d-flex gap-1 mt-2">
-              {$module_data.PRODUCTS_BUTTON_BUY_NOW}
-              {$module_data.PRODUCTS_BUTTON_DELETE}
-            </div>
           </div>
+          <div class="lb_title">
+            <strong class="h3">
+              <a href="{$module_data.PRODUCTS_LINK}" aria-label="{$module_data.PRODUCTS_NAME|onlytext} - {#view_product#}">
+                {$module_data.PRODUCTS_NAME}
+              </a>
+            </strong>
+          </div>
+          {if isset($module_data.PRODUCTS_SHIPPING_NAME)}
+            <div class="lb_shipping">
+              {#text_shippingtime#}
+              {if $module_data.PRODUCTS_SHIPPING_IMAGE}
+                <span class="lb_shipping_image"><img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME|onlytext}"></span>
+              {/if}
+              {$module_data.PRODUCTS_SHIPPING_NAME_LINK}
+            </div>
+          {/if}
+          {if isset($module_data.PRODUCTS_REVIEWS_COUNT)}
+            <div class="lb_rating_icons{if $module_data.PRODUCTS_REVIEWS_COUNT < 1} no_reviews{/if}">
+              <span class="lb_rating_image"><img src="{$tpl_path}img/stars_{$module_data.PRODUCTS_REVIEWS_AVERAGE}.png" alt="Rating: {$module_data.PRODUCTS_REVIEWS_AVERAGE} of 5 stars"></span>
+              <span class="lb_rating_count">({$module_data.PRODUCTS_REVIEWS_COUNT})</span>
+            </div>
+          {/if}
+        </div>
+        <div class="lb_inner_wrap_prices">
+          <div class="lb_price">
+            {foreach name=inner item=price_data from=$module_data.PRODUCTS_PRICE_ARRAY}
+              {include file="module/includes/price_box.html"}
+            {/foreach}
+            {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+              {if $module_data.PRODUCTS_VPE}<div class="lb_vpe">{$module_data.PRODUCTS_VPE}</div>{/if}
+            {/if}
+          </div>
+          {if $module_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
+            <div class="lb_tax">{$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK}</div>
+            <div class="d-flex lb-buttons-wrap justify-content-between">
+              {assign var="get_all_get_params" value=array('action','BUYproducts_id','wishlist')|xtc_get_all_get_params}
+              <a class="btn btn-sm mrh-btn-wishlist" aria-label="{#remove_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="{basename($smarty.server.PHP_SELF)|xtc_href_link:"`$get_all_get_params`action=buy_now&wishlist=0&BUYproducts_id=`$module_data.PRODUCTS_ID`"}">
+                <span class="fa-solid fa-trash" aria-hidden="true"></span>
+                <span class="sr-only">{#remove_product#} {$module_data.PRODUCTS_NAME|onlytext}</span>
+              </a>
+              <a class="btn btn-sm mrh-btn-details flex-grow-1" aria-label="{#details#} - {#view_product#} {$module_data.PRODUCTS_NAME|onlytext}" href="{$module_data.PRODUCTS_LINK}">
+                <span>{#details#}</span>
+                <span class="fa-solid fa-eye" aria-hidden="true"></span>
+              </a>
+            </div>
+          {/if}
         </div>
       </div>
     {/foreach}
   </div>
 {/if}
+</div>
