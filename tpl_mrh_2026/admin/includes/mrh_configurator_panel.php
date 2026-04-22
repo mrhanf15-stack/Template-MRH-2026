@@ -4001,6 +4001,80 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         </div>
     </div>
 
+    <!-- ═══ Warenkorb-Buttons ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-cart-shopping me-1"></i>Warenkorb-Buttons</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-kasse-bg"><strong>Kasse-Button BG</strong></label>
+            <input id="tpl-co-cart-btn-kasse-bg" type="text" name="tpl-co-cart-btn-kasse-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-kasse-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-kasse-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-kasse-text"><strong>Kasse-Button Text</strong></label>
+            <input id="tpl-co-cart-btn-kasse-text" type="text" name="tpl-co-cart-btn-kasse-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-kasse-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-kasse-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-kasse-hover"><strong>Kasse-Button Hover</strong></label>
+            <input id="tpl-co-cart-btn-kasse-hover" type="text" name="tpl-co-cart-btn-kasse-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-kasse-hover','rgb(56, 112, 32)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-kasse-hover','rgb(56, 112, 32)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-schnellkauf-bg"><strong>Schnellkauf-Button BG</strong></label>
+            <input id="tpl-co-cart-btn-schnellkauf-bg" type="text" name="tpl-co-cart-btn-schnellkauf-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-schnellkauf-bg','rgb(0, 150, 136)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-schnellkauf-bg','rgb(0, 150, 136)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-schnellkauf-text"><strong>Schnellkauf-Button Text</strong></label>
+            <input id="tpl-co-cart-btn-schnellkauf-text" type="text" name="tpl-co-cart-btn-schnellkauf-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-schnellkauf-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-schnellkauf-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-schnellkauf-hover"><strong>Schnellkauf-Button Hover</strong></label>
+            <input id="tpl-co-cart-btn-schnellkauf-hover" type="text" name="tpl-co-cart-btn-schnellkauf-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-schnellkauf-hover','rgb(0, 121, 107)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-schnellkauf-hover','rgb(0, 121, 107)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-brief-bg"><strong>Brief-Bestellung BG</strong></label>
+            <input id="tpl-co-cart-btn-brief-bg" type="text" name="tpl-co-cart-btn-brief-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-brief-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-brief-bg','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-brief-text"><strong>Brief-Bestellung Text</strong></label>
+            <input id="tpl-co-cart-btn-brief-text" type="text" name="tpl-co-cart-btn-brief-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-brief-text','rgb(33, 37, 41)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-brief-text','rgb(33, 37, 41)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-brief-border"><strong>Brief-Bestellung Border</strong></label>
+            <input id="tpl-co-cart-btn-brief-border" type="text" name="tpl-co-cart-btn-brief-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-brief-border','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-brief-border','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-gutschein-bg"><strong>Gutschein-Button BG</strong></label>
+            <input id="tpl-co-cart-btn-gutschein-bg" type="text" name="tpl-co-cart-btn-gutschein-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-gutschein-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-gutschein-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-gutschein-text"><strong>Gutschein-Button Text</strong></label>
+            <input id="tpl-co-cart-btn-gutschein-text" type="text" name="tpl-co-cart-btn-gutschein-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-gutschein-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-gutschein-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-weiter-bg"><strong>Weiter Einkaufen BG</strong></label>
+            <input id="tpl-co-cart-btn-weiter-bg" type="text" name="tpl-co-cart-btn-weiter-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-weiter-bg','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-weiter-bg','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-weiter-text"><strong>Weiter Einkaufen Text</strong></label>
+            <input id="tpl-co-cart-btn-weiter-text" type="text" name="tpl-co-cart-btn-weiter-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-weiter-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-btn-weiter-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-btn-radius"><strong>Warenkorb-Button Rundung</strong></label>
+            <input id="tpl-co-cart-btn-radius" type="text" name="tpl-co-cart-btn-radius" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-cart-btn-radius','6px'); ?>">
+        </div>
+    </div>
+
     <!-- ═══ Checkout-Buttons ═══ -->
     <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-square me-1"></i>Checkout-Buttons</h6>
     <div class="row">
