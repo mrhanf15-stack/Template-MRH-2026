@@ -32,7 +32,9 @@
       </a>
     {/if}
     <div class="ms-auto d-flex flex-wrap gap-2 align-items-center">
-      <div>{$BUTTON_CHECKOUT}</div>
+      {if !empty($BUTTON_FAXORDER)}
+        <span>{$BUTTON_FAXORDER}</span>
+      {/if}
       {if isset($ACTIVATE_EXPRESS_LINK)}
         <a href="{$ACTIVATE_EXPRESS_LINK}" class="btn mrh-cart-btn-schnellkauf">
           <span class="fa-solid fa-cart-shopping" aria-hidden="true"></span> {#checkout_express_activate#}
@@ -44,9 +46,7 @@
       {if $BUTTON_PAYPAL != '' && !$PAYPALPLAN}
         <span>{$BUTTON_PAYPAL}</span>
       {/if}
-      {if !empty($BUTTON_FAXORDER)}
-        <span>{$BUTTON_FAXORDER}</span>
-      {/if}
+      <div>{$BUTTON_CHECKOUT}</div>
     </div>
   </div>
   {$FORM_END}
