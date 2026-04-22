@@ -355,17 +355,17 @@ a.compare-remove-btn:hover {
 /* v3.4: Gruener Container direkt auf badge-row (da .picto.templatestyle
    per JS nicht uebertragen wird, bekommt die Row selbst den Hintergrund) */
 .compare-badge-row {
-    min-height: var(--tpl-cbadge-row-min-height, 36px);
+    min-height: var(--tpl-picto-min-height, 36px);
     display: inline-flex;
     align-items: center;
     align-self: flex-start; /* v5.7.6: Nicht auf volle Kartenbreite strecken */
-    gap: var(--tpl-cbadge-row-gap, 5px);
-    padding: var(--tpl-cbadge-row-padding, 6px 12px);
+    gap: var(--tpl-picto-gap, 5px);
+    padding: var(--tpl-picto-padding, 6px 12px);
     flex-wrap: wrap;
     background: var(--tpl-picto-bg, var(--tpl-badge-auto-bg, #f0fdf4));
     border: var(--tpl-picto-border-width, 1px) solid var(--tpl-picto-border-color, rgba(34, 197, 94, 0.25));
     border-radius: var(--tpl-picto-border-radius, 10px);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--tpl-picto-margin-bottom, 0.5rem);
 }
 /* Leere Badge-Row: kein Container anzeigen */
 .compare-badge-row:empty {
