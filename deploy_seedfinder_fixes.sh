@@ -1,8 +1,12 @@
 #!/bin/bash
 # ============================================================
-# Seedfinder Fixes Deployment Script
-# Datum: 04.04.2026
+# Seedfinder Deployment Script v23.0
+# Datum: 22.04.2026
 # Template: tpl_mrh_2026
+#
+# v23.0: Stage 3 entfernt - Wizard leitet auf Stage 2
+#        seedfinder_beginner_results.html nicht mehr nötig
+#        seedfinder-beginner-results.js nicht mehr nötig
 # ============================================================
 
 set -e
@@ -12,109 +16,86 @@ BACKUP_DIR="/home/www/doc/28856/dcp288560004/mr-hanf.at/www/templates/tpl_mrh_20
 GITHUB_RAW="https://raw.githubusercontent.com/mrhanf15-stack/Template-MRH-2026/main/tpl_mrh_2026"
 
 echo "============================================================"
-echo "Seedfinder Fixes Deployment – $(date)"
+echo "Seedfinder Deployment v23.0 – $(date)"
 echo "============================================================"
 echo ""
 
 # 1. Backup erstellen
-echo "[1/7] Backup erstellen..."
+echo "[1/6] Backup erstellen..."
 mkdir -p "$BACKUP_DIR/module"
 mkdir -p "$BACKUP_DIR/css"
+mkdir -p "$BACKUP_DIR/javascript"
 cp "$TPL_DIR/module/seedfinder.html" "$BACKUP_DIR/module/"
-cp "$TPL_DIR/module/seedfinder_beginner_results.html" "$BACKUP_DIR/module/"
 cp "$TPL_DIR/module/seedfinder_product_cards.html" "$BACKUP_DIR/module/"
-cp "$TPL_DIR/css/seedfinder_disabled_headers.css" "$BACKUP_DIR/css/"
-cp "$TPL_DIR/css/seedfinder-combined.min.css" "$BACKUP_DIR/css/"
+cp "$TPL_DIR/module/seedfinder_beginner-wizard-modal-with-results.html" "$BACKUP_DIR/module/" 2>/dev/null || true
+cp "$TPL_DIR/javascript/seedfinder-beginner-with-results.js" "$BACKUP_DIR/javascript/" 2>/dev/null || true
+cp "$TPL_DIR/css/seedfinder_disabled_headers.css" "$BACKUP_DIR/css/" 2>/dev/null || true
 echo "   Backup gespeichert in: $BACKUP_DIR"
 
-# 2. Fixe Dateien von GitHub herunterladen
+# 2. Template-Dateien von GitHub herunterladen
 echo ""
-echo "[2/7] Fixe Dateien von GitHub herunterladen..."
+echo "[2/6] Template-Dateien von GitHub herunterladen..."
 curl -sSL "$GITHUB_RAW/module/seedfinder.html" -o "$TPL_DIR/module/seedfinder.html"
-echo "   ✓ seedfinder.html (b4.css + combined.min.css entfernt, Einzeldateien + CURRENT_TEMPLATE)"
-curl -sSL "$GITHUB_RAW/module/seedfinder_beginner_results.html" -o "$TPL_DIR/module/seedfinder_beginner_results.html"
-echo "   ✓ seedfinder_beginner_results.html (UPPERCASE Keys, BS5 data-bs-*, CURRENT_TEMPLATE)"
+echo "   ✓ seedfinder.html"
 curl -sSL "$GITHUB_RAW/module/seedfinder_product_cards.html" -o "$TPL_DIR/module/seedfinder_product_cards.html"
-echo "   ✓ seedfinder_product_cards.html (Smarty 2 foreach Syntax)"
-curl -sSL "$GITHUB_RAW/css/seedfinder_disabled_headers.css" -o "$TPL_DIR/css/seedfinder_disabled_headers.css"
-echo "   ✓ seedfinder_disabled_headers.css (CSS var() statt hardcoded)"
+echo "   ✓ seedfinder_product_cards.html"
+curl -sSL "$GITHUB_RAW/module/seedfinder_beginner-wizard-modal-with-results.html" -o "$TPL_DIR/module/seedfinder_beginner-wizard-modal-with-results.html"
+echo "   ✓ seedfinder_beginner-wizard-modal-with-results.html (mit Wizard CSS)"
 
-# 3. Lang-Dateien aktualisieren (DE)
+# 3. JavaScript-Dateien von GitHub herunterladen
 echo ""
-echo "[3/7] Deutsche Lang-Datei aktualisieren..."
-# Prüfe ob [seedfinder] Section existiert und ersetze sie
-if grep -q "\[seedfinder\]" "$TPL_DIR/lang/german/lang_german.conf"; then
-    # Entferne alte [seedfinder] Section (bis zur nächsten Section oder EOF)
-    # Erstelle temporäre Datei ohne alte seedfinder Section
-    python3 -c "
-import re
-with open('$TPL_DIR/lang/german/lang_german.conf', 'r') as f:
-    content = f.read()
-# Entferne alte [seedfinder] Section
-content = re.sub(r'\[seedfinder\].*?(?=\n\[|\Z)', '', content, flags=re.DOTALL)
-with open('$TPL_DIR/lang/german/lang_german.conf', 'w') as f:
-    f.write(content)
-"
-fi
-# Füge neue [seedfinder] Section am Ende hinzu
-curl -sSL "$GITHUB_RAW/lang/german/seedfinder_section.conf" >> "$TPL_DIR/lang/german/lang_german.conf"
-echo "   ✓ [seedfinder] Section in lang_german.conf aktualisiert (125 Variablen)"
+echo "[3/6] JavaScript-Dateien herunterladen..."
+curl -sSL "$GITHUB_RAW/javascript/seedfinder-beginner-with-results.js" -o "$TPL_DIR/javascript/seedfinder-beginner-with-results.js"
+echo "   ✓ seedfinder-beginner-with-results.js v1.3 (Stage 2 Redirect)"
 
-# 4. Lang-Dateien aktualisieren (EN)
+# 4. Lang-Dateien aktualisieren (DE + EN)
 echo ""
-echo "[4/7] Englische Lang-Datei aktualisieren..."
-if grep -q "\[seedfinder\]" "$TPL_DIR/lang/english/lang_english.conf"; then
-    python3 -c "
+echo "[4/6] Lang-Dateien aktualisieren..."
+for LANG in german english; do
+    LANG_FILE="$TPL_DIR/lang/$LANG/lang_$LANG.conf"
+    if grep -q "\[seedfinder\]" "$LANG_FILE"; then
+        python3 -c "
 import re
-with open('$TPL_DIR/lang/english/lang_english.conf', 'r') as f:
+with open('$LANG_FILE', 'r') as f:
     content = f.read()
 content = re.sub(r'\[seedfinder\].*?(?=\n\[|\Z)', '', content, flags=re.DOTALL)
-with open('$TPL_DIR/lang/english/lang_english.conf', 'w') as f:
+with open('$LANG_FILE', 'w') as f:
     f.write(content)
 "
-fi
-curl -sSL "$GITHUB_RAW/lang/english/seedfinder_section.conf" >> "$TPL_DIR/lang/english/lang_english.conf"
-echo "   ✓ [seedfinder] Section in lang_english.conf aktualisiert (125 Variablen)"
+    fi
+    curl -sSL "$GITHUB_RAW/lang/$LANG/seedfinder_section.conf" >> "$LANG_FILE"
+    echo "   ✓ [seedfinder] Section in lang_$LANG.conf aktualisiert"
+done
 
-# 5. Veraltete seedfinder-combined.min.css löschen
+# 5. Smarty + Seedfinder Cache leeren
 echo ""
-echo "[5/7] Veraltete seedfinder-combined.min.css entfernen..."
-if [ -f "$TPL_DIR/css/seedfinder-combined.min.css" ]; then
-    rm "$TPL_DIR/css/seedfinder-combined.min.css"
-    echo "   ✓ seedfinder-combined.min.css gelöscht (65 KB gespart)"
-else
-    echo "   ℹ seedfinder-combined.min.css existiert nicht mehr"
-fi
-
-# Auch seedfinder-combined.css löschen falls vorhanden
-if [ -f "$TPL_DIR/css/seedfinder-combined.css" ]; then
-    rm "$TPL_DIR/css/seedfinder-combined.css"
-    echo "   ✓ seedfinder-combined.css gelöscht"
-fi
-
-# 6. Smarty Cache leeren
-echo ""
-echo "[6/7] Smarty Cache leeren..."
+echo "[5/6] Cache leeren..."
 rm -rf /home/www/doc/28856/dcp288560004/mr-hanf.at/www/templates_c/*
-echo "   ✓ templates_c/ geleert"
+rm -rf /home/www/doc/28856/dcp288560004/mr-hanf.at/www/cache/fpc/*
+rm -rf /home/www/doc/28856/dcp288560004/mr-hanf.at/www/cache/seedfinder/*
+echo "   ✓ templates_c/, cache/fpc/, cache/seedfinder/ geleert"
 
-# 7. OPcache Reset
+# 6. OPcache Reset
 echo ""
-echo "[7/7] OPcache zurücksetzen..."
-curl -s "https://mr-hanf.at/opcache_reset.php?token=MrHanf2024Reset"
+echo "[6/6] OPcache zurücksetzen..."
+curl -s -u "Alex:19649541BNZUUHJHBBHZi" "https://mr-hanf.at/opcache_reset.php?token=MrHanf2024Reset"
 echo ""
 echo "   ✓ OPcache geleert"
 
+# Hinweis: Obsolete Dateien (können manuell gelöscht werden)
 echo ""
 echo "============================================================"
 echo "DEPLOYMENT ABGESCHLOSSEN"
 echo "============================================================"
 echo ""
+echo "Obsolete Dateien (können gelöscht werden):"
+echo "  - $TPL_DIR/module/seedfinder_beginner_results.html"
+echo "  - $TPL_DIR/javascript/seedfinder-beginner-results.js"
+echo ""
 echo "Bitte testen:"
 echo "  1. https://mr-hanf.at/seedfinder.php (Stage 1 – Kategorien)"
 echo "  2. Klicke auf eine Kategorie (Stage 2 – Filter + Produkte)"
-echo "  3. Teste den Anfänger Wizard (Modal)"
-echo "  4. Teste die Beginner Results Seite"
+echo "  3. Teste den Anfänger Wizard → Ergebnis = Stage 2 mit Filterbar"
 echo ""
 echo "Backup liegt in: $BACKUP_DIR"
 echo ""
