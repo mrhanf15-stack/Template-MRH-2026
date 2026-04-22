@@ -1,10 +1,11 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-sf-equalizer.js.php 1.2.0 2026-04-22 Mr. Hanf $
+   $Id: mrh-sf-equalizer.js.php 1.3.0 2026-04-22 Mr. Hanf $
    MRH Seedfinder Row Equalizer
-   Gleicht die Hoehe von Produktname und Badges in Seedfinder-Listings an,
-   damit alle Karten in einer Reihe strukturiert auf gleicher Hoehe starten.
-   Tabelle bleibt flexibel, Footer klebt via mt-auto unten.
+   Gleicht die Hoehe von Produktname, Badges und Footer in Seedfinder-Listings an,
+   damit alle Karten in einer Reihe strukturiert aussehen.
+   Tabelle bleibt flexibel (unterschiedliche Zeilenanzahl OK).
+   Footer (Preis/Lager/Buttons) wird angeglichen, damit Buttons auf gleicher Hoehe.
    Wird per auto_include() in general_bottom.js.php geladen.
    -----------------------------------------------------------------------------------------
    Released under the GNU General Public License
@@ -17,18 +18,17 @@ if (!$is_seedfinder) return;
 ?>
 <script>
 /* ============================================================
-   MRH Seedfinder Row Equalizer v1.2.0
+   MRH Seedfinder Row Equalizer v1.3.0
    Gleicht pro Kartenreihe an:
    1. Produktname (.card-body.pb-1) – immer gleiche Hoehe
    2. Badges (.mrh-sf-badge-row)   – immer gleiche Hoehe
-   Tabelle und Footer bleiben flexibel.
+   3. Footer (.card-footer)        – immer gleiche Hoehe
+      (Lager-Info macht manche Footer hoeher)
+   Tabelle bleibt flexibel.
    ============================================================ */
 (function() {
   'use strict';
 
-  /**
-   * Gruppiert Karten nach ihrer vertikalen Position (Reihe).
-   */
   function groupByRow(elements, tolerance) {
     tolerance = tolerance || 15;
     var rows = [];
@@ -50,10 +50,6 @@ if (!$is_seedfinder) return;
     return rows;
   }
 
-  /**
-   * Setzt min-height auf alle Elemente in einer Reihe
-   * basierend auf dem hoechsten Element.
-   */
   function equalizeRow(elements, selector) {
     // Reset
     elements.forEach(function(card) {
@@ -82,9 +78,6 @@ if (!$is_seedfinder) return;
     }
   }
 
-  /**
-   * Hauptfunktion: Name und Badges pro Reihe equalisieren
-   */
   function equalize() {
     var cards = Array.from(document.querySelectorAll('.card.h-100'));
     if (cards.length < 2) return;
@@ -97,6 +90,8 @@ if (!$is_seedfinder) return;
       equalizeRow(rowCards, '.card-body.pb-1');
       // 2. Badge-Bereich
       equalizeRow(rowCards, '.mrh-sf-badge-row');
+      // 3. Footer (Preis/Lager/Buttons) – damit Buttons auf gleicher Hoehe
+      equalizeRow(rowCards, '.card-footer');
     });
   }
 
@@ -112,7 +107,6 @@ if (!$is_seedfinder) return;
     equalize();
     window.addEventListener('load', equalize);
     window.addEventListener('resize', debounce(equalize, 200));
-    // MutationObserver fuer AJAX-Nachladen (Seedfinder Filter)
     var container = document.getElementById('sf-results') ||
                     document.querySelector('.row');
     if (container) {
