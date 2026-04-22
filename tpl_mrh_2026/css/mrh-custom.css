@@ -7508,3 +7508,125 @@ html.mrh-smooth-scroll {
   font-size: var(--tpl-badge-font-size, 0.6rem) !important;
   padding: var(--tpl-badge-padding, 0.20rem 0.5rem) !important;
 }
+
+/* ============================================================
+   CHECKOUT FORTSCHRITTSBALKEN (2026-04-22)
+   Moderne Step-Navigation mit Kreisen, Verbindungslinien, FA7-Icons
+   Farben aus MRH-Wireframe: --tpl-main-color / --mrh-green
+   ============================================================ */
+.mrh-checkout-progress {
+  padding: 16px 0;
+}
+.mrh-cp-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  max-width: 680px;
+  margin: 0 auto;
+}
+/* ── Einzelner Schritt ── */
+.mrh-cp-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  min-width: 70px;
+  position: relative;
+}
+/* ── Kreis (inaktiv) ── */
+.mrh-cp-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border: 2px solid #d1d5db;
+  background: #f9fafb;
+  color: #9ca3af;
+  transition: all 0.35s ease;
+  position: relative;
+  z-index: 2;
+}
+/* ── Kreis (aktiv = aktueller Schritt) ── */
+.mrh-cp-active .mrh-cp-circle {
+  border-color: var(--tpl-main-color, #4a8c2a);
+  background: var(--tpl-main-color, #4a8c2a);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(74, 140, 42, 0.15);
+}
+/* ── Kreis (done = abgeschlossener Schritt) ── */
+.mrh-cp-done .mrh-cp-circle {
+  border-color: var(--tpl-main-color, #4a8c2a);
+  background: #f0fdf4;
+  color: var(--tpl-main-color, #4a8c2a);
+  box-shadow: none;
+}
+/* ── Label ── */
+.mrh-cp-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 90px;
+  transition: color 0.3s ease;
+}
+.mrh-cp-active .mrh-cp-label {
+  color: var(--tpl-main-color, #4a8c2a);
+  font-weight: 700;
+}
+.mrh-cp-done .mrh-cp-label {
+  color: var(--tpl-main-color, #4a8c2a);
+}
+/* ── Verbindungslinie ── */
+.mrh-cp-connector {
+  flex: 1;
+  height: 2px;
+  background: #e5e7eb;
+  margin-top: 22px;
+  min-width: 30px;
+  transition: background 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+.mrh-cp-connector-done {
+  background: var(--tpl-main-color, #4a8c2a);
+}
+/* ── Responsive: Mobile ── */
+@media (max-width: 575.98px) {
+  .mrh-cp-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  .mrh-cp-label {
+    font-size: 9px;
+    max-width: 60px;
+  }
+  .mrh-cp-step {
+    min-width: 50px;
+    gap: 5px;
+  }
+  .mrh-cp-connector {
+    margin-top: 18px;
+    min-width: 16px;
+  }
+  .mrh-checkout-progress {
+    padding: 10px 0;
+  }
+}
+/* ── Responsive: Tablet ── */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .mrh-cp-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .mrh-cp-label {
+    font-size: 10px;
+  }
+}

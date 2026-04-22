@@ -1,37 +1,62 @@
-{* MRH 2026: Checkout-Schrittanzeige – BS5.3 *}
+{* MRH 2026: Checkout-Fortschrittsbalken – BS5.3 + FA7 *}
 {* Parameter: $checkout_step (1-4), $NO_SHIPPING (optional) *}
-<nav class="mrh-checkout-nav mb-4" aria-label="Checkout-Fortschritt">
-  <div class="d-flex justify-content-center text-center gap-2">
-    {if !isset($NO_SHIPPING)}
-      <div class="flex-fill{if $checkout_step == 1} text-success fw-bold{elseif $checkout_step > 1} text-success{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">1</span>
-        <span class="d-none d-md-block small">{#title_shipping#}</span>
+{config_load file="$language/lang_$language.conf" section="checkout_navigation"}
+{config_load file="lang_`$language`.custom"}
+<nav class="mrh-checkout-progress mb-4" aria-label="Checkout-Fortschritt">
+  {if !isset($NO_SHIPPING)}
+  {* === 4-Schritte-Variante (Standard) === *}
+  <div class="mrh-cp-steps" data-steps="4">
+    <div class="mrh-cp-step{if $checkout_step >= 1} mrh-cp-active{/if}{if $checkout_step > 1} mrh-cp-done{/if}">
+      <div class="mrh-cp-circle">
+        {if $checkout_step > 1}<span class="fa-solid fa-check" aria-hidden="true"></span>{else}<span class="fa-solid fa-truck" aria-hidden="true"></span>{/if}
       </div>
-      <div class="flex-fill{if $checkout_step == 2} text-success fw-bold{elseif $checkout_step > 2} text-success{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">2</span>
-        <span class="d-none d-md-block small">{#title_payment#}</span>
+      <span class="mrh-cp-label">{#title_shipping#}</span>
+    </div>
+    <div class="mrh-cp-connector{if $checkout_step > 1} mrh-cp-connector-done{/if}"></div>
+    <div class="mrh-cp-step{if $checkout_step >= 2} mrh-cp-active{/if}{if $checkout_step > 2} mrh-cp-done{/if}">
+      <div class="mrh-cp-circle">
+        {if $checkout_step > 2}<span class="fa-solid fa-check" aria-hidden="true"></span>{else}<span class="fa-solid fa-credit-card" aria-hidden="true"></span>{/if}
       </div>
-      <div class="flex-fill{if $checkout_step == 3} text-success fw-bold{elseif $checkout_step > 3} text-success{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">3</span>
-        <span class="d-none d-md-block small">{#title_confirmation#}</span>
+      <span class="mrh-cp-label">{#title_payment#}</span>
+    </div>
+    <div class="mrh-cp-connector{if $checkout_step > 2} mrh-cp-connector-done{/if}"></div>
+    <div class="mrh-cp-step{if $checkout_step >= 3} mrh-cp-active{/if}{if $checkout_step > 3} mrh-cp-done{/if}">
+      <div class="mrh-cp-circle">
+        {if $checkout_step > 3}<span class="fa-solid fa-check" aria-hidden="true"></span>{else}<span class="fa-solid fa-clipboard-check" aria-hidden="true"></span>{/if}
       </div>
-      <div class="flex-fill{if $checkout_step == 4} text-success fw-bold{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">4</span>
-        <span class="d-none d-md-block small">{#title_success#}</span>
+      <span class="mrh-cp-label">{#title_confirmation#}</span>
+    </div>
+    <div class="mrh-cp-connector{if $checkout_step > 3} mrh-cp-connector-done{/if}"></div>
+    <div class="mrh-cp-step{if $checkout_step >= 4} mrh-cp-active{/if}">
+      <div class="mrh-cp-circle">
+        <span class="fa-solid fa-circle-check" aria-hidden="true"></span>
       </div>
-    {else}
-      <div class="flex-fill{if $checkout_step == 1} text-success fw-bold{elseif $checkout_step > 1} text-success{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">1</span>
-        <span class="d-none d-sm-block small">{#title_payment#}</span>
-      </div>
-      <div class="flex-fill{if $checkout_step == 2} text-success fw-bold{elseif $checkout_step > 2} text-success{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">2</span>
-        <span class="d-none d-sm-block small">{#title_confirmation#}</span>
-      </div>
-      <div class="flex-fill{if $checkout_step == 3} text-success fw-bold{else} text-body-secondary{/if}">
-        <span class="d-block fs-4 mb-1">3</span>
-        <span class="d-none d-sm-block small">{#title_success#}</span>
-      </div>
-    {/if}
+      <span class="mrh-cp-label">{#title_success#}</span>
+    </div>
   </div>
+  {else}
+  {* === 3-Schritte-Variante (ohne Versand) === *}
+  <div class="mrh-cp-steps" data-steps="3">
+    <div class="mrh-cp-step{if $checkout_step >= 1} mrh-cp-active{/if}{if $checkout_step > 1} mrh-cp-done{/if}">
+      <div class="mrh-cp-circle">
+        {if $checkout_step > 1}<span class="fa-solid fa-check" aria-hidden="true"></span>{else}<span class="fa-solid fa-credit-card" aria-hidden="true"></span>{/if}
+      </div>
+      <span class="mrh-cp-label">{#title_payment#}</span>
+    </div>
+    <div class="mrh-cp-connector{if $checkout_step > 1} mrh-cp-connector-done{/if}"></div>
+    <div class="mrh-cp-step{if $checkout_step >= 2} mrh-cp-active{/if}{if $checkout_step > 2} mrh-cp-done{/if}">
+      <div class="mrh-cp-circle">
+        {if $checkout_step > 2}<span class="fa-solid fa-check" aria-hidden="true"></span>{else}<span class="fa-solid fa-clipboard-check" aria-hidden="true"></span>{/if}
+      </div>
+      <span class="mrh-cp-label">{#title_confirmation#}</span>
+    </div>
+    <div class="mrh-cp-connector{if $checkout_step > 2} mrh-cp-connector-done{/if}"></div>
+    <div class="mrh-cp-step{if $checkout_step >= 3} mrh-cp-active{/if}">
+      <div class="mrh-cp-circle">
+        <span class="fa-solid fa-circle-check" aria-hidden="true"></span>
+      </div>
+      <span class="mrh-cp-label">{#title_success#}</span>
+    </div>
+  </div>
+  {/if}
 </nav>
