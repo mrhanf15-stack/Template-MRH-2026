@@ -44,17 +44,17 @@
           <div class="col-12 col-md-4">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <strong class="small">{#text_qty#}:</strong>
-              <div class="d-flex align-items-center gap-1">
+              <div class="d-flex align-items-center gap-1 flex-wrap">
                 {$module_data.PRODUCTS_QTY|replace:'size="':'class="form-control form-control-sm text-center" style="width:60px" '}
                 <span class="mrh-cart-btn-delete-wrap">{$module_data.BUTTON_DELETE}</span>
                 <button type="submit" name="cart_quantity_update" class="btn btn-sm mrh-cart-btn-update" title="Aktualisieren">
                   <span class="fa-solid fa-rotate" aria-hidden="true"></span>
                 </button>
+                {if $module_data.BUTTON_WISHLIST != ''}
+                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST}</span>
+                {/if}
               </div>
             </div>
-            {if $module_data.BUTTON_WISHLIST != ''}
-              <div class="mrh-cart-btn-wishlist-wrap mb-2">{$module_data.BUTTON_WISHLIST}</div>
-            {/if}
             <div class="d-flex justify-content-between small">
               <span>{#text_single#}:</span>
               <span>{$module_data.PRODUCTS_SINGLE_PRICE}</span>
