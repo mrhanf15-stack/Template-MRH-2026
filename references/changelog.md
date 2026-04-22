@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-22 – Fix: Seedfinder Badge border-radius Override
+
+**Problem:** `seedfinder-combined.min.css` setzt `border-radius: 3px` auf `#seedfinder_module .mrh-sf-badge-row .mrh-type-badge` und ueberschreibt damit den TPL-Konfigurator-Wert `var(--tpl-badge-radius, 50rem)`.
+
+**Loesung:** Override in `mrh-custom.css` mit gleicher Spezifitaet, aber spaeterer Position im Stylesheet.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Badge border-radius Override: var(--tpl-badge-radius, 50rem) |
+
 ## 2026-04-22 – Refactor: Seedfinder-Karten Lagerampel v34.2.0 (Punkt neben Preis + Hover-Dropdown)
 
 **Problem:** Die kompakte Lagerampel v34.1.0 ("Auf Lager – 3 Samen, 5 Samen") nahm immer noch eine eigene Zeile ein und verschob den Preis nach unten.
