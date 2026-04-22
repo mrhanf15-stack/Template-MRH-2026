@@ -7776,7 +7776,8 @@ html.mrh-smooth-scroll {
   opacity: 0.8;
   color: var(--tpl-co-cart-btn-update-text, #fff);
 }
-/* Wishlist-Button im Warenkorb: Core generiert <a class="cart_to_wishlist">Auf den Merkzettel</a> */
+/* Wishlist-Button im Warenkorb: nur Herz-Icon, kein Text */
+/* Core generiert: <a class="cart_to_wishlist" href="...">Auf den Merkzettel</a> */
 .mrh-cart-btn-wishlist-wrap {
   display: inline-flex;
 }
@@ -7784,16 +7785,15 @@ html.mrh-smooth-scroll {
 .mrh-cart-btn-wishlist-wrap a {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
+  justify-content: center;
   background-color: var(--mrh-btn-wishlist-bg, rgb(108, 117, 125));
   color: var(--mrh-btn-wishlist-text, #fff) !important;
   border: none;
   border-radius: var(--tpl-co-cart-btn-radius, 6px);
-  padding: 0.25rem 0.65rem;
-  font-size: 0.75rem;
-  font-weight: 500;
+  width: 28px;
+  height: 28px;
+  font-size: 0;           /* Text verstecken */
   text-decoration: none !important;
-  white-space: nowrap;
   transition: background-color 0.2s ease;
   cursor: pointer;
 }
@@ -7801,9 +7801,16 @@ html.mrh-smooth-scroll {
 .mrh-cart-btn-wishlist-wrap a:hover {
   background-color: var(--mrh-btn-wishlist-hover, rgb(220, 53, 69));
   color: #fff !important;
-  text-decoration: none !important;
 }
-/* Icon wird jetzt als <span class="fa-solid fa-heart"> im HTML eingefügt, kein ::before nötig */
+/* Herz-Icon via ::after – font-size zurücksetzen */
+.mrh-cart-btn-wishlist-wrap a.cart_to_wishlist::after,
+.mrh-cart-btn-wishlist-wrap a::after {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f004";
+  font-size: 0.75rem;
+  color: inherit;
+}
 /* Delete-Button im Warenkorb: HTML = <a href="..."><span class="btn btn-danger btn-sm"><span class="fa-solid fa-trash"></span></span></a> */
 /* <a> ist nur der Link-Wrapper – kein eigenes Styling */
 .mrh-cart-btn-delete-wrap a {

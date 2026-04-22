@@ -3,7 +3,6 @@
 {config_load file="lang_`$language`.section" section="shopping_cart"}
 {* MRH 2026: Bestelldetails / Warenkorb-Positionen – BS5.3 *}
 {assign "dummy" ""}
-{assign var="wishlist_label" value=#text_cart_wishlist#}
 <div class="mrh-order-details mb-4">
   {foreach name=aussen item=module_data from=$module_content}
     <div class="card mb-2">
@@ -52,7 +51,7 @@
                   <span class="fa-solid fa-rotate" aria-hidden="true"></span>
                 </button>
                 {if $module_data.BUTTON_WISHLIST != ''}
-                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST|regex_replace:'/>[^<]*</':'><span class="fa-solid fa-heart me-1" aria-hidden="true"></span>`$wishlist_label`</'}</span>
+                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST}</span>
                 {/if}
               </div>
             </div>
