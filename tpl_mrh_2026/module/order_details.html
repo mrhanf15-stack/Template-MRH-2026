@@ -50,11 +50,11 @@
                 <button type="submit" name="cart_quantity_update" class="btn btn-sm mrh-cart-btn-update" title="Aktualisieren">
                   <span class="fa-solid fa-rotate" aria-hidden="true"></span>
                 </button>
-                {if $module_data.BUTTON_WISHLIST != ''}
-                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST}</span>
-                {/if}
               </div>
             </div>
+            {if $module_data.BUTTON_WISHLIST != ''}
+              <div class="mrh-cart-btn-wishlist-wrap mb-2">{$module_data.BUTTON_WISHLIST}</div>
+            {/if}
             <div class="d-flex justify-content-between small">
               <span>{#text_single#}:</span>
               <span>{$module_data.PRODUCTS_SINGLE_PRICE}</span>
