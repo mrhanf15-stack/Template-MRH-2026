@@ -1,29 +1,35 @@
-{* 
- * Seedfinder Product Cards v33.0.0 - Bootstrap 5.3 Grid (tpl_mrh_2026)
- * Wireframe-konformes Card-Design, identisch mit Vergleichsseite
+{*
+ * Seedfinder Product Cards v34.0.0 - MRH Serverseitige Badges + Tabelle
  *
  * Grid: col-6 col-md-4 col-lg-3 (innerhalb row g-3 aus seedfinder.html)
  *   Desktop (>=992px): 4 Spalten
  *   Tablet  (>=768px): 3 Spalten
  *   Mobile:            2 Spalten
  *
- * Card-Struktur (Wireframe CategoryPageWireframe.tsx):
+ * Card-Struktur:
  *   1. Spezialpreis-Badge (oben links)
  *   2. Produktbild (aspect-ratio 1:1, object-cover)
  *   3. Hersteller (klein, sekundaer)
  *   4. Produktname (fett)
- *   5. Kurzbeschreibung (scrollbar)
- *   6. Attribute/Optionen
- *   7. Preis
- *   8. Buttons: Warenkorb + Merkzettel + Details + Vergleich
+ *   5. MRH-Badges (serverseitig, aus mrh_product_attributes)
+ *   6. MRH-Detail-Tabelle im Scroll-Container (feste Hoehe)
+ *   7. Attribute/Optionen
+ *   8. Preis
+ *   9. Buttons: Warenkorb + Merkzettel + Details + Vergleich
  *
- * Kein !important, kein eigenes Grid-System
- * Nutzt BS5.3 row/col + mrh-btn-* Klassen
- * Schema.org Product Markup integriert
+ * v34.0.0: Komplett serverseitige MRH-Integration
+ *   - Altes JS-Badge-Parsing (sfInitBadges) entfernt
+ *   - Alte Short Description / lr_desc / teabls entfernt
+ *   - MRH_BADGES + MRH_MINI_TABLE direkt vom PHP-Backend
+ *   - Scroll-Container mit fixer Hoehe (220px Desktop, 180px Mobile)
  *
- * @version   33.1.0
- * @date      2026-04-12
- * v33.1.0: Badge-Zeile (Geschlecht aus Tabelle) hinzugefuegt
+ * v34.1.0: attribute-text-list durch kompakte Lagerampel ersetzt
+ *   - Lagernd: Gruene Ampel + Attribut-Namen (z.B. "3 Samen, 5 Samen")
+ *   - Nicht lagernd: Nichts anzeigen (Ausverkauft wird bereits im Preis-Bereich gehandelt)
+ *   - Footer-Hoehe jetzt einheitlich ueber alle Karten
+ *
+ * @version   34.1.0
+ * @date      2026-04-22
  *}
     {foreach from=$PRODUCTS item=product}
       <div class="col-6 col-md-4 col-lg-3 mb-3" itemscope itemtype="https://schema.org/Product">
@@ -53,8 +59,8 @@
           {* ── Produktbild (aspect-ratio 1:1) ── *}
           {if $product.PRODUCTS_IMAGE}
             <a href="{$product.PRODUCTS_LINK}" class="d-block overflow-hidden" aria-label="{$product.PRODUCTS_NAME|onlytext}">
-              <div class="ratio ratio-1x1 bg-light">
-                <img class="w-100 h-100 object-fit-cover" itemprop="image" loading="lazy" src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}">
+              <div class="ratio ratio-1x1 bg-light p-3">
+                <img class="w-100 h-100 object-fit-contain" itemprop="image" loading="lazy" src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}">
               </div>
             </a>
           {/if}
@@ -73,17 +79,19 @@
             </h2>
           </div>
 
-          {* ── Badge-Zeile (v33.1.0) ── *}
-          <div class="compare-badge-row"></div>
-
-          {* ── Kurzbeschreibung (scrollbar) ── *}
-          {if $product.PRODUCTS_SHORT_DESCRIPTION}
-            <div class="card-body pt-0 pb-1 compare-desc-box">
-              <div class="lr_desc teabls table-striped" itemprop="description">{$product.PRODUCTS_SHORT_DESCRIPTION}</div>
+          {* ── MRH-Badges (serverseitig v34.0) ── *}
+          {if isset($product.MRH_BADGES) && $product.MRH_BADGES != ''}
+            <div class="mrh-sf-badge-row px-3 pb-1">
+              {$product.MRH_BADGES}
             </div>
-          {elseif $product.PRODUCTS_DESCRIPTION}
-            <div class="card-body pt-0 pb-1 compare-desc-box">
-              <div class="lr_desc teabls table-striped" itemprop="description">{$product.PRODUCTS_DESCRIPTION}</div>
+          {/if}
+
+          {* ── MRH-Detail-Tabelle im Scroll-Container (v34.0) ── *}
+          {if isset($product.MRH_MINI_TABLE) && $product.MRH_MINI_TABLE != ''}
+            <div class="card-body pt-0 pb-1">
+              <div class="mrh-sf-scroll mrh-detail-table mb-2" itemprop="description">
+                {$product.MRH_MINI_TABLE}
+              </div>
             </div>
           {/if}
 
@@ -93,29 +101,17 @@
             <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
             <link itemprop="availability" href="{if $product.TOTAL_STOCK_AVAILABLE}https://schema.org/InStock{else}https://schema.org/OutOfStock{/if}">
 
-            {* Attribute/Optionen (1 Samen, 3 Samen etc.) *}
-            {if $product.HAS_ATTRIBUTES && $product.ATTRIBUTES|@count > 0}
-              <div class="mb-2">
-                <div class="attribute-text-list">
-                  {foreach $product.ATTRIBUTES as $attr}
-                    <div class="attribute-text-item mb-1 d-flex justify-content-between align-items-start">
-                      <span class="attribute-value">{$attr.value_name}</span>
-                      <div class="text-end">
-                        {if $attr.old_price && $attr.old_price != ''}
-                          <div class="text-muted small"><del>{$attr.old_price}</del></div>
-                          <div class="text-danger fw-bold">{$attr.price}</div>
-                        {else}
-                          <span class="attribute-price">{$attr.price}</span>
-                        {/if}
-                        {if $attr.stock < 10 && $attr.stock > 0}
-                          <small class="text-warning d-block">({#only_x_available#|replace:'{stock}':$attr.stock})</small>
-                        {elseif $attr.stock <= 0}
-                          <small class="text-danger d-block">{#sold_out_badge#}</small>
-                        {/if}
-                      </div>
-                    </div>
-                  {/foreach}
-                </div>
+            {* Kompakte Lagerampel (v34.1.0) – nur wenn lagernd *}
+            {if $product.HAS_ATTRIBUTES && $product.ATTRIBUTES|@count > 0 && $product.TOTAL_STOCK_AVAILABLE}
+              <div class="mrh-sf-stock-line mb-2 d-flex align-items-center gap-1 flex-wrap">
+                <span class="mrh-sf-stock-dot"></span>
+                <span class="small fw-semibold mrh-sf-stock-label">{#availability_in_stock_title#}</span>
+                <span class="small text-muted">&ndash;</span>
+                {foreach $product.ATTRIBUTES as $attr name=attrloop}
+                  {if $attr.stock > 0}
+                    <span class="badge bg-light text-dark border mrh-sf-attr-badge">{$attr.value_name}</span>
+                  {/if}
+                {/foreach}
               </div>
             {/if}
 
@@ -128,7 +124,7 @@
                     {if $product.PRICE_FROM_COUNT > 1}{#from_price_prefix#} {/if}<span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span>
                   </div>
                 {else}
-                  {if $product.PRICE_FROM_COUNT > 1}<span class="text-success sf-price-prefix">{#from_price_prefix#} </span>{/if}<strong class="text-success sf-price-main"><span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span></strong>
+                  {if $product.PRICE_FROM_COUNT > 1}<span class="text-secondary sf-price-prefix">{#from_price_prefix#} </span>{/if}<strong class="text-secondary sf-price-main"><span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span></strong>
                 {/if}
               {elseif !$product.TOTAL_STOCK_AVAILABLE}
                 <span class="badge bg-danger text-white sf-price-badge">
@@ -141,11 +137,11 @@
             {* ── Buttons: Warenkorb + Merkzettel + Details + Vergleich ── *}
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-1">
               <div class="d-flex gap-1">
-                {if $product.TOTAL_STOCK_AVAILABLE}
+                {*if $product.TOTAL_STOCK_AVAILABLE}
                   <a href="{$product.PRODUCTS_LINK}" class="btn btn-sm mrh-btn-primary" title="{#cart_button_title#}">
                     <span class="fa-solid fa-cart-shopping"></span>
                   </a>
-                {/if}
+                {/if*}
                 <a href="{$product.PRODUCTS_LINK}#wishlist" class="btn btn-sm mrh-btn-wishlist" title="{#wishlist_button_title#}">
                   <span class="fa-solid fa-heart"></span>
                 </a>

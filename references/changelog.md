@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-04-22 – Refactor: Seedfinder-Karten Lagerampel v34.1.0 (attribute-text-list ersetzt)
+
+**Problem:** Die `attribute-text-list` im Footer (jede Variante mit Preis + Lager-Warnung) brauchte ~70px pro Variante und verursachte unterschiedliche Footer-Hoehen. Karten mit Lager-Info hatten versetzt stehende Preise und Buttons.
+
+**Loesung:** Kompakte Lagerampel statt voller Attribut-Liste:
+- Lagernd: Gruener Punkt + "Auf Lager" + Attribut-Badges (z.B. "3 Samen", "5 Samen")
+- Nicht lagernd: Nichts anzeigen (Ausverkauft wird bereits im Preis-Bereich gehandelt)
+- Footer-Hoehe jetzt einheitlich ueber alle Karten
+- Nutzt existierende Smarty-Variable `{#availability_in_stock_title#}` (DE: "Auf Lager", EN: "In stock", FR: "En stock")
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `module/seedfinder_product_cards.html` | Template-MRH-2026 | v34.1.0: attribute-text-list durch kompakte Lagerampel ersetzt |
+| `css/mrh-custom.css` | Template-MRH-2026 | Lagerampel-CSS: .mrh-sf-stock-dot, .mrh-sf-stock-label, .mrh-sf-attr-badge |
+
 ## 2026-04-22 – Fix: Seedfinder-Karten Footer-Alignment per CSS (Preise + Buttons auf gleicher Hoehe)
 
 **Problem:** Karten mit Lager-Info (`attribute-text-list`, z.B. "5 Samen / 52,99 EUR / nur noch 2 verfuegbar") haben einen ~70px hoeheren Footer als Karten ohne. Dadurch standen Preise und Buttons auf unterschiedlicher Hoehe innerhalb einer Reihe. Der JS-Equalizer (v1.4.0) konnte das Problem nicht zuverlaessig loesen, da `minHeight` auf dem Footer die Preiszeile nicht korrekt ausrichtet.

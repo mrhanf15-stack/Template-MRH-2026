@@ -7445,3 +7445,24 @@ html.mrh-smooth-scroll {
   flex-direction: column;
   justify-content: flex-end;
 }
+
+/* ── Seedfinder: Kompakte Lagerampel (v34.1.0, 2026-04-22) ──
+   Ersetzt die grosse attribute-text-list im Footer.
+   Zeigt nur bei lagernden Produkten: gruener Punkt + "Auf Lager" + Attribut-Badges.
+   ──────────────────────────────────────────────────────────────────── */
+.mrh-sf-stock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #198754;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.mrh-sf-stock-label {
+  color: #198754;
+}
+.mrh-sf-attr-badge {
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  font-weight: 500;
+}
