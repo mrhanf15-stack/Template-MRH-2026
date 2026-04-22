@@ -77,6 +77,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="icons"><i class="fa fa-icons me-1"></i>Icons</div>
     <div class="mrh-tab" data-tab="badges"><i class="fa fa-certificate me-1"></i>Badges</div>
     <div class="mrh-tab" data-tab="seedfinder"><i class="fa fa-cannabis me-1"></i>Seedfinder</div>
+    <div class="mrh-tab" data-tab="checkout"><i class="fa fa-cash-register me-1"></i>Checkout</div>
     <div class="mrh-tab" data-tab="blog"><i class="fa fa-newspaper me-1"></i>Blog</div>
     <div class="mrh-tab" data-tab="faq"><i class="fa fa-circle-question me-1"></i>FAQ</div>
     <div class="mrh-tab" data-tab="content"><i class="fa fa-file-code me-1"></i>Content</div>
@@ -3857,6 +3858,333 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
 </script>
 
 </div><!-- /#tab-blog -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     Tab 14: Checkout & Warenkorb v1.0
+     Steuert Farben, Icons und Layout für:
+     - Fortschrittsbalken (checkout_nav.html)
+     - Warenkorb (shopping_cart.html)
+     - Checkout-Seiten (shipping, payment, confirmation, success)
+     - Adress-Seiten (shipping_address, payment_address, new_address)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="mrh-tab-pane" id="tab-checkout">
+<h5 class="mb-3"><i class="fa fa-cash-register me-2"></i>Checkout &amp; Warenkorb</h5>
+<p class="text-muted small mb-3">Steuert das Aussehen des Checkout-Fortschrittsbalkens, der Warenkorb-Seite und aller Checkout-Schritte. Alle Werte werden als CSS-Variablen <code>--tpl-co-*</code> gesetzt.</p>
+
+<!-- Live-Vorschau -->
+<div class="card mb-4">
+    <div class="card-header"><strong>Live-Vorschau Fortschrittsbalken</strong></div>
+    <div class="card-body" id="mrh-checkout-preview" style="background:#f5f5f5;padding:20px;"></div>
+</div>
+
+<form method="post" action="">
+
+    <!-- ═══ Fortschrittsbalken ═══ -->
+    <h6 class="border-bottom pb-2 mb-3"><i class="fa fa-list-ol me-1"></i>Fortschrittsbalken (Checkout-Navigation)</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-active-bg"><strong>Aktiver Schritt BG</strong></label>
+            <input id="tpl-co-progress-active-bg" type="text" name="tpl-co-progress-active-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-active-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-active-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-active-text"><strong>Aktiver Schritt Text</strong></label>
+            <input id="tpl-co-progress-active-text" type="text" name="tpl-co-progress-active-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-active-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-active-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-done-bg"><strong>Erledigter Schritt BG</strong></label>
+            <input id="tpl-co-progress-done-bg" type="text" name="tpl-co-progress-done-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-done-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-done-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-done-text"><strong>Erledigter Schritt Text</strong></label>
+            <input id="tpl-co-progress-done-text" type="text" name="tpl-co-progress-done-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-done-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-done-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-inactive-bg"><strong>Inaktiver Schritt BG</strong></label>
+            <input id="tpl-co-progress-inactive-bg" type="text" name="tpl-co-progress-inactive-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-inactive-bg','rgb(233, 236, 239)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-inactive-bg','rgb(233, 236, 239)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-inactive-text"><strong>Inaktiver Schritt Text</strong></label>
+            <input id="tpl-co-progress-inactive-text" type="text" name="tpl-co-progress-inactive-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-inactive-text','rgb(156, 163, 175)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-inactive-text','rgb(156, 163, 175)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-line-active"><strong>Verbindungslinie aktiv</strong></label>
+            <input id="tpl-co-progress-line-active" type="text" name="tpl-co-progress-line-active" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-line-active','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-line-active','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-line-inactive"><strong>Verbindungslinie inaktiv</strong></label>
+            <input id="tpl-co-progress-line-inactive" type="text" name="tpl-co-progress-line-inactive" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-progress-line-inactive','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-progress-line-inactive','rgb(222, 226, 230)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-circle-size"><strong>Kreis-Gr&ouml;&szlig;e</strong></label>
+            <input id="tpl-co-progress-circle-size" type="text" name="tpl-co-progress-circle-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-progress-circle-size','48px'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-icon-size"><strong>Icon-Gr&ouml;&szlig;e</strong></label>
+            <input id="tpl-co-progress-icon-size" type="text" name="tpl-co-progress-icon-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-progress-icon-size','1.1rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-label-size"><strong>Label-Schriftgr&ouml;&szlig;e</strong></label>
+            <input id="tpl-co-progress-label-size" type="text" name="tpl-co-progress-label-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-progress-label-size','0.75rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-progress-line-height"><strong>Linien-St&auml;rke</strong></label>
+            <input id="tpl-co-progress-line-height" type="text" name="tpl-co-progress-line-height" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-progress-line-height','3px'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ Fortschrittsbalken Icons ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-icons me-1"></i>Fortschrittsbalken Icons (FA7)</h6>
+    <div class="row">
+        <div class="col-sm-3 mb-3">
+            <label for="tpl-co-icon-shipping"><strong>Versand-Icon</strong></label>
+            <input id="tpl-co-icon-shipping" type="text" name="tpl-co-icon-shipping" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-icon-shipping','fa-truck'); ?>">
+            <small class="text-muted">z.B. fa-truck</small>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <label for="tpl-co-icon-payment"><strong>Zahlungs-Icon</strong></label>
+            <input id="tpl-co-icon-payment" type="text" name="tpl-co-icon-payment" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-icon-payment','fa-credit-card'); ?>">
+            <small class="text-muted">z.B. fa-credit-card</small>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <label for="tpl-co-icon-confirm"><strong>Best&auml;tigungs-Icon</strong></label>
+            <input id="tpl-co-icon-confirm" type="text" name="tpl-co-icon-confirm" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-icon-confirm','fa-clipboard-check'); ?>">
+            <small class="text-muted">z.B. fa-clipboard-check</small>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <label for="tpl-co-icon-success"><strong>Erfolgs-Icon</strong></label>
+            <input id="tpl-co-icon-success" type="text" name="tpl-co-icon-success" class="form-control" value="<?php echo mrh_cv($c,'tpl-co-icon-success','fa-circle-check'); ?>">
+            <small class="text-muted">z.B. fa-circle-check</small>
+        </div>
+    </div>
+
+    <!-- ═══ Warenkorb-Seite ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-cart-shopping me-1"></i>Warenkorb-Seite</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-header-bg"><strong>&Uuml;berschrift Hintergrund</strong></label>
+            <input id="tpl-co-cart-header-bg" type="text" name="tpl-co-cart-header-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-header-bg','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-header-bg','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-header-text"><strong>&Uuml;berschrift Text</strong></label>
+            <input id="tpl-co-cart-header-text" type="text" name="tpl-co-cart-header-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-header-text','rgb(33, 37, 41)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-header-text','rgb(33, 37, 41)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-total-bg"><strong>Summen-Bereich BG</strong></label>
+            <input id="tpl-co-cart-total-bg" type="text" name="tpl-co-cart-total-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-total-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-total-bg','rgb(248, 249, 250)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-total-text"><strong>Summen-Text</strong></label>
+            <input id="tpl-co-cart-total-text" type="text" name="tpl-co-cart-total-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-total-text','rgb(33, 37, 41)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-total-text','rgb(33, 37, 41)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-delete-color"><strong>L&ouml;schen-Icon Farbe</strong></label>
+            <input id="tpl-co-cart-delete-color" type="text" name="tpl-co-cart-delete-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-delete-color','rgb(220, 53, 69)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-delete-color','rgb(220, 53, 69)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-cart-coupon-bg"><strong>Gutschein-Bereich BG</strong></label>
+            <input id="tpl-co-cart-coupon-bg" type="text" name="tpl-co-cart-coupon-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-cart-coupon-bg','rgb(255, 243, 224)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-cart-coupon-bg','rgb(255, 243, 224)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- ═══ Checkout-Buttons ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-square me-1"></i>Checkout-Buttons</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-next-bg"><strong>Weiter-Button BG</strong></label>
+            <input id="tpl-co-btn-next-bg" type="text" name="tpl-co-btn-next-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-next-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-next-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-next-text"><strong>Weiter-Button Text</strong></label>
+            <input id="tpl-co-btn-next-text" type="text" name="tpl-co-btn-next-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-next-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-next-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-next-hover-bg"><strong>Weiter-Button Hover</strong></label>
+            <input id="tpl-co-btn-next-hover-bg" type="text" name="tpl-co-btn-next-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-next-hover-bg','rgb(56, 112, 32)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-next-hover-bg','rgb(56, 112, 32)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-back-bg"><strong>Zur&uuml;ck-Button BG</strong></label>
+            <input id="tpl-co-btn-back-bg" type="text" name="tpl-co-btn-back-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-back-bg','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-back-bg','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-back-text"><strong>Zur&uuml;ck-Button Text</strong></label>
+            <input id="tpl-co-btn-back-text" type="text" name="tpl-co-btn-back-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-back-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-back-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-order-bg"><strong>Bestellen-Button BG</strong></label>
+            <input id="tpl-co-btn-order-bg" type="text" name="tpl-co-btn-order-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-order-bg','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-order-bg','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-order-text"><strong>Bestellen-Button Text</strong></label>
+            <input id="tpl-co-btn-order-text" type="text" name="tpl-co-btn-order-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-order-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-order-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-order-hover-bg"><strong>Bestellen-Button Hover</strong></label>
+            <input id="tpl-co-btn-order-hover-bg" type="text" name="tpl-co-btn-order-hover-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-btn-order-hover-bg','rgb(56, 112, 32)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-btn-order-hover-bg','rgb(56, 112, 32)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-btn-radius"><strong>Button-Rundung</strong></label>
+            <input id="tpl-co-btn-radius" type="text" name="tpl-co-btn-radius" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-btn-radius','6px'); ?>">
+        </div>
+    </div>
+
+    <!-- ═══ Checkout-Seiten Allgemein ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-file-lines me-1"></i>Checkout-Seiten Allgemein</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-heading-color"><strong>&Uuml;berschriften Farbe</strong></label>
+            <input id="tpl-co-heading-color" type="text" name="tpl-co-heading-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-heading-color','rgb(33, 37, 41)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-heading-color','rgb(33, 37, 41)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-section-icon-color"><strong>Section-Icon Farbe</strong></label>
+            <input id="tpl-co-section-icon-color" type="text" name="tpl-co-section-icon-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-section-icon-color','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-section-icon-color','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-edit-icon-color"><strong>Bearbeiten-Icon Farbe</strong></label>
+            <input id="tpl-co-edit-icon-color" type="text" name="tpl-co-edit-icon-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-edit-icon-color','rgb(96, 125, 139)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-edit-icon-color','rgb(96, 125, 139)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-highlight-bg"><strong>Highlight-Box BG</strong></label>
+            <input id="tpl-co-highlight-bg" type="text" name="tpl-co-highlight-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-highlight-bg','rgb(248, 249, 250)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-highlight-bg','rgb(248, 249, 250)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-highlight-border"><strong>Highlight-Box Border</strong></label>
+            <input id="tpl-co-highlight-border" type="text" name="tpl-co-highlight-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-highlight-border','rgb(222, 226, 230)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-highlight-border','rgb(222, 226, 230)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-success-color"><strong>Erfolgs-Farbe</strong></label>
+            <input id="tpl-co-success-color" type="text" name="tpl-co-success-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-success-color','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-success-color','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+    </div>
+
+    <!-- ═══ Bestell-Erfolg Seite ═══ -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-circle-check me-1"></i>Bestell-Erfolg Seite</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-success-icon-size"><strong>Erfolgs-Icon Gr&ouml;&szlig;e</strong></label>
+            <input id="tpl-co-success-icon-size" type="text" name="tpl-co-success-icon-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-co-success-icon-size','3rem'); ?>">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-success-icon-color"><strong>Erfolgs-Icon Farbe</strong></label>
+            <input id="tpl-co-success-icon-color" type="text" name="tpl-co-success-icon-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-success-icon-color','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-success-icon-color','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-print-btn-bg"><strong>Drucken-Button BG</strong></label>
+            <input id="tpl-co-print-btn-bg" type="text" name="tpl-co-print-btn-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-print-btn-bg','rgb(108, 117, 125)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-print-btn-bg','rgb(108, 117, 125)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-co-print-btn-text"><strong>Drucken-Button Text</strong></label>
+            <input id="tpl-co-print-btn-text" type="text" name="tpl-co-print-btn-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-co-print-btn-text','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-co-print-btn-text','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Checkout speichern">
+        </div>
+    </div>
+
+</form>
+
+<!-- Checkout Live-Preview Script -->
+<script>
+(function(){
+    'use strict';
+    function gv(id, def) {
+        var el = document.getElementById(id);
+        return el ? (el.value || def) : def;
+    }
+    function renderCheckoutPreview() {
+        var preview = document.getElementById('mrh-checkout-preview');
+        if (!preview) return;
+        var activeBg = gv('tpl-co-progress-active-bg','rgb(74, 140, 42)');
+        var activeText = gv('tpl-co-progress-active-text','rgb(255, 255, 255)');
+        var doneBg = gv('tpl-co-progress-done-bg','rgb(74, 140, 42)');
+        var doneText = gv('tpl-co-progress-done-text','rgb(255, 255, 255)');
+        var inactiveBg = gv('tpl-co-progress-inactive-bg','rgb(233, 236, 239)');
+        var inactiveText = gv('tpl-co-progress-inactive-text','rgb(156, 163, 175)');
+        var lineActive = gv('tpl-co-progress-line-active','rgb(74, 140, 42)');
+        var lineInactive = gv('tpl-co-progress-line-inactive','rgb(222, 226, 230)');
+        var circleSize = gv('tpl-co-progress-circle-size','48px');
+        var iconSize = gv('tpl-co-progress-icon-size','1.1rem');
+        var labelSize = gv('tpl-co-progress-label-size','0.75rem');
+        var lineH = gv('tpl-co-progress-line-height','3px');
+        var iconShip = gv('tpl-co-icon-shipping','fa-truck');
+        var iconPay = gv('tpl-co-icon-payment','fa-credit-card');
+        var iconConf = gv('tpl-co-icon-confirm','fa-clipboard-check');
+        var iconSucc = gv('tpl-co-icon-success','fa-circle-check');
+
+        var steps = [
+            {icon: iconShip, label: 'Versand', state: 'done'},
+            {icon: iconPay, label: 'Zahlung', state: 'active'},
+            {icon: iconConf, label: 'Best&auml;tigung', state: 'inactive'},
+            {icon: iconSucc, label: 'Fertig', state: 'inactive'}
+        ];
+
+        var html = '<div style="display:flex;align-items:flex-start;justify-content:center;gap:0;">';
+        steps.forEach(function(s, i){
+            var bg = s.state === 'active' ? activeBg : (s.state === 'done' ? doneBg : inactiveBg);
+            var text = s.state === 'active' ? activeText : (s.state === 'done' ? doneText : inactiveText);
+            var shadow = s.state === 'active' ? 'box-shadow:0 0 0 4px ' + activeBg.replace('rgb','rgba').replace(')',',0.15)') + ';' : '';
+            html += '<div style="display:flex;flex-direction:column;align-items:center;min-width:60px;">';
+            html += '<div style="width:'+circleSize+';height:'+circleSize+';border-radius:50%;background:'+bg+';color:'+text+';display:flex;align-items:center;justify-content:center;font-size:'+iconSize+';'+shadow+'">';
+            html += '<span class="fa-solid '+s.icon+'"></span>';
+            html += '</div>';
+            html += '<span style="font-size:'+labelSize+';font-weight:'+(s.state==='inactive'?'500':'700')+';color:'+(s.state==='inactive'?inactiveText:activeBg)+';margin-top:6px;">'+s.label+'</span>';
+            html += '</div>';
+            if (i < 3) {
+                var lc = (i < 1) ? lineActive : lineInactive;
+                html += '<div style="flex:1;height:'+lineH+';background:'+lc+';margin-top:calc('+circleSize+' / 2 - '+lineH+' / 2);border-radius:2px;"></div>';
+            }
+        });
+        html += '</div>';
+        preview.innerHTML = html;
+    }
+    renderCheckoutPreview();
+    var coTab = document.querySelector('[data-tab="checkout"]');
+    if (coTab) {
+        coTab.addEventListener('click', function(){ setTimeout(renderCheckoutPreview, 50); });
+    }
+    document.querySelectorAll('#tab-checkout input, #tab-checkout select').forEach(function(el){
+        el.addEventListener('input', renderCheckoutPreview);
+        el.addEventListener('change', renderCheckoutPreview);
+    });
+})();
+</script>
+
+</div><!-- /#tab-checkout -->
+
 
 <!-- ═══════════════════════════════════════════════════════════
      Tab 13: FAQ Accordion v3.0
