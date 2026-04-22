@@ -7765,11 +7765,17 @@ html.mrh-smooth-scroll {
 
 /* ── Warenkorb: Aktualisieren + Wishlist Buttons ── */
 .mrh-cart-btn-update {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--tpl-co-cart-btn-update-bg, rgb(108, 117, 125));
   color: var(--tpl-co-cart-btn-update-text, #fff);
   border: none;
   border-radius: var(--tpl-co-cart-btn-radius, 6px);
-  padding: 0.25rem 0.5rem;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
   transition: opacity 0.2s ease;
 }
 .mrh-cart-btn-update:hover {
@@ -7789,7 +7795,9 @@ html.mrh-smooth-scroll {
   color: var(--mrh-btn-wishlist-text, #fff) !important;
   border: none;
   border-radius: var(--tpl-co-cart-btn-radius, 6px);
-  padding: 0.25rem 0.45rem;
+  padding: 0;
+  width: 28px;
+  height: 28px;
   font-size: 0.75rem;
   text-decoration: none !important;
   transition: background-color 0.2s ease;
