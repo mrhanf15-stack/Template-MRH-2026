@@ -7428,3 +7428,20 @@ html.mrh-smooth-scroll {
   height: auto;
   border-radius: 6px;
 }
+
+/* ── Seedfinder: Karten Footer-Alignment (2026-04-22) ──
+   Problem: Karten mit Lager-Info (attribute-text-list) haben einen ~70px
+   hoeheren Footer als Karten ohne. Dadurch stehen Preise und Buttons
+   auf unterschiedlicher Hoehe innerhalb einer Reihe.
+   Fix: Tabellen-Bereich (card-body.pt-0) fuellt den Zwischenraum,
+   Footer wird per flex-column + justify-end am unteren Rand ausgerichtet.
+   Ergebnis: Preise und Buttons auf gleicher Hoehe in jeder Reihe.
+   ──────────────────────────────────────────────────────────────────── */
+#products-grid .card.h-100 .card-body.pt-0 {
+  flex-grow: 1;
+}
+#products-grid .card.h-100 .card-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

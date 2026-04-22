@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-22 – Fix: Seedfinder-Karten Footer-Alignment per CSS (Preise + Buttons auf gleicher Hoehe)
+
+**Problem:** Karten mit Lager-Info (`attribute-text-list`, z.B. "5 Samen / 52,99 EUR / nur noch 2 verfuegbar") haben einen ~70px hoeheren Footer als Karten ohne. Dadurch standen Preise und Buttons auf unterschiedlicher Hoehe innerhalb einer Reihe. Der JS-Equalizer (v1.4.0) konnte das Problem nicht zuverlaessig loesen, da `minHeight` auf dem Footer die Preiszeile nicht korrekt ausrichtet.
+
+**Loesung:** Reiner CSS-Fix ohne JavaScript:
+- `.card-body.pt-0` bekommt `flex-grow: 1` → Tabellen-Bereich fuellt den Zwischenraum zwischen Badges und Footer
+- `.card-footer` bekommt `display: flex; flex-direction: column; justify-content: flex-end` → Preis und Buttons am unteren Rand des Footers, Lager-Info am oberen Rand
+- Ergebnis: Preise und Buttons auf gleicher Hoehe in jeder Reihe, unabhaengig von Lager-Info
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Seedfinder Footer-Alignment: flex-grow + flex-column justify-end |
+
 ## 2026-04-22 – Fix: Seedfinder Row Equalizer v1.4.0 (Timing-Bug bei lazy-loaded Bildern)
 
 **Problem:** Der Equalizer v1.3.0 lief bei DOMContentLoaded und window.load, aber zu diesem Zeitpunkt waren die Bilder (lazy loading) noch nicht geladen. Dadurch hatten die Karten beim Messen noch keine korrekte Hoehe, die Reihen-Gruppierung schlug fehl, und die Footer-Hoehen wurden nicht angeglichen. Karten mit Lager-Info (attribute-text-list) hatten einen 70px hoeheren Footer als Karten ohne.
