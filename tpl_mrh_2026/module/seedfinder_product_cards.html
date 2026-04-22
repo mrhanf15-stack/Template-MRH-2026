@@ -24,11 +24,12 @@
  *   - Scroll-Container mit fixer Hoehe (220px Desktop, 180px Mobile)
  *
  * v34.1.0: attribute-text-list durch kompakte Lagerampel ersetzt
- *   - Lagernd: Gruene Ampel + Attribut-Namen (z.B. "3 Samen, 5 Samen")
- *   - Nicht lagernd: Nichts anzeigen (Ausverkauft wird bereits im Preis-Bereich gehandelt)
- *   - Footer-Hoehe jetzt einheitlich ueber alle Karten
+ * v34.2.0: Lagerampel als gruener Punkt neben dem Preis (kein Extra-Platz)
+ *   - Nur ein gruener Punkt neben dem Preis
+ *   - Bei mehreren Attributen: Hover-Dropdown mit Varianten
+ *   - Kein zusaetzlicher Platzverbrauch im Footer
  *
- * @version   34.1.0
+ * @version   34.2.0
  * @date      2026-04-22
  *}
     {foreach from=$PRODUCTS item=product}
@@ -101,30 +102,48 @@
             <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
             <link itemprop="availability" href="{if $product.TOTAL_STOCK_AVAILABLE}https://schema.org/InStock{else}https://schema.org/OutOfStock{/if}">
 
-            {* Kompakte Lagerampel (v34.1.0) – nur wenn lagernd *}
-            {if $product.HAS_ATTRIBUTES && $product.ATTRIBUTES|@count > 0 && $product.TOTAL_STOCK_AVAILABLE}
-              <div class="mrh-sf-stock-line mb-2 d-flex align-items-center gap-1 flex-wrap">
-                <span class="mrh-sf-stock-dot"></span>
-                <span class="small fw-semibold mrh-sf-stock-label">{#availability_in_stock_title#}</span>
-                <span class="small text-muted">&ndash;</span>
-                {foreach $product.ATTRIBUTES as $attr name=attrloop}
-                  {if $attr.stock > 0}
-                    <span class="badge bg-light text-dark border mrh-sf-attr-badge">{$attr.value_name}</span>
-                  {/if}
-                {/foreach}
-              </div>
-            {/if}
-
-            {* Preis-Anzeige *}
+            {* Preis-Anzeige mit Lagerampel (v34.2.0) *}
             <div class="text-end mt-2 mb-2">
               {if $product.HAS_PRICE_FROM}
                 {if $product.PRODUCTS_SPECIAL_PRICE && $product.PRODUCTS_SPECIAL_PRICE > 0}
                   <div class="text-muted small"><del>{$product.PRODUCTS_PRICE_OLD}</del></div>
-                  <div class="text-danger fw-bold h5 mb-0">
-                    {if $product.PRICE_FROM_COUNT > 1}{#from_price_prefix#} {/if}<span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span>
+                  <div class="d-flex align-items-center justify-content-end gap-1">
+                    {if $product.HAS_ATTRIBUTES && $product.TOTAL_STOCK_AVAILABLE}
+                      <span class="mrh-sf-stock-indicator" title="{#availability_in_stock_title#}">
+                        <span class="mrh-sf-stock-dot"></span>
+                        {if $product.ATTRIBUTES|@count > 1}
+                          <span class="mrh-sf-stock-dropdown">
+                            {foreach $product.ATTRIBUTES as $attr}
+                              {if $attr.stock > 0}
+                                <span class="mrh-sf-stock-dropdown-item">{$attr.value_name}</span>
+                              {/if}
+                            {/foreach}
+                          </span>
+                        {/if}
+                      </span>
+                    {/if}
+                    <span class="text-danger fw-bold h5 mb-0">
+                      {if $product.PRICE_FROM_COUNT > 1}{#from_price_prefix#} {/if}<span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span>
+                    </span>
                   </div>
                 {else}
-                  {if $product.PRICE_FROM_COUNT > 1}<span class="text-secondary sf-price-prefix">{#from_price_prefix#} </span>{/if}<strong class="text-secondary sf-price-main"><span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span></strong>
+                  <div class="d-flex align-items-center justify-content-end gap-1">
+                {if $product.HAS_ATTRIBUTES && $product.TOTAL_STOCK_AVAILABLE}
+                  <span class="mrh-sf-stock-indicator" title="{#availability_in_stock_title#}">
+                    <span class="mrh-sf-stock-dot"></span>
+                    {if $product.ATTRIBUTES|@count > 1}
+                      <span class="mrh-sf-stock-dropdown">
+                        {foreach $product.ATTRIBUTES as $attr}
+                          {if $attr.stock > 0}
+                            <span class="mrh-sf-stock-dropdown-item">{$attr.value_name}</span>
+                          {/if}
+                        {/foreach}
+                      </span>
+                    {/if}
+                  </span>
+                {/if}
+                <span>{if $product.PRICE_FROM_COUNT > 1}<span class="text-secondary sf-price-prefix">{#from_price_prefix#} </span>{/if}<strong class="text-secondary sf-price-main"><span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span></strong></span>
+              </div>
                 {/if}
               {elseif !$product.TOTAL_STOCK_AVAILABLE}
                 <span class="badge bg-danger text-white sf-price-badge">

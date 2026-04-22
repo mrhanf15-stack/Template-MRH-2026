@@ -7429,40 +7429,71 @@ html.mrh-smooth-scroll {
   border-radius: 6px;
 }
 
-/* ── Seedfinder: Karten Footer-Alignment (2026-04-22) ──
-   Problem: Karten mit Lager-Info (attribute-text-list) haben einen ~70px
-   hoeheren Footer als Karten ohne. Dadurch stehen Preise und Buttons
-   auf unterschiedlicher Hoehe innerhalb einer Reihe.
-   Fix: Tabellen-Bereich (card-body.pt-0) fuellt den Zwischenraum,
-   Footer wird per flex-column + justify-end am unteren Rand ausgerichtet.
-   Ergebnis: Preise und Buttons auf gleicher Hoehe in jeder Reihe.
-   ──────────────────────────────────────────────────────────────────── */
-#products-grid .card.h-100 .card-body.pt-0 {
-  flex-grow: 1;
+/* ── Seedfinder: Lagerampel v34.2.0 (2026-04-22) ──
+   Gruener Punkt neben dem Preis. Bei Hover: Dropdown mit Varianten.
+   Kein zusaetzlicher Platzverbrauch im Footer.
+   ────────────────────────────────────────────────────────────────── */
+.mrh-sf-stock-indicator {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: default;
 }
-#products-grid .card.h-100 .card-footer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-/* ── Seedfinder: Kompakte Lagerampel (v34.1.0, 2026-04-22) ──
-   Ersetzt die grosse attribute-text-list im Footer.
-   Zeigt nur bei lagernden Produkten: gruener Punkt + "Auf Lager" + Attribut-Badges.
-   ──────────────────────────────────────────────────────────────────── */
 .mrh-sf-stock-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background-color: #198754;
   display: inline-block;
   flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.25);
 }
-.mrh-sf-stock-label {
-  color: #198754;
+.mrh-sf-stock-dropdown {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  padding: 6px 0;
+  min-width: 110px;
+  z-index: 10;
+  white-space: nowrap;
 }
-.mrh-sf-attr-badge {
-  font-size: 0.72rem;
-  padding: 2px 6px;
-  font-weight: 500;
+.mrh-sf-stock-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 8px;
+  border: 5px solid transparent;
+  border-top-color: #fff;
+}
+.mrh-sf-stock-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 7px;
+  border: 6px solid transparent;
+  border-top-color: #dee2e6;
+}
+.mrh-sf-stock-indicator:hover .mrh-sf-stock-dropdown {
+  display: block;
+}
+.mrh-sf-stock-dropdown-item {
+  display: block;
+  padding: 3px 12px;
+  font-size: 0.78rem;
+  color: #495057;
+}
+.mrh-sf-stock-dropdown-item::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #198754;
+  margin-right: 6px;
+  vertical-align: middle;
 }

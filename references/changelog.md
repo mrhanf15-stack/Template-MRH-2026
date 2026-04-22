@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-04-22 – Refactor: Seedfinder-Karten Lagerampel v34.2.0 (Punkt neben Preis + Hover-Dropdown)
+
+**Problem:** Die kompakte Lagerampel v34.1.0 ("Auf Lager – 3 Samen, 5 Samen") nahm immer noch eine eigene Zeile ein und verschob den Preis nach unten.
+
+**Loesung:** Gruener Punkt direkt neben dem Preis:
+- Nur ein 10px gruener Punkt links neben dem Preis (kein Text, kein Extra-Platz)
+- Bei mehreren Attributen: Hover-Dropdown zeigt die verfuegbaren Varianten
+- Bei nur 1 Attribut: Nur der Punkt, kein Dropdown
+- Nicht lagernd: Kein Punkt (Ausverkauft-Badge im Preis-Bereich bleibt)
+- Footer-Hoehe jetzt 100% einheitlich ueber alle Karten
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `module/seedfinder_product_cards.html` | Template-MRH-2026 | v34.2.0: Lagerampel als Punkt neben Preis mit Hover-Dropdown |
+| `css/mrh-custom.css` | Template-MRH-2026 | Lagerampel v34.2.0: .mrh-sf-stock-indicator, .mrh-sf-stock-dropdown |
+
 ## 2026-04-22 – Refactor: Seedfinder-Karten Lagerampel v34.1.0 (attribute-text-list ersetzt)
 
 **Problem:** Die `attribute-text-list` im Footer (jede Variante mit Preis + Lager-Warnung) brauchte ~70px pro Variante und verursachte unterschiedliche Footer-Hoehen. Karten mit Lager-Info hatten versetzt stehende Preise und Buttons.
