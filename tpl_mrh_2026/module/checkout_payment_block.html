@@ -1,57 +1,38 @@
-{* MRH 2026: Zahlungsarten-Block (Accordion) – BS5.3 *}
-<div class="accordion" id="mrh-payment-accordion">
-  {if isset($module_gift)}
+
+
+<div>
+  <ul>
     {foreach name=outer item=gift_data from=$module_gift}
-      <div class="accordion-item">
-        <h3 class="accordion-header">
-          <div class="accordion-button p-3">
-            <div class="form-check w-100 d-flex justify-content-between align-items-center mb-0">
-              <div>
-                {$gift_data.selection|replace:'<input':'<input class="form-check-input"'}
-                <label class="form-check-label ms-1">{$gift_data.module|onlytext}</label>
-              </div>
-              <span class="fw-medium">{$gift_data.credit_amount}</span>
-            </div>
-          </div>
-        </h3>
-        <div class="accordion-collapse collapse show">
-          <div class="accordion-body small">
-            {if $gift_data.description != ''}{$gift_data.description}<br>{/if}
-            {$credit_amount_payment_info}
-          </div>
-        </div>
-      </div>
+      <li  class="checkout-method"><label><span class="payment_radio">{$gift_data.selection}</span>{$gift_data.module|onlytext}
+
+        <br>{$credit_amount_payment_info}<br>
+        <span class="payment_costs badge rounded-pill bg-success float-end mx-3 my-3 mt-0">{$gift_data.credit_amount}</span></label></li>
     {/foreach}
-  {/if}
-  {foreach name=outer item=module_data from=$module_content}
-    <div class="accordion-item">
-      <h3 class="accordion-header">
-        <div class="accordion-button p-3">
-          <div class="form-check w-100 d-flex justify-content-between align-items-center mb-0">
-            <div>
-              {$module_data.selection|replace:'<input':'<input class="form-check-input"'}
-              <label class="form-check-label ms-1">{$module_data.module|onlytext}</label>
-            </div>
-            <span class="fw-medium">{$module_data.module_cost}</span>
-          </div>
-        </div>
-      </h3>
-      <div class="accordion-collapse collapse show">
-        <div class="accordion-body small">
-          {if $module_data.description}{$module_data.description}<br>{/if}
-          {if $module_data.error != ''}
-            <div class="text-danger">{$module_data.error}</div>
-          {elseif $module_data.fields}
+
+    {foreach name=outer item=module_data from=$module_content}
+      <li class="checkout-method"><label><span class="payment_radio">{$module_data.selection}</span><span class="payment_title">{$module_data.module|onlytext}</span>
+
+        {if $module_data.description}<small>{$module_data.description}</small><br />{/if}
+        <span class="payment_costs badge rounded-pill bg-warning text-dark float-end mx-3 my-3">{$module_data.module_cost}</span>
+        {if $module_data.error != ''}
+          <small>{$module_data.error}</small><br />
+        {elseif $module_data.fields}
+          <table class="paymentmoduledata small">
             {foreach name=inner item=method_data from=$module_data.fields}
-              <div class="d-flex gap-2 mb-2">
-                <div class="fw-medium">{$method_data.title}</div>
-                <div>{$method_data.field|replace:'<input':'<input class="form-control form-control-sm"'|replace:'<textarea':'<textarea class="form-control form-control-sm"'|replace:'<select':'<select class="form-select form-select-sm"'}</div>
-              </div>
+              <tr>
+                <td class="title small">{$method_data.title}</td>
+                <td class="field small">{$method_data.field}</td>
+               </tr>
             {/foreach}
-          {/if}
-        </div>
-      </div>
-    </div>
-  {/foreach}
+          </table>
+        {/if}
+      </label>
+    </li>
+    {/foreach}
+  </ul>
 </div>
-<div class="pp-message"></div>
+    {foreach name=outer item=gift_data from=$module_gift}
+      <div>{if $gift_data.description != ''}{$gift_data.description}<br />{/if}{$credit_amount_payment_info}</div>
+    {/foreach}
+
+    <div class="pp-message"></div>

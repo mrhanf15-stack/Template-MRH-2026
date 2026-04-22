@@ -1,38 +1,22 @@
-{* MRH 2026: Versandarten-Block (Accordion) – BS5.3 *}
-{if isset($module_content)}
-  <div class="accordion" id="mrh-shipping-accordion">
-    {foreach name=outer item=module_data from=$module_content}
-      {if $module_data.error != ''}
-        <div class="accordion-item">
-          <h3 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ship-{$smarty.foreach.outer.iteration}">
-              {$module_data.module|onlytext}
-            </button>
-          </h3>
-          <div id="ship-{$smarty.foreach.outer.iteration}" class="accordion-collapse collapse show">
-            <div class="accordion-body small">{$module_data.error}</div>
-          </div>
-        </div>
-      {else}
-        {foreach name=inner item=method_data from=$module_data.methods}
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <div class="accordion-button p-3">
-                <div class="form-check w-100 d-flex justify-content-between align-items-center mb-0">
-                  <div>
-                    {$method_data.radio_field|replace:'<input':'<input class="form-check-input"'}
-                    <label class="form-check-label ms-1">{$module_data.module|onlytext}</label>
-                  </div>
-                  <span class="fw-medium">{$method_data.price}</span>
-                </div>
-              </div>
-            </h3>
-            <div class="accordion-collapse collapse show">
-              <div class="accordion-body small">{$module_data.icon} {$method_data.title}</div>
-            </div>
-          </div>
-        {/foreach}
-      {/if}
-    {/foreach}
-  </div>
-{/if}
+<div >
+  <ul>
+    {if $FREE_SHIPPING}
+      <li><label><span class="shipping_radio"></span>{$FREE_SHIPPING_TITLE|onlytext}<br><small>{$FREE_SHIPPING_DESCRIPTION}</small></label></li>
+    {else}
+      {foreach name=outer item=module_data from=$module_content}
+
+
+        {if $module_data.error != ''}
+          <li><span class="shipping_radio"></span>
+            <strong>{$module_data.module|onlytext}</strong>
+            <div class="alert alert-danger py-1">{$module_data.error|onlytext}</div></li>
+        {else}
+          {foreach name=inner item=method_data from=$module_data.methods}
+            <li class="checkout-method"><label>{$method_data.radio_field}{$module_data.module|onlytext}<br><small>{$method_data.title}</small><span class="shipping_costs badge rounded-pill bg-warning text-dark float-end mx-3 my-3">&nbsp;{$method_data.price}</span></label></li>
+          {/foreach}
+        {/if}
+      {/foreach}
+    {/if}
+  </ul>
+
+</div>

@@ -2,40 +2,44 @@
 {config_load file="$language/lang_$language.conf" section="checkout_navigation"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="checkout_shipping"}
-{* MRH 2026: Checkout Versand – BS5.3 *}
-{assign var="checkout_step" value=1}
-{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/checkout_nav.html"}
-<h1 class="mrh-page-title">{#heading_shipping#}</h1>
-{if $error_message}<div class="alert alert-danger">{$error_message}</div>{/if}
+{literal}
+<noscript>
+<style type="text/css">
+  .nonjs-fallback {display:none !important;}
+  .nonjs-heading {margin:10px 0px 5px 0px; font-weight:bold;}
+</style>
+</noscript>
+{/literal}
+
+<ul id="checkoutnavigation" class="cf">
+  <li class="active"><span class="title">1. {#title_shipping#}</span><span class="description">{#desc_shipping#}</span></li>
+  <li class="inactive"><span class="title">2. {#title_payment#}</span><span class="description">{#desc_payment#}</span></li>
+  <li class="inactive"><span class="title">3. {#title_confirmation#}</span><span class="description">{#desc_confirmation#}</span></li>
+  <li class="inactive last"><span class="title">4. {#title_success#}</span><span class="description">{#desc_success#}</span></li>
+</ul>
+
+<h1 class="checkout">{#heading_shipping#}</h1>
+{if $error_message}<div class="alert alert-danger errormessage">{$error_message}</div>{/if}
+{if $success_message}<div class="infomessage">{$success_message}</div>{/if}
 {$FORM_ACTION}
-<div class="row g-4 mb-4">
+<div class="row">
   <div class="col-md-6">
-    <div class="card h-100">
-      <div class="card-body">
-        <h2 class="h5 mb-3">{#title_shipping#}</h2>
-        {#text_shipping#}
-      </div>
-      {$SHIPPING_BLOCK}
+    <div class="highlightbox">
+      <h4>{#title_shipping#}</h4>
+      <p>{#text_shipping#}</p>
+      <div>{$SHIPPING_BLOCK}</div>
     </div>
   </div>
+
   <div class="col-md-6">
-    <div class="card h-100 mb-3">
-      <div class="card-body">
-        <h2 class="h5 mb-3">{#title_address#}</h2>
-        <p class="small">{$ADDRESS_LABEL}</p>
-        {$BUTTON_ADDRESS}
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h2 class="h5 mb-3">{#title_comments_short#}</h2>
-        {$COMMENTS|replace:'<textarea':'<textarea class="form-control"'}
-      </div>
+    <div class="highlightbox">
+      <h4>{#title_address#}</h4>
+      <p class="cf"><span class="checkout_button_right">{$BUTTON_ADDRESS}</span>{$ADDRESS_LABEL}</p>
     </div>
   </div>
+  {if isset($BUTTON_BACK)}<div class="col-12 col-sm-6 pt-3">{$BUTTON_BACK}</div>{/if}
+<div class="col-12 col-sm-6 text-end pt-3">{$BUTTON_CONTINUE}</div>
 </div>
-<div class="d-flex justify-content-between mb-4">
-  {if isset($BUTTON_BACK)}{$BUTTON_BACK}{/if}
-  {$BUTTON_CONTINUE}
-</div>
+
+
 {$FORM_END}
