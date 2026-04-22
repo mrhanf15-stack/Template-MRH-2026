@@ -7776,19 +7776,39 @@ html.mrh-smooth-scroll {
   opacity: 0.8;
   color: var(--tpl-co-cart-btn-update-text, #fff);
 }
-/* Wishlist-Button im Warenkorb: generierter HTML = <span class="btn mrh-btn-wishlist btn-sm w-100"><span class="fa-solid fa-heart"></span><span>&nbsp;&nbsp;Auf den Merkzettel</span></span> */
+/* Wishlist-Button im Warenkorb: Core generiert <a class="cart_to_wishlist">Auf den Merkzettel</a> */
 .mrh-cart-btn-wishlist-wrap {
   display: block;
 }
+.mrh-cart-btn-wishlist-wrap a.cart_to_wishlist,
 .mrh-cart-btn-wishlist-wrap a {
-  text-decoration: none;
-}
-.mrh-cart-btn-wishlist-wrap .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.35em;
+  background-color: var(--mrh-btn-wishlist-bg, rgb(108, 117, 125));
+  color: var(--mrh-btn-wishlist-text, #fff) !important;
+  border: none;
+  border-radius: var(--tpl-co-cart-btn-radius, 6px);
+  padding: 0.25rem 0.65rem;
   font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none !important;
   white-space: nowrap;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+.mrh-cart-btn-wishlist-wrap a.cart_to_wishlist:hover,
+.mrh-cart-btn-wishlist-wrap a:hover {
+  background-color: var(--mrh-btn-wishlist-hover, rgb(220, 53, 69));
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.mrh-cart-btn-wishlist-wrap a.cart_to_wishlist::before,
+.mrh-cart-btn-wishlist-wrap a::before {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "FontAwesome";
+  font-weight: 400;
+  content: "\f004";
+  font-size: 0.8em;
 }
 /* Delete-Button im Warenkorb: generierter HTML = <a><span class="btn btn-danger ..."><span class="fa fa-trash"></span></span></a> */
 .mrh-cart-btn-delete-wrap a,
