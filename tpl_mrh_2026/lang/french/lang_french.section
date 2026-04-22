@@ -111,10 +111,13 @@ heading_personal = 'Vos donn&eacute;es'
 [main]
 
 [gift_cart]
+title_gift_cart = 'Votre compte cr&eacute;dit'
 text_heading_gift = 'Vous avez un coupon/bon d\'achat ?'
 voucher_info_text = 'Votre solde actuel est de'
 voucher_heading_text_popup = 'Informations sur votre cr&eacute;dit'
 text_create_account = 'Cr&eacute;er un compte client'
+text_coupon_code = 'Code coupon'
+text_gv_code = 'Code bon d\'achat'
 
 [graduated_price]
 

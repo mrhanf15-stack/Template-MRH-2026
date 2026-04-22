@@ -111,10 +111,13 @@ heading_personal = 'Ihre Daten'
 [main]
 
 [gift_cart]
+title_gift_cart = 'Ihr Guthabenkonto'
 text_heading_gift = 'Sie haben einen Coupon/Gutschein?'
 voucher_info_text = 'Ihr aktuelles Guthaben betr&auml;gt'
 voucher_heading_text_popup = 'Informationen zu Ihrem Guthaben'
 text_create_account = 'Kundenkonto erstellen'
+text_coupon_code = 'Coupon-Code'
+text_gv_code = 'Gutschein-Code'
 
 [graduated_price]
 

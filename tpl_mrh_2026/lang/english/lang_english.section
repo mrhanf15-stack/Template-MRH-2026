@@ -111,10 +111,13 @@ heading_personal = 'Your data'
 [main]
 
 [gift_cart]
+title_gift_cart = 'Your Credit Account'
 text_heading_gift = 'You have a coupon/voucher?'
 voucher_info_text = 'Your current balance is'
 voucher_heading_text_popup = 'Information about your credit'
 text_create_account = 'Create customer account'
+text_coupon_code = 'Coupon Code'
+text_gv_code = 'Voucher Code'
 
 [graduated_price]
 

@@ -53,6 +53,9 @@
 [main]
 
 [gift_cart]
+title_gift_cart = 'Su cuenta de cr&eacute;dito'
+text_coupon_code = 'C&oacute;digo de cup&oacute;n'
+text_gv_code = 'C&oacute;digo de vale'
 
 [graduated_price]
 
