@@ -177,9 +177,14 @@
         updateBadges();
         updateFilterTags();
 
-        // AJAX Counts mit Debounce
+        // AJAX Counts mit Debounce + Produkte sofort neu laden
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(fetchFilterCounts, 400);
+        debounceTimer = setTimeout(function() {
+            fetchFilterCounts();
+            if (typeof window.sfLoadProducts === 'function') {
+                window.sfLoadProducts(1);
+            }
+        }, 400);
     };
 
     // ============================================================

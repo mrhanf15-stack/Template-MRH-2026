@@ -211,6 +211,9 @@
             xhr.send();
         }
 
+        // Expose for Quick-Filter-Bar integration (seedfinder_modal.js)
+        window.sfLoadProducts = loadProducts;
+
         /**
          * Aktualisiert die Produkt-Anzeige mit neuem HTML
          * @param {string} html - Neues HTML vom Server
