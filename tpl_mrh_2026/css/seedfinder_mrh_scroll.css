@@ -1,0 +1,140 @@
+/**
+ * MRH Seedfinder Scroll-Container + Badge Styles
+ * v34.0.0 - 2026-04-14
+ *
+ * Feste Hoehe fuer MRH-Detail-Tabelle in Seedfinder Product Cards.
+ * Scrollbar bei Ueberlauf. Badges kompakt ueber der Tabelle.
+ */
+
+/* ========================================================================
+   MRH BADGE-ROW IM SEEDFINDER
+   ======================================================================== */
+
+#seedfinder_module .mrh-sf-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    min-height: 24px;
+}
+
+#seedfinder_module .mrh-sf-badge-row .mrh-badge-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+#seedfinder_module .mrh-sf-badge-row .mrh-type-badge {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+/* ========================================================================
+   MRH SCROLL-CONTAINER (FESTE HOEHE)
+   ======================================================================== */
+
+#seedfinder_module .mrh-sf-scroll {
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    padding: 2px;
+    background: #fff;
+}
+
+/* Scrollbar Styling (Webkit) */
+#seedfinder_module .mrh-sf-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+#seedfinder_module .mrh-sf-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#seedfinder_module .mrh-sf-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+#seedfinder_module .mrh-sf-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Scrollbar Styling (Firefox) */
+#seedfinder_module .mrh-sf-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* ========================================================================
+   MRH TABELLE IM SCROLL-CONTAINER
+   ======================================================================== */
+
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    line-height: 1.3;
+}
+
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table td {
+    padding: 3px 6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    vertical-align: top;
+}
+
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+    width: 40%;
+    color: #555;
+}
+
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table td:last-child {
+    color: #333;
+    word-break: break-word;
+}
+
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Zebra-Striping */
+#seedfinder_module .mrh-sf-scroll .mrh-attr-table tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* ========================================================================
+   RESPONSIVE ANPASSUNGEN
+   ======================================================================== */
+
+/* Tablet: etwas weniger Hoehe */
+@media (max-width: 991px) {
+    #seedfinder_module .mrh-sf-scroll {
+        max-height: 300px;
+    }
+}
+
+/* Mobile: kompaktere Hoehe */
+@media (max-width: 575px) {
+    #seedfinder_module .mrh-sf-scroll {
+        max-height: 260px;
+    }
+
+    #seedfinder_module .mrh-sf-scroll .mrh-attr-table {
+        font-size: 0.72rem;
+    }
+
+    #seedfinder_module .mrh-sf-scroll .mrh-attr-table td {
+        padding: 2px 4px;
+    }
+
+    #seedfinder_module .mrh-sf-badge-row .mrh-type-badge {
+        font-size: 0.68rem;
+        padding: 1px 4px;
+    }
+}
