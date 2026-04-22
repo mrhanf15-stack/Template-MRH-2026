@@ -51,7 +51,7 @@
                   <span class="fa-solid fa-rotate" aria-hidden="true"></span>
                 </button>
                 {if $module_data.BUTTON_WISHLIST != ''}
-                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST}</span>
+                  <span class="mrh-cart-btn-wishlist-wrap">{$module_data.BUTTON_WISHLIST|regex_replace:'/>[^<]*</':'><span class="fa-solid fa-heart me-1" aria-hidden="true"></span>{#text_cart_wishlist#}</'}</span>
                 {/if}
               </div>
             </div>

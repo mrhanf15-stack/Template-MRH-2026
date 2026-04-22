@@ -7803,13 +7803,7 @@ html.mrh-smooth-scroll {
   color: #fff !important;
   text-decoration: none !important;
 }
-.mrh-cart-btn-wishlist-wrap a.cart_to_wishlist::before,
-.mrh-cart-btn-wishlist-wrap a::before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "FontAwesome";
-  font-weight: 400;
-  content: "\f004";
-  font-size: 0.8em;
-}
+/* Icon wird jetzt als <span class="fa-solid fa-heart"> im HTML eingefügt, kein ::before nötig */
 /* Delete-Button im Warenkorb: HTML = <a href="..."><span class="btn btn-danger btn-sm"><span class="fa-solid fa-trash"></span></span></a> */
 /* <a> ist nur der Link-Wrapper – kein eigenes Styling */
 .mrh-cart-btn-delete-wrap a {
