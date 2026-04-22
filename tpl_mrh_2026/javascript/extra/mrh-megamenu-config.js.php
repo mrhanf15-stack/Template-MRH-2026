@@ -1,12 +1,13 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-megamenu-config.js.php 1.4.2 2026-04-22 Mr. Hanf $
+   $Id: mrh-megamenu-config.js.php 1.4.3 2026-04-22 Mr. Hanf $
 
    MRH Mega-Menu Config - Frontend JavaScript Output
    Autoinclude Hook: ~/templates/YOUR_TEMPLATE/javascript/extra/
 
    Liest Cache-Datei und gibt NUR eingetragene Links als JS-Objekt aus.
    Unterstuetzt DE/EN/FR/ES + Nav-Links mit MRH_-Sprachkonstanten.
+   v1.4.3: Fix Script-Block: Output in eigene <script> Tags wrappen
    v1.4.2: Fix die() in Admin-Sprachdatei → _VALID_XTC vor include definieren
    v1.4.1: Fix MODULE_MRH_DASHBOARD_STATUS Check → nur Cache-Datei pruefen
    v1.4.0: Mobile-Icons + Mobile-Promos + Telefonnummer ans Frontend
@@ -203,9 +204,13 @@ if (isset($cache['mobile_promos']) && is_array($cache['mobile_promos'])) {
 }
 
 // JavaScript ausgeben
-echo "\n/* MRH Mega-Menu Config (Dashboard v1.4.0) */\n";
+// v1.4.3: Eigene <script> Tags, weil vorherige extra-Dateien (z.B. product_compare)
+// den ob_start()-Script-Block mit </script> + <link> vorzeitig schliessen.
+echo "\n<script>\n";
+echo "/* MRH Mega-Menu Config (Dashboard v1.4.0) */\n";
 echo "window.MRH_MEGAMENU_CONFIG = " . json_encode($output_megamenu, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ";\n";
 echo "window.MRH_MEGAMENU_NAVLINKS = " . json_encode($output_navlinks, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ";\n";
 echo "window.MRH_MEGAMENU_LANG = " . json_encode($active_lang) . ";\n";
 echo "window.MRH_MOBILE_ICONS = " . json_encode($mobile_icons, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ";\n";
 echo "window.MRH_MOBILE_PROMOS = " . json_encode($mobile_promos, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ";\n";
+echo "</script>\n";

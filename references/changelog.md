@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-22 – Fix: mrh-megamenu-config.js.php Script-Block gebrochen
+
+**Problem:** Die `product_compare.js.php` (oder eine andere extra-Datei) gibt `</script><link rel="stylesheet" ...>` aus, was den von `general_bottom.js.php` per `ob_start()`/`ob_get_clean()` gesammelten Inline-Script-Block vorzeitig schliesst. Dadurch landete der Output von `mrh-megamenu-config.js.php` als reiner Text im HTML statt als JavaScript → alle Variablen (`MRH_MEGAMENU_CONFIG`, `MRH_MOBILE_ICONS`, `MRH_MOBILE_PROMOS`, `MRH_MEGAMENU_LANG`) blieben `undefined`.
+
+**Fix (v1.4.3):** Der JavaScript-Output wird jetzt in eigene `<script>...</script>` Tags gewrappt, damit er unabhängig vom Kontext des umgebenden Script-Blocks funktioniert.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `javascript/extra/mrh-megamenu-config.js.php` | Template-MRH-2026 | v1.4.3: Output in eigene script-Tags wrappen |
+
 ## 2026-04-22 – Fix: mrh-megamenu-config.js.php die() in Admin-Sprachdatei
 
 **Problem:** Die Admin-Sprachdatei `lang/german/extra/admin/mrh_dashboard.php` enthält `defined('_VALID_XTC') or die(...)`. Beim Include im Frontend-Kontext (auto_include in general_bottom.js.php) war `_VALID_XTC` nicht definiert, wodurch `die()` den gesamten PHP-Output der Datei killte. Ergebnis: `MRH_MOBILE_ICONS`, `MRH_MOBILE_PROMOS`, `MRH_MEGAMENU_CONFIG` und `MRH_MEGAMENU_LANG` blieben alle `undefined`.
