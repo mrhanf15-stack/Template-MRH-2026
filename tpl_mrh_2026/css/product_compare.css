@@ -372,6 +372,18 @@ a.compare-remove-btn:hover {
     display: none;
     margin-bottom: 0;
 }
+/* v5.8.0: .picto.templatestyle innerhalb badge-row entkleiden
+   (Container-Stil kommt von .compare-badge-row, nicht von .picto) */
+.compare-badge-row .picto.templatestyle {
+    display: contents !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.compare-badge-row .mrh-badge-bar {
+    display: contents !important;
+}
 /* .off Klasse: immer ausblenden (hoehere Spezifitaet als .picto.templatestyle) */
 .compare-badge-row .off,
 .compare-badge-row .mrh-type-badge.off,

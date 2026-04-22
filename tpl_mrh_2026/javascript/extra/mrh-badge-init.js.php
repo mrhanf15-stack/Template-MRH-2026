@@ -73,8 +73,38 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
       if (!badgeRow || badgeRow.dataset.badgesDone) return;
       badgeRow.dataset.badgesDone = '1';
 
-      /* v1.1.0: Skip wenn bereits server-seitig gerenderte Badges vorhanden */
-      if (badgeRow.querySelector('.mrh-badge-bar, .mrh-type-badge, .picto.templatestyle')) return;
+      /* v1.1.0+v1.5.0: Wenn bereits server-seitig gerenderte Badges vorhanden,
+         normalisiere sie (Text entfernen, Icons einsetzen) und ueberspringe Neuerstellung */
+      if (badgeRow.querySelector('.mrh-badge-bar, .mrh-type-badge, .picto.templatestyle')) {
+        /* v1.5.0: Vorhandene Badges normalisieren */
+        badgeRow.querySelectorAll('.mrh-type-badge').forEach(function(b) {
+          /* Reg-Badge: Text-Knoten entfernen (nur Icon behalten) */
+          if (b.classList.contains('mrh-badge-reg')) {
+            var hasIcon = b.querySelector('img, .fa, .fa-solid, svg');
+            if (hasIcon) {
+              /* Entferne alle Text-Knoten */
+              Array.from(b.childNodes).forEach(function(n) {
+                if (n.nodeType === 3 && n.textContent.trim()) n.textContent = '';
+              });
+            } else {
+              /* Kein Icon vorhanden: male.svg einsetzen */
+              b.innerHTML = '<img class="mrh-badge-icon" src="' + tplBase + '/img/badges/male.svg" alt="Regulaer">';
+            }
+          }
+          /* Photo-Badge: Text durch Icon ersetzen */
+          if (b.classList.contains('mrh-badge-photo')) {
+            var hasPhotoIcon = b.querySelector('.fa, .fa-solid, img, svg');
+            if (!hasPhotoIcon) {
+              b.innerHTML = '<span class="fa-solid fa-fw fa-sun"></span>';
+            } else {
+              Array.from(b.childNodes).forEach(function(n) {
+                if (n.nodeType === 3 && n.textContent.trim()) n.textContent = '';
+              });
+            }
+          }
+        });
+        return;
+      }
 
       var descBox = card.querySelector('.compare-desc-box .lr_desc, .card-body .lr_desc');
       if (!descBox) return;
@@ -93,10 +123,31 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
         if (existingBar) {
           var clonedBar = existingBar.cloneNode(true);
           badgeRow.appendChild(clonedBar);
-          /* v1.3.0: Typen aus geklonter Bar registrieren */
+          /* v1.4.0: Geklonte Badges normalisieren (Text entfernen, Icons einsetzen) */
           clonedBar.querySelectorAll('.mrh-type-badge').forEach(function(b) {
             var m = (b.className || '').match(/mrh-badge-(fem|auto|reg|photo|cup|medical)/);
             if (m) existingTypes[m[1]] = true;
+            /* Reg-Badge: Text-Knoten entfernen (nur Icon behalten) */
+            if (b.classList.contains('mrh-badge-reg')) {
+              b.childNodes.forEach(function(n) {
+                if (n.nodeType === 3 && n.textContent.trim()) n.textContent = '';
+              });
+              /* Falls kein Icon vorhanden, male.svg einsetzen */
+              if (!b.querySelector('img, .fa, .fa-solid, svg')) {
+                b.innerHTML = '<img class="mrh-badge-icon" src="' + tplBase + '/img/badges/male.svg" alt="Regulaer">';
+              }
+            }
+            /* Photo-Badge: Text durch Icon ersetzen */
+            if (b.classList.contains('mrh-badge-photo')) {
+              var hasIcon = b.querySelector('.fa, .fa-solid, img, svg');
+              if (!hasIcon) {
+                b.innerHTML = '<span class="fa-solid fa-fw fa-sun"></span>';
+              } else {
+                b.childNodes.forEach(function(n) {
+                  if (n.nodeType === 3 && n.textContent.trim()) n.textContent = '';
+                });
+              }
+            }
           });
         }
         /* v1.2.0+v1.3.0: Lose Icons in .mrh-type-badge Wrapper packen,
@@ -148,7 +199,7 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
         } else if (isReg) {
           var regBadge = document.createElement('span');
           regBadge.className = 'mrh-type-badge mrh-badge-reg';
-          regBadge.innerHTML = '<img class="mrh-badge-icon" src="' + MALE_SVG + '" alt="Regul\u00e4r"> Regul\u00e4r';
+          regBadge.innerHTML = '<img class="mrh-badge-icon" src="' + MALE_SVG + '" alt="Regul\u00e4r">';
           regBadge.title = 'Regul\u00e4r';
           bar.appendChild(regBadge);
         }
@@ -164,7 +215,7 @@ if (!defined('MODULE_PRODUCT_COMPARE_STATUS') || MODULE_PRODUCT_COMPARE_STATUS !
         if (!isAuto) {
           var photoBadge = document.createElement('span');
           photoBadge.className = 'mrh-type-badge mrh-badge-photo';
-          photoBadge.textContent = 'Photoperiodisch';
+          photoBadge.innerHTML = '<span class="fa-solid fa-fw fa-sun"></span>';
           photoBadge.title = 'Photoperiodisch';
           bar.appendChild(photoBadge);
         }
