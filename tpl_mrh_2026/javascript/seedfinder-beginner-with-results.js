@@ -1,7 +1,7 @@
 /**
  * Seedfinder Beginner Wizard - NEW 4-Step Version
  * With Multi-Select and OR Logic
- * Version: 1.2 - Fremdsprachen-Fix
+ * Version: 1.3 - Stage 2 Redirect (Profi-Resultseite)
  */
 
 (function($) {
@@ -89,7 +89,7 @@
             // Toggle selected state
             $(this).toggleClass('selected');
             
-            // Update filters for Step 4 (Blütezeit)
+            // Update filters for Step 4 (BlÃ¼tezeit)
             if ($(this).hasClass('selected')) {
                 // Add all bloom time filters for this option
                 addBloomTimeFilters(value);
@@ -161,7 +161,7 @@
         if (option === 'normal') {
             // Normal: 5-9 Wochen
             if (isAutoflowering) {
-                // Autoflowering: Filter 7 (Blütezeit)
+                // Autoflowering: Filter 7 (BlÃ¼tezeit)
                 addFilter(7, 496);
                 addFilter(7, 92);
                 addFilter(7, 58);
@@ -176,7 +176,7 @@
         } else if (option === 'langsam') {
             // Langsam: 9-17+ Wochen
             if (isAutoflowering) {
-                // Autoflowering: Filter 7 (Blütezeit)
+                // Autoflowering: Filter 7 (BlÃ¼tezeit)
                 addFilter(7, 60);
                 addFilter(7, 61);
                 addFilter(7, 62);
@@ -295,7 +295,7 @@
         debugHtml += '<div style="margin:10px 0;"><strong>Kategorie:</strong> ' + wizard.categoryId + '</div>';
         
         // Product Count (AJAX)
-        debugHtml += '<div style="margin:10px 0;"><strong>Produktanzahl:</strong> <span id="debug-product-count">Lädt...</span></div>';
+        debugHtml += '<div style="margin:10px 0;"><strong>Produktanzahl:</strong> <span id="debug-product-count">LÃ¤dt...</span></div>';
         
         // Hint
         debugHtml += '<div style="margin-top:10px; padding:10px; background:#fff3cd; border-radius:4px; color:#856404;">';
@@ -391,7 +391,7 @@
             $('.wizard-effect-card').removeClass('selected');
         }
         
-        // Step 4: Remove Blütezeit-Filter
+        // Step 4: Remove BlÃ¼tezeit-Filter
         if (step === 4) {
             delete wizard.filters[7];
             delete wizard.filters[55];
@@ -470,7 +470,7 @@
     function showResults() {
         
         // Build URL
-        let url = getSeedfinderBaseUrl() + '?stage=3';
+        let url = getSeedfinderBaseUrl() + '?stage=2';
         url += `&category=${wizard.categoryId}`;
         
         for (const [tagId, valueIds] of Object.entries(wizard.filters)) {
