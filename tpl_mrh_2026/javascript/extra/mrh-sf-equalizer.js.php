@@ -1,10 +1,10 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: mrh-sf-equalizer.js.php 1.1.0 2026-04-22 Mr. Hanf $
+   $Id: mrh-sf-equalizer.js.php 1.2.0 2026-04-22 Mr. Hanf $
    MRH Seedfinder Row Equalizer
-   Gleicht die Hoehe von Produktname, Badges, Tabelle und Footer
-   in Seedfinder-Listings an, damit alle Karten in einer Reihe
-   strukturiert auf gleicher Hoehe starten.
+   Gleicht die Hoehe von Produktname und Badges in Seedfinder-Listings an,
+   damit alle Karten in einer Reihe strukturiert auf gleicher Hoehe starten.
+   Tabelle bleibt flexibel, Footer klebt via mt-auto unten.
    Wird per auto_include() in general_bottom.js.php geladen.
    -----------------------------------------------------------------------------------------
    Released under the GNU General Public License
@@ -17,20 +17,17 @@ if (!$is_seedfinder) return;
 ?>
 <script>
 /* ============================================================
-   MRH Seedfinder Row Equalizer v1.1.0
-   Gleicht alle Karten-Sektionen pro Reihe an:
-   1. Produktname (.card-body.pb-1)
-   2. Badges (.mrh-sf-badge-row)
-   3. Tabelle (.card-body.pt-0)
-   4. Footer (.card-footer) – via mt-auto bereits unten,
-      aber Tabellen-Hoehe muss angeglichen werden.
+   MRH Seedfinder Row Equalizer v1.2.0
+   Gleicht pro Kartenreihe an:
+   1. Produktname (.card-body.pb-1) – immer gleiche Hoehe
+   2. Badges (.mrh-sf-badge-row)   – immer gleiche Hoehe
+   Tabelle und Footer bleiben flexibel.
    ============================================================ */
 (function() {
   'use strict';
 
   /**
-   * Gruppiert Elemente nach ihrer vertikalen Position (Reihe).
-   * Elemente mit aehnlichem offsetTop (+/- tolerance) gehoeren zur selben Reihe.
+   * Gruppiert Karten nach ihrer vertikalen Position (Reihe).
    */
   function groupByRow(elements, tolerance) {
     tolerance = tolerance || 15;
@@ -54,9 +51,8 @@ if (!$is_seedfinder) return;
   }
 
   /**
-   * Setzt min-height auf alle Elemente in einer Reihe basierend auf dem hoechsten Element.
-   * @param {Array} elements - Die Karten-Elemente (.card)
-   * @param {string} selector - CSS-Selektor fuer das Ziel-Element innerhalb der Karte
+   * Setzt min-height auf alle Elemente in einer Reihe
+   * basierend auf dem hoechsten Element.
    */
   function equalizeRow(elements, selector) {
     // Reset
@@ -75,7 +71,7 @@ if (!$is_seedfinder) return;
       }
     });
 
-    // Anwenden (nur wenn sinnvoller Unterschied)
+    // Anwenden
     if (maxH > 0) {
       elements.forEach(function(card) {
         var el = card.querySelector(selector);
@@ -87,7 +83,7 @@ if (!$is_seedfinder) return;
   }
 
   /**
-   * Hauptfunktion: Alle Karten-Reihen equalisieren
+   * Hauptfunktion: Name und Badges pro Reihe equalisieren
    */
   function equalize() {
     var cards = Array.from(document.querySelectorAll('.card.h-100'));
@@ -97,25 +93,13 @@ if (!$is_seedfinder) return;
 
     rows.forEach(function(rowCards) {
       if (rowCards.length < 2) return;
-
       // 1. Produktname-Bereich (Hersteller + Name)
       equalizeRow(rowCards, '.card-body.pb-1');
-
       // 2. Badge-Bereich
       equalizeRow(rowCards, '.mrh-sf-badge-row');
-
-      // 3. Tabellen-Bereich (Eigenschaften)
-      //    Selector: zweiter .card-body (der mit .pt-0)
-      equalizeRow(rowCards, '.card-body.pt-0');
-
-      // 4. Footer-Bereich (Preis + Lager + Buttons)
-      equalizeRow(rowCards, '.card-footer');
     });
   }
 
-  /**
-   * Debounce-Helfer
-   */
   function debounce(fn, ms) {
     var timer;
     return function() {
@@ -124,13 +108,9 @@ if (!$is_seedfinder) return;
     };
   }
 
-  // Init: Nach DOM-Ready und Bildern laden
   function init() {
-    // Sofort nach DOM-Ready
     equalize();
-    // Nochmal nach Bildern (koennen Layout verschieben)
     window.addEventListener('load', equalize);
-    // Bei Resize neu berechnen
     window.addEventListener('resize', debounce(equalize, 200));
     // MutationObserver fuer AJAX-Nachladen (Seedfinder Filter)
     var container = document.getElementById('sf-results') ||
