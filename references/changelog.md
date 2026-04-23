@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-04-23 – Fix: Slider-Karten von 5 auf 4 pro Viewport
+
+**Problem:** Das Inline-JS (`mrh-autoslider.js`) injiziert CSS direkt in den `<head>` mit `.mrh-as-track > .listingbox { flex: 0 0 calc((100%-64px)/5) }` – also 5 Spalten. Die externe CSS-Datei `mrh-autoslider.css` hatte zwar 4-Spalten-Regeln, aber fuer die falschen Selektoren (`.mrh-slider-item` statt `.mrh-as-track > .listingbox`).
+
+**Loesung:** CSS-Override mit `!important` in `mrh-autoslider.css` fuer die tatsaechlichen Klassen `.mrh-as-track > .listingbox` mit `calc((100% - 48px) / 4)` (GAP=16px * 3 Gaps = 48px, geteilt durch 4). Responsive: 3 Spalten unter 999px, 2 Spalten unter 599px.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-autoslider.css` | Template-MRH-2026 | Override: .mrh-as-track > .listingbox von /5 auf /4 mit !important |
+
+## 2026-04-23 – Fix: Produktlisting von 5-spaltig auf 4-spaltig
+
+**Problem:** Das Produktlisting-Grid zeigte 5 Spalten (`repeat(5, 1fr)`), was die Karten zu schmal machte.
+
+**Loesung:** `repeat(5, 1fr)` auf `repeat(4, 1fr)` geaendert in `mrh-custom.css`.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `css/mrh-custom.css` | Template-MRH-2026 | Grid: repeat(5, 1fr) → repeat(4, 1fr) |
+
+## 2026-04-23 – Fix: Product Options Radio-Inputs (Compactor-Bug)
+
+**Problem:** Der HTML-Compactor entfernte Whitespace zwischen `<input` und `type="radio"` in mehrzeiligen Tags, was `<inputtype="radio">` erzeugte – ungueltige HTML-Elemente, die nicht klickbar waren.
+
+**Loesung:** Alle `<input>` Tag-Attribute in `multi_options_1.html` auf eine einzige Zeile gesetzt.
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `module/product_options/multi_options_1.html` | Template-MRH-2026 | Input-Tags einzeilig fuer Compactor-Kompatibilitaet |
+
 ## 2026-04-22 – Fix: Eigenschafts-Tabelle Hoehe begrenzen (Seedfinder + Vergleichsliste)
 
 **Problem:** Die Eigenschafts-Tabellen (Geschlecht, THC, Bluetezeit etc.) in den Produkt-Karten auf der Seedfinder-Seite und der Vergleichsliste hatten keine Hoehenbegrenzung. Bei Produkten mit vielen Attributen wurden die Karten extrem lang und ungleichmaessig.
