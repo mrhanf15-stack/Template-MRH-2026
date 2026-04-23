@@ -1,9 +1,30 @@
 /* ══════════════════════════════════════════════════════════════
-   MRH Auto-Slider – Vanilla JS Ersatz für Owl Carousel
-   Bootstrap 5.3 kompatibel, kein jQuery
-   Stand: 2026-04-23
+   MRH Auto-Slider – CSS Overrides
+   Bootstrap 5.3 kompatibel
+   Stand: 2026-04-23 v2
    ══════════════════════════════════════════════════════════════ */
 
+/* ── Inline-JS Slider (.mrh-as) – Override von 5 auf 4 Spalten ── */
+.mrh-as-track > .listingbox {
+  flex: 0 0 calc((100% - 48px) / 4) !important;
+  max-width: calc((100% - 48px) / 4) !important;
+}
+
+@media (max-width: 999px) {
+  .mrh-as-track > .listingbox {
+    flex: 0 0 calc((100% - 32px) / 3) !important;
+    max-width: calc((100% - 32px) / 3) !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .mrh-as-track > .listingbox {
+    flex: 0 0 calc((100% - 16px) / 2) !important;
+    max-width: calc((100% - 16px) / 2) !important;
+  }
+}
+
+/* ── Fallback: .mrh-autoslider Klassen (externe JS) ── */
 .mrh-autoslider {
   overflow: hidden;
 }
@@ -89,7 +110,8 @@
 
 /* Override: listingbox im Slider-Kontext – kein float, keine feste width */
 .mrh-slider-item .listingbox,
-.mrh-autoslider .listingbox {
+.mrh-autoslider .listingbox,
+.mrh-as .listingbox {
   float: none;
   width: 100%;
   margin: 0;
@@ -97,7 +119,8 @@
 
 /* Shipping-Image in Slidern ausblenden */
 .mrh-slider-item .lb_shipping_image,
-.mrh-autoslider .lb_shipping_image {
+.mrh-autoslider .lb_shipping_image,
+.mrh-as .lb_shipping_image {
   display: none !important;
 }
 
