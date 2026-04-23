@@ -3,6 +3,5 @@
     "tpl_cfg_ts": "on",
     "tpl_cfg_menu": "horizontal",
     "tpl_cfg_infinitescroll": "on",
-    "tpl_cfg_barrierefreiTool": "on",
-    "submit-tplsettings": "Konfiguration speichern"
+    "tpl_cfg_barrierefreiTool": "on"
 }
