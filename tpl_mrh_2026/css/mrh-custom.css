@@ -2241,15 +2241,15 @@ table.tebals.wite tr:last-child td:last-child {
 }
 
 /* ============================================================
-   PRODUKTLISTING GRID (5-spaltig)
+   PRODUKTLISTING GRID (4-spaltig)
    Ueberschreibt das float-Layout aus template.css
-   Stand: 2026-04-09
+   Stand: 2026-04-23
    ============================================================ */
 
-/* --- Listing-Container: CSS Grid 5 Spalten --- */
+/* --- Listing-Container: CSS Grid 4 Spalten --- */
 .listingcontainer {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 .listingcontainer .listingbox {
@@ -2271,10 +2271,7 @@ table.tebals.wite tr:last-child td:last-child {
   transform: translateY(-2px);
 }
 
-/* Responsive: 5→4→3→2→1 Spalten je nach Viewport */
-@media (max-width: 1400px) {
-  .listingcontainer { grid-template-columns: repeat(4, 1fr); }
-}
+/* Responsive: 4→3→2→1 Spalten je nach Viewport */
 @media (max-width: 992px) {
   .listingcontainer { grid-template-columns: repeat(3, 1fr); }
 }
