@@ -136,6 +136,16 @@ $mrh_color_defaults = [
     'tpl-text-footer'          => 'rgb(148, 163, 184)',
     'tpl-text-footer-headings' => 'rgb(255, 255, 255)',
 
+    // ── Footer Links & Typografie ──
+    'tpl-footer-link-color'           => 'rgb(173, 181, 189)',
+    'tpl-footer-link-hover'           => 'rgb(255, 255, 255)',
+    'tpl-footer-link-decoration'      => 'none',
+    'tpl-footer-link-hover-decoration'=> 'underline',
+    'tpl-footer-font-size'            => '0.875rem',
+    'tpl-footer-heading-size'         => '1.125rem',
+    'tpl-footer-heading-weight'       => '700',
+    'tpl-footer-border-color'         => 'rgba(255,255,255,0.1)',
+
     // ── Sticky Header ──
     'tpl-sticky-bg'            => 'rgb(255, 255, 255)',
     'tpl-sticky-text'          => 'rgb(51, 65, 85)',
@@ -977,6 +987,14 @@ $mrh_to_tpl_map = [
     'mrh-text-button'       => 'tpl-text-button',
     'mrh-text-footer'       => 'tpl-text-footer',
     'mrh-text-footer-headings' => 'tpl-text-footer-headings',
+    'mrh-footer-link-color'           => 'tpl-footer-link-color',
+    'mrh-footer-link-hover'           => 'tpl-footer-link-hover',
+    'mrh-footer-link-decoration'      => 'tpl-footer-link-decoration',
+    'mrh-footer-link-hover-decoration'=> 'tpl-footer-link-hover-decoration',
+    'mrh-footer-font-size'            => 'tpl-footer-font-size',
+    'mrh-footer-heading-size'         => 'tpl-footer-heading-size',
+    'mrh-footer-heading-weight'       => 'tpl-footer-heading-weight',
+    'mrh-footer-border-color'         => 'tpl-footer-border-color',
     'mrh-sticky-bg'         => 'tpl-sticky-bg',
     'mrh-sticky-text'       => 'tpl-sticky-text',
     // Buttons: mrh-btn-* → tpl-btn-*

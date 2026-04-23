@@ -827,17 +827,33 @@ body:not(.using-keyboard) *:focus {
    ============================================================ */
 #footer {
   font-family: var(--tpl-font-text), sans-serif;
+  font-size: var(--tpl-footer-font-size, 0.875rem);
+  color: var(--tpl-text-footer, rgb(148, 163, 184));
+  background-color: var(--tpl-bg-footer, rgb(15, 23, 42));
 }
 #footer h4,
 #footer h5,
 #footer .footer-heading {
   font-family: var(--tpl-font-heading), sans-serif;
   color: var(--tpl-text-footer-headings);
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: var(--tpl-footer-heading-weight, 700);
+  font-size: var(--tpl-footer-heading-size, 1.125rem);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 16px;
+}
+#footer a {
+  color: var(--tpl-footer-link-color, rgb(173, 181, 189));
+  text-decoration: var(--tpl-footer-link-decoration, none);
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+#footer a:hover {
+  color: var(--tpl-footer-link-hover, rgb(255, 255, 255));
+  text-decoration: var(--tpl-footer-link-hover-decoration, underline);
+}
+#footer hr,
+#footer .footer-divider {
+  border-color: var(--tpl-footer-border-color, rgba(255,255,255,0.1));
 }
 
 /* ============================================================
