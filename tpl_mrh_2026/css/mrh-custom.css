@@ -2272,6 +2272,30 @@ table.tebals.wite tr:last-child td:last-child {
   }
 }
 
+/* ── Fix: Blaue Focus-Rahmen bei Unterkategorie-Cards entfernen ── */
+.mrh-subcategories a.card:focus,
+.mrh-subcategories a.card:active,
+.mrh-subcategories a.card:focus-visible,
+.subcatlist a:focus,
+.subcatlist a:active,
+.subcatlist a:focus-visible,
+.the-subcats a:focus,
+.the-subcats a:active,
+.the-subcats a:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+.mrh-subcategories a.card:focus img,
+.mrh-subcategories a.card:active img,
+.subcatlist a:focus img,
+.subcatlist a:active img,
+.the-subcats a:focus img,
+.the-subcats a:active img {
+  outline: none !important;
+  border: none !important;
+}
+
 /* ============================================================
    PRODUKTLISTING GRID (4-spaltig)
    Ueberschreibt das float-Layout aus template.css
