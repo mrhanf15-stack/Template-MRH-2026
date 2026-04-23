@@ -97,16 +97,6 @@ var FIETZ_ACCESSIBILITY_CONFIG = {
         '.mrh-subcategories a'
     ],
 
-    // Focus Magnifier (Visual Zoom Lens) settings
-    focusMagnifier: {
-        enabled: true,          // Feature availability
-        lensSize: 180,          // Diameter of the lens circle in px
-        zoomLevel: 2,           // Zoom magnification factor
-        borderWidth: 3,         // Lens border width in px
-        borderColor: '#0066cc', // Lens border color
-        shadowColor: 'rgba(0,0,0,0.4)', // Lens shadow
-        zIndex: 999999          // z-index for lens
-    },
 
     // Text-to-Speech (Read Aloud) settings
     textToSpeech: {
@@ -1058,14 +1048,6 @@ if (threshold != ''){
                 enable: isEnabled
             }))
         }(currentSettings["huge-cursor"]),
-
-        // Apply focus magnifier
-        function(isEnabled) {
-            void 0 === isEnabled && (isEnabled = !1);
-            if (typeof toggleFocusMagnifier === 'function') {
-                toggleFocusMagnifier(isEnabled);
-            }
-        }(currentSettings["focus-magnifier"]),
 
         // Apply text-to-speech
         function(isEnabled) {
@@ -4203,10 +4185,6 @@ if (threshold != ''){
         icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\r<path d="M5 4v3h5.5v12h3V7H19V4H5Z"/>\r\n</svg>'
     }]
       , toolButtons = [{
-        label: "Focus Magnifier",
-        key: "focus-magnifier",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\r<path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>\r\n<path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/>\r\n</svg>'
-    }, {
         label: "Big Cursor",
         key: "huge-cursor",
         icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\r<path d="M11 1.07C7.05 1.56 4 4.92 4 9h7m-7 6a8 8 0 0 0 8 8 8 8 0 0 0 8-8v-4H4m9-9.93V9h7a8 8 0 0 0-7-7.93Z"/>\r\n</svg>'
@@ -4239,16 +4217,16 @@ if (threshold != ''){
         return htmlString;
     }
     var K = {
-        de: JSON.parse('{"Accessibility Menu":"Barrierefreiheit","Reset settings":"Einstellungen zur\u00fccksetzen","Close":"Schlie\u00dfen","Content Adjustments":"Inhaltsanpassungen","Adjust Font Size":"Schriftgr\u00f6\u00dfe anpassen","Highlight Title":"Titel hervorheben","Highlight Links":"Links hervorheben","Readable Font":"Lesbare Schrift","Color Adjustments":"Farbanpassungen","Dark Contrast":"Dunkler Kontrast","Light Contrast":"Heller Kontrast","High Contrast":"Hoher Kontrast","High Saturation":"Hohe Farbs\u00e4ttigung","Low Saturation":"Niedrige Farbs\u00e4ttigung","Monochrome":"Monochrom","Tools":"Werkzeuge","Reading Guide":"Lesehilfe","Stop Animations":"Animationen stoppen","Big Cursor":"Gro\u00dfer Cursor","Focus Magnifier":"Textlupe","Read Aloud":"Vorlesen","Increase Font Size":"Schriftgr\u00f6\u00dfe vergr\u00f6\u00dfern","Decrease Font Size":"Schriftgr\u00f6\u00dfe verkleinern","Letter Spacing":"Zeichenabstand","Line Height":"Zeilenh\u00f6he","Font Weight":"Schriftst\u00e4rke","Dyslexia Font":"Dyslexie-Schrift","Language":"Sprache","Open Accessibility Menu":"Barrierefreiheitsmen\u00fc \u00f6ffnen"}'),
-        en: JSON.parse('{"Accessibility Menu":"Accessibility Menu","Reset settings":"Reset settings","Close":"Close","Content Adjustments":"Content Adjustments","Adjust Font Size":"Adjust Font Size","Highlight Title":"Highlight Title","Highlight Links":"Highlight Links","Readable Font":"Readable Font","Color Adjustments":"Color Adjustments","Dark Contrast":"Dark Contrast","Light Contrast":"Light Contrast","High Contrast":"High Contrast","High Saturation":"High Saturation","Low Saturation":"Low Saturation","Monochrome":"Monochrome","Tools":"Tools","Reading Guide":"Reading Guide","Stop Animations":"Stop Animations","Big Cursor":"Big Cursor","Focus Magnifier":"Focus Magnifier","Read Aloud":"Read Aloud","Increase Font Size":"Increase Font Size","Decrease Font Size":"Decrease Font Size","Letter Spacing":"Letter Spacing","Line Height":"Line Height","Font Weight":"Font Weight","Dyslexia Font":"Dyslexia Font","Language":"Language","Open Accessibility Menu":"Open Accessibility Menu"}'),
-        es: JSON.parse('{"Accessibility Menu":"Menú de accesibilidad","Reset settings":"Restablecer configuración","Close":"Cerrar","Content Adjustments":"Ajustes de contenido","Adjust Font Size":"Ajustar el tamaÃ±o de fuente","Highlight Title":"Destacar título","Highlight Links":"Destacar enlaces","Readable Font":"Fuente legible","Color Adjustments":"Ajustes de color","Dark Contrast":"Contraste oscuro","Light Contrast":"Contraste claro","High Contrast":"Alto contraste","High Saturation":"Alta saturación","Low Saturation":"Baja saturación","Monochrome":"Monocromo","Tools":"Herramientas","Reading Guide":"Guía de lectura","Stop Animations":"Detener animaciones","Big Cursor":"Cursor grande","Focus Magnifier":"Lupa de enfoque","Increase Font Size":"Aumentar tamaÃ±o de fuente","Decrease Font Size":"Reducir tamaÃ±o de fuente","Letter Spacing":"Espaciado entre letras","Line Height":"Altura de línea","Font Weight":"Grosor de fuente","Dyslexia Font":"Fuente para dislexia","Language":"Idioma","Open Accessibility Menu":"Abrir menú de accesibilidad"}'),
-        fr: JSON.parse('{"Accessibility Menu":"Menu d\'accessibilité","Reset settings":"Réinitialiser les paramètres","Close":"Fermer","Content Adjustments":"Ajustements de contenu","Adjust Font Size":"Ajuster la taille de police","Highlight Title":"Surligner le titre","Highlight Links":"Surligner les liens","Readable Font":"Police lisible","Color Adjustments":"Ajustements de couleur","Dark Contrast":"Contraste foncé","Light Contrast":"Contraste clair","High Contrast":"Contraste élevé","High Saturation":"Saturation élevée","Low Saturation":"Saturation faible","Monochrome":"Monochrome","Tools":"Outils","Reading Guide":"Guide de lectu","Stop Animations":"Arrêter les animations","Big Cursor":"Gros curseur","Focus Magnifier":"Loupe de focus","Increase Font Size":"Augmenter la taille de police","Decrease Font Size":"Réduire la taille de police","Letter Spacing":"Espacement des lettres","Line Height":"Hauteur de ligne","Font Weight":"Poids de la police","Dyslexia Font":"Police dyslexie","Language":"Langue","Open Accessibility Menu":"Ouvrir le menu d\'accessibilité"}'),
-        it: JSON.parse('{"Accessibility Menu":"Menu di accessibilità","Reset settings":"Ripristina impostazioni","Close":"Chiudi","Content Adjustments":"Regolazioni del contenuto","Adjust Font Size":"Regola la dimensione del carattere","Highlight Title":"Evidenzia il titolo","Highlight Links":"Evidenzia i collegamenti","Readable Font":"Carattere leggibile","Color Adjustments":"Regolazioni del colore","Dark Contrast":"Contrasto scuro","Light Contrast":"Contrasto chiaro","High Contrast":"Alto contrasto","High Saturation":"Alta saturazione","Low Saturation":"Bassa saturazione","Monochrome":"Monocromatico","Tools":"Strumenti","Reading Guide":"Guida alla lettura","Stop Animations":"Arresta le animazioni","Big Cursor":"Cursore grande","Focus Magnifier":"Lente di ingrandimento","Increase Font Size":"Aumenta la dimensione del carattere","Decrease Font Size":"Diminuisci la dimensione del carattere","Letter Spacing":"Spaziatura delle lettere","Line Height":"Altezza della linea","Font Weight":"Peso del carattere","Dyslexia Font":"Carattere per dislessia","Language":"Lingua","Open Accessibility Menu":"Apri il menu di accessibilità"}'),
-        nl: JSON.parse('{"Accessibility Menu":"Toegankelijkheidsmenu","Reset settings":"Instellingen resetten","Close":"Sluiten","Content Adjustments":"Inhoudsaanpassingen","Adjust Font Size":"Lettergrootte aanpassen","Highlight Title":"Titel markeren","Highlight Links":"Links markeren","Readable Font":"Leesbaar lettertype","Color Adjustments":"Kleur aanpassingen","Dark Contrast":"Donker contrast","Light Contrast":"Licht contrast","High Contrast":"Hoog contrast","High Saturation":"Hoge verzadiging","Low Saturation":"Lage verzadiging","Monochrome":"Monochroom","Tools":"Gereedschappen","Reading Guide":"Leesgids","Stop Animations":"Animaties stoppen","Big Cursor":"Grote cursor","Focus Magnifier":"Focusvergroter","Increase Font Size":"Lettergrootte vergroten","Decrease Font Size":"Lettergrootte verkleinen","Letter Spacing":"Letterafstand","Line Height":"Regelhoogte","Font Weight":"Letterdikte","Dyslexia Font":"Dyslexie lettertype","Language":"Taal","Open Accessibility Menu":"Toegankelijkheidsmenu openen"}'),
-        no: JSON.parse('{"Accessibility Menu":"Tilgjengelighetsmeny","Reset settings":"Tilbakestill innstillinger","Close":"Lukk","Content Adjustments":"Innholdstilpasninger","Adjust Font Size":"Juster skriftstørrelse","Highlight Title":"Fremhev tittel","Highlight Links":"Fremhev lenker","Readable Font":"Lesbar skrifttype","Color Adjustments":"Fargejusteringer","Dark Contrast":"Mørk kontrast","Light Contrast":"Lys kontrast","High Contrast":"Høy kontrast","High Saturation":"Høy metning","Low Saturation":"Lav metning","Monochrome":"Monokrom","Tools":"Verktøy","Reading Guide":"Leseguide","Stop Animations":"Stopp animasjoner","Big Cursor":"Stor peker","Focus Magnifier":"Fokusforst\u00f8rrer","Increase Font Size":"Øk skriftstørrelsen","Decrease Font Size":"Reduser skriftstørrelsen","Letter Spacing":"Bokstavavstand","Line Height":"Linjehøyde","Font Weight":"Skriftvekt","Dyslexia Font":"Dysleksisk skrifttype","Language":"Språk","Open Accessibility Menu":"Åpne tilgjengelighetsmeny"}'),
-        pl: JSON.parse('{"Accessibility Menu":"Menu dostępności","Reset settings":"Reset ustawień","Close":"Zamknij","Content Adjustments":"Dostosowanie zawartości","Adjust Font Size":"Dostosuj rozmiar czcionki","Highlight Title":"Podświetl tytuły","Highlight Links":"Podświetl linki","Readable Font":"Czytelna czcionka","Color Adjustments":"Dostosowanie kolorów","Dark Contrast":"Ciemny kontrast","Light Contrast":"Jasny kontrast","High Contrast":"Wysoki kontrast","High Saturation":"Wysoka saturacja","Low Saturation":"Niska saturacja","Monochrome":"Monochromatyczność","Tools":"Narzędzia","Reading Guide":"Pomocnik czytania","Stop Animations":"Wstrzymaj animacje","Big Cursor":"Du\u017cy kursor","Focus Magnifier":"Lupa fokusowa","Increase Font Size":"Zwiększ rozmiar czcionki","Decrease Font Size":"Zmniejsz rozmiar czcionki","Letter Spacing":"Odstępy między literami","Line Height":"Wysokość wierszy","Font Weight":"Pogrubiona czcionka","Dyslexia Font":"Czcionka dla dysletyków","Language":"Język","Open Accessibility Menu":"Otwórz menu dostępności"}'),
-        pt: JSON.parse('{"Accessibility Menu":"Menu de Acessibilidade","Reset settings":"Redefinir configurações","Close":"Fechar","Content Adjustments":"Ajustes de Conteúdo","Adjust Font Size":"Ajustar Tamanho da Fonte","Highlight Title":"Destacar Título","Highlight Links":"Destacar Links","Readable Font":"Fonte Legível","Color Adjustments":"Ajustes de Cor","Dark Contrast":"Contraste Escuro","Light Contrast":"Contraste Claro","High Contrast":"Alto Contraste","High Saturation":"Saturação Alta","Low Saturation":"Saturação Baixa","Monochrome":"Monocromático","Tools":"Ferramentas","Reading Guide":"Guia de Leitura","Stop Animations":"Parar Animações","Big Cursor":"Cursor Grande","Focus Magnifier":"Lupa de foco","Increase Font Size":"Aumentar Tamanho da Fonte","Decrease Font Size":"Diminuir Tamanho da Fonte","Letter Spacing":"Espaçamento entre Letras","Line Height":"Altura da Linha","Font Weight":"Espessura da Fonte","Dyslexia Font":"Fonte para Dislexia","Language":"Idioma","Open Accessibility Menu":"Abrir menu de acessibilidade"}'),
-        cs: JSON.parse('{"Accessibility Menu":"Přístupnostní menu","Reset settings":"Obnovit nastavení","Close":"Zavřít","Content Adjustments":"Úpravy obsahu","Adjust Font Size":"Nastavit velikost písma","Highlight Title":"Zvýraznit nadpis","Highlight Links":"Zvýraznit odkazy","Readable Font":"Čitelný font","Color Adjustments":"Nastavení barev","Dark Contrast":"Tmavý kontrast","Light Contrast":"Světlý kontrast","High Contrast":"Vysoký kontrast","High Saturation":"Vysoká saturace","Low Saturation":"Nízká saturace","Monochrome":"Monochromatické","Tools":"Nástroje","Reading Guide":"Průvodce čtením","Stop Animations":"Zastavit animace","Big Cursor":"Velk\u00fd kurzor","Focus Magnifier":"Textov\u00e1 lupa","Increase Font Size":"Zvětšit velikost písma","Decrease Font Size":"Zmenšit velikost písma","Letter Spacing":"Mezery mezi písmeny","Line Height":"Výška řádku","Font Weight":"Tloušťka písma","Dyslexia Font":"Dyslexický font","Language":"Jazyk","Open Accessibility Menu":"Otevřít přístupnostní menu"}'),
+        de: JSON.parse('{"Accessibility Menu":"Barrierefreiheit","Reset settings":"Einstellungen zur\u00fccksetzen","Close":"Schlie\u00dfen","Content Adjustments":"Inhaltsanpassungen","Adjust Font Size":"Schriftgr\u00f6\u00dfe anpassen","Highlight Title":"Titel hervorheben","Highlight Links":"Links hervorheben","Readable Font":"Lesbare Schrift","Color Adjustments":"Farbanpassungen","Dark Contrast":"Dunkler Kontrast","Light Contrast":"Heller Kontrast","High Contrast":"Hoher Kontrast","High Saturation":"Hohe Farbs\u00e4ttigung","Low Saturation":"Niedrige Farbs\u00e4ttigung","Monochrome":"Monochrom","Tools":"Werkzeuge","Reading Guide":"Lesehilfe","Stop Animations":"Animationen stoppen","Big Cursor":"Gro\u00dfer Cursor","Read Aloud":"Vorlesen","Increase Font Size":"Schriftgr\u00f6\u00dfe vergr\u00f6\u00dfern","Decrease Font Size":"Schriftgr\u00f6\u00dfe verkleinern","Letter Spacing":"Zeichenabstand","Line Height":"Zeilenh\u00f6he","Font Weight":"Schriftst\u00e4rke","Dyslexia Font":"Dyslexie-Schrift","Language":"Sprache","Open Accessibility Menu":"Barrierefreiheitsmen\u00fc \u00f6ffnen"}'),
+        en: JSON.parse('{"Accessibility Menu":"Accessibility Menu","Reset settings":"Reset settings","Close":"Close","Content Adjustments":"Content Adjustments","Adjust Font Size":"Adjust Font Size","Highlight Title":"Highlight Title","Highlight Links":"Highlight Links","Readable Font":"Readable Font","Color Adjustments":"Color Adjustments","Dark Contrast":"Dark Contrast","Light Contrast":"Light Contrast","High Contrast":"High Contrast","High Saturation":"High Saturation","Low Saturation":"Low Saturation","Monochrome":"Monochrome","Tools":"Tools","Reading Guide":"Reading Guide","Stop Animations":"Stop Animations","Big Cursor":"Big Cursor","Read Aloud":"Read Aloud","Increase Font Size":"Increase Font Size","Decrease Font Size":"Decrease Font Size","Letter Spacing":"Letter Spacing","Line Height":"Line Height","Font Weight":"Font Weight","Dyslexia Font":"Dyslexia Font","Language":"Language","Open Accessibility Menu":"Open Accessibility Menu"}'),
+        es: JSON.parse('{"Accessibility Menu":"Menú de accesibilidad","Reset settings":"Restablecer configuración","Close":"Cerrar","Content Adjustments":"Ajustes de contenido","Adjust Font Size":"Ajustar el tamaÃ±o de fuente","Highlight Title":"Destacar título","Highlight Links":"Destacar enlaces","Readable Font":"Fuente legible","Color Adjustments":"Ajustes de color","Dark Contrast":"Contraste oscuro","Light Contrast":"Contraste claro","High Contrast":"Alto contraste","High Saturation":"Alta saturación","Low Saturation":"Baja saturación","Monochrome":"Monocromo","Tools":"Herramientas","Reading Guide":"Guía de lectura","Stop Animations":"Detener animaciones","Big Cursor":"Cursor grande","Increase Font Size":"Aumentar tamaÃ±o de fuente","Decrease Font Size":"Reducir tamaÃ±o de fuente","Letter Spacing":"Espaciado entre letras","Line Height":"Altura de línea","Font Weight":"Grosor de fuente","Dyslexia Font":"Fuente para dislexia","Language":"Idioma","Open Accessibility Menu":"Abrir menú de accesibilidad"}'),
+        fr: JSON.parse('{"Accessibility Menu":"Menu d\'accessibilité","Reset settings":"Réinitialiser les paramètres","Close":"Fermer","Content Adjustments":"Ajustements de contenu","Adjust Font Size":"Ajuster la taille de police","Highlight Title":"Surligner le titre","Highlight Links":"Surligner les liens","Readable Font":"Police lisible","Color Adjustments":"Ajustements de couleur","Dark Contrast":"Contraste foncé","Light Contrast":"Contraste clair","High Contrast":"Contraste élevé","High Saturation":"Saturation élevée","Low Saturation":"Saturation faible","Monochrome":"Monochrome","Tools":"Outils","Reading Guide":"Guide de lectu","Stop Animations":"Arrêter les animations","Big Cursor":"Gros curseur","Increase Font Size":"Augmenter la taille de police","Decrease Font Size":"Réduire la taille de police","Letter Spacing":"Espacement des lettres","Line Height":"Hauteur de ligne","Font Weight":"Poids de la police","Dyslexia Font":"Police dyslexie","Language":"Langue","Open Accessibility Menu":"Ouvrir le menu d\'accessibilité"}'),
+        it: JSON.parse('{"Accessibility Menu":"Menu di accessibilità","Reset settings":"Ripristina impostazioni","Close":"Chiudi","Content Adjustments":"Regolazioni del contenuto","Adjust Font Size":"Regola la dimensione del carattere","Highlight Title":"Evidenzia il titolo","Highlight Links":"Evidenzia i collegamenti","Readable Font":"Carattere leggibile","Color Adjustments":"Regolazioni del colore","Dark Contrast":"Contrasto scuro","Light Contrast":"Contrasto chiaro","High Contrast":"Alto contrasto","High Saturation":"Alta saturazione","Low Saturation":"Bassa saturazione","Monochrome":"Monocromatico","Tools":"Strumenti","Reading Guide":"Guida alla lettura","Stop Animations":"Arresta le animazioni","Big Cursor":"Cursore grande","Increase Font Size":"Aumenta la dimensione del carattere","Decrease Font Size":"Diminuisci la dimensione del carattere","Letter Spacing":"Spaziatura delle lettere","Line Height":"Altezza della linea","Font Weight":"Peso del carattere","Dyslexia Font":"Carattere per dislessia","Language":"Lingua","Open Accessibility Menu":"Apri il menu di accessibilità"}'),
+        nl: JSON.parse('{"Accessibility Menu":"Toegankelijkheidsmenu","Reset settings":"Instellingen resetten","Close":"Sluiten","Content Adjustments":"Inhoudsaanpassingen","Adjust Font Size":"Lettergrootte aanpassen","Highlight Title":"Titel markeren","Highlight Links":"Links markeren","Readable Font":"Leesbaar lettertype","Color Adjustments":"Kleur aanpassingen","Dark Contrast":"Donker contrast","Light Contrast":"Licht contrast","High Contrast":"Hoog contrast","High Saturation":"Hoge verzadiging","Low Saturation":"Lage verzadiging","Monochrome":"Monochroom","Tools":"Gereedschappen","Reading Guide":"Leesgids","Stop Animations":"Animaties stoppen","Big Cursor":"Grote cursor","Increase Font Size":"Lettergrootte vergroten","Decrease Font Size":"Lettergrootte verkleinen","Letter Spacing":"Letterafstand","Line Height":"Regelhoogte","Font Weight":"Letterdikte","Dyslexia Font":"Dyslexie lettertype","Language":"Taal","Open Accessibility Menu":"Toegankelijkheidsmenu openen"}'),
+        no: JSON.parse('{"Accessibility Menu":"Tilgjengelighetsmeny","Reset settings":"Tilbakestill innstillinger","Close":"Lukk","Content Adjustments":"Innholdstilpasninger","Adjust Font Size":"Juster skriftstørrelse","Highlight Title":"Fremhev tittel","Highlight Links":"Fremhev lenker","Readable Font":"Lesbar skrifttype","Color Adjustments":"Fargejusteringer","Dark Contrast":"Mørk kontrast","Light Contrast":"Lys kontrast","High Contrast":"Høy kontrast","High Saturation":"Høy metning","Low Saturation":"Lav metning","Monochrome":"Monokrom","Tools":"Verktøy","Reading Guide":"Leseguide","Stop Animations":"Stopp animasjoner","Big Cursor":"Stor peker","Increase Font Size":"Øk skriftstørrelsen","Decrease Font Size":"Reduser skriftstørrelsen","Letter Spacing":"Bokstavavstand","Line Height":"Linjehøyde","Font Weight":"Skriftvekt","Dyslexia Font":"Dysleksisk skrifttype","Language":"Språk","Open Accessibility Menu":"Åpne tilgjengelighetsmeny"}'),
+        pl: JSON.parse('{"Accessibility Menu":"Menu dostępności","Reset settings":"Reset ustawień","Close":"Zamknij","Content Adjustments":"Dostosowanie zawartości","Adjust Font Size":"Dostosuj rozmiar czcionki","Highlight Title":"Podświetl tytuły","Highlight Links":"Podświetl linki","Readable Font":"Czytelna czcionka","Color Adjustments":"Dostosowanie kolorów","Dark Contrast":"Ciemny kontrast","Light Contrast":"Jasny kontrast","High Contrast":"Wysoki kontrast","High Saturation":"Wysoka saturacja","Low Saturation":"Niska saturacja","Monochrome":"Monochromatyczność","Tools":"Narzędzia","Reading Guide":"Pomocnik czytania","Stop Animations":"Wstrzymaj animacje","Big Cursor":"Du\u017cy kursor","Increase Font Size":"Zwiększ rozmiar czcionki","Decrease Font Size":"Zmniejsz rozmiar czcionki","Letter Spacing":"Odstępy między literami","Line Height":"Wysokość wierszy","Font Weight":"Pogrubiona czcionka","Dyslexia Font":"Czcionka dla dysletyków","Language":"Język","Open Accessibility Menu":"Otwórz menu dostępności"}'),
+        pt: JSON.parse('{"Accessibility Menu":"Menu de Acessibilidade","Reset settings":"Redefinir configurações","Close":"Fechar","Content Adjustments":"Ajustes de Conteúdo","Adjust Font Size":"Ajustar Tamanho da Fonte","Highlight Title":"Destacar Título","Highlight Links":"Destacar Links","Readable Font":"Fonte Legível","Color Adjustments":"Ajustes de Cor","Dark Contrast":"Contraste Escuro","Light Contrast":"Contraste Claro","High Contrast":"Alto Contraste","High Saturation":"Saturação Alta","Low Saturation":"Saturação Baixa","Monochrome":"Monocromático","Tools":"Ferramentas","Reading Guide":"Guia de Leitura","Stop Animations":"Parar Animações","Big Cursor":"Cursor Grande","Increase Font Size":"Aumentar Tamanho da Fonte","Decrease Font Size":"Diminuir Tamanho da Fonte","Letter Spacing":"Espaçamento entre Letras","Line Height":"Altura da Linha","Font Weight":"Espessura da Fonte","Dyslexia Font":"Fonte para Dislexia","Language":"Idioma","Open Accessibility Menu":"Abrir menu de acessibilidade"}'),
+        cs: JSON.parse('{"Accessibility Menu":"Přístupnostní menu","Reset settings":"Obnovit nastavení","Close":"Zavřít","Content Adjustments":"Úpravy obsahu","Adjust Font Size":"Nastavit velikost písma","Highlight Title":"Zvýraznit nadpis","Highlight Links":"Zvýraznit odkazy","Readable Font":"Čitelný font","Color Adjustments":"Nastavení barev","Dark Contrast":"Tmavý kontrast","Light Contrast":"Světlý kontrast","High Contrast":"Vysoký kontrast","High Saturation":"Vysoká saturace","Low Saturation":"Nízká saturace","Monochrome":"Monochromatické","Tools":"Nástroje","Reading Guide":"Průvodce čtením","Stop Animations":"Zastavit animace","Big Cursor":"Velk\u00fd kurzor","Increase Font Size":"Zvětšit velikost písma","Decrease Font Size":"Zmenšit velikost písma","Letter Spacing":"Mezery mezi písmeny","Line Height":"Výška řádku","Font Weight":"Tloušťka písma","Dyslexia Font":"Dyslexický font","Language":"Jazyk","Open Accessibility Menu":"Otevřít přístupnostní menu"}'),
         sk: JSON.parse('{"Accessibility Menu":"Menu prístupnosti","Reset settings":"Obnoviť nastavenia","Close":"Zavrieť","Content Adjustments":"Nastavenia obsahu","Adjust Font Size":"Prispôsobiť veľkosť písma","Highlight Title":"Zvýrazniť nadpis","Highlight Links":"Zvýrazniť odkazy","Readable Font":"Čitateľné písmo","Color Adjustments":"Nastavenia farieb","Dark Contrast":"Tmavý kontrast","Light Contrast":"Svetlý kontrast","High Contrast":"Vysoký kontrast","High Saturation":"Vysoká saturácia","Low Saturation":"Nízka saturácia","Monochrome":"Monochromatické","Tools":"Nástroje","Reading Guide":"Sprievodca Äítaním","Stop Animations":"Zastaviť animácie","Big Cursor":"Veľký kurzor","Increase Font Size":"Zväčšiť veľkosť písma","Decrease Font Size":"Zmenšiť veľkosť písma","Letter Spacing":"Rozostup písmen","Line Height":"Výška riadku","Font Weight":"Tlak písma","Dyslexia Font":"Písmo pre dyslexiu","Language":"Jazyk","Open Accessibility Menu":"Otvoriť menu prístupnosti"}'),
         hu: JSON.parse('{"Accessibility Menu":"HozzáférhetÅ\'ségi menü","Reset settings":"Beállítások visszaállítása","Close":"Bezárás","Content Adjustments":"Tartalom beállításai","Adjust Font Size":"Betűméret beállítása","Highlight Title":"Cím kiemelése","Highlight Links":"Linkek kiemelése","Readable Font":"Olvasható betűtípus","Color Adjustments":"Színbeállítások","Dark Contrast":"Sötét kontraszt","Light Contrast":"Világos kontraszt","High Contrast":"Magas kontraszt","High Saturation":"Magas telítettség","Low Saturation":"Alacsony telítettség","Monochrome":"Monokróm","Tools":"Eszközök","Reading Guide":"Olvasási útmutató","Stop Animations":"Animációk leállítása","Big Cursor":"Nagy kurzor","Increase Font Size":"Betűméret növelése","Decrease Font Size":"Betűméret csökkentése","Letter Spacing":"Betűtávolság","Line Height":"Sor magasság","Font Weight":"Betűtípus vastagsága","Dyslexia Font":"Dyslexia betűtípus","Language":"Nyelv","Open Accessibility Menu":"HozzáférhetÅ\'ségi menü megnyitása"}'),
         ro: JSON.parse('{"Accessibility Menu":"Meniu de accesibilitate","Reset settings":"Resetează setările","Close":"Închide","Content Adjustments":"Ajustări conținut","Adjust Font Size":"Ajustează dimensiunea fontului","Highlight Title":"Evidențiază titlul","Highlight Links":"Evidențiază legăturile","Readable Font":"Font lizibil","Color Adjustments":"Ajustări de culoare","Dark Contrast":"Contrast întunecat","Light Contrast":"Contrast luminos","High Contrast":"Contrast ridicat","High Saturation":"Saturație ridicată","Low Saturation":"Saturație redusă","Monochrome":"Monocrom","Tools":"Instrumente","Reading Guide":"Ghid de lectură","Stop Animations":"Opriți animațiile","Big Cursor":"Cursor mare","Increase Font Size":"Mărește dimensiunea fontului","Decrease Font Size":"Micșorează dimensiunea fontului","Letter Spacing":"Spațierea literelor","Line Height":"Înălțimea liniei","Font Weight":"Grosimea fontului","Dyslexia Font":"Font pentru dislexie","Language":"Limbă","Open Accessibility Menu":"Deschideți meniul de accesibilitate"}'),
@@ -5061,347 +5039,7 @@ if (threshold != ''){
         stopSpeakingAuto();
     }
 
-    // =========================================================================
-    // FOCUS MAGNIFIER (Visual Zoom Lens)
-    // =========================================================================
-    // Shows a circular magnifying glass that follows the mouse cursor
-    // and displays a zoomed-in view of the page content underneath.
-    // Uses a hidden iframe of the same page for smooth, performant rendering.
 
-    var __faw_magnifier_lens = null;
-    var __faw_magnifier_iframe = null;
-    var __faw_magnifier_active = false;
-    var __faw_magnifier_mousemove_bound = null;
-    var __faw_magnifier_scroll_bound = null;
-    var __faw_magnifier_raf_id = null;
-
-    /**
-     * Create the magnifier lens element and hidden iframe
-     */
-    function createMagnifierLens() {
-        if (__faw_magnifier_lens) return __faw_magnifier_lens;
-
-        var cfg = FIETZ_ACCESSIBILITY_CONFIG.focusMagnifier;
-        var size = cfg.lensSize;
-
-        // Create the lens (visible circle)
-        var lens = document.createElement('div');
-        lens.id = 'faw-magnifier-lens';
-        lens.setAttribute('aria-hidden', 'true');
-        lens.style.cssText = [
-            'position: fixed',
-            'display: none',
-            'width: ' + size + 'px',
-            'height: ' + size + 'px',
-            'border-radius: 50%',
-            'border: ' + cfg.borderWidth + 'px solid ' + cfg.borderColor,
-            'box-shadow: 0 4px 24px ' + cfg.shadowColor + ', 0 0 0 1px rgba(255,255,255,0.2)',
-            'pointer-events: none',
-            'z-index: ' + cfg.zIndex,
-            'overflow: hidden',
-            'will-change: left, top',
-            'opacity: 0',
-            'transition: opacity 0.2s ease'
-        ].join('; ') + ';';
-
-        // Create hidden iframe that mirrors the current page
-        var iframe = document.createElement('iframe');
-        iframe.id = 'faw-magnifier-iframe';
-        iframe.setAttribute('aria-hidden', 'true');
-        iframe.setAttribute('tabindex', '-1');
-        iframe.src = window.location.href;
-        iframe.style.cssText = [
-            'position: fixed',
-            'top: -99999px',
-            'left: -99999px',
-            'width: ' + window.innerWidth + 'px',
-            'height: ' + window.innerHeight + 'px',
-            'border: none',
-            'pointer-events: none',
-            'opacity: 0',
-            'z-index: -1'
-        ].join('; ') + ';';
-
-        // When iframe loads, sync scroll position and hide its FAW widget
-        iframe.onload = function() {
-            try {
-                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                // Remove FAW widget from iframe to avoid recursion
-                var fawElements = iframeDoc.querySelectorAll('.faw-menu, .faw-menu-btn, .faw-widget, #faw-magnifier-lens, #faw-magnifier-iframe');
-                for (var i = 0; i < fawElements.length; i++) {
-                    fawElements[i].remove();
-                }
-                // Sync scroll position
-                iframe.contentWindow.scrollTo(window.pageXOffset, window.pageYOffset);
-
-                if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-                    console.log('\ud83d\udd0d **FAW:** Magnifier iframe loaded and synced');
-                }
-            } catch(e) {
-                // Cross-origin fallback: use body clone approach
-                if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-                    console.warn('\ud83d\udd0d **FAW:** Iframe access denied, using fallback');
-                }
-            }
-        };
-
-        document.body.appendChild(iframe);
-        document.body.appendChild(lens);
-
-        __faw_magnifier_lens = lens;
-        __faw_magnifier_iframe = iframe;
-        return lens;
-    }
-
-    /**
-     * Sync the iframe scroll position with the main page
-     */
-    function syncMagnifierScroll() {
-        if (!__faw_magnifier_iframe || !__faw_magnifier_active) return;
-        try {
-            __faw_magnifier_iframe.contentWindow.scrollTo(window.pageXOffset, window.pageYOffset);
-        } catch(e) { /* cross-origin, ignore */ }
-    }
-
-    /**
-     * Update the lens position and zoomed content
-     */
-    function updateMagnifierLens(mouseX, mouseY) {
-        if (!__faw_magnifier_lens || !__faw_magnifier_active) return;
-
-        var cfg = FIETZ_ACCESSIBILITY_CONFIG.focusMagnifier;
-        var size = cfg.lensSize;
-        var half = size / 2;
-        var zoom = cfg.zoomLevel;
-
-        // Position lens centered on cursor
-        __faw_magnifier_lens.style.left = (mouseX - half) + 'px';
-        __faw_magnifier_lens.style.top = (mouseY - half) + 'px';
-
-        // Try iframe approach first
-        var iframeUsed = false;
-        if (__faw_magnifier_iframe) {
-            try {
-                var iframeDoc = __faw_magnifier_iframe.contentDocument || __faw_magnifier_iframe.contentWindow.document;
-                if (iframeDoc && iframeDoc.body) {
-                    // Clear previous content
-                    __faw_magnifier_lens.innerHTML = '';
-
-                    // Create a viewport into the iframe
-                    var viewport = document.createElement('div');
-                    viewport.style.cssText = [
-                        'position: absolute',
-                        'top: 0',
-                        'left: 0',
-                        'width: ' + size + 'px',
-                        'height: ' + size + 'px',
-                        'overflow: hidden',
-                        'border-radius: 50%'
-                    ].join('; ') + ';';
-
-                    // Position the iframe inside the lens, scaled and offset
-                    var iframeClone = __faw_magnifier_iframe.cloneNode(false);
-                    iframeClone.id = '';
-                    iframeClone.style.cssText = [
-                        'position: absolute',
-                        'border: none',
-                        'width: ' + window.innerWidth + 'px',
-                        'height: ' + window.innerHeight + 'px',
-                        'transform: scale(' + zoom + ')',
-                        'transform-origin: ' + mouseX + 'px ' + mouseY + 'px',
-                        'left: ' + (-mouseX * zoom + half) + 'px',
-                        'top: ' + (-mouseY * zoom + half) + 'px',
-                        'pointer-events: none',
-                        'opacity: 1'
-                    ].join('; ') + ';';
-
-                    // We can't clone iframe content, so use the direct iframe
-                    // Instead, reposition the actual iframe inside the lens temporarily
-                    // Better: use a second approach with the actual iframe as background
-                    iframeUsed = false; // Fall through to body-clone approach
-                }
-            } catch(e) {
-                iframeUsed = false;
-            }
-        }
-
-        // Body-clone approach (works same-origin, no iframe needed)
-        if (!iframeUsed) {
-            // Clear lens content
-            __faw_magnifier_lens.innerHTML = '';
-
-            var viewport = document.createElement('div');
-            viewport.style.cssText = [
-                'position: absolute',
-                'top: 0',
-                'left: 0',
-                'width: ' + size + 'px',
-                'height: ' + size + 'px',
-                'overflow: hidden',
-                'border-radius: 50%',
-                'background: #fff'
-            ].join('; ') + ';';
-
-            // Create a wrapper that contains a scaled copy of the body
-            var wrapper = document.createElement('div');
-            var scrollX = window.pageXOffset || document.documentElement.scrollLeft;
-            var scrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-            wrapper.style.cssText = [
-                'position: absolute',
-                'width: ' + document.documentElement.scrollWidth + 'px',
-                'height: ' + document.documentElement.scrollHeight + 'px',
-                'transform: scale(' + zoom + ')',
-                'transform-origin: ' + (mouseX + scrollX) + 'px ' + (mouseY + scrollY) + 'px',
-                'left: ' + (half - (mouseX + scrollX) * zoom) + 'px',
-                'top: ' + (half - (mouseY + scrollY) * zoom) + 'px',
-                'pointer-events: none'
-            ].join('; ') + ';';
-
-            // Clone the body (shallow for performance, deep for accuracy)
-            // For performance, only clone visible area elements
-            try {
-                // Hide lens temporarily to get element at point
-                __faw_magnifier_lens.style.display = 'none';
-                var elemAtPoint = document.elementFromPoint(mouseX, mouseY);
-                __faw_magnifier_lens.style.display = 'block';
-
-                if (elemAtPoint && !elemAtPoint.closest('#faw-magnifier-lens, .faw-menu, .faw-widget')) {
-                    // Find a good container to clone (section, article, main, or direct parent)
-                    var container = elemAtPoint;
-                    var walks = 0;
-                    while (container && container !== document.body && walks < 8) {
-                        var tag = container.tagName;
-                        if (tag === 'SECTION' || tag === 'ARTICLE' || tag === 'MAIN' || 
-                            tag === 'DIV' || tag === 'HEADER' || tag === 'FOOTER' || tag === 'NAV') {
-                            var rect = container.getBoundingClientRect();
-                            // Use this container if it's reasonably sized
-                            if (rect.width > 100 && rect.height > 50) break;
-                        }
-                        container = container.parentElement;
-                        walks++;
-                    }
-                    if (!container || container === document.body) container = elemAtPoint;
-
-                    var containerRect = container.getBoundingClientRect();
-                    var clone = container.cloneNode(true);
-
-                    // Remove any FAW elements from clone
-                    var fawInClone = clone.querySelectorAll('.faw-menu, .faw-menu-btn, .faw-widget, #faw-magnifier-lens');
-                    for (var fi = 0; fi < fawInClone.length; fi++) fawInClone[fi].remove();
-
-                    // Position clone at the same absolute position as original
-                    clone.style.position = 'absolute';
-                    clone.style.left = (containerRect.left + scrollX) + 'px';
-                    clone.style.top = (containerRect.top + scrollY) + 'px';
-                    clone.style.width = containerRect.width + 'px';
-                    clone.style.margin = '0';
-                    clone.style.pointerEvents = 'none';
-
-                    wrapper.appendChild(clone);
-                }
-            } catch(e) {
-                // Silent fail
-            }
-
-            viewport.appendChild(wrapper);
-            __faw_magnifier_lens.appendChild(viewport);
-        }
-    }
-
-    /**
-     * Show the magnifier lens
-     */
-    function showMagnifierLens() {
-        var lens = createMagnifierLens();
-        lens.style.display = 'block';
-        requestAnimationFrame(function() {
-            lens.style.opacity = '1';
-        });
-        document.body.style.cursor = 'none';
-    }
-
-    /**
-     * Hide the magnifier lens
-     */
-    function hideMagnifierLens() {
-        if (__faw_magnifier_lens) {
-            __faw_magnifier_lens.style.opacity = '0';
-            setTimeout(function() {
-                if (__faw_magnifier_lens) {
-                    __faw_magnifier_lens.style.display = 'none';
-                }
-            }, 200);
-        }
-        document.body.style.cursor = '';
-    }
-
-    /**
-     * Mouse move handler for the magnifier lens
-     */
-    function magnifierMouseMoveHandler(e) {
-        if (!__faw_magnifier_active) return;
-        if (__faw_magnifier_raf_id) cancelAnimationFrame(__faw_magnifier_raf_id);
-        __faw_magnifier_raf_id = requestAnimationFrame(function() {
-            updateMagnifierLens(e.clientX, e.clientY);
-            __faw_magnifier_raf_id = null;
-        });
-    }
-
-    /**
-     * Toggle focus magnifier (visual zoom lens)
-     */
-    function toggleFocusMagnifier(enabled) {
-        updateSettings({ 'focus-magnifier': enabled });
-
-        if (enabled) {
-            __faw_magnifier_active = true;
-            showMagnifierLens();
-
-            if (!__faw_magnifier_mousemove_bound) {
-                __faw_magnifier_mousemove_bound = magnifierMouseMoveHandler;
-                document.addEventListener('mousemove', __faw_magnifier_mousemove_bound);
-            }
-            if (!__faw_magnifier_scroll_bound) {
-                __faw_magnifier_scroll_bound = syncMagnifierScroll;
-                window.addEventListener('scroll', __faw_magnifier_scroll_bound, { passive: true });
-            }
-
-            if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-                console.log('\ud83d\udd0d **FAW:** Visual Zoom Lens enabled');
-            }
-        } else {
-            __faw_magnifier_active = false;
-            hideMagnifierLens();
-
-            if (__faw_magnifier_mousemove_bound) {
-                document.removeEventListener('mousemove', __faw_magnifier_mousemove_bound);
-                __faw_magnifier_mousemove_bound = null;
-            }
-            if (__faw_magnifier_scroll_bound) {
-                window.removeEventListener('scroll', __faw_magnifier_scroll_bound);
-                __faw_magnifier_scroll_bound = null;
-            }
-            if (__faw_magnifier_raf_id) {
-                cancelAnimationFrame(__faw_magnifier_raf_id);
-                __faw_magnifier_raf_id = null;
-            }
-
-            // Remove lens and iframe
-            if (__faw_magnifier_lens) {
-                __faw_magnifier_lens.remove();
-                __faw_magnifier_lens = null;
-            }
-            if (__faw_magnifier_iframe) {
-                __faw_magnifier_iframe.remove();
-                __faw_magnifier_iframe = null;
-            }
-
-            if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-                console.log('\ud83d\udd0d **FAW:** Visual Zoom Lens disabled');
-            }
-        }
-    }
 
     /**
      * Toggle text-to-speech functionality
