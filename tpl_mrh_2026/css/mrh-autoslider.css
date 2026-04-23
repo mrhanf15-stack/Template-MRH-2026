@@ -1,0 +1,120 @@
+/* ══════════════════════════════════════════════════════════════
+   MRH Auto-Slider – Vanilla JS Ersatz für Owl Carousel
+   Bootstrap 5.3 kompatibel, kein jQuery
+   Stand: 2026-04-23
+   ══════════════════════════════════════════════════════════════ */
+
+.mrh-autoslider {
+  overflow: hidden;
+}
+
+.mrh-slider-track {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.mrh-slider-item {
+  flex: 0 0 calc(25% - 0.75rem);
+  min-width: 0;
+}
+
+@media (max-width: 991.98px) {
+  .mrh-slider-item {
+    flex: 0 0 calc(33.333% - 0.667rem);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .mrh-slider-item {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 399.98px) {
+  .mrh-slider-item {
+    flex: 0 0 100%;
+  }
+}
+
+/* ── Pfeil-Buttons ── */
+.mrh-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s, box-shadow 0.2s;
+  color: #333;
+  font-size: 0.85rem;
+  padding: 0;
+  line-height: 1;
+}
+
+.mrh-slider-btn:hover {
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mrh-slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.mrh-slider-prev {
+  left: 6px;
+}
+
+.mrh-slider-next {
+  right: 6px;
+}
+
+/* Buttons auf Touch-Geräten etwas größer */
+@media (hover: none) and (pointer: coarse) {
+  .mrh-slider-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+}
+
+/* Override: listingbox im Slider-Kontext – kein float, keine feste width */
+.mrh-slider-item .listingbox,
+.mrh-autoslider .listingbox {
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+/* Shipping-Image in Slidern ausblenden */
+.mrh-slider-item .lb_shipping_image,
+.mrh-autoslider .lb_shipping_image {
+  display: none !important;
+}
+
+/* Override: listingbox innerhalb von BS5 Grid (cross-selling, reverse-cross, also-purchased) */
+.row .listingbox,
+.row > .col-6 > .listingbox,
+.row > .col-md-4 > .listingbox,
+.row > .col-lg-3 > .listingbox,
+.mrh-cross-selling .listingbox,
+.mrh-reverse-cross-selling .listingbox,
+.mrh-also-purchased .listingbox {
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+/* Shipping-Image global ausblenden */
+.lb_shipping_image {
+  display: none !important;
+}
