@@ -97,6 +97,15 @@ var FIETZ_ACCESSIBILITY_CONFIG = {
         '.mrh-subcategories a'
     ],
 
+    // Elements excluded from automatic contrast correction (CSS selectors)
+    // Elements matching these selectors will keep their original colors
+    excludeFromContrastCheck: [
+        '.box3_header',
+        '.footer-heading',
+        '[class*="footer"] h4',
+        '[class*="footer"] h5'
+    ],
+
 
     // Text-to-Speech (Read Aloud) settings
     textToSpeech: {
@@ -2683,6 +2692,15 @@ if (threshold != ''){
             return false;
         }
 
+        // Skip elements excluded from contrast checking (e.g. footer headings with intentional colors)
+        if (FIETZ_ACCESSIBILITY_CONFIG.excludeFromContrastCheck &&
+            FIETZ_ACCESSIBILITY_CONFIG.excludeFromContrastCheck.some(function(selector) {
+                try { return element.matches(selector) || element.closest(selector); }
+                catch(e) { return false; }
+            })) {
+            return false;
+        }
+
         // Check if element is in the list of elements that should always be black
         if (FIETZ_ACCESSIBILITY_CONFIG.alwaysBlackElements &&
             FIETZ_ACCESSIBILITY_CONFIG.alwaysBlackElements.some(selector =>
@@ -4424,6 +4442,45 @@ if (threshold != ''){
             resetButton.addEventListener("click", function() {
                 // Reset all accessibility settings
                 saveSettings({ states: {} });
+
+                // IMPORTANT: Remove all contrast-related inline styles before re-initializing
+                var contrastProcessed = document.querySelectorAll('[data-faw-contrast-processed]');
+                contrastProcessed.forEach(function(el) {
+                    var originalColor = el.getAttribute('data-faw-original-color');
+                    if (originalColor) {
+                        el.style.setProperty('color', originalColor);
+                    } else {
+                        el.style.removeProperty('color');
+                    }
+                    el.style.removeProperty('text-shadow');
+                    el.removeAttribute('data-faw-contrast-processed');
+                    el.removeAttribute('data-faw-original-color');
+                    el.removeAttribute('data-faw-contrast-ratio');
+                    el.removeAttribute('data-faw-background-estimate');
+                    el.removeAttribute('data-faw-improved-ratio');
+                    el.removeAttribute('data-faw-text-shadow');
+                    el.removeAttribute('data-faw-forced-black');
+                });
+
+                // Remove form contrast processing
+                var formProcessed = document.querySelectorAll('[data-faw-form-contrast-processed]');
+                formProcessed.forEach(function(el) {
+                    el.style.removeProperty('border-color');
+                    el.style.removeProperty('outline');
+                    el.style.removeProperty('box-shadow');
+                    el.removeAttribute('data-faw-form-contrast-processed');
+                    el.removeAttribute('data-faw-form-contrast-ratio');
+                    el.removeAttribute('data-faw-form-enhancement-type');
+                    el.removeAttribute('data-faw-form-enhancement-color');
+                });
+
+                // Remove underline additions from links
+                var underlined = document.querySelectorAll('[data-faw-underline-added]');
+                underlined.forEach(function(el) {
+                    el.style.removeProperty('text-decoration');
+                    el.removeAttribute('data-faw-underline-added');
+                });
+
                 initializeAccessibility();
 
                 // Remove selected state from all buttons
