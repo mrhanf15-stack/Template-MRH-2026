@@ -97,20 +97,15 @@ var FIETZ_ACCESSIBILITY_CONFIG = {
         '.mrh-subcategories a'
     ],
 
-    // Focus Magnifier settings
+    // Focus Magnifier (Visual Zoom Lens) settings
     focusMagnifier: {
         enabled: true,          // Feature availability
-        scale: 1.35,            // Zoom factor for magnified text
-        maxWidth: 420,          // Maximum tooltip width in px
-        offsetY: 10,            // Vertical offset below element
-        bgColor: '#1a1a2e',     // Tooltip background
-        textColor: '#ffffff',   // Tooltip text color
-        borderColor: '#0066cc', // Tooltip border color
-        borderRadius: '8px',    // Tooltip border radius
-        padding: '10px 16px',   // Tooltip padding
-        showDelay: 150,         // Delay before showing (ms)
-        hideDelay: 100,         // Delay before hiding (ms)
-        zIndex: 999999          // z-index for tooltip
+        lensSize: 180,          // Diameter of the lens circle in px
+        zoomLevel: 2,           // Zoom magnification factor
+        borderWidth: 3,         // Lens border width in px
+        borderColor: '#0066cc', // Lens border color
+        shadowColor: 'rgba(0,0,0,0.4)', // Lens shadow
+        zIndex: 999999          // z-index for lens
     },
 
     // Text-to-Speech (Read Aloud) settings
@@ -5067,249 +5062,343 @@ if (threshold != ''){
     }
 
     // =========================================================================
-    // FOCUS MAGNIFIER (Textlupe)
+    // FOCUS MAGNIFIER (Visual Zoom Lens)
     // =========================================================================
-    // Shows a magnified tooltip of text content when hovering/focusing elements
+    // Shows a circular magnifying glass that follows the mouse cursor
+    // and displays a zoomed-in view of the page content underneath.
+    // Uses a hidden iframe of the same page for smooth, performant rendering.
 
-    var __faw_magnifier_tooltip = null;
-    var __faw_magnifier_showTimer = null;
-    var __faw_magnifier_hideTimer = null;
-    var __faw_magnifier_listeners_added = false;
+    var __faw_magnifier_lens = null;
+    var __faw_magnifier_iframe = null;
+    var __faw_magnifier_active = false;
+    var __faw_magnifier_mousemove_bound = null;
+    var __faw_magnifier_scroll_bound = null;
+    var __faw_magnifier_raf_id = null;
 
     /**
-     * Create the magnifier tooltip element
+     * Create the magnifier lens element and hidden iframe
      */
-    function createMagnifierTooltip() {
-        if (__faw_magnifier_tooltip) return __faw_magnifier_tooltip;
+    function createMagnifierLens() {
+        if (__faw_magnifier_lens) return __faw_magnifier_lens;
 
         var cfg = FIETZ_ACCESSIBILITY_CONFIG.focusMagnifier;
-        var tooltip = document.createElement('div');
-        tooltip.id = 'faw-magnifier-tooltip';
-        tooltip.setAttribute('role', 'tooltip');
-        tooltip.setAttribute('aria-live', 'polite');
-        tooltip.style.cssText = [
+        var size = cfg.lensSize;
+
+        // Create the lens (visible circle)
+        var lens = document.createElement('div');
+        lens.id = 'faw-magnifier-lens';
+        lens.setAttribute('aria-hidden', 'true');
+        lens.style.cssText = [
             'position: fixed',
             'display: none',
-            'max-width: ' + cfg.maxWidth + 'px',
-            'padding: ' + cfg.padding,
-            'background: ' + cfg.bgColor,
-            'color: ' + cfg.textColor,
-            'border: 2px solid ' + cfg.borderColor,
-            'border-radius: ' + cfg.borderRadius,
-            'font-size: 1rem',
-            'line-height: 1.5',
+            'width: ' + size + 'px',
+            'height: ' + size + 'px',
+            'border-radius: 50%',
+            'border: ' + cfg.borderWidth + 'px solid ' + cfg.borderColor,
+            'box-shadow: 0 4px 24px ' + cfg.shadowColor + ', 0 0 0 1px rgba(255,255,255,0.2)',
             'pointer-events: none',
             'z-index: ' + cfg.zIndex,
-            'box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)',
-            'backdrop-filter: blur(8px)',
-            'transition: opacity 0.15s ease, transform 0.15s ease',
+            'overflow: hidden',
+            'will-change: left, top',
             'opacity: 0',
-            'transform: translateY(4px)',
-            'word-wrap: break-word',
-            'overflow-wrap: break-word',
-            'font-family: system-ui, -apple-system, sans-serif'
+            'transition: opacity 0.2s ease'
         ].join('; ') + ';';
 
-        document.body.appendChild(tooltip);
-        __faw_magnifier_tooltip = tooltip;
-        return tooltip;
+        // Create hidden iframe that mirrors the current page
+        var iframe = document.createElement('iframe');
+        iframe.id = 'faw-magnifier-iframe';
+        iframe.setAttribute('aria-hidden', 'true');
+        iframe.setAttribute('tabindex', '-1');
+        iframe.src = window.location.href;
+        iframe.style.cssText = [
+            'position: fixed',
+            'top: -99999px',
+            'left: -99999px',
+            'width: ' + window.innerWidth + 'px',
+            'height: ' + window.innerHeight + 'px',
+            'border: none',
+            'pointer-events: none',
+            'opacity: 0',
+            'z-index: -1'
+        ].join('; ') + ';';
+
+        // When iframe loads, sync scroll position and hide its FAW widget
+        iframe.onload = function() {
+            try {
+                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                // Remove FAW widget from iframe to avoid recursion
+                var fawElements = iframeDoc.querySelectorAll('.faw-menu, .faw-menu-btn, .faw-widget, #faw-magnifier-lens, #faw-magnifier-iframe');
+                for (var i = 0; i < fawElements.length; i++) {
+                    fawElements[i].remove();
+                }
+                // Sync scroll position
+                iframe.contentWindow.scrollTo(window.pageXOffset, window.pageYOffset);
+
+                if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
+                    console.log('\ud83d\udd0d **FAW:** Magnifier iframe loaded and synced');
+                }
+            } catch(e) {
+                // Cross-origin fallback: use body clone approach
+                if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
+                    console.warn('\ud83d\udd0d **FAW:** Iframe access denied, using fallback');
+                }
+            }
+        };
+
+        document.body.appendChild(iframe);
+        document.body.appendChild(lens);
+
+        __faw_magnifier_lens = lens;
+        __faw_magnifier_iframe = iframe;
+        return lens;
     }
 
     /**
-     * Get readable text from an element
+     * Sync the iframe scroll position with the main page
      */
-    function getMagnifierText(element) {
-        // Skip if element is inside the FAW widget itself
-        if (element.closest('.faw-menu, .faw-widget, #faw-magnifier-tooltip')) return '';
-
-        var text = '';
-
-        // For form elements, get value or placeholder
-        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            text = element.value || element.placeholder || element.getAttribute('aria-label') || '';
-        } else if (element.tagName === 'SELECT') {
-            var selected = element.options[element.selectedIndex];
-            text = selected ? selected.text : '';
-        } else if (element.tagName === 'IMG') {
-            text = element.alt || element.title || '';
-        } else {
-            // Get direct text content, limited depth
-            text = (element.textContent || element.innerText || '').trim();
-        }
-
-        // Truncate very long text
-        if (text.length > 200) {
-            text = text.substring(0, 197) + '...';
-        }
-
-        return text.trim();
+    function syncMagnifierScroll() {
+        if (!__faw_magnifier_iframe || !__faw_magnifier_active) return;
+        try {
+            __faw_magnifier_iframe.contentWindow.scrollTo(window.pageXOffset, window.pageYOffset);
+        } catch(e) { /* cross-origin, ignore */ }
     }
 
     /**
-     * Position and show the magnifier tooltip
+     * Update the lens position and zoomed content
      */
-    function showMagnifier(element) {
-        var text = getMagnifierText(element);
-        if (!text) return;
+    function updateMagnifierLens(mouseX, mouseY) {
+        if (!__faw_magnifier_lens || !__faw_magnifier_active) return;
 
         var cfg = FIETZ_ACCESSIBILITY_CONFIG.focusMagnifier;
-        var tooltip = createMagnifierTooltip();
+        var size = cfg.lensSize;
+        var half = size / 2;
+        var zoom = cfg.zoomLevel;
 
-        // Set content with scaled font
-        tooltip.style.fontSize = (1 * cfg.scale) + 'rem';
-        tooltip.textContent = text;
-        tooltip.style.display = 'block';
+        // Position lens centered on cursor
+        __faw_magnifier_lens.style.left = (mouseX - half) + 'px';
+        __faw_magnifier_lens.style.top = (mouseY - half) + 'px';
 
-        // Calculate position
-        var rect = element.getBoundingClientRect();
-        var tooltipRect = tooltip.getBoundingClientRect();
+        // Try iframe approach first
+        var iframeUsed = false;
+        if (__faw_magnifier_iframe) {
+            try {
+                var iframeDoc = __faw_magnifier_iframe.contentDocument || __faw_magnifier_iframe.contentWindow.document;
+                if (iframeDoc && iframeDoc.body) {
+                    // Clear previous content
+                    __faw_magnifier_lens.innerHTML = '';
 
-        var left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-        var top = rect.bottom + cfg.offsetY;
+                    // Create a viewport into the iframe
+                    var viewport = document.createElement('div');
+                    viewport.style.cssText = [
+                        'position: absolute',
+                        'top: 0',
+                        'left: 0',
+                        'width: ' + size + 'px',
+                        'height: ' + size + 'px',
+                        'overflow: hidden',
+                        'border-radius: 50%'
+                    ].join('; ') + ';';
 
-        // Keep within viewport
-        if (left < 8) left = 8;
-        if (left + tooltipRect.width > window.innerWidth - 8) {
-            left = window.innerWidth - tooltipRect.width - 8;
+                    // Position the iframe inside the lens, scaled and offset
+                    var iframeClone = __faw_magnifier_iframe.cloneNode(false);
+                    iframeClone.id = '';
+                    iframeClone.style.cssText = [
+                        'position: absolute',
+                        'border: none',
+                        'width: ' + window.innerWidth + 'px',
+                        'height: ' + window.innerHeight + 'px',
+                        'transform: scale(' + zoom + ')',
+                        'transform-origin: ' + mouseX + 'px ' + mouseY + 'px',
+                        'left: ' + (-mouseX * zoom + half) + 'px',
+                        'top: ' + (-mouseY * zoom + half) + 'px',
+                        'pointer-events: none',
+                        'opacity: 1'
+                    ].join('; ') + ';';
+
+                    // We can't clone iframe content, so use the direct iframe
+                    // Instead, reposition the actual iframe inside the lens temporarily
+                    // Better: use a second approach with the actual iframe as background
+                    iframeUsed = false; // Fall through to body-clone approach
+                }
+            } catch(e) {
+                iframeUsed = false;
+            }
         }
-        // If tooltip would go below viewport, show above element
-        if (top + tooltipRect.height > window.innerHeight - 8) {
-            top = rect.top - tooltipRect.height - cfg.offsetY;
+
+        // Body-clone approach (works same-origin, no iframe needed)
+        if (!iframeUsed) {
+            // Clear lens content
+            __faw_magnifier_lens.innerHTML = '';
+
+            var viewport = document.createElement('div');
+            viewport.style.cssText = [
+                'position: absolute',
+                'top: 0',
+                'left: 0',
+                'width: ' + size + 'px',
+                'height: ' + size + 'px',
+                'overflow: hidden',
+                'border-radius: 50%',
+                'background: #fff'
+            ].join('; ') + ';';
+
+            // Create a wrapper that contains a scaled copy of the body
+            var wrapper = document.createElement('div');
+            var scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+            var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+            wrapper.style.cssText = [
+                'position: absolute',
+                'width: ' + document.documentElement.scrollWidth + 'px',
+                'height: ' + document.documentElement.scrollHeight + 'px',
+                'transform: scale(' + zoom + ')',
+                'transform-origin: ' + (mouseX + scrollX) + 'px ' + (mouseY + scrollY) + 'px',
+                'left: ' + (half - (mouseX + scrollX) * zoom) + 'px',
+                'top: ' + (half - (mouseY + scrollY) * zoom) + 'px',
+                'pointer-events: none'
+            ].join('; ') + ';';
+
+            // Clone the body (shallow for performance, deep for accuracy)
+            // For performance, only clone visible area elements
+            try {
+                // Hide lens temporarily to get element at point
+                __faw_magnifier_lens.style.display = 'none';
+                var elemAtPoint = document.elementFromPoint(mouseX, mouseY);
+                __faw_magnifier_lens.style.display = 'block';
+
+                if (elemAtPoint && !elemAtPoint.closest('#faw-magnifier-lens, .faw-menu, .faw-widget')) {
+                    // Find a good container to clone (section, article, main, or direct parent)
+                    var container = elemAtPoint;
+                    var walks = 0;
+                    while (container && container !== document.body && walks < 8) {
+                        var tag = container.tagName;
+                        if (tag === 'SECTION' || tag === 'ARTICLE' || tag === 'MAIN' || 
+                            tag === 'DIV' || tag === 'HEADER' || tag === 'FOOTER' || tag === 'NAV') {
+                            var rect = container.getBoundingClientRect();
+                            // Use this container if it's reasonably sized
+                            if (rect.width > 100 && rect.height > 50) break;
+                        }
+                        container = container.parentElement;
+                        walks++;
+                    }
+                    if (!container || container === document.body) container = elemAtPoint;
+
+                    var containerRect = container.getBoundingClientRect();
+                    var clone = container.cloneNode(true);
+
+                    // Remove any FAW elements from clone
+                    var fawInClone = clone.querySelectorAll('.faw-menu, .faw-menu-btn, .faw-widget, #faw-magnifier-lens');
+                    for (var fi = 0; fi < fawInClone.length; fi++) fawInClone[fi].remove();
+
+                    // Position clone at the same absolute position as original
+                    clone.style.position = 'absolute';
+                    clone.style.left = (containerRect.left + scrollX) + 'px';
+                    clone.style.top = (containerRect.top + scrollY) + 'px';
+                    clone.style.width = containerRect.width + 'px';
+                    clone.style.margin = '0';
+                    clone.style.pointerEvents = 'none';
+
+                    wrapper.appendChild(clone);
+                }
+            } catch(e) {
+                // Silent fail
+            }
+
+            viewport.appendChild(wrapper);
+            __faw_magnifier_lens.appendChild(viewport);
         }
-        if (top < 8) top = 8;
+    }
 
-        tooltip.style.left = left + 'px';
-        tooltip.style.top = top + 'px';
-
-        // Animate in
+    /**
+     * Show the magnifier lens
+     */
+    function showMagnifierLens() {
+        var lens = createMagnifierLens();
+        lens.style.display = 'block';
         requestAnimationFrame(function() {
-            tooltip.style.opacity = '1';
-            tooltip.style.transform = 'translateY(0)';
+            lens.style.opacity = '1';
+        });
+        document.body.style.cursor = 'none';
+    }
+
+    /**
+     * Hide the magnifier lens
+     */
+    function hideMagnifierLens() {
+        if (__faw_magnifier_lens) {
+            __faw_magnifier_lens.style.opacity = '0';
+            setTimeout(function() {
+                if (__faw_magnifier_lens) {
+                    __faw_magnifier_lens.style.display = 'none';
+                }
+            }, 200);
+        }
+        document.body.style.cursor = '';
+    }
+
+    /**
+     * Mouse move handler for the magnifier lens
+     */
+    function magnifierMouseMoveHandler(e) {
+        if (!__faw_magnifier_active) return;
+        if (__faw_magnifier_raf_id) cancelAnimationFrame(__faw_magnifier_raf_id);
+        __faw_magnifier_raf_id = requestAnimationFrame(function() {
+            updateMagnifierLens(e.clientX, e.clientY);
+            __faw_magnifier_raf_id = null;
         });
     }
 
     /**
-     * Hide the magnifier tooltip
-     */
-    function hideMagnifier() {
-        if (!__faw_magnifier_tooltip) return;
-        __faw_magnifier_tooltip.style.opacity = '0';
-        __faw_magnifier_tooltip.style.transform = 'translateY(4px)';
-        setTimeout(function() {
-            if (__faw_magnifier_tooltip) {
-                __faw_magnifier_tooltip.style.display = 'none';
-            }
-        }, 150);
-    }
-
-    /**
-     * Handle focusin/mouseover for magnifier
-     */
-    function magnifierFocusHandler(event) {
-        // Only show magnifier if feature is enabled
-        var settings = loadSettings();
-        if (!settings || !settings.states || !settings.states['focus-magnifier']) return;
-
-        var cfg = FIETZ_ACCESSIBILITY_CONFIG.focusMagnifier;
-        if (__faw_magnifier_hideTimer) {
-            clearTimeout(__faw_magnifier_hideTimer);
-            __faw_magnifier_hideTimer = null;
-        }
-        if (__faw_magnifier_showTimer) {
-            clearTimeout(__faw_magnifier_showTimer);
-        }
-        __faw_magnifier_showTimer = setTimeout(function() {
-            showMagnifier(event.target);
-        }, cfg.showDelay);
-    }
-
-    /**
-     * Handle focusout/mouseout for magnifier
-     */
-    function magnifierBlurHandler() {
-        var cfg = FIETZ_ACCESSIBILITY_CONFIG.focusMagnifier;
-        if (__faw_magnifier_showTimer) {
-            clearTimeout(__faw_magnifier_showTimer);
-            __faw_magnifier_showTimer = null;
-        }
-        __faw_magnifier_hideTimer = setTimeout(function() {
-            hideMagnifier();
-        }, cfg.hideDelay);
-    }
-
-    /**
-     * Initialize focus magnifier event listeners
-     */
-    function initFocusMagnifier() {
-        if (__faw_magnifier_listeners_added) return;
-
-        var selectors = [
-            'a', 'button', 'input', 'select', 'textarea',
-            '[role="button"]', '[role="link"]', '[role="menuitem"]',
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'p', 'li', 'td', 'th', 'label', 'span',
-            '[tabindex]'
-        ].join(', ');
-
-        document.addEventListener('focusin', function(e) {
-            if (e.target.matches && e.target.matches(selectors)) {
-                magnifierFocusHandler(e);
-            }
-        });
-
-        document.addEventListener('focusout', function() {
-            magnifierBlurHandler();
-        });
-
-        document.addEventListener('mouseover', function(e) {
-            if (e.target.matches && e.target.matches(selectors)) {
-                magnifierFocusHandler(e);
-            }
-        });
-
-        document.addEventListener('mouseout', function(e) {
-            if (e.target.matches && e.target.matches(selectors)) {
-                magnifierBlurHandler();
-            }
-        });
-
-        __faw_magnifier_listeners_added = true;
-
-        if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-            console.log('🔍 **FAW:** Focus Magnifier initialized');
-        }
-    }
-
-    /**
-     * Remove focus magnifier
-     */
-    function removeFocusMagnifier() {
-        hideMagnifier();
-        if (__faw_magnifier_tooltip) {
-            __faw_magnifier_tooltip.remove();
-            __faw_magnifier_tooltip = null;
-        }
-        // Note: event listeners remain but check setting before acting
-    }
-
-    /**
-     * Toggle focus magnifier
+     * Toggle focus magnifier (visual zoom lens)
      */
     function toggleFocusMagnifier(enabled) {
         updateSettings({ 'focus-magnifier': enabled });
 
         if (enabled) {
-            if (!__faw_magnifier_listeners_added) {
-                initFocusMagnifier();
+            __faw_magnifier_active = true;
+            showMagnifierLens();
+
+            if (!__faw_magnifier_mousemove_bound) {
+                __faw_magnifier_mousemove_bound = magnifierMouseMoveHandler;
+                document.addEventListener('mousemove', __faw_magnifier_mousemove_bound);
             }
-            createMagnifierTooltip();
+            if (!__faw_magnifier_scroll_bound) {
+                __faw_magnifier_scroll_bound = syncMagnifierScroll;
+                window.addEventListener('scroll', __faw_magnifier_scroll_bound, { passive: true });
+            }
+
             if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-                console.log('🔍 **FAW:** Focus Magnifier enabled');
+                console.log('\ud83d\udd0d **FAW:** Visual Zoom Lens enabled');
             }
         } else {
-            removeFocusMagnifier();
+            __faw_magnifier_active = false;
+            hideMagnifierLens();
+
+            if (__faw_magnifier_mousemove_bound) {
+                document.removeEventListener('mousemove', __faw_magnifier_mousemove_bound);
+                __faw_magnifier_mousemove_bound = null;
+            }
+            if (__faw_magnifier_scroll_bound) {
+                window.removeEventListener('scroll', __faw_magnifier_scroll_bound);
+                __faw_magnifier_scroll_bound = null;
+            }
+            if (__faw_magnifier_raf_id) {
+                cancelAnimationFrame(__faw_magnifier_raf_id);
+                __faw_magnifier_raf_id = null;
+            }
+
+            // Remove lens and iframe
+            if (__faw_magnifier_lens) {
+                __faw_magnifier_lens.remove();
+                __faw_magnifier_lens = null;
+            }
+            if (__faw_magnifier_iframe) {
+                __faw_magnifier_iframe.remove();
+                __faw_magnifier_iframe = null;
+            }
+
             if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
-                console.log('🔍 **FAW:** Focus Magnifier disabled');
+                console.log('\ud83d\udd0d **FAW:** Visual Zoom Lens disabled');
             }
         }
     }
