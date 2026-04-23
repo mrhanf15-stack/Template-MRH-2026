@@ -63,18 +63,7 @@
                     {* Verfuegbare Option *}
                     {if $item_data.STOCK > 0 || $item_data.ID == '0'}
                       <div class="option-control d-flex align-items-center w-100">
-                        <input
-                          type="radio"
-                          class="option-radio-input me-2"
-                          id="rdb_{$item_data.ID}"
-                          name="id[{$options_data.ID}]"
-                          value="{$item_data.ID}"
-                          data-attrdata="{$item_data.JSON_ATTRDATA}"
-                          {if ($lagernd_option_found && $item_data.ID == $lagernd_option_id) || (!$lagernd_option_found && $first_available_found && $item_data.ID == $first_available_option_id)}
-                            checked="checked"
-                          {/if}
-                          aria-hidden="true"
-                        >
+                        <input type="radio" class="option-radio-input me-2" id="rdb_{$item_data.ID}" name="id[{$options_data.ID}]" value="{$item_data.ID}" data-attrdata="{$item_data.JSON_ATTRDATA}" {if ($lagernd_option_found && $item_data.ID == $lagernd_option_id) || (!$lagernd_option_found && $first_available_found && $item_data.ID == $first_available_option_id)}checked="checked"{/if} aria-hidden="true">
                         <div class="option-content d-flex justify-content-between align-items-center w-100">
                           <div class="option-info">
                             <span class="option-text fw-normal">{$item_data.TEXT}</span>
