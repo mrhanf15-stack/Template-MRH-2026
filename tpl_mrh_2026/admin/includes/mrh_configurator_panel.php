@@ -85,21 +85,6 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="presets"><i class="fa fa-paint-brush me-1"></i>Presets</div>
     <div class="mrh-tab" data-tab="content"><i class="fa fa-file-code me-1"></i>Content</div>
 </div>
-<div class="mrh-tab" data-tab="navigation"><i class="fa fa-bars me-1"></i>Navigation</div>
-    <div class="mrh-tab" data-tab="buttons"><i class="fa fa-square me-1"></i>Buttons</div>
-    <div class="mrh-tab" data-tab="typografie"><i class="fa fa-font me-1"></i>Typografie</div>
-    <div class="mrh-tab" data-tab="komponenten"><i class="fa fa-puzzle-piece me-1"></i>Komponenten</div>
-    <div class="mrh-tab" data-tab="einstellungen"><i class="fa fa-cog me-1"></i>Einstellungen</div>
-    <div class="mrh-tab" data-tab="customcss"><i class="fa fa-code me-1"></i>Custom CSS</div>
-    <div class="mrh-tab" data-tab="presets"><i class="fa fa-magic me-1"></i>Presets</div>
-    <div class="mrh-tab" data-tab="icons"><i class="fa fa-icons me-1"></i>Icons</div>
-    <div class="mrh-tab" data-tab="badges"><i class="fa fa-certificate me-1"></i>Badges</div>
-    <div class="mrh-tab" data-tab="seedfinder"><i class="fa fa-cannabis me-1"></i>Seedfinder</div>
-    <div class="mrh-tab" data-tab="checkout"><i class="fa fa-cash-register me-1"></i>Checkout</div>
-    <div class="mrh-tab" data-tab="blog"><i class="fa fa-newspaper me-1"></i>Blog</div>
-    <div class="mrh-tab" data-tab="faq"><i class="fa fa-circle-question me-1"></i>FAQ</div>
-    <div class="mrh-tab" data-tab="content"><i class="fa fa-file-code me-1"></i>Content</div>
-</div>
 
 <!-- ================================================================== -->
 <!-- TAB 1: ALLGEMEIN -->
@@ -2268,7 +2253,7 @@ foreach ($alert_variants as $variant) {
     }
 
     // 4. Tab-Wechsel: Polling starten/stoppen + Preview rendern
-    var sfTab = document.querySelector('[data-tab="seedfinder"]');
+    var sfTab = document.querySelector('[data-tab="seedfinder-modal"]');
     if (sfTab) {
         sfTab.addEventListener('click', function(){
             setTimeout(function(){
@@ -2277,8 +2262,18 @@ foreach ($alert_variants as $variant) {
             }, 150);
         });
     }
+    // SF Seite Tab: auch Previews rendern + Polling starten
+    var sfSeiteTab = document.querySelector('[data-tab="seedfinder-seite"]');
+    if (sfSeiteTab) {
+        sfSeiteTab.addEventListener('click', function(){
+            setTimeout(function(){
+                renderAllSfPreviews();
+                sfStartPolling();
+            }, 150);
+        });
+    }
     // Polling stoppen wenn anderer Tab geklickt wird
-    document.querySelectorAll('#mrh-config-tabs .mrh-tab:not([data-tab="seedfinder"])').forEach(function(tab){
+    document.querySelectorAll('#mrh-config-tabs .mrh-tab:not([data-tab="seedfinder-modal"]):not([data-tab="seedfinder-seite"])').forEach(function(tab){
         tab.addEventListener('click', sfStopPolling);
     });
 
