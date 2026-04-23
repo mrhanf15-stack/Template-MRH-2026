@@ -3133,6 +3133,26 @@ foreach ($alert_variants as $variant) {
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-badge-border-color','transparent'); ?>"></div>
     </div>
 
+    <!-- Responsive Größen -->
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-mobile me-1"></i> Responsive Gr&ouml;&szlig;en</div></div>
+    <div class="col-12 mb-2"><small class="text-muted">Desktop verwendet die Werte aus &laquo;Allgemeine Einstellungen&raquo; oben. Hier k&ouml;nnen Tablet- und Mobil-Werte &uuml;berschrieben werden.</small></div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-badge-font-size-tablet"><strong>Schrift Tablet (&le;992px)</strong></label>
+        <input id="tpl-badge-font-size-tablet" type="text" name="tpl-badge-font-size-tablet" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-font-size-tablet','0.75rem'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-badge-padding-tablet"><strong>Padding Tablet (&le;992px)</strong></label>
+        <input id="tpl-badge-padding-tablet" type="text" name="tpl-badge-padding-tablet" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-padding-tablet','0.22rem 0.6rem'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-badge-font-size-mobile"><strong>Schrift Mobil (&le;576px)</strong></label>
+        <input id="tpl-badge-font-size-mobile" type="text" name="tpl-badge-font-size-mobile" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-font-size-mobile','0.7rem'); ?>">
+    </div>
+    <div class="col-sm-3 mb-3">
+        <label for="tpl-badge-padding-mobile"><strong>Padding Mobil (&le;576px)</strong></label>
+        <input id="tpl-badge-padding-mobile" type="text" name="tpl-badge-padding-mobile" class="form-control" value="<?php echo mrh_cv($c,'tpl-badge-padding-mobile','0.2rem 0.5rem'); ?>">
+    </div>
+
     <!-- Hover-Einstellungen -->
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-hand-pointer-o me-1"></i> Hover-Effekt</div></div>
     <div class="col-sm-4 mb-3">

@@ -396,6 +396,13 @@ $mrh_color_defaults = [
     'tpl-badge-font-weight'        => '600',
     'tpl-badge-border-width'       => '0px',
     'tpl-badge-border-color'       => 'transparent',
+
+    // Responsive Badge-Groessen
+    'tpl-badge-font-size-tablet'   => '0.75rem',
+    'tpl-badge-padding-tablet'     => '0.22rem 0.6rem',
+    'tpl-badge-font-size-mobile'   => '0.7rem',
+    'tpl-badge-padding-mobile'     => '0.2rem 0.5rem',
+
     'tpl-badge-hover-enabled'      => '1',
     'tpl-badge-hover-transform'    => 'translateY(-1px)',
     'tpl-badge-hover-shadow'       => '0 2px 6px rgba(0,0,0,0.12)',
@@ -938,6 +945,69 @@ $mrh_color_defaults = [
     'tpl-co-success-icon-color'      => 'rgb(74, 140, 42)',
     'tpl-co-print-btn-bg'            => 'rgb(108, 117, 125)',
     'tpl-co-print-btn-text'          => 'rgb(255, 255, 255)',
+
+    // ── Responsive Groessen (aus Live-Konfiguration uebernommen) ──
+    'tpl-badge-bar-gap-md'                     => '0.35rem',
+    'tpl-badge-bar-gap-sm'                     => '0.3rem',
+    'tpl-badge-bar-gap-xl'                     => '0.5rem',
+    'tpl-badge-bar-gap-xs'                     => '0.2rem',
+    'tpl-badge-font-size-md'                   => '0.75rem',
+    'tpl-badge-font-size-sm'                   => '0.7rem',
+    'tpl-badge-font-size-xl'                   => '0.88rem',
+    'tpl-badge-font-size-xs'                   => '0.65rem',
+    'tpl-badge-gap-md'                         => '0.25rem',
+    'tpl-badge-gap-sm'                         => '0.2rem',
+    'tpl-badge-gap-xl'                         => '0.35rem',
+    'tpl-badge-gap-xs'                         => '0.15rem',
+    'tpl-badge-icon-size-md'                   => '14px',
+    'tpl-badge-icon-size-sm'                   => '13px',
+    'tpl-badge-icon-size-xl'                   => '16px',
+    'tpl-badge-icon-size-xs'                   => '12px',
+    'tpl-badge-label-size-md'                  => '0.75rem',
+    'tpl-badge-label-size-sm'                  => '0.7rem',
+    'tpl-badge-label-size-xl'                  => '0.88rem',
+    'tpl-badge-label-size-xs'                  => '0.65rem',
+    'tpl-badge-padding-md'                     => '0.2rem 0.6rem',
+    'tpl-badge-padding-sm'                     => '0.18rem 0.5rem',
+    'tpl-badge-padding-xl'                     => '0.3rem 0.85rem',
+    'tpl-badge-padding-xs'                     => '0.15rem 0.4rem',
+    'tpl-bg-contentpage'                       => 'rgb(251, 255, 255)',
+    'tpl-listing-badge-font-md'                => '0.75rem',
+    'tpl-listing-badge-font-sm'                => '0.7rem',
+    'tpl-listing-badge-font-xl'                => '0.88rem',
+    'tpl-listing-badge-font-xs'                => '0.65rem',
+    'tpl-listing-badge-padding-md'             => '0.2rem 0.6rem',
+    'tpl-listing-badge-padding-sm'             => '0.18rem 0.5rem',
+    'tpl-listing-badge-padding-xl'             => '0.3rem 0.85rem',
+    'tpl-listing-badge-padding-xs'             => '0.15rem 0.4rem',
+    'tpl-listing-badges-gap-md'                => '0.35rem',
+    'tpl-listing-badges-gap-sm'                => '0.3rem',
+    'tpl-listing-badges-gap-xl'                => '0.5rem',
+    'tpl-listing-badges-gap-xs'                => '0.2rem',
+    'tpl-listing-icon-font-md'                 => '0.9rem',
+    'tpl-listing-icon-font-sm'                 => '0.85rem',
+    'tpl-listing-icon-font-xl'                 => '1.1rem',
+    'tpl-listing-icon-font-xs'                 => '0.8rem',
+    'tpl-listing-icon-size-md'                 => '24px',
+    'tpl-listing-icon-size-sm'                 => '22px',
+    'tpl-listing-icon-size-xl'                 => '30px',
+    'tpl-listing-icon-size-xs'                 => '20px',
+    'tpl-picto-font-size-md'                   => '0.75rem',
+    'tpl-picto-font-size-sm'                   => '0.7rem',
+    'tpl-picto-font-size-xl'                   => '0.88rem',
+    'tpl-picto-font-size-xs'                   => '0.65rem',
+    'tpl-picto-gap-md'                         => '6px',
+    'tpl-picto-gap-sm'                         => '5px',
+    'tpl-picto-gap-xl'                         => '10px',
+    'tpl-picto-gap-xs'                         => '4px',
+    'tpl-picto-icon-font-md'                   => '0.9rem',
+    'tpl-picto-icon-font-sm'                   => '0.85rem',
+    'tpl-picto-icon-font-xl'                   => '1.1rem',
+    'tpl-picto-icon-font-xs'                   => '0.8rem',
+    'tpl-picto-padding-md'                     => '6px 12px',
+    'tpl-picto-padding-sm'                     => '5px 10px',
+    'tpl-picto-padding-xl'                     => '10px 18px',
+    'tpl-picto-padding-xs'                     => '4px 8px',
 ];
 
 $mrh_tpl_defaults = [
@@ -1210,12 +1280,13 @@ if (isset($_POST['submit-load-preset']) && !empty($_POST['preset_name'])) {
     if (file_exists($preset_file)) {
         $preset_data = json_decode(file_get_contents($preset_file), true);
         if (isset($preset_data['colors']) && is_array($preset_data['colors'])) {
-            // Nur gueltige tpl-* Keys uebernehmen, Rest aus Defaults
-            $save_colors = $mrh_color_defaults;
+            // Basis: Defaults + aktuelle colors.json (damit keine Keys verloren gehen)
+            $save_colors = array_merge($mrh_color_defaults, $mrh_colors);
+            // Preset-Werte ueberschreiben (ALLE tpl-* Keys, nicht nur Defaults)
             foreach ($preset_data['colors'] as $key => $val) {
-                if (strpos($key, 'tpl-') === 0 && isset($mrh_color_defaults[$key])) {
+                if (strpos($key, 'tpl-') === 0) {
                     $sanitized = mrh_sanitize_color($val);
-                    if (!empty($sanitized)) {
+                    if ($sanitized !== '') {
                         $save_colors[$key] = $sanitized;
                     }
                 }
@@ -1269,11 +1340,13 @@ if (isset($_POST['submit-restore']) && !empty($_POST['backup_file'])) {
     if (file_exists($backup_file)) {
         $backup_data = json_decode(file_get_contents($backup_file), true);
         if (isset($backup_data['colors']) && is_array($backup_data['colors'])) {
+            // Basis: Defaults (damit neue Keys nicht fehlen)
             $save_colors = $mrh_color_defaults;
+            // Backup-Werte ueberschreiben (ALLE tpl-* Keys, nicht nur Defaults)
             foreach ($backup_data['colors'] as $key => $val) {
-                if (strpos($key, 'tpl-') === 0 && isset($mrh_color_defaults[$key])) {
+                if (strpos($key, 'tpl-') === 0) {
                     $sanitized = mrh_sanitize_color($val);
-                    if (!empty($sanitized)) {
+                    if ($sanitized !== '') {
                         $save_colors[$key] = $sanitized;
                     }
                 }

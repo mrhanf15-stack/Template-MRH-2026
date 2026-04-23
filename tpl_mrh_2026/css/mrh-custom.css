@@ -2036,6 +2036,22 @@ table.tebals.wite tr:last-child td:last-child {
   filter: brightness(0) invert(1);
 }
 
+/* ── Responsive Badge-Größen (Tablet ≤992px) ── */
+@media (max-width: 992px) {
+  .mrh-type-badge {
+    font-size: var(--tpl-badge-font-size-tablet, 0.75rem);
+    padding: var(--tpl-badge-padding-tablet, 0.22rem 0.6rem);
+  }
+}
+
+/* ── Responsive Badge-Größen (Mobil ≤576px) ── */
+@media (max-width: 576px) {
+  .mrh-type-badge {
+    font-size: var(--tpl-badge-font-size-mobile, 0.7rem);
+    padding: var(--tpl-badge-padding-mobile, 0.2rem 0.5rem);
+  }
+}
+
 /* ══════════════════════════════════════════════════════════════
    MRH LAGERAMPEL – Legende (shiping_tooltip.html)
    Gemäß Bot-Anweisung: CSS in mrh-custom.css da global geladen
@@ -7550,64 +7566,64 @@ html.mrh-smooth-scroll {
 }
 /* ── Kreis (inaktiv) ── */
 .mrh-cp-circle {
-  width: 44px;
-  height: 44px;
+  width: var(--tpl-co-progress-circle-size, 48px);
+  height: var(--tpl-co-progress-circle-size, 48px);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  border: 2px solid #d1d5db;
-  background: #f9fafb;
-  color: #9ca3af;
+  font-size: var(--tpl-co-progress-icon-size, 1.1rem);
+  border: 2px solid var(--tpl-co-progress-inactive-bg, #e9ecef);
+  background: var(--tpl-co-progress-inactive-bg, #e9ecef);
+  color: var(--tpl-co-progress-inactive-text, #9ca3af);
   transition: all 0.35s ease;
   position: relative;
   z-index: 2;
 }
 /* ── Kreis (aktiv = aktueller Schritt) ── */
 .mrh-cp-active .mrh-cp-circle {
-  border-color: var(--tpl-main-color, #4a8c2a);
-  background: var(--tpl-main-color, #4a8c2a);
-  color: #fff;
+  border-color: var(--tpl-co-progress-active-bg, #4a8c2a);
+  background: var(--tpl-co-progress-active-bg, #4a8c2a);
+  color: var(--tpl-co-progress-active-text, #fff);
   box-shadow: 0 0 0 4px rgba(74, 140, 42, 0.15);
 }
 /* ── Kreis (done = abgeschlossener Schritt) ── */
 .mrh-cp-done .mrh-cp-circle {
-  border-color: var(--tpl-main-color, #4a8c2a);
-  background: #f0fdf4;
-  color: var(--tpl-main-color, #4a8c2a);
+  border-color: var(--tpl-co-progress-done-bg, #4a8c2a);
+  background: var(--tpl-co-progress-done-bg, #4a8c2a);
+  color: var(--tpl-co-progress-done-text, #fff);
   box-shadow: none;
 }
 /* ── Label ── */
 .mrh-cp-label {
-  font-size: 11px;
+  font-size: var(--tpl-co-progress-label-size, 0.75rem);
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--tpl-co-progress-inactive-text, #9ca3af);
   text-align: center;
   line-height: 1.3;
   max-width: 90px;
   transition: color 0.3s ease;
 }
 .mrh-cp-active .mrh-cp-label {
-  color: var(--tpl-main-color, #4a8c2a);
+  color: var(--tpl-co-progress-active-bg, #4a8c2a);
   font-weight: 700;
 }
 .mrh-cp-done .mrh-cp-label {
-  color: var(--tpl-main-color, #4a8c2a);
+  color: var(--tpl-co-progress-done-bg, #4a8c2a);
 }
 /* ── Verbindungslinie ── */
 .mrh-cp-connector {
   flex: 1;
-  height: 2px;
-  background: #e5e7eb;
-  margin-top: 22px;
+  height: var(--tpl-co-progress-line-height, 3px);
+  background: var(--tpl-co-progress-line-inactive, #e5e7eb);
+  margin-top: calc(var(--tpl-co-progress-circle-size, 48px) / 2 - var(--tpl-co-progress-line-height, 3px) / 2);
   min-width: 30px;
   transition: background 0.35s ease;
   position: relative;
   z-index: 1;
 }
 .mrh-cp-connector-done {
-  background: var(--tpl-main-color, #4a8c2a);
+  background: var(--tpl-co-progress-line-active, #4a8c2a);
 }
 /* ── Responsive: Mobile ── */
 @media (max-width: 575.98px) {
