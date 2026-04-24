@@ -1,8 +1,8 @@
-{if isset($BOX_CONTENT) && $BOX_CONTENT != ''}
 {config_load file="$language/lang_$language.conf" section="boxes"}
 {config_load file="lang_`$language`.custom"}
-<div class="mrh-box-shipping-country">
-  <label for="mrh-shipping-country-select" class="visually-hidden">{#heading_shipping_country#}</label>
-  {$BOX_CONTENT|replace:'<select':'<select id="mrh-shipping-country-select" class="form-select form-select-sm"'}
+{if isset($BOX_CONTENT) && $BOX_CONTENT != ''}
+<div class="box--shipping-country pl-3 d-flex align-items-center">
+  <span class="mr-2">{#heading_shipping_country#}</span>
+  <div>{$BOX_CONTENT}</div>
 </div>
 {/if}

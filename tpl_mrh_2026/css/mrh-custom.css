@@ -7465,121 +7465,182 @@ html.mrh-smooth-scroll {
 
 /* ============================================================
    OFFCANVAS SETTINGS – Responsive Sprachen & Lieferland
+   Live-HTML-Struktur:
+     .box--shipping-country > span + div > form > .shipping-country-selection-wrapper > select + button
+     #box--languages > span + #box-lang > .languageSelection > a.ml-3 > img + text
+   Stand: 2026-04-24
    ============================================================ */
+
+/* --- Offcanvas Body: sauberes Padding, vertikales Stack-Layout --- */
 #offcanvasSettings .offcanvas-body {
-  padding: 1.25rem;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-/* Lieferland: Label links, Select + Button rechts */
+/* --- Sektions-Überschriften (Label-Spans) --- */
+#offcanvasSettings .box--shipping-country > span,
+#offcanvasSettings #box--languages > span {
+  display: block !important;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+/* ── LIEFERLAND ── */
 #offcanvasSettings .box--shipping-country {
-  display: flex;
-  flex-wrap: wrap;
+  display: block !important;
+  padding: 0 !important;
+}
+#offcanvasSettings .shipping-country-selection-wrapper {
+  display: flex !important;
   align-items: center;
   gap: 0.5rem;
 }
-#offcanvasSettings .box--shipping-country > span {
-  flex-shrink: 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-#offcanvasSettings .shipping-country-selection-wrapper {
+#offcanvasSettings .shipping-country-selection-wrapper select {
   flex: 1 1 auto;
   min-width: 0;
-}
-#offcanvasSettings .shipping-country-selection-wrapper select {
   max-width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  background: #fff;
+  appearance: auto;
+}
+#offcanvasSettings .shipping-country-selection-wrapper select:focus {
+  border-color: var(--tpl-main-color, rgb(93, 178, 51));
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(93, 178, 51, 0.15);
+}
+#offcanvasSettings .shipping-country-selection-wrapper .btn {
+  flex-shrink: 0;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  border-radius: 0.375rem;
+}
+/* Verstecke das sr-only Label (schon vorhanden) */
+#offcanvasSettings .box-shipping_country .sr-only,
+#offcanvasSettings .box-shipping_country .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
 }
 
-/* Sprachen-Bereich: Label + Flaggen umbrechen */
+/* ── SPRACHEN ── */
 #offcanvasSettings #box--languages {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  align-items: flex-start !important;
-  gap: 0.5rem;
-}
-#offcanvasSettings #box--languages > span {
-  flex-shrink: 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding-top: 0.35rem;
+  display: block !important;
+  padding: 0 !important;
 }
 #offcanvasSettings #box-lang {
-  flex: 1 1 auto;
-  min-width: 0;
+  width: 100%;
 }
 
-/* Flaggen als flex-wrap Pill-Buttons */
+/* Flaggen-Links als Pill-Buttons im Wrap-Grid */
 #offcanvasSettings .languageSelection {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 0.5rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 #offcanvasSettings .languageSelection a {
   display: inline-flex !important;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   margin: 0 !important;
-  padding: 0.35rem 0.65rem;
-  border-radius: 0.375rem;
-  border: 1px solid rgba(0,0,0,0.12);
-  background: rgba(0,0,0,0.03);
+  padding: 0.45rem 0.75rem;
+  border-radius: 2rem;
+  border: 1px solid #dee2e6;
+  background: #f8f9fa;
   white-space: nowrap;
   font-size: 0.9rem;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   text-decoration: none !important;
-  color: inherit !important;
-  transition: background 0.2s, border-color 0.2s;
+  color: #333 !important;
+  transition: all 0.2s ease;
 }
 #offcanvasSettings .languageSelection a:hover {
   background: rgba(93, 178, 51, 0.1);
   border-color: var(--tpl-main-color, rgb(93, 178, 51));
+  color: var(--tpl-main-color, rgb(93, 178, 51)) !important;
+}
+/* Aktive Sprache (opacity: 0.2 auf dem Bild = aktuelle Sprache) */
+#offcanvasSettings .languageSelection a img[style*="opacity: 0.2"],
+#offcanvasSettings .languageSelection a img[style*="opacity:0.2"] {
+  opacity: 1 !important;
+}
+#offcanvasSettings .languageSelection a:has(img[style*="opacity: 0.2"]),
+#offcanvasSettings .languageSelection a:has(img[style*="opacity:0.2"]) {
+  background: var(--tpl-main-color, rgb(93, 178, 51));
+  border-color: var(--tpl-main-color, rgb(93, 178, 51));
+  color: #fff !important;
 }
 
 /* Flaggen-Bilder: rund, einheitlich */
 #offcanvasSettings .languageSelection img {
-  width: 28px !important;
-  height: 28px !important;
+  width: 24px !important;
+  height: 24px !important;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
 }
 
-/* Trennlinien im Offcanvas: dezent */
+/* ── TRENNLINIEN ── */
 #offcanvasSettings .offcanvas-body > hr {
-  margin: 0.75rem 0;
+  margin: 1rem 0;
   opacity: 0.15;
+  border: 0;
+  border-top: 1px solid currentColor;
 }
-/* Doppelte hr entfernen */
+/* Doppelte hr ausblenden */
 #offcanvasSettings .offcanvas-body > hr + hr {
   display: none;
 }
 
-/* Cookie-Link Styling */
+/* ── COOKIE-LINK ── */
 #offcanvasSettings .offcanvas-body > a[trigger-cookie-consent-panel] {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   font-size: 0.9rem;
+  font-weight: 500;
   color: var(--tpl-main-color, rgb(93, 178, 51)) !important;
-  padding: 0.25rem 0;
+  text-decoration: none !important;
+  padding: 0.5rem 0;
+  transition: opacity 0.2s;
+}
+#offcanvasSettings .offcanvas-body > a[trigger-cookie-consent-panel]:hover {
+  opacity: 0.8;
 }
 
-/* Mobil: kompakter */
+/* ── MOBILE ANPASSUNGEN ── */
 @media (max-width: 575.98px) {
   #offcanvasSettings .offcanvas-body {
-    padding: 1rem;
+    padding: 1rem 0.75rem;
   }
   #offcanvasSettings .languageSelection a {
-    padding: 0.3rem 0.5rem;
+    padding: 0.4rem 0.6rem;
     font-size: 0.85rem;
   }
   #offcanvasSettings .languageSelection img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 22px !important;
+    height: 22px !important;
   }
-  #offcanvasSettings #box--languages {
-    flex-direction: column;
+  #offcanvasSettings .shipping-country-selection-wrapper {
+    flex-wrap: wrap;
+  }
+  #offcanvasSettings .shipping-country-selection-wrapper select {
+    width: 100%;
+    font-size: 0.85rem;
   }
 }
 
