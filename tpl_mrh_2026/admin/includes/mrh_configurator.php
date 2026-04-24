@@ -1,19 +1,19 @@
 <?php
 /* =====================================================================
    MRH 2026 Template – Konfigurator Backend v3.0
-
+   
    Speichert Template-Einstellungen als JSON-Dateien:
    - colors.json      → Farb-Einstellungen (inkl. Menü, Buttons)
    - tplsettings.json → Allgemeine Konfiguration
    - logos.json        → Zahlungs- und Versandlogos
    - social.json       → Social Media Links
-
+   
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
                        Kein mrh-* / tpl-* Dualismus mehr!
    v3.1 (2026-04-10): Preset/Backup/Restore-System hinzugefuegt
    v3.2 (2026-04-11): Icon-Konfigurator (Tab 9) – icons.json Speichern/Laden/Reset
    v3.3 (2026-04-11): Badge-Konfigurator – Produkt-Typ-Badges konfigurierbar
-
+   
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
 
@@ -1464,8 +1464,8 @@ if (!empty($mrh_icon_defaults) && !empty($mrh_icons)) {
         if (isset($mrh_icons['icons']) && is_array($mrh_icons['icons'])) {
             foreach ($mrh_icons['icons'] as $key => $val) {
                 if (is_array($val)) {
-                    $merged_icons[$key] = isset($merged_icons[$key])
-                        ? array_merge($merged_icons[$key], $val)
+                    $merged_icons[$key] = isset($merged_icons[$key]) 
+                        ? array_merge($merged_icons[$key], $val) 
                         : $val;
                 }
             }
@@ -1511,7 +1511,7 @@ function mrh_sanitize_icon_value($key, $value) {
 if (isset($_POST['submit-iconsettings'])) {
     $posted_json = isset($_POST['mrh_icons_json']) ? $_POST['mrh_icons_json'] : '';
     $posted_data = json_decode(stripslashes($posted_json), true);
-
+    
     if (is_array($posted_data)) {
         // Global-Einstellungen sanitizen
         if (isset($posted_data['global']) && is_array($posted_data['global'])) {
@@ -1566,14 +1566,14 @@ if (isset($_POST['submit-iconsettings'])) {
                 }
             }
         }
-
+        
         // Meta-Daten hinzufuegen
         $posted_data['_meta'] = [
             'version' => '1.0',
             'description' => 'MRH 2026 Icon-Konfigurator',
             'date' => date('Y-m-d H:i:s'),
         ];
-
+        
         if (mrh_write_json($icon_config_file, $posted_data)) {
             $mrh_icons = $posted_data;
             $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-check-circle me-1"></i> Icon-Konfiguration erfolgreich gespeichert!</div>';
@@ -1623,3 +1623,4 @@ $GLOBALS['mrh_custom_css'] = $mrh_custom_css;
 $GLOBALS['mrh_config_message'] = $mrh_config_message;
 $GLOBALS['mrh_presets'] = $available_presets;
 $GLOBALS['mrh_backups'] = $available_backups;
+$GLOBALS['mrh_icons']   = $mrh_icons;
