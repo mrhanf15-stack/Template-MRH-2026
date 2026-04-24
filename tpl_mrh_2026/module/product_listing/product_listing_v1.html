@@ -122,3 +122,5 @@
  {if isset($BLOG_SEARCH_RESULTS) && $BLOG_SEARCH_RESULTS != ''}
   {$BLOG_SEARCH_RESULTS}
 {/if}
+{* ── Schema.org JSON-LD (CollectionPage) ── *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_itemlist.html"}

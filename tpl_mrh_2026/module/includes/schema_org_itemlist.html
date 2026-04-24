@@ -20,7 +20,7 @@
   "description": "{$CATEGORIES_SHORT_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
   {/if}
   {if !empty($CATEGORIES_IMAGE)}
-  "image": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}{$CATEGORIES_IMAGE}",
+  "image": "{$CATEGORIES_IMAGE}",
   {/if}
   "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
   "isPartOf": {ldelim}
