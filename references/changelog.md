@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-24 – Schema.org Phase 1: Microdata entfernt, nur JSON-LD Includes
+
+**Ziel:** Alten hardcodierten Schema-Code (Microdata-Attribute und veraltete JSON-LD Bloecke) aus den Haupt-Templates entfernen. Schema.org wird kuenftig ausschliesslich ueber die modularen JSON-LD Include-Dateien (`schema_org_product.html`, `schema_org_blogposting.html`) gesteuert. Das macht den Code sauber, wartbar und optimal fuer KI-Suchmaschinen (GEO).
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `tpl_parts/content_head.html` | Template-MRH-2026 | 2 alte JSON-LD Bloecke entfernt (Organization + WebSite/SearchAction) |
+| `module/product_info/seeds_info.html` | Template-MRH-2026 | Alle itemscope/itemprop/itemtype Attribute entfernt (article, brand, name, offers, description) |
+| `module/product_info/usa_STrain-patch.html` | Template-MRH-2026 | Alle itemscope/itemprop/itemtype Attribute entfernt (identisch zu seeds_info) |
+| `module/blog_post.html` | Template-MRH-2026 | Alle Microdata entfernt (BlogPosting, author, headline, image, articleBody, datePublished) |
+| `module/includes/blog_post_listing.html` | Template-MRH-2026 | Alle Microdata entfernt (Blog, blogPosts, BlogPosting, image, headline, description) |
+
+**Hinweis:** Die JSON-LD Include-Aufrufe am Ende der Templates bleiben erhalten (`schema_org_product.html`, `schema_org_blogposting.html`). Weitere Dateien (product_info.html, non_seeds_info.html, seedfinder_product_cards.html, logobar.html, etc.) werden in Phase 2 bereinigt.
+
 ## 2026-04-23 – Fix: Slider-Karten von 5 auf 4 pro Viewport
 
 **Problem:** Das Inline-JS (`mrh-autoslider.js`) injiziert CSS direkt in den `<head>` mit `.mrh-as-track > .listingbox { flex: 0 0 calc((100%-64px)/5) }` – also 5 Spalten. Die externe CSS-Datei `mrh-autoslider.css` hatte zwar 4-Spalten-Regeln, aber fuer die falschen Selektoren (`.mrh-slider-item` statt `.mrh-as-track > .listingbox`).

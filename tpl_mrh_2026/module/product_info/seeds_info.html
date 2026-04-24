@@ -27,9 +27,9 @@
 {if isset($success_message) && $success_message != ''}<div class="alert alert-success">{$success_message}</div>{/if}
 
 {* ══════════════════════════════════════════════════════════════
-   PRODUCT WRAPPER – Schema.org Product (Microdata)
+   PRODUCT WRAPPER
    ══════════════════════════════════════════════════════════════ *}
-<article class="mrh-product-info" itemscope itemtype="https://schema.org/Product">
+<article class="mrh-product-info">
   {$FORM_ACTION}
 
   <div id="product_details" class="row g-4">
@@ -46,22 +46,22 @@
 
       {* Hersteller mit Samen-Icon *}
       {if isset($MANUFACTURER) && $MANUFACTURER != ''}
-        <div class="mrh-pi-manufacturer mb-2" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-          <a href="{$MANUFACTURER_LINK}" class="small text-muted text-decoration-none" itemprop="url">
+        <div class="mrh-pi-manufacturer mb-2">
+          <a href="{$MANUFACTURER_LINK}" class="small text-muted text-decoration-none">
             <span class="fa fa-seedling me-1" style="color: #5db233;"></span>
-            <span itemprop="name">{$MANUFACTURER}</span>
+            <span>{$MANUFACTURER}</span>
           </a>
         </div>
       {/if}
 
       {* Produktname – Grüner Akzent *}
-      <h1 class="h3 mb-2" itemprop="name" style="border-left: 4px solid #5db233; padding-left: 0.75rem;">
+      <h1 class="h3 mb-2" style="border-left: 4px solid #5db233; padding-left: 0.75rem;">
        {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_NAME}{else}{$PRODUCTS_HEADING_TITLE}{/if}
       </h1>
 
       {* Bewertungen (Sterne) *}
       {*if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
-        <div class="mrh-rating mb-3" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+        <div class="mrh-rating mb-3">
           {if isset($MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT) && $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
             <span class="d-inline">
               <a class="mrh_avg_container text-decoration-none" href="#mrh-reviews"
@@ -81,9 +81,7 @@
             </span>
             <a href="#mrh-reviews" class="small text-muted ms-1">({$PRODUCTS_RATING_COUNT} {#text_reviews#})</a>
           {/if}
-          <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}" />
-          <meta itemprop="bestRating" content="5" />
-          <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}" />
+
         </div>
       {/if*}
 
@@ -115,19 +113,8 @@
       {/if}
 
       {* ── Preis-Box (Grüner Akzent) ── *}
-      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer"
+      <div class="mrh-pi-price mb-3"
            style="border: 2px solid #5db233; border-radius: 0.5rem; padding: 1rem; background: linear-gradient(180deg, rgba(93,178,51,0.03) 0%, rgba(255,255,255,1) 100%);">
-        <meta itemprop="url" content="{$PRODUCTS_LINK}" />
-        <meta itemprop="priceCurrency" content="{$smarty.session.currency}" />
-        {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
-          <meta itemprop="mpn" content="{$PRODUCTS_MANUFACTURERS_MODEL}" />
-        {/if}
-        <meta itemprop="itemCondition" content="https://schema.org/NewCondition" />
-        {if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}
-          <link itemprop="availability" href="https://schema.org/OutOfStock" />
-        {else}
-          <link itemprop="availability" href="https://schema.org/InStock" />
-        {/if}
 
         <div class="pd_price" id="pd_puprice">
           {if isset($PRODUCTS_FSK18) && $PRODUCTS_FSK18 == 'true'}<div class="pd_fsk18"></div>{/if}
@@ -255,7 +242,7 @@
      3. BESCHREIBUNG (volle Breite)
      ══════════════════════════════════════════════════════════════ *}
   {if $PRODUCTS_DESCRIPTION != ''}
-    <div class="mrh-product-description mt-5 mb-4" itemprop="description">
+    <div class="mrh-product-description mt-5 mb-4">
       {$PRODUCTS_DESCRIPTION}
     </div>
   {/if}

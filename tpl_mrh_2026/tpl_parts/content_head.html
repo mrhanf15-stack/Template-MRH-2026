@@ -15,18 +15,6 @@
             <img height="171" width="300" class="logo-top" alt="{$store_name} – 10 Jahre Jubiläum" src="{$tpl_path}img/logo_head_jubilaeum_png.webp">
           </picture>
         </a>
-        <!-- logo structured-data for google -->
-        <script type="application/ld+json">
-        {literal}
-        {
-          "@context": "http://schema.org",
-          "@type": "Organization",
-          "url": "{/literal}{$index}{literal}",
-          "logo": "{/literal}{$tpl_path}img/logo_head_jubilaeum_png.png{literal}"
-        }
-        {/literal}
-        </script>
-        
         <a 
         class="d-flex flex-column align-items-center justify-content-center d-lg-none"
         title="{#link_menu#}" id="toggle_mobilemenu" aria-label="{#link_menu#}" aria-hidden>
@@ -38,20 +26,6 @@
       {* ── SUCHLEISTE (Desktop: in Zeile 1 zwischen Logo und Icons) ── *}
       <div class="col d-none d-lg-flex align-items-center mrh-search-desktop">
         {if isset($box_SEARCH)}<div id="search" role="search">{$box_SEARCH}</div>{/if}
-        <script type="application/ld+json">
-          {literal}
-          {
-            "@context": "http://schema.org",
-            "@type": "WebSite",
-            "url": "{/literal}{$index}{literal}",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "{/literal}{$index}{literal}advanced_search_result.php?keywords={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          }
-          {/literal}
-        </script>
       </div>
 
       {* ── ICON-MENÜ (FA 6 Pro) ── *}

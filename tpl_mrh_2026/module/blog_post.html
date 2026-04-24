@@ -4,33 +4,20 @@
 {* MRH 2026: Blog Post (Einzelansicht) – BS5.3, Schema.org *}
 {* === Schema.org JSON-LD (BlogPosting) === *}
 {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_blogposting.html"}
-<article id="blog-post" class="mrh-blog" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-  {* Microdata *}
-  <meta itemprop="url" content="{$LINK}">
-  <meta itemprop="dateCreated" content="{$DATE_ADDED.C}">
-  <meta itemprop="datePublished" content="{$DATE_ADDED.C}">
-  {if !empty($DATE_MODIFIED)}<meta itemprop="dateModified" content="{$DATE_MODIFIED.C}">{/if}
-  {if !empty($AUTHOR)}
-    <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="d-none">
-      <meta itemprop="name" content="{$AUTHOR}">
-      {if !empty($AUTHOR_LINK)}<meta itemprop="url" content="{$AUTHOR_LINK}">{/if}
-    </span>
-  {/if}
-  <meta itemprop="name" content="{$NAME}">
-  {if !empty($SHORT_DESCRIPTION)}<meta itemprop="description" content="{$SHORT_DESCRIPTION}">{/if}
+<article id="blog-post" class="mrh-blog">
   {* Beitragsbild *}
   {if !empty($IMAGE)}
     <div class="mrh-blog-post-image mb-4">
-      <img class="img-fluid" src="{$IMAGE}" alt="{$NAME|onlytext}" itemprop="image" loading="lazy">
+      <img class="img-fluid" src="{$IMAGE}" alt="{$NAME|onlytext}" loading="lazy">
     </div>
   {/if}
   {* Titel *}
-  <h1 class="mrh-blog-post-title" itemprop="headline">{if !empty($TITLE)}{$TITLE}{else}{$NAME}{/if}</h1>
+  <h1 class="mrh-blog-post-title">{if !empty($TITLE)}{$TITLE}{else}{$NAME}{/if}</h1>
   {* Meta-Informationen *}
   <div class="mrh-blog-post-meta d-flex flex-wrap gap-3 mb-4 small">
     <span>
       <span class="fa fa-calendar me-1" aria-hidden="true"></span>
-      <time itemprop="datePublished" datetime="{$DATE_ADDED.C}">{$DATE_ADDED.LONG}</time>
+      <time datetime="{$DATE_ADDED.C}">{$DATE_ADDED.LONG}</time>
     </span>
     {if !empty($CATEGORIES_NAME)}
       <a href="{$CATEGORIES_LINK}" class="mrh-blog-post-meta-link text-decoration-none" title="{$CATEGORIES_NAME|onlytext}">
@@ -43,7 +30,7 @@
   </div>
   {* Inhalt *}
   {if !empty($DESCRIPTION)}
-    <div class="mrh-blog-post-content mb-4" itemprop="articleBody">
+    <div class="mrh-blog-post-content mb-4">
       {$DESCRIPTION}
     </div>
   {/if}
