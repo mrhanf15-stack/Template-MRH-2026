@@ -1,16 +1,16 @@
 {* =====================================================================
    MRH 2026 – Schema.org JSON-LD (Content-Seiten)
    Wird in index.html nach schema_org_global.html eingebunden.
-   Erkennt den Seitentyp per REQUEST_URI (URLs sind rewritten):
-   - /info/kontakt oder contact_us.php → ContactPage
-   - /info/faqs                        → FAQPage
-   - /info/ueber-uns                   → AboutPage
-   - /info/* (alle anderen)            → WebPage
+   Erkennt den Seitentyp per REQUEST_URI (URLs sind rewritten).
+   Hinweis: Smarty hat keinen strstr-Modifier, daher wird
+   regex_replace verwendet um die URI zu pruefen.
    Stand: 2026-04-24
    ===================================================================== *}
 
+{assign var="mrh_uri" value=$smarty.server.REQUEST_URI|default:''}
+
 {* ── ContactPage ── *}
-{if $smarty.server.REQUEST_URI|strstr:"/info/kontakt" || $smarty.server.PHP_SELF|strstr:"contact_us.php"}
+{if $mrh_uri|regex_replace:"/.*\\/info\\/kontakt.*/":"MATCH" == "MATCH"}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
@@ -30,7 +30,7 @@
 </script>
 
 {* ── FAQPage ── *}
-{elseif $smarty.server.REQUEST_URI|strstr:"/info/faqs" || $smarty.server.REQUEST_URI|strstr:"/info/faq"}
+{elseif $mrh_uri|regex_replace:"/.*\\/info\\/faq.*/":"MATCH" == "MATCH"}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
@@ -46,7 +46,7 @@
 </script>
 
 {* ── AboutPage ── *}
-{elseif $smarty.server.REQUEST_URI|strstr:"/info/ueber-uns" || $smarty.server.REQUEST_URI|strstr:"/info/about"}
+{elseif $mrh_uri|regex_replace:"/.*\\/info\\/ueber-uns.*/":"MATCH" == "MATCH"}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
@@ -66,7 +66,7 @@
 </script>
 
 {* ── WebPage (alle anderen /info/ Seiten) ── *}
-{elseif $smarty.server.REQUEST_URI|strstr:"/info/"}
+{elseif $mrh_uri|regex_replace:"/.*\\/info\\/.*/":"MATCH" == "MATCH"}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
