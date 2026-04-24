@@ -36,28 +36,28 @@
   {rdelim},
   {/if}
   {* === Bewertungen === *}
-  {if isset($MRH_RATING_COUNT) && $MRH_RATING_COUNT > 0}
+  {if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
   "aggregateRating": {ldelim}
     "@type": "AggregateRating",
-    "ratingValue": "{$MRH_RATING_VALUE|default:'0'}",
+    "ratingValue": "{$PRODUCTS_REVIEWS_AVERAGE|default:'0'}",
     "bestRating": "5",
     "worstRating": "1",
-    "reviewCount": "{$MRH_RATING_COUNT}"
+    "reviewCount": "{$PRODUCTS_RATING_COUNT}"
   {rdelim},
   {/if}
-  {if isset($PRODUCTS_REVIEWS) && count($PRODUCTS_REVIEWS) > 0}
+  {if isset($MRH_SCHEMA_REVIEWS) && count($MRH_SCHEMA_REVIEWS) > 0}
   "review": [
-    {foreach name=schrev item=sr from=$PRODUCTS_REVIEWS}
+    {foreach name=schrev item=sr from=$MRH_SCHEMA_REVIEWS}
       {ldelim}
         "@type": "Review",
         "author": {ldelim}
           "@type": "Person",
           "name": "{$sr.AUTHOR|escape:'javascript'}"
         {rdelim},
-        "datePublished": "{$sr.DATE_RAW|default:$sr.DATE}",
+        "datePublished": "{$sr.DATE_ADDED|default:$sr.DATE}",
         "reviewRating": {ldelim}
           "@type": "Rating",
-          "ratingValue": "{$sr.RATING}",
+          "ratingValue": "{$sr.RATING_VOTE|default:$sr.REVIEWS_RATING}",
           "bestRating": "5",
           "worstRating": "1"
         {rdelim}
