@@ -857,6 +857,51 @@ footer .footer-divider {
   border-color: var(--tpl-footer-border-color, rgba(255,255,255,0.1));
 }
 
+/* ── 08b FOOTERTEXT – SEO-Text-Box (.box3.footertext) ──
+   !important noetig weil CMS-Editor inline-Styles setzt ── */
+footer .footertext {
+  background-color: var(--tpl-ft-bg, transparent);
+  padding: 24px 0;
+}
+footer .footertext,
+footer .footertext p,
+footer .footertext span,
+footer .footertext li,
+footer .footertext ul {
+  color: var(--tpl-ft-text-color, rgb(148, 163, 184)) !important;
+  font-size: var(--tpl-ft-font-size, 0.8125rem) !important;
+}
+footer .footertext .box3_header {
+  color: var(--tpl-ft-heading-color, rgb(255, 255, 255)) !important;
+  font-size: var(--tpl-ft-heading-size, 1rem) !important;
+}
+footer .footertext h2,
+footer .footertext .box-heading,
+footer .footertext h2 span {
+  color: var(--tpl-ft-heading-color, rgb(255, 255, 255)) !important;
+  font-size: var(--tpl-ft-heading-size, 1rem) !important;
+}
+footer .footertext a,
+footer .footertext a span {
+  color: var(--tpl-ft-link-color, rgb(74, 140, 42)) !important;
+  text-decoration: var(--tpl-ft-link-decoration, none);
+  transition: color 0.2s ease;
+}
+footer .footertext a:hover,
+footer .footertext a:hover span {
+  color: var(--tpl-ft-link-hover, rgb(255, 255, 255)) !important;
+  text-decoration: var(--tpl-ft-link-hover-decoration, underline);
+}
+footer .footertext .box3_line,
+footer .footertext hr,
+footer .footertext .border-bottom {
+  border-color: var(--tpl-ft-border-color, rgba(255,255,255,0.1)) !important;
+}
+footer .footertext strong,
+footer .footertext b {
+  color: inherit;
+}
+
 /* ============================================================
    09 ALLGEMEIN – Buttons, Cards, Badges
    ============================================================ */

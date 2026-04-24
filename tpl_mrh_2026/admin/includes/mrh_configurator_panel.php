@@ -633,6 +633,64 @@ foreach ($alert_variants as $variant) {
         </div>
     </div>
 
+    <!-- Footertext-Sektion (SEO-Text unten) -->
+    <h6 class="border-bottom pb-2 mb-3 mt-4"><i class="fa fa-align-left me-1"></i>Footertext (SEO-Text unten)</h6>
+    <p class="text-muted small mb-2">Steuert die <code>.box3.footertext</code> Sektion (SEO-Text &amp; Kontakt). &Uuml;berschreibt Inline-Styles vom CMS-Editor.</p>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-bg"><strong>Footertext Hintergrund</strong></label>
+            <input id="tpl-ft-bg" type="text" name="tpl-ft-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ft-bg','transparent'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ft-bg','transparent'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-text-color"><strong>Footertext Textfarbe</strong></label>
+            <input id="tpl-ft-text-color" type="text" name="tpl-ft-text-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ft-text-color','rgb(148, 163, 184)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ft-text-color','rgb(148, 163, 184)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-heading-color"><strong>&Uuml;berschriften Farbe</strong></label>
+            <input id="tpl-ft-heading-color" type="text" name="tpl-ft-heading-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ft-heading-color','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ft-heading-color','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-heading-size"><strong>&Uuml;berschriften Gr&ouml;&szlig;e</strong></label>
+            <input id="tpl-ft-heading-size" type="text" name="tpl-ft-heading-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-ft-heading-size','1rem'); ?>" placeholder="1rem">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-font-size"><strong>Schriftgr&ouml;&szlig;e</strong></label>
+            <input id="tpl-ft-font-size" type="text" name="tpl-ft-font-size" class="form-control mrh-size-input" value="<?php echo mrh_cv($c,'tpl-ft-font-size','0.8125rem'); ?>" placeholder="0.8125rem">
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-link-color"><strong>Link-Farbe</strong></label>
+            <input id="tpl-ft-link-color" type="text" name="tpl-ft-link-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ft-link-color','rgb(74, 140, 42)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ft-link-color','rgb(74, 140, 42)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-link-hover"><strong>Link-Hover Farbe</strong></label>
+            <input id="tpl-ft-link-hover" type="text" name="tpl-ft-link-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ft-link-hover','rgb(255, 255, 255)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ft-link-hover','rgb(255, 255, 255)'); ?>"></div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-link-decoration"><strong>Link-Unterstreichung</strong></label>
+            <select id="tpl-ft-link-decoration" name="tpl-ft-link-decoration" class="form-select">
+                <option value="none" <?php echo mrh_cv($c,'tpl-ft-link-decoration','none') === 'none' ? 'selected' : ''; ?>>Keine</option>
+                <option value="underline" <?php echo mrh_cv($c,'tpl-ft-link-decoration','none') === 'underline' ? 'selected' : ''; ?>>Unterstrichen</option>
+            </select>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-link-hover-decoration"><strong>Link-Hover Unterstreichung</strong></label>
+            <select id="tpl-ft-link-hover-decoration" name="tpl-ft-link-hover-decoration" class="form-select">
+                <option value="underline" <?php echo mrh_cv($c,'tpl-ft-link-hover-decoration','underline') === 'underline' ? 'selected' : ''; ?>>Unterstrichen</option>
+                <option value="none" <?php echo mrh_cv($c,'tpl-ft-link-hover-decoration','underline') === 'none' ? 'selected' : ''; ?>>Keine</option>
+            </select>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <label for="tpl-ft-border-color"><strong>Trennlinien Farbe</strong></label>
+            <input id="tpl-ft-border-color" type="text" name="tpl-ft-border-color" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-ft-border-color','rgba(255,255,255,0.1)'); ?>">
+            <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-ft-border-color','rgba(255,255,255,0.1)'); ?>"></div>
+        </div>
+    </div>
+
     <!-- Live-Vorschau Footer -->
     <div class="card mb-4 mt-3">
         <div class="card-header"><strong>Live-Vorschau Footer</strong></div>

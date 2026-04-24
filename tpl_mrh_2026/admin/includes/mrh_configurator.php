@@ -146,6 +146,18 @@ $mrh_color_defaults = [
     'tpl-footer-heading-weight'       => '700',
     'tpl-footer-border-color'         => 'rgba(255,255,255,0.1)',
 
+    // ── Footertext (SEO-Text-Box .box3.footertext) ──
+    'tpl-ft-bg'                       => 'transparent',
+    'tpl-ft-text-color'               => 'rgb(148, 163, 184)',
+    'tpl-ft-heading-color'            => 'rgb(255, 255, 255)',
+    'tpl-ft-heading-size'             => '1rem',
+    'tpl-ft-font-size'                => '0.8125rem',
+    'tpl-ft-link-color'               => 'rgb(74, 140, 42)',
+    'tpl-ft-link-hover'               => 'rgb(255, 255, 255)',
+    'tpl-ft-link-decoration'          => 'none',
+    'tpl-ft-link-hover-decoration'    => 'underline',
+    'tpl-ft-border-color'             => 'rgba(255,255,255,0.1)',
+
     // ── Sticky Header ──
     'tpl-sticky-bg'            => 'rgb(255, 255, 255)',
     'tpl-sticky-text'          => 'rgb(51, 65, 85)',
@@ -1065,6 +1077,17 @@ $mrh_to_tpl_map = [
     'mrh-footer-heading-size'         => 'tpl-footer-heading-size',
     'mrh-footer-heading-weight'       => 'tpl-footer-heading-weight',
     'mrh-footer-border-color'         => 'tpl-footer-border-color',
+    // Footertext
+    'mrh-ft-bg'                       => 'tpl-ft-bg',
+    'mrh-ft-text-color'               => 'tpl-ft-text-color',
+    'mrh-ft-heading-color'            => 'tpl-ft-heading-color',
+    'mrh-ft-heading-size'             => 'tpl-ft-heading-size',
+    'mrh-ft-font-size'                => 'tpl-ft-font-size',
+    'mrh-ft-link-color'               => 'tpl-ft-link-color',
+    'mrh-ft-link-hover'               => 'tpl-ft-link-hover',
+    'mrh-ft-link-decoration'          => 'tpl-ft-link-decoration',
+    'mrh-ft-link-hover-decoration'    => 'tpl-ft-link-hover-decoration',
+    'mrh-ft-border-color'             => 'tpl-ft-border-color',
     'mrh-sticky-bg'         => 'tpl-sticky-bg',
     'mrh-sticky-text'       => 'tpl-sticky-text',
     // Buttons: mrh-btn-* → tpl-btn-*
