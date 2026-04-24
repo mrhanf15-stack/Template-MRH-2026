@@ -1,0 +1,86 @@
+{* =====================================================================
+   MRH 2026 – Schema.org JSON-LD (Content-Seiten)
+   Wird in index.html nach schema_org_global.html eingebunden.
+   Erkennt den Seitentyp per PHP_SELF und gibt das passende Schema aus:
+   - contact_us.php       → ContactPage
+   - content.php (FAQs)   → FAQPage
+   - content.php (Ueber uns) → AboutPage
+   - content.php (andere)  → WebPage
+   Stand: 2026-04-24
+   ===================================================================== *}
+
+{* ── ContactPage (contact_us.php) ── *}
+{if $smarty.server.PHP_SELF|strstr:"contact_us.php"}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Kontakt - {$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+  "description": "Kontaktieren Sie den {$smarty.const.STORE_NAME|default:'Mr. Hanf'} Kundenservice. Wir helfen Ihnen gerne bei Fragen zu Bestellungen, Versand und Produkten.",
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
+  "isPartOf": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#website"
+  {rdelim},
+  "mainEntity": {ldelim}
+    "@type": "Organization",
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#organization"
+  {rdelim}
+{rdelim}
+</script>
+
+{* ── Content-Manager-Seiten (content.php) ── *}
+{elseif $smarty.server.PHP_SELF|strstr:"content.php"}
+
+  {* FAQPage (coID fuer FAQs = content_group 1003190) *}
+  {if $smarty.server.REQUEST_URI|strstr:"FAQs" || $smarty.server.REQUEST_URI|strstr:"faq" || $smarty.get.coID == '1094'}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "name": "{$CONTENT_HEADING|default:'FAQs'|escape:'javascript'}",
+  "description": "Haeufig gestellte Fragen zu Cannabis Samen, Bestellung, Versand und mehr bei {$smarty.const.STORE_NAME|default:'Mr. Hanf'}.",
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
+  "inLanguage": "de-DE",
+  "isPartOf": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#website"
+  {rdelim}
+{rdelim}
+</script>
+
+  {* AboutPage (Ueber uns) *}
+  {elseif $smarty.server.REQUEST_URI|strstr:"ber-uns" || $smarty.server.REQUEST_URI|strstr:"about" || $smarty.get.coID == '1672'}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "{$CONTENT_HEADING|default:'Ueber uns'|escape:'javascript'}",
+  "description": "Erfahren Sie mehr ueber {$smarty.const.STORE_NAME|default:'Mr. Hanf'} – Ihr Cannabis Samen Experte seit 2016 mit ueber 20 Jahren Erfahrung.",
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
+  "inLanguage": "de-DE",
+  "isPartOf": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#website"
+  {rdelim},
+  "mainEntity": {ldelim}
+    "@type": "Organization",
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#organization"
+  {rdelim}
+{rdelim}
+</script>
+
+  {* Alle anderen Content-Seiten: generisches WebPage *}
+  {else}
+<script type="application/ld+json">
+{ldelim}
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{$CONTENT_HEADING|default:'Information'|escape:'javascript'}",
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
+  "inLanguage": "de-DE",
+  "isPartOf": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#website"
+  {rdelim}
+{rdelim}
+</script>
+  {/if}
+
+{/if}
