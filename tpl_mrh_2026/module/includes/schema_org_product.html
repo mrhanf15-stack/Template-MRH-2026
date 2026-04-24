@@ -9,7 +9,7 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{$PRODUCTS_NAME|onlytext|escape:'javascript'}",
-  "description": "{$PRODUCTS_SHORT_DESCRIPTION|onlytext|strip_tags|truncate:500|escape:'javascript'}",
+  "description": "{$PRODUCTS_SHORT_DESCRIPTION|onlytext|strip_tags|regex_replace:'/HIERDASICON/':''|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500|escape:'javascript'}",
   {if $PRODUCTS_IMAGE != ''}
   "image": [
     "{$PRODUCTS_IMAGE_POPUP|default:$PRODUCTS_IMAGE}"
