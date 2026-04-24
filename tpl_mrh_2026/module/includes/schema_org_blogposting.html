@@ -16,7 +16,9 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "{if !empty($TITLE)}{$TITLE|onlytext|escape:'javascript'}{else}{$NAME|onlytext|escape:'javascript'}{/if}",
-  {if !empty($DESCRIPTION)}
+  {if !empty($SHORT_DESCRIPTION)}
+  "description": "{$SHORT_DESCRIPTION|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:300:'...':true|escape:'javascript'}",
+  {elseif !empty($DESCRIPTION)}
   "description": "{$DESCRIPTION|regex_replace:'/<script[^>]*>.*?<\/script>/is':''|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:300:'...':true|escape:'javascript'}",
   {/if}
   {if !empty($IMAGE)}
