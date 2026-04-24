@@ -15,7 +15,6 @@
                 {$smarty.const.BOX_LOGINBOX_DISCOUNT}: {$price_data.PRODUCTS_PRICE_GROUP_DISCOUNT}%
               </span>
               {/if}
-              <meta content="{$price_data.PRODUCTS_PRICE_PLAIN}" />
               {* ENDE Produkt Sonderpreis Langform mit Ausgabe Alter Preis, Neuer Preis, Sie sparen *}
             {elseif $price_data.PRODUCTS_PRICE_FLAG == 'SpecialGraduated'}
               {if $price_data.PRODUCTS_PRICE_UVP != ''} 
@@ -24,7 +23,6 @@
                   <span class="small_price">{$smarty.const.YOUR_PRICE}</span> {$price_data.PRODUCTS_PRICE_SPECIAL_PRICE}
                 </span>
                 <span class="item_price clearfix"><span class="small_price">{$smarty.const.MSRP}</span> {$price_data.PRODUCTS_PRICE_OLD_PRICE}</span>
-                <meta content="{$price_data.PRODUCTS_PRICE_PLAIN}" />
                 {* ENDE Produkt UVP Preis mit Ausgabe Ihr Preis, UVP *}
               {else}
                 {* START Produkt Staffelpreis mit Ausgabe ab Preis, Stückpreis *}
@@ -44,7 +42,6 @@
                 {$price_data.PRODUCTS_PRICE_STANDARD_PRICE}
               </span>
               {if !isset($MODULE_graduated_price) || $MODULE_graduated_price == ''}
-                <meta content="{$price_data.PRODUCTS_PRICE_PLAIN}" />
               {/if}
               {* ENDE Produkt Standardpreis mit Ausgabe ab Preis *}
             {/if}

@@ -41,8 +41,6 @@
           {* Bewertung *}
           {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
             <div class="mrh-rating">
-              <meta content="{$product_data.MRH_RATING_VALUE}">
-              <meta content="{$product_data.MRH_RATING_COUNT}">
               {section name=star loop=5}
                 {if $smarty.section.star.index < $product_data.MRH_RATING_FULL}
                   <span class="fa fa-star"></span>
@@ -57,12 +55,10 @@
           {/if}
           {* Preis *}
           <div class="mrh-product-card-price">
-            <meta content="{$product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_CURRENCY|default:'EUR'}">
             {foreach name=inner item=price_data from=$product_data.PRODUCTS_PRICE_ARRAY}
               {include file="module/includes/price_box.html"}
             {/foreach}
             {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-              <link href="https://schema.org/InStock">
               {if $product_data.PRODUCTS_VPE}
                 <div class="small text-muted">{$product_data.PRODUCTS_VPE}</div>
               {/if}

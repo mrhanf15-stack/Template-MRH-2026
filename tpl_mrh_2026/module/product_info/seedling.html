@@ -79,9 +79,6 @@
             </span>
             <a href="#mrh-reviews" class="small text-muted ms-1">({$PRODUCTS_RATING_COUNT} {#text_reviews#})</a>
           {/if}
-          <meta content="{$PRODUCTS_AVERAGE_RATING}" />
-          <meta content="5" />
-          <meta content="{$PRODUCTS_RATING_COUNT}" />
         </div>
       {/if*}
 
@@ -115,16 +112,10 @@
       {* ── Preis-Box (Hellgrüner Akzent) ── *}
       <div class="mrh-pi-price mb-3"
            style="border: 2px solid #22c55e; border-radius: 0.5rem; padding: 1rem; background: linear-gradient(180deg, rgba(34,197,94,0.03) 0%, rgba(255,255,255,1) 100%);">
-        <meta content="{$PRODUCTS_LINK}" />
-        <meta content="{$smarty.session.currency}" />
         {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
-          <meta content="{$PRODUCTS_MANUFACTURERS_MODEL}" />
         {/if}
-        <meta content="https://schema.org/NewCondition" />
         {if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}
-          <link href="https://schema.org/OutOfStock" />
         {else}
-          <link href="https://schema.org/InStock" />
         {/if}
 
         <div class="pd_price" id="pd_puprice">

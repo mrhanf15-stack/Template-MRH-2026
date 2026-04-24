@@ -7,9 +7,7 @@
           <a href="{$breadcrumb.link}"><span>{$breadcrumb.title|onlytext}</span></a>
         {else}
           <span>{$breadcrumb.title|onlytext}</span>
-          <meta content="{$breadcrumb.link}">
         {/if}
-        <meta content="{$smarty.foreach.aussen.iteration}">
       </li>
     {/foreach}
   </ol>

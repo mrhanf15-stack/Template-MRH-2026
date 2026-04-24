@@ -28,13 +28,10 @@
 {* ── Schema.org ImageGallery (versteckt) ── *}
 {if $PRODUCTS_IMAGE != ''}
   <div style="display:none;">
-    <meta content="product_images">
     <div>
-      <meta content="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
       {if isset($more_images)}
         {foreach item=more_images_data from=$more_images}
           {if $more_images_data.PRODUCTS_IMAGE != ''}
-            <meta content="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
           {/if}
         {/foreach}
       {/if}
