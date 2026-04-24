@@ -17,16 +17,13 @@
   {if !empty($IMAGE)}
   "image": {ldelim}
     "@type": "ImageObject",
-    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}{$IMAGE}",
+    "url": "{$IMAGE}",
     "width": 1200,
     "height": 630
   {rdelim},
   {/if}
   {if isset($DATE_ADDED) && isset($DATE_ADDED.C)}
   "datePublished": "{$DATE_ADDED.C}",
-  {/if}
-  {if !empty($DESCRIPTION)}
-  "wordCount": "{$DESCRIPTION|strip_tags|count_words|default:'500'}",
   {/if}
   "inLanguage": "de-DE",
   {if !empty($AUTHOR)}
