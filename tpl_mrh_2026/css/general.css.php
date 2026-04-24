@@ -46,7 +46,8 @@
   
   foreach ($css_array as $css) {
     // Datei nur laden wenn sie existiert
-    $full_path = DIR_FS_CATALOG . $css;
+    $clean_css = strtok($css, "?");
+    $full_path = DIR_FS_CATALOG . $clean_css;
     if (!file_exists($full_path)) continue;
     $css .= strpos($css,$css_min) === false ? '?v=' . filemtime($full_path) : '';
     echo '<link rel="preload" as="style" href="'.DIR_WS_BASE.$css.'" type="text/css" media="screen" />'.PHP_EOL;
@@ -1303,6 +1304,11 @@ echo '@media (max-width:575.98px){.mrh-blog-card-img-wrap{height:120px;}.mrh-blo
 
 <?php
 // ══════════════════════════════════════════════════════════════════
+// ══ Autocomplete Dropdown CSS ══
+$ac_css_path = DIR_FS_CATALOG . DIR_TMPL . "css/mrh-ac-dropdown.css";
+if (file_exists($ac_css_path)) {
+    echo "<link rel=\"stylesheet\" href=\"" . DIR_WS_BASE . DIR_TMPL . "css/mrh-ac-dropdown.css?v=" . filemtime($ac_css_path) . "\" type=\"text/css\" />" . PHP_EOL;
+}
 // Custom CSS aus dem Konfigurator laden (config/custom.css)
 // Wird GANZ AM ENDE geladen, damit es ALLES ueberschreiben kann!
 // ══════════════════════════════════════════════════════════════════

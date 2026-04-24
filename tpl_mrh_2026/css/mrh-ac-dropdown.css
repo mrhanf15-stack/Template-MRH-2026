@@ -1,0 +1,67 @@
+/* ── MRH Autocomplete Dropdown (2026) ──
+   Dynamisches Dropdown für alle Suchfelder.
+   Erbt die bestehenden .suggestionsBox / .suggestionList Styles
+   für den Inhalt (autocomplete.html Template).
+   ───────────────────────────────────────── */
+.mrh-ac-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--tpl-text-button, #fff);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-top: none;
+  border-radius: 0 0 var(--mrh-radius-md, 6px) var(--mrh-radius-md, 6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  z-index: 99999;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 8px 4px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+}
+.mrh-ac-dropdown::-webkit-scrollbar { width: 4px; }
+.mrh-ac-dropdown::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+
+/* Inhalt: autocomplete.html liefert ul#autocomplete_main > li.autocomplete_content */
+.mrh-ac-dropdown ul { list-style: none !important; padding: 0; margin: 0; }
+.mrh-ac-dropdown li.autocomplete_content { padding: 6px 5px; transition: background 0.2s; border-radius: 4px; }
+.mrh-ac-dropdown li.autocomplete_content:hover { background: var(--mrh-green-50, #f0fdf4); }
+.mrh-ac-dropdown li a.autocomplete { display: flex; flex-wrap: nowrap; align-items: center; color: var(--tpl-text-standard, #333); text-decoration: none; }
+.mrh-ac-dropdown .autocomplete_image { width: 56px; height: 56px; flex-shrink: 0; background: #fff; border-radius: 4px; overflow: hidden; }
+.mrh-ac-dropdown .autocomplete_image img { width: 100%; height: 100%; object-fit: contain; }
+.mrh-ac-dropdown .ac_text { font-size: 0.875rem; line-height: 1.3; }
+.mrh-ac-dropdown .ac_price { font-size: 0.8rem; }
+.mrh-ac-dropdown .autocomplete_button { text-align: center; padding: 8px 0 4px; border-top: 1px solid rgba(0,0,0,0.06); margin-top: 4px; }
+.mrh-ac-dropdown .autocomplete_button a { color: var(--mrh-primary, #16a34a); font-weight: 600; font-size: 0.85rem; text-decoration: none; }
+.mrh-ac-dropdown .autocomplete_button .btn { font-size: 0.8rem; }
+
+/* Blog-Ergebnisse */
+.mrh-ac-dropdown .autocomplete-blog-divider { border-top: 2px solid var(--mrh-gray-200, #dee2e6); }
+
+/* ── Sticky Header: schmaler, nach rechts ausgerichtet ── */
+form[name="sticky_find"] .mrh-ac-dropdown {
+  min-width: 340px;
+  right: 0;
+  left: auto;
+}
+
+/* ── Mobile Overlay: volle Breite ── */
+.mrh-search-overlay-form .mrh-ac-dropdown {
+  position: relative;
+  top: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  max-height: 50vh;
+  margin-top: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 575px) {
+  .mrh-ac-dropdown { padding: 6px; }
+  .mrh-ac-dropdown .autocomplete_image { width: 44px; height: 44px; }
+  .mrh-ac-dropdown .ac_text { font-size: 0.8rem; }
+  .mrh-ac-dropdown li.autocomplete_content { padding: 4px; }
+}
