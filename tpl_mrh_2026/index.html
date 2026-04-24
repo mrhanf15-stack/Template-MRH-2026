@@ -355,17 +355,17 @@
                 </button>
     </div>
 
-        <div class="offcanvas-body">
-                                        {if isset($box_SHIPPING_COUNTRY)}{$box_SHIPPING_COUNTRY}<hr>{/if}
+	<div class="offcanvas-body">
+								{if isset($box_SHIPPING_COUNTRY) && $box_SHIPPING_COUNTRY != ''}{$box_SHIPPING_COUNTRY}<hr>{/if}
 
-                                        {if isset($box_LANGUAGES) && $box_LANGUAGES != ''}{$box_LANGUAGES}<hr>{/if}
+								{if isset($box_CURRENCIES) && $box_CURRENCIES != ''}{$box_CURRENCIES}<hr>{/if}
 
-                                        {if isset($box_CURRENCIES)}{$box_CURRENCIES}<hr>{/if}
+								{if isset($box_LANGUAGES) && $box_LANGUAGES != ''}{$box_LANGUAGES}<hr>{/if}
 
-                                        {if "MODULE_COOKIE_CONSENT_STATUS"|defined && $smarty.const.MODULE_COOKIE_CONSENT_STATUS == 'true'}
-                                                <a href="javascript:;" trigger-cookie-consent-panel="">{$smarty.const.TEXT_COOKIE_CONSENT_LABEL_CPC_HEADING}</a>
-                                        {/if}
-        </div>
+								{if "MODULE_COOKIE_CONSENT_STATUS"|defined && $smarty.const.MODULE_COOKIE_CONSENT_STATUS == 'true'}
+									<a href="javascript:;" trigger-cookie-consent-panel="">{$smarty.const.TEXT_COOKIE_CONSENT_LABEL_CPC_HEADING}</a>
+								{/if}
+	</div>
 </div>
 {/if}
 
