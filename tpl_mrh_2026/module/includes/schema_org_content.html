@@ -4,6 +4,8 @@
    Erkennt den Seitentyp per REQUEST_URI (URLs sind rewritten).
    Hinweis: Smarty hat keinen strstr-Modifier, daher wird
    regex_replace verwendet um die URI zu pruefen.
+   FAQPage wird separat ueber faq_manager.html + schema_org_faq.html
+   generiert (mit dynamischen FAQ-Items aus dem FAQ-Manager).
    Stand: 2026-04-24
    ===================================================================== *}
 
@@ -25,22 +27,6 @@
   "mainEntity": {ldelim}
     "@type": "Organization",
     "@id": "{$smarty.const.HTTP_SERVER|default:''}/#organization"
-  {rdelim}
-{rdelim}
-</script>
-
-{* ── FAQPage ── *}
-{elseif $mrh_uri|regex_replace:"/.*\\/info\\/faq.*/":"MATCH" == "MATCH"}
-<script type="application/ld+json">
-{ldelim}
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "name": "FAQs - {$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
-  "description": "Haeufig gestellte Fragen zu Cannabis Samen, Bestellung, Versand und mehr bei {$smarty.const.STORE_NAME|default:'Mr. Hanf'}.",
-  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
-  "inLanguage": "de-DE",
-  "isPartOf": {ldelim}
-    "@id": "{$smarty.const.HTTP_SERVER|default:''}/#website"
   {rdelim}
 {rdelim}
 </script>

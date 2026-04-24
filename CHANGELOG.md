@@ -219,3 +219,71 @@ Die Schema.org JSON-LD Implementierung wurde komplett überarbeitet und auf alle
 | Blog-Artikel | BlogPosting + Organization + WebSite |
 | Produktseite | Product + Organization + WebSite |
 | Startseite | Organization + WebSite |
+
+
+---
+
+## Phase 4: Organization-Fix + Content-Seiten Schema (Commits `c543c6e` – `08b2159`)
+
+### Stand: 24. April 2026
+
+Die Organization-Daten im globalen Schema wurden korrigiert (falsche Adresse, Social Media, ReturnPolicy) und alle Content-Seiten (Kontakt, FAQ, Über uns, Impressum etc.) erhielten passende Schema.org-Typen.
+
+### Organization-Fix (`schema_org_global.html`)
+
+| Feld | Alt (falsch) | Neu (korrekt) |
+|------|-------------|---------------|
+| streetAddress | Schulstrasse 5 | Schulstrasse 7 |
+| addressLocality | Hall in Tirol | Natters |
+| postalCode | 6060 | 6161 |
+| areaServed | AT, DE, CH, EU | AT, DE, CH, EU, Worldwide |
+| Facebook | facebook.com/mrhanf | facebook.com/mr.Hanf1/ |
+| Instagram | instagram.com/mr.hanf.official | instagram.com/mr.hanf/ |
+| Twitter | twitter.com/mrhanf | **Entfernt** |
+| YouTube | – | youtube.com/channel/UCJMquojG0CEPS_3uNtD1GIA |
+| Return applicableCountry | AT, DE, CH | AT, DE, CH, EU |
+
+### Neue Schema-Dateien
+
+| Datei | Typ | Beschreibung |
+|-------|-----|-------------|
+| `module/includes/schema_org_content.html` | ContactPage / AboutPage / WebPage | Automatische Erkennung per REQUEST_URI regex_replace |
+
+### Schema-Include-Einbindungen
+
+| Template | Include | Schema-Typ |
+|----------|---------|------------|
+| `index.html` (Zeile 327) | `schema_org_content.html` | ContactPage, AboutPage, WebPage |
+| `module/faq_manager.html` | `schema_org_faq.html` | FAQPage (dynamisch mit FAQ-Items) |
+
+### Commits
+
+| Commit | Beschreibung |
+|--------|-------------|
+| `c543c6e` | Organization-Fix: Adresse, Social Media, ReturnPolicy korrigiert |
+| `16197a1` | areaServed + Worldwide, Facebook/Instagram/YouTube korrigiert |
+| `fccaa83` | schema_org_content.html + Include in index.html |
+| `fbd147a` | Fix: REQUEST_URI statt PHP_SELF (URLs sind rewritten) |
+| `716deab` | Fix: strstr durch regex_replace (Smarty hat keinen strstr-Modifier) |
+| `08b2159` | FAQPage Schema-Include in faq_manager.html eingebunden |
+
+### Erkenntnisse und Fixes
+
+| Problem | Ursache | Lösung |
+|---------|---------|--------|
+| ContactPage erschien nicht | `PHP_SELF` enthält nicht die rewritten URL | `REQUEST_URI` verwenden |
+| Bedingung griff nicht | Smarty hat keinen `strstr`-Modifier | `regex_replace` mit "MATCH"-Vergleich |
+| FAQPage braucht dynamische Items | FAQ-Modul hat eigenes Template `faq_manager.html` | Separates Include `schema_org_faq.html` mit `$FAQ_ITEMS` Loop |
+
+### Verifizierte Schema-Typen pro Seitentyp (aktualisiert)
+
+| Seitentyp | Schema-Typen |
+|-----------|-------------|
+| Startseite | Organization + WebSite |
+| Kategorie-Listing | CollectionPage + Organization + WebSite |
+| Produktseite | Product + Organization + WebSite |
+| Blog-Artikel | BlogPosting + Organization + WebSite |
+| Kontakt (/info/kontakt) | ContactPage + Organization + WebSite |
+| Über uns (/info/ueber-uns) | AboutPage + Organization + WebSite |
+| FAQs (/info/faqs) | FAQPage + Organization + WebSite |
+| Alle anderen /info/ Seiten | WebPage + Organization + WebSite |
