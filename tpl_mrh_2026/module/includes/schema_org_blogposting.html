@@ -1,31 +1,40 @@
 {* =====================================================================
    MRH 2026 – Schema.org JSON-LD (BlogPosting)
    Wird in blog_post.html eingebunden
-   Stand: 2026-04 – Google Article/BlogPosting + GEO/AI konform
+   Stand: 2026-04-24 – Google Article/BlogPosting + GEO/AI konform
    Enthaelt: E-E-A-T Author, Speakable, about/mentions
+   Smarty-Variablen: $NAME, $TITLE, $IMAGE, $DESCRIPTION, $DATE_ADDED,
+                     $AUTHOR, $CATEGORIES_NAME, $CATEGORIES_LINK
    ===================================================================== *}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "{$BLOG_TITLE|onlytext|escape:'javascript'}",
-  {if isset($BLOG_DESCRIPTION) && $BLOG_DESCRIPTION != ''}
-  "description": "{$BLOG_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
+  "headline": "{if !empty($TITLE)}{$TITLE|onlytext|escape:'javascript'}{else}{$NAME|onlytext|escape:'javascript'}{/if}",
+  {if !empty($DESCRIPTION)}
+  "description": "{$DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
   {/if}
-  {if isset($BLOG_IMAGE) && $BLOG_IMAGE != ''}
+  {if !empty($IMAGE)}
   "image": {ldelim}
     "@type": "ImageObject",
-    "url": "{$BLOG_IMAGE}",
+    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}{$IMAGE}",
     "width": 1200,
     "height": 630
   {rdelim},
   {/if}
-  "datePublished": "{$BLOG_DATE_RAW|default:$BLOG_DATE}",
-  {if isset($BLOG_DATE_MODIFIED)}
-  "dateModified": "{$BLOG_DATE_MODIFIED}",
+  {if isset($DATE_ADDED) && isset($DATE_ADDED.C)}
+  "datePublished": "{$DATE_ADDED.C}",
   {/if}
-  "wordCount": "{$BLOG_CONTENT|strip_tags|count_words|default:'500'}",
+  {if !empty($DESCRIPTION)}
+  "wordCount": "{$DESCRIPTION|strip_tags|count_words|default:'500'}",
+  {/if}
   "inLanguage": "de-DE",
+  {if !empty($AUTHOR)}
+  "author": {ldelim}
+    "@type": "Person",
+    "name": "{$AUTHOR|escape:'javascript'}"
+  {rdelim},
+  {else}
   "author": {ldelim}
     "@type": "Organization",
     "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
@@ -33,6 +42,7 @@
     "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
     "description": "Cannabis Samen Experte seit 2016 mit ueber 20 Jahren Erfahrung im Hanfsamen-Handel."
   {rdelim},
+  {/if}
   "publisher": {ldelim}
     "@type": "Organization",
     "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
@@ -44,7 +54,7 @@
   {rdelim},
   "mainEntityOfPage": {ldelim}
     "@type": "WebPage",
-    "@id": "{$BLOG_LINK|default:''}"
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}"
   {rdelim},
   "isPartOf": {ldelim}
     "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#website"
@@ -52,7 +62,7 @@
   {* === Speakable – fuer Voice Search und KI-Suchmaschinen === *}
   "speakable": {ldelim}
     "@type": "SpeakableSpecification",
-    "cssSelector": [".blog-post-title", ".blog-post-intro", ".blog-post-content h2", ".blog-post-content h3"]
+    "cssSelector": [".mrh-blog-post-title", ".mrh-blog-post-content h2", ".mrh-blog-post-content h3"]
   {rdelim}
 {rdelim}
 </script>

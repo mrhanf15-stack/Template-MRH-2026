@@ -1,33 +1,35 @@
 {* =====================================================================
-   MRH 2026 – Schema.org JSON-LD (ItemList / CollectionPage)
-   Wird in product_listing.html und products_category.html eingebunden
-   Stand: 2026 – Google ItemList konform
+   MRH 2026 – Schema.org JSON-LD (CollectionPage)
+   Wird in samen_shop.html (Kategorie-Listing) eingebunden
+   Stand: 2026-04-24 – Google CollectionPage konform
+   Smarty-Variablen: $CATEGORIES_HEADING_TITLE, $CATEGORIES_NAME,
+                     $CATEGORIES_DESCRIPTION, $CATEGORIES_IMAGE
+   Hinweis: $PRODUCTS_LIST ist im modified-Shop nicht verfuegbar,
+            daher wird nur CollectionPage ohne ItemList generiert.
+            ItemList kann spaeter per PHP-Autoinclude ergaenzt werden.
    ===================================================================== *}
-{if isset($PRODUCTS_LIST) && count($PRODUCTS_LIST) > 0}
+{if isset($CATEGORIES_NAME) || isset($CATEGORIES_HEADING_TITLE)}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "{$HEADING_TITLE|default:$CATEGORIES_NAME|onlytext|escape:'javascript'}",
-  {if isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
+  "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|onlytext|escape:'javascript'}{else}{$CATEGORIES_NAME|onlytext|escape:'javascript'}{/if}",
+  {if !empty($CATEGORIES_DESCRIPTION)}
   "description": "{$CATEGORIES_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
+  {elseif !empty($CATEGORIES_SHORT_DESCRIPTION)}
+  "description": "{$CATEGORIES_SHORT_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
   {/if}
+  {if !empty($CATEGORIES_IMAGE)}
+  "image": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}{$CATEGORIES_IMAGE}",
+  {/if}
+  "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.server.REQUEST_URI|default:''}",
+  "isPartOf": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#website"
+  {rdelim},
   "mainEntity": {ldelim}
     "@type": "ItemList",
-    "numberOfItems": {$PRODUCTS_LIST|count},
-    "itemListElement": [
-      {foreach name=schlist item=sl from=$PRODUCTS_LIST}
-        {ldelim}
-          "@type": "ListItem",
-          "position": {$smarty.foreach.schlist.iteration},
-          "url": "{$sl.PRODUCTS_LINK}",
-          "name": "{$sl.PRODUCTS_NAME|onlytext|escape:'javascript'}"
-          {if isset($sl.PRODUCTS_IMAGE) && $sl.PRODUCTS_IMAGE != ''}
-          ,"image": "{$sl.PRODUCTS_IMAGE}"
-          {/if}
-        {rdelim}{if !$smarty.foreach.schlist.last},{/if}
-      {/foreach}
-    ]
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|onlytext|escape:'javascript'}{else}{$CATEGORIES_NAME|onlytext|escape:'javascript'}{/if}"
   {rdelim}
 {rdelim}
 </script>
