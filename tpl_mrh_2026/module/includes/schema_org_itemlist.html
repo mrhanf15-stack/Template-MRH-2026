@@ -3,7 +3,7 @@
    Wird in product_listing.html und products_category.html eingebunden
    Stand: 2026 – Google ItemList konform
    ===================================================================== *}
-{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($PRODUCTS_LIST) && count($PRODUCTS_LIST) > 0}
+{if isset($PRODUCTS_LIST) && count($PRODUCTS_LIST) > 0}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",

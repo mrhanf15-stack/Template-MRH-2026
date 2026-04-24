@@ -3,7 +3,7 @@
    Wird in faq_manager.html eingebunden
    Stand: 2026 – Google FAQPage konform
    ===================================================================== *}
-{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($FAQ_ITEMS) && count($FAQ_ITEMS) > 0}
+{if isset($FAQ_ITEMS) && count($FAQ_ITEMS) > 0}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",

@@ -3,7 +3,7 @@
    Wird auf Hersteller/Markenseiten eingebunden
    Stand: 2026 – Google Brand konform
    ===================================================================== *}
-{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($MANUFACTURER_NAME) && $MANUFACTURER_NAME != ''}
+{if isset($MANUFACTURER_NAME) && $MANUFACTURER_NAME != ''}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",

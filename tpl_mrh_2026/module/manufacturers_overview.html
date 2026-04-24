@@ -3,7 +3,7 @@
 {config_load file="lang_`$language`.section" section="manufacturers_overview"}
 {* MRH 2026: Hersteller-Übersicht – BS5.3 *}
 {* === Schema.org JSON-LD (Brand-Liste) === *}
-{if $smarty.const.MRH_SCHEMA_ORG == 'true' && isset($MANUFACTURERS) && count($MANUFACTURERS) > 0}
+{if isset($MANUFACTURERS) && count($MANUFACTURERS) > 0}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
