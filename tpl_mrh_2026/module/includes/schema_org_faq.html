@@ -3,6 +3,8 @@
    Wird in faq_manager.html eingebunden.
    Smarty-Variablen: $FAQ_TREE (Baumstruktur), $FAQ_CATEGORIES (Items)
    Jedes Item: $FAQS_ITEM.question, $FAQS_ITEM.answer
+   Hinweis: Antworten koennen HTML enthalten (Links, Formatierung).
+   strip_tags + regex_replace entfernt alle Tags zuverlaessig.
    Stand: 2026-04-24 – Google FAQPage konform
    ===================================================================== *}
 {if isset($FAQ_TREE) && isset($FAQ_CATEGORIES)}
@@ -25,10 +27,10 @@
           {assign var="mrh_faq_first" value=false}
           {ldelim}
             "@type": "Question",
-            "name": "{$SCH_ITEM.question|strip_tags|escape:'javascript'}",
+            "name": "{$SCH_ITEM.question|regex_replace:'/<[^>]*>/':''|escape:'javascript'}",
             "acceptedAnswer": {ldelim}
               "@type": "Answer",
-              "text": "{$SCH_ITEM.answer|strip_tags|escape:'javascript'}"
+              "text": "{$SCH_ITEM.answer|regex_replace:'/<[^>]*>/':''|regex_replace:'/&[a-zA-Z]+;/':' '|escape:'javascript'}"
             {rdelim}
           {rdelim}
         {/foreach}
@@ -42,10 +44,10 @@
               {assign var="mrh_faq_first" value=false}
               {ldelim}
                 "@type": "Question",
-                "name": "{$SCH_ITEM.question|strip_tags|escape:'javascript'}",
+                "name": "{$SCH_ITEM.question|regex_replace:'/<[^>]*>/':''|escape:'javascript'}",
                 "acceptedAnswer": {ldelim}
                   "@type": "Answer",
-                  "text": "{$SCH_ITEM.answer|strip_tags|escape:'javascript'}"
+                  "text": "{$SCH_ITEM.answer|regex_replace:'/<[^>]*>/':''|regex_replace:'/&[a-zA-Z]+;/':' '|escape:'javascript'}"
                 {rdelim}
               {rdelim}
             {/foreach}
