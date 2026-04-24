@@ -844,13 +844,13 @@ footer .box3_header {
   margin-bottom: 16px;
 }
 footer a {
-  color: var(--tpl-footer-link-color, rgb(173, 181, 189));
-  text-decoration: var(--tpl-footer-link-decoration, none);
+  color: var(--tpl-footer-link-color, rgb(173, 181, 189)) !important;
+  text-decoration: var(--tpl-footer-link-decoration, none) !important;
   transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 footer a:hover {
-  color: var(--tpl-footer-link-hover, rgb(255, 255, 255));
-  text-decoration: var(--tpl-footer-link-hover-decoration, underline);
+  color: var(--tpl-footer-link-hover, rgb(255, 255, 255)) !important;
+  text-decoration: var(--tpl-footer-link-hover-decoration, underline) !important;
 }
 footer hr,
 footer .footer-divider {
