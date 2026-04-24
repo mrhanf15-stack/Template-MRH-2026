@@ -1,4 +1,8 @@
-{* MRH 2026: Breadcrumb – Schema.org BreadcrumbList, BS5.3, barrierefrei *}
+{* =====================================================================
+   MRH 2026: Breadcrumb – Schema.org BreadcrumbList JSON-LD + BS5.3
+   Smarty-Variable: $TRAIL (Array mit title, link pro Ebene)
+   Stand: 2026-04-24 – Google BreadcrumbList konform
+   ===================================================================== *}
 {if isset($TRAIL) && count($TRAIL) > 0}
   <ol class="breadcrumb mb-0">
     {foreach name=aussen item=breadcrumb from=$TRAIL}
@@ -11,4 +15,20 @@
       </li>
     {/foreach}
   </ol>
+  <script type="application/ld+json">
+  {ldelim}
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {foreach name=bc_schema item=bc_item from=$TRAIL}
+      {ldelim}
+        "@type": "ListItem",
+        "position": {$smarty.foreach.bc_schema.iteration},
+        "name": "{$bc_item.title|onlytext|escape:'javascript'}"{if $bc_item.link != ''},
+        "item": "{$bc_item.link}"{/if}
+      {rdelim}{if !$smarty.foreach.bc_schema.last},{/if}
+      {/foreach}
+    ]
+  {rdelim}
+  </script>
 {/if}
