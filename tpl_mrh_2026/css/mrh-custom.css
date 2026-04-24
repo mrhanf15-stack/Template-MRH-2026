@@ -8276,3 +8276,8 @@ html.mrh-smooth-scroll {
 #mrhPopupModal .modal-body a:hover {
   color: #556b1e;
 }
+
+/* ── Medical Icon Override (inline style) ─────────────── */
+.fa-medkit {
+  color: #fff !important;
+}
