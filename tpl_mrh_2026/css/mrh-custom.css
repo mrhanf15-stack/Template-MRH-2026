@@ -921,8 +921,11 @@ blockquote p,
   margin-bottom: 0.5rem;
 }
 blockquote footer,
+blockquote .blockquote-footer,
 .blockquote footer,
-.blockquote-footer {
+.blockquote .blockquote-footer,
+footer.blockquote-footer {
+  background: transparent !important;
   background-color: transparent !important;
   color: var(--tpl-bq-footer-text, rgb(108, 117, 125)) !important;
   font-size: 0.875em !important;
@@ -932,14 +935,20 @@ blockquote footer,
   border-left: none !important;
 }
 blockquote footer cite,
-.blockquote-footer cite {
+blockquote .blockquote-footer cite,
+footer.blockquote-footer cite {
   font-style: italic;
   color: inherit !important;
 }
 blockquote footer .text-gelb,
+blockquote .blockquote-footer .text-gelb {
+  color: var(--tpl-text-gelb, rgb(255, 193, 7)) !important;
+}
 blockquote footer .text-muted,
-blockquote footer small {
-  color: inherit;
+blockquote .blockquote-footer .text-muted,
+blockquote footer small,
+blockquote .blockquote-footer small {
+  color: var(--tpl-bq-footer-text, rgb(108, 117, 125)) !important;
 }
 /* --- Custom-Klasse .text-gelb (Sterne etc.) --- */
 .text-gelb {
