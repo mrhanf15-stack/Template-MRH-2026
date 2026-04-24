@@ -97,7 +97,13 @@ var FIETZ_ACCESSIBILITY_CONFIG = {
         '.mrh-subcategories a'
     ],
 
+    // Master switch for automatic contrast correction
+    // Set to false to completely disable automatic contrast correction
+    // (Template colors are managed via the Konfigurator and should not be overridden)
+    autoContrastCheck: false,
+
     // Elements excluded from automatic contrast correction (CSS selectors)
+    // Only relevant when autoContrastCheck is true
     // Elements matching these selectors will keep their original colors
     excludeFromContrastCheck: [
         '.box3_header',
@@ -3043,6 +3049,14 @@ if (threshold != ''){
      * Sets up automatic processing and monitoring for contrast issues
      */
     function initContrastEnhancement() {
+        // Master switch: skip all contrast processing if disabled
+        if (FIETZ_ACCESSIBILITY_CONFIG.autoContrastCheck === false) {
+            if (FIETZ_ACCESSIBILITY_CONFIG.debugMode) {
+                console.log('FAW: Automatic contrast correction is disabled via autoContrastCheck: false');
+            }
+            return;
+        }
+
         // Check if we should automatically enable WCAG AAA mode based on accessibility settings
         if (FIETZ_ACCESSIBILITY_CONFIG.autoUpgradeToAAA) {
             var currentSettings = loadSettings(true);
