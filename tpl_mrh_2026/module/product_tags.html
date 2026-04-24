@@ -1,45 +1,224 @@
-{if isset($module_content)}
-  {config_load file="$language/lang_$language.conf" section="reviews"}
-  {config_load file="lang_`$language`.custom"}
-  {config_load file="lang_`$language`.section" section="product_tags"}
-  {* MRH 2026: Produkteigenschaften/Tags – BS5.3 *}
-  <h2 class="h5 mb-3">{#heading_products_tags#}</h2>
-  <div class="row g-3">
-    {foreach name=aussen item=module_data from=$module_content}
-      <div class="col-md-3 col-sm-6">
-        <div class="card h-100">
-          <div class="card-body d-flex flex-column">
-            <h3 class="h6 text-center mb-3">
-              {if $module_data.OPTIONS_CONTENT_LINK != ''}
-                <span>{if $module_data.OPTIONS_DESCRIPTION != ''}<abbr title="{$module_data.OPTIONS_DESCRIPTION}">{/if}{$module_data.OPTIONS_NAME}{if $module_data.OPTIONS_DESCRIPTION != ''}</abbr>{/if}</span>
-                {if $module_data.OPTIONS_DESCRIPTION != ''}
-                  <a class="iframe ms-1" title="{$module_data.OPTIONS_NAME|onlytext}" href="{$module_data.OPTIONS_CONTENT_LINK}"><span class="fa fa-info-circle" aria-hidden="true"></span></a>
-                {/if}
-              {else}
-                <span{if $module_data.OPTIONS_DESCRIPTION != ''} data-bs-toggle="tooltip" title="{$module_data.OPTIONS_DESCRIPTION}"{/if}>{$module_data.OPTIONS_NAME}</span>
+{*
+  MRH 2026 – Produkt-Tags / Produkteigenschaften (product_tags.html)
+  ═══════════════════════════════════════════════════════════════
+  Modified eCommerce 3.3.0 | Bootstrap 5.3 | Vanilla JS
+  Kein jQuery
+
+  v2.2.0 – Slider-Button-Fix + Truncate entfernt:
+    - Slider-Buttons innerhalb der Card (nicht mehr abgeschnitten)
+    - Card-Body mit extra Padding für Button-Platz
+    - overflow:visible auf .mrh-tag-slider für sichtbare Buttons
+    - Alle truncate-Filter entfernt: Beschreibungen in voller Länge
+    - text-truncate Klassen entfernt
+
+  v2.1.0 – Slider-Fix + Sprachvariablen:
+    - Slider: overflow-x:auto statt overflow:hidden, versteckte Scrollbar
+    - Alle Texte über Sprachvariablen (product_tags.conf in DE/EN/FR/ES)
+    - Slider-JS: scrollLeft-Tracking verbessert, Button-Logik robuster
+
+  v2.0.0 – 3-Tier-Layout sortiert nach Bildanzahl:
+    GROSS (5+ Bilder): Volle Breite, Slider mit 4 sichtbaren Bildern
+    MITTEL (2-4 Bilder): 2 Spalten, alle Bilder sichtbar
+    KLEIN (1 Bild): Kompakte Zeile, 2 Spalten
+
+  Dynamisch: Neue Tags erscheinen automatisch an der richtigen Position.
+  Beschreibungen werden direkt angezeigt (nicht nur Tooltip).
+
+  Stand: 2026-04-16
+*}
+
+{config_load file="$language/lang_$language.conf" section="reviews"}
+{config_load file="lang_`$language`.custom"}
+{config_load file="$language/product_tags.conf" section="product_tags"}
+
+{if isset($module_content) && count($module_content) > 0}
+
+{* ══════════════════════════════════════════════════════════════
+   SORTIERUNG: Tags nach Bildanzahl gruppieren (Smarty-Logik)
+   ══════════════════════════════════════════════════════════════ *}
+{assign var="tags_large" value=array()}
+{assign var="tags_medium" value=array()}
+{assign var="tags_small" value=array()}
+
+{foreach name=sort item=module_data key=opt_id from=$module_content}
+  {assign var="img_count" value=0}
+  {foreach name=cnt item=val from=$module_data.DATA}
+    {if $val.VALUES_IMAGE != ''}{assign var="img_count" value=$img_count+1}{/if}
+  {/foreach}
+  {if $img_count >= 5}
+    {append var="tags_large" value=$module_data}
+  {elseif $img_count >= 2}
+    {append var="tags_medium" value=$module_data}
+  {else}
+    {append var="tags_small" value=$module_data}
+  {/if}
+{/foreach}
+
+<section class="mrh-product-tags my-4">
+  <h3 class="h5 fw-bold mb-3">
+    <span class="fa fa-tags me-2 text-success"></span>{#heading_products_tags#|default:'Produkteigenschaften'}
+  </h3>
+
+  {* ══════════════════════════════════════════════════════════════
+     TIER 1 – GROSS (5+ Bilder): Volle Breite mit Slider
+     ══════════════════════════════════════════════════════════════ *}
+  {if count($tags_large) > 0}
+    {foreach name=lg item=tag_data from=$tags_large}
+      <div class="mrh-tag-card mrh-tag-card--large card mb-3">
+        <div class="card-body">
+          {* Titel + Badge *}
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="card-title fw-bold mb-0">
+              {$tag_data.OPTIONS_NAME}
+              {if $tag_data.OPTIONS_DESCRIPTION != ''}
+                <span class="fa fa-info-circle ms-1 text-muted small"
+                      data-bs-toggle="tooltip" data-bs-placement="top"
+                      title="{$tag_data.OPTIONS_DESCRIPTION|strip_tags}"></span>
               {/if}
-            </h3>
-            <div class="text-center flex-grow-1 d-flex flex-column justify-content-center">
-              <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
-                {foreach name=inner item=item_data from=$module_data.DATA}
+            </h6>
+            <span class="badge bg-success bg-opacity-10 small">
+              {$tag_data.DATA|@count} {if $tag_data.DATA|@count == 1}{#tags_value_singular#|default:'Wert'}{else}{#tags_value_plural#|default:'Werte'}{/if}
+            </span>
+          </div>
+
+          {* Slider-Container *}
+          <div class="mrh-tag-slider position-relative" data-mrh-slider="true">
+            <div class="mrh-tag-slider__track d-flex gap-3">
+              {foreach name=val item=item_data from=$tag_data.DATA}
+                <div class="mrh-tag-slider__item flex-shrink-0 text-center" style="width: calc(25% - 0.75rem);">
                   {if $item_data.VALUES_IMAGE != ''}
-                    <div>
+                    <div class="mrh-tag-img-wrap mb-2">
                       {if $item_data.VALUES_CONTENT_LINK != ''}
-                        <a class="iframe" href="{$item_data.VALUES_CONTENT_LINK}" title="{$item_data.VALUES_NAME|onlytext}">
-                          <img class="img-fluid rounded" src="{$item_data.VALUES_IMAGE}" alt="{$item_data.VALUES_NAME|onlytext}"{if $item_data.VALUES_DESCRIPTION != ''} data-bs-toggle="tooltip" title="{$item_data.VALUES_DESCRIPTION}"{/if} style="max-height:90px;width:auto" loading="lazy">
+                        <a class="iframe" target="_blank" href="{$item_data.VALUES_CONTENT_LINK}"
+                           title="{$item_data.VALUES_NAME|onlytext}">
+                          <img src="{$item_data.VALUES_IMAGE}"
+                               alt="{$item_data.VALUES_NAME|onlytext}"
+                               class="img-fluid rounded"
+                               loading="lazy"
+                               style="max-height: 90px; object-fit: contain;" />
                         </a>
                       {else}
-                        <img class="img-fluid rounded" src="{$item_data.VALUES_IMAGE}" alt="{$item_data.VALUES_NAME|onlytext}"{if $item_data.VALUES_DESCRIPTION != ''} data-bs-toggle="tooltip" title="{$item_data.VALUES_DESCRIPTION}"{/if} style="max-height:90px;width:auto" loading="lazy">
+                        <img src="{$item_data.VALUES_IMAGE}"
+                             alt="{$item_data.VALUES_NAME|onlytext}"
+                             class="img-fluid rounded"
+                             loading="lazy"
+                             style="max-height: 90px; object-fit: contain;" />
                       {/if}
                     </div>
-                  {else}
-                    <div>
-                      <span class="badge text-bg-light p-2">
-                        {if $item_data.VALUES_DESCRIPTION != ''}<abbr title="{$item_data.VALUES_DESCRIPTION}">{/if}{$item_data.VALUES_NAME}{if $item_data.VALUES_DESCRIPTION != ''}</abbr>{/if}
-                      </span>
-                      {if $item_data.VALUES_CONTENT_LINK != ''}
-                        <a class="iframe ms-1" title="{$item_data.VALUES_NAME|onlytext}" href="{$item_data.VALUES_CONTENT_LINK}"><span class="fa fa-info-circle" aria-hidden="true"></span></a>
-                      {/if}
+                  {/if}
+                  <div class="small fw-semibold">{$item_data.VALUES_NAME}</div>
+                  {if $item_data.VALUES_DESCRIPTION != ''}
+                    <div class="small text-muted mt-1" style="font-size: 0.75rem; line-height: 1.3;">
+                      {$item_data.VALUES_DESCRIPTION|strip_tags}
+                    </div>
+                  {/if}
+                </div>
+              {/foreach}
+            </div>
+
+            {* Slider-Pfeile (nur wenn mehr als 4 Items) *}
+            {if $tag_data.DATA|@count > 4}
+              <button type="button" class="mrh-tag-slider__btn mrh-tag-slider__btn--prev"
+                      aria-label="{#tags_slider_prev#|default:'Zurück'}" style="display:none;">
+                <span class="fa fa-chevron-left"></span>
+              </button>
+              <button type="button" class="mrh-tag-slider__btn mrh-tag-slider__btn--next"
+                      aria-label="{#tags_slider_next#|default:'Weiter'}">
+                <span class="fa fa-chevron-right"></span>
+              </button>
+            {/if}
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  {/if}
+
+  {* ══════════════════════════════════════════════════════════════
+     TIER 2 – MITTEL (2-4 Bilder): 2 Spalten, alle Bilder sichtbar
+     ══════════════════════════════════════════════════════════════ *}
+  {if count($tags_medium) > 0}
+    <div class="row g-3 mb-3">
+      {foreach name=md item=tag_data from=$tags_medium}
+        <div class="col-12 col-md-6">
+          <div class="mrh-tag-card mrh-tag-card--medium card h-100">
+            <div class="card-body">
+              <h6 class="card-title fw-bold mb-2">
+                {$tag_data.OPTIONS_NAME}
+                {if $tag_data.OPTIONS_DESCRIPTION != ''}
+                  <span class="fa fa-info-circle ms-1 text-muted small"
+                        data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="{$tag_data.OPTIONS_DESCRIPTION|strip_tags}"></span>
+                {/if}
+              </h6>
+              <div class="d-flex flex-wrap gap-3">
+                {foreach name=val item=item_data from=$tag_data.DATA}
+                  <div class="mrh-tag-item text-center" style="min-width: 80px; max-width: 120px;">
+                    {if $item_data.VALUES_IMAGE != ''}
+                      <div class="mrh-tag-img-wrap mb-1">
+                        {if $item_data.VALUES_CONTENT_LINK != ''}
+                          <a class="iframe" target="_blank" href="{$item_data.VALUES_CONTENT_LINK}"
+                             title="{$item_data.VALUES_NAME|onlytext}">
+                            <img src="{$item_data.VALUES_IMAGE}"
+                                 alt="{$item_data.VALUES_NAME|onlytext}"
+                                 class="img-fluid rounded"
+                                 loading="lazy"
+                                 style="max-height: 70px; object-fit: contain;" />
+                          </a>
+                        {else}
+                          <img src="{$item_data.VALUES_IMAGE}"
+                               alt="{$item_data.VALUES_NAME|onlytext}"
+                               class="img-fluid rounded"
+                               loading="lazy"
+                               style="max-height: 70px; object-fit: contain;" />
+                        {/if}
+                      </div>
+                    {/if}
+                    <div class="small fw-semibold">{$item_data.VALUES_NAME}</div>
+                    {if $item_data.VALUES_DESCRIPTION != ''}
+                      <div class="small text-muted" style="font-size: 0.7rem; line-height: 1.2;">
+                        {$item_data.VALUES_DESCRIPTION|strip_tags}
+                      </div>
+                    {/if}
+                  </div>
+                {/foreach}
+              </div>
+            </div>
+          </div>
+        </div>
+      {/foreach}
+    </div>
+  {/if}
+
+  {* ══════════════════════════════════════════════════════════════
+     TIER 3 – KLEIN (0-1 Bild): Kompakte Zeilen, 2 Spalten
+     ══════════════════════════════════════════════════════════════ *}
+  {if count($tags_small) > 0}
+    <div class="row g-2">
+      {foreach name=sm item=tag_data from=$tags_small}
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="mrh-tag-card mrh-tag-card--small card h-100">
+            <div class="card-body p-2 d-flex align-items-center gap-2">
+              {* Einzelnes Bild (falls vorhanden) *}
+              {foreach name=val item=item_data from=$tag_data.DATA}
+                {if $item_data.VALUES_IMAGE != ''}
+                  <div class="mrh-tag-img-wrap flex-shrink-0">
+                    <img src="{$item_data.VALUES_IMAGE}"
+                         alt="{$item_data.VALUES_NAME|onlytext}"
+                         class="rounded"
+                         loading="lazy"
+                         style="width: 48px; height: 48px; object-fit: contain;" />
+                  </div>
+                {/if}
+              {/foreach}
+
+              {* Text-Info *}
+              <div class="flex-grow-1 min-width-0">
+                <div class="small fw-bold">{$tag_data.OPTIONS_NAME}</div>
+                {foreach name=val item=item_data from=$tag_data.DATA}
+                  <div class="small text-muted">{$item_data.VALUES_NAME}</div>
+                  {if $item_data.VALUES_DESCRIPTION != ''}
+                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1.2;">
+                      {$item_data.VALUES_DESCRIPTION|strip_tags}
                     </div>
                   {/if}
                 {/foreach}
@@ -47,7 +226,227 @@
             </div>
           </div>
         </div>
-      </div>
-    {/foreach}
-  </div>
+      {/foreach}
+    </div>
+  {/if}
+
+</section>
+
+{* ══════════════════════════════════════════════════════════════
+   STYLES – Tag-Karten und Slider (v2.1.0 – Slider-Fix)
+   ══════════════════════════════════════════════════════════════ *}
+<style>
+/* ── Tag Cards ── */
+.mrh-product-tags .card {
+  border: 1px solid var(--mrh-border, #E2E8F0);
+  border-radius: var(--mrh-radius, 0.5rem);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.mrh-product-tags .card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+/* ── Large Card ── */
+.mrh-tag-card--large {
+  background: linear-gradient(135deg, #f8faf8 0%, #ffffff 100%);
+}
+
+/* ── Slider (v2.2.0 FIX) ── */
+.mrh-tag-slider {
+  overflow: visible; /* Buttons dürfen aus dem Container ragen */
+  position: relative;
+}
+.mrh-tag-slider__track {
+  overflow-x: auto;  /* MUSS auto/scroll sein damit scrollLeft funktioniert */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Scrollbar verstecken */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.mrh-tag-slider__track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+/* Card-Body braucht extra Padding damit Buttons nicht abgeschnitten werden */
+.mrh-tag-card--large .card-body {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  overflow: visible;
+}
+.mrh-tag-card--large {
+  overflow: visible; /* Card darf Buttons nicht clippen */
+}
+
+.mrh-tag-slider__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--mrh-border, #E2E8F0);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  color: var(--mrh-slate, #64748B);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+.mrh-tag-slider__btn:hover {
+  background: var(--mrh-green, #16A34A);
+  color: #fff;
+  border-color: var(--mrh-green, #16A34A);
+}
+.mrh-tag-slider__btn--prev { left: -16px; }
+.mrh-tag-slider__btn--next { right: -16px; }
+
+/* ── Tag Images ── */
+.mrh-tag-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+.mrh-tag-img-wrap img {
+  transition: transform 0.2s ease;
+}
+.mrh-tag-img-wrap:hover img {
+  transform: scale(1.08);
+}
+
+/* ── Small Card ── */
+.mrh-tag-card--small .card-body {
+  min-height: 64px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 575.98px) {
+  .mrh-tag-slider__item {
+    width: calc(50% - 0.5rem) !important;
+  }
+  .mrh-tag-slider__btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.65rem;
+  }
+  .mrh-tag-slider__btn--prev { left: -8px; }
+  .mrh-tag-slider__btn--next { right: -8px; }
+}
+
+@media (max-width: 767.98px) {
+  .mrh-tag-card--medium .mrh-tag-item {
+    min-width: 60px;
+    max-width: 90px;
+  }
+}
+</style>
+
+{* ══════════════════════════════════════════════════════════════
+   SCRIPT – Slider + Tooltips (Vanilla JS, v2.1.0 – Fix)
+   ══════════════════════════════════════════════════════════════ *}
+<script>
+(function() {
+  'use strict';
+
+  /* ── Tooltips initialisieren ── */
+  var tooltipTriggerList = document.querySelectorAll('.mrh-product-tags [data-bs-toggle="tooltip"]');
+  tooltipTriggerList.forEach(function(el) {
+    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+      new bootstrap.Tooltip(el);
+    }
+  });
+
+  /* ── Slider-Logik (v2.1.0) ── */
+  var sliders = document.querySelectorAll('[data-mrh-slider="true"]');
+  sliders.forEach(function(slider) {
+    var track = slider.querySelector('.mrh-tag-slider__track');
+    var prevBtn = slider.querySelector('.mrh-tag-slider__btn--prev');
+    var nextBtn = slider.querySelector('.mrh-tag-slider__btn--next');
+    if (!track) return;
+
+    var visibleItems = 4;
+
+    function getItemWidth() {
+      var firstItem = track.querySelector('.mrh-tag-slider__item');
+      if (!firstItem) return 200;
+      /* offsetWidth + gap (12px aus gap-3) */
+      return firstItem.offsetWidth + 12;
+    }
+
+    function isMobile() {
+      return window.innerWidth < 576;
+    }
+
+    function updateButtons() {
+      var maxScroll = track.scrollWidth - track.clientWidth;
+      if (maxScroll <= 5) {
+        /* Kein Scrollen noetig – beide Buttons verstecken */
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        return;
+      }
+      var pos = Math.round(track.scrollLeft);
+      if (prevBtn) prevBtn.style.display = pos > 5 ? '' : 'none';
+      if (nextBtn) nextBtn.style.display = pos < maxScroll - 5 ? '' : 'none';
+    }
+
+    function scrollBy(direction) {
+      var itemW = getItemWidth();
+      var step = isMobile() ? 2 : visibleItems;
+      var delta = direction * itemW * step;
+      track.scrollBy({ left: delta, behavior: 'smooth' });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollBy(1);
+      });
+    }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollBy(-1);
+      });
+    }
+
+    /* Touch-Swipe fuer Mobile */
+    var touchStartX = 0;
+    track.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var diff = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        scrollBy(diff < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    /* Scroll-Event tracken fuer Button-Updates */
+    var scrollTimer;
+    track.addEventListener('scroll', function() {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(updateButtons, 50);
+    }, { passive: true });
+
+    /* Initial: Buttons nach kurzer Verzoegerung aktualisieren (Bilder muessen laden) */
+    setTimeout(updateButtons, 300);
+
+    /* Resize */
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateButtons, 200);
+    }, { passive: true });
+  });
+})();
+</script>
 {/if}
