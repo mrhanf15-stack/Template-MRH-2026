@@ -1,10 +1,10 @@
 <?php
 /* =====================================================================
    MRH 2026 Template – Konfigurator Panel v4.0
-   
+
    Wird eingebunden via source/boxes/admin.php
    Benötigt: admin/includes/mrh_configurator.php (PHP-Backend)
-   
+
    v4.0 (2026-04-10): Komplett-Umbau auf 8-Tab-Layout
      1. Allgemein    – Grundfarben, Hintergrund, Schrift, Footer, Topbar
      2. Navigation   – Menü, Sticky Header
@@ -20,7 +20,7 @@
     10. Badges       – Produkt-Typ-Badges: Farbe, Groesse, Rundung, Hover, Umrandung
    v4.3 (2026-04-16): Tab 12 Blog-Konfigurator hinzugefuegt
     12. Blog         – Post-Cards, Kategorie-Cards, Badges, Buttons, Einzelansicht
-   
+
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
    ===================================================================== */
 
@@ -864,7 +864,7 @@ foreach ($alert_variants as $variant) {
         </div>
     </div>
 
-    
+
     <div class="row mt-4">
         <div class="col-12">
             <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Warenkorb speichern">
@@ -1694,7 +1694,7 @@ foreach ($alert_variants as $variant) {
         </div>
     </div>
 
-    
+
     <div class="row mt-4">
         <div class="col-12">
             <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Seedfinder Modal speichern">
@@ -4064,13 +4064,13 @@ foreach ($alert_variants as $variant) {
     <!-- Live-Vorschau -->
     <div class="mrh-icon-preview-box">
         <div class="mrh-preview-title"><i class="fa fa-eye me-1"></i> Live-Vorschau</div>
-        
+
         <div style="font-size:11px;font-weight:600;color:#888;margin-bottom:4px;">Buttons:</div>
         <div class="mrh-icon-preview-row" id="mrh-preview-buttons"></div>
-        
+
         <div style="font-size:11px;font-weight:600;color:#888;margin:8px 0 4px;">Navigation:</div>
         <div class="mrh-icon-preview-nav" id="mrh-preview-nav"></div>
-        
+
         <div style="font-size:11px;font-weight:600;color:#888;margin:8px 0 4px;">Bewertungen &amp; Status:</div>
         <div class="mrh-icon-preview-status" id="mrh-preview-status"></div>
     </div>
@@ -4227,7 +4227,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
                 var card = document.createElement('div');
                 card.className = 'mrh-icon-card';
                 card.setAttribute('data-icon-key', item.key);
-                card.innerHTML = 
+                card.innerHTML =
                     '<div class="mrh-ic-preview"><i class="' + prefix + ' ' + ic.class + '" style="' + colorStyle + sizeStyle + '"></i></div>' +
                     '<div class="mrh-ic-info">' +
                         '<div class="mrh-ic-label">' + (ic.label || item.key) + '</div>' +
@@ -4266,9 +4266,9 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
             var area = areas[areaKey];
             var isActive = area.enabled ? true : false;
             var overrideCount = area.overrides ? Object.keys(area.overrides).length : 0;
-            
+
             var areaDiv = document.createElement('div');
-            areaDiv.innerHTML = 
+            areaDiv.innerHTML =
                 '<div class="mrh-area-toggle' + (isActive ? ' active' : '') + '" onclick="mrhAreaToggle(this, \'' + areaKey + '\')">' +
                     '<input type="checkbox" ' + (isActive ? 'checked' : '') + ' style="margin:0;" onclick="event.stopPropagation();mrhAreaEnable(\'' + areaKey + '\', this.checked);">' +
                     '<span class="mrh-area-name">' + (area.label || areaKey) + '</span>' +
@@ -4316,7 +4316,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         var btnContainer = document.getElementById('mrh-preview-buttons');
         if (btnContainer) {
             var ic = icons;
-            btnContainer.innerHTML = 
+            btnContainer.innerHTML =
                 mrhPreviewBtn('cart', 'In den Warenkorb', ic['icon-cart']) +
                 mrhPreviewBtn('express', 'Schnellkauf', ic['icon-express']) +
                 mrhPreviewBtn('wishlist', 'Merkzettel', ic['icon-wishlist']) +
@@ -4326,7 +4326,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         // Navigation
         var navContainer = document.getElementById('mrh-preview-nav');
         if (navContainer) {
-            navContainer.innerHTML = 
+            navContainer.innerHTML =
                 mrhPreviewIcon(ic['icon-menu']) + '&nbsp;&nbsp;' +
                 mrhPreviewIcon(ic['icon-search']) + '&nbsp;&nbsp;' +
                 mrhPreviewIcon(ic['icon-account']) + '&nbsp;&nbsp;' +
@@ -4336,7 +4336,7 @@ $icons_json_safe = json_encode($icons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_Q
         // Status
         var statusContainer = document.getElementById('mrh-preview-status');
         if (statusContainer) {
-            statusContainer.innerHTML = 
+            statusContainer.innerHTML =
                 '<span>' + mrhPreviewIcon(ic['icon-star-full']) + mrhPreviewIcon(ic['icon-star-full']) + mrhPreviewIcon(ic['icon-star-full']) + mrhPreviewIcon(ic['icon-star-empty']) + mrhPreviewIcon(ic['icon-star-empty']) + '</span>' +
                 '<span>' + mrhPreviewIcon(ic['icon-success']) + ' Erfolg</span>' +
                 '<span>' + mrhPreviewIcon(ic['icon-warning']) + ' Warnung</span>' +
@@ -4922,4 +4922,3 @@ if (is_dir($snippetDir)) {
         }
     }
 })();
-</script>
