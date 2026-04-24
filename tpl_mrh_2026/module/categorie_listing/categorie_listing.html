@@ -51,3 +51,5 @@
 {elseif (!isset($CATEGORIES_SHORT_DESCRIPTION) || $CATEGORIES_SHORT_DESCRIPTION == '') && isset($CATEGORIES_DESCRIPTION) && $CATEGORIES_DESCRIPTION != ''}
   <div class="cat_description cf mt-4">{$CATEGORIES_DESCRIPTION}</div>
 {/if}
+{* ── Schema.org JSON-LD (CollectionPage) ── *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_itemlist.html"}
