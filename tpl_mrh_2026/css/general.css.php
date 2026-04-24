@@ -776,9 +776,12 @@ if (empty($json_a)) {
         'tpl-footer-heading-weight'       => '700',
         'tpl-footer-border-color'         => 'rgba(255,255,255,0.1)',
     ];
-    // Defaults oben werden sowieso gemergt, aber fuer Sicherheit hier auch setzen
+    // Defaults nur setzen wenn Key NICHT in colors.json vorhanden ist
+    // WICHTIG: NICHT bedingungslos ueberschreiben, sonst gehen gespeicherte Werte verloren!
     foreach ($defaults as $dk => $dv) {
-        $json_a[$dk] = $dv;
+        if (!isset($json_a[$dk]) || $json_a[$dk] === '') {
+            $json_a[$dk] = $dv;
+        }
     }
 }
 ?>
