@@ -5,9 +5,8 @@
    Enthaelt: E-E-A-T Author (Person), Speakable, dateModified, articleSection
    Smarty-Variablen: $NAME, $TITLE, $IMAGE, $DESCRIPTION, $DATE_ADDED,
                      $DATE_MODIFIED, $AUTHOR, $CATEGORIES_NAME, $CATEGORIES_LINK
-   Author: Peter Derzold (Hauptautor, Cannabis Journalist & Grow Expert)
-   Hinweis: $AUTHOR kommt aus blog_post.php (= STORE_OWNER). Das Schema
-   ueberschreibt dies mit dem echten Autornamen fuer E-E-A-T.
+   Author: Dynamisch aus blog_post.php – $AUTHOR, $AUTHOR_JOB, $AUTHOR_LINK
+   Peter Derzold (Standard) oder Damian Schreiner (Autoflowering-Posts).
    description: regex_replace entfernt <script>-Bloecke bevor strip_tags greift,
    damit eingebettetes JSON-LD im Blog-Content nicht in die description gelangt.
    ===================================================================== *}
@@ -41,9 +40,9 @@
   {/if}
   "author": {ldelim}
     "@type": "Person",
-    "name": "Peter Derzold",
-    "jobTitle": "Cannabis Journalist & Grow Expert",
-    "url": "{$smarty.const.HTTP_SERVER|default:''}/info/grow-expert-peter-derzold",
+    "name": "{$AUTHOR|escape:'javascript'}",
+    "jobTitle": "{$AUTHOR_JOB|escape:'javascript'}"{if !empty($AUTHOR_LINK)},
+    "url": "{$AUTHOR_LINK}"{/if},
     "worksFor": {ldelim}
       "@type": "Organization",
       "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
