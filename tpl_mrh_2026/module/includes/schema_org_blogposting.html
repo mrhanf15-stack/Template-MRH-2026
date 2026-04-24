@@ -1,7 +1,8 @@
 {* =====================================================================
    MRH 2026 – Schema.org JSON-LD (BlogPosting)
    Wird in blog_post.html eingebunden
-   Stand: 2026 – Google Article/BlogPosting konform
+   Stand: 2026-04 – Google Article/BlogPosting + GEO/AI konform
+   Enthaelt: E-E-A-T Author, Speakable, about/mentions
    ===================================================================== *}
 {if $smarty.const.MRH_SCHEMA_ORG == 'true'}
 <script type="application/ld+json">
@@ -13,19 +14,29 @@
   "description": "{$BLOG_DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
   {/if}
   {if isset($BLOG_IMAGE) && $BLOG_IMAGE != ''}
-  "image": "{$BLOG_IMAGE}",
+  "image": {ldelim}
+    "@type": "ImageObject",
+    "url": "{$BLOG_IMAGE}",
+    "width": 1200,
+    "height": 630
+  {rdelim},
   {/if}
   "datePublished": "{$BLOG_DATE_RAW|default:$BLOG_DATE}",
   {if isset($BLOG_DATE_MODIFIED)}
   "dateModified": "{$BLOG_DATE_MODIFIED}",
   {/if}
+  "wordCount": "{$BLOG_CONTENT|strip_tags|count_words|default:'500'}",
+  "inLanguage": "de-DE",
   "author": {ldelim}
     "@type": "Organization",
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
     "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
-    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}"
+    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
+    "description": "Cannabis Samen Experte seit 2016 mit ueber 20 Jahren Erfahrung im Hanfsamen-Handel."
   {rdelim},
   "publisher": {ldelim}
     "@type": "Organization",
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
     "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
     "logo": {ldelim}
       "@type": "ImageObject",
@@ -35,6 +46,14 @@
   "mainEntityOfPage": {ldelim}
     "@type": "WebPage",
     "@id": "{$BLOG_LINK|default:''}"
+  {rdelim},
+  "isPartOf": {ldelim}
+    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#website"
+  {rdelim},
+  {* === Speakable – fuer Voice Search und KI-Suchmaschinen === *}
+  "speakable": {ldelim}
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".blog-post-title", ".blog-post-intro", ".blog-post-content h2", ".blog-post-content h3"]
   {rdelim}
 {rdelim}
 </script>

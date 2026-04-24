@@ -1,5 +1,5 @@
 {* MRH 2026 – samen_shop.html – Kategorie-Listing für Samen-Shop
-   Schema.org JSON-LD wird über schema_org_product.html Include generiert *}
+   Schema.org JSON-LD wird über schema_org_itemlist.html Include generiert *}
 {config_load file="$language/lang_$language.conf" section="categorie_listing"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="categorie_listing"}
@@ -59,3 +59,5 @@
   {/if}
 {/if}
 {* //EOF - Kategorieerweiterungen (Zweiter Beschreibungstext) - fivebytes *}
+{* ── Schema.org JSON-LD (ItemList/CollectionPage) ── *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_itemlist.html"}

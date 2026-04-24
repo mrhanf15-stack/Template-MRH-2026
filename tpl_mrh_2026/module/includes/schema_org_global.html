@@ -1,8 +1,8 @@
 {* =====================================================================
    MRH 2026 – Schema.org JSON-LD (Global)
-   Wird in index.html eingebunden – generiert Organization, WebSite,
+   Wird in content_head.html eingebunden – generiert Organization, WebSite,
    SearchAction und MerchantReturnPolicy
-   Stand: 2026 – Google Merchant Listing konform
+   Stand: 2026-04 – Google Merchant Listing + GEO/AI konform
    ===================================================================== *}
 {if $smarty.const.MRH_SCHEMA_ORG == 'true'}
 
@@ -13,16 +13,30 @@
   "@type": "Organization",
   "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
   "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+  "alternateName": "Mr. Hanf - Cannabis Samen Experte",
   "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
   "logo": {ldelim}
     "@type": "ImageObject",
-    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO|default:'img/logo_head.png'}"
+    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO|default:'img/logo_head.png'}",
+    "width": 300,
+    "height": 300
+  {rdelim},
+  "description": "Mr. Hanf ist dein Cannabis Samen Experte seit 2016 mit ueber 20 Jahren Erfahrung. Ueber 7.500 Premium-Sorten von Top-Zuechtungen wie Sensi Seeds, Royal Queen Seeds und Dutch Passion.",
+  "foundingDate": "2016",
+  "address": {ldelim}
+    "@type": "PostalAddress",
+    "streetAddress": "Schulstrasse 5",
+    "addressLocality": "Hall in Tirol",
+    "postalCode": "6060",
+    "addressCountry": "AT"
   {rdelim},
   "contactPoint": [
     {ldelim}
       "@type": "ContactPoint",
+      "telephone": "+43-512-312-411",
       "contactType": "customer service",
-      "availableLanguage": ["German", "English", "French"],
+      "availableLanguage": ["German", "English", "French", "Spanish"],
+      "areaServed": ["AT", "DE", "CH", "EU"],
       "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}contact_us.php"
     {rdelim}
   ],
@@ -50,7 +64,10 @@
   "@type": "WebSite",
   "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#website",
   "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+  "alternateName": "Mr. Hanf Cannabis Samen Shop",
   "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
+  "description": "Cannabis Samen Experte seit 2016 – ueber 7.500 Premium-Sorten, weltweiter Versand, Expertenberatung.",
+  "inLanguage": "de-DE",
   "publisher": {ldelim}
     "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization"
   {rdelim},

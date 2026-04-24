@@ -311,7 +311,12 @@
 		{$box_NEWSLETTER}
 	{/if}
 
-	</main>	{include file="tpl_parts/footer.html"}
+	</main>
+
+	{* ── Schema.org JSON-LD (Global: Organization, WebSite, SearchAction) ── *}
+	{include file="module/includes/schema_org_global.html"}
+
+	{include file="tpl_parts/footer.html"}
 	
 </div>
 

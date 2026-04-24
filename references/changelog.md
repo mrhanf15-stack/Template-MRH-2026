@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-04-24 – Schema.org Phase 2: JSON-LD Includes aktiviert und modernisiert
+
+**Ziel:** Die vorhandenen, hochwertigen JSON-LD Include-Dateien wurden bisher nirgendwo per `{include}` aufgerufen. Ausserdem pruefte `schema_org_product.html` auf die nicht-existierende Konstante `MRH_SCHEMA_PRODUCT` statt `MRH_SCHEMA_ORG`. Alle Includes sind jetzt aktiv, modernisiert und GEO/AI-optimiert (Speakable, E-E-A-T, @id-Verknuepfungen).
+
+| Datei | Repo | Aenderung |
+|-------|------|----------|
+| `index.html` | Template-MRH-2026 | `{include schema_org_global.html}` vor Footer eingefuegt |
+| `module/categorie_listing/samen_shop.html` | Template-MRH-2026 | `{include schema_org_itemlist.html}` am Ende eingefuegt |
+| `module/includes/schema_org_global.html` | Template-MRH-2026 | Modernisiert: alternateName, description, foundingDate, address, telephone, areaServed, inLanguage |
+| `module/includes/schema_org_product.html` | Template-MRH-2026 | Fix: MRH_SCHEMA_PRODUCT → MRH_SCHEMA_ORG (Konstante existierte nicht) |
+| `module/includes/schema_org_blogposting.html` | Template-MRH-2026 | Modernisiert: Speakable, @id-Verknuepfungen, wordCount, inLanguage, isPartOf, image als ImageObject |
+
+**Bereits vorhandene Include-Aufrufe (aus Phase 1 beibehalten):**
+- `seeds_info.html` → `schema_org_product.html` ✓
+- `usa_STrain-patch.html` → `schema_org_product.html` ✓
+- `blog_post.html` → `schema_org_blogposting.html` ✓
+
+**Ergebnis:** Alle 6 JSON-LD Include-Dateien sind jetzt aktiv und werden auf den richtigen Seiten ausgegeben (Global auf jeder Seite, Product auf Produktseiten, BlogPosting auf Blog-Artikeln, ItemList auf Kategorie-Seiten).
+
 ## 2026-04-24 – Schema.org Phase 1: Microdata entfernt, nur JSON-LD Includes
 
 **Ziel:** Alten hardcodierten Schema-Code (Microdata-Attribute und veraltete JSON-LD Bloecke) aus den Haupt-Templates entfernen. Schema.org wird kuenftig ausschliesslich ueber die modularen JSON-LD Include-Dateien (`schema_org_product.html`, `schema_org_blogposting.html`) gesteuert. Das macht den Code sauber, wartbar und optimal fuer KI-Suchmaschinen (GEO).
