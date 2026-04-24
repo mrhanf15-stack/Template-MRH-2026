@@ -1,0 +1,55 @@
+{* =====================================================================
+   product_meta_rows.html – MRH 2026
+   Zeigt Hersteller, Artikelnr., EAN, Versandzeit, Rabatt, Ablaufdatum
+   und Hersteller-Modell als Tabellenzeilen an.
+   Wird NACH der Attribut-Tabelle ($mrh_mini_table) eingefuegt,
+   damit die Zeilen IN der bestehenden Tabelle erscheinen.
+   Schema.org: itemprop-Attribute fuer brand, sku, gtin integriert.
+   Stand: 2026-04-24
+   ===================================================================== *}
+<table class="tebals wite">
+  <tbody>
+    {if isset($MANUFACTURER) && $MANUFACTURER != ''}
+    <tr>
+      <td><span class="fw-bold">{#manufacturer#}</span></td>
+      <td><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}" itemprop="brand" itemscope itemtype="https://schema.org/Brand"><span itemprop="name">{$MANUFACTURER}</span></a></td>
+    </tr>
+    {/if}
+    {if $PRODUCTS_MODEL != ''}
+    <tr>
+      <td><span class="fw-bold">{#model#}</span></td>
+      <td><span itemprop="sku">{$PRODUCTS_MODEL}</span></td>
+    </tr>
+    {/if}
+    {if $PRODUCTS_EAN != ''}
+    <tr>
+      <td class="small"><span class="fw-bold">{#ean#}</span></td>
+      <td class="small"><span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></td>
+    </tr>
+    {/if}
+    {if $SHIPPING_NAME}
+    <tr>
+      <td><span class="fw-bold">{#text_shippingtime#}</span></td>
+      <td>{$SHIPPING_NAME_LINK}</td>
+    </tr>
+    {/if}
+    {if isset($PRODUCTS_DISCOUNT) && $PRODUCTS_DISCOUNT != ''}
+    <tr>
+      <td><span class="fw-bold">{#text_discount#}</span></td>
+      <td>{$PRODUCTS_DISCOUNT}</td>
+    </tr>
+    {/if}
+    {if $PRODUCTS_EXPIRES}
+    <tr>
+      <td><span class="fw-bold text-danger">{#text_expires_date#}</span></td>
+      <td><span class="fw-bold text-danger">{$PRODUCTS_EXPIRES}</span></td>
+    </tr>
+    {/if}
+    {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
+    <tr>
+      <td class="small"><span class="fw-bold">{#products_manufacturer_model#}</span></td>
+      <td class="small">{$PRODUCTS_MANUFACTURERS_MODEL}</td>
+    </tr>
+    {/if}
+  </tbody>
+</table>

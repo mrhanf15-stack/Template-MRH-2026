@@ -109,7 +109,10 @@
         <div class="mrh-detail-table mb-3">{$mrh_mini_table}</div>
       {/if}
 
-      {* ── Short Description + Art.Nr. + Lieferzeit (USA) ── *}
+      {* ── Hersteller / Art.Nr. / EAN / Versand (immer sichtbar) ── *}
+      {include file="module/includes/product_meta_rows.html"}
+
+      {* ── Short Description (nur wenn keine Attribute, USA) ── *}
       {if !isset($mrh_has_attrs) || !$mrh_has_attrs}
         {include file="module/includes/usa_list_shortdescription.html"}
       {/if}

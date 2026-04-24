@@ -249,6 +249,9 @@
         </div>
       {/if}
 
+      {* ── Hersteller / Art.Nr. / EAN / Versand (immer sichtbar) ── *}
+      {include file="module/includes/product_meta_rows.html"}
+
       {* ── Lagerbestand-Legende + Optionen ── *}
       {if isset($MODULE_product_options) && $MODULE_product_options != ''}
         {if $SHIPPING_NAME != 'ca. 2 Wochen' && $SHIPPING_NAME != 'approx. 2 weeks' && $SHIPPING_NAME != 'env. 2 semaines' && $SHIPPING_NAME != 'aprox. 2 semanas'}

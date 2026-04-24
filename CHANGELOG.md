@@ -299,3 +299,50 @@ Das FAQPage-Schema hatte ungültiges JSON, weil FAQ-Antworten in der Datenbank H
 | Über uns (/info/ueber-uns) | AboutPage + Organization + WebSite |
 | FAQs (/info/faqs) | FAQPage + Organization + WebSite |
 | Alle anderen /info/ Seiten | WebPage + Organization + WebSite |
+
+
+---
+
+## Phase 5: BlogPosting Author + Produkt-Detailtabelle (24. April 2026)
+
+### BlogPosting-Schema Überarbeitung
+
+Das BlogPosting-Schema wurde komplett überarbeitet. Der Author wurde von einer anonymen Organization auf eine echte Person umgestellt (E-E-A-T konform).
+
+| Feld | Vorher | Nachher |
+|------|--------|---------|
+| author @type | Organization ("MRH N-Trade GmbH") | **Person** ("Peter Derzold") |
+| author jobTitle | – | Cannabis Journalist & Grow Expert |
+| author url | – | /info/grow-expert-peter-derzold |
+| author worksFor | – | Organization-Referenz (@id) |
+| dateModified | Fehlte | `$DATE_MODIFIED.C` (ISO 8601) |
+| articleSection | Fehlte | `$CATEGORIES_NAME` |
+| description | `$DESCRIPTION` (enthielt HTML-Links + eingebettetes JSON-LD) | `$SHORT_DESCRIPTION` bevorzugt, Fallback mit `<script>`-Entfernung |
+| speakable | h3-Selektor verursachte ERROR | h3 entfernt |
+
+### Neues Include: `product_meta_rows.html`
+
+Neues Template-Include das Hersteller, Artikelnummer (SKU), EAN, Versandzeit, Rabatt und Ablaufdatum als Tabellenzeilen anzeigt. Wird **nach** der Attribut-Tabelle (`$mrh_mini_table`) eingefügt und ist **immer sichtbar** (unabhängig von `mrh_has_attrs`).
+
+Schema.org Microdata integriert: `itemprop="brand"` (Brand), `itemprop="sku"`, `itemprop="gtin{len}"`.
+
+### Eingebunden in alle 8 Produkt-Templates
+
+| Template | Zeile |
+|----------|-------|
+| `product_info.html` | 253 |
+| `product_info_v1.html` | 100 |
+| `product_info_v1-.html` | 100 |
+| `aaa_produkt_info.html` | 100 |
+| `non_seeds_info.html` | 99 |
+| `seeds_info.html` | 101 |
+| `seedling.html` | 98 |
+| `usa_STrain-patch.html` | 113 |
+
+### Commits
+
+| Commit | Beschreibung |
+|--------|-------------|
+| `ebf6bbf` | BlogPosting-Schema: Author Person (Peter Derzold), dateModified, articleSection |
+| `1ef7a18` | Speakable h3-Selektor entfernt |
+| (aktuell) | product_meta_rows.html Include + Einbindung in alle 8 Templates |
