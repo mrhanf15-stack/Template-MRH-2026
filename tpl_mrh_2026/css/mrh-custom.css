@@ -7508,9 +7508,12 @@ html.mrh-smooth-scroll {
 }
 
 /* ══ LIEFERLAND ══ */
+/* Bootstrap d-flex setzt display:flex!important – daher flex-direction statt display:block */
 #offcanvasSettings .box--shipping-country {
-  display: block !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
   padding: 0 !important;
+  gap: 0 !important;
 }
 /* Select + Button IMMER nebeneinander */
 #offcanvasSettings .shipping-country-selection-wrapper {
@@ -7570,9 +7573,12 @@ html.mrh-smooth-scroll {
 }
 
 /* ══ SPRACHEN ══ */
+/* Bootstrap d-flex setzt display:flex!important – daher flex-direction statt display:block */
 #offcanvasSettings #box--languages {
-  display: block !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
   padding: 0 !important;
+  gap: 0 !important;
 }
 #offcanvasSettings #box-lang {
   width: 100%;
@@ -7640,7 +7646,8 @@ html.mrh-smooth-scroll {
   font-weight: 500;
   color: var(--tpl-main-color, rgb(93, 178, 51)) !important;
   text-decoration: none !important;
-  padding: 0.25rem 0 0;
+  padding: 0.35rem 0 0;
+  margin-top: 0.25rem;
   transition: opacity 0.2s;
 }
 #offcanvasSettings .offcanvas-body > a[trigger-cookie-consent-panel]:hover {
