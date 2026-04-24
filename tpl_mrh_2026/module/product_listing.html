@@ -1,104 +1,126 @@
 {config_load file="$language/lang_$language.conf" section="index"}
 {config_load file="lang_`$language`.custom"}
 {config_load file="lang_`$language`.section" section="index"}
-{if $error_message}<div class="errormessage">{$error_message}</div>{/if}
-
-{* ============================================================
-   MRH 2026 – Phase 1: Kategorie-Header (Bild links, H1 + Desc rechts)
-   + Page-2-Regel: Bild/Beschreibung/Subcats nur auf Seite 1
-   + CATEGORIES_IMAGE_2 / CATEGORIES_DESCRIPTION_2 (fivebytes)
-   Stand: 2026-04-09
-   ============================================================ *}
-
-{* === H1 immer anzeigen (auch auf Seite 2+) === *}
-{if !empty($LIST_TITLE)}
+<div class="prod-listing mb-2 clearfix">
+  {if !empty($SLIDER)}
+    {include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/slider.html"}
+  {/if}
+  {if !empty($LIST_TITLE)}
   <h1>{$LIST_TITLE}</h1>
-{/if}
+  {/if}
+  
+  {* GEÄNDERT: Kategoriebeschreibung nur auf Seite 1 anzeigen *}
+  {if empty($smarty.get.page) || $smarty.get.page < 2}
+  {if
+    !empty($CATEGORIES_DESCRIPTION)
+    || !empty($CATEGORIES_SHORT_DESCRIPTION)
+    || !empty($CATEGORIES_IMAGE)
+    || !empty($CATEGORIES_IMAGE_MOBILE)
+  }
+  <div class="cat_description p-2 mb-2"> 
+    {* //BOF - Kategorieerweiterungen (Zweites Kategoriebild) - fivebytes 08.02.2020 *}
+    {if !empty($CATEGORIES_IMAGE_2)}
+      <img class="cat_image img-fluid lazyloaded float-start mt-3 me-4" loading="lazy" src="{$CATEGORIES_IMAGE_2}" title="{$CATEGORIES_IMAGE_2|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+    {/if}
+    {* //EOF - Kategorieerweiterungen (Zweites Kategoriebild) - fivebytes *}
+    {if !empty($CATEGORIES_IMAGE)}
+      <div {if !empty($CATEGORIES_DESCRIPTION) || !empty($CATEGORIES_SHORT_DESCRIPTION)}class="col-4"{/if}> 
+        {if isset($CATEGORIES_IMAGE_MOBILE) && $CATEGORIES_IMAGE_MOBILE != ''}
+          <picture>
+            <source media="(max-width:600px)" srcset="{$CATEGORIES_IMAGE_MOBILE}">
+            <source srcset="{$CATEGORIES_IMAGE}">
+            <img class="cat_image img-fluid lazyloaded float-start mb-2 me-2" loading="lazy" src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+          </picture>
+        {else}
+          <img class="cat_image img-fluid lazyloaded float-start mb-2 me-2" loading="lazy" src="{$CATEGORIES_IMAGE}" title="{$CATEGORIES_NAME|onlytext}" alt="{$CATEGORIES_NAME|onlytext}" />
+        {/if} 
+      </div>
+    {/if}
+    {if !empty($CATEGORIES_SHORT_DESCRIPTION)}{$CATEGORIES_SHORT_DESCRIPTION}{elseif !empty($CATEGORIES_DESCRIPTION)}{$CATEGORIES_DESCRIPTION}{/if}
+  </div>
+  {/if}
+  {/if}
+  {* ENDE DER ÄNDERUNG *}
+  
+</div>
 
-{* === Kategorie-Header + Beschreibung nur auf Seite 1 === *}
 {if empty($smarty.get.page) || $smarty.get.page < 2}
-
-  {if !empty($CATEGORIES_IMAGE) || !empty($CATEGORIES_SHORT_DESCRIPTION)}
-    <div class="mrh-cat-header">
-      {if !empty($CATEGORIES_IMAGE)}
-        <div class="mrh-cat-image">
-          <img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
-        </div>
-      {/if}
-      {* //BOF - Zweites Kategoriebild (fivebytes) *}
-      {if !empty($CATEGORIES_IMAGE_2)}
-        <div class="mrh-cat-image">
-          <img src="{$CATEGORIES_IMAGE_2}" alt="{$CATEGORIES_NAME|onlytext}" loading="lazy">
-        </div>
-      {/if}
-      {* //EOF - Zweites Kategoriebild *}
-      {if !empty($CATEGORIES_SHORT_DESCRIPTION)}
-        <div class="mrh-cat-info">
-          <div class="mrh-cat-short-desc">{$CATEGORIES_SHORT_DESCRIPTION}</div>
-        </div>
-      {elseif !empty($CATEGORIES_DESCRIPTION)}
-        <div class="mrh-cat-info">
-          <div class="mrh-cat-short-desc">{$CATEGORIES_DESCRIPTION}</div>
-        </div>
-      {/if}
-    </div>
-  {/if}
-
-  {* Unterkategorien (nur Seite 1) *}
-  {if isset($CATEGORIES_LISTING) && $CATEGORIES_LISTING|count_characters > 1}
-    <div class="the-subcats">
-      {$CATEGORIES_LISTING}
-    </div>
-  {/if}
-
+  {if isset($CATEGORIES_LISTING)}{$CATEGORIES_LISTING}{/if}
 {/if}
-{* === Ende Page-1-Only Block === *}
 
-{* Filter-Leiste (immer anzeigen) *}
 {$LISTING_FILTER}
+ 
 
-{* Hersteller-Header (nur Seite 1, Phase 5 – wird spaeter umgebaut) *}
+ 
 {if empty($smarty.get.page) || $smarty.get.page < 2}
-{if (isset($MANUFACTURER_DESCRIPTION) && $MANUFACTURER_DESCRIPTION != '')
-    || (isset($MANUFACTURER_SHORT_DESCRIPTION) && $MANUFACTURER_SHORT_DESCRIPTION != '')
-    || (isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != '')
-    || (isset($MANUFACTURER_NAME) && $MANUFACTURER_NAME != '')
-    || (isset($MANUFACTURER_TITLE) && $MANUFACTURER_TITLE != '')}
-{if isset($MANUFACTURER_TITLE) && $MANUFACTURER_TITLE != ''}
-  <h4>{$MANUFACTURER_TITLE}</h4>
-{else}
-  <h4>{$MANUFACTURER_NAME}</h4>
-{/if}
-<div class="manu_description cf">
-  {if $MANUFACTURER_IMAGE}<img class="manu_image{if !$MANUFACTURER_DESCRIPTION && !$MANUFACTURER_SHORT_DESCRIPTION} mi_nomargin{/if}" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER_NAME|onlytext}" />{/if}
-  {if $MANUFACTURER_SHORT_DESCRIPTION}{$MANUFACTURER_SHORT_DESCRIPTION}{else if $MANUFACTURER_DESCRIPTION}{$MANUFACTURER_DESCRIPTION}{/if}
-</div>
-{/if}
-{/if}
+{if !empty($MANUFACTURER_NAME)}
 
-{* Obere Pagination *}
+  {if isset($MANUFACTURER_TITLE) && $MANUFACTURER_TITLE != ''}
+    <div class="manufacturer mb-2 clearfix">
+      <h4 class="card p-2 bg-h">{$MANUFACTURER_TITLE}</h4>
+  {else}
+    <div class="manufacturer mb-2 clearfix">
+      <h4 class="card p-2 bg-h">{$MANUFACTURER_NAME}</h4>
+  {/if}
+    <div class="manu_description mb-2 cat_description p-2 mb-2">
+      {if !empty($MANUFACTURER_DESCRIPTION) || !empty($MANUFACTURER_SHORT_DESCRIPTION)}
+      <div class="accordion" id="manufacturerDescriptionAccordion">
+        <div class="card">
+          <div id="headingOne"> 
+            {if !empty($MANUFACTURER_IMAGE)} <div{if !empty($MANUFACTURER_DESCRIPTION) || !empty($MANUFACTURER_SHORT_DESCRIPTION)} class="col-4"{/if}>
+            <img class="lazyload manu_image img-fluid float-start mb-2 me-4" src="data:," data-src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER_TITLE|onlytext}" title="{$MANUFACTURER_TITLE|onlytext}" />
+            <noscript>
+            <img class="manu_image img-fluid float-start mb-2 me-4" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER_TITLE|onlytext}" title="{$MANUFACTURER_TITLE|onlytext}" />
+            </noscript>
+          </div>
+          {/if}
+          <p class="collapsed-text">{if !empty($MANUFACTURER_SHORT_DESCRIPTION)}{$MANUFACTURER_SHORT_DESCRIPTION|truncate:250:"..." nofilter}{elseif !empty($MANUFACTURER_DESCRIPTION)}{$MANUFACTURER_DESCRIPTION|truncate:250:"..." nofilter}{/if}</p>
+          <a class="me-5 mb-2 text-link float-end" href="#collapseOne" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseOne">{#show_all#}</a>
+        </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#manufacturerDescriptionAccordion">
+          <div class="card-body"> {$MANUFACTURER_DESCRIPTION} </div>
+        </div>
+      </div>
+    </div>
+    {/if} </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const collapseElement = document.getElementById('collapseOne');
+        const truncatedText = document.querySelector('.collapsed-text');
+
+        collapseElement.addEventListener('show.bs.collapse', function () {
+            truncatedText.style.display = 'none'; // Hide truncated text
+        });
+
+        collapseElement.addEventListener('hide.bs.collapse', function () {
+            truncatedText.style.display = 'block'; // Show truncated text
+        });
+    });
+</script> 
+</div>
+{/if}{/if}
+ 
+{$PAGINATION}
+<div class="listingcontainer">
+{include file="module/includes/product_listing_include.html"}
+</div>
 {$PAGINATION}
 
-{* Produktlisting (rendert Grid + List via product_listing_include.html) *}
-<div class="listingcontainer cf">
-  {include file="module/includes/product_listing_include.html"}
-</div>
-
-{* Untere Pagination *}
-{$PAGINATION}
-
-{* === SEO-Langbeschreibung unterhalb des Listings (nur Seite 1) === *}
+{* //BOF - Kategorieerweiterungen (Zweiter Beschreibungstext) - fivebytes 10.02.2020 *}
 {if empty($smarty.get.page) || $smarty.get.page < 2}
   {if !empty($CATEGORIES_SHORT_DESCRIPTION) && !empty($CATEGORIES_DESCRIPTION)}
-    <div class="cat_description cf">
-      <span class="h1">{$LIST_TITLE}</span>
-      {$CATEGORIES_DESCRIPTION}
+    <div class="cat_description mb-2">
+      <p>{$CATEGORIES_DESCRIPTION}</p>
     </div>
   {elseif !empty($CATEGORIES_DESCRIPTION_2)}
-    {* //BOF - Zweiter Beschreibungstext (fivebytes) *}
-    <div class="cat_description cf">
-      {$CATEGORIES_DESCRIPTION_2}
-    </div>
-    {* //EOF - Zweiter Beschreibungstext *}
+  <div class="cat_description mb-2">
+    <p>{$CATEGORIES_DESCRIPTION_2}</p>
+  </div>
   {/if}
 {/if}
+{* //EOF - Kategorieerweiterungen (Zweiter Beschreibungstext) - fivebytes *}
+ {if isset($BLOG_SEARCH_RESULTS) && $BLOG_SEARCH_RESULTS != ''}
+  {$BLOG_SEARCH_RESULTS}
+{/if}
+{* ── Schema.org JSON-LD (CollectionPage) ── *}
+{include file="`$smarty.const.CURRENT_TEMPLATE`/module/includes/schema_org_itemlist.html"}
