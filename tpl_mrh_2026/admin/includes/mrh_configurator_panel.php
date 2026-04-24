@@ -388,6 +388,37 @@ foreach ($text_classes as $variant => $label) {
 }
 ?>
 
+    <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-quote-left me-1"></i> Blockquote / Zitate</div></div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Hintergrund</strong></label>
+        <input type="text" name="tpl-bq-bg" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bq-bg','rgba(93, 178, 51, 0.08)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bq-bg','rgba(93, 178, 51, 0.08)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Textfarbe</strong></label>
+        <input type="text" name="tpl-bq-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bq-text','rgb(51, 51, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bq-text','rgb(51, 51, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Rahmenfarbe (links)</strong></label>
+        <input type="text" name="tpl-bq-border" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bq-border','rgb(93, 178, 51)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bq-border','rgb(93, 178, 51)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Schriftgröße</strong></label>
+        <input type="text" name="tpl-bq-font-size" class="form-control" value="<?php echo mrh_cv($c,'tpl-bq-font-size','1rem'); ?>">
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Footer-Textfarbe (Quelle)</strong></label>
+        <input type="text" name="tpl-bq-footer-text" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-bq-footer-text','rgb(108, 117, 125)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-bq-footer-text','rgb(108, 117, 125)'); ?>"></div>
+    </div>
+    <div class="col-sm-4 mb-3">
+        <label><strong>Sterne-Farbe (.text-gelb)</strong></label>
+        <input type="text" name="tpl-text-gelb" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-text-gelb','rgb(255, 193, 7)'); ?>">
+        <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-text-gelb','rgb(255, 193, 7)'); ?>"></div>
+    </div>
+
     <div class="col-12 mt-2">
         <input type="submit" name="submit-colorsettings" class="btn btn-success btn-lg w-100" value="Typografie speichern">
     </div>

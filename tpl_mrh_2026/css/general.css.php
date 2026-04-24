@@ -377,6 +377,13 @@ $defaults = [
     'tpl-text-dark'            => 'rgb(33, 37, 41)',
     'tpl-text-muted'           => 'rgb(108, 117, 125)',
     'tpl-text-white'           => 'rgb(255, 255, 255)',
+    // ── Blockquote / Zitate ──
+    'tpl-bq-bg'                => 'rgba(93, 178, 51, 0.08)',
+    'tpl-bq-text'              => 'rgb(51, 51, 51)',
+    'tpl-bq-border'            => 'rgb(93, 178, 51)',
+    'tpl-bq-font-size'         => '1rem',
+    'tpl-bq-footer-text'       => 'rgb(108, 117, 125)',
+    'tpl-text-gelb'            => 'rgb(255, 193, 7)',
     // ── Border-Klassen (border-*) ──
     'tpl-border-primary'       => 'rgb(74, 140, 42)',
     'tpl-border-secondary'     => 'rgb(108, 117, 125)',
