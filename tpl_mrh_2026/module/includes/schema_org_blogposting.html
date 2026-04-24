@@ -2,9 +2,14 @@
    MRH 2026 – Schema.org JSON-LD (BlogPosting)
    Wird in blog_post.html eingebunden
    Stand: 2026-04-24 – Google Article/BlogPosting + GEO/AI konform
-   Enthaelt: E-E-A-T Author, Speakable, about/mentions
+   Enthaelt: E-E-A-T Author (Person), Speakable, dateModified, articleSection
    Smarty-Variablen: $NAME, $TITLE, $IMAGE, $DESCRIPTION, $DATE_ADDED,
-                     $AUTHOR, $CATEGORIES_NAME, $CATEGORIES_LINK
+                     $DATE_MODIFIED, $AUTHOR, $CATEGORIES_NAME, $CATEGORIES_LINK
+   Author: Peter Derzold (Hauptautor, Cannabis Journalist & Grow Expert)
+   Hinweis: $AUTHOR kommt aus blog_post.php (= STORE_OWNER). Das Schema
+   ueberschreibt dies mit dem echten Autornamen fuer E-E-A-T.
+   description: regex_replace entfernt <script>-Bloecke bevor strip_tags greift,
+   damit eingebettetes JSON-LD im Blog-Content nicht in die description gelangt.
    ===================================================================== *}
 <script type="application/ld+json">
 {ldelim}
@@ -12,7 +17,7 @@
   "@type": "BlogPosting",
   "headline": "{if !empty($TITLE)}{$TITLE|onlytext|escape:'javascript'}{else}{$NAME|onlytext|escape:'javascript'}{/if}",
   {if !empty($DESCRIPTION)}
-  "description": "{$DESCRIPTION|strip_tags|truncate:300|escape:'javascript'}",
+  "description": "{$DESCRIPTION|regex_replace:'/<script[^>]*>.*?<\/script>/is':''|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:300:'...':true|escape:'javascript'}",
   {/if}
   {if !empty($IMAGE)}
   "image": {ldelim}
@@ -25,25 +30,28 @@
   {if isset($DATE_ADDED) && isset($DATE_ADDED.C)}
   "datePublished": "{$DATE_ADDED.C}",
   {/if}
+  {if isset($DATE_MODIFIED) && isset($DATE_MODIFIED.C)}
+  "dateModified": "{$DATE_MODIFIED.C}",
+  {/if}
   "inLanguage": "de-DE",
-  {if !empty($AUTHOR)}
+  {if !empty($CATEGORIES_NAME)}
+  "articleSection": "{$CATEGORIES_NAME|onlytext|escape:'javascript'}",
+  {/if}
   "author": {ldelim}
     "@type": "Person",
-    "name": "{$AUTHOR|escape:'javascript'}"
+    "name": "Peter Derzold",
+    "jobTitle": "Cannabis Journalist & Grow Expert",
+    "url": "{$smarty.const.HTTP_SERVER|default:''}/info/grow-expert-peter-derzold",
+    "worksFor": {ldelim}
+      "@type": "Organization",
+      "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
+      "name": "Mr. Hanf"
+    {rdelim}
   {rdelim},
-  {else}
-  "author": {ldelim}
-    "@type": "Organization",
-    "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
-    "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
-    "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}",
-    "description": "Cannabis Samen Experte seit 2016 mit ueber 20 Jahren Erfahrung im Hanfsamen-Handel."
-  {rdelim},
-  {/if}
   "publisher": {ldelim}
     "@type": "Organization",
     "@id": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}#organization",
-    "name": "{$smarty.const.STORE_NAME|default:'Mr. Hanf'}",
+    "name": "Mr. Hanf",
     "logo": {ldelim}
       "@type": "ImageObject",
       "url": "{$smarty.const.HTTP_SERVER|default:''}{$smarty.const.DIR_WS_CATALOG|default:'/'}templates/{$smarty.const.CURRENT_TEMPLATE}/{$smarty.const.MRH_SHOP_LOGO|default:'img/logo_head.png'}"
