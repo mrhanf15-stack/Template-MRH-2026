@@ -364,6 +364,8 @@ $defaults = [
     'tpl-lead-size'            => '1.25rem',
     'tpl-link-color'           => 'rgb(74, 140, 42)',
     'tpl-link-hover'           => 'rgb(58, 112, 32)',
+    'tpl-link-decoration'      => 'none',
+    'tpl-link-hover-decoration'=> 'underline',
     // ── Text-Klassen (text-*) ──
     'tpl-text-primary'         => 'rgb(74, 140, 42)',
     'tpl-text-secondary'       => 'rgb(108, 117, 125)',
@@ -938,7 +940,7 @@ for ($i = 1; $i <= 6; $i++) {
 echo 'body{font-size:var(--tpl-body-size);color:var(--tpl-body-color);}';
 echo 'small,.small{font-size:var(--tpl-small-size);}';
 echo '.lead{font-size:var(--tpl-lead-size);}';
-echo 'a{color:var(--tpl-link-color);}a:hover{color:var(--tpl-link-hover);}';
+echo 'a{color:var(--tpl-link-color);text-decoration:var(--tpl-link-decoration,none);}a:hover{color:var(--tpl-link-hover);text-decoration:var(--tpl-link-hover-decoration,underline);}';
 
 // ═══ text-* Klassen-Overrides ═══
 $text_variants = ['primary','secondary','success','danger','warning','info','light','dark','muted','white'];

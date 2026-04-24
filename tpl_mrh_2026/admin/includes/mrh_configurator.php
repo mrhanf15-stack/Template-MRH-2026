@@ -503,6 +503,8 @@ $mrh_color_defaults = [
     'tpl-lead-size'            => '1.25rem',
     'tpl-link-color'           => 'rgb(74, 140, 42)',
     'tpl-link-hover'           => 'rgb(58, 112, 32)',
+    'tpl-link-decoration'      => 'none',
+    'tpl-link-hover-decoration'=> 'underline',
 
     // ══════════════════════════════════════════════════
     // ── Text-Klassen (text-*) ──

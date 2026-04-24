@@ -360,6 +360,20 @@ for ($i = 1; $i <= 6; $i++) {
         <input type="text" name="tpl-link-hover" class="form-control colorpicker-element" value="<?php echo mrh_cv($c,'tpl-link-hover'); ?>">
         <div class="demo-farbe mt-1" style="background:<?php echo mrh_cv($c,'tpl-link-hover'); ?>"></div>
     </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Link-Unterstreichung</strong></label>
+        <select name="tpl-link-decoration" class="form-select">
+            <option value="none" <?php echo mrh_cv($c,'tpl-link-decoration','none') === 'none' ? 'selected' : ''; ?>>Keine</option>
+            <option value="underline" <?php echo mrh_cv($c,'tpl-link-decoration','none') === 'underline' ? 'selected' : ''; ?>>Unterstrichen</option>
+        </select>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label><strong>Link-Hover Unterstreichung</strong></label>
+        <select name="tpl-link-hover-decoration" class="form-select">
+            <option value="underline" <?php echo mrh_cv($c,'tpl-link-hover-decoration','underline') === 'underline' ? 'selected' : ''; ?>>Unterstrichen</option>
+            <option value="none" <?php echo mrh_cv($c,'tpl-link-hover-decoration','underline') === 'none' ? 'selected' : ''; ?>>Keine</option>
+        </select>
+    </div>
 
     <div class="col-12"><hr><div class="mrh-sh"><i class="fa fa-text-height me-1"></i> Text-Klassen (text-*)</div></div>
 <?php
