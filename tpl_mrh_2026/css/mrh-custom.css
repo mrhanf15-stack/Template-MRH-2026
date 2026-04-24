@@ -8230,3 +8230,49 @@ html.mrh-smooth-scroll {
 .mrh-cart-btn-delete-wrap .btn:hover {
   opacity: 0.8;
 }
+
+/* ── MRH Popup Modal Styling ────────────────────────────── */
+#mrhPopupModal .modal-header {
+  background: linear-gradient(135deg, #6b7b2a 0%, #8a9a3a 100%);
+  border-bottom: 2px solid #556b1e;
+  padding: 0.75rem 1rem;
+}
+#mrhPopupModal .modal-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+#mrhPopupModal .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+#mrhPopupModal .modal-header .btn-close:hover {
+  opacity: 1;
+}
+#mrhPopupModal .modal-content {
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+#mrhPopupModal .modal-body {
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+#mrhPopupModal .modal-body h1,
+#mrhPopupModal .modal-body h2 {
+  color: #6b7b2a;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+#mrhPopupModal .modal-body a {
+  color: #6b7b2a;
+  text-decoration: underline;
+}
+#mrhPopupModal .modal-body a:hover {
+  color: #556b1e;
+}
