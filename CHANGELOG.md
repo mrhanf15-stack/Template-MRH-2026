@@ -274,6 +274,18 @@ Die Organization-Daten im globalen Schema wurden korrigiert (falsche Adresse, So
 | ContactPage erschien nicht | `PHP_SELF` enthält nicht die rewritten URL | `REQUEST_URI` verwenden |
 | Bedingung griff nicht | Smarty hat keinen `strstr`-Modifier | `regex_replace` mit "MATCH"-Vergleich |
 | FAQPage braucht dynamische Items | FAQ-Modul hat eigenes Template `faq_manager.html` | Separates Include `schema_org_faq.html` mit `$FAQ_ITEMS` Loop |
+| FAQPage JSON ungültig | FAQ-Antworten enthalten HTML-Links und `{{content::ID\|linktext:TEXT}}` Platzhalter, die doppelte Anführungszeichen ins JSON einschleusen | `answer_clean` in `faq_manager.php`: `preg_replace` für content-links, `strip_tags`, `html_entity_decode`, Whitespace-Normalisierung |
+
+### FAQPage JSON-LD Fix (24. April 2026)
+
+Das FAQPage-Schema hatte ungültiges JSON, weil FAQ-Antworten in der Datenbank HTML-Links (`<a href="...">`) und modified-eCommerce Content-Link-Platzhalter (`{{content::46|linktext:anonym per Briefbestellung}}`) enthielten. Die Platzhalter werden erst zur Laufzeit durch die Template-Engine in HTML umgewandelt, weshalb `strip_tags()` allein nicht ausreichte.
+
+**Lösung in `faq_manager.php`:**
+- Neue Variable `answer_clean` neben dem originalen `answer` (HTML bleibt für die sichtbare Anzeige erhalten)
+- Bereinigungskette: `preg_replace` für `{{content::ID|linktext:TEXT}}` → `strip_tags` → `html_entity_decode` → Whitespace-Normalisierung
+- Schema-Template `schema_org_faq.html` verwendet `$SCH_ITEM.answer_clean|escape:'javascript'`
+
+**Ergebnis:** 48 FAQ-Fragen, valides JSON-LD, 0 HTML-Tags in Antworten.
 
 ### Verifizierte Schema-Typen pro Seitentyp (aktualisiert)
 

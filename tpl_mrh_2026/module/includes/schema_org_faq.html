@@ -3,9 +3,9 @@
    Wird in faq_manager.html eingebunden.
    Smarty-Variablen: $FAQ_TREE (Baumstruktur), $FAQ_CATEGORIES (Items)
    Jedes Item: $FAQS_ITEM.question, $FAQS_ITEM.answer
-   Hinweis: Antworten koennen HTML enthalten (Links, Formatierung).
-   answer_clean wird in faq_manager.php per strip_tags() bereinigt.
-   Stand: 2026-04-24 – Google FAQPage konform
+   Hinweis: Antworten koennen HTML und {{content::ID|linktext:TEXT}} Platzhalter enthalten.
+   answer_clean wird in faq_manager.php bereinigt: content-links -> Plaintext, strip_tags, html_entity_decode.
+   Stand: 2026-04-24 – Google FAQPage konform, JSON validiert (48 Fragen)
    ===================================================================== *}
 {if isset($FAQ_TREE) && isset($FAQ_CATEGORIES)}
 <script type="application/ld+json">
