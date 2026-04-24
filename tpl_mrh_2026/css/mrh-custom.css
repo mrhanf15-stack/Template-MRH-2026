@@ -936,6 +936,20 @@ footer .footertext b {
   background-color: var(--tpl-btn-secondary-hover) !important;
   border-color: var(--tpl-btn-secondary-hover) !important;
 }
+/* --- Custom-Klasse .weiss (Content-Buttons) --- */
+.weiss,
+.weiss a,
+.weiss a:hover,
+.weiss a:visited {
+  color: #fff !important;
+}
+/* --- Links innerhalb von Buttons erben Button-Textfarbe --- */
+.btn a,
+.btn a:hover,
+.btn a:visited {
+  color: inherit !important;
+  text-decoration: none !important;
+}
 .btn-outline-primary {
   background-color: transparent !important;
   border-color: var(--tpl-btn-outline-border) !important;
