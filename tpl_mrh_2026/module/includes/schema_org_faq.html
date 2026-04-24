@@ -4,7 +4,7 @@
    Smarty-Variablen: $FAQ_TREE (Baumstruktur), $FAQ_CATEGORIES (Items)
    Jedes Item: $FAQS_ITEM.question, $FAQS_ITEM.answer
    Hinweis: Antworten koennen HTML enthalten (Links, Formatierung).
-   |onlytext entfernt HTML zuverlaessig (modified-eigener Modifier).
+   answer_clean wird in faq_manager.php per strip_tags() bereinigt.
    Stand: 2026-04-24 – Google FAQPage konform
    ===================================================================== *}
 {if isset($FAQ_TREE) && isset($FAQ_CATEGORIES)}
@@ -24,14 +24,14 @@
       "name": "{$SCH_ITEM.question|onlytext|escape:'javascript'}",
       "acceptedAnswer": {ldelim}
         "@type": "Answer",
-        "text": "{$SCH_ITEM.answer|onlytext|escape:'javascript'}"
+        "text": "{$SCH_ITEM.answer_clean|escape:'javascript'}"
       {rdelim}
     {rdelim}{/foreach}{/if}{if $FAQ_TREE.$SCH_CID}{foreach name=sch_child item=SCH_CHILD from=$FAQ_TREE.$SCH_CID}{if $FAQ_CATEGORIES.$SCH_CHILD.items|count > 0}{foreach name=sch_child_inner item=SCH_ITEM from=$FAQ_CATEGORIES.$SCH_CHILD.items}{if !$mrh_faq_first},{/if}{assign var="mrh_faq_first" value=false}{ldelim}
       "@type": "Question",
       "name": "{$SCH_ITEM.question|onlytext|escape:'javascript'}",
       "acceptedAnswer": {ldelim}
         "@type": "Answer",
-        "text": "{$SCH_ITEM.answer|onlytext|escape:'javascript'}"
+        "text": "{$SCH_ITEM.answer_clean|escape:'javascript'}"
       {rdelim}
     {rdelim}{/foreach}{/if}{/foreach}{/if}{/foreach}
   ]
