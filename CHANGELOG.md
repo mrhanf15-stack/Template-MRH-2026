@@ -169,3 +169,53 @@ rm -f stylesheet.min.css tpl_plugins.min.css javascript.min.js
 rm -rf /home/www/doc/28856/dcp288560004/mr-hanf.at/www/templates_c/*
 curl "https://mr-hanf.at/opcache_reset.php?token=MrHanf2024Reset"
 ```
+
+
+---
+
+## Phase 3: Schema.org Neuimplementierung (Commits `8789df2` – `4229b08`)
+
+### Stand: 24. April 2026
+
+Die Schema.org JSON-LD Implementierung wurde komplett überarbeitet und auf alle relevanten Seitentypen ausgeweitet. Die Grundstruktur (Organization, WebSite) war bereits aus Phase 1 vorhanden; in Phase 3 wurden CollectionPage (Kategorie-Listings) und BlogPosting (Blog-Artikel) neu implementiert und bestehende Bugs behoben.
+
+### Neue Schema-Dateien
+
+| Datei | Typ | Beschreibung |
+|-------|-----|-------------|
+| `module/includes/schema_org_itemlist.html` | CollectionPage | JSON-LD für Kategorie-Listings mit ItemList-Referenz |
+| `module/includes/schema_org_blogposting.html` | BlogPosting | JSON-LD für einzelne Blog-Artikel mit Speakable-Support |
+
+### Commits
+
+| Commit | Beschreibung |
+|--------|-------------|
+| `8789df2` | Schema.org CollectionPage Include in product_listing.html |
+| (folge) | BlogPosting-Bugfixes: Doppelte Bild-URL (`$IMAGE` enthält bereits volle URL), wordCount-Zeile entfernt (`count_words` Modifier existiert nicht in Smarty) |
+| `4229b08` | CollectionPage Include in alle aktiven Listing-Templates (product_listing_v1.html, us_gentics_v1.html) + Bild-URL-Fix in schema_org_itemlist.html |
+
+### Erkenntnisse und Fixes
+
+| Problem | Ursache | Lösung |
+|---------|---------|--------|
+| CollectionPage erschien nicht | 501 Kategorien nutzen `product_listing_v1.html`, nicht `product_listing.html` | Include in alle 3 Listing-Templates eingefügt |
+| Doppelte Bild-URL (BlogPosting) | `$IMAGE` enthält bereits `https://mr-hanf.at/...`, `HTTP_SERVER` wurde nochmal vorangestellt | `{$IMAGE}` direkt verwenden |
+| Doppelte Bild-URL (CollectionPage) | `$CATEGORIES_IMAGE` enthält bereits volle URL | `{$CATEGORIES_IMAGE}` direkt verwenden |
+| wordCount-Fehler (BlogPosting) | Smarty-Modifier `count_words` existiert nicht | Zeile entfernt |
+
+### Listing-Template-Zuordnung (Datenbank)
+
+| Template | Anzahl Kategorien |
+|----------|------------------|
+| `product_listing_v1.html` | 501 |
+| `us_gentics_v1.html` | 1 |
+| `product_listing.html` (Fallback) | 0 (aber Include vorhanden) |
+
+### Verifizierte Schema-Typen pro Seitentyp
+
+| Seitentyp | Schema-Typen |
+|-----------|-------------|
+| Kategorie-Listing | CollectionPage + Organization + WebSite |
+| Blog-Artikel | BlogPosting + Organization + WebSite |
+| Produktseite | Product + Organization + WebSite |
+| Startseite | Organization + WebSite |
