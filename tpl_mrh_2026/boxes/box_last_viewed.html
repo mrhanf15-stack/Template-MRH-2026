@@ -5,7 +5,7 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="h5 mb-0">{#heading_last_viewed#}</h2>
   </div>
-  <div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
+  <div class="mrh-product-card">
     <a href="{$box_content.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$box_content.PRODUCTS_NAME|onlytext}">
       <div class="mrh-flag">
         {if $smarty.const.MRH_FLAG_SPECIAL_SHOW == 'true' && $box_content.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT != ''}
@@ -18,19 +18,19 @@
       </div>
       {if $box_content.PRODUCTS_IMAGE != ''}
         <img src="{$box_content.PRODUCTS_IMAGE}" alt="{$box_content.PRODUCTS_NAME|onlytext}"
-             itemprop="image" loading="lazy" width="300" height="300">
+             loading="lazy" width="300" height="300">
       {/if}
     </a>
     <div class="mrh-product-card-body">
       {if !empty($box_content.MANUFACTURER)}
-        <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-          <span itemprop="name">{$box_content.MANUFACTURER}</span>
+        <div class="mrh-product-card-manufacturer">
+          <span>{$box_content.MANUFACTURER}</span>
         </div>
       {/if}
       <h3 class="mrh-product-card-title">
-        <a href="{$box_content.PRODUCTS_LINK}" itemprop="name">{$box_content.PRODUCTS_NAME}</a>
+        <a href="{$box_content.PRODUCTS_LINK}">{$box_content.PRODUCTS_NAME}</a>
       </h3>
-      <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+      <div class="mrh-product-card-price">
         {foreach name=inner item=price_data from=$box_content.PRODUCTS_PRICE_ARRAY}
           {include file="module/includes/price_box.html"}
         {/foreach}

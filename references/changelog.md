@@ -11,8 +11,34 @@
 | `module/product_info/usa_STrain-patch.html` | Template-MRH-2026 | Alle itemscope/itemprop/itemtype Attribute entfernt (identisch zu seeds_info) |
 | `module/blog_post.html` | Template-MRH-2026 | Alle Microdata entfernt (BlogPosting, author, headline, image, articleBody, datePublished) |
 | `module/includes/blog_post_listing.html` | Template-MRH-2026 | Alle Microdata entfernt (Blog, blogPosts, BlogPosting, image, headline, description) |
+| `module/product_info.html` | Template-MRH-2026 | Alle itemscope/itemprop/itemtype Attribute entfernt |
+| `module/product_info/aaa_produkt_info.html` | Template-MRH-2026 | Alle Microdata entfernt |
+| `module/product_info/non_seeds_info.html` | Template-MRH-2026 | Alle Microdata entfernt |
+| `module/product_info/product_info_v1.html` | Template-MRH-2026 | Alle Microdata entfernt |
+| `module/product_info/product_info_v1-.html` | Template-MRH-2026 | Alle Microdata entfernt |
+| `module/product_info/seedling.html` | Template-MRH-2026 | Alle Microdata entfernt |
+| `module/includes/product_listing_include.html` | Template-MRH-2026 | Alter ItemList JSON-LD Block entfernt |
+| `module/categorie_listing/samen_shop.html` | Template-MRH-2026 | Alter Product JSON-LD Block entfernt (267 Zeilen) |
+| `module/seedfinder_product_cards.html` | Template-MRH-2026 | Schema-Relikte entfernt (meta, link) |
+| `module/includes/price_info.html` | Template-MRH-2026 | 4 Microdata-Stellen entfernt |
+| `module/includes/price_box.html` | Template-MRH-2026 | 1 Microdata-Stelle entfernt |
+| `module/includes/product_gallery.html` | Template-MRH-2026 | 6 Microdata-Stellen entfernt |
+| `module/includes/list_shortdescription.html` | Template-MRH-2026 | 12 Microdata-Stellen entfernt |
+| `module/includes/usa_list_shortdescription.html` | Template-MRH-2026 | 12 Microdata-Stellen entfernt |
+| `module/includes/seedling_list_shortdescription.html` | Template-MRH-2026 | 12 Microdata-Stellen entfernt |
+| `module/includes/faq_product.html` | Template-MRH-2026 | 5 Microdata-Stellen entfernt |
+| `module/breadcrumb.html` | Template-MRH-2026 | 6 Microdata-Stellen entfernt |
+| `module/faq_manager.html` | Template-MRH-2026 | 9 Microdata-Stellen entfernt |
+| `module/graduated_price.html` | Template-MRH-2026 | 5 Microdata-Stellen entfernt |
+| `boxes/box_best_sellers.html` | Template-MRH-2026 | 11 Microdata-Stellen entfernt |
+| `boxes/box_last_viewed.html` | Template-MRH-2026 | 6 Microdata-Stellen entfernt |
+| `boxes/box_specials.html` | Template-MRH-2026 | 6 Microdata-Stellen entfernt |
+| `boxes/box_whatsnew.html` | Template-MRH-2026 | 6 Microdata-Stellen entfernt |
+| `module/includes/logobar.html` | Template-MRH-2026 | Alter Organization JSON-LD Block entfernt |
+| `config/content-snippets/faq-samen-shop.html` | Template-MRH-2026 | Alle FAQPage Microdata entfernt |
+| `module/product_info/Test/*.html` (9 Dateien) | Template-MRH-2026 | Alle Microdata aus Test-Templates entfernt |
 
-**Hinweis:** Die JSON-LD Include-Aufrufe am Ende der Templates bleiben erhalten (`schema_org_product.html`, `schema_org_blogposting.html`). Weitere Dateien (product_info.html, non_seeds_info.html, seedfinder_product_cards.html, logobar.html, etc.) werden in Phase 2 bereinigt.
+**Ergebnis:** 0 verbleibende Microdata-Stellen in allen HTML-Templates (ausser den schema_org_*.html Include-Dateien). Die JSON-LD Include-Aufrufe am Ende der Produkt- und Blog-Templates bleiben erhalten. Die manufacturer_info.html und manufacturers_overview.html behalten ihre modernen JSON-LD Bloecke (bereits korrekt hinter MRH_SCHEMA_ORG Konstante).
 
 ## 2026-04-23 – Fix: Slider-Karten von 5 auf 4 pro Viewport
 

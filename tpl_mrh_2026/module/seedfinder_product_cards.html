@@ -33,14 +33,9 @@
  * @date      2026-04-22
  *}
     {foreach from=$PRODUCTS item=product}
-      <div class="col-6 col-md-4 col-lg-3 mb-3" itemscope itemtype="https://schema.org/Product">
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card h-100 d-flex flex-column position-relative">
 
-          {* Hidden Schema.org Properties *}
-          {if $product.PRODUCTS_MODEL}
-            <meta itemprop="sku" content="{$product.PRODUCTS_MODEL|escape:'html'}">
-          {/if}
-          <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
 
           {* ── Spezialpreis-Badge ── *}
           {if $product.PRODUCTS_SPECIAL_PRICE && $product.PRODUCTS_SPECIAL_PRICE > 0}
@@ -61,7 +56,7 @@
           {if $product.PRODUCTS_IMAGE}
             <a href="{$product.PRODUCTS_LINK}" class="d-block overflow-hidden" aria-label="{$product.PRODUCTS_NAME|onlytext}">
               <div class="ratio ratio-1x1 bg-light p-3">
-                <img class="w-100 h-100 object-fit-contain" itemprop="image" loading="lazy" src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}">
+                <img class="w-100 h-100 object-fit-contain" loading="lazy" src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}">
               </div>
             </a>
           {/if}
@@ -69,13 +64,13 @@
           {* ── Hersteller + Produktname ── *}
           <div class="card-body pb-1">
             {if $product.MANUFACTURERS_NAME}
-              <p class="small text-secondary mb-0" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-                <span itemprop="name">{$product.MANUFACTURERS_NAME}</span>
+              <p class="small text-secondary mb-0">
+                <span>{$product.MANUFACTURERS_NAME}</span>
               </p>
             {/if}
             <h2 class="h6 mb-1">
               <a href="{$product.PRODUCTS_LINK}" class="text-decoration-none text-dark">
-                <span itemprop="name">{$product.PRODUCTS_NAME}</span>
+                <span>{$product.PRODUCTS_NAME}</span>
               </a>
             </h2>
           </div>
@@ -90,17 +85,14 @@
           {* ── MRH-Detail-Tabelle im Scroll-Container (v34.0) ── *}
           {if isset($product.MRH_MINI_TABLE) && $product.MRH_MINI_TABLE != ''}
             <div class="card-body pt-0 pb-1">
-              <div class="mrh-sf-scroll mrh-detail-table mb-2" itemprop="description">
+              <div class="mrh-sf-scroll mrh-detail-table mb-2">
                 {$product.MRH_MINI_TABLE}
               </div>
             </div>
           {/if}
 
           {* ── Footer: Optionen, Preis, Buttons ── *}
-          <div class="card-footer bg-body-tertiary mt-auto" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            <meta itemprop="priceCurrency" content="EUR">
-            <link itemprop="url" href="{$smarty.server.REQUEST_SCHEME}://{$smarty.server.HTTP_HOST}/{$product.PRODUCTS_LINK}">
-            <link itemprop="availability" href="{if $product.TOTAL_STOCK_AVAILABLE}https://schema.org/InStock{else}https://schema.org/OutOfStock{/if}">
+          <div class="card-footer bg-body-tertiary mt-auto">
 
             {* Preis-Anzeige mit Lagerampel (v34.2.0) *}
             <div class="text-end mt-2 mb-2">
@@ -123,7 +115,7 @@
                       </span>
                     {/if}
                     <span class="text-danger fw-bold h5 mb-0">
-                      {if $product.PRICE_FROM_COUNT > 1}{#from_price_prefix#} {/if}<span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span>
+                      {if $product.PRICE_FROM_COUNT > 1}{#from_price_prefix#} {/if}<span content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span>
                     </span>
                   </div>
                 {else}
@@ -142,7 +134,7 @@
                     {/if}
                   </span>
                 {/if}
-                <span>{if $product.PRICE_FROM_COUNT > 1}<span class="text-secondary sf-price-prefix">{#from_price_prefix#} </span>{/if}<strong class="text-secondary sf-price-main"><span itemprop="price" content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span></strong></span>
+                <span>{if $product.PRICE_FROM_COUNT > 1}<span class="text-secondary sf-price-prefix">{#from_price_prefix#} </span>{/if}<strong class="text-secondary sf-price-main"><span content="{$product.PRICE_FROM|regex_replace:'/[^0-9,]/':''|regex_replace:'/,/':'.'}">{$product.PRICE_FROM}</span></strong></span>
               </div>
                 {/if}
               {elseif !$product.TOTAL_STOCK_AVAILABLE}

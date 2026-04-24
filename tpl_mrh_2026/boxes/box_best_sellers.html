@@ -9,7 +9,7 @@
   <div class="row g-3">
     {foreach name=aussen item=product_data from=$box_content}
     <div class="col-6 col-md-4 col-lg-3">
-      <div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
+      <div class="mrh-product-card">
         <a href="{$product_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$product_data.PRODUCTS_NAME|onlytext}">
           {* Flags *}
           <div class="mrh-flag">
@@ -24,25 +24,25 @@
           {* Bild *}
           {if $product_data.PRODUCTS_IMAGE != ''}
             <img src="{$product_data.PRODUCTS_IMAGE}" alt="{$product_data.PRODUCTS_NAME|onlytext}"
-                 itemprop="image" loading="lazy" width="300" height="300">
+                 loading="lazy" width="300" height="300">
           {/if}
         </a>
         <div class="mrh-product-card-body">
           {* Hersteller *}
           {if !empty($product_data.MANUFACTURER)}
-            <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-              <span itemprop="name">{$product_data.MANUFACTURER}</span>
+            <div class="mrh-product-card-manufacturer">
+              <span>{$product_data.MANUFACTURER}</span>
             </div>
           {/if}
           {* Titel *}
           <h3 class="mrh-product-card-title">
-            <a href="{$product_data.PRODUCTS_LINK}" itemprop="name">{$product_data.PRODUCTS_NAME}</a>
+            <a href="{$product_data.PRODUCTS_LINK}">{$product_data.PRODUCTS_NAME}</a>
           </h3>
           {* Bewertung *}
           {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
-            <div class="mrh-rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-              <meta itemprop="ratingValue" content="{$product_data.MRH_RATING_VALUE}">
-              <meta itemprop="reviewCount" content="{$product_data.MRH_RATING_COUNT}">
+            <div class="mrh-rating">
+              <meta content="{$product_data.MRH_RATING_VALUE}">
+              <meta content="{$product_data.MRH_RATING_COUNT}">
               {section name=star loop=5}
                 {if $smarty.section.star.index < $product_data.MRH_RATING_FULL}
                   <span class="fa fa-star"></span>
@@ -56,13 +56,13 @@
             </div>
           {/if}
           {* Preis *}
-          <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            <meta itemprop="priceCurrency" content="{$product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_CURRENCY|default:'EUR'}">
+          <div class="mrh-product-card-price">
+            <meta content="{$product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_CURRENCY|default:'EUR'}">
             {foreach name=inner item=price_data from=$product_data.PRODUCTS_PRICE_ARRAY}
               {include file="module/includes/price_box.html"}
             {/foreach}
             {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_FLAG != 'NotAllowed'}
-              <link itemprop="availability" href="https://schema.org/InStock">
+              <link href="https://schema.org/InStock">
               {if $product_data.PRODUCTS_VPE}
                 <div class="small text-muted">{$product_data.PRODUCTS_VPE}</div>
               {/if}

@@ -3,9 +3,9 @@
 {config_load file="lang_`$language`.section" section="product_info"}
 {assign "dummy" ""}
 {if $error_message != ''}<div class="alert alert-danger">{$error_message}</div>{/if}
-<div itemscope itemtype="http://schema.org/Product">
+<div>
 	{$FORM_ACTION}
-		<h1 class="card p-2 bg-h" itemprop="name">{if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}{if isset($PRODUCTS_PRINT_LAYER)}<span class="print-button position-absolute">{$PRODUCTS_PRINT_LAYER|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'print_product_small'}<"}</span>{/if}</h1>
+		<h1 class="card p-2 bg-h">{if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}{if isset($PRODUCTS_PRINT_LAYER)}<span class="print-button position-absolute">{$PRODUCTS_PRINT_LAYER|regex_replace:"/\">(.*?)</":"\">{$dummy|bs4button:'print_product_small'}<"}</span>{/if}</h1>
 		<div id="product_details" class="row clearfix">
 			<div class="pd_imagebox col-md-6 mb-4">
 			{if $smarty.const.MRH_USE_EASYZOOM == 'true'}
@@ -14,7 +14,7 @@
 						<div class="pd_big_image col-12"> 
 							<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
 								<a title="{$PRODUCTS_NAME|onlytext}" href="{$PRODUCTS_IMAGE|replace:"info_images":"original_images"}">
-								<img class="lazyload img-fluid img-thumbnail" itemprop="image" src="data:," data-src="{$PRODUCTS_IMAGE|replace:"info_":"popup_"}" alt="{$PRODUCTS_NAME|onlytext}" title="{$PRODUCTS_NAME|onlytext}" />								</a>
+								<img class="lazyload img-fluid img-thumbnail" src="data:," data-src="{$PRODUCTS_IMAGE|replace:"info_":"popup_"}" alt="{$PRODUCTS_NAME|onlytext}" title="{$PRODUCTS_NAME|onlytext}" />								</a>
 								<noscript><img class="img-fluid" src="{$PRODUCTS_IMAGE|replace:"info_":"popup_"}" alt="{$PRODUCTS_NAME|onlytext}" title="{$PRODUCTS_NAME|onlytext}" /></noscript>
 							</div>
 						</div> 
@@ -58,7 +58,7 @@
 					<div class="row mb-4">
 						<div class="pd_big_image col-12">
 							<a class="cbimages text-center" title="{$PRODUCTS_NAME|onlytext}" href="#" data-image-id="1" data-bs-toggle="modal" data-title="{$PRODUCTS_NAME|onlytext}" data-image="{$PRODUCTS_IMAGE|replace:"info_":"popup_"}" data-bs-target="#modal">
-								<img class="lazyload img-fluid img-thumbnail" itemprop="image" src="data:," data-src="{if $smarty.const.MRH_PROD_DETAIL_FULLCONTENT == 'true'}{$PRODUCTS_IMAGE|replace:"info_":"popup_"}{else}{$PRODUCTS_IMAGE}{/if}" alt="{$PRODUCTS_NAME|onlytext}" title="{$PRODUCTS_NAME|onlytext}" />
+								<img class="lazyload img-fluid img-thumbnail" src="data:," data-src="{if $smarty.const.MRH_PROD_DETAIL_FULLCONTENT == 'true'}{$PRODUCTS_IMAGE|replace:"info_":"popup_"}{else}{$PRODUCTS_IMAGE}{/if}" alt="{$PRODUCTS_NAME|onlytext}" title="{$PRODUCTS_NAME|onlytext}" />
 								<noscript><img class="img-fluid img-thumbnail" src="{if $smarty.const.MRH_PROD_DETAIL_FULLCONTENT == 'true'}{$PRODUCTS_IMAGE|replace:"info_":"popup_"}{else}{$PRODUCTS_IMAGE}{/if}" alt="{$PRODUCTS_NAME|onlytext}" title="{$PRODUCTS_NAME|onlytext}" /></noscript>
 							</a>
 						</div>
@@ -89,14 +89,14 @@
 			</div>
 
 			<div class="pd_content col-md-6 mb-4">
-				<div class="pd_summarybox" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<div class="pd_summarybox">
 					<div class="card bg-custom text-end p-2 mb-2">
-                        <meta itemprop="url" content="{$PRODUCTS_LINK}" />
-						<meta itemprop="priceCurrency" content="{$smarty.session.currency}" />
-                        {if $PRODUCTS_EXPIRES_C}<meta itemprop="priceValidUntil" content="{$PRODUCTS_EXPIRES_C}" />{/if}
-						{if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}<meta itemprop="availability" content="http://schema.org/OutOfStock" />{else}<meta itemprop="availability" content="http://schema.org/InStock" />{/if}
-						{if $PRODUCTS_MANUFACTURERS_MODEL != ''}<meta itemprop="mpn" content="{$PRODUCTS_MANUFACTURERS_MODEL}" />{/if}
-						<meta itemprop="itemCondition" content="http://schema.org/NewCondition" />
+                        <meta content="{$PRODUCTS_LINK}" />
+						<meta content="{$smarty.session.currency}" />
+                        {if $PRODUCTS_EXPIRES_C}<meta content="{$PRODUCTS_EXPIRES_C}" />{/if}
+						{if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}<meta content="http://schema.org/OutOfStock" />{else}<meta content="http://schema.org/InStock" />{/if}
+						{if $PRODUCTS_MANUFACTURERS_MODEL != ''}<meta content="{$PRODUCTS_MANUFACTURERS_MODEL}" />{/if}
+						<meta content="http://schema.org/NewCondition" />
 
 						<div class="pd_price">
 							{if $PRODUCTS_FSK18 == 'true'}<div class="pd_fsk18"></div>{/if}
@@ -115,12 +115,12 @@
 				<div class="pd_infobox">
 					<div class="card bg-custom p-2 mb-2"><table class="tebals wite"><tbody>
 					{if isset($MANUFACTURER_LINK) && $MANUFACTURER_LINK != ''}<tr>{if $smarty.const.MRH_PROD_DETAIL_SHOW_MANUIMAGE == 'true' && isset($MANUFACTURER_IMAGE) && $MANUFACTURER_IMAGE != ''} <a class="thumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}"><img class="w-25 p-3 img-fluid float-end manufacturer_images" src="{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER|onlytext}" /></a> </div>{/if}</tr>{/if}
-					{if isset($MANUFACTURER) && $MANUFACTURER != ''}<div class="small" itemprop="brand" itemscope itemtype="https://schema.org/Brand"><tr><td  class="w-50"><strong>{#manufacturer#}</strong></td><td  class="zentriert"> <span itemprop="name">{$MANUFACTURER}</span></td></tr></div>{/if}
-						{if $PRODUCTS_MODEL != ''}<tr><td><div class=""><strong>{#model#}</strong></td> <td>{$PRODUCTS_MODEL}<meta itemprop="sku" content="{$PRODUCTS_MODEL}" /></div></td></tr>{/if}
-						{if $PRODUCTS_EAN != ''}<tr><div class="small"><td><strong>{#ean#}</strong> </td> <td><span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></td> </div></tr>{/if}
+					{if isset($MANUFACTURER) && $MANUFACTURER != ''}<div class="small"><tr><td  class="w-50"><strong>{#manufacturer#}</strong></td><td  class="zentriert"> <span>{$MANUFACTURER}</span></td></tr></div>{/if}
+						{if $PRODUCTS_MODEL != ''}<tr><td><div class=""><strong>{#model#}</strong></td> <td>{$PRODUCTS_MODEL}<meta content="{$PRODUCTS_MODEL}" /></div></td></tr>{/if}
+						{if $PRODUCTS_EAN != ''}<tr><div class="small"><td><strong>{#ean#}</strong> </td> <td><span>{$PRODUCTS_EAN}</span></td> </div></tr>{/if}
 					<tr> {if $SHIPPING_NAME}<div><td><strong>{#text_shippingtime#}</strong> </td><td>{if $SHIPPING_IMAGE}<a class="iframe" href="/popup_content.php?coID=11" data-bs-toggle="modal"><img class="pd_shipping_image img-fluid" src="{$SHIPPING_IMAGE}" alt="{$SHIPPING_NAME}" /</a> {/if} {*$SHIPPING_NAME_LINK*}</div>{/if}</td> </tr>
 						{if $PRODUCTS_RATING_COUNT > 1 || $MRH_AWIDS_PRODUCTS_SUM_REVIEWS > 1}<tr> 
-							<div class="pd_inforow small" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+							<div class="pd_inforow small">
 								<td><strong>{#info_reviews#}</strong>&nbsp;</td><td>
 								{if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
 									<div class="d-inline">
@@ -134,12 +134,12 @@
 								{else}
 									<span class="rating_stars"><img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png" alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}" /></span>&nbsp;({$PRODUCTS_RATING_COUNT})
 								{/if}
-								<meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}" />
-								<meta itemprop="bestRating" content="5" />
-								<meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}" />
+								<meta content="{$PRODUCTS_AVERAGE_RATING}" />
+								<meta content="5" />
+								<meta content="{$PRODUCTS_RATING_COUNT}" />
 							</div>
 						{elseif $PRODUCTS_RATING_COUNT > 0 }<tr> 
-							<div class="pd_inforow small" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+							<div class="pd_inforow small">
 								<td><strong>{#info_review#}</strong>&nbsp;</td><td>
 								{if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
 									<div class="d-inline">
@@ -153,9 +153,9 @@
 								{else}
 									<span class="rating_stars"><img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png" alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}" /></span>&nbsp;({$PRODUCTS_RATING_COUNT})
 								{/if}
-								<meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}" />
-								<meta itemprop="bestRating" content="5" />
-								<meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}" />
+								<meta content="{$PRODUCTS_AVERAGE_RATING}" />
+								<meta content="5" />
+								<meta content="{$PRODUCTS_RATING_COUNT}" />
 							</div>
 						{/if}
 						{if isset($PRODUCTS_DISCOUNT) && $PRODUCTS_DISCOUNT != ''}<div class="small"><strong>{#text_discount#}</strong> {$PRODUCTS_DISCOUNT}</div>{/if}
@@ -249,7 +249,7 @@
 
 	<div class="card mb-4">
 		<ul class="list-group list-group-flush">
-			{if $PRODUCTS_DESCRIPTION != ''}<li class="list-group-item"><h4 class="detailbox">{#products_desc#}</h4><div itemprop="description">{$PRODUCTS_DESCRIPTION}</div></li>{/if}
+			{if $PRODUCTS_DESCRIPTION != ''}<li class="list-group-item"><h4 class="detailbox">{#products_desc#}</h4><div>{$PRODUCTS_DESCRIPTION}</div></li>{/if}
 			{if isset($MODULE_product_tags) && $MODULE_product_tags != ''}<li class="list-group-item">{$MODULE_product_tags}</li>{/if}
 			{if isset($more_images) && count($more_images) > 0}
 				<li class="list-group-item">

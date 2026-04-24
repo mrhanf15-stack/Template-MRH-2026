@@ -27,14 +27,14 @@
 
 {* ── Schema.org ImageGallery (versteckt) ── *}
 {if $PRODUCTS_IMAGE != ''}
-  <div style="display:none;" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
-    <meta itemprop="name" content="product_images">
-    <div itemprop="value" itemscope itemtype="https://schema.org/ImageGallery">
-      <meta itemprop="thumbnail" content="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
+  <div style="display:none;">
+    <meta content="product_images">
+    <div>
+      <meta content="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
       {if isset($more_images)}
         {foreach item=more_images_data from=$more_images}
           {if $more_images_data.PRODUCTS_IMAGE != ''}
-            <meta itemprop="thumbnail" content="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
+            <meta content="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
           {/if}
         {/foreach}
       {/if}
@@ -56,7 +56,7 @@
            data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}"
            alt="{$PRODUCTS_NAME|onlytext}"
            title="{$PRODUCTS_NAME|onlytext}"
-           itemprop="image"
+          
            width="600" height="600"
            loading="eager" />
       {* Zoom-Hinweis *}

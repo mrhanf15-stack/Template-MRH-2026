@@ -9,20 +9,20 @@
     <table class="tebals wite">
       <tbody>
      {if isset($MANUFACTURER) && $MANUFACTURER !=''}
-   <tr itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-  <meta itemprop="name" content="{$MANUFACTURER}" />
+   <tr>
+  <meta content="{$MANUFACTURER}" />
   <!--<td><span class="fw-bold">{#manufacturer#}</span></td>
   <td class="zentriert"><a class="Uthumbnail text-center" title="{$MANUFACTURER|onlytext}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a></td>-->
 </tr>
       {/if}{if $PRODUCTS_MODEL !=''}
       <tr>
-        <td><meta itemprop="sku" content="{$PRODUCTS_MODEL}"/><span class="fw-bold">{#model#}</span></td>
+        <td><meta content="{$PRODUCTS_MODEL}"/><span class="fw-bold">{#model#}</span></td>
         <td>{$PRODUCTS_MODEL}</td>
       </tr>
       {/if}{if $PRODUCTS_EAN !=''}
       <tr>
           <td  class="small"><span class="fw-bold">{#ean#}</span></td>
-          <td  class="small"><span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></td>
+          <td  class="small"><span>{$PRODUCTS_EAN}</span></td>
       </tr>
       {/if}
       {if $SHIPPING_NAME}<tr>
@@ -49,20 +49,20 @@
     {if $PRODUCTS_RATING_COUNT > 0 || $MRH_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
 <div class="card p-2 mt-2">
     {if $PRODUCTS_RATING_COUNT > 1 || $MRH_AWIDS_PRODUCTS_SUM_REVIEWS > 1}
-    <div class="pd_inforow" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">{if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
+    <div class="pd_inforow">{if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
       <div class="d-inline"><a class="mrh_avg_container" href="#" data-pid="{$PRODUCTS_ID}" data-class="prod" title="{$smarty.const.MRH_AWIDSRATINGBREAKDOWN_ARROW_TITLE}"><span class="ratings"><span class="fas empty-stars"></span><span class="fas full-stars" style="width:{$MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}%"></span></span>&nbsp;({$MRH_AWIDS_PRODUCTS_SUM_REVIEWS})<i class="fas fa-chevron-down"></i></a></div>
       {else}<span class="rating_stars"><img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png" alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}"/></span>&nbsp;({$PRODUCTS_RATING_COUNT}){/if}
-      <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}"/>
-      <meta itemprop="bestRating" content="5"/>
-      <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}"/>
+      <meta content="{$PRODUCTS_AVERAGE_RATING}"/>
+      <meta content="5"/>
+      <meta content="{$PRODUCTS_RATING_COUNT}"/>
     </div>
     {elseif $PRODUCTS_RATING_COUNT > 0}
-    {if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}<div class="pd_inforow small" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    {if $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}<div class="pd_inforow small">
       <div class="d-inline"><a class="mrh_avg_container" href="#" data-pid="{$PRODUCTS_ID}" data-class="prod" title="{$smarty.const.MRH_AWIDSRATINGBREAKDOWN_ARROW_TITLE}"><span class="ratings"><span class="fas empty-stars"></span><span class="fas full-stars" style="width:{$MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}%"></span></span>&nbsp;({$MRH_AWIDS_PRODUCTS_SUM_REVIEWS})<i class="fas fa-chevron-down"></i></a></div>
       {else}<span class="rating_stars"><img src="{$tpl_path}img/stars_{$PRODUCTS_AVERAGE_RATING}.png" alt="{$smarty.const.TEXT_OF_5_STARS|sprintf:$PRODUCTS_AVERAGE_RATING}"/></span>&nbsp;({$PRODUCTS_RATING_COUNT}){/if}
-      <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}"/>
-      <meta itemprop="bestRating" content="5"/>
-      <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}"/>
+      <meta content="{$PRODUCTS_AVERAGE_RATING}"/>
+      <meta content="5"/>
+      <meta content="{$PRODUCTS_RATING_COUNT}"/>
     </div> 
     {/if}
 </div>

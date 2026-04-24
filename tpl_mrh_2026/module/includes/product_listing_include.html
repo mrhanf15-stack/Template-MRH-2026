@@ -215,25 +215,3 @@
   {/foreach}
 {/if}
 
-{* ── Schema.org: ItemList ── *}
-<script type="application/ld+json">
-  {literal}
-  {
-    "@context":"http://schema.org",
-    "@type":"ItemList",
-    "itemListElement":[
-  {/literal}
-    {foreach name=aussen item=module_data from=$module_content}
-      {literal}
-      {
-          "@type":"ListItem",
-          "position": {/literal}{counter}{literal},
-          "name": "{/literal}{$module_data.PRODUCTS_NAME|onlytext}{literal}",
-          "url":"{/literal}{$module_data.PRODUCTS_LINK}{literal}"
-        }{/literal}{if not $smarty.foreach.aussen.last},{/if}
-    {/foreach}
-    {literal}
-    ]
-  }
-  {/literal}
-</script>

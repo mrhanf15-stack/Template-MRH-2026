@@ -9,7 +9,7 @@
   <div class="row g-3">
     {foreach name=aussen item=product_data from=$box_content}
     <div class="col-6 col-md-4 col-lg-3">
-      <div class="mrh-product-card" itemscope itemtype="https://schema.org/Product">
+      <div class="mrh-product-card">
         <a href="{$product_data.PRODUCTS_LINK}" class="mrh-product-card-img" title="{$product_data.PRODUCTS_NAME|onlytext}">
           <div class="mrh-flag">
             {if $product_data.PRODUCTS_PRICE_ARRAY.0.PRODUCTS_PRICE_SAVE_PERCENT != ''}
@@ -19,17 +19,17 @@
           </div>
           {if $product_data.PRODUCTS_IMAGE != ''}
             <img src="{$product_data.PRODUCTS_IMAGE}" alt="{$product_data.PRODUCTS_NAME|onlytext}"
-                 itemprop="image" loading="lazy" width="300" height="300">
+                 loading="lazy" width="300" height="300">
           {/if}
         </a>
         <div class="mrh-product-card-body">
           {if !empty($product_data.MANUFACTURER)}
-            <div class="mrh-product-card-manufacturer" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-              <span itemprop="name">{$product_data.MANUFACTURER}</span>
+            <div class="mrh-product-card-manufacturer">
+              <span>{$product_data.MANUFACTURER}</span>
             </div>
           {/if}
           <h3 class="mrh-product-card-title">
-            <a href="{$product_data.PRODUCTS_LINK}" itemprop="name">{$product_data.PRODUCTS_NAME}</a>
+            <a href="{$product_data.PRODUCTS_LINK}">{$product_data.PRODUCTS_NAME}</a>
           </h3>
           {if isset($product_data.MRH_RATING_PERCENT) && $product_data.MRH_RATING_PERCENT > 0}
             <div class="mrh-rating">
@@ -45,7 +45,7 @@
               <span class="mrh-rating-count">({$product_data.MRH_RATING_COUNT})</span>
             </div>
           {/if}
-          <div class="mrh-product-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+          <div class="mrh-product-card-price">
             {foreach name=inner item=price_data from=$product_data.PRODUCTS_PRICE_ARRAY}
               {include file="module/includes/price_box.html"}
             {/foreach}

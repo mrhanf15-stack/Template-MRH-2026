@@ -39,26 +39,24 @@
 {if isset($success_message) && $success_message != ''}<div class="alert alert-success">{$success_message}</div>{/if}
 
 {* ══════════════════════════════════════════════════════════════
-   PRODUCT WRAPPER – Schema.org Product (Microdata)
+   PRODUCT WRAPPER
    ══════════════════════════════════════════════════════════════ *}
-<article class="mrh-product-info" itemscope itemtype="https://schema.org/Product">
+<article class="mrh-product-info">
   {$FORM_ACTION}
 
   {* ── 1. BREADCRUMB ── *}
   {if isset($BREADCRUMB)}
     <nav aria-label="Breadcrumb" class="mb-3">
-      <ol class="breadcrumb small" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <ol class="breadcrumb small">
         {foreach name=bc item=bc_item from=$BREADCRUMB}
-          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}"
-              itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <li class="breadcrumb-item{if $smarty.foreach.bc.last} active{/if}">
             {if !$smarty.foreach.bc.last}
-              <a href="{$bc_item.HREF}" itemprop="item">
-                <span itemprop="name">{$bc_item.NAME}</span>
+              <a href="{$bc_item.HREF}">
+                <span>{$bc_item.NAME}</span>
               </a>
             {else}
-              <span itemprop="name">{$bc_item.NAME}</span>
+              <span>{$bc_item.NAME}</span>
             {/if}
-            <meta itemprop="position" content="{$smarty.foreach.bc.iteration}">
           </li>
         {/foreach}
       </ol>
@@ -80,22 +78,7 @@
            BILDERGALERIE – Hover-Zoom, Lightbox, Thumbnails (Vanilla JS)
            ══════════════════════════════════════════════════════════════ *}
 
-        {* ── Schema.org ImageGallery (versteckt) ── *}
-        {if $PRODUCTS_IMAGE != ''}
-          <div style="display:none;" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
-            <meta itemprop="name" content="product_images">
-            <div itemprop="value" itemscope itemtype="https://schema.org/ImageGallery">
-              <meta itemprop="thumbnail" content="{$PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
-              {if isset($more_images)}
-                {foreach item=more_images_data from=$more_images}
-                  {if $more_images_data.PRODUCTS_IMAGE != ''}
-                    <meta itemprop="thumbnail" content="{$more_images_data.PRODUCTS_IMAGE|replace:'info_images':'popup_images'}">
-                  {/if}
-                {/foreach}
-              {/if}
-            </div>
-          </div>
-        {/if}
+
 
         {* ── Hauptbild mit Hover-Zoom ── *}
         {if $PRODUCTS_IMAGE != ''}
@@ -107,7 +90,6 @@
                    data-zoom-src="{$PRODUCTS_IMAGE|replace:'info_images':'original_images'}"
                    alt="{$PRODUCTS_NAME|onlytext}"
                    title="{$PRODUCTS_NAME|onlytext}"
-                   itemprop="image"
                    width="600" height="600"
                    loading="eager" />
               <div class="mrh-zoom-lens" id="mrhZoomLens" aria-hidden="true"></div>
@@ -195,21 +177,21 @@
 
       {* Hersteller *}
       {if isset($MANUFACTURER) && $MANUFACTURER != ''}
-        <div class="mrh-pi-manufacturer mb-2" itemprop="brand" itemscope itemtype="https://schema.org/Brand">
-          <a href="{$MANUFACTURER_LINK}" class="small text-muted text-decoration-none" itemprop="url">
-            <span itemprop="name">{$MANUFACTURER}</span>
+        <div class="mrh-pi-manufacturer mb-2">
+          <a href="{$MANUFACTURER_LINK}" class="small text-muted text-decoration-none">
+            <span>{$MANUFACTURER}</span>
           </a>
         </div>
       {/if}
 
       {* Produktname *}
-      <h1 class="h3 mb-3" itemprop="name">
+      <h1 class="h3 mb-3">
         {if $PRODUCTS_HEADING_TITLE != ''}{$PRODUCTS_HEADING_TITLE}{else}{$PRODUCTS_NAME}{/if}
       </h1>
 
       {* Bewertungen (Sterne) *}
       {if isset($PRODUCTS_RATING_COUNT) && $PRODUCTS_RATING_COUNT > 0}
-        <div class="mrh-rating mb-3" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+        <div class="mrh-rating mb-3">
           {if isset($MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT) && $MRH_AWIDS_PRODUCTS_AVERAGE_PERCENT}
             <span class="d-inline">
               <a class="mrh_avg_container text-decoration-none" href="#mrh-reviews"
@@ -229,9 +211,7 @@
             </span>
             <a href="#mrh-reviews" class="small text-muted ms-1">({$PRODUCTS_RATING_COUNT} {#text_reviews#})</a>
           {/if}
-          <meta itemprop="ratingValue" content="{$PRODUCTS_AVERAGE_RATING}" />
-          <meta itemprop="bestRating" content="5" />
-          <meta itemprop="ratingCount" content="{$PRODUCTS_RATING_COUNT}" />
+
         </div>
       {/if}
 
@@ -251,7 +231,7 @@
 
       {* ── Short Description / MRH Characteristics ── *}
       {if !empty($PRODUCTS_SHORT_DESCRIPTION)}
-        <div class="mrh-short-desc mb-3 lr_desc" itemprop="description">
+        <div class="mrh-short-desc mb-3 lr_desc">
           {$PRODUCTS_SHORT_DESCRIPTION}
         </div>
       {else}
@@ -281,18 +261,7 @@
       {/if}
 
       {* ── Preis-Box ── *}
-      <div class="mrh-pi-price mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-        <meta itemprop="url" content="{$PRODUCTS_LINK}" />
-        <meta itemprop="priceCurrency" content="{$smarty.session.currency}" />
-        {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
-          <meta itemprop="mpn" content="{$PRODUCTS_MANUFACTURERS_MODEL}" />
-        {/if}
-        <meta itemprop="itemCondition" content="https://schema.org/NewCondition" />
-        {if $PRODUCTS_QUANTITY <= 0 && $smarty.const.STOCK_CHECK == 'true'}
-          <link itemprop="availability" href="https://schema.org/OutOfStock" />
-        {else}
-          <link itemprop="availability" href="https://schema.org/InStock" />
-        {/if}
+      <div class="mrh-pi-price mb-3">
 
         <div class="pd_price" id="pd_puprice">
           {if isset($PRODUCTS_FSK18) && $PRODUCTS_FSK18 == 'true'}<div class="pd_fsk18"></div>{/if}
@@ -420,13 +389,13 @@
       {* ── Artikelnummer / EAN / Meta ── *}
       <div class="mrh-pi-meta small text-muted mb-3">
         {if $PRODUCTS_MODEL != ''}
-          <div><strong>{#model#}:</strong> <span itemprop="sku">{$PRODUCTS_MODEL}</span></div>
+          <div><strong>{#model#}:</strong> <span>{$PRODUCTS_MODEL}</span></div>
         {/if}
         {if isset($PRODUCTS_EAN) && $PRODUCTS_EAN != ''}
-          <div><strong>EAN:</strong> <span itemprop="gtin{$PRODUCTS_EAN|strlen}">{$PRODUCTS_EAN}</span></div>
+          <div><strong>EAN:</strong> <span>{$PRODUCTS_EAN}</span></div>
         {/if}
         {if $PRODUCTS_MANUFACTURERS_MODEL != ''}
-          <div><strong>{#products_manufacturer_model#}:</strong> <span itemprop="mpn">{$PRODUCTS_MANUFACTURERS_MODEL}</span></div>
+          <div><strong>{#products_manufacturer_model#}:</strong> <span>{$PRODUCTS_MANUFACTURERS_MODEL}</span></div>
         {/if}
         {if $PRODUCTS_ADDED != ''}
           <div class="text-secondary">{$PRODUCTS_ADDED}</div>
@@ -515,7 +484,7 @@
      4. BESCHREIBUNG (volle Breite)
      ══════════════════════════════════════════════════════════════ *}
   {if $PRODUCTS_DESCRIPTION != ''}
-    <div class="mrh-product-description mt-5 mb-4" itemprop="description">
+    <div class="mrh-product-description mt-5 mb-4">
       <h2 class="h5 fw-bold mb-3">
         <span class="fa fa-align-left me-2 text-secondary"></span>{#text_tab_description#}
       </h2>

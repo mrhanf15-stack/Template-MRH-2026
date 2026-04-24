@@ -42,6 +42,6 @@
     {if $price_data.PRODUCTS_PRICE_FROM != ''}
       <span class="mrh-price-label small text-body-secondary">{$price_data.PRODUCTS_PRICE_FROM} </span>
     {/if}
-    <span class="mrh-price fw-bold" itemprop="price" content="{$price_data.PRODUCTS_PRICE_PLAIN|default:''}">{$price_data.PRODUCTS_PRICE_STANDARD_PRICE}</span>
+    <span class="mrh-price fw-bold" content="{$price_data.PRODUCTS_PRICE_PLAIN|default:''}">{$price_data.PRODUCTS_PRICE_STANDARD_PRICE}</span>
   </div>
 {/if}

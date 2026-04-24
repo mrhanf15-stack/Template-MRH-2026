@@ -1,5 +1,5 @@
 {* MRH 2026: FAQ Manager v2.0 – BS5.3, FA6, CSS-Variablen, Schema.org FAQPage *}
-<div class="faq_list" itemscope itemtype="https://schema.org/FAQPage">
+<div class="faq_list">
   {foreach name=aussen item=FAQS_CID from=$FAQ_TREE.0}
 
     {* ── Kategorie-Header (volle Breite über beide Spalten) ── *}
@@ -11,7 +11,7 @@
     {if $FAQ_CATEGORIES.$FAQS_CID.items|count > 0}
       <div class="faq-grid" id="faqAccordion_{$FAQS_CID}">
         {foreach name=inneritems item=FAQS_ITEM from=$FAQ_CATEGORIES.$FAQS_CID.items}
-          <div class="faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-card">
 
             {* ── Frage (Header) ── *}
             <div class="faq-header" id="faqHeading_{$FAQS_ITEM.id}">
@@ -21,7 +21,7 @@
                       data-bs-target="#faqCollapse_{$FAQS_ITEM.id}"
                       aria-expanded="false"
                       aria-controls="faqCollapse_{$FAQS_ITEM.id}">
-                <span class="faq-question" itemprop="name">
+                <span class="faq-question">
                   <span class="fa-solid fa-circle-question faq-icon"></span>
                   {$FAQS_ITEM.question}
                 </span>
@@ -35,8 +35,8 @@
             <div id="faqCollapse_{$FAQS_ITEM.id}"
                  class="collapse"
                  aria-labelledby="faqHeading_{$FAQS_ITEM.id}">
-              <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <span itemprop="text">{$FAQS_ITEM.answer}</span>
+              <div class="faq-body">
+                <span>{$FAQS_ITEM.answer}</span>
               </div>
             </div>
 
@@ -58,7 +58,7 @@
 
             <div class="faq-grid" id="faqAccordion_{$FAQS_CHILD}">
               {foreach name=inneritems item=FAQS_ITEM from=$FAQ_CATEGORIES.$FAQS_CHILD.items}
-                <div class="faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="faq-card">
 
                   <div class="faq-header" id="faqHeading_{$FAQS_ITEM.id}">
                     <button class="faq-button collapsed"
@@ -67,7 +67,7 @@
                             data-bs-target="#faqCollapse_{$FAQS_ITEM.id}"
                             aria-expanded="false"
                             aria-controls="faqCollapse_{$FAQS_ITEM.id}">
-                      <span class="faq-question" itemprop="name">
+                      <span class="faq-question">
                         <span class="fa-solid fa-circle-question faq-icon"></span>
                         {$FAQS_ITEM.question}
                       </span>
@@ -80,8 +80,8 @@
                   <div id="faqCollapse_{$FAQS_ITEM.id}"
                        class="collapse"
                        aria-labelledby="faqHeading_{$FAQS_ITEM.id}">
-                    <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                      <span itemprop="text">{$FAQS_ITEM.answer}</span>
+                    <div class="faq-body">
+                      <span>{$FAQS_ITEM.answer}</span>
                     </div>
                   </div>
 
