@@ -13,6 +13,7 @@
    v3.1 (2026-04-10): Preset/Backup/Restore-System hinzugefuegt
    v3.2 (2026-04-11): Icon-Konfigurator (Tab 9) – icons.json Speichern/Laden/Reset
    v3.3 (2026-04-11): Badge-Konfigurator – Produkt-Typ-Badges konfigurierbar
+   v3.4 (2026-04-25): Widget-Positionierung – Floating-Widgets per Drag & Drop
    
    Pfad: templates/tpl_mrh_2026/admin/includes/mrh_configurator.php
    ===================================================================== */
@@ -1624,6 +1625,62 @@ if (isset($_POST['submit-reset-icons'])) {
     }
 }
 
+// =====================================================================
+// === 11. Widget-Positionierung ===
+// =====================================================================
+
+$widget_config_file = $json_dir . 'widgets.json';
+$mrh_widgets = mrh_read_json($widget_config_file);
+
+// 11a. Widget-Positionen speichern
+if (isset($_POST['submit-widgetsettings'])) {
+    $posted_json = isset($_POST['mrh_widgets_json']) ? $_POST['mrh_widgets_json'] : '';
+    $posted_data = json_decode(stripslashes($posted_json), true);
+    
+    if (is_array($posted_data)) {
+        $valid_widgets = ['compare', 'a11y', 'etrust', 'cookies', 'scrolltop'];
+        $sanitized = [];
+        
+        foreach ($posted_data as $key => $val) {
+            if (!in_array($key, $valid_widgets)) continue;
+            if (!is_array($val)) continue;
+            
+            $sanitized[$key] = [
+                'x'       => isset($val['x']) ? max(0, min(100, intval($val['x']))) : 50,
+                'y'       => isset($val['y']) ? max(0, min(100, intval($val['y']))) : 50,
+                'z'       => isset($val['z']) ? max(1, min(9999, intval($val['z']))) : 1000,
+                'visible' => isset($val['visible']) ? (bool)$val['visible'] : true,
+                'selector'=> isset($val['selector']) ? htmlspecialchars(trim($val['selector']), ENT_QUOTES, 'UTF-8') : '',
+                'label'   => isset($val['label']) ? htmlspecialchars(trim($val['label']), ENT_QUOTES, 'UTF-8') : '',
+            ];
+        }
+        
+        // Meta-Daten
+        $sanitized['_meta'] = [
+            'version' => '1.0',
+            'description' => 'MRH 2026 Widget-Positionierung',
+            'date' => date('Y-m-d H:i:s'),
+        ];
+        
+        if (mrh_write_json($widget_config_file, $sanitized)) {
+            $mrh_widgets = $sanitized;
+            $mrh_config_message = '<div class="alert alert-success mx-3"><i class="fa fa-check-circle me-1"></i> Widget-Positionen erfolgreich gespeichert!</div>';
+            // templates_c leeren fuer sofortige Wirkung
+            $tpl_c = DIR_FS_CATALOG . 'templates_c/';
+            if (is_dir($tpl_c)) {
+                $files = glob($tpl_c . '*');
+                foreach ($files as $f) {
+                    if (is_file($f)) @unlink($f);
+                }
+            }
+        } else {
+            $mrh_config_message = '<div class="alert alert-danger mx-3">Fehler beim Speichern der Widget-Positionen.</div>';
+        }
+    } else {
+        $mrh_config_message = '<div class="alert alert-danger mx-3">Ungueltige Widget-Daten empfangen.</div>';
+    }
+}
+
 // === Globals setzen ===
 $GLOBALS['mrh_colors']  = $mrh_colors;
 $GLOBALS['mrh_tpl']     = $mrh_tpl;
@@ -1634,3 +1691,4 @@ $GLOBALS['mrh_config_message'] = $mrh_config_message;
 $GLOBALS['mrh_presets'] = $available_presets;
 $GLOBALS['mrh_backups'] = $available_backups;
 $GLOBALS['mrh_icons']   = $mrh_icons;
+$GLOBALS['mrh_widgets'] = $mrh_widgets;

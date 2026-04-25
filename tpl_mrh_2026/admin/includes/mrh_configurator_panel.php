@@ -20,6 +20,8 @@
     10. Badges       – Produkt-Typ-Badges: Farbe, Groesse, Rundung, Hover, Umrandung
    v4.3 (2026-04-16): Tab 12 Blog-Konfigurator hinzugefuegt
     12. Blog         – Post-Cards, Kategorie-Cards, Badges, Buttons, Einzelansicht
+   v4.4 (2026-04-25): Tab Widgets hinzugefuegt
+    Widgets      – Floating-Widget-Positionierung per Drag & Drop
    
    v3.0 (2026-04-10): ALLE Keys auf tpl-* vereinheitlicht
    ===================================================================== */
@@ -84,6 +86,7 @@ if (!empty($msg)) echo $msg;
     <div class="mrh-tab" data-tab="customcss"><i class="fa fa-code me-1"></i>Custom CSS</div>
     <div class="mrh-tab" data-tab="presets"><i class="fa fa-paint-brush me-1"></i>Presets</div>
     <div class="mrh-tab" data-tab="content"><i class="fa fa-file-code me-1"></i>Content</div>
+    <div class="mrh-tab" data-tab="widgets"><i class="fa fa-layer-group me-1"></i>Widgets</div>
 </div>
 
 <!-- ================================================================== -->
@@ -4938,6 +4941,552 @@ if (is_dir($snippetDir)) {
     <i class="fa fa-lightbulb me-2"></i><strong>Tipp:</strong> Neue Snippets als <code>.html</code>-Datei in <code>templates/tpl_mrh_2026/config/content-snippets/</code> ablegen. Sie erscheinen automatisch hier.
 </div>
 </div><!-- /#tab-content -->
+
+<!-- ================================================================== -->
+<!-- TAB: WIDGET-POSITIONIERUNG -->
+<!-- ================================================================== -->
+<div class="mrh-tab-pane" id="tab-widgets">
+
+<style>
+/* === Widget-Positionierung Tab Styles === */
+.mrh-widget-cfg { padding: 8px 12px; }
+.mrh-widget-layout { display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
+@media (max-width: 900px) { .mrh-widget-layout { grid-template-columns: 1fr; } }
+
+/* Widget-Karten */
+.mrh-widget-card {
+    background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 8px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.mrh-widget-card:hover { border-color: #4a8c2a; box-shadow: 0 1px 4px rgba(74,140,42,0.15); }
+.mrh-widget-card.disabled { opacity: 0.5; }
+.mrh-widget-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.mrh-widget-icon {
+    width: 32px; height: 32px; border-radius: 6px; display: flex;
+    align-items: center; justify-content: center; font-size: 14px; color: #fff; flex-shrink: 0;
+}
+.mrh-widget-title { font-size: 12px; font-weight: 700; color: #333; flex: 1; }
+.mrh-widget-pos { font-size: 10px; color: #888; font-family: monospace; }
+.mrh-widget-desc { font-size: 10px; color: #666; margin-bottom: 6px; }
+.mrh-widget-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.mrh-widget-fields label { font-size: 10px; font-weight: 600; color: #555; display: block; }
+.mrh-widget-fields input {
+    width: 100%; font-size: 11px; padding: 3px 6px; border: 1px solid #d1d5db;
+    border-radius: 4px; background: #fff;
+}
+.mrh-widget-selector {
+    font-size: 10px; color: #4a8c2a; font-family: monospace;
+    background: #f0fdf4; padding: 2px 6px; border-radius: 3px;
+    margin-top: 4px; display: inline-block;
+}
+
+/* Toggle Switch */
+.mrh-widget-toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+.mrh-widget-toggle input { opacity: 0; width: 0; height: 0; }
+.mrh-widget-toggle .slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background: #ccc; border-radius: 20px; transition: 0.2s;
+}
+.mrh-widget-toggle .slider:before {
+    position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px;
+    background: #fff; border-radius: 50%; transition: 0.2s;
+}
+.mrh-widget-toggle input:checked + .slider { background: #4a8c2a; }
+.mrh-widget-toggle input:checked + .slider:before { transform: translateX(16px); }
+
+/* Phone Mockup */
+.mrh-widget-phone {
+    width: 300px; height: 560px; border: 3px solid #1a1a1a; border-radius: 28px;
+    overflow: hidden; position: relative; background: #fff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+.mrh-widget-phone-header {
+    background: #4a8c2a; color: #fff; padding: 8px 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; font-weight: 700;
+}
+.mrh-widget-phone-content {
+    position: relative; height: calc(100% - 80px); overflow: hidden;
+    background: #f5f5f5;
+}
+.mrh-widget-phone-product {
+    background: #fff; margin: 8px; border-radius: 8px; padding: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.mrh-widget-phone-product img {
+    width: 100%; height: 140px; object-fit: cover; border-radius: 6px;
+    background: #e8f5e2;
+}
+.mrh-widget-phone-nav {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: #fff; border-top: 1px solid #e5e5e5;
+    display: flex; justify-content: space-around; padding: 6px 0;
+    font-size: 9px; color: #888;
+}
+.mrh-widget-phone-nav i { display: block; font-size: 14px; margin-bottom: 2px; text-align: center; }
+
+/* Draggable Widgets in Phone */
+.mrh-draggable-widget {
+    position: absolute; cursor: grab; z-index: 10;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    transition: box-shadow 0.15s;
+    user-select: none;
+}
+.mrh-draggable-widget:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.35); }
+.mrh-draggable-widget:active { cursor: grabbing; box-shadow: 0 6px 16px rgba(0,0,0,0.4); }
+.mrh-draggable-widget.hidden { display: none; }
+
+/* Export Panel */
+.mrh-widget-export {
+    background: #1e293b; color: #e2e8f0; border-radius: 6px;
+    padding: 10px; margin-top: 10px; font-family: monospace; font-size: 11px;
+    max-height: 250px; overflow-y: auto; white-space: pre-wrap;
+    display: none;
+}
+.mrh-widget-export.show { display: block; }
+.mrh-widget-export-tabs { display: flex; gap: 4px; margin-bottom: 6px; }
+.mrh-widget-export-tabs button {
+    padding: 3px 10px; font-size: 10px; border: 1px solid #475569;
+    background: transparent; color: #94a3b8; border-radius: 3px; cursor: pointer;
+}
+.mrh-widget-export-tabs button.active { background: #334155; color: #fff; border-color: #4a8c2a; }
+</style>
+
+<div class="mrh-widget-cfg">
+    <div class="mrh-sh"><i class="fa fa-layer-group me-1"></i> Widget-Positionierung</div>
+    <p class="text-muted small mb-3">Floating-Widgets per Drag &amp; Drop in der Live-Vorschau positionieren. Positionen werden als CSS gespeichert.</p>
+
+    <div class="mrh-widget-layout">
+        <!-- Linke Spalte: Widget-Karten -->
+        <div id="mrh-widget-cards">
+            <!-- Vergleich -->
+            <div class="mrh-widget-card" data-widget="compare">
+                <div class="mrh-widget-header">
+                    <div class="mrh-widget-icon" style="background:#0d9488;"><i class="fa fa-scale-balanced"></i></div>
+                    <span class="mrh-widget-title">Vergleich</span>
+                    <span class="mrh-widget-pos" id="pos-compare">85% / 78%</span>
+                    <label class="mrh-widget-toggle">
+                        <input type="checkbox" checked data-widget="compare" onchange="mrhWidgetToggle(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="mrh-widget-desc">Produktvergleich Floating-Button</div>
+                <div class="mrh-widget-fields">
+                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="85" data-widget="compare" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="78" data-widget="compare" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1050" data-widget="compare" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
+                </div>
+                <div class="mrh-widget-selector">&lt;/&gt; #compare-floating-btn</div>
+            </div>
+
+            <!-- Barrierefreiheit -->
+            <div class="mrh-widget-card" data-widget="a11y">
+                <div class="mrh-widget-header">
+                    <div class="mrh-widget-icon" style="background:#2563eb;"><i class="fa fa-universal-access"></i></div>
+                    <span class="mrh-widget-title">Barrierefreiheit</span>
+                    <span class="mrh-widget-pos" id="pos-a11y">2% / 78%</span>
+                    <label class="mrh-widget-toggle">
+                        <input type="checkbox" checked data-widget="a11y" onchange="mrhWidgetToggle(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="mrh-widget-desc">Web-Barrierefreiheit Widget</div>
+                <div class="mrh-widget-fields">
+                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="2" data-widget="a11y" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="78" data-widget="a11y" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1040" data-widget="a11y" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
+                </div>
+                <div class="mrh-widget-selector">&lt;/&gt; #accessibility-widget</div>
+            </div>
+
+            <!-- eTrust -->
+            <div class="mrh-widget-card" data-widget="etrust">
+                <div class="mrh-widget-header">
+                    <div class="mrh-widget-icon" style="background:#ca8a04;"><i class="fa fa-shield-halved"></i></div>
+                    <span class="mrh-widget-title">eTrust / Trusted Shops</span>
+                    <span class="mrh-widget-pos" id="pos-etrust">2% / 60%</span>
+                    <label class="mrh-widget-toggle">
+                        <input type="checkbox" checked data-widget="etrust" onchange="mrhWidgetToggle(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="mrh-widget-desc">Trusted Shops G&uuml;tesiegel Widget</div>
+                <div class="mrh-widget-fields">
+                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="2" data-widget="etrust" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="60" data-widget="etrust" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1030" data-widget="etrust" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
+                </div>
+                <div class="mrh-widget-selector">&lt;/&gt; #etrust-badge-widget</div>
+            </div>
+
+            <!-- Cookies -->
+            <div class="mrh-widget-card" data-widget="cookies">
+                <div class="mrh-widget-header">
+                    <div class="mrh-widget-icon" style="background:#78350f;"><i class="fa fa-cookie-bite"></i></div>
+                    <span class="mrh-widget-title">Cookies</span>
+                    <span class="mrh-widget-pos" id="pos-cookies">2% / 90%</span>
+                    <label class="mrh-widget-toggle">
+                        <input type="checkbox" checked data-widget="cookies" onchange="mrhWidgetToggle(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="mrh-widget-desc">Cookie-Einstellungen Trigger-Icon</div>
+                <div class="mrh-widget-fields">
+                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="2" data-widget="cookies" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="90" data-widget="cookies" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1020" data-widget="cookies" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
+                </div>
+                <div class="mrh-widget-selector">&lt;/&gt; #cookie-settings-trigger</div>
+            </div>
+
+            <!-- Scroll-to-Top -->
+            <div class="mrh-widget-card" data-widget="scrolltop">
+                <div class="mrh-widget-header">
+                    <div class="mrh-widget-icon" style="background:#4a8c2a;"><i class="fa fa-arrow-up"></i></div>
+                    <span class="mrh-widget-title">Scroll-to-Top</span>
+                    <span class="mrh-widget-pos" id="pos-scrolltop">90% / 85%</span>
+                    <label class="mrh-widget-toggle">
+                        <input type="checkbox" checked data-widget="scrolltop" onchange="mrhWidgetToggle(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="mrh-widget-desc">Nach-oben-scrollen Button</div>
+                <div class="mrh-widget-fields">
+                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="90" data-widget="scrolltop" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="85" data-widget="scrolltop" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1060" data-widget="scrolltop" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
+                </div>
+                <div class="mrh-widget-selector">&lt;/&gt; #scroll-to-top</div>
+            </div>
+
+            <!-- Aktions-Buttons -->
+            <div class="d-flex gap-2 mt-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="mrhWidgetReset()"><i class="fa fa-undo me-1"></i>Zur&uuml;cksetzen</button>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="mrhWidgetToggleExport()"><i class="fa fa-code me-1"></i>CSS / PHP Export</button>
+            </div>
+
+            <!-- Export-Panel -->
+            <div id="mrh-widget-export" class="mrh-widget-export">
+                <div class="mrh-widget-export-tabs">
+                    <button class="active" onclick="mrhWidgetExportTab('css',this)">CSS</button>
+                    <button onclick="mrhWidgetExportTab('php',this)">PHP</button>
+                </div>
+                <pre id="mrh-widget-export-code"></pre>
+                <div class="d-flex gap-2 mt-2">
+                    <button type="button" class="btn btn-sm btn-outline-light" onclick="mrhWidgetCopyExport()"><i class="fa fa-copy me-1"></i>Kopieren</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rechte Spalte: Phone Mockup -->
+        <div>
+            <div class="text-center mb-2"><small class="text-muted fw-bold" style="font-size:10px;letter-spacing:1px;"><i class="fa fa-circle text-success me-1" style="font-size:6px;vertical-align:middle;"></i>DRAG &amp; DROP VORSCHAU</small></div>
+            <div class="mrh-widget-phone" id="mrh-widget-phone">
+                <div class="mrh-widget-phone-header">
+                    <span>Mr. Hanf</span>
+                    <span><i class="fa fa-search me-2"></i><i class="fa fa-heart me-2"></i><i class="fa fa-cart-shopping"></i></span>
+                </div>
+                <div class="mrh-widget-phone-content" id="mrh-widget-phone-content">
+                    <div class="mrh-widget-phone-product">
+                        <div style="width:100%;height:140px;background:linear-gradient(135deg,#e8f5e2,#c8e6c0);border-radius:6px;display:flex;align-items:center;justify-content:center;">
+                            <i class="fa fa-cannabis" style="font-size:48px;color:#4a8c2a;opacity:0.3;"></i>
+                        </div>
+                        <div style="margin-top:8px;">
+                            <strong style="font-size:12px;">Northern Lights Auto</strong>
+                            <div style="font-size:10px;color:#888;">Royal Queen Seeds</div>
+                            <div style="margin-top:4px;">
+                                <i class="fa fa-star" style="color:#f59e0b;font-size:10px;"></i>
+                                <i class="fa fa-star" style="color:#f59e0b;font-size:10px;"></i>
+                                <i class="fa fa-star" style="color:#f59e0b;font-size:10px;"></i>
+                                <i class="fa fa-star" style="color:#f59e0b;font-size:10px;"></i>
+                                <i class="fa fa-star-half-stroke" style="color:#f59e0b;font-size:10px;"></i>
+                                <span style="font-size:9px;color:#888;">(23)</span>
+                            </div>
+                            <div style="margin-top:6px;font-size:13px;font-weight:700;">ab 22,00 EUR</div>
+                            <div style="margin-top:6px;background:#4a8c2a;color:#fff;text-align:center;padding:6px;border-radius:4px;font-size:11px;font-weight:600;"><i class="fa fa-cart-shopping me-1"></i>In den Warenkorb</div>
+                        </div>
+                    </div>
+                    <div style="padding:0 8px;">
+                        <table style="width:100%;font-size:9px;border-collapse:collapse;">
+                            <tr style="border-bottom:1px solid #eee;"><td style="padding:3px 0;color:#888;">Bl&uuml;tezeit</td><td style="padding:3px 0;font-weight:600;">9 &ndash; 10 Wochen</td></tr>
+                            <tr style="border-bottom:1px solid #eee;"><td style="padding:3px 0;color:#888;">Ertrag Indoor</td><td style="padding:3px 0;font-weight:600;">550 &ndash; 800 g/m&sup2;</td></tr>
+                            <tr><td style="padding:3px 0;color:#888;">Klima</td><td style="padding:3px 0;font-weight:600;">sehr hei&szlig;, gem&auml;&szlig;igt</td></tr>
+                        </table>
+                    </div>
+
+                    <!-- Draggable Widgets -->
+                    <div class="mrh-draggable-widget" id="drag-compare" style="background:#0d9488;right:15%;bottom:22%;" data-widget="compare" title="Vergleich">
+                        <i class="fa fa-scale-balanced"></i>
+                    </div>
+                    <div class="mrh-draggable-widget" id="drag-a11y" style="background:#2563eb;left:2%;bottom:22%;" data-widget="a11y" title="Barrierefreiheit">
+                        <i class="fa fa-universal-access"></i>
+                    </div>
+                    <div class="mrh-draggable-widget" id="drag-etrust" style="background:#ca8a04;left:2%;bottom:40%;" data-widget="etrust" title="eTrust">
+                        <i class="fa fa-shield-halved"></i>
+                    </div>
+                    <div class="mrh-draggable-widget" id="drag-cookies" style="background:#78350f;left:2%;bottom:10%;" data-widget="cookies" title="Cookies">
+                        <i class="fa fa-cookie-bite"></i>
+                    </div>
+                    <div class="mrh-draggable-widget" id="drag-scrolltop" style="background:#4a8c2a;right:10%;bottom:15%;" data-widget="scrolltop" title="Scroll-to-Top">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                </div>
+                <div class="mrh-widget-phone-nav">
+                    <div><i class="fa fa-house"></i>Home</div>
+                    <div><i class="fa fa-search"></i>Suche</div>
+                    <div style="color:#4a8c2a;"><i class="fa fa-seedling"></i>Seedfinder</div>
+                    <div><i class="fa fa-heart"></i>Merkliste</div>
+                    <div><i class="fa fa-cart-shopping"></i>Warenkorb</div>
+                </div>
+            </div>
+            <div class="text-center mt-2"><small class="text-muted" style="font-size:9px;">Widgets mit der Maus ziehen um zu positionieren</small></div>
+        </div>
+    </div>
+
+    <!-- Hidden Form fuer Speichern -->
+    <form id="mrh-form-widgets" method="post" action="" style="display:none;">
+        <input type="hidden" name="mrh_widgets_json" id="mrh_widgets_json" value="">
+        <input type="hidden" name="submit-widgetsettings" value="1">
+    </form>
+
+    <!-- Speichern-Button (nutzt den globalen Speichern-Mechanismus) -->
+    <div class="d-flex justify-content-end mt-3 gap-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="mrhWidgetReset()"><i class="fa fa-undo me-1"></i>Zur&uuml;cksetzen</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="mrhWidgetSave()"><i class="fa fa-save me-1"></i>Positionen speichern</button>
+    </div>
+</div>
+
+<script>
+(function(){
+    // === Widget-Konfiguration ===
+    var widgets = {
+        compare:   { x: 85, y: 78, z: 1050, visible: true, selector: '#compare-floating-btn',   label: 'Vergleich' },
+        a11y:      { x: 2,  y: 78, z: 1040, visible: true, selector: '#accessibility-widget',    label: 'Barrierefreiheit' },
+        etrust:    { x: 2,  y: 60, z: 1030, visible: true, selector: '#etrust-badge-widget',     label: 'eTrust' },
+        cookies:   { x: 2,  y: 90, z: 1020, visible: true, selector: '#cookie-settings-trigger', label: 'Cookies' },
+        scrolltop: { x: 90, y: 85, z: 1060, visible: true, selector: '#scroll-to-top',           label: 'Scroll-to-Top' }
+    };
+
+    // Gespeicherte Werte laden (aus PHP/JSON)
+    <?php
+    $widgets_file = $json_dir . 'widgets.json';
+    $saved_widgets = mrh_read_json($widgets_file);
+    if (!empty($saved_widgets)) {
+        echo 'var saved = ' . json_encode($saved_widgets) . ';';
+        echo 'if (saved) { for (var k in saved) { if (widgets[k]) { if (saved[k].x !== undefined) widgets[k].x = parseInt(saved[k].x); if (saved[k].y !== undefined) widgets[k].y = parseInt(saved[k].y); if (saved[k].z !== undefined) widgets[k].z = parseInt(saved[k].z); if (saved[k].visible !== undefined) widgets[k].visible = !!saved[k].visible; } } }';
+    }
+    ?>
+
+    // UI initialisieren
+    function initWidgetUI() {
+        for (var key in widgets) {
+            var w = widgets[key];
+            // Felder setzen
+            var card = document.querySelector('.mrh-widget-card[data-widget="'+key+'"]');
+            if (card) {
+                card.querySelector('input[data-axis="x"]').value = w.x;
+                card.querySelector('input[data-axis="y"]').value = w.y;
+                card.querySelector('input[data-axis="z"]').value = w.z;
+                card.querySelector('input[type="checkbox"]').checked = w.visible;
+                if (!w.visible) card.classList.add('disabled');
+            }
+            // Position-Label
+            var posEl = document.getElementById('pos-' + key);
+            if (posEl) posEl.textContent = w.x + '% / ' + w.y + '%';
+            // Draggable Widget positionieren
+            updateDragPosition(key);
+        }
+    }
+
+    function updateDragPosition(key) {
+        var el = document.getElementById('drag-' + key);
+        var w = widgets[key];
+        if (!el) return;
+        el.style.left = w.x + '%';
+        el.style.top = w.y + '%';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+        el.style.zIndex = w.z;
+        el.style.transform = 'translate(-50%, -50%)';
+        if (w.visible) { el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
+    }
+
+    // === Drag & Drop ===
+    var phoneContent = document.getElementById('mrh-widget-phone-content');
+    var dragging = null;
+    var dragOffset = { x: 0, y: 0 };
+
+    document.querySelectorAll('.mrh-draggable-widget').forEach(function(el) {
+        el.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            dragging = this;
+            var rect = phoneContent.getBoundingClientRect();
+            var elRect = this.getBoundingClientRect();
+            dragOffset.x = e.clientX - elRect.left - elRect.width/2;
+            dragOffset.y = e.clientY - elRect.top - elRect.height/2;
+            this.style.transition = 'none';
+        });
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!dragging) return;
+        var rect = phoneContent.getBoundingClientRect();
+        var x = ((e.clientX - dragOffset.x - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - dragOffset.y - rect.top) / rect.height) * 100;
+        x = Math.max(0, Math.min(100, x));
+        y = Math.max(0, Math.min(100, y));
+        dragging.style.left = x + '%';
+        dragging.style.top = y + '%';
+        dragging.style.right = 'auto';
+        dragging.style.bottom = 'auto';
+        dragging.style.transform = 'translate(-50%, -50%)';
+        // Update Werte
+        var key = dragging.getAttribute('data-widget');
+        widgets[key].x = Math.round(x);
+        widgets[key].y = Math.round(y);
+        // Felder aktualisieren
+        var card = document.querySelector('.mrh-widget-card[data-widget="'+key+'"]');
+        if (card) {
+            card.querySelector('input[data-axis="x"]').value = Math.round(x);
+            card.querySelector('input[data-axis="y"]').value = Math.round(y);
+        }
+        var posEl = document.getElementById('pos-' + key);
+        if (posEl) posEl.textContent = Math.round(x) + '% / ' + Math.round(y) + '%';
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (dragging) {
+            dragging.style.transition = '';
+            dragging = null;
+        }
+    });
+
+    // === Event-Handler (global verfuegbar) ===
+    window.mrhWidgetToggle = function(checkbox) {
+        var key = checkbox.getAttribute('data-widget');
+        widgets[key].visible = checkbox.checked;
+        var card = checkbox.closest('.mrh-widget-card');
+        if (card) { checkbox.checked ? card.classList.remove('disabled') : card.classList.add('disabled'); }
+        updateDragPosition(key);
+    };
+
+    window.mrhWidgetFieldChange = function(input) {
+        var key = input.getAttribute('data-widget');
+        var axis = input.getAttribute('data-axis');
+        var val = parseInt(input.value) || 0;
+        if (axis === 'x') { widgets[key].x = Math.max(0, Math.min(100, val)); }
+        else if (axis === 'y') { widgets[key].y = Math.max(0, Math.min(100, val)); }
+        else if (axis === 'z') { widgets[key].z = Math.max(1, Math.min(9999, val)); }
+        updateDragPosition(key);
+        var posEl = document.getElementById('pos-' + key);
+        if (posEl) posEl.textContent = widgets[key].x + '% / ' + widgets[key].y + '%';
+    };
+
+    window.mrhWidgetReset = function() {
+        widgets.compare   = { x: 85, y: 78, z: 1050, visible: true, selector: '#compare-floating-btn',   label: 'Vergleich' };
+        widgets.a11y      = { x: 2,  y: 78, z: 1040, visible: true, selector: '#accessibility-widget',    label: 'Barrierefreiheit' };
+        widgets.etrust    = { x: 2,  y: 60, z: 1030, visible: true, selector: '#etrust-badge-widget',     label: 'eTrust' };
+        widgets.cookies   = { x: 2,  y: 90, z: 1020, visible: true, selector: '#cookie-settings-trigger', label: 'Cookies' };
+        widgets.scrolltop = { x: 90, y: 85, z: 1060, visible: true, selector: '#scroll-to-top',           label: 'Scroll-to-Top' };
+        initWidgetUI();
+    };
+
+    // === Export ===
+    var exportMode = 'css';
+    window.mrhWidgetToggleExport = function() {
+        var panel = document.getElementById('mrh-widget-export');
+        panel.classList.toggle('show');
+        if (panel.classList.contains('show')) generateExport();
+    };
+
+    window.mrhWidgetExportTab = function(mode, btn) {
+        exportMode = mode;
+        btn.parentNode.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        generateExport();
+    };
+
+    function generateExport() {
+        var code = '';
+        var d = new Date().toLocaleDateString('de-DE');
+        if (exportMode === 'css') {
+            code += '/* ========================================= */\n';
+            code += '/* MRH Widget-Positionen – Konfigurator      */\n';
+            code += '/* Datum: ' + d + '                          */\n';
+            code += '/* ========================================= */\n\n';
+            for (var key in widgets) {
+                var w = widgets[key];
+                if (!w.visible) { code += '/* ' + w.label + ' – AUSGEBLENDET */\n\n'; continue; }
+                code += '/* ' + w.label + ' */\n';
+                code += w.selector + ' {\n';
+                code += '  position: fixed !important;\n';
+                if (w.x > 50) {
+                    code += '  right: ' + (100 - w.x) + '% !important;\n';
+                } else {
+                    code += '  left: ' + w.x + '% !important;\n';
+                }
+                if (w.y > 50) {
+                    code += '  bottom: ' + (100 - w.y) + '% !important;\n';
+                } else {
+                    code += '  top: ' + w.y + '% !important;\n';
+                }
+                code += '  z-index: ' + w.z + ' !important;\n';
+                code += '}\n\n';
+            }
+        } else {
+            code += '<?php\n';
+            code += '/* ========================================= */\n';
+            code += '/* MRH Widget-Positionen als PHP-Konstanten  */\n';
+            code += '/* Datum: ' + d + '                          */\n';
+            code += '/* ========================================= */\n\n';
+            for (var key in widgets) {
+                var w = widgets[key];
+                var K = key.toUpperCase();
+                code += '// ' + w.label + '\n';
+                code += "define('WIDGET_" + K + "_VISIBLE', " + (w.visible ? "'true'" : "'false'") + ");\n";
+                code += "define('WIDGET_" + K + "_X', '" + w.x + "%');\n";
+                code += "define('WIDGET_" + K + "_Y', '" + w.y + "%');\n";
+                code += "define('WIDGET_" + K + "_Z', '" + w.z + "');\n\n";
+            }
+        }
+        document.getElementById('mrh-widget-export-code').textContent = code;
+    }
+
+    window.mrhWidgetCopyExport = function() {
+        var code = document.getElementById('mrh-widget-export-code').textContent;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(function() {
+                alert('Code in die Zwischenablage kopiert!');
+            });
+        } else {
+            var ta = document.createElement('textarea');
+            ta.value = code;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            alert('Code in die Zwischenablage kopiert!');
+        }
+    };
+
+    // === Speichern ===
+    window.mrhWidgetSave = function() {
+        document.getElementById('mrh_widgets_json').value = JSON.stringify(widgets);
+        document.getElementById('mrh-form-widgets').submit();
+    };
+
+    // Init
+    initWidgetUI();
+})();
+</script>
+
+</div><!-- /#tab-widgets -->
 
 
 </div><!-- /#mrh-configurator-v4 -->
