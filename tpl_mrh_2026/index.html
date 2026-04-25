@@ -19,12 +19,14 @@
                                 <span class="mrh-trust-item"><i class="fa-solid fa-phone"></i> {#mrh_topbar_phone#}</span>
                                 <span class="mrh-trust-item d-none d-md-inline-flex"><i class="fa-solid fa-truck-fast"></i> {#mrh_topbar_delivery#}</span>
                                 <span class="mrh-trust-item d-none d-lg-inline-flex"><i class="fa-solid fa-shield-halved"></i> {#mrh_topbar_payment#}</span>
-                                <span class="mrh-trust-item d-none d-lg-inline-flex"><i class="fa-solid fa-envelope"></i> <a class="iframe mrh-topbar-link text-decoration-underline" href="/popup_content.php?coID=46" rel="nofollow" target="_blank" title="{#mrh_topbar_letter#}" data-src="/popup_content.php?coID=46" data-toggle="modal" data-target="#modal">{#mrh_topbar_letter#}</a></span>
+                                <span class="mrh-trust-item d-none d-lg-inline-flex"><i class="fa-solid fa-envelope"></i> <a class="iframe mrh-topbar-link text-decoration-underline" href="/popup_content.php?coID=46" rel="nofollow" title="{#mrh_topbar_letter#}" data-src="/popup_content.php?coID=46">{#mrh_topbar_letter#}</a></span>
                         </div>
                         <span class="text-light fw-normal"><i class="fa-solid fa-gift"></i> {#mrh_topbar_freeshipping#}</span>
                 </div>
         </div>
 
+
+        <header id="main-header" class="container-fluid {if isset($home) && $home == true}thehead-home{/if}">
         <!-- MRH 2026: 02 FREE SHIPPING PROGRESS BAR -->
         {if isset($home) && $home == true}
         <div id="mrh-shipping-bar">
@@ -36,8 +38,6 @@
                 </div>
         </div>
         {/if}
-
-        <header id="main-header" class="container-fluid {if isset($home) && $home == true}thehead-home{/if}">
                 {$box_MISCELLANEOUS_CM}
                 <div class="container">
                         {include file="tpl_parts/content_head.html"}
@@ -373,20 +373,6 @@
 {$box_CATEGORIES}
 </nav>
 
-<div class="modal fade" id="popupContent" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-                <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{#close_button#}">
-                        <span class="visually-hidden">{#close_button#}</span>
-                </button>
-                  </div>
-                <div class="modal-body">
-                <iframe style="width:100%;min-height:50vh" class="border-0 overflow-auto" src=""></iframe>
-                </div>
-          </div>
-        </div>
-</div>
 
 {if "MODULE_COOKIE_CONSENT_STATUS"|defined && $smarty.const.MODULE_COOKIE_CONSENT_STATUS == 'true'}
                 <a id="cookieConsentButton" href="javascript:;" trigger-cookie-consent-panel="" title="{$smarty.const.TEXT_COOKIE_CONSENT_LABEL_CPC_HEADING}">

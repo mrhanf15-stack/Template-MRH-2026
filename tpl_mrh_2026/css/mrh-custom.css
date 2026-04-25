@@ -161,8 +161,10 @@ h1, h2, h3, h4, h5, h6,
 #search,
 #search-mobile {
   border: 2px solid var(--tpl-main-color) !important;
+  box-sizing: content-box !important;
+  height: 44px !important;
   border-radius: 999px !important;
-  overflow: hidden;
+  overflow: visible;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   background: var(--tpl-bg-color) !important;
   flex: 1;
@@ -739,6 +741,10 @@ div.navibar,
 }
 #main-header.sticky-hidden {
   transform: translateY(-100%);
+}
+/* Shipping Bar im Sticky-Modus ausblenden (wie Navigation-Row) */
+#main-header.fixed #mrh-shipping-bar {
+  display: none;
 }
 @keyframes mrh-slideDown {
   from { transform: translateY(-100%); }
@@ -5865,7 +5871,7 @@ a.iframe:hover {
 .mrh-detail-table .mrh-attr-table td:first-child {
   font-weight: 600;
   color: var(--mrh-tbl-label, #475569);
-  width: 35%;
+  width: 44%;
 }
 .mrh-detail-table .mrh-attr-table td:last-child {
   color: var(--mrh-tbl-value, #1e293b);
@@ -8280,4 +8286,71 @@ html.mrh-smooth-scroll {
 /* ── Medical Icon Override (inline style) ─────────────── */
 .fa-medkit {
   color: #fff !important;
+}
+
+/* ===== Blog Titelbild: kleiner, links, Textumfluss (2026-04-24) ===== */
+/* Kategorie-Titelbild */
+.blog-category-image {
+  float: left;
+  max-width: 320px;
+  width: 40%;
+  margin: 0 1.5rem 1rem 0;
+  shape-outside: margin-box;
+}
+.blog-category-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+/* Post-Titelbild (Einzelansicht) */
+.mrh-blog-post-image {
+  float: left;
+  max-width: 320px;
+  width: 40%;
+  margin: 0 1.5rem 1rem 0;
+  shape-outside: margin-box;
+}
+.mrh-blog-post-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+/* Clearfix nach Blog-Content damit Float nicht überläuft */
+#blog-category::after,
+#blog-post::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Mobile: Bild über dem Text, volle Breite */
+@media (max-width: 575px) {
+  .blog-category-image,
+  .mrh-blog-post-image {
+    float: none;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 0 1rem 0;
+  }
+}
+
+/* === MRH 2026: Mobile Boxen einspaltig (außer Footer-Bestseller) === */
+@media (max-width: 576px) {
+  .listingcontainer {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  /* Footer-Bestseller-Box bleibt zweispaltig */
+  .footer-bestseller .listingcontainer,
+  #bestseller_footer .listingcontainer,
+  .box-bestseller .listingcontainer {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+}
+
+/* === Floating Filter-Button komplett entfernen === */
+.floating-filter-btn,
+#floating-filter-btn {
+  display: none !important;
+  visibility: hidden !important;
 }

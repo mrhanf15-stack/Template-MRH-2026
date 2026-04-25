@@ -332,10 +332,10 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
         '</span>' +
       '</div>';
 
-      // Einfuegen: zwischen Topbar (01) und Header (03) = Position 02 im Wireframe
+      // Einfuegen: als erstes Kind im Header (innerhalb #main-header)
       var mainHeader = document.getElementById('main-header');
-      if (mainHeader && mainHeader.parentNode) {
-        mainHeader.parentNode.insertBefore(headerBar, mainHeader);
+      if (mainHeader) {
+        mainHeader.insertBefore(headerBar, mainHeader.firstChild);
       } else {
         // Fallback: nach #topbar
         var topbar = document.getElementById('topbar');
@@ -551,8 +551,8 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
     // ===== Header-Bar (#mrh-shipping-bar) =====
     var headerBar = document.getElementById('mrh-shipping-bar');
     if (headerBar && headerBar.hasAttribute('data-fsb-active')) {
-      // Header-Bar immer sichtbar lassen (zeigt Schwellenwert auch bei leerem Warenkorb)
-      headerBar.style.display = 'block';
+      // Header-Bar: Sichtbarkeit ueber CSS gesteuert (kein Inline-Style)
+      // v1.6.2: Kein Inline-Style mehr - CSS-Regel #main-header.fixed #mrh-shipping-bar steuert Sichtbarkeit
     }
   }
 
