@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   FreeShippingBar v1.6.0-mrh2026 - JavaScript fuer tpl_mrh_2026 Template
+   FreeShippingBar v1.6.2-mrh2026 - JavaScript fuer tpl_mrh_2026 Template
 
    Anpassungen gegenueber bootstrap4-Version:
    - Mini-Warenkorb: BS5 Offcanvas (#offcanvasCart .offcanvas-body) statt BS4 Dropdown
@@ -11,6 +11,9 @@
    - Header-Bar: Uebernimmt bestehenden #mrh-shipping-bar Container
    - 100% Vanilla JS (kein jQuery)
 
+   v1.6.2: Wartungsmodus-Guard
+     - fsbInit() bricht ab wenn #layout_offline existiert
+     - Verhindert Shipping-Bar-Anzeige im Wartungsmodus
    v1.6.1: FAW (Fietz Accessibility Widget) Kontrastkorrektur-Schutz
      - Entfernt inline style !important von FAW auf #mrh-shipping-bar Elementen
      - MutationObserver ueberwacht style-Aenderungen und stellt CSS-Variablen wieder her
@@ -64,7 +67,7 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
     $fsb_lang = isset($_SESSION['language']) ? $_SESSION['language'] : 'german';
 ?>
 <style>
-/* ===== FreeShippingBar v1.6.1-mrh2026 ===== */
+/* ===== FreeShippingBar v1.6.2-mrh2026 ===== */
 
 /* ===== Fixierter Balken (unten/oben) – nutzt PHP-Modul-Farben ===== */
 #fsb-container {
@@ -733,6 +736,8 @@ if (defined('MODULE_FREE_SHIPPING_BAR_STATUS') && MODULE_FREE_SHIPPING_BAR_STATU
 
   // ===== Initialisierung =====
   function fsbInit() {
+    // v1.6.2: Nicht im Wartungsmodus initialisieren
+    if (document.getElementById('layout_offline')) return;
     fsbReadCurrentCountry();
 
     fsbInitHeaderBar();
