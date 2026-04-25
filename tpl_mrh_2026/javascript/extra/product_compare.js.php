@@ -42,7 +42,6 @@
 // v2.0.0: Kein PHP-Guard mehr - JS wird immer geladen
 // Die Vergleichsfunktion ist Template-seitig integriert
 ?>
-<link rel="stylesheet" href="<?php echo (defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/'); ?>templates/<?php echo defined('DIR_TMPL') ? basename(DIR_TMPL) : 'tpl_mrh_2026'; ?>/css/product_compare.css">
 <script>
 (function() {
     'use strict';
@@ -189,8 +188,10 @@
 
         if (count > 0) {
             badge.classList.add('active');
+            badge.style.display = 'block';
         } else {
             badge.classList.remove('active');
+            badge.style.display = 'none';
         }
     }
 
