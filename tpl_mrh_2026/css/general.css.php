@@ -1318,14 +1318,16 @@ if (file_exists($widgets_json_path)) {
     $widgets_data = json_decode($widgets_raw, true);
     if (is_array($widgets_data) && !empty($widgets_data)) {
         echo '<style id="mrh-widget-positions">' . PHP_EOL;
-        // Mapping: widget-key => CSS-Selektor
+        // Mapping: widget-key => CSS-Selektor (verifiziert auf Live-Seite 2026-04-26)
         $widget_selectors = [
             'compare'   => '.product-compare-badge',
             'a11y'      => '.faw-menu-btn',
             'etrust'    => '._uuhri8',
-            'scrolltop' => '.mrh-back-to-top',
-            'cookies'   => '[data-trigger-cookie-consent-panel]',
+            'scrolltop' => '#mrh-back-to-top',
+            'cookies'   => '#cookieConsentButton',
         ];
+        // Widgets die Inline-Styles haben und JS-Override brauchen
+        $js_override_widgets = [];
         foreach ($widgets_data as $key => $cfg) {
             if (!isset($widget_selectors[$key])) continue;
             $sel = $widget_selectors[$key];
@@ -1350,8 +1352,44 @@ if (file_exists($widgets_json_path)) {
             $css_pos .= $vDir . ':' . $offsetY . 'px !important;' . $vOpp . ':auto !important;';
             $css_pos .= 'z-index:' . $z . ' !important;margin:0 !important;';
             echo $sel . '{' . $css_pos . '}' . PHP_EOL;
+            // faw-menu-btn hat Inline-Styles vom externen Script -> braucht JS-Override
+            if ($key === 'a11y' || $key === 'cookies') {
+                $js_override_widgets[$sel] = [
+                    'hDir' => $hDir, 'hVal' => $offsetX,
+                    'vDir' => $vDir, 'vVal' => $offsetY,
+                    'hOpp' => $hOpp, 'vOpp' => $vOpp,
+                    'z' => $z
+                ];
+            }
         }
         echo '</style>' . PHP_EOL;
+        // JS-Override fuer Widgets mit Inline-Styles (faw-menu-btn, cookieConsentButton)
+        if (!empty($js_override_widgets)) {
+            echo '<script>' . PHP_EOL;
+            echo '(function(){' . PHP_EOL;
+            echo '  var overrides=' . json_encode($js_override_widgets) . ';' . PHP_EOL;
+            echo '  function applyOverrides(){' . PHP_EOL;
+            echo '    for(var sel in overrides){' . PHP_EOL;
+            echo '      var els=document.querySelectorAll(sel);' . PHP_EOL;
+            echo '      var o=overrides[sel];' . PHP_EOL;
+            echo '      els.forEach(function(el){' . PHP_EOL;
+            echo '        el.style.setProperty(o.hDir,o.hVal+"px","important");' . PHP_EOL;
+            echo '        el.style.setProperty(o.vDir,o.vVal+"px","important");' . PHP_EOL;
+            echo '        el.style.setProperty(o.hOpp,"auto","important");' . PHP_EOL;
+            echo '        el.style.setProperty(o.vOpp,"auto","important");' . PHP_EOL;
+            echo '        el.style.setProperty("z-index",o.z,"important");' . PHP_EOL;
+            echo '        el.style.setProperty("position","fixed","important");' . PHP_EOL;
+            echo '      });' . PHP_EOL;
+            echo '    }' . PHP_EOL;
+            echo '  }' . PHP_EOL;
+            echo '  if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){setTimeout(applyOverrides,500);setTimeout(applyOverrides,2000);});}' . PHP_EOL;
+            echo '  else{setTimeout(applyOverrides,500);setTimeout(applyOverrides,2000);}' . PHP_EOL;
+            echo '  var mo=new MutationObserver(function(){applyOverrides();});' . PHP_EOL;
+            echo '  mo.observe(document.body,{childList:true,subtree:true});' . PHP_EOL;
+            echo '  setTimeout(function(){mo.disconnect();},10000);' . PHP_EOL;
+            echo '})();' . PHP_EOL;
+            echo '</script>' . PHP_EOL;
+        }
     }
 }
 // Custom CSS aus dem Konfigurator laden (config/custom.css)

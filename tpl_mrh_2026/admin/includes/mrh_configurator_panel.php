@@ -5290,8 +5290,8 @@ if (is_dir($snippetDir)) {
         compare:   { anchor: 'bottom-right', offsetX: 20, offsetY: 80, z: 1050, visible: true, selector: '.product-compare-badge',          label: 'Vergleich' },
         a11y:      { anchor: 'bottom-left',  offsetX: 20, offsetY: 20, z: 1040, visible: true, selector: '.faw-menu-btn',                   label: 'Barrierefreiheit' },
         etrust:    { anchor: 'bottom-left',  offsetX: 0,  offsetY: 80, z: 1030, visible: true, selector: '._uuhri8',                        label: 'eTrust' },
-        cookies:   { anchor: 'bottom-left',  offsetX: 20, offsetY: 80, z: 1020, visible: true, selector: '[data-trigger-cookie-consent-panel]', label: 'Cookies' },
-        scrolltop: { anchor: 'bottom-right', offsetX: 24, offsetY: 24, z: 1060, visible: true, selector: '.mrh-back-to-top',                label: 'Scroll-to-Top' }
+        cookies:   { anchor: 'bottom-left',  offsetX: 20, offsetY: 20, z: 40,   visible: true, selector: '#cookieConsentButton',             label: 'Cookies' },
+        scrolltop: { anchor: 'bottom-right', offsetX: 24, offsetY: 24, z: 1060, visible: true, selector: '#mrh-back-to-top',                label: 'Scroll-to-Top' }
     };
 
     // Gespeicherte Werte laden (aus PHP/JSON)
@@ -5512,8 +5512,8 @@ if (is_dir($snippetDir)) {
         widgets.compare   = { anchor: 'bottom-right', offsetX: 20, offsetY: 80, z: 1050, visible: true, selector: '.product-compare-badge',          label: 'Vergleich' };
         widgets.a11y      = { anchor: 'bottom-left',  offsetX: 20, offsetY: 20, z: 1040, visible: true, selector: '.faw-menu-btn',                   label: 'Barrierefreiheit' };
         widgets.etrust    = { anchor: 'bottom-left',  offsetX: 0,  offsetY: 80, z: 1030, visible: true, selector: '._uuhri8',                        label: 'eTrust' };
-        widgets.cookies   = { anchor: 'bottom-left',  offsetX: 20, offsetY: 80, z: 1020, visible: true, selector: '[data-trigger-cookie-consent-panel]', label: 'Cookies' };
-        widgets.scrolltop = { anchor: 'bottom-right', offsetX: 24, offsetY: 24, z: 1060, visible: true, selector: '.mrh-back-to-top',                label: 'Scroll-to-Top' };
+        widgets.cookies   = { anchor: 'bottom-left',  offsetX: 20, offsetY: 20, z: 40,   visible: true, selector: '#cookieConsentButton',             label: 'Cookies' };
+        widgets.scrolltop = { anchor: 'bottom-right', offsetX: 24, offsetY: 24, z: 1060, visible: true, selector: '#mrh-back-to-top',                label: 'Scroll-to-Top' };
         initWidgetUI();
     };
 
