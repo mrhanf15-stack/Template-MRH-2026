@@ -5220,21 +5220,37 @@ if (is_dir($snippetDir)) {
                         </table>
                     </div>
 
-                    <!-- Draggable Widgets -->
-                    <div class="mrh-draggable-widget" id="drag-compare" style="background:#0d9488;right:15%;bottom:22%;" data-widget="compare" title="Vergleich">
-                        <i class="fa fa-scale-balanced"></i>
+                    <!-- Draggable Widgets (realistische Darstellung) -->
+                    <!-- Vergleich: Roter Kreis mit Waage + Badge-Counter -->
+                    <div class="mrh-draggable-widget" id="drag-compare" style="background:#ef4444;right:15%;bottom:22%;position:absolute;" data-widget="compare" title="Vergleich">
+                        <i class="fa fa-scale-balanced" style="font-size:16px;"></i>
+                        <span style="position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:8px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;">7</span>
                     </div>
-                    <div class="mrh-draggable-widget" id="drag-a11y" style="background:#2563eb;left:2%;bottom:22%;" data-widget="a11y" title="Barrierefreiheit">
-                        <i class="fa fa-universal-access"></i>
+                    <!-- Barrierefreiheit: Blaues rundes Icon mit Accessibility-SVG -->
+                    <div class="mrh-draggable-widget" id="drag-a11y" style="background:#4054B2;left:2%;bottom:22%;position:absolute;width:40px;height:40px;" data-widget="a11y" title="Barrierefreiheit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
                     </div>
-                    <div class="mrh-draggable-widget" id="drag-etrust" style="background:#ca8a04;left:2%;bottom:40%;" data-widget="etrust" title="eTrust">
-                        <i class="fa fa-shield-halved"></i>
+                    <!-- eTrust: Ovales weisses Badge mit grunem e-Logo und Sternen -->
+                    <div class="mrh-draggable-widget" id="drag-etrust" style="background:#fff;left:2%;bottom:40%;position:absolute;width:56px;height:72px;border-radius:28px;border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,0.15);flex-direction:column;padding:4px 2px;" data-widget="etrust" title="eTrust">
+                        <div style="width:28px;height:28px;margin:0 auto 2px;">
+                            <svg viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="18" fill="#fff" stroke="#c8c8c8" stroke-width="1"/><text x="20" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="serif">e</text></svg>
+                        </div>
+                        <div style="display:flex;gap:1px;justify-content:center;">
+                            <i class="fa fa-star" style="font-size:5px;color:#f59e0b;"></i>
+                            <i class="fa fa-star" style="font-size:5px;color:#f59e0b;"></i>
+                            <i class="fa fa-star" style="font-size:5px;color:#f59e0b;"></i>
+                            <i class="fa fa-star" style="font-size:5px;color:#f59e0b;"></i>
+                            <i class="fa fa-star-half-stroke" style="font-size:5px;color:#f59e0b;"></i>
+                        </div>
+                        <div style="font-size:7px;font-weight:700;color:#333;text-align:center;line-height:1;">4,46</div>
                     </div>
-                    <div class="mrh-draggable-widget" id="drag-cookies" style="background:#78350f;left:2%;bottom:10%;" data-widget="cookies" title="Cookies">
-                        <i class="fa fa-cookie-bite"></i>
+                    <!-- Cookies: Kleines rundes Icon -->
+                    <div class="mrh-draggable-widget" id="drag-cookies" style="background:#6b7280;left:2%;bottom:10%;position:absolute;width:32px;height:32px;" data-widget="cookies" title="Cookies">
+                        <i class="fa fa-cookie-bite" style="font-size:14px;"></i>
                     </div>
-                    <div class="mrh-draggable-widget" id="drag-scrolltop" style="background:#4a8c2a;right:10%;bottom:15%;" data-widget="scrolltop" title="Scroll-to-Top">
-                        <i class="fa fa-arrow-up"></i>
+                    <!-- Scroll-to-Top: Gruener Kreis mit Pfeil -->
+                    <div class="mrh-draggable-widget" id="drag-scrolltop" style="background:#4a8c2a;right:10%;bottom:15%;position:absolute;width:40px;height:40px;" data-widget="scrolltop" title="Scroll-to-Top">
+                        <i class="fa fa-chevron-up" style="font-size:16px;"></i>
                     </div>
                 </div>
                 <div class="mrh-widget-phone-nav">
@@ -5295,6 +5311,7 @@ if (is_dir($snippetDir)) {
                 card.querySelector('input[data-axis="z"]').value = w.z;
                 card.querySelector('input[type="checkbox"]').checked = w.visible;
                 if (!w.visible) card.classList.add('disabled');
+                else card.classList.remove('disabled');
             }
             // Position-Label
             var posEl = document.getElementById('pos-' + key);
@@ -5318,54 +5335,129 @@ if (is_dir($snippetDir)) {
     }
 
     // === Drag & Drop ===
-    var phoneContent = document.getElementById('mrh-widget-phone-content');
+    // WICHTIG: phoneContent wird erst beim Tab-Wechsel sichtbar,
+    // daher getBoundingClientRect() immer live im mousemove aufrufen
     var dragging = null;
-    var dragOffset = { x: 0, y: 0 };
+    var dragStartX = 0;
+    var dragStartY = 0;
+    var dragStartWidgetX = 0;
+    var dragStartWidgetY = 0;
+    var dragInitialized = false;
 
-    document.querySelectorAll('.mrh-draggable-widget').forEach(function(el) {
-        el.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            dragging = this;
-            var rect = phoneContent.getBoundingClientRect();
-            var elRect = this.getBoundingClientRect();
-            dragOffset.x = e.clientX - elRect.left - elRect.width/2;
-            dragOffset.y = e.clientY - elRect.top - elRect.height/2;
-            this.style.transition = 'none';
+    function initDragListeners() {
+        if (dragInitialized) return;
+        dragInitialized = true;
+
+        document.querySelectorAll('#tab-widgets .mrh-draggable-widget').forEach(function(el) {
+            // Mouse events
+            el.addEventListener('mousedown', startDrag);
+            // Touch events fuer Mobile
+            el.addEventListener('touchstart', startDragTouch, { passive: false });
         });
-    });
 
-    document.addEventListener('mousemove', function(e) {
+        document.addEventListener('mousemove', onDragMove);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchmove', onDragMoveTouch, { passive: false });
+        document.addEventListener('touchend', endDrag);
+    }
+
+    function startDrag(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragging = this;
+        var key = this.getAttribute('data-widget');
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragStartWidgetX = widgets[key].x;
+        dragStartWidgetY = widgets[key].y;
+        this.style.transition = 'none';
+        this.style.cursor = 'grabbing';
+    }
+
+    function startDragTouch(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var touch = e.touches[0];
+        dragging = this;
+        var key = this.getAttribute('data-widget');
+        dragStartX = touch.clientX;
+        dragStartY = touch.clientY;
+        dragStartWidgetX = widgets[key].x;
+        dragStartWidgetY = widgets[key].y;
+        this.style.transition = 'none';
+    }
+
+    function onDragMove(e) {
         if (!dragging) return;
+        e.preventDefault();
+        moveDrag(e.clientX, e.clientY);
+    }
+
+    function onDragMoveTouch(e) {
+        if (!dragging) return;
+        e.preventDefault();
+        var touch = e.touches[0];
+        moveDrag(touch.clientX, touch.clientY);
+    }
+
+    function moveDrag(clientX, clientY) {
+        var phoneContent = document.getElementById('mrh-widget-phone-content');
+        if (!phoneContent) return;
         var rect = phoneContent.getBoundingClientRect();
-        var x = ((e.clientX - dragOffset.x - rect.left) / rect.width) * 100;
-        var y = ((e.clientY - dragOffset.y - rect.top) / rect.height) * 100;
-        x = Math.max(0, Math.min(100, x));
-        y = Math.max(0, Math.min(100, y));
-        dragging.style.left = x + '%';
-        dragging.style.top = y + '%';
+        if (rect.width === 0 || rect.height === 0) return; // Tab noch nicht sichtbar
+
+        var key = dragging.getAttribute('data-widget');
+        // Delta in Prozent berechnen
+        var deltaXPct = ((clientX - dragStartX) / rect.width) * 100;
+        var deltaYPct = ((clientY - dragStartY) / rect.height) * 100;
+        var newX = Math.max(0, Math.min(100, dragStartWidgetX + deltaXPct));
+        var newY = Math.max(0, Math.min(100, dragStartWidgetY + deltaYPct));
+
+        widgets[key].x = Math.round(newX);
+        widgets[key].y = Math.round(newY);
+
+        // Visuell aktualisieren
+        dragging.style.left = newX + '%';
+        dragging.style.top = newY + '%';
         dragging.style.right = 'auto';
         dragging.style.bottom = 'auto';
         dragging.style.transform = 'translate(-50%, -50%)';
-        // Update Werte
-        var key = dragging.getAttribute('data-widget');
-        widgets[key].x = Math.round(x);
-        widgets[key].y = Math.round(y);
+
         // Felder aktualisieren
         var card = document.querySelector('.mrh-widget-card[data-widget="'+key+'"]');
         if (card) {
-            card.querySelector('input[data-axis="x"]').value = Math.round(x);
-            card.querySelector('input[data-axis="y"]').value = Math.round(y);
+            card.querySelector('input[data-axis="x"]').value = Math.round(newX);
+            card.querySelector('input[data-axis="y"]').value = Math.round(newY);
         }
         var posEl = document.getElementById('pos-' + key);
-        if (posEl) posEl.textContent = Math.round(x) + '% / ' + Math.round(y) + '%';
-    });
+        if (posEl) posEl.textContent = Math.round(newX) + '% / ' + Math.round(newY) + '%';
+    }
 
-    document.addEventListener('mouseup', function() {
+    function endDrag() {
         if (dragging) {
             dragging.style.transition = '';
+            dragging.style.cursor = 'grab';
             dragging = null;
         }
-    });
+    }
+
+    // Drag-Listener initialisieren wenn Widgets-Tab sichtbar wird
+    // (Tab-Wechsel-Event abfangen)
+    var widgetsTabBtn = document.querySelector('.mrh-tab[data-tab="widgets"]');
+    if (widgetsTabBtn) {
+        widgetsTabBtn.addEventListener('click', function() {
+            // Kurz warten bis Tab sichtbar ist, dann Drag initialisieren
+            setTimeout(function() {
+                initDragListeners();
+                initWidgetUI();
+            }, 50);
+        });
+    }
+    // Falls Tab schon aktiv ist (z.B. nach Speichern)
+    var tabPane = document.getElementById('tab-widgets');
+    if (tabPane && tabPane.offsetParent !== null) {
+        initDragListeners();
+    }
 
     // === Event-Handler (global verfuegbar) ===
     window.mrhWidgetToggle = function(checkbox) {
