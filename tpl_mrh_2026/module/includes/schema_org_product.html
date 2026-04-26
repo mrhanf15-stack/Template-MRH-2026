@@ -2,14 +2,20 @@
    MRH 2026 – Schema.org JSON-LD (Produkt)
    Wird in product_info.html eingebunden – generiert Product mit
    Offer, AggregateRating, Review, Brand, ShippingDetails
-   Stand: 2026-04 – Google Merchant Listing + GEO/AI konform
+   Stand: 2026-04-26 – Google Merchant Listing + GEO/AI konform
+   Fix: description nutzt PRODUCTS_DESCRIPTION (Langtext) als Fallback
+   Fix: Review datePublished im ISO 8601 Format (T statt Leerzeichen)
    ===================================================================== *}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{$PRODUCTS_NAME|onlytext|escape:'javascript'}",
-  "description": "{$PRODUCTS_SHORT_DESCRIPTION|onlytext|strip_tags|regex_replace:'/HIERDASICON/':''|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500|escape:'javascript'}",
+  {if !empty($PRODUCTS_DESCRIPTION)}
+  "description": "{$PRODUCTS_DESCRIPTION|regex_replace:'/<script[^>]*>.*?<\/script>/is':''|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500:'...':true|escape:'javascript'}",
+  {elseif !empty($PRODUCTS_SHORT_DESCRIPTION)}
+  "description": "{$PRODUCTS_SHORT_DESCRIPTION|onlytext|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500|escape:'javascript'}",
+  {/if}
   {if $PRODUCTS_IMAGE != ''}
   "image": [
     "{$PRODUCTS_IMAGE_POPUP|default:$PRODUCTS_IMAGE}"
@@ -54,7 +60,7 @@
           "@type": "Person",
           "name": "{$sr.AUTHOR|escape:'javascript'}"
         {rdelim},
-        "datePublished": "{$sr.DATE_ADDED|default:$sr.DATE}",
+        "datePublished": "{$sr.DATE_ADDED|default:$sr.DATE|regex_replace:'/(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})/':'$1T$2'}",
         "reviewRating": {ldelim}
           "@type": "Rating",
           "ratingValue": "{$sr.RATING_VOTE|default:$sr.REVIEWS_RATING}",
