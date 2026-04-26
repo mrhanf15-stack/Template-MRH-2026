@@ -156,28 +156,7 @@
                         </div>
                 </div>
 
-                {* ── 3. NEUE PRODUKTE ── *}
-                <div class="container-fluid neue-produkte">
-                        <div class="container">
-                                <div class="row">
-                                        <div class="col-lg-12">
-                                                <div class="nice-heading"><strong class="h2">{#neueprodukte#}</strong></div>
-                                                {$box_SLIDER_NEW}
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-
-                {* ── 4. BANNER (aus Backend, volle Breite) ── *}
-                {if $BANNERHOME}
-                <div class="container-fluid mrh-banner-home px-0">
-                        <div class="container">
-                                {$BANNERHOME|replace:'src="data:,"':''|replace:'srcset="data:,1w"':''|replace:'data-srcset=':'srcset='|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded w-100'|replace:' role="banner"':''}
-                        </div>
-                </div>
-                {/if}
-
-                {* ── 5. CONTENT (volle Breite) ── *}
+                {* ── 2b. CONTENT / HAUPTINHALT (H1 + SEO-Text + Kategorien) ── SEO: VOR Produkt-Slidern! *}
                 <div class="container thecontent thecontent-home">
                         <div class="row">
                                 <div class="col-lg-12">
@@ -188,7 +167,19 @@
                         </div>
                 </div>
 
-                {* ── 6. MARKETING BANNER PAAR 1 (MAREKTINGQ + MAREKTINGQA) ── *}
+                {* ── 3. BESTSELLER ── SEO: Wichtigste Produkte zuerst *}
+                <div class="container-fluid bestseller-produkte">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-lg-12">
+                                                <div class="nice-heading"><strong class="h2">{#unsere_topseller#}</strong></div>
+                                                {$box_SLIDER_BESTSELLERS}
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+                {* ── 4. MARKETING BANNER PAAR 1 (MAREKTINGQ + MAREKTINGQA) ── *}
                 {if (isset($MAREKTINGQ) && $MAREKTINGQ != '') || (isset($MAREKTINGQA) && $MAREKTINGQA != '')}
                 <div class="container-fluid mrh-marketing-banners">
                         <div class="container">
@@ -208,22 +199,28 @@
                 </div>
                 {/if}
 
-                {* ── 7. TOP PRODUKTE ── *}
-                <div class="container-fluid top-produkte lazy" data-bg="url({$tpl_path}img/bg_top-produkte.jpg)">
+                {* ── 5. NEUE PRODUKTE ── *}
+                <div class="container-fluid neue-produkte">
                         <div class="container">
                                 <div class="row">
                                         <div class="col-lg-12">
-                                                <div class="nice-heading"><strong class="h2">{#topprodukte#}</strong></div>
-                                                {$box_SLIDER_TOP}
+                                                <div class="nice-heading"><strong class="h2">{#neueprodukte#}</strong></div>
+                                                {$box_SLIDER_NEW}
                                         </div>
                                 </div>
                         </div>
                 </div>
 
-                {* ── 7. KLEINE BANNER (banners.html, volle Breite) ── *}
-                {include file="tpl_parts/banners.html"}
+                {* ── 6. BANNER (aus Backend, volle Breite) ── *}
+                {if $BANNERHOME}
+                <div class="container-fluid mrh-banner-home px-0">
+                        <div class="container">
+                                {$BANNERHOME|replace:'src="data:,"':''|replace:'srcset="data:,1w"':''|replace:'data-srcset=':'srcset='|replace:'data-src=':'loading="lazy" src='|replace:'lazyload':'img-fluid lazyloaded w-100'|replace:' role="banner"':''}
+                        </div>
+                </div>
+                {/if}
 
-                {* ── 8. SALE PRODUKTE ── *}
+                {* ── 7. SALE PRODUKTE ── *}
                 <div class="container-fluid neue-produkte sale-produkte">
                         <div class="container">
                                 <div class="row">
@@ -235,19 +232,22 @@
                         </div>
                 </div>
 
-                {* ── 10. BESTSELLER ── *}
-                <div class="container-fluid bestseller-produkte">
+                {* ── 8. KLEINE BANNER (banners.html, volle Breite) ── *}
+                {include file="tpl_parts/banners.html"}
+
+                {* ── 9. TOP PRODUKTE / EMPFEHLUNGEN ── *}
+                <div class="container-fluid top-produkte lazy" data-bg="url({$tpl_path}img/bg_top-produkte.jpg)">
                         <div class="container">
                                 <div class="row">
                                         <div class="col-lg-12">
-                                                <div class="nice-heading"><strong class="h2">{#unsere_topseller#}</strong></div>
-                                                {$box_SLIDER_BESTSELLERS}
+                                                <div class="nice-heading"><strong class="h2">{#topprodukte#}</strong></div>
+                                                {$box_SLIDER_TOP}
                                         </div>
                                 </div>
                         </div>
                 </div>
 
-                {* ── 11. MARKETING BANNER PAAR 2 (MAREKTINGQB + MAREKTINGQC) ── *}
+                {* ── 10. MARKETING BANNER PAAR 2 (MAREKTINGQB + MAREKTINGQC) ── *}
                 {if (isset($MAREKTINGQB) && $MAREKTINGQB != '') || (isset($MAREKTINGQC) && $MAREKTINGQC != '')}
                 <div class="container-fluid mrh-marketing-banners">
                         <div class="container">
@@ -267,20 +267,8 @@
                 </div>
                 {/if}
 
-                {* ── 12. BANNER 2 (volle Breite) ── *}
+                {* ── 11. BANNER 2 (volle Breite) ── *}
                 {include file="tpl_parts/banners2.html"}
-
-                {* ── 13. ZUFÄLLIGE PRODUKTE ── *}
-                <div class="container-fluid bestseller-produkte random-produkte">
-                        <div class="container">
-                                <div class="row">
-                                        <div class="col-lg-12">
-                                                <div class="nice-heading"><strong class="h2">{#zufaellige_produkte#}</strong></div>
-                                                {$box_SLIDER_RANDOM}
-                                        </div>
-                                </div>
-                        </div>
-                </div>
 
         {else}
 
