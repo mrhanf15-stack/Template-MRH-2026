@@ -12,7 +12,7 @@
   "@type": "Product",
   "name": "{$PRODUCTS_NAME|onlytext|escape:'javascript'}",
   {if !empty($PRODUCTS_DESCRIPTION)}
-  "description": "{$PRODUCTS_DESCRIPTION|regex_replace:'/<script[^>]*>.*?<\/script>/is':''|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500:'...':true|escape:'javascript'}",
+  "description": "{$PRODUCTS_DESCRIPTION|regex_replace:'/<script[^>]*>.*?<\/script>/is':''|strip_tags|regex_replace:'/&[a-zA-Z]+;/':''|regex_replace:'/&#\d+;/':''|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500:'...':true|escape:'javascript'}",
   {elseif !empty($PRODUCTS_SHORT_DESCRIPTION)}
   "description": "{$PRODUCTS_SHORT_DESCRIPTION|onlytext|strip_tags|regex_replace:'/[\r\n\s]+/':' '|trim|truncate:500|escape:'javascript'}",
   {/if}
