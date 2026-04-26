@@ -1,23 +1,20 @@
 {* =====================================================================
    MRH 2026 – Schema.org JSON-LD (CollectionPage)
    Wird in samen_shop.html (Kategorie-Listing) eingebunden
-   Stand: 2026-04-26 – Fix v2: onlytext + entity-decode fuer saubere description
+   Stand: 2026-04-26 – Fix v3: Custom jsonld_clean Modifier
    Smarty-Variablen: $CATEGORIES_HEADING_TITLE, $CATEGORIES_NAME,
                      $CATEGORIES_DESCRIPTION, $CATEGORIES_IMAGE
-   Hinweis: $PRODUCTS_LIST ist im modified-Shop nicht verfuegbar,
-            daher wird nur CollectionPage ohne ItemList generiert.
-            ItemList kann spaeter per PHP-Autoinclude ergaenzt werden.
    ===================================================================== *}
 {if isset($CATEGORIES_NAME) || isset($CATEGORIES_HEADING_TITLE)}
 <script type="application/ld+json">
 {ldelim}
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|onlytext|escape:'javascript'}{else}{$CATEGORIES_NAME|onlytext|escape:'javascript'}{/if}",
+  "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|jsonld_clean:200}{else}{$CATEGORIES_NAME|jsonld_clean:200}{/if}",
   {if !empty($CATEGORIES_DESCRIPTION)}
-  "description": "{$CATEGORIES_DESCRIPTION|strip_tags|regex_replace:"/\s+/":" "|regex_replace:"/&[a-zA-Z0-9#]+;/":""|trim|truncate:300:"...":true|escape:'javascript'}",
+  "description": "{$CATEGORIES_DESCRIPTION|jsonld_clean:300}",
   {elseif !empty($CATEGORIES_SHORT_DESCRIPTION)}
-  "description": "{$CATEGORIES_SHORT_DESCRIPTION|strip_tags|regex_replace:"/\s+/":" "|regex_replace:"/&[a-zA-Z0-9#]+;/":""|trim|truncate:300:"...":true|escape:'javascript'}",
+  "description": "{$CATEGORIES_SHORT_DESCRIPTION|jsonld_clean:300}",
   {/if}
   {if !empty($CATEGORIES_IMAGE)}
   "image": "{$CATEGORIES_IMAGE}",
@@ -29,7 +26,7 @@
   "mainEntity": {ldelim}
     "@type": "ItemList",
     "itemListOrder": "https://schema.org/ItemListUnordered",
-    "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|onlytext|escape:'javascript'}{else}{$CATEGORIES_NAME|onlytext|escape:'javascript'}{/if}"
+    "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|jsonld_clean:200}{else}{$CATEGORIES_NAME|jsonld_clean:200}{/if}"
   {rdelim}
 {rdelim}
 </script>
