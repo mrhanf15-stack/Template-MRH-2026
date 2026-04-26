@@ -65,7 +65,7 @@ function css_button($image, $alt, $parameters = '', $submit = false) {
 	// Newsletteranmeldung
     'button_login_newsletter.gif'   => array('Text' => '',									'icon' => 'fa-solid fa-share-from-square fa-lg',	'iconposition' => 'left',	'Class' => 'btn btn-secondary btn-sm'),
 	// Box Login
-    'button_login_small.gif'        => array('Text' => $alt,								'icon' => 'fa-solid fa-user',            	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm float-right'),
+    'button_login_small.gif'        => array('Text' => $alt,								'icon' => 'fa-solid fa-user',            	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm float-right mb-2'),
 	// Nutzerkonto-Bestellhistorie
     'button_print.gif'              => array('Text' => $alt,								'icon' => 'fa-solid fa-print',           	'iconposition' => 'left',		'Class' => 'btn btn-secondary btn-sm'),
 	// Mehrfachnutzung Produktseiten, Bewertungen
