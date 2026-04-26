@@ -1329,60 +1329,28 @@ if (file_exists($widgets_json_path)) {
         foreach ($widgets_data as $key => $cfg) {
             if (!isset($widget_selectors[$key])) continue;
             $sel = $widget_selectors[$key];
-            $x   = isset($cfg['x']) ? intval($cfg['x']) : null;
-            $y   = isset($cfg['y']) ? intval($cfg['y']) : null;
-            $z   = isset($cfg['z']) ? intval($cfg['z']) : 1050;
             $vis = isset($cfg['visible']) ? $cfg['visible'] : true;
             // Sichtbarkeit
             if (!$vis || $vis === 'false' || $vis === '0') {
                 echo $sel . '{display:none !important;}' . PHP_EOL;
                 continue;
             }
-            if ($x === null || $y === null) continue;
-            // Position berechnen: x/y sind Prozentwerte (0-100)
-            // x < 50 => left:x%, x >= 50 => right:(100-x)%
-            // y < 50 => top:y%, y >= 50 => bottom:(100-y)%
-            $css_pos = '';
-            if ($x < 50) {
-                $css_pos .= 'left:' . $x . '% !important;right:auto !important;';
-            } else {
-                $css_pos .= 'right:' . (100 - $x) . '% !important;left:auto !important;';
-            }
-            if ($y < 50) {
-                $css_pos .= 'top:' . $y . '% !important;bottom:auto !important;';
-            } else {
-                $css_pos .= 'bottom:' . (100 - $y) . '% !important;top:auto !important;';
-            }
-            $css_pos .= 'z-index:' . $z . ' !important;';
-            // Desktop
+            // Edge-Anchoring: anchor (bottom-right etc), offsetX (px), offsetY (px)
+            $anchor  = isset($cfg['anchor']) ? $cfg['anchor'] : 'bottom-right';
+            $offsetX = isset($cfg['offsetX']) ? intval($cfg['offsetX']) : 20;
+            $offsetY = isset($cfg['offsetY']) ? intval($cfg['offsetY']) : 20;
+            $z       = isset($cfg['z']) ? intval($cfg['z']) : 1050;
+            $parts   = explode('-', $anchor);
+            $vDir    = isset($parts[0]) ? $parts[0] : 'bottom'; // top oder bottom
+            $hDir    = isset($parts[1]) ? $parts[1] : 'right';  // left oder right
+            $vOpp    = ($vDir === 'bottom') ? 'top' : 'bottom';
+            $hOpp    = ($hDir === 'right') ? 'left' : 'right';
+            $css_pos  = 'position:fixed !important;';
+            $css_pos .= $hDir . ':' . $offsetX . 'px !important;' . $hOpp . ':auto !important;';
+            $css_pos .= $vDir . ':' . $offsetY . 'px !important;' . $vOpp . ':auto !important;';
+            $css_pos .= 'z-index:' . $z . ' !important;margin:0 !important;';
             echo $sel . '{' . $css_pos . '}' . PHP_EOL;
         }
-        // Mobile Override (gleiche Positionen, aber mit margin-reset)
-        echo '@media(max-width:767px){' . PHP_EOL;
-        foreach ($widgets_data as $key => $cfg) {
-            if (!isset($widget_selectors[$key])) continue;
-            $sel = $widget_selectors[$key];
-            $x   = isset($cfg['x']) ? intval($cfg['x']) : null;
-            $y   = isset($cfg['y']) ? intval($cfg['y']) : null;
-            $z   = isset($cfg['z']) ? intval($cfg['z']) : 1050;
-            $vis = isset($cfg['visible']) ? $cfg['visible'] : true;
-            if (!$vis || $vis === 'false' || $vis === '0') continue;
-            if ($x === null || $y === null) continue;
-            $css_pos = 'margin:0 !important;';
-            if ($x < 50) {
-                $css_pos .= 'left:' . $x . '% !important;right:auto !important;';
-            } else {
-                $css_pos .= 'right:' . (100 - $x) . '% !important;left:auto !important;';
-            }
-            if ($y < 50) {
-                $css_pos .= 'top:' . $y . '% !important;bottom:auto !important;';
-            } else {
-                $css_pos .= 'bottom:' . (100 - $y) . '% !important;top:auto !important;';
-            }
-            $css_pos .= 'z-index:' . $z . ' !important;';
-            echo $sel . '{' . $css_pos . '}' . PHP_EOL;
-        }
-        echo '}' . PHP_EOL;
         echo '</style>' . PHP_EOL;
     }
 }

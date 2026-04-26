@@ -5070,7 +5070,7 @@ if (is_dir($snippetDir)) {
                 <div class="mrh-widget-header">
                     <div class="mrh-widget-icon" style="background:#0d9488;"><i class="fa fa-scale-balanced"></i></div>
                     <span class="mrh-widget-title">Vergleich</span>
-                    <span class="mrh-widget-pos" id="pos-compare">85% / 78%</span>
+                    <span class="mrh-widget-pos" id="pos-compare">right: 20px, bottom: 80px</span>
                     <label class="mrh-widget-toggle">
                         <input type="checkbox" checked data-widget="compare" onchange="mrhWidgetToggle(this)">
                         <span class="slider"></span>
@@ -5078,11 +5078,12 @@ if (is_dir($snippetDir)) {
                 </div>
                 <div class="mrh-widget-desc">Produktvergleich Floating-Button</div>
                 <div class="mrh-widget-fields">
-                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="85" data-widget="compare" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
-                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="78" data-widget="compare" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Ecke</label><select data-widget="compare" data-axis="anchor" onchange="mrhWidgetFieldChange(this)"><option value="bottom-right" selected>Unten Rechts</option><option value="bottom-left">Unten Links</option><option value="top-right">Oben Rechts</option><option value="top-left">Oben Links</option></select></div>
+                    <div><label>Abstand X (px)</label><input type="number" min="0" max="500" value="20" data-widget="compare" data-axis="offsetX" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Abstand Y (px)</label><input type="number" min="0" max="500" value="80" data-widget="compare" data-axis="offsetY" onchange="mrhWidgetFieldChange(this)"></div>
                     <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1050" data-widget="compare" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
                 </div>
-                <div class="mrh-widget-selector">&lt;/&gt; #compare-floating-btn</div>
+                <div class="mrh-widget-selector">&lt;/&gt; .product-compare-badge</div>
             </div>
 
             <!-- Barrierefreiheit -->
@@ -5090,7 +5091,7 @@ if (is_dir($snippetDir)) {
                 <div class="mrh-widget-header">
                     <div class="mrh-widget-icon" style="background:#2563eb;"><i class="fa fa-universal-access"></i></div>
                     <span class="mrh-widget-title">Barrierefreiheit</span>
-                    <span class="mrh-widget-pos" id="pos-a11y">2% / 78%</span>
+                    <span class="mrh-widget-pos" id="pos-a11y">left: 20px, bottom: 20px</span>
                     <label class="mrh-widget-toggle">
                         <input type="checkbox" checked data-widget="a11y" onchange="mrhWidgetToggle(this)">
                         <span class="slider"></span>
@@ -5098,11 +5099,12 @@ if (is_dir($snippetDir)) {
                 </div>
                 <div class="mrh-widget-desc">Web-Barrierefreiheit Widget</div>
                 <div class="mrh-widget-fields">
-                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="2" data-widget="a11y" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
-                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="78" data-widget="a11y" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Ecke</label><select data-widget="a11y" data-axis="anchor" onchange="mrhWidgetFieldChange(this)"><option value="bottom-right">Unten Rechts</option><option value="bottom-left" selected>Unten Links</option><option value="top-right">Oben Rechts</option><option value="top-left">Oben Links</option></select></div>
+                    <div><label>Abstand X (px)</label><input type="number" min="0" max="500" value="20" data-widget="a11y" data-axis="offsetX" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Abstand Y (px)</label><input type="number" min="0" max="500" value="20" data-widget="a11y" data-axis="offsetY" onchange="mrhWidgetFieldChange(this)"></div>
                     <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1040" data-widget="a11y" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
                 </div>
-                <div class="mrh-widget-selector">&lt;/&gt; #accessibility-widget</div>
+                <div class="mrh-widget-selector">&lt;/&gt; .faw-menu-btn</div>
             </div>
 
             <!-- eTrust -->
@@ -5110,7 +5112,7 @@ if (is_dir($snippetDir)) {
                 <div class="mrh-widget-header">
                     <div class="mrh-widget-icon" style="background:#ca8a04;"><i class="fa fa-shield-halved"></i></div>
                     <span class="mrh-widget-title">eTrust / Trusted Shops</span>
-                    <span class="mrh-widget-pos" id="pos-etrust">2% / 60%</span>
+                    <span class="mrh-widget-pos" id="pos-etrust">left: 0px, bottom: 80px</span>
                     <label class="mrh-widget-toggle">
                         <input type="checkbox" checked data-widget="etrust" onchange="mrhWidgetToggle(this)">
                         <span class="slider"></span>
@@ -5118,11 +5120,12 @@ if (is_dir($snippetDir)) {
                 </div>
                 <div class="mrh-widget-desc">Trusted Shops G&uuml;tesiegel Widget</div>
                 <div class="mrh-widget-fields">
-                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="2" data-widget="etrust" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
-                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="60" data-widget="etrust" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Ecke</label><select data-widget="etrust" data-axis="anchor" onchange="mrhWidgetFieldChange(this)"><option value="bottom-right">Unten Rechts</option><option value="bottom-left" selected>Unten Links</option><option value="top-right">Oben Rechts</option><option value="top-left">Oben Links</option></select></div>
+                    <div><label>Abstand X (px)</label><input type="number" min="0" max="500" value="0" data-widget="etrust" data-axis="offsetX" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Abstand Y (px)</label><input type="number" min="0" max="500" value="80" data-widget="etrust" data-axis="offsetY" onchange="mrhWidgetFieldChange(this)"></div>
                     <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1030" data-widget="etrust" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
                 </div>
-                <div class="mrh-widget-selector">&lt;/&gt; #etrust-badge-widget</div>
+                <div class="mrh-widget-selector">&lt;/&gt; ._uuhri8</div>
             </div>
 
             <!-- Cookies -->
@@ -5130,7 +5133,7 @@ if (is_dir($snippetDir)) {
                 <div class="mrh-widget-header">
                     <div class="mrh-widget-icon" style="background:#78350f;"><i class="fa fa-cookie-bite"></i></div>
                     <span class="mrh-widget-title">Cookies</span>
-                    <span class="mrh-widget-pos" id="pos-cookies">2% / 90%</span>
+                    <span class="mrh-widget-pos" id="pos-cookies">left: 20px, bottom: 80px</span>
                     <label class="mrh-widget-toggle">
                         <input type="checkbox" checked data-widget="cookies" onchange="mrhWidgetToggle(this)">
                         <span class="slider"></span>
@@ -5138,11 +5141,12 @@ if (is_dir($snippetDir)) {
                 </div>
                 <div class="mrh-widget-desc">Cookie-Einstellungen Trigger-Icon</div>
                 <div class="mrh-widget-fields">
-                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="2" data-widget="cookies" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
-                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="90" data-widget="cookies" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Ecke</label><select data-widget="cookies" data-axis="anchor" onchange="mrhWidgetFieldChange(this)"><option value="bottom-right">Unten Rechts</option><option value="bottom-left" selected>Unten Links</option><option value="top-right">Oben Rechts</option><option value="top-left">Oben Links</option></select></div>
+                    <div><label>Abstand X (px)</label><input type="number" min="0" max="500" value="20" data-widget="cookies" data-axis="offsetX" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Abstand Y (px)</label><input type="number" min="0" max="500" value="80" data-widget="cookies" data-axis="offsetY" onchange="mrhWidgetFieldChange(this)"></div>
                     <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1020" data-widget="cookies" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
                 </div>
-                <div class="mrh-widget-selector">&lt;/&gt; #cookie-settings-trigger</div>
+                <div class="mrh-widget-selector">&lt;/&gt; [data-trigger-cookie-consent-panel]</div>
             </div>
 
             <!-- Scroll-to-Top -->
@@ -5150,7 +5154,7 @@ if (is_dir($snippetDir)) {
                 <div class="mrh-widget-header">
                     <div class="mrh-widget-icon" style="background:#4a8c2a;"><i class="fa fa-arrow-up"></i></div>
                     <span class="mrh-widget-title">Scroll-to-Top</span>
-                    <span class="mrh-widget-pos" id="pos-scrolltop">90% / 85%</span>
+                    <span class="mrh-widget-pos" id="pos-scrolltop">right: 24px, bottom: 24px</span>
                     <label class="mrh-widget-toggle">
                         <input type="checkbox" checked data-widget="scrolltop" onchange="mrhWidgetToggle(this)">
                         <span class="slider"></span>
@@ -5158,11 +5162,12 @@ if (is_dir($snippetDir)) {
                 </div>
                 <div class="mrh-widget-desc">Nach-oben-scrollen Button</div>
                 <div class="mrh-widget-fields">
-                    <div><label>X-Position (%)</label><input type="number" min="0" max="100" value="90" data-widget="scrolltop" data-axis="x" onchange="mrhWidgetFieldChange(this)"></div>
-                    <div><label>Y-Position (%)</label><input type="number" min="0" max="100" value="85" data-widget="scrolltop" data-axis="y" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Ecke</label><select data-widget="scrolltop" data-axis="anchor" onchange="mrhWidgetFieldChange(this)"><option value="bottom-right" selected>Unten Rechts</option><option value="bottom-left">Unten Links</option><option value="top-right">Oben Rechts</option><option value="top-left">Oben Links</option></select></div>
+                    <div><label>Abstand X (px)</label><input type="number" min="0" max="500" value="24" data-widget="scrolltop" data-axis="offsetX" onchange="mrhWidgetFieldChange(this)"></div>
+                    <div><label>Abstand Y (px)</label><input type="number" min="0" max="500" value="24" data-widget="scrolltop" data-axis="offsetY" onchange="mrhWidgetFieldChange(this)"></div>
                     <div><label>Z-Index</label><input type="number" min="1" max="9999" value="1060" data-widget="scrolltop" data-axis="z" onchange="mrhWidgetFieldChange(this)"></div>
                 </div>
-                <div class="mrh-widget-selector">&lt;/&gt; #scroll-to-top</div>
+                <div class="mrh-widget-selector">&lt;/&gt; .mrh-back-to-top</div>
             </div>
 
             <!-- Aktions-Buttons -->
@@ -5280,13 +5285,13 @@ if (is_dir($snippetDir)) {
 
 <script>
 (function(){
-    // === Widget-Konfiguration ===
+    // === Widget-Konfiguration (Edge-Anchoring mit Pixel-Abstaenden) ===
     var widgets = {
-        compare:   { x: 85, y: 78, z: 1050, visible: true, selector: '#compare-floating-btn',   label: 'Vergleich' },
-        a11y:      { x: 2,  y: 78, z: 1040, visible: true, selector: '#accessibility-widget',    label: 'Barrierefreiheit' },
-        etrust:    { x: 2,  y: 60, z: 1030, visible: true, selector: '#etrust-badge-widget',     label: 'eTrust' },
-        cookies:   { x: 2,  y: 90, z: 1020, visible: true, selector: '#cookie-settings-trigger', label: 'Cookies' },
-        scrolltop: { x: 90, y: 85, z: 1060, visible: true, selector: '#scroll-to-top',           label: 'Scroll-to-Top' }
+        compare:   { anchor: 'bottom-right', offsetX: 20, offsetY: 80, z: 1050, visible: true, selector: '.product-compare-badge',          label: 'Vergleich' },
+        a11y:      { anchor: 'bottom-left',  offsetX: 20, offsetY: 20, z: 1040, visible: true, selector: '.faw-menu-btn',                   label: 'Barrierefreiheit' },
+        etrust:    { anchor: 'bottom-left',  offsetX: 0,  offsetY: 80, z: 1030, visible: true, selector: '._uuhri8',                        label: 'eTrust' },
+        cookies:   { anchor: 'bottom-left',  offsetX: 20, offsetY: 80, z: 1020, visible: true, selector: '[data-trigger-cookie-consent-panel]', label: 'Cookies' },
+        scrolltop: { anchor: 'bottom-right', offsetX: 24, offsetY: 24, z: 1060, visible: true, selector: '.mrh-back-to-top',                label: 'Scroll-to-Top' }
     };
 
     // Gespeicherte Werte laden (aus PHP/JSON)
@@ -5295,28 +5300,54 @@ if (is_dir($snippetDir)) {
     $saved_widgets = mrh_read_json($widgets_file);
     if (!empty($saved_widgets)) {
         echo 'var saved = ' . json_encode($saved_widgets) . ';';
-        echo 'if (saved) { for (var k in saved) { if (widgets[k]) { if (saved[k].x !== undefined) widgets[k].x = parseInt(saved[k].x); if (saved[k].y !== undefined) widgets[k].y = parseInt(saved[k].y); if (saved[k].z !== undefined) widgets[k].z = parseInt(saved[k].z); if (saved[k].visible !== undefined) widgets[k].visible = !!saved[k].visible; } } }';
+        echo 'if (saved) { for (var k in saved) { if (widgets[k]) { if (saved[k].anchor !== undefined) widgets[k].anchor = saved[k].anchor; if (saved[k].offsetX !== undefined) widgets[k].offsetX = parseInt(saved[k].offsetX); if (saved[k].offsetY !== undefined) widgets[k].offsetY = parseInt(saved[k].offsetY); if (saved[k].z !== undefined) widgets[k].z = parseInt(saved[k].z); if (saved[k].visible !== undefined) widgets[k].visible = !!saved[k].visible; if (saved[k].selector !== undefined) widgets[k].selector = saved[k].selector; } } }';
     }
     ?>
+
+    // Hilfsfunktion: Anchor in CSS-Positionierung umrechnen
+    function anchorToLabel(w) {
+        var parts = w.anchor.split('-');
+        var vDir = parts[0]; // top oder bottom
+        var hDir = parts[1]; // left oder right
+        return hDir + ': ' + w.offsetX + 'px, ' + vDir + ': ' + w.offsetY + 'px';
+    }
+
+    // Hilfsfunktion: Anchor+Offset in Prozent-Position fuer Phone-Mockup umrechnen
+    function widgetToPhonePos(w) {
+        var parts = w.anchor.split('-');
+        var vDir = parts[0]; // top oder bottom
+        var hDir = parts[1]; // left oder right
+        // Phone-Mockup ist ca 320px breit, 568px hoch
+        var phoneW = 320, phoneH = 500;
+        var pxX = w.offsetX, pxY = w.offsetY;
+        var leftPct, topPct;
+        if (hDir === 'right') { leftPct = ((phoneW - pxX) / phoneW) * 100; }
+        else { leftPct = (pxX / phoneW) * 100; }
+        if (vDir === 'bottom') { topPct = ((phoneH - pxY) / phoneH) * 100; }
+        else { topPct = (pxY / phoneH) * 100; }
+        return { left: Math.max(2, Math.min(98, leftPct)), top: Math.max(2, Math.min(98, topPct)) };
+    }
 
     // UI initialisieren
     function initWidgetUI() {
         for (var key in widgets) {
             var w = widgets[key];
-            // Felder setzen
             var card = document.querySelector('.mrh-widget-card[data-widget="'+key+'"]');
             if (card) {
-                card.querySelector('input[data-axis="x"]').value = w.x;
-                card.querySelector('input[data-axis="y"]').value = w.y;
-                card.querySelector('input[data-axis="z"]').value = w.z;
+                var anchorSel = card.querySelector('select[data-axis="anchor"]');
+                if (anchorSel) anchorSel.value = w.anchor;
+                var oxInput = card.querySelector('input[data-axis="offsetX"]');
+                if (oxInput) oxInput.value = w.offsetX;
+                var oyInput = card.querySelector('input[data-axis="offsetY"]');
+                if (oyInput) oyInput.value = w.offsetY;
+                var zInput = card.querySelector('input[data-axis="z"]');
+                if (zInput) zInput.value = w.z;
                 card.querySelector('input[type="checkbox"]').checked = w.visible;
                 if (!w.visible) card.classList.add('disabled');
                 else card.classList.remove('disabled');
             }
-            // Position-Label
             var posEl = document.getElementById('pos-' + key);
-            if (posEl) posEl.textContent = w.x + '% / ' + w.y + '%';
-            // Draggable Widget positionieren
+            if (posEl) posEl.textContent = anchorToLabel(w);
             updateDragPosition(key);
         }
     }
@@ -5325,8 +5356,9 @@ if (is_dir($snippetDir)) {
         var el = document.getElementById('drag-' + key);
         var w = widgets[key];
         if (!el) return;
-        el.style.left = w.x + '%';
-        el.style.top = w.y + '%';
+        var pos = widgetToPhonePos(w);
+        el.style.left = pos.left + '%';
+        el.style.top = pos.top + '%';
         el.style.right = 'auto';
         el.style.bottom = 'auto';
         el.style.zIndex = w.z;
@@ -5338,10 +5370,6 @@ if (is_dir($snippetDir)) {
     // WICHTIG: phoneContent wird erst beim Tab-Wechsel sichtbar,
     // daher getBoundingClientRect() immer live im mousemove aufrufen
     var dragging = null;
-    var dragStartX = 0;
-    var dragStartY = 0;
-    var dragStartWidgetX = 0;
-    var dragStartWidgetY = 0;
     var dragInitialized = false;
 
     function initDragListeners() {
@@ -5365,11 +5393,6 @@ if (is_dir($snippetDir)) {
         e.preventDefault();
         e.stopPropagation();
         dragging = this;
-        var key = this.getAttribute('data-widget');
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-        dragStartWidgetX = widgets[key].x;
-        dragStartWidgetY = widgets[key].y;
         this.style.transition = 'none';
         this.style.cursor = 'grabbing';
     }
@@ -5377,13 +5400,7 @@ if (is_dir($snippetDir)) {
     function startDragTouch(e) {
         e.preventDefault();
         e.stopPropagation();
-        var touch = e.touches[0];
         dragging = this;
-        var key = this.getAttribute('data-widget');
-        dragStartX = touch.clientX;
-        dragStartY = touch.clientY;
-        dragStartWidgetX = widgets[key].x;
-        dragStartWidgetY = widgets[key].y;
         this.style.transition = 'none';
     }
 
@@ -5404,21 +5421,30 @@ if (is_dir($snippetDir)) {
         var phoneContent = document.getElementById('mrh-widget-phone-content');
         if (!phoneContent) return;
         var rect = phoneContent.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) return; // Tab noch nicht sichtbar
+        if (rect.width === 0 || rect.height === 0) return;
 
         var key = dragging.getAttribute('data-widget');
-        // Delta in Prozent berechnen
-        var deltaXPct = ((clientX - dragStartX) / rect.width) * 100;
-        var deltaYPct = ((clientY - dragStartY) / rect.height) * 100;
-        var newX = Math.max(0, Math.min(100, dragStartWidgetX + deltaXPct));
-        var newY = Math.max(0, Math.min(100, dragStartWidgetY + deltaYPct));
+        var w = widgets[key];
+        // Mausposition relativ zum Phone-Content (0..1)
+        var relX = (clientX - rect.left) / rect.width;
+        var relY = (clientY - rect.top) / rect.height;
+        relX = Math.max(0, Math.min(1, relX));
+        relY = Math.max(0, Math.min(1, relY));
 
-        widgets[key].x = Math.round(newX);
-        widgets[key].y = Math.round(newY);
+        // In Pixel-Abstaende umrechnen (Phone = 320x500)
+        var phoneW = 320, phoneH = 500;
+        var parts = w.anchor.split('-');
+        var vDir = parts[0], hDir = parts[1];
+        if (hDir === 'right') { w.offsetX = Math.round((1 - relX) * phoneW); }
+        else { w.offsetX = Math.round(relX * phoneW); }
+        if (vDir === 'bottom') { w.offsetY = Math.round((1 - relY) * phoneH); }
+        else { w.offsetY = Math.round(relY * phoneH); }
+        w.offsetX = Math.max(0, Math.min(500, w.offsetX));
+        w.offsetY = Math.max(0, Math.min(500, w.offsetY));
 
         // Visuell aktualisieren
-        dragging.style.left = newX + '%';
-        dragging.style.top = newY + '%';
+        dragging.style.left = (relX * 100) + '%';
+        dragging.style.top = (relY * 100) + '%';
         dragging.style.right = 'auto';
         dragging.style.bottom = 'auto';
         dragging.style.transform = 'translate(-50%, -50%)';
@@ -5426,11 +5452,13 @@ if (is_dir($snippetDir)) {
         // Felder aktualisieren
         var card = document.querySelector('.mrh-widget-card[data-widget="'+key+'"]');
         if (card) {
-            card.querySelector('input[data-axis="x"]').value = Math.round(newX);
-            card.querySelector('input[data-axis="y"]').value = Math.round(newY);
+            var oxInput = card.querySelector('input[data-axis="offsetX"]');
+            if (oxInput) oxInput.value = w.offsetX;
+            var oyInput = card.querySelector('input[data-axis="offsetY"]');
+            if (oyInput) oyInput.value = w.offsetY;
         }
         var posEl = document.getElementById('pos-' + key);
-        if (posEl) posEl.textContent = Math.round(newX) + '% / ' + Math.round(newY) + '%';
+        if (posEl) posEl.textContent = anchorToLabel(w);
     }
 
     function endDrag() {
@@ -5471,21 +5499,21 @@ if (is_dir($snippetDir)) {
     window.mrhWidgetFieldChange = function(input) {
         var key = input.getAttribute('data-widget');
         var axis = input.getAttribute('data-axis');
-        var val = parseInt(input.value) || 0;
-        if (axis === 'x') { widgets[key].x = Math.max(0, Math.min(100, val)); }
-        else if (axis === 'y') { widgets[key].y = Math.max(0, Math.min(100, val)); }
-        else if (axis === 'z') { widgets[key].z = Math.max(1, Math.min(9999, val)); }
+        if (axis === 'anchor') { widgets[key].anchor = input.value; }
+        else if (axis === 'offsetX') { widgets[key].offsetX = Math.max(0, Math.min(500, parseInt(input.value) || 0)); }
+        else if (axis === 'offsetY') { widgets[key].offsetY = Math.max(0, Math.min(500, parseInt(input.value) || 0)); }
+        else if (axis === 'z') { widgets[key].z = Math.max(1, Math.min(9999, parseInt(input.value) || 0)); }
         updateDragPosition(key);
         var posEl = document.getElementById('pos-' + key);
-        if (posEl) posEl.textContent = widgets[key].x + '% / ' + widgets[key].y + '%';
+        if (posEl) posEl.textContent = anchorToLabel(widgets[key]);
     };
 
     window.mrhWidgetReset = function() {
-        widgets.compare   = { x: 85, y: 78, z: 1050, visible: true, selector: '#compare-floating-btn',   label: 'Vergleich' };
-        widgets.a11y      = { x: 2,  y: 78, z: 1040, visible: true, selector: '#accessibility-widget',    label: 'Barrierefreiheit' };
-        widgets.etrust    = { x: 2,  y: 60, z: 1030, visible: true, selector: '#etrust-badge-widget',     label: 'eTrust' };
-        widgets.cookies   = { x: 2,  y: 90, z: 1020, visible: true, selector: '#cookie-settings-trigger', label: 'Cookies' };
-        widgets.scrolltop = { x: 90, y: 85, z: 1060, visible: true, selector: '#scroll-to-top',           label: 'Scroll-to-Top' };
+        widgets.compare   = { anchor: 'bottom-right', offsetX: 20, offsetY: 80, z: 1050, visible: true, selector: '.product-compare-badge',          label: 'Vergleich' };
+        widgets.a11y      = { anchor: 'bottom-left',  offsetX: 20, offsetY: 20, z: 1040, visible: true, selector: '.faw-menu-btn',                   label: 'Barrierefreiheit' };
+        widgets.etrust    = { anchor: 'bottom-left',  offsetX: 0,  offsetY: 80, z: 1030, visible: true, selector: '._uuhri8',                        label: 'eTrust' };
+        widgets.cookies   = { anchor: 'bottom-left',  offsetX: 20, offsetY: 80, z: 1020, visible: true, selector: '[data-trigger-cookie-consent-panel]', label: 'Cookies' };
+        widgets.scrolltop = { anchor: 'bottom-right', offsetX: 24, offsetY: 24, z: 1060, visible: true, selector: '.mrh-back-to-top',                label: 'Scroll-to-Top' };
         initWidgetUI();
     };
 
@@ -5515,19 +5543,17 @@ if (is_dir($snippetDir)) {
             for (var key in widgets) {
                 var w = widgets[key];
                 if (!w.visible) { code += '/* ' + w.label + ' – AUSGEBLENDET */\n\n'; continue; }
+                var parts = w.anchor.split('-');
+                var vDir = parts[0], hDir = parts[1];
+                var vOpp = (vDir === 'bottom') ? 'top' : 'bottom';
+                var hOpp = (hDir === 'right') ? 'left' : 'right';
                 code += '/* ' + w.label + ' */\n';
                 code += w.selector + ' {\n';
                 code += '  position: fixed !important;\n';
-                if (w.x > 50) {
-                    code += '  right: ' + (100 - w.x) + '% !important;\n';
-                } else {
-                    code += '  left: ' + w.x + '% !important;\n';
-                }
-                if (w.y > 50) {
-                    code += '  bottom: ' + (100 - w.y) + '% !important;\n';
-                } else {
-                    code += '  top: ' + w.y + '% !important;\n';
-                }
+                code += '  ' + hDir + ': ' + w.offsetX + 'px !important;\n';
+                code += '  ' + vDir + ': ' + w.offsetY + 'px !important;\n';
+                code += '  ' + hOpp + ': auto !important;\n';
+                code += '  ' + vOpp + ': auto !important;\n';
                 code += '  z-index: ' + w.z + ' !important;\n';
                 code += '}\n\n';
             }
@@ -5542,8 +5568,9 @@ if (is_dir($snippetDir)) {
                 var K = key.toUpperCase();
                 code += '// ' + w.label + '\n';
                 code += "define('WIDGET_" + K + "_VISIBLE', " + (w.visible ? "'true'" : "'false'") + ");\n";
-                code += "define('WIDGET_" + K + "_X', '" + w.x + "%');\n";
-                code += "define('WIDGET_" + K + "_Y', '" + w.y + "%');\n";
+                code += "define('WIDGET_" + K + "_ANCHOR', '" + w.anchor + "');\n";
+                code += "define('WIDGET_" + K + "_OFFSET_X', '" + w.offsetX + "px');\n";
+                code += "define('WIDGET_" + K + "_OFFSET_Y', '" + w.offsetY + "px');\n";
                 code += "define('WIDGET_" + K + "_Z', '" + w.z + "');\n\n";
             }
         }

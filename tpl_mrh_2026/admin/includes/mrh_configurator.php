@@ -1645,9 +1645,12 @@ if (isset($_POST['submit-widgetsettings'])) {
             if (!in_array($key, $valid_widgets)) continue;
             if (!is_array($val)) continue;
             
+            $valid_anchors = ['bottom-right','bottom-left','top-right','top-left'];
+            $anchor = isset($val['anchor']) && in_array($val['anchor'], $valid_anchors) ? $val['anchor'] : 'bottom-right';
             $sanitized[$key] = [
-                'x'       => isset($val['x']) ? max(0, min(100, intval($val['x']))) : 50,
-                'y'       => isset($val['y']) ? max(0, min(100, intval($val['y']))) : 50,
+                'anchor'  => $anchor,
+                'offsetX' => isset($val['offsetX']) ? max(0, min(500, intval($val['offsetX']))) : 20,
+                'offsetY' => isset($val['offsetY']) ? max(0, min(500, intval($val['offsetY']))) : 20,
                 'z'       => isset($val['z']) ? max(1, min(9999, intval($val['z']))) : 1000,
                 'visible' => isset($val['visible']) ? (bool)$val['visible'] : true,
                 'selector'=> isset($val['selector']) ? htmlspecialchars(trim($val['selector']), ENT_QUOTES, 'UTF-8') : '',
