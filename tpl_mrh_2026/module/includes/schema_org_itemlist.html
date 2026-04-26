@@ -1,7 +1,7 @@
 {* =====================================================================
    MRH 2026 – Schema.org JSON-LD (CollectionPage)
    Wird in samen_shop.html (Kategorie-Listing) eingebunden
-   Stand: 2026-04-26 – Fix: HTML-Tags in description per regex_replace entfernt – Google CollectionPage konform
+   Stand: 2026-04-26 – Fix v2: onlytext + entity-decode fuer saubere description
    Smarty-Variablen: $CATEGORIES_HEADING_TITLE, $CATEGORIES_NAME,
                      $CATEGORIES_DESCRIPTION, $CATEGORIES_IMAGE
    Hinweis: $PRODUCTS_LIST ist im modified-Shop nicht verfuegbar,
@@ -15,9 +15,9 @@
   "@type": "CollectionPage",
   "name": "{if !empty($CATEGORIES_HEADING_TITLE)}{$CATEGORIES_HEADING_TITLE|onlytext|escape:'javascript'}{else}{$CATEGORIES_NAME|onlytext|escape:'javascript'}{/if}",
   {if !empty($CATEGORIES_DESCRIPTION)}
-  "description": "{$CATEGORIES_DESCRIPTION|regex_replace:"/<[^>]*>/":""|regex_replace:"/&[a-zA-Z0-9#]+;/":""|strip|truncate:300|escape:'javascript'}",
+  "description": "{$CATEGORIES_DESCRIPTION|strip_tags|regex_replace:"/\s+/":" "|regex_replace:"/&[a-zA-Z0-9#]+;/":""|trim|truncate:300:"...":true|escape:'javascript'}",
   {elseif !empty($CATEGORIES_SHORT_DESCRIPTION)}
-  "description": "{$CATEGORIES_SHORT_DESCRIPTION|regex_replace:"/<[^>]*>/":""|regex_replace:"/&[a-zA-Z0-9#]+;/":""|strip|truncate:300|escape:'javascript'}",
+  "description": "{$CATEGORIES_SHORT_DESCRIPTION|strip_tags|regex_replace:"/\s+/":" "|regex_replace:"/&[a-zA-Z0-9#]+;/":""|trim|truncate:300:"...":true|escape:'javascript'}",
   {/if}
   {if !empty($CATEGORIES_IMAGE)}
   "image": "{$CATEGORIES_IMAGE}",
