@@ -5532,7 +5532,7 @@ if (is_dir($snippetDir)) {
                 code += '}\n\n';
             }
         } else {
-            code += '<?php\n';
+            code += '<' + '?php\n';
             code += '/* ========================================= */\n';
             code += '/* MRH Widget-Positionen als PHP-Konstanten  */\n';
             code += '/* Datum: ' + d + '                          */\n';
